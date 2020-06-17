@@ -1,0 +1,135 @@
+<project name="Chips-n-Salsa" default="all" basedir="..">
+  <description>
+  Build file for the Chips-n-Salsa library.
+  </description>
+  <!-- global properties for this build -->
+  <property name="VERSION" value="1.0"/>
+  <property name="junit" location="build/junit-4.12.jar"/>
+  <property name="hamcrest" location="build/hamcrest-core-1.3.jar"/>
+  <property name="src" location="src"/>
+  <property name="bin" location="bin"/>
+  <property name="testsrc" location="tests"/>
+  <property name="testbin" location="testbin"/>
+  <property name="dist" location="dist"/>
+  <property name="lib" location="lib"/>
+  <property name="examples" location="examples"/>
+  <property name="examplebin" location="exbin"/>
+  <property name="docdir" location="docs/api"/>
+  
+  <path id="master-classpath">
+	<pathelement path="${bin}"/>
+	<pathelement path="${lib}/jpt2.jar"/>
+  </path>
+  
+  <path id="test-compile-path">
+	<path refid="master-classpath"/>
+	<pathelement path="${junit}"/>
+  </path>
+  
+  <path id="test-execute-path">
+	<path refid="test-compile-path"/>
+	<pathelement path="${hamcrest}"/>
+	<pathelement path="${testbin}"/>
+  </path>
+  
+  <path id="examples-classpath">
+	<pathelement path="${examples}"/>
+	<pathelement path="${lib}/jpt2.jar"/>
+	<pathelement path="${dist}/chips-n-salsa-${VERSION}.jar"/>
+  </path>
+  
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${bin}"/>
+	<!-- Create the test directory structure-->
+	<mkdir dir="${testbin}"/>
+	<!-- Create the test directory structure-->
+	<mkdir dir="${docdir}"/>
+  </target>
+  
+  <target name="compile" depends="init"
+        description="compile the source">
+    <!-- Compile the Java code from ${src} into ${bin} -->
+    <javac srcdir="${src}" destdir="${bin}" includeantruntime="false">
+	<classpath refid="master-classpath"/>
+	<compilerarg value="-Xlint:unchecked"/>
+	<!--
+	   <compilerarg value="-Xlint:unchecked"/>
+	-->
+	</javac>
+	<!-- Compile the JUnit tests from ${testsrc} into ${testbin} -->
+	<javac srcdir="${testsrc}" destdir="${testbin}" includeantruntime="false">
+		<classpath refid="test-compile-path"/>
+		<compilerarg value="-Xlint:unchecked"/>
+	</javac>	
+  </target>
+  
+  <target name="test" depends="compile"
+        description="execute JUnit tests">
+	<junit haltonfailure="on">
+	  <formatter type="plain" usefile="false"/>
+	    <classpath refid="test-execute-path"/>
+		<batchtest>
+          <fileset dir="${testbin}">
+            <include name="**/*.class"/>
+			<exclude name="**/*$*"/>
+          </fileset>
+        </batchtest>
+	</junit>
+  </target>
+  
+  <target name="dist" depends="compile,test"
+        description="generate the distribution">
+	<!-- Create the distribution directory -->
+    <mkdir dir="${dist}"/>
+    <!-- Put everything in ${bin} into the jpt${VERSION}.jar file -->
+    <jar jarfile="${dist}/chips-n-salsa-${VERSION}.jar" basedir="${bin}"/>
+	<!-- Create a jar that includes the dependencies -->
+    <jar jarfile="${dist}/chips-n-salsa-${VERSION}-with-dependencies.jar" basedir="${bin}">
+	    <zipgroupfileset dir="${lib}" includes="*.jar" />
+	</jar>
+  </target>
+  
+  <target name="examples" depends="dist"
+		description="compiles example programs and experiment replication programs">
+	<!-- Create directory for bin of examples and replication programs -->
+    <mkdir dir="${examplebin}"/>
+	<!-- Compile examples -->
+	<javac srcdir="${examples}" destdir="${examplebin}" includeantruntime="false">
+	<classpath refid="master-classpath"/>
+	</javac>
+  </target>
+  
+  <target name="docs" depends="dist" 
+		description="generates documentation via javadoc">
+	<javadoc destdir="${docdir}"
+			sourcepath="${src}"
+			windowtitle="Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms"
+			doctitle="Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms"
+			overview="src/overview.html"
+			author="false"
+			version="false">
+		<classpath>
+			<pathelement path="${lib}/jpt2.jar"/>
+		</classpath>
+		<link href="https://jpt.cicirello.org/api/" packagelistLoc="build/jpt-package-list" offline="true" />
+		<link href="https://docs.oracle.com/javase/8/docs/api/" packagelistLoc="build/java-package-list" offline="true" />
+		<bottom><![CDATA[Copyright &copy; 2002-2020 Vincent A. Cicirello. <a href=\"https://www.cicirello.org/\" target=_top>https://www.cicirello.org/</a>]]></bottom>
+	</javadoc>
+  </target>
+  
+  <target name="all" depends="dist,examples,docs" description="compile everything including example programs and generates library jar">
+  </target>
+  
+  <target name="clean"
+        description="clean up">
+    <!-- Delete the ${bin} and ${dist} directory trees -->
+    <delete dir="${bin}"/>
+	<delete dir="${testbin}"/>
+	<delete dir="${examplebin}"/>
+	<delete dir="${docdir}"/>
+  </target>
+
+</project>

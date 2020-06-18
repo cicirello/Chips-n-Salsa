@@ -1,0 +1,4 @@
+User-agent: SemanticScholarBot
+Disallow: /
+
+Sitemap: https://chips-n-salsa.cicirello.org/sitemap.txt

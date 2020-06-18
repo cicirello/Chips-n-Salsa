@@ -63,3 +63,64 @@ its random number generation capabilities.
 * The /src directory contains all of the source code for Chips-n-Salsa.
 * The /tests directory contains JUnit test cases for all functionality of the library.
 
+## Building the Library (with ant)
+
+The /build directory contains an ant build file.  The build file also executes the 
+JUnit tests, and the build directory contains the relevant jar files for the JUnit 
+libraries. If you prefer, you can replace these with the latest versions available
+from https://junit.org/junit4/ (just be sure to edit the property fields in the 
+build.xml to point to the locations of the JUnit jar files).
+
+To execute the build process do one of the following.  If your working directory 
+is the build directory, then simply execute `ant` from the command line.  
+If your working directory is the parent of build, then execute: `ant -f build/build.xml`
+
+The default of the provided ant build file, compiles all source files and all JUnit 
+tests, executes all test cases, generates two jar files of the library (one that includes
+all dependencies, and one that does not), and compiles all example programs. The build 
+process will terminate on any test case failures.  
+
+The build generates the following directories: bin (for the compiled Java classes),
+testbin (for the compiled JUnit tests), and exbin (for the compiled example
+programs).
+
+## Running the Example Programs
+
+The examples directory contains example usage of several of the classes of the library.
+The examples directory contains a README file that provides more details on the examples.
+Each of the examples contains detailed comments within the source code explaining the example.
+Running the examples without reading the source comments is not advised.
+
+Assuming the build was successful, the compiled example programs will be
+in the exbin directory.  If your working directory is the root
+of the repository, then you can run these programs from the command 
+line with the following:
+
+```
+java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.BitVectorExample
+java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.IntegerVectorExample
+java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.RootFindingExample
+java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.PermutationExample
+java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.ParallelPermutationExample
+java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.TimedParallelExample
+java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.CustomProblemExample
+java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.CustomIntegerCostProblemExample
+java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.PostHillclimbExample
+java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.PreHillclimbExample
+```
+
+## License
+
+The Chips-n-Salsa library is licensed under the 
+[GNU General Public License 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
+## Contribute
+
+Report bugs, suggestions, feature requests, etc via the 
+[issues tracker](https://github.com/cicirello/Chips-n-Salsa/issues).  
+If you would like to directly contribute new code, you may also fork 
+the repository, and create pull requests.  All code contributions 
+must include JUnit tests, and all existing JUnit tests must pass for your
+code contribution to be accepted.  If your code contribution is a bug-fix, 
+then you must include JUnit tests that recreate the bug prior to your fix, 
+and which pass afterwards.

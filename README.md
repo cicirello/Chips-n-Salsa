@@ -53,7 +53,7 @@ that contains Chips-n-Salsa as well as all dependencies.  The file name makes
 it clear which is which.
 * The /docs directory contains the javadoc documentation in a sub-directory /docs/api.
 The /docs directory is also the location of the website for the project hosted via
-GitHub pages.
+GitHub pages at https://chips-n-salsa.cicirello.org/.
 * The /examples directory contains several example programs that use the library,
 and which demonstrate usage of various features.
 * The /lib directory contains jar files of all dependencies.  At the present time, 

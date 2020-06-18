@@ -71,9 +71,7 @@ libraries. If you prefer, you can replace these with the latest versions availab
 from https://junit.org/junit4/ (just be sure to edit the property fields in the 
 build.xml to point to the locations of the JUnit jar files).
 
-To execute the build process do one of the following.  If your working directory 
-is the build directory, then simply execute `ant` from the command line.  
-If your working directory is the parent of build, then execute: `ant -f build/build.xml`
+To execute the build process do one of the following. If your working directory is the build directory, then simply execute `ant` from the command line. If your working directory is the parent of build, then execute: `ant -f build/build.xml`
 
 The default of the provided ant build file, compiles all source files and all JUnit 
 tests, executes all test cases, generates two jar files of the library (one that includes

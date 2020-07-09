@@ -169,7 +169,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @throws NullPointerException if heuristic is null
 	 */
 	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic) {
-		this(heuristic, new ProgressTracker<Permutation>());
+		this(heuristic, false, new ProgressTracker<Permutation>());
 	}
 	
 	/**
@@ -180,7 +180,35 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
 	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, ProgressTracker<Permutation> tracker) {
-		this(heuristic,
+		this(heuristic, false, tracker);
+	}
+	
+	/**
+	 * Constructs a HeuristicBiasedStochasticSampling search object.    
+	 * @param heuristic The constructive heuristic.
+	 * @param exponentialBias if true, the bias function evaluates as exp(-rank).
+	 * if false, the bias function is the default of 1/rank.
+	 * @throws NullPointerException if heuristic or tracker is null
+	 */
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, boolean exponentialBias) {
+		this(heuristic, exponentialBias, new ProgressTracker<Permutation>());
+	}
+	
+	/**
+	 * Constructs a HeuristicBiasedStochasticSampling search object.    
+	 * @param heuristic The constructive heuristic.
+	 * @param exponentialBias if true, the bias function evaluates as exp(-rank).
+	 * if false, the bias function is the default of 1/rank.
+	 * @param tracker A ProgressTracker
+	 * @throws NullPointerException if heuristic or tracker is null
+	 */
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, boolean exponentialBias, ProgressTracker<Permutation> tracker) {
+		this(heuristic, exponentialBias ?
+			new BiasFunction() { 
+				public double bias(int rank) { 
+					return Math.exp(-rank); 
+				} 
+			} :
 			new BiasFunction() { 
 				public double bias(int rank) { 
 					return 1.0/rank; 

@@ -249,6 +249,17 @@ public class HBSSTests {
 				assertEquals(expected, biases[i-1], 1E-10);
 			}
 		}
+		for (int n = 0; n < 8; n++) {
+			IntProblem problem = new IntProblem();
+			IntHeuristic h = new IntHeuristic(problem, n);
+			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, true);
+			double[] biases = ch.precomputeBiases(n);
+			double expected = 0;
+			for (int i = 1; i <= n; i++) {
+				expected += Math.exp(-i);
+				assertEquals(expected, biases[i-1], 1E-10);
+			}
+		}
 		HeuristicBiasedStochasticSampling.BiasFunction bias = 
 			new HeuristicBiasedStochasticSampling.BiasFunction() {
 				@Override public double bias(int rank) { return 1.0/(rank*rank); }

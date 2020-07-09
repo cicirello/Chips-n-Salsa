@@ -207,7 +207,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	 * Constructs a ValueBiasedStochasticSampling search object. A ProgressTracker 
 	 * is created for you.
 	 * @param heuristic The constructive heuristic.
-	 * @param bias The bias function.  If null, then no bias is used.
+	 * @param bias The bias function.  If null, then the default bias is used.
 	 * @throws NullPointerException if heuristic is null
 	 */
 	public ValueBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, BiasFunction bias) {
@@ -217,7 +217,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	/**
 	 * Constructs a ValueBiasedStochasticSampling search object.
 	 * @param heuristic The constructive heuristic.
-	 * @param bias The bias function.  If null, then no bias is used.
+	 * @param bias The bias function.  If null, then the default bias is used.
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */

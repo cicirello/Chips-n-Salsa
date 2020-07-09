@@ -125,11 +125,11 @@
   
   <target name="clean"
         description="clean up">
-    <!-- Delete the ${bin} and ${dist} directory trees -->
     <delete dir="${bin}"/>
 	<delete dir="${testbin}"/>
 	<delete dir="${examplebin}"/>
 	<delete dir="${docdir}"/>
+	<delete dir="${dist}"/>
   </target>
 
 </project>

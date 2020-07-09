@@ -231,7 +231,7 @@ public class VBSSTests {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
 			ValueBiasedStochasticSampling ch = new ValueBiasedStochasticSampling(h);
-			for (int k = 2; k < n; k++) { 
+			for (int k = 2; k <= n; k++) { 
 				double[] values = new double[n];
 				for (int i = 0, j = 1; i < k; i++, j *= 2) {
 					values[k-1-i] = j;
@@ -251,7 +251,7 @@ public class VBSSTests {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
 			ValueBiasedStochasticSampling ch = new ValueBiasedStochasticSampling(h);
-			for (int k = 2; k < n; k++) {
+			for (int k = 2; k <= n; k++) {
 				double inc = 1.0 / k;
 				double[] values = new double[n];
 				values[0] = inc;

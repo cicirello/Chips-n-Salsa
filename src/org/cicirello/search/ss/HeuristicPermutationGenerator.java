@@ -43,6 +43,13 @@ import org.cicirello.search.ProgressTracker;
  * just for permutations.  But at the present time, the library only
  * supports constructive heuristics for permutation optimization problems.</p>
  *
+ * <p>Assuming that the length of the permutation is N, and that the runtime
+ * of the heuristic is O(f(N)), the runtime to construct one permutation
+ * using a constructive heuristic is O(N<sup>2</sup> f(N)).  If the cost, f(N), to
+ * heuristically evaluate one permutation element is simply, O(1), constant
+ * time, then the cost to heuristically construct 
+ * a permutation is simply O(N<sup>2</sup>).</p>
+ *
  * @since 1.0
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 

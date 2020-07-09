@@ -115,6 +115,13 @@ import java.util.concurrent.ThreadLocalRandom;
  * default is simply an exponent of 1.  The most general allows you to specify any
  * arbitrary bias function using the {@link BiasFunction} interface.</p>
  *
+ * <p>Assuming that the length of the permutation is L, and that the runtime
+ * of the constructive heuristic is O(f(L)), the runtime to construct one permutation
+ * using VBSS is O(L<sup>2</sup> f(L)).  If the cost, f(L), to
+ * heuristically evaluate one permutation element is simply, O(1), constant
+ * time, then the cost to heuristically construct 
+ * one permutation with VBSS is simply O(L<sup>2</sup>).</p>
+ *
  * <p>See the following two publications for the original description
  * of the VBSS algorithm:</p>
  * <ul>

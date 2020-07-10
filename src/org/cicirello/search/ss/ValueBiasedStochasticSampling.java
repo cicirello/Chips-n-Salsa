@@ -256,6 +256,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	@Override
 	public SolutionCostPair<Permutation> optimize() {
 		if (tracker.didFindBest() || tracker.isStopped()) return null;
+		numGenerated++;
 		return sampler.optimize();
 	}
 	
@@ -278,6 +279,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 		SolutionCostPair<Permutation> best = null;
 		for (int i = 0; i < numSamples && !tracker.didFindBest() && !tracker.isStopped(); i++) {
 			SolutionCostPair<Permutation> current = sampler.optimize();
+			numGenerated++;
 			if (best == null || current.compareTo(best) < 0) best = current;
 		}
 		return best;
@@ -417,7 +419,6 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 					p.extend(which);
 				}
 			}
-			numGenerated++;
 			int cost = incEval.cost();
 			Permutation complete = p.toComplete();
 			if (cost < tracker.getCost()) {
@@ -472,7 +473,6 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 					p.extend(which);
 				}
 			}
-			numGenerated++;
 			double cost = incEval.cost();
 			Permutation complete = p.toComplete();
 			if (cost < tracker.getCostDouble()) {

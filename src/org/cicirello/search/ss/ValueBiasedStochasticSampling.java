@@ -157,7 +157,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	 * @param heuristic The constructive heuristic.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic) {
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic) {
 		this(heuristic, null, new ProgressTracker<Permutation>());
 	}
 	
@@ -170,7 +170,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, ProgressTracker<Permutation> tracker) {
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic, ProgressTracker<Permutation> tracker) {
 		this(heuristic, null, tracker);
 	}
 	
@@ -181,7 +181,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	 * @param exponent The bias function is defined as: bias(value) = pow(value, exponent).
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, double exponent) {
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic, double exponent) {
 		this(heuristic, exponent, new ProgressTracker<Permutation>());
 	}
 	
@@ -192,7 +192,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, double exponent, ProgressTracker<Permutation> tracker) {
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic, double exponent, ProgressTracker<Permutation> tracker) {
 		this(heuristic, 
 			new BiasFunction() { 
 				public double bias(double value) { 
@@ -210,7 +210,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	 * @param bias The bias function.  If null, then the default bias is used.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, BiasFunction bias) {
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic, BiasFunction bias) {
 		this(heuristic, bias, new ProgressTracker<Permutation>());
 	}
 	
@@ -221,7 +221,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, BiasFunction bias, ProgressTracker<Permutation> tracker) {
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic, BiasFunction bias, ProgressTracker<Permutation> tracker) {
 		if (heuristic == null || tracker == null) {
 			throw new NullPointerException();
 		}
@@ -229,13 +229,9 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 		this.bias = bias;
 		// default: numGenerated = 0;
 		if (heuristic.getProblem() instanceof IntegerCostOptimizationProblem) {
-			@SuppressWarnings("unchecked")
-			ConstructiveHeuristic<Integer> h = (ConstructiveHeuristic<Integer>)heuristic;
-			sampler = new IntCost(h);
+			sampler = new IntCost(heuristic);
 		} else {
-			@SuppressWarnings("unchecked")
-			ConstructiveHeuristic<Double> h = (ConstructiveHeuristic<Double>)heuristic;
-			sampler = new DoubleCost(h);
+			sampler = new DoubleCost(heuristic);
 		}
 	}
 	
@@ -384,9 +380,9 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	 */
 	private final class IntCost implements VBSSSampler {
 		
-		private final ConstructiveHeuristic<Integer> heuristic;
+		private final ConstructiveHeuristic heuristic;
 		
-		public IntCost(ConstructiveHeuristic<Integer> heuristic) {
+		public IntCost(ConstructiveHeuristic heuristic) {
 			this.heuristic = heuristic;
 		}
 		
@@ -399,7 +395,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 		
 		@Override
 		public SolutionCostPair<Permutation> optimize() {
-			IncrementalEvaluation<Integer> incEval = heuristic.createIncrementalEvaluation();
+			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
 			double[] b = new double[n];
@@ -419,12 +415,13 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 					p.extend(which);
 				}
 			}
-			int cost = incEval.cost();
 			Permutation complete = p.toComplete();
+			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			int cost = solution.getCost();
 			if (cost < tracker.getCost()) {
 				tracker.update(cost, complete);
 			}
-			return new SolutionCostPair<Permutation>(complete, cost);
+			return solution;
 		}
 		
 		@Override
@@ -438,9 +435,9 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	 */
 	private final class DoubleCost implements VBSSSampler {
 		
-		private final ConstructiveHeuristic<Double> heuristic;
+		private final ConstructiveHeuristic heuristic;
 		
-		public DoubleCost(ConstructiveHeuristic<Double> heuristic) {
+		public DoubleCost(ConstructiveHeuristic heuristic) {
 			this.heuristic = heuristic;
 		}
 		
@@ -453,7 +450,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 		
 		@Override
 		public SolutionCostPair<Permutation> optimize() {
-			IncrementalEvaluation<Double> incEval = heuristic.createIncrementalEvaluation();
+			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
 			double[] b = new double[n];
@@ -473,12 +470,13 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 					p.extend(which);
 				}
 			}
-			double cost = incEval.cost();
 			Permutation complete = p.toComplete();
+			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			double cost = solution.getCostDouble();
 			if (cost < tracker.getCostDouble()) {
 				tracker.update(cost, complete);
 			}
-			return new SolutionCostPair<Permutation>(complete, cost);
+			return solution;
 		}
 		
 		@Override

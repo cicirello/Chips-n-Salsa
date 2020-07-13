@@ -69,7 +69,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	 * @param heuristic The constructive heuristic.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public HeuristicPermutationGenerator(ConstructiveHeuristic<? extends Number> heuristic) {
+	public HeuristicPermutationGenerator(ConstructiveHeuristic heuristic) {
 		this(heuristic, new ProgressTracker<Permutation>());
 	}
 	
@@ -80,20 +80,16 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicPermutationGenerator(ConstructiveHeuristic<? extends Number> heuristic, ProgressTracker<Permutation> tracker) {
+	public HeuristicPermutationGenerator(ConstructiveHeuristic heuristic, ProgressTracker<Permutation> tracker) {
 		if (heuristic == null || tracker == null) {
 			throw new NullPointerException();
 		}
 		this.tracker = tracker;
 		// default: numGenerated = 0;
 		if (heuristic.getProblem() instanceof IntegerCostOptimizationProblem) {
-			@SuppressWarnings("unchecked")
-			ConstructiveHeuristic<Integer> h = (ConstructiveHeuristic<Integer>)heuristic;
-			generator = new IntCost(h);
+			generator = new IntCost(heuristic);
 		} else {
-			@SuppressWarnings("unchecked")
-			ConstructiveHeuristic<Double> h = (ConstructiveHeuristic<Double>)heuristic;
-			generator = new DoubleCost(h);
+			generator = new DoubleCost(heuristic);
 		}
 	}
 	
@@ -150,9 +146,9 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	 */
 	private final class IntCost implements HeuristicGenerator {
 		
-		private final ConstructiveHeuristic<Integer> heuristic;
+		private final ConstructiveHeuristic heuristic;
 		
-		public IntCost(ConstructiveHeuristic<Integer> heuristic) {
+		public IntCost(ConstructiveHeuristic heuristic) {
 			this.heuristic = heuristic;
 		}
 		
@@ -168,7 +164,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 			if (tracker.isStopped() || tracker.didFindBest()) {
 				return null;
 			}
-			IncrementalEvaluation<Integer> incEval = heuristic.createIncrementalEvaluation();
+			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
 			while (!p.isComplete()) {
@@ -191,10 +187,10 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 				}
 			}
 			numGenerated++;
-			int cost = incEval.cost();
 			Permutation complete = p.toComplete();
-			tracker.update(cost, complete);
-			return new SolutionCostPair<Permutation>(complete, cost);
+			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			tracker.update(solution.getCost(), complete);
+			return solution; 
 		}
 		
 		@Override
@@ -208,9 +204,9 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	 */
 	private final class DoubleCost implements HeuristicGenerator {
 		
-		private final ConstructiveHeuristic<Double> heuristic;
+		private final ConstructiveHeuristic heuristic;
 		
-		public DoubleCost(ConstructiveHeuristic<Double> heuristic) {
+		public DoubleCost(ConstructiveHeuristic heuristic) {
 			this.heuristic = heuristic;
 		}
 		
@@ -226,7 +222,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 			if (tracker.isStopped() || tracker.didFindBest()) {
 				return null;
 			}
-			IncrementalEvaluation<Double> incEval = heuristic.createIncrementalEvaluation();
+			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
 			while (!p.isComplete()) {
@@ -249,10 +245,10 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 				}
 			}
 			numGenerated++;
-			double cost = incEval.cost();
 			Permutation complete = p.toComplete();
-			tracker.update(cost, complete);
-			return new SolutionCostPair<Permutation>(complete, cost);
+			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			tracker.update(solution.getCostDouble(), complete);
+			return solution;
 		}
 		
 		@Override

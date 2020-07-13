@@ -485,7 +485,7 @@ public class AcceptanceBandTests {
 	 * designed to prefer even permutation elements (largest to smallest), followed by odd
 	 * (largest to smallest).
 	 */
-	private static class IntHeuristic implements ConstructiveHeuristic<Integer> {
+	private static class IntHeuristic implements ConstructiveHeuristic {
 		private IntProblem problem;
 		private int n;
 		public IntHeuristic(IntProblem problem, int n) { this.problem = problem; this.n = n; }
@@ -494,7 +494,7 @@ public class AcceptanceBandTests {
 		@Override public IntIncEval createIncrementalEvaluation() {
 			return new IntIncEval();
 		}
-		@Override public double h(PartialPermutation p, int element, IncrementalEvaluation<Integer> incEval) {
+		@Override public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
 			IntIncEval inc = (IntIncEval)incEval;
 			if (element % 2 == 0) return 20 + element;
 			else return element;
@@ -506,7 +506,7 @@ public class AcceptanceBandTests {
 	 * designed to prefer even permutation elements (largest to smallest), followed by odd
 	 * (largest to smallest).
 	 */
-	private static class DoubleHeuristic implements ConstructiveHeuristic<Double> {
+	private static class DoubleHeuristic implements ConstructiveHeuristic {
 		private DoubleProblem problem;
 		private int n;
 		public DoubleHeuristic(DoubleProblem problem, int n) { this.problem = problem; this.n = n; }
@@ -515,7 +515,7 @@ public class AcceptanceBandTests {
 		@Override public DoubleIncEval createIncrementalEvaluation() {
 			return new DoubleIncEval();
 		}
-		@Override public double h(PartialPermutation p, int element, IncrementalEvaluation<Double> incEval) {
+		@Override public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
 			DoubleIncEval inc = (DoubleIncEval)incEval;
 			if (element % 2 == 0) return 20 + element;
 			else return element;
@@ -525,18 +525,16 @@ public class AcceptanceBandTests {
 	/*
 	 * Fake designed for predictable test cases.
 	 */
-	private static class IntIncEval implements IncrementalEvaluation<Integer> {
+	private static class IntIncEval implements IncrementalEvaluation {
 		private int sum;
-		@Override public Integer cost() { return sum; }
 		@Override public void extend(PartialPermutation p, int element) { sum += element + 1; }
 	}
 	
 	/*
 	 * Fake designed for predictable test cases.
 	 */
-	private static class DoubleIncEval implements IncrementalEvaluation<Double> {
+	private static class DoubleIncEval implements IncrementalEvaluation {
 		private int sum;
-		@Override public Double cost() { return 1.0*sum; }
 		@Override public void extend(PartialPermutation p, int element) { sum += element + 1; }
 	}
 	
@@ -545,7 +543,13 @@ public class AcceptanceBandTests {
 	 * Fake problem. Doesn't really matter for what we are testing.
 	 */
 	private static class IntProblem implements IntegerCostOptimizationProblem<Permutation> {
-		@Override public int cost(Permutation candidate) { return 5; }
+		@Override public int cost(Permutation candidate) { 
+			int sum = 0;
+			for (int i = 0; i < candidate.length(); i++) {
+				sum += candidate.get(i);
+			}
+			return sum + candidate.length(); 
+		}
 		@Override public int value(Permutation candidate) { return cost(candidate); }
 	}
 	
@@ -554,7 +558,13 @@ public class AcceptanceBandTests {
 	 * Fake problem. Doesn't really matter for what we are testing.
 	 */
 	private static class DoubleProblem implements OptimizationProblem<Permutation> {
-		@Override public double cost(Permutation candidate) { return 5; }
+		@Override public double cost(Permutation candidate) { 
+			int sum = 0;
+			for (int i = 0; i < candidate.length(); i++) {
+				sum += candidate.get(i);
+			}
+			return sum + candidate.length(); 
+		}
 		@Override public double value(Permutation candidate) { return cost(candidate); }
 	}
 	

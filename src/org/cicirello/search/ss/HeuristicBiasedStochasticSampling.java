@@ -168,7 +168,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @param heuristic The constructive heuristic.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic) {
 		this(heuristic, false, new ProgressTracker<Permutation>());
 	}
 	
@@ -179,7 +179,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, ProgressTracker<Permutation> tracker) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, ProgressTracker<Permutation> tracker) {
 		this(heuristic, false, tracker);
 	}
 	
@@ -190,7 +190,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * if false, the bias function is the default of 1/rank.
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, boolean exponentialBias) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, boolean exponentialBias) {
 		this(heuristic, exponentialBias, new ProgressTracker<Permutation>());
 	}
 	
@@ -202,7 +202,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, boolean exponentialBias, ProgressTracker<Permutation> tracker) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, boolean exponentialBias, ProgressTracker<Permutation> tracker) {
 		this(heuristic, exponentialBias ?
 			new BiasFunction() { 
 				public double bias(int rank) { 
@@ -224,7 +224,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @param exponent The bias function is defined as: bias(rank) = 1 / pow(rank, exponent).
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, double exponent) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, double exponent) {
 		this(heuristic, exponent, new ProgressTracker<Permutation>());
 	}
 	
@@ -235,7 +235,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, double exponent, ProgressTracker<Permutation> tracker) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, double exponent, ProgressTracker<Permutation> tracker) {
 		this(heuristic, 
 			new BiasFunction() { 
 				public double bias(int rank) { 
@@ -253,7 +253,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @param bias The bias function.  If null, the default bias is used.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, BiasFunction bias) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, BiasFunction bias) {
 		this(heuristic, bias, new ProgressTracker<Permutation>());
 	}
 	
@@ -264,7 +264,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<? extends Number> heuristic, BiasFunction bias, ProgressTracker<Permutation> tracker) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, BiasFunction bias, ProgressTracker<Permutation> tracker) {
 		if (heuristic == null || tracker == null) {
 			throw new NullPointerException();
 		}
@@ -272,13 +272,9 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 		this.bias = bias;
 		// default: numGenerated = 0;
 		if (heuristic.getProblem() instanceof IntegerCostOptimizationProblem) {
-			@SuppressWarnings("unchecked")
-			ConstructiveHeuristic<Integer> h = (ConstructiveHeuristic<Integer>)heuristic;
-			sampler = new IntCost(h);
+			sampler = new IntCost(heuristic);
 		} else {
-			@SuppressWarnings("unchecked")
-			ConstructiveHeuristic<Double> h = (ConstructiveHeuristic<Double>)heuristic;
-			sampler = new DoubleCost(h);
+			sampler = new DoubleCost(heuristic);
 		}
 	}
 	
@@ -471,10 +467,10 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 */
 	private final class IntCost implements HBSSSampler {
 		
-		private final ConstructiveHeuristic<Integer> heuristic;
+		private final ConstructiveHeuristic heuristic;
 		private final double[] biases;
 		
-		public IntCost(ConstructiveHeuristic<Integer> heuristic) {
+		public IntCost(ConstructiveHeuristic heuristic) {
 			this.heuristic = heuristic;
 			biases = precomputeBiases(heuristic.completePermutationLength());
 		}
@@ -489,7 +485,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 		
 		@Override
 		public SolutionCostPair<Permutation> optimize() {
-			IncrementalEvaluation<Integer> incEval = heuristic.createIncrementalEvaluation();
+			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
 			double[] v = new double[n];
@@ -511,12 +507,13 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 					p.extend(which);
 				}
 			}
-			int cost = incEval.cost();
 			Permutation complete = p.toComplete();
+			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			int cost = solution.getCost();
 			if (cost < tracker.getCost()) {
 				tracker.update(cost, complete);
 			}
-			return new SolutionCostPair<Permutation>(complete, cost);
+			return solution;
 		}
 		
 		@Override
@@ -530,10 +527,10 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 */
 	private final class DoubleCost implements HBSSSampler {
 		
-		private final ConstructiveHeuristic<Double> heuristic;
+		private final ConstructiveHeuristic heuristic;
 		private final double[] biases;
 		
-		public DoubleCost(ConstructiveHeuristic<Double> heuristic) {
+		public DoubleCost(ConstructiveHeuristic heuristic) {
 			this.heuristic = heuristic;
 			biases = precomputeBiases(heuristic.completePermutationLength());
 		}
@@ -548,7 +545,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 		
 		@Override
 		public SolutionCostPair<Permutation> optimize() {
-			IncrementalEvaluation<Double> incEval = heuristic.createIncrementalEvaluation();
+			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
 			double[] v = new double[n];
@@ -570,12 +567,13 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 					p.extend(which);
 				}
 			}
-			double cost = incEval.cost();
 			Permutation complete = p.toComplete();
+			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			double cost = solution.getCostDouble();
 			if (cost < tracker.getCostDouble()) {
 				tracker.update(cost, complete);
 			}
-			return new SolutionCostPair<Permutation>(complete, cost);
+			return solution;
 		}
 		
 		@Override

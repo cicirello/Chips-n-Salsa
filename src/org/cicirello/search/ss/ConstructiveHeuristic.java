@@ -30,17 +30,13 @@ import org.cicirello.search.problems.Problem;
  * certain stochastic sampling search algorithms over the space
  * of permutations.</p>
  *
- * @param <T> The type of value for the cost function of the
- * optimization problem (Integer or Double) that this heuristic is
- * intended to solve.
- *
  * @since 1.0
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 7.7.2020
  */
-public interface ConstructiveHeuristic<T extends Number> {
+public interface ConstructiveHeuristic {
 	
 	/**
 	 * Heuristically evaluates the possible addition of an element to the
@@ -65,7 +61,7 @@ public interface ConstructiveHeuristic<T extends Number> {
 	 * objects returned by the {@link #createIncrementalEvaluation} method of the
 	 * class implementing this interface
 	 */
-	double h(PartialPermutation p, int element, IncrementalEvaluation<T> incEval);
+	double h(PartialPermutation p, int element, IncrementalEvaluation incEval);
 	
 	/**
 	 * Creates an IncrementalEvaluation object corresponding to an initially
@@ -79,7 +75,7 @@ public interface ConstructiveHeuristic<T extends Number> {
 	 * @return An IncrementalEvaluation for an empty PartialPermutation 
 	 * to be used for incrementally computing any data required by the {@link #h} method.
 	 */
-	IncrementalEvaluation<T> createIncrementalEvaluation();
+	IncrementalEvaluation createIncrementalEvaluation();
 	
 	/**
 	 * Gets the required length of permutations representing

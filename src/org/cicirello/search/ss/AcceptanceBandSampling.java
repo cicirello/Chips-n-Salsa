@@ -128,7 +128,7 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 	 * @param heuristic The constructive heuristic.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public AcceptanceBandSampling(ConstructiveHeuristic<? extends Number> heuristic) {
+	public AcceptanceBandSampling(ConstructiveHeuristic heuristic) {
 		this(heuristic, 0.1, new ProgressTracker<Permutation>());
 	}
 	
@@ -141,7 +141,7 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public AcceptanceBandSampling(ConstructiveHeuristic<? extends Number> heuristic, ProgressTracker<Permutation> tracker) {
+	public AcceptanceBandSampling(ConstructiveHeuristic heuristic, ProgressTracker<Permutation> tracker) {
 		this(heuristic, 0.1, tracker);
 	}
 	
@@ -159,7 +159,7 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 	 * @throws NullPointerException if heuristic is null
 	 * @throws IllegalArgumentException if beta is less than 0.0 or greater than 1.0.
 	 */
-	public AcceptanceBandSampling(ConstructiveHeuristic<? extends Number> heuristic, double beta) {
+	public AcceptanceBandSampling(ConstructiveHeuristic heuristic, double beta) {
 		this(heuristic, beta, new ProgressTracker<Permutation>());
 	}
 	
@@ -177,7 +177,7 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 	 * @throws NullPointerException if heuristic or tracker is null
 	 * @throws IllegalArgumentException if beta is less than 0.0 or greater than 1.0.
 	 */
-	public AcceptanceBandSampling(ConstructiveHeuristic<? extends Number> heuristic, double beta, ProgressTracker<Permutation> tracker) {
+	public AcceptanceBandSampling(ConstructiveHeuristic heuristic, double beta, ProgressTracker<Permutation> tracker) {
 		if (heuristic == null || tracker == null) {
 			throw new NullPointerException();
 		}
@@ -187,13 +187,9 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 		this.tracker = tracker;
 		acceptancePercentage = 1.0 - beta;
 		if (heuristic.getProblem() instanceof IntegerCostOptimizationProblem) {
-			@SuppressWarnings("unchecked")
-			ConstructiveHeuristic<Integer> h = (ConstructiveHeuristic<Integer>)heuristic;
-			sampler = new IntCost(h);
+			sampler = new IntCost(heuristic);
 		} else {
-			@SuppressWarnings("unchecked")
-			ConstructiveHeuristic<Double> h = (ConstructiveHeuristic<Double>)heuristic;
-			sampler = new DoubleCost(h);
+			sampler = new DoubleCost(heuristic);
 		}
 		// default: numGenerated = 0;
 	}
@@ -294,9 +290,9 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 	 */
 	private final class IntCost implements Sampler {
 		
-		private final ConstructiveHeuristic<Integer> heuristic;
+		private final ConstructiveHeuristic heuristic;
 		
-		public IntCost(ConstructiveHeuristic<Integer> heuristic) {
+		public IntCost(ConstructiveHeuristic heuristic) {
 			this.heuristic = heuristic;
 		}
 		
@@ -309,7 +305,7 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 		
 		@Override
 		public SolutionCostPair<Permutation> optimize() {
-			IncrementalEvaluation<Integer> incEval = heuristic.createIncrementalEvaluation();
+			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
 			double[] v = new double[n];
@@ -330,12 +326,13 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 					p.extend(which);
 				}
 			}
-			int cost = incEval.cost();
 			Permutation complete = p.toComplete();
+			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			int cost = solution.getCost();
 			if (cost < tracker.getCost()) {
 				tracker.update(cost, complete);
 			}
-			return new SolutionCostPair<Permutation>(complete, cost);
+			return solution;
 		}
 		
 		@Override
@@ -349,9 +346,9 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 	 */
 	private final class DoubleCost implements Sampler {
 		
-		private final ConstructiveHeuristic<Double> heuristic;
+		private final ConstructiveHeuristic heuristic;
 		
-		public DoubleCost(ConstructiveHeuristic<Double> heuristic) {
+		public DoubleCost(ConstructiveHeuristic heuristic) {
 			this.heuristic = heuristic;
 		}
 		
@@ -364,7 +361,7 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 		
 		@Override
 		public SolutionCostPair<Permutation> optimize() {
-			IncrementalEvaluation<Double> incEval = heuristic.createIncrementalEvaluation();
+			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
 			double[] v = new double[n];
@@ -385,12 +382,13 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 					p.extend(which);
 				}
 			}
-			double cost = incEval.cost();
 			Permutation complete = p.toComplete();
+			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			double cost = solution.getCostDouble();
 			if (cost < tracker.getCostDouble()) {
 				tracker.update(cost, complete);
 			}
-			return new SolutionCostPair<Permutation>(complete, cost);
+			return solution;
 		}
 		
 		@Override

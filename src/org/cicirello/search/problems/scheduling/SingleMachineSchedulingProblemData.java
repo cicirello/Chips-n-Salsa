@@ -57,7 +57,7 @@ import org.cicirello.permutations.Permutation;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 7.13.2020
  */
-public interface SingleMachineScheduling {
+public interface SingleMachineSchedulingProblemData {
 	
 	/**
 	 * Gets the number of jobs of this scheduling problem instance.
@@ -86,6 +86,7 @@ public interface SingleMachineScheduling {
 	 * in position j of the Permutation).  That is, the indexes into C correspond to the
 	 * parameter j of the {@link #getProcessingTime} method, and other related methods
 	 * of this interface.
+	 * @throws IllegalArgumentException if schedule.length() is not equal to numberOfJobs()
 	 */
 	int[] getCompletionTimes(Permutation schedule);
 	

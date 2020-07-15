@@ -86,70 +86,71 @@ public class WeightedStaticSetupsTests {
 	
 	@Test
 	public void testParamsNon0Non1() {
-		int n = 10;
-		double[] tau = {0.25, 0.5, 0.75};
-		double[] r = {0.25, 0.5, 0.75};
-		double[] eta = {0.25, 0.5, 0.75};
-		for (int i = 0; i < tau.length; i++) {
-			for (int j = 0; j < r.length; j++) {
-				for (int k = 0; k < eta.length; k++) {
-					WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
-					assertEquals(n, s.numberOfJobs());
-					assertTrue(s.hasDueDates());
-					assertTrue(s.hasWeights());
-					assertTrue(s.hasSetupTimes());
-					assertFalse(s.hasEarlyWeights());
-					assertFalse(s.hasReleaseDates());
-					boolean diffP = false;
-					boolean diffW = false;
-					boolean diffS0 = false;
-					boolean diffD = false;
-					int pSum = 0;
-					int sSum = 0;
-					for (int x = 0; x < n; x++) {
-						pSum += s.getProcessingTime(x);
-						boolean diffS = false;
-						for (int y = 0; y <= n; y++) {
-							sSum += s.getSetupTime(y,x);
-							if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
-								diffS = true;
+		for (int n = 8; n <= 512; n *= 8) {
+			double[] tau = {0.25, 0.5, 0.75};
+			double[] r = {0.25, 0.5, 0.75};
+			double[] eta = {0.25, 0.5, 0.75};
+			for (int i = 0; i < tau.length; i++) {
+				for (int j = 0; j < r.length; j++) {
+					for (int k = 0; k < eta.length; k++) {
+						WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
+						assertEquals(n, s.numberOfJobs());
+						assertTrue(s.hasDueDates());
+						assertTrue(s.hasWeights());
+						assertTrue(s.hasSetupTimes());
+						assertFalse(s.hasEarlyWeights());
+						assertFalse(s.hasReleaseDates());
+						boolean diffP = false;
+						boolean diffW = false;
+						boolean diffS0 = false;
+						boolean diffD = false;
+						int pSum = 0;
+						int sSum = 0;
+						for (int x = 0; x < n; x++) {
+							pSum += s.getProcessingTime(x);
+							boolean diffS = false;
+							for (int y = 0; y <= n; y++) {
+								sSum += s.getSetupTime(y,x);
+								if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
+									diffS = true;
+								}
+							}
+							assertTrue(diffS);
+							if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
+								diffP = true;
+							}
+							if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
+								diffW = true;
+							}
+							if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
+								diffS0 = true;
+							}
+							if (x > 0 && !diffD && s.getDueDate(x) != s.getDueDate(x-1)) {
+								diffD = true;
 							}
 						}
-						assertTrue(diffS);
-						if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
-							diffP = true;
+						assertTrue(diffP);
+						assertTrue(diffW);
+						assertTrue(diffS0);
+						assertTrue(diffD);
+						for (int x = 0; x < n; x++) {
+							assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
+								&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
+							assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
+								&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
+							assertTrue(s.getSetupTime(x) >= 0
+								&& s.getSetupTime(x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							double d_min_loose = (int)((1.0 - tau[i]) * (1.0 - r[j]) * pSum);
+							double d_max_loose = (r[j] + (1.0 - tau[i]) * (1.0 - r[j])) * (pSum + sSum / (n+1.0));
+							assertTrue(s.getDueDate(x) >= d_min_loose);
+							assertTrue(s.getDueDate(x) <= d_max_loose);
+							for (int y = 0; y <= n; y++) {
+								assertTrue(s.getSetupTime(y,x) >= 0
+								&& s.getSetupTime(y,x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							}
+							assertEquals(0, s.getReleaseDate(x));
+							assertEquals(1, s.getEarlyWeight(x));
 						}
-						if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
-							diffW = true;
-						}
-						if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
-							diffS0 = true;
-						}
-						if (x > 0 && !diffD && s.getDueDate(x) != s.getDueDate(x-1)) {
-							diffD = true;
-						}
-					}
-					assertTrue(diffP);
-					assertTrue(diffW);
-					assertTrue(diffS0);
-					assertTrue(diffD);
-					for (int x = 0; x < n; x++) {
-						assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
-							&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
-						assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
-							&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
-						assertTrue(s.getSetupTime(x) >= 0
-							&& s.getSetupTime(x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						double d_min_loose = (1.0 - tau[i]) * (1.0 - r[j]) * pSum;
-						double d_max_loose = (r[j] + (1.0 - tau[i]) * (1.0 - r[j])) * (pSum + sSum / (n+1.0));
-						assertTrue(s.getDueDate(x) >= d_min_loose);
-						assertTrue(s.getDueDate(x) <= d_max_loose);
-						for (int y = 0; y <= n; y++) {
-							assertTrue(s.getSetupTime(y,x) >= 0
-							&& s.getSetupTime(y,x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						}
-						assertEquals(0, s.getReleaseDate(x));
-						assertEquals(1, s.getEarlyWeight(x));
 					}
 				}
 			}
@@ -158,59 +159,60 @@ public class WeightedStaticSetupsTests {
 	
 	@Test
 	public void testEta0() {
-		int n = 10;
-		double[] tau = {0.25, 0.5, 0.75};
-		double[] r = {0.25, 0.5, 0.75};
-		double[] eta = {0.0};
-		for (int i = 0; i < tau.length; i++) {
-			for (int j = 0; j < r.length; j++) {
-				for (int k = 0; k < eta.length; k++) {
-					WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
-					assertEquals(n, s.numberOfJobs());
-					assertTrue(s.hasDueDates());
-					assertTrue(s.hasWeights());
-					assertTrue(s.hasSetupTimes());
-					assertFalse(s.hasEarlyWeights());
-					assertFalse(s.hasReleaseDates());
-					boolean diffP = false;
-					boolean diffW = false;
-					boolean diffD = false;
-					int pSum = 0;
-					int sSum = 0;
-					for (int x = 0; x < n; x++) {
-						pSum += s.getProcessingTime(x);
-						boolean diffS = false;
-						for (int y = 0; y <= n; y++) {
-							sSum += s.getSetupTime(y,x);
+		for (int n = 8; n <= 512; n *= 8) {
+			double[] tau = {0.25, 0.5, 0.75};
+			double[] r = {0.25, 0.5, 0.75};
+			double[] eta = {0.0};
+			for (int i = 0; i < tau.length; i++) {
+				for (int j = 0; j < r.length; j++) {
+					for (int k = 0; k < eta.length; k++) {
+						WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
+						assertEquals(n, s.numberOfJobs());
+						assertTrue(s.hasDueDates());
+						assertTrue(s.hasWeights());
+						assertTrue(s.hasSetupTimes());
+						assertFalse(s.hasEarlyWeights());
+						assertFalse(s.hasReleaseDates());
+						boolean diffP = false;
+						boolean diffW = false;
+						boolean diffD = false;
+						int pSum = 0;
+						int sSum = 0;
+						for (int x = 0; x < n; x++) {
+							pSum += s.getProcessingTime(x);
+							boolean diffS = false;
+							for (int y = 0; y <= n; y++) {
+								sSum += s.getSetupTime(y,x);
+							}
+							if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
+								diffP = true;
+							}
+							if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
+								diffW = true;
+							}
+							if (x > 0 && !diffD && s.getDueDate(x) != s.getDueDate(x-1)) {
+								diffD = true;
+							}
 						}
-						if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
-							diffP = true;
+						assertTrue(diffP);
+						assertTrue(diffW);
+						assertTrue(diffD);
+						for (int x = 0; x < n; x++) {
+							assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
+								&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
+							assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
+								&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
+							assertEquals(0, s.getSetupTime(x));
+							double d_min_loose = (int)((1.0 - tau[i]) * (1.0 - r[j]) * pSum);
+							double d_max_loose = (r[j] + (1.0 - tau[i]) * (1.0 - r[j])) * (pSum + sSum / (n+1.0));
+							assertTrue(s.getDueDate(x) >= d_min_loose);
+							assertTrue(s.getDueDate(x) <= d_max_loose);
+							for (int y = 0; y <= n; y++) {
+								assertEquals(0, s.getSetupTime(y,x));
+							}
+							assertEquals(0, s.getReleaseDate(x));
+							assertEquals(1, s.getEarlyWeight(x));
 						}
-						if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
-							diffW = true;
-						}
-						if (x > 0 && !diffD && s.getDueDate(x) != s.getDueDate(x-1)) {
-							diffD = true;
-						}
-					}
-					assertTrue(diffP);
-					assertTrue(diffW);
-					assertTrue(diffD);
-					for (int x = 0; x < n; x++) {
-						assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
-							&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
-						assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
-							&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
-						assertEquals(0, s.getSetupTime(x));
-						double d_min_loose = (1.0 - tau[i]) * (1.0 - r[j]) * pSum;
-						double d_max_loose = (r[j] + (1.0 - tau[i]) * (1.0 - r[j])) * (pSum + sSum / (n+1.0));
-						assertTrue(s.getDueDate(x) >= d_min_loose);
-						assertTrue(s.getDueDate(x) <= d_max_loose);
-						for (int y = 0; y <= n; y++) {
-							assertEquals(0, s.getSetupTime(y,x));
-						}
-						assertEquals(0, s.getReleaseDate(x));
-						assertEquals(1, s.getEarlyWeight(x));
 					}
 				}
 			}
@@ -219,70 +221,71 @@ public class WeightedStaticSetupsTests {
 	
 	@Test
 	public void testEta1() {
-		int n = 10;
-		double[] tau = {0.25, 0.5, 0.75};
-		double[] r = {0.25, 0.5, 0.75};
-		double[] eta = { 1.0 };
-		for (int i = 0; i < tau.length; i++) {
-			for (int j = 0; j < r.length; j++) {
-				for (int k = 0; k < eta.length; k++) {
-					WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
-					assertEquals(n, s.numberOfJobs());
-					assertTrue(s.hasDueDates());
-					assertTrue(s.hasWeights());
-					assertTrue(s.hasSetupTimes());
-					assertFalse(s.hasEarlyWeights());
-					assertFalse(s.hasReleaseDates());
-					boolean diffP = false;
-					boolean diffW = false;
-					boolean diffS0 = false;
-					boolean diffD = false;
-					int pSum = 0;
-					int sSum = 0;
-					for (int x = 0; x < n; x++) {
-						pSum += s.getProcessingTime(x);
-						boolean diffS = false;
-						for (int y = 0; y <= n; y++) {
-							sSum += s.getSetupTime(y,x);
-							if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
-								diffS = true;
+		for (int n = 8; n <= 512; n *= 8) {
+			double[] tau = {0.25, 0.5, 0.75};
+			double[] r = {0.25, 0.5, 0.75};
+			double[] eta = { 1.0 };
+			for (int i = 0; i < tau.length; i++) {
+				for (int j = 0; j < r.length; j++) {
+					for (int k = 0; k < eta.length; k++) {
+						WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
+						assertEquals(n, s.numberOfJobs());
+						assertTrue(s.hasDueDates());
+						assertTrue(s.hasWeights());
+						assertTrue(s.hasSetupTimes());
+						assertFalse(s.hasEarlyWeights());
+						assertFalse(s.hasReleaseDates());
+						boolean diffP = false;
+						boolean diffW = false;
+						boolean diffS0 = false;
+						boolean diffD = false;
+						int pSum = 0;
+						int sSum = 0;
+						for (int x = 0; x < n; x++) {
+							pSum += s.getProcessingTime(x);
+							boolean diffS = false;
+							for (int y = 0; y <= n; y++) {
+								sSum += s.getSetupTime(y,x);
+								if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
+									diffS = true;
+								}
+							}
+							assertTrue(diffS);
+							if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
+								diffP = true;
+							}
+							if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
+								diffW = true;
+							}
+							if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
+								diffS0 = true;
+							}
+							if (x > 0 && !diffD && s.getDueDate(x) != s.getDueDate(x-1)) {
+								diffD = true;
 							}
 						}
-						assertTrue(diffS);
-						if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
-							diffP = true;
+						assertTrue(diffP);
+						assertTrue(diffW);
+						assertTrue(diffS0);
+						assertTrue(diffD);
+						for (int x = 0; x < n; x++) {
+							assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
+								&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
+							assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
+								&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
+							assertTrue(s.getSetupTime(x) >= 0
+								&& s.getSetupTime(x) <= 2 * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							double d_min_loose = (int)((1.0 - tau[i]) * (1.0 - r[j]) * pSum);
+							double d_max_loose = (r[j] + (1.0 - tau[i]) * (1.0 - r[j])) * (pSum + sSum / (n+1.0));
+							assertTrue(s.getDueDate(x) >= d_min_loose);
+							assertTrue(s.getDueDate(x) <= d_max_loose);
+							for (int y = 0; y <= n; y++) {
+								assertTrue(s.getSetupTime(y,x) >= 0
+								&& s.getSetupTime(y,x) <= 2 * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							}
+							assertEquals(0, s.getReleaseDate(x));
+							assertEquals(1, s.getEarlyWeight(x));
 						}
-						if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
-							diffW = true;
-						}
-						if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
-							diffS0 = true;
-						}
-						if (x > 0 && !diffD && s.getDueDate(x) != s.getDueDate(x-1)) {
-							diffD = true;
-						}
-					}
-					assertTrue(diffP);
-					assertTrue(diffW);
-					assertTrue(diffS0);
-					assertTrue(diffD);
-					for (int x = 0; x < n; x++) {
-						assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
-							&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
-						assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
-							&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
-						assertTrue(s.getSetupTime(x) >= 0
-							&& s.getSetupTime(x) <= 2 * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						double d_min_loose = (1.0 - tau[i]) * (1.0 - r[j]) * pSum;
-						double d_max_loose = (r[j] + (1.0 - tau[i]) * (1.0 - r[j])) * (pSum + sSum / (n+1.0));
-						assertTrue(s.getDueDate(x) >= d_min_loose);
-						assertTrue(s.getDueDate(x) <= d_max_loose);
-						for (int y = 0; y <= n; y++) {
-							assertTrue(s.getSetupTime(y,x) >= 0
-							&& s.getSetupTime(y,x) <= 2 * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						}
-						assertEquals(0, s.getReleaseDate(x));
-						assertEquals(1, s.getEarlyWeight(x));
 					}
 				}
 			}
@@ -291,62 +294,63 @@ public class WeightedStaticSetupsTests {
 	
 	@Test
 	public void testTau1() {
-		int n = 10;
-		double[] tau = {1.0};
-		double[] r = {0.25, 0.5, 0.75};
-		double[] eta = {0.25, 0.5, 0.75};
-		for (int i = 0; i < tau.length; i++) {
-			for (int j = 0; j < r.length; j++) {
-				for (int k = 0; k < eta.length; k++) {
-					WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
-					assertEquals(n, s.numberOfJobs());
-					assertTrue(s.hasDueDates());
-					assertTrue(s.hasWeights());
-					assertTrue(s.hasSetupTimes());
-					assertFalse(s.hasEarlyWeights());
-					assertFalse(s.hasReleaseDates());
-					boolean diffP = false;
-					boolean diffW = false;
-					boolean diffS0 = false;
-					int pSum = 0;
-					int sSum = 0;
-					for (int x = 0; x < n; x++) {
-						pSum += s.getProcessingTime(x);
-						boolean diffS = false;
-						for (int y = 0; y <= n; y++) {
-							sSum += s.getSetupTime(y,x);
-							if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
-								diffS = true;
+		for (int n = 8; n <= 512; n *= 8) {
+			double[] tau = {1.0};
+			double[] r = {0.25, 0.5, 0.75};
+			double[] eta = {0.25, 0.5, 0.75};
+			for (int i = 0; i < tau.length; i++) {
+				for (int j = 0; j < r.length; j++) {
+					for (int k = 0; k < eta.length; k++) {
+						WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
+						assertEquals(n, s.numberOfJobs());
+						assertTrue(s.hasDueDates());
+						assertTrue(s.hasWeights());
+						assertTrue(s.hasSetupTimes());
+						assertFalse(s.hasEarlyWeights());
+						assertFalse(s.hasReleaseDates());
+						boolean diffP = false;
+						boolean diffW = false;
+						boolean diffS0 = false;
+						int pSum = 0;
+						int sSum = 0;
+						for (int x = 0; x < n; x++) {
+							pSum += s.getProcessingTime(x);
+							boolean diffS = false;
+							for (int y = 0; y <= n; y++) {
+								sSum += s.getSetupTime(y,x);
+								if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
+									diffS = true;
+								}
+							}
+							assertTrue(diffS);
+							if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
+								diffP = true;
+							}
+							if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
+								diffW = true;
+							}
+							if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
+								diffS0 = true;
 							}
 						}
-						assertTrue(diffS);
-						if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
-							diffP = true;
+						assertTrue(diffP);
+						assertTrue(diffW);
+						assertTrue(diffS0);
+						for (int x = 0; x < n; x++) {
+							assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
+								&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
+							assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
+								&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
+							assertTrue(s.getSetupTime(x) >= 0
+								&& s.getSetupTime(x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							assertEquals(0, s.getDueDate(x));
+							for (int y = 0; y <= n; y++) {
+								assertTrue(s.getSetupTime(y,x) >= 0
+								&& s.getSetupTime(y,x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							}
+							assertEquals(0, s.getReleaseDate(x));
+							assertEquals(1, s.getEarlyWeight(x));
 						}
-						if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
-							diffW = true;
-						}
-						if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
-							diffS0 = true;
-						}
-					}
-					assertTrue(diffP);
-					assertTrue(diffW);
-					assertTrue(diffS0);
-					for (int x = 0; x < n; x++) {
-						assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
-							&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
-						assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
-							&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
-						assertTrue(s.getSetupTime(x) >= 0
-							&& s.getSetupTime(x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						assertEquals(0, s.getDueDate(x));
-						for (int y = 0; y <= n; y++) {
-							assertTrue(s.getSetupTime(y,x) >= 0
-							&& s.getSetupTime(y,x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						}
-						assertEquals(0, s.getReleaseDate(x));
-						assertEquals(1, s.getEarlyWeight(x));
 					}
 				}
 			}
@@ -355,68 +359,69 @@ public class WeightedStaticSetupsTests {
 	
 	@Test
 	public void testTau0() {
-		int n = 10;
-		double[] tau = {0.0};
-		double[] r = {0.25, 0.5, 0.75};
-		double[] eta = {0.25, 0.5, 0.75};
-		for (int i = 0; i < tau.length; i++) {
-			for (int j = 0; j < r.length; j++) {
-				for (int k = 0; k < eta.length; k++) {
-					WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
-					assertEquals(n, s.numberOfJobs());
-					assertTrue(s.hasDueDates());
-					assertTrue(s.hasWeights());
-					assertTrue(s.hasSetupTimes());
-					assertFalse(s.hasEarlyWeights());
-					assertFalse(s.hasReleaseDates());
-					boolean diffP = false;
-					boolean diffW = false;
-					boolean diffS0 = false;
-					int pSum = 0;
-					int sSum = 0;
-					for (int x = 0; x < n; x++) {
-						pSum += s.getProcessingTime(x);
-						boolean diffS = false;
-						for (int y = 0; y <= n; y++) {
-							sSum += s.getSetupTime(y,x);
-							if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
-								diffS = true;
+		for (int n = 8; n <= 512; n *= 8) {
+			double[] tau = {0.0};
+			double[] r = {0.25, 0.5, 0.75};
+			double[] eta = {0.25, 0.5, 0.75};
+			for (int i = 0; i < tau.length; i++) {
+				for (int j = 0; j < r.length; j++) {
+					for (int k = 0; k < eta.length; k++) {
+						WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
+						assertEquals(n, s.numberOfJobs());
+						assertTrue(s.hasDueDates());
+						assertTrue(s.hasWeights());
+						assertTrue(s.hasSetupTimes());
+						assertFalse(s.hasEarlyWeights());
+						assertFalse(s.hasReleaseDates());
+						boolean diffP = false;
+						boolean diffW = false;
+						boolean diffS0 = false;
+						int pSum = 0;
+						int sSum = 0;
+						for (int x = 0; x < n; x++) {
+							pSum += s.getProcessingTime(x);
+							boolean diffS = false;
+							for (int y = 0; y <= n; y++) {
+								sSum += s.getSetupTime(y,x);
+								if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
+									diffS = true;
+								}
+							}
+							assertTrue(diffS);
+							if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
+								diffP = true;
+							}
+							if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
+								diffW = true;
+							}
+							if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
+								diffS0 = true;
+							}
+							if (x > 0) {
+								assertEquals(s.getDueDate(0), s.getDueDate(x));
 							}
 						}
-						assertTrue(diffS);
-						if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
-							diffP = true;
+						assertTrue(diffP);
+						assertTrue(diffW);
+						assertTrue(diffS0);
+						for (int x = 0; x < n; x++) {
+							assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
+								&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
+							assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
+								&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
+							assertTrue(s.getSetupTime(x) >= 0
+								&& s.getSetupTime(x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							double d_min_loose = pSum;
+							double d_max_loose = (pSum + sSum / (n+1.0));
+							assertTrue(s.getDueDate(x) >= d_min_loose);
+							assertTrue(s.getDueDate(x) <= d_max_loose);
+							for (int y = 0; y <= n; y++) {
+								assertTrue(s.getSetupTime(y,x) >= 0
+								&& s.getSetupTime(y,x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							}
+							assertEquals(0, s.getReleaseDate(x));
+							assertEquals(1, s.getEarlyWeight(x));
 						}
-						if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
-							diffW = true;
-						}
-						if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
-							diffS0 = true;
-						}
-						if (x > 0) {
-							assertEquals(s.getDueDate(0), s.getDueDate(x));
-						}
-					}
-					assertTrue(diffP);
-					assertTrue(diffW);
-					assertTrue(diffS0);
-					for (int x = 0; x < n; x++) {
-						assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
-							&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
-						assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
-							&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
-						assertTrue(s.getSetupTime(x) >= 0
-							&& s.getSetupTime(x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						double d_min_loose = pSum;
-						double d_max_loose = (pSum + sSum / (n+1.0));
-						assertTrue(s.getDueDate(x) >= d_min_loose);
-						assertTrue(s.getDueDate(x) <= d_max_loose);
-						for (int y = 0; y <= n; y++) {
-							assertTrue(s.getSetupTime(y,x) >= 0
-							&& s.getSetupTime(y,x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						}
-						assertEquals(0, s.getReleaseDate(x));
-						assertEquals(1, s.getEarlyWeight(x));
 					}
 				}
 			}
@@ -427,68 +432,69 @@ public class WeightedStaticSetupsTests {
 	
 	@Test
 	public void testR0() {
-		int n = 10;
-		double[] tau = {0.25, 0.5, 0.75};
-		double[] r = {0.0};
-		double[] eta = {0.25, 0.5, 0.75};
-		for (int i = 0; i < tau.length; i++) {
-			for (int j = 0; j < r.length; j++) {
-				for (int k = 0; k < eta.length; k++) {
-					WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
-					assertEquals(n, s.numberOfJobs());
-					assertTrue(s.hasDueDates());
-					assertTrue(s.hasWeights());
-					assertTrue(s.hasSetupTimes());
-					assertFalse(s.hasEarlyWeights());
-					assertFalse(s.hasReleaseDates());
-					boolean diffP = false;
-					boolean diffW = false;
-					boolean diffS0 = false;
-					int pSum = 0;
-					int sSum = 0;
-					for (int x = 0; x < n; x++) {
-						pSum += s.getProcessingTime(x);
-						boolean diffS = false;
-						for (int y = 0; y <= n; y++) {
-							sSum += s.getSetupTime(y,x);
-							if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
-								diffS = true;
+		for (int n = 8; n <= 512; n *= 8) {
+			double[] tau = {0.25, 0.5, 0.75};
+			double[] r = {0.0};
+			double[] eta = {0.25, 0.5, 0.75};
+			for (int i = 0; i < tau.length; i++) {
+				for (int j = 0; j < r.length; j++) {
+					for (int k = 0; k < eta.length; k++) {
+						WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
+						assertEquals(n, s.numberOfJobs());
+						assertTrue(s.hasDueDates());
+						assertTrue(s.hasWeights());
+						assertTrue(s.hasSetupTimes());
+						assertFalse(s.hasEarlyWeights());
+						assertFalse(s.hasReleaseDates());
+						boolean diffP = false;
+						boolean diffW = false;
+						boolean diffS0 = false;
+						int pSum = 0;
+						int sSum = 0;
+						for (int x = 0; x < n; x++) {
+							pSum += s.getProcessingTime(x);
+							boolean diffS = false;
+							for (int y = 0; y <= n; y++) {
+								sSum += s.getSetupTime(y,x);
+								if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
+									diffS = true;
+								}
+							}
+							assertTrue(diffS);
+							if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
+								diffP = true;
+							}
+							if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
+								diffW = true;
+							}
+							if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
+								diffS0 = true;
+							}
+							if (x > 0) {
+								assertEquals(s.getDueDate(0), s.getDueDate(x));
 							}
 						}
-						assertTrue(diffS);
-						if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
-							diffP = true;
+						assertTrue(diffP);
+						assertTrue(diffW);
+						assertTrue(diffS0);
+						for (int x = 0; x < n; x++) {
+							assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
+								&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
+							assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
+								&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
+							assertTrue(s.getSetupTime(x) >= 0
+								&& s.getSetupTime(x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							double d_min_loose = pSum * (1 - tau[i]);
+							double d_max_loose = (pSum + sSum / (n+1.0)) * (1 - tau[i]);
+							assertTrue(s.getDueDate(x) >= d_min_loose);
+							assertTrue(s.getDueDate(x) <= d_max_loose);
+							for (int y = 0; y <= n; y++) {
+								assertTrue(s.getSetupTime(y,x) >= 0
+								&& s.getSetupTime(y,x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							}
+							assertEquals(0, s.getReleaseDate(x));
+							assertEquals(1, s.getEarlyWeight(x));
 						}
-						if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
-							diffW = true;
-						}
-						if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
-							diffS0 = true;
-						}
-						if (x > 0) {
-							assertEquals(s.getDueDate(0), s.getDueDate(x));
-						}
-					}
-					assertTrue(diffP);
-					assertTrue(diffW);
-					assertTrue(diffS0);
-					for (int x = 0; x < n; x++) {
-						assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
-							&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
-						assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
-							&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
-						assertTrue(s.getSetupTime(x) >= 0
-							&& s.getSetupTime(x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						double d_min_loose = pSum * (1 - tau[i]);
-						double d_max_loose = (pSum + sSum / (n+1.0)) * (1 - tau[i]);
-						assertTrue(s.getDueDate(x) >= d_min_loose);
-						assertTrue(s.getDueDate(x) <= d_max_loose);
-						for (int y = 0; y <= n; y++) {
-							assertTrue(s.getSetupTime(y,x) >= 0
-							&& s.getSetupTime(y,x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						}
-						assertEquals(0, s.getReleaseDate(x));
-						assertEquals(1, s.getEarlyWeight(x));
 					}
 				}
 			}
@@ -497,70 +503,71 @@ public class WeightedStaticSetupsTests {
 	
 	@Test
 	public void testR1() {
-		int n = 10;
-		double[] tau = {0.25, 0.5, 0.75};
-		double[] r = {1.0};
-		double[] eta = {0.25, 0.5, 0.75};
-		for (int i = 0; i < tau.length; i++) {
-			for (int j = 0; j < r.length; j++) {
-				for (int k = 0; k < eta.length; k++) {
-					WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
-					assertEquals(n, s.numberOfJobs());
-					assertTrue(s.hasDueDates());
-					assertTrue(s.hasWeights());
-					assertTrue(s.hasSetupTimes());
-					assertFalse(s.hasEarlyWeights());
-					assertFalse(s.hasReleaseDates());
-					boolean diffP = false;
-					boolean diffW = false;
-					boolean diffS0 = false;
-					boolean diffD = false;
-					int pSum = 0;
-					int sSum = 0;
-					for (int x = 0; x < n; x++) {
-						pSum += s.getProcessingTime(x);
-						boolean diffS = false;
-						for (int y = 0; y <= n; y++) {
-							sSum += s.getSetupTime(y,x);
-							if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
-								diffS = true;
+		for (int n = 8; n <= 512; n *= 8) {
+			double[] tau = {0.25, 0.5, 0.75};
+			double[] r = {1.0};
+			double[] eta = {0.25, 0.5, 0.75};
+			for (int i = 0; i < tau.length; i++) {
+				for (int j = 0; j < r.length; j++) {
+					for (int k = 0; k < eta.length; k++) {
+						WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
+						assertEquals(n, s.numberOfJobs());
+						assertTrue(s.hasDueDates());
+						assertTrue(s.hasWeights());
+						assertTrue(s.hasSetupTimes());
+						assertFalse(s.hasEarlyWeights());
+						assertFalse(s.hasReleaseDates());
+						boolean diffP = false;
+						boolean diffW = false;
+						boolean diffS0 = false;
+						boolean diffD = false;
+						int pSum = 0;
+						int sSum = 0;
+						for (int x = 0; x < n; x++) {
+							pSum += s.getProcessingTime(x);
+							boolean diffS = false;
+							for (int y = 0; y <= n; y++) {
+								sSum += s.getSetupTime(y,x);
+								if (y > 0 && !diffS && s.getSetupTime(y,x) != s.getSetupTime(y-1,x)) {
+									diffS = true;
+								}
+							}
+							assertTrue(diffS);
+							if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
+								diffP = true;
+							}
+							if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
+								diffW = true;
+							}
+							if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
+								diffS0 = true;
+							}
+							if (x > 0 && !diffD && s.getDueDate(x) != s.getDueDate(x-1)) {
+								diffD = true;
 							}
 						}
-						assertTrue(diffS);
-						if (x > 0 && !diffP && s.getProcessingTime(x) != s.getProcessingTime(x-1)) {
-							diffP = true;
+						assertTrue(diffP);
+						assertTrue(diffW);
+						assertTrue(diffS0);
+						assertTrue(diffD);
+						for (int x = 0; x < n; x++) {
+							assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
+								&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
+							assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
+								&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
+							assertTrue(s.getSetupTime(x) >= 0
+								&& s.getSetupTime(x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							double d_min_loose = 0;
+							double d_max_loose = (pSum + sSum / (n+1.0));
+							assertTrue(s.getDueDate(x) >= d_min_loose);
+							assertTrue(s.getDueDate(x) <= d_max_loose);
+							for (int y = 0; y <= n; y++) {
+								assertTrue(s.getSetupTime(y,x) >= 0
+								&& s.getSetupTime(y,x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
+							}
+							assertEquals(0, s.getReleaseDate(x));
+							assertEquals(1, s.getEarlyWeight(x));
 						}
-						if (x > 0 && !diffW && s.getWeight(x) != s.getWeight(x-1)) {
-							diffW = true;
-						}
-						if (x > 0 && !diffS0 && s.getSetupTime(x) != s.getSetupTime(x-1)) {
-							diffS0 = true;
-						}
-						if (x > 0 && !diffD && s.getDueDate(x) != s.getDueDate(x-1)) {
-							diffD = true;
-						}
-					}
-					assertTrue(diffP);
-					assertTrue(diffW);
-					assertTrue(diffS0);
-					assertTrue(diffD);
-					for (int x = 0; x < n; x++) {
-						assertTrue(s.getProcessingTime(x) >= WeightedStaticSchedulingWithSetups.MIN_PROCESS_TIME
-							&& s.getProcessingTime(x) <= WeightedStaticSchedulingWithSetups.MAX_PROCESS_TIME);
-						assertTrue(s.getWeight(x) >= WeightedStaticSchedulingWithSetups.MIN_WEIGHT
-							&& s.getWeight(x) <= WeightedStaticSchedulingWithSetups.MAX_WEIGHT);
-						assertTrue(s.getSetupTime(x) >= 0
-							&& s.getSetupTime(x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						double d_min_loose = 0;
-						double d_max_loose = (pSum + sSum / (n+1.0));
-						assertTrue(s.getDueDate(x) >= d_min_loose);
-						assertTrue(s.getDueDate(x) <= d_max_loose);
-						for (int y = 0; y <= n; y++) {
-							assertTrue(s.getSetupTime(y,x) >= 0
-							&& s.getSetupTime(y,x) <= 2 * eta[k] * WeightedStaticSchedulingWithSetups.AVERAGE_PROCESS_TIME);
-						}
-						assertEquals(0, s.getReleaseDate(x));
-						assertEquals(1, s.getEarlyWeight(x));
 					}
 				}
 			}

@@ -27,6 +27,7 @@ import org.cicirello.search.operators.bits.BitVectorInitializer;
 import org.cicirello.search.sa.SimulatedAnnealing;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
+import static org.cicirello.examples.chipsnsalsa.ExamplesShared.*;
 
 /**
  * This example demonstrates how to use simulated annealing for an optimization
@@ -37,16 +38,6 @@ import org.cicirello.search.ProgressTracker;
  * @author Vincent A. Cicirello, https://www.cicirello.org/
  */
 public class CustomIntegerCostProblemExample {
-	
-	public static void printCopyrightAndLicense() {
-		System.out.println("Example program for Chips-n-Salsa library.");
-		System.out.println("Copyright (C) 2020  Vincent A. Cicirello");
-		System.out.println("This program comes with ABSOLUTELY NO WARRANTY.  This is free");
-		System.out.println("software, and you are welcome to redistribute it under certain");
-		System.out.println("conditions.  See the GNU General Public License for more"); 
-		System.out.println("details: https://www.gnu.org/licenses/gpl-3.0.html");
-		System.out.println();
-	}
 	
 	public static void main(String[] args) {
 		printCopyrightAndLicense();

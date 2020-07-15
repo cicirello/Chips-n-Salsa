@@ -29,6 +29,7 @@ import org.cicirello.search.sa.SimulatedAnnealing;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.hc.SteepestDescentHillClimber;
+import static org.cicirello.examples.chipsnsalsa.ExamplesShared.*;
 
 /**
  * This example demonstrates how to use a hybrid of simulated annealing and hill climbing for an
@@ -45,16 +46,6 @@ import org.cicirello.search.hc.SteepestDescentHillClimber;
  * @author Vincent A. Cicirello, https://www.cicirello.org/
  */
 public class PostHillclimbExample {
-	
-	public static void printCopyrightAndLicense() {
-		System.out.println("Example program for Chips-n-Salsa library.");
-		System.out.println("Copyright (C) 2020  Vincent A. Cicirello");
-		System.out.println("This program comes with ABSOLUTELY NO WARRANTY.  This is free");
-		System.out.println("software, and you are welcome to redistribute it under certain");
-		System.out.println("conditions.  See the GNU General Public License for more"); 
-		System.out.println("details: https://www.gnu.org/licenses/gpl-3.0.html");
-		System.out.println();
-	}
 	
 	public static void main(String[] args) {
 		printCopyrightAndLicense();

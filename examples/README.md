@@ -21,24 +21,20 @@ compatible).
 
 ## Building the Examples
 
-See the README for the repository itself (in the parent of this directory). 
-The examples are built using ant and the build.xml from the build directory.
+See the README in the root of the repository (in the parent of this directory) for more details. 
+The examples are built using ant and the build.xml from the build directory, which can be executed 
+via the makefile in the root of the repository. 
 
 ## Running the Examples
 
-Assuming you use the ant build file provided, the compiled examples will be in the 
-exbin directory. If your working directory is the root of the repository, then 
-you can run the examples from the command line with the following:
+After executing the build, the compiled examples will be in the 
+exbin directory. To run all of the examples back to back, then from the root of the repository, execute: `make examples`.
+If your working directory is the root of the repository, then 
+you can run any of the examples from the command line with the following:
 
 ```
 java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.BitVectorExample
-java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.IntegerVectorExample
-java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.RootFindingExample
-java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.PermutationExample
-java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.ParallelPermutationExample
-java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.TimedParallelExample
-java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.CustomProblemExample
-java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.CustomIntegerCostProblemExample
-java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.PostHillclimbExample
-java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.PreHillclimbExample
 ```
+
+Just replace org.cicirello.examples.chipsnsalsa.BitVectorExample in the above with the example program of your
+choice.

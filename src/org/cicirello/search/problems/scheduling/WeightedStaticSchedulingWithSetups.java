@@ -72,6 +72,38 @@ import java.util.SplittableRandom;
  * using more a efficient random number generator, and a better estimator of
  * makespan (which is used in determining the random due dates).</p>
  *
+ * <p>The constructors that generate random scheduling problem instances
+ * take four parameters: n, &tau;, r, and &eta;.  These parameters are defined
+ * as follows.  The number of jobs in the instance is n.  &tau; controls
+ * due date tightness, and r controls the due date range.  &eta; controls
+ * the severity of the setup times.  The values of &tau;, r, and &eta;
+ * are required to be in the interval [0.0, 1.0].</p>
+ *
+ * <p>Instances are then generated randomly as follows.  The processing time
+ * p[j] of job j is generated uniformly at random from: [50, 150].  
+ * The mean processing time is thus: p&#772; = 100.
+ * The weight w[j] of job j is generated uniformly at random from: [0, 10].
+ * To generate the random setup times, first define the mean setup time
+ * as: s&#772; = &eta;p&#772;.  The setup time s[i][j] of job j if it
+ * immediately follows job i on the machine is generated uniformly at random
+ * from: [0, 2s&#772;].  To generate the random due dates, first define the
+ * mean due date d&#772; as d&#772; = (1 - &tau;)C<sub>max</sub>, where 
+ * C<sub>max</sub> is an estimate of makespan (see below).  With probability
+ * &tau;, we generate the due date d[j] of job j uniformly at random from the
+ * interval: [d&#772; - rd&#772;, d&#772;]; and with probability (1 - &tau;),
+ * we generate it uniformly at random from 
+ * [d&#772;, d&#772; + r(C<sub>max</sub> - d&#772;)].
+ * The makespan, C<sub>max</sub>, is estimated based on Lee et al's (see references above)
+ * estimate: C<sub>max</sub> = n(p&#772; + &beta;s&#772;), where &beta; &le; 1.0.
+ * Lee et al's rationale for including the &beta; factor is that the optimal
+ * schedule will tend to favor job transitions that involve lower than average
+ * setups.  Lee et al's paper provided data on how &beta; varies for a couple
+ * specific problem sizes n.  They don't derive a general rule, however, an examination
+ * of the limited data in their paper shows that &beta; appears to decrease logarithmically
+ * in n.  We fit a curve to the couple data points available in Lee et al's paper and
+ * estimate: &beta; = -0.097 ln(n) + 0.6876, but we don't 
+ * allow &beta; to fall below 0.2.</p>
+ *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 7.14.2020
@@ -195,10 +227,11 @@ public final class WeightedStaticSchedulingWithSetups implements SingleMachineSc
 		
 		final double CMAX = totalProcessTime + BETA * sumSetupMatrix / (n+1.0);
 		final double AVERAGE_DUEDATE = CMAX * (1.0 - tau);
-		final int MIN_DUEDATE = (int)Math.ceil(AVERAGE_DUEDATE * (1.0 - r));  
-		final int AVE_DUEDATE_INT = (int)Math.ceil(AVERAGE_DUEDATE);
+		final double DUEDATE_RANGE = r * CMAX;
+		final int AVE_DUEDATE_INT = (int)(AVERAGE_DUEDATE);
+		final int MIN_DUEDATE = (int)(AVERAGE_DUEDATE - r * AVERAGE_DUEDATE);
+		final int MAX_DUEDATE = (int)(AVERAGE_DUEDATE - r * AVERAGE_DUEDATE + DUEDATE_RANGE);
 		final int D_SPAN_1 = AVE_DUEDATE_INT - MIN_DUEDATE + 1;
-		final int MAX_DUEDATE = (int)Math.ceil(r * CMAX + AVERAGE_DUEDATE * (1.0 - r));
 		final int D_SPAN_2 = MAX_DUEDATE - AVE_DUEDATE_INT + 1;
 		
 		for (int i = 0; i < n; i++) {

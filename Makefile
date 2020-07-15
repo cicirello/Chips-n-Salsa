@@ -2,6 +2,10 @@
 build:
 	ant -f build/
 
+.PHONY: clean
+clean:
+	ant -f build/ clean
+
 .PHONY: examples
 examples:
 	java -cp "exbin;dist/chips-n-salsa-1.0-with-dependencies" org.cicirello.examples.chipsnsalsa.BitVectorExample

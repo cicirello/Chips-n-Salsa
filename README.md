@@ -23,6 +23,10 @@ The GitHub repository is organized as follows:
 * The /src directory contains all of the source code for Chips-n-Salsa.
 * The /tests directory contains JUnit test cases for all functionality of the library.
 
+## Java 8
+
+The library supports Java 8 or higher, including both Oracle JDK 8 and OpenJDK 8.
+
 ## Building the Library (with ant)
 
 The /build directory contains an ant build file.  The build file also executes the JUnit tests, and the build directory contains the relevant jar files for the JUnit libraries. If you prefer, you can replace these with the latest versions available from https://junit.org/junit4/ (just be sure to edit the property fields in the build.xml to point to the locations of the JUnit jar files).

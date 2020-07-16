@@ -8,6 +8,7 @@ org.cicirello.search.operators.integers
 org.cicirello.search.operators.permutations
 org.cicirello.search.operators.reals
 org.cicirello.search.problems
+org.cicirello.search.problems.scheduling
 org.cicirello.search.representations
 org.cicirello.search.restarts
 org.cicirello.search.sa

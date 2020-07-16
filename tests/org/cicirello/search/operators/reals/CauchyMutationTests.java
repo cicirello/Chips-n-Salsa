@@ -42,7 +42,7 @@ public class CauchyMutationTests {
 	// increases value, and if at least 1 out of MAX_TRIALS decreases.
 	// A Cauchy is symmetric about 0.0, so approximately half of mutations 
 	// should decrease and approximately half should increase.
-	private static final int MAX_TRIALS = 40;
+	private static final int MAX_TRIALS = 100;
 	
 	@Test
 	public void testCauchyMutation1() {

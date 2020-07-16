@@ -7,7 +7,7 @@ examples without reading the source code, and comments,
 is not advised, since the output of the example programs 
 requires the context of the code samples to be meaningful.
 
-The examples directory includes several examples. The following 
+__Basic Examples__: The examples directory includes several examples. The following 
 examples are of basic usage using simulated annealing to optimize
 functions over different structure types: bit vectors, integer vectors,
 permutations, and a real-value function optimization example, the root finding 
@@ -17,17 +17,17 @@ example:
 * org.cicirello.examples.chipsnsalsa.RootFindingExample
 * org.cicirello.examples.chipsnsalsa.PermutationExample
 
-The next couple examples are of parallel search:
+__Parallel Examples__: The next couple examples are of parallel search:
 * org.cicirello.examples.chipsnsalsa.ParallelPermutationExample
 * org.cicirello.examples.chipsnsalsa.TimedParallelExample
 
-The following examples demonstrate defining a custom optimization
+__Custom Problem Examples__: The following examples demonstrate defining a custom optimization
 problem (whereas the above examples mostly use benchmark problems
 included in the library):
 * org.cicirello.examples.chipsnsalsa.CustomProblemExample
 * org.cicirello.examples.chipsnsalsa.CustomIntegerCostProblemExample
 
-The following examples show how multiple search algorithms can be
+__Hybrid Search Examples__: The following examples show how multiple search algorithms can be
 integrated (e.g., combining hill climbing with simulated annealing):
 * org.cicirello.examples.chipsnsalsa.PostHillclimbExample
 * org.cicirello.examples.chipsnsalsa.PreHillclimbExample

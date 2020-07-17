@@ -84,6 +84,12 @@
         description="generate the distribution">
 	<!-- Create the distribution directory -->
     <mkdir dir="${dist}"/>
+	<!-- Remove old jars if present -->
+	<delete>
+		<fileset dir="${dist}">
+			<include name="*.jar"/>
+		</fileset>
+	</delete>
     <!-- Put everything in ${bin} into the jpt${VERSION}.jar file -->
     <jar jarfile="${dist}/chips-n-salsa-${VERSION}.jar" basedir="${bin}"/>
 	<!-- Create a jar that includes the dependencies -->
@@ -102,7 +108,7 @@
 	</javac>
   </target>
   
-  <target name="docs" depends="dist" 
+  <target name="docs" depends="compile,test" 
 		description="generates documentation via javadoc">
 	<javadoc destdir="${docdir}"
 			sourcepath="${src}"
@@ -110,7 +116,8 @@
 			doctitle="Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms"
 			overview="src/overview.html"
 			author="false"
-			version="false">
+			version="false"
+			additionalparam="-notimestamp">
 		<classpath>
 			<pathelement path="${lib}/jpt2.jar"/>
 		</classpath>
@@ -120,7 +127,10 @@
 	</javadoc>
   </target>
   
-  <target name="all" depends="dist,examples,docs" description="compile everything including example programs and generates library jar">
+  <target name="all" depends="dist,examples,docs" description="compile everything including example programs and generates library jars">
+  </target>
+  
+  <target name="dev" depends="compile,test,docs" description="compile, test, and generate docs (no jars or examples)">
   </target>
   
   <target name="clean"
@@ -128,8 +138,13 @@
     <delete dir="${bin}"/>
 	<delete dir="${testbin}"/>
 	<delete dir="${examplebin}"/>
-	<delete dir="${docdir}"/>
-	<delete dir="${dist}"/>
   </target>
+  
+	<target name="cleandocs" depends="clean"
+        description="clean up including docs">
+		<delete includeEmptyDirs="true">
+			<fileset dir="${docdir}" includes="**/*" defaultexcludes="no" />
+		</delete>
+	</target>
 
 </project>

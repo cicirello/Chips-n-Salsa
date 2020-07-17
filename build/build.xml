@@ -129,14 +129,18 @@
     <delete dir="${bin}"/>
 	<delete dir="${testbin}"/>
 	<delete dir="${examplebin}"/>
-	<delete includeEmptyDirs="true">
-		<fileset dir="${docdir}" includes="**/*" defaultexcludes="no" />
-	</delete>
 	<delete>
 		<fileset dir="${dist}">
 			<include name="*.jar"/>
 		</fileset>
 	</delete>
   </target>
+  
+	<target name="cleandocs" depends="clean"
+        description="clean up including docs">
+		<delete includeEmptyDirs="true">
+			<fileset dir="${docdir}" includes="**/*" defaultexcludes="no" />
+		</delete>
+	</target>
 
 </project>

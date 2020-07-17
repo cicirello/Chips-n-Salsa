@@ -110,7 +110,8 @@
 			doctitle="Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms"
 			overview="src/overview.html"
 			author="false"
-			version="false">
+			version="false"
+			additionalparam="-notimestamp">
 		<classpath>
 			<pathelement path="${lib}/jpt2.jar"/>
 		</classpath>
@@ -128,8 +129,14 @@
     <delete dir="${bin}"/>
 	<delete dir="${testbin}"/>
 	<delete dir="${examplebin}"/>
-	<delete dir="${docdir}"/>
-	<delete dir="${dist}"/>
+	<delete includeEmptyDirs="true">
+		<fileset dir="${docdir}" includes="**/*" defaultexcludes="no" />
+	</delete>
+	<delete>
+		<fileset dir="${dist}">
+			<include name="*.jar"/>
+		</fileset>
+	</delete>
   </target>
 
 </project>

@@ -6,7 +6,7 @@ https://www.cicirello.org/
 
 Webpage: https://chips-n-salsa.cicirello.org/
 
-![](https://github.com/cicirello/Chips-n-Salsa/workflows/Java%20CI/badge.svg)
+![build](https://github.com/cicirello/Chips-n-Salsa/workflows/build/badge.svg)
 ![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)
 
 ## Overview

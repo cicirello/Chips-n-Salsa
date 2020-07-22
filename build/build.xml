@@ -93,7 +93,7 @@
     <!-- Put everything in ${bin} into the jpt${VERSION}.jar file -->
     <jar jarfile="${dist}/chips-n-salsa-${VERSION}.jar" basedir="${bin}"/>
 	<!-- Create a jar that includes the dependencies -->
-    <jar jarfile="${dist}/chips-n-salsa-${VERSION}-with-dependencies.jar" basedir="${bin}">
+    <jar jarfile="${dist}/chips-n-salsa-${VERSION}-jar-with-dependencies.jar" basedir="${bin}">
 	    <zipgroupfileset dir="${lib}" includes="*.jar" />
 	</jar>
   </target>

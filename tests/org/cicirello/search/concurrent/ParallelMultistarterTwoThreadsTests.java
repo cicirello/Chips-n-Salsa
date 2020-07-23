@@ -37,7 +37,7 @@ import java.util.SplittableRandom;
 /**
  * JUnit 4 tests for ParallelMultistarter using 2 threads.
  */
-public class ParallelMultistarterTestsTwoThreads {
+public class ParallelMultistarterTwoThreadsTests {
 	
 	@Test
 	public void testConstantLength_Constructor1() {

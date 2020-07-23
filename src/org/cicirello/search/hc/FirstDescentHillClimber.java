@@ -230,8 +230,7 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> implements Met
 	}
 	
 	private OneClimb<T> initClimberInt() {
-		return new OneClimb<T>() {
-			public SolutionCostPair<T> climbOnce(T current) {
+		return current -> {
 				// compute cost of start
 				int currentCost = pOptInt.cost(current);				
 				boolean keepClimbing = true;
@@ -258,13 +257,11 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> implements Met
 					}
 				}
 				return new SolutionCostPair<T>(current, currentCost);
-			}
 		};
 	}
 	
 	private OneClimb<T> initClimberDouble() {
-		return new OneClimb<T>() {
-			public SolutionCostPair<T> climbOnce(T current) {
+		return current -> {
 				// compute cost of start
 				double currentCost = pOpt.cost(current);			
 				boolean keepClimbing = true;
@@ -291,7 +288,6 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> implements Met
 					}
 				}			
 				return new SolutionCostPair<T>(current, currentCost);
-			}
 		};
 	}
 }

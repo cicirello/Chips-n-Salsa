@@ -193,14 +193,7 @@ public final class ValueBiasedStochasticSampling implements SimpleMetaheuristic<
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
 	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic, double exponent, ProgressTracker<Permutation> tracker) {
-		this(heuristic, 
-			new BiasFunction() { 
-				public double bias(double value) { 
-					return Math.pow(value, exponent); 
-				} 
-			},
-			tracker
-		);
+		this(heuristic, value -> Math.pow(value, exponent), tracker);
 	}
 	
 	/**

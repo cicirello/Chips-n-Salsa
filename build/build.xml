@@ -133,14 +133,14 @@
   <target name="dev" depends="compile,test,docs" description="compile, test, and generate docs (no jars or examples)">
   </target>
   
-  <target name="clean"
+  <target name="clean" depends="cleandocs"
         description="clean up">
     <delete dir="${bin}"/>
 	<delete dir="${testbin}"/>
 	<delete dir="${examplebin}"/>
   </target>
   
-	<target name="cleandocs" depends="clean"
+	<target name="cleandocs" 
         description="clean up including docs">
 		<delete includeEmptyDirs="true">
 			<fileset dir="${docdir}" includes="**/*" defaultexcludes="no" />

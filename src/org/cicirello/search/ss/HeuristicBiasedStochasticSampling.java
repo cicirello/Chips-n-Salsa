@@ -203,18 +203,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
 	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, boolean exponentialBias, ProgressTracker<Permutation> tracker) {
-		this(heuristic, exponentialBias ?
-			new BiasFunction() { 
-				public double bias(int rank) { 
-					return Math.exp(-rank); 
-				} 
-			} :
-			new BiasFunction() { 
-				public double bias(int rank) { 
-					return 1.0/rank; 
-				} 
-			}, 
-		tracker);
+		this(heuristic, exponentialBias ? (rank -> Math.exp(-rank)) : (rank -> 1.0/rank), tracker);
 	}
 	
 	/**
@@ -236,14 +225,7 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
 	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, double exponent, ProgressTracker<Permutation> tracker) {
-		this(heuristic, 
-			new BiasFunction() { 
-				public double bias(int rank) { 
-					return Math.pow(1.0/rank, exponent); 
-				} 
-			},
-			tracker
-		);
+		this(heuristic, rank -> Math.pow(1.0/rank, exponent), tracker);
 	}
 	
 	/**

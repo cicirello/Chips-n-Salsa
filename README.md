@@ -7,7 +7,7 @@ https://www.cicirello.org/
 Webpage: https://chips-n-salsa.cicirello.org/
 
 ![build](https://github.com/cicirello/Chips-n-Salsa/workflows/build/badge.svg)
-![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)
+[![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/releases)
 
 ## Overview

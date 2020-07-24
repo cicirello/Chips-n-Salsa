@@ -36,7 +36,16 @@ import org.cicirello.search.problems.Problem;
  */
 public abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	
+	/** 
+	 * The instance of the scheduling problem that is the target
+	 * of the heuristic. 
+	 */
 	protected final SingleMachineSchedulingProblem problem;
+	
+	/** 
+	 * The instance data of the scheduling problem that is the target
+	 * of the heuristic. 
+	 */
 	protected final SingleMachineSchedulingProblemData data;
 	
 	/**

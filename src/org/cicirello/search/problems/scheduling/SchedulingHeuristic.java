@@ -40,13 +40,13 @@ public abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	 * The instance of the scheduling problem that is the target
 	 * of the heuristic. 
 	 */
-	protected final SingleMachineSchedulingProblem problem;
+	final SingleMachineSchedulingProblem problem;
 	
 	/** 
 	 * The instance data of the scheduling problem that is the target
 	 * of the heuristic. 
 	 */
-	protected final SingleMachineSchedulingProblemData data;
+	final SingleMachineSchedulingProblemData data;
 	
 	/**
 	 * Initializes the abstract base class for scheduling heuristics.

@@ -12,6 +12,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      artifact_name: chips-n-salsa
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
@@ -20,16 +23,71 @@ jobs:
         java-version: 1.8
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
+        
+    - name: Get the release version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml -s ${{ github.workspace }}/settings.xml
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-    - name: Update version
-      run: mvn versions:set -DnewVersion=${GITHUB_REF:11}
+    - name: Update package version
+      run: mvn versions:set -DnewVersion=${{ steps.get_version.outputs.VERSION }}
 
     - name: Publish to GitHub Packages Apache Maven
       run: mvn deploy -s ${{ github.workspace }}/settings.xml
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        
+    - name: Get the upload URL for a release
+      id: get
+      uses: bruceadams/get-release@v1.2.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload Release Asset jar
+      id: upload-release-asset-jar 
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.get.outputs.upload_url }} 
+        asset_path: dist/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}.jar
+        asset_name: ${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}.jar
+        asset_content_type: application/java-archive
+        
+    - name: Upload Release Asset sources
+      id: upload-release-asset-src 
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.get.outputs.upload_url }} 
+        asset_path: dist/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-sources.jar
+        asset_name: ${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-sources.jar
+        asset_content_type: application/java-archive
+        
+    - name: Upload Release Asset docs
+      id: upload-release-asset-docs 
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.get.outputs.upload_url }} 
+        asset_path: dist/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-javadoc.jar
+        asset_name: ${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-javadoc.jar
+        asset_content_type: application/java-archive
+
+    - name: Upload Release Asset fat jar
+      id: upload-release-asset-fat 
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.get.outputs.upload_url }} 
+        asset_path: dist/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-jar-with-dependencies.jar
+        asset_name: ${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-jar-with-dependencies.jar
+        asset_content_type: application/java-archive
+

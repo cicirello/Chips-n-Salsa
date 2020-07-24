@@ -17,8 +17,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
+var methods = {"i0":6,"i1":18,"i2":6,"i3":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -97,6 +97,10 @@ var activeTableTab = "activeTableTab";
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
+<dl>
+<dt>All Known Implementing Classes:</dt>
+<dd><a href="../../../../org/cicirello/search/problems/scheduling/EarliestDueDate.html" title="class in org.cicirello.search.problems.scheduling">EarliestDueDate</a>, <a href="../../../../org/cicirello/search/problems/scheduling/SchedulingHeuristic.html" title="class in org.cicirello.search.problems.scheduling">SchedulingHeuristic</a></dd>
+</dl>
 <hr>
 <br>
 <pre>public interface <span class="typeNameLabel">ConstructiveHeuristic</span></pre>
@@ -122,7 +126,7 @@ var activeTableTab = "activeTableTab";
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -136,7 +140,7 @@ var activeTableTab = "activeTableTab";
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a></code></td>
+<td class="colFirst"><code>default <a href="../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#createIncrementalEvaluation--">createIncrementalEvaluation</a></span>()</code>
 <div class="block">Creates an IncrementalEvaluation object corresponding to an initially
  empty PartialPermutation for use in incrementally constructing a solution
@@ -217,15 +221,18 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>createIncrementalEvaluation</h4>
-<pre><a href="../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&nbsp;createIncrementalEvaluation()</pre>
-<div class="block">Creates an IncrementalEvaluation object corresponding to an initially
+<pre>default&nbsp;<a href="../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&nbsp;createIncrementalEvaluation()</pre>
+<div class="block"><p>Creates an IncrementalEvaluation object corresponding to an initially
  empty PartialPermutation for use in incrementally constructing a solution
  to the problem for which this heuristic is designed. The object returned 
  incrementally computes any data associated with a PartialPermutation as
  needed by the <a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method.  The <a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method will assume that 
  it will be given an object of the specific runtime type returned by this
  method.  It is unsafe to pass IncrementalEvaluation objects created by
- one heuristic to the <a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method of another.</div>
+ one heuristic to the <a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method of another.</p>
+
+ <p>The default implementation simply returns null, which is appropriate for
+ heuristics that won't benefit from incrementally computing heuristic information.</p></div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>An IncrementalEvaluation for an empty PartialPermutation 

@@ -6,6 +6,7 @@ https://www.cicirello.org/
 
 Webpage: https://chips-n-salsa.cicirello.org/
 
+[![DOI](https://zenodo.org/badge/273074441.svg)](https://zenodo.org/badge/latestdoi/273074441)
 [![build](https://github.com/cicirello/Chips-n-Salsa/workflows/build/badge.svg)](https://github.com/cicirello/Chips-n-Salsa/actions?query=workflow%3Abuild)
 [![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/releases)

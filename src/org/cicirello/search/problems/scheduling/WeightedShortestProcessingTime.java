@@ -50,7 +50,6 @@ public final class WeightedShortestProcessingTime extends SchedulingHeuristic {
 	 * Constructs an WeightedShortestProcessingTime heuristic.
 	 * @param problem The instance of a scheduling problem that is
 	 * the target of the heuristic.
-	 * @throws IllegalArgumentException if problem.hasDueDates() returns false.
 	 */
 	public WeightedShortestProcessingTime(SingleMachineSchedulingProblem problem) {
 		super(problem);

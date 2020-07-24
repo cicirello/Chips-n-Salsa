@@ -64,18 +64,24 @@ public interface ConstructiveHeuristic {
 	double h(PartialPermutation p, int element, IncrementalEvaluation incEval);
 	
 	/**
-	 * Creates an IncrementalEvaluation object corresponding to an initially
+	 * <p>Creates an IncrementalEvaluation object corresponding to an initially
 	 * empty PartialPermutation for use in incrementally constructing a solution
 	 * to the problem for which this heuristic is designed. The object returned 
 	 * incrementally computes any data associated with a PartialPermutation as
 	 * needed by the {@link #h} method.  The {@link #h} method will assume that 
 	 * it will be given an object of the specific runtime type returned by this
 	 * method.  It is unsafe to pass IncrementalEvaluation objects created by
-	 * one heuristic to the {@link #h} method of another.
+	 * one heuristic to the {@link #h} method of another.</p>
+	 *
+	 * <p>The default implementation simply returns null, which is appropriate for
+	 * heuristics that won't benefit from incrementally computing heuristic information.</p>
+	 *
 	 * @return An IncrementalEvaluation for an empty PartialPermutation 
 	 * to be used for incrementally computing any data required by the {@link #h} method.
 	 */
-	IncrementalEvaluation createIncrementalEvaluation();
+	default IncrementalEvaluation createIncrementalEvaluation() {
+		return null;
+	}
 	
 	/**
 	 * Gets the required length of permutations representing

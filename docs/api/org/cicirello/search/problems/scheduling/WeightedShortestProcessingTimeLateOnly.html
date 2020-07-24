@@ -127,7 +127,7 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Schedul
  where w[j] is the weight of job j, and p[j] is its processing time.
  However, for some scheduling cost functions, performance is improved
  if the heuristic is modified as follows.  If the job j is already late
- (i.e., its due date d[j] &gt; T, where T is the current time), then
+ (i.e., its due date d[j] &lt; T, where T is the current time), then
  its heuristic value is: h(j) = w[j] / p[j], just like in the basic 
  version.  Otherwise, if the due date hasn't passed yet, then h(j) = 0.
  This implementation alters this definition slightly as:

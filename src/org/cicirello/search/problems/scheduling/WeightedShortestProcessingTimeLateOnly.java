@@ -34,7 +34,7 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  * where w[j] is the weight of job j, and p[j] is its processing time.
  * However, for some scheduling cost functions, performance is improved
  * if the heuristic is modified as follows.  If the job j is already late
- * (i.e., its due date d[j] &gt; T, where T is the current time), then
+ * (i.e., its due date d[j] &lt; T, where T is the current time), then
  * its heuristic value is: h(j) = w[j] / p[j], just like in the basic 
  * version.  Otherwise, if the due date hasn't passed yet, then h(j) = 0.
  * This implementation alters this definition slightly as:
@@ -71,7 +71,7 @@ public final class WeightedShortestProcessingTimeLateOnly extends SchedulingHeur
 	
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
-		if (data.getDueDate(element) <= ((IncrementalTimeCalculator)incEval).currentTime) {
+		if (data.getDueDate(element) >= ((IncrementalTimeCalculator)incEval).currentTime) {
 			return EPSILON;
 		} 
 		double w = data.getWeight(element);
@@ -85,10 +85,13 @@ public final class WeightedShortestProcessingTimeLateOnly extends SchedulingHeur
 		return new IncrementalTimeCalculator();
 	}
 	
-	private class IncrementalTimeCalculator implements IncrementalEvaluation {
+	/*
+	 * package-private rather than private to enable test case access
+	 */
+	final class IncrementalTimeCalculator implements IncrementalEvaluation {
 		
 		private int currentTime;
-		
+				
 		@Override
 		public void extend(PartialPermutation p, int element) {
 			currentTime += data.getProcessingTime(element);
@@ -97,5 +100,7 @@ public final class WeightedShortestProcessingTimeLateOnly extends SchedulingHeur
 					: data.getSetupTime(p.getLast(), element); 
 			}
 		}
+		
+		public int currentTime() { return currentTime; }
 	}
 }

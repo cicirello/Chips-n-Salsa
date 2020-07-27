@@ -45,7 +45,7 @@ public class HeuristicTests {
 	
 	@Test
 	public void testWSPT() {
-		double e = WeightedShortestProcessingTime.EPSILON;
+		double e = WeightedShortestProcessingTime.MIN_H;
 		int highP = (int)Math.ceil(1 / e)*2;
 		int[] w =    { 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
 		int[] p =    { 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};

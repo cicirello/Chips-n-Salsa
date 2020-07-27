@@ -120,20 +120,37 @@ public class HeuristicTests {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void testSchedulingHeuristicSlack() {
 		int[] w = { 1, 1, 1, 1, 1 };
 		int[] p = { 3, 2, 1, 4, 5 };
-		int[] e = { 3, 5, 6, 10, 15 };
-		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
+		int[] e = { 7, 5, 4, 0, -5 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 10);
 		WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
 		PartialPermutation partial = new PartialPermutation(e.length);
 		SchedulingHeuristic.IncrementalTimeCalculator inc = (SchedulingHeuristic.IncrementalTimeCalculator)h.createIncrementalEvaluation();
-		assertEquals(0, inc.currentTime());
 		for (int i = 0; i < p.length; i++) {
+			assertEquals(e[i], inc.slack(i, partial));
 			inc.extend(partial, i);
-			partial.extend(0);
-			assertEquals(e[i], inc.currentTime());
+			if (i < partial.numExtensions()) partial.extend(i);
+			else partial.extend(partial.numExtensions()-1);
+		}
+	}
+	
+	@Test
+	public void testSchedulingHeuristicSlackWithSetups() {
+		int[] w = { 1, 1, 1, 1, 1 };
+		int[] p = { 3, 2, 1, 4, 5 };
+		int[] e = { 19, 16, 11, 0, -15 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 29, 7);
+		WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
+		PartialPermutation partial = new PartialPermutation(e.length);
+		SchedulingHeuristic.IncrementalTimeCalculator inc = (SchedulingHeuristic.IncrementalTimeCalculator)h.createIncrementalEvaluation();
+		for (int i = 0; i < p.length; i++) {
+			assertEquals(e[i], inc.slack(i, partial));
+			inc.extend(partial, i);
+			if (i < partial.numExtensions()) partial.extend(i);
+			else partial.extend(partial.numExtensions()-1);
 		}
 	}
 	

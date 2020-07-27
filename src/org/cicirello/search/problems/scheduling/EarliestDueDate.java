@@ -33,7 +33,10 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  * to safely handle the case of a job due at the start of the schedule
  * (i.e., d[j] = 0).  This mild variation doesn't affect a schedule
  * constructed deterministically with the heuristic, as the order of 
- * the jobs remains the same. 
+ * the jobs remains the same. This implementation bounds the minimum
+ * value of h at {@link #MIN_H} in support of stochastic sampling search
+ * algorithms, which assume positive heuristic values (i.e., h=0 would
+ * cause such algorithms technical problems).
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
@@ -56,6 +59,7 @@ public final class EarliestDueDate extends SchedulingHeuristic {
 	
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
-		return 1.0 / (1.0 + data.getDueDate(element));
+		double value = 1.0 / (1.0 + data.getDueDate(element)); 
+		return value <= MIN_H ? MIN_H : value;
 	}
 }

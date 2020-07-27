@@ -121,7 +121,10 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
  to safely handle the case of a job due at the start of the schedule
  (i.e., d[j] = 0).  This mild variation doesn't affect a schedule
  constructed deterministically with the heuristic, as the order of 
- the jobs remains the same.</div>
+ the jobs remains the same. This implementation bounds the minimum
+ value of h at <a href="../../../../../org/cicirello/search/problems/scheduling/EarliestDueDate.html#MIN_H"><code>MIN_H</code></a> in support of stochastic sampling search
+ algorithms, which assume positive heuristic values (i.e., h=0 would
+ cause such algorithms technical problems).</div>
 </li>
 </ul>
 </div>

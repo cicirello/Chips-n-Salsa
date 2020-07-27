@@ -129,5 +129,30 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 			}
 			return s;
 		}
+		
+		/**
+		 * Computes the (non-negative) slackness of a job given the current partial schedule.
+		 * @param element The job whose slackness to compute.
+		 * @return slackness of job element.
+		 */
+		public final int slackPlus(int element) {
+			int s = slack(element);
+			return s > 0 ? s : 0;
+		}
+		
+		/**
+		 * Computes the (non-negative) slackness of a job given the current partial schedule.
+		 * @param element The job whose slackness to compute.
+		 * @param p The partial schedule to evaluate this relative to (needed only for setups).
+		 * @return slackness of job element.
+		 */
+		public final int slackPlus(int element, PartialPermutation p) {
+			int s = slack(element);
+			if (HAS_SETUPS && s > 0) {
+				s -= p.size()==0 ? data.getSetupTime(element) 
+					: data.getSetupTime(p.getLast(), element);
+			}
+			return s > 0 ? s : 0;
+		}
 	}
 }

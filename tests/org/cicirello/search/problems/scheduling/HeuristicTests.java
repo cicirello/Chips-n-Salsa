@@ -131,6 +131,7 @@ public class HeuristicTests {
 		SchedulingHeuristic.IncrementalTimeCalculator inc = (SchedulingHeuristic.IncrementalTimeCalculator)h.createIncrementalEvaluation();
 		for (int i = 0; i < p.length; i++) {
 			assertEquals(e[i], inc.slack(i, partial));
+			assertEquals(e[i], inc.slack(i));
 			inc.extend(partial, i);
 			if (i < partial.numExtensions()) partial.extend(i);
 			else partial.extend(partial.numExtensions()-1);
@@ -148,6 +149,41 @@ public class HeuristicTests {
 		SchedulingHeuristic.IncrementalTimeCalculator inc = (SchedulingHeuristic.IncrementalTimeCalculator)h.createIncrementalEvaluation();
 		for (int i = 0; i < p.length; i++) {
 			assertEquals(e[i], inc.slack(i, partial));
+			inc.extend(partial, i);
+			if (i < partial.numExtensions()) partial.extend(i);
+			else partial.extend(partial.numExtensions()-1);
+		}
+	}
+	
+	@Test
+	public void testSchedulingHeuristicSlackPlus() {
+		int[] w = { 1, 1, 1, 1, 1 };
+		int[] p = { 3, 2, 1, 4, 5 };
+		int[] e = { 7, 5, 4, 0, 0 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 10);
+		WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
+		PartialPermutation partial = new PartialPermutation(e.length);
+		SchedulingHeuristic.IncrementalTimeCalculator inc = (SchedulingHeuristic.IncrementalTimeCalculator)h.createIncrementalEvaluation();
+		for (int i = 0; i < p.length; i++) {
+			assertEquals(e[i], inc.slackPlus(i, partial));
+			assertEquals(e[i], inc.slackPlus(i));
+			inc.extend(partial, i);
+			if (i < partial.numExtensions()) partial.extend(i);
+			else partial.extend(partial.numExtensions()-1);
+		}
+	}
+	
+	@Test
+	public void testSchedulingHeuristicSlackPlusWithSetups() {
+		int[] w = { 1, 1, 1, 1, 1 };
+		int[] p = { 3, 2, 1, 4, 5 };
+		int[] e = { 19, 16, 11, 0, 0 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 29, 7);
+		WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
+		PartialPermutation partial = new PartialPermutation(e.length);
+		SchedulingHeuristic.IncrementalTimeCalculator inc = (SchedulingHeuristic.IncrementalTimeCalculator)h.createIncrementalEvaluation();
+		for (int i = 0; i < p.length; i++) {
+			assertEquals(e[i], inc.slackPlus(i, partial));
 			inc.extend(partial, i);
 			if (i < partial.numExtensions()) partial.extend(i);
 			else partial.extend(partial.numExtensions()-1);

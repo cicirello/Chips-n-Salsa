@@ -38,10 +38,10 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  * its heuristic value is: h(j) = w[j] / p[j], just like in the basic 
  * version.  Otherwise, if the due date hasn't passed yet, then h(j) = 0.
  * This implementation alters this definition slightly as:
- * If job j is already late, then h(j) = max( EPSILON, w[j] / p[j]), 
- * where EPSILON (a class constant)
+ * If job j is already late, then h(j) = max( {@link #MIN_H}, w[j] / p[j]), 
+ * where {@link #MIN_H}
  * is a small non-zero value.  If the job j is not yet late, then
- * h(j) = EPSILON.  For deterministic construction of a 
+ * h(j) = {@link #MIN_H}.  For deterministic construction of a 
  * schedule, this adjustment is unnecessary.  However, for stochastic sampling
  * algorithms it is important for the heuristic to return positive values.
  *
@@ -50,11 +50,6 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  * @version 7.24.2020
  */
 public final class WeightedShortestProcessingTimeLateOnly extends SchedulingHeuristic {
-	
-	/**
-	 * The minimum heuristic value.
-	 */
-	public static final double EPSILON = 0.00001;
 	
 	/**
 	 * Constructs an WeightedShortestProcessingTimeLateOnly heuristic.
@@ -72,12 +67,12 @@ public final class WeightedShortestProcessingTimeLateOnly extends SchedulingHeur
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
 		if (data.getDueDate(element) >= ((IncrementalTimeCalculator)incEval).currentTime) {
-			return EPSILON;
+			return MIN_H;
 		} 
 		double w = data.getWeight(element);
-		if (w <= EPSILON) return EPSILON;
+		if (w <= MIN_H) return MIN_H;
 		double value = w / data.getProcessingTime(element);
-		return value < EPSILON ? EPSILON : value;
+		return value <= MIN_H ? MIN_H : value;
 	}
 	
 	@Override

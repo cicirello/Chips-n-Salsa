@@ -215,6 +215,53 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testATC() {
+		double e = ApparentTardinessCost.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		double pAve = 0;
+		for (int i = 1; i < p.length; i++) {
+			slack[i] = 20-p[i]-p[0];
+			if (slack[i] < 0) slack[i] = 0;
+			pAve += p[i];
+		}
+		pAve /= p.length - 1;
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		//Doesn't really matter: partial.extend(0);
+		// All late tests
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
+		ApparentTardinessCost h = new ApparentTardinessCost(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k default of 2
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new ApparentTardinessCost(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = Math.exp(-0.5*slack[j]/pAve);
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k=4
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new ApparentTardinessCost(problem, 4);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = Math.exp(-0.25*slack[j]/pAve);
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testSchedulingHeuristicIncEvalExtend() {
 		int[] w = { 1, 1, 1, 1, 1 };
 		int[] p = { 3, 2, 1, 4, 5 };

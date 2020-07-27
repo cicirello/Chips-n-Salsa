@@ -155,4 +155,46 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 			return s > 0 ? s : 0;
 		}
 	}
+	
+	/*
+	 * package-private rather than private to enable test case access
+	 */
+	class IncrementalAverageProcessingCalculator extends IncrementalTimeCalculator {
+		
+		// total processing time of remaining jobs
+		private int totalP;
+		
+		// num jobs left
+		private int n;
+		
+		public IncrementalAverageProcessingCalculator() {
+			super();
+			n = data.numberOfJobs();
+			for (int i = 0; i < n; i++) {
+				totalP += data.getProcessingTime(i);
+			}
+		}
+		
+		@Override
+		public void extend(PartialPermutation p, int element) {
+			super.extend(p, element);
+			totalP -= data.getProcessingTime(element);
+			n--;
+		}
+		
+		/**
+		 * Gets the total processing time of unscheduled jobs.
+		 * @return total processing time of unscheduled jobs
+		 */
+		public int totalProcessingTime() { return totalP; }
+		
+		/**
+		 * Gets the average processing time of unscheduled jobs.
+		 * @return average processing time of unscheduled jobs
+		 */
+		public double averageProcessingTime() {
+			return ((double)totalP) / n;
+		}
+	
+	}
 }

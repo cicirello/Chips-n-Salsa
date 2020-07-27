@@ -116,6 +116,45 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testMontagne() {
+		double e = Montagne.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		int pSum = 0;
+		for (int i = 1; i < p.length; i++) pSum += p[i];
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		//Doesn't really matter: partial.extend(0);
+		// All d=0
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
+		Montagne h = new Montagne(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("d=0, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
+		}
+		// All d = pSum
+		problem = new FakeProblemWeightsPTime(w, p, pSum);
+		h = new Montagne(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("d=pSum, j:"+j, e, h.h(partial, j, inc), 1E-10);
+		}
+		// All d = pSum / 2
+		problem = new FakeProblemWeightsPTime(w, p, pSum/2);
+		h = new Montagne(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = 1.0 - pSum/2/(1.0*pSum);
+			double expected = expected0[j]*correction;
+			assertEquals("d=pSum, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testSchedulingHeuristicIncEvalExtend() {
 		int[] w = { 1, 1, 1, 1, 1 };
 		int[] p = { 3, 2, 1, 4, 5 };
@@ -219,6 +258,25 @@ public class HeuristicTests {
 			if (i < partial.numExtensions()) partial.extend(i);
 			else partial.extend(partial.numExtensions()-1);
 		}
+	}
+	
+	@Test
+	public void testSchedulingHeuristicTotalAveragePTime() {
+		int[] w = { 1, 1, 1, 1, 1 };
+		int[] p = { 3, 2, 1, 4, 5 };
+		int[] expectedTotal = { 15, 12, 10, 9, 5 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 10);
+		Montagne h = new Montagne(problem);
+		PartialPermutation partial = new PartialPermutation(expectedTotal.length);
+		SchedulingHeuristic.IncrementalAverageProcessingCalculator inc = (SchedulingHeuristic.IncrementalAverageProcessingCalculator)h.createIncrementalEvaluation();
+		for (int i = 0; i < p.length; i++) {
+			assertEquals(expectedTotal[i], inc.totalProcessingTime());
+			assertEquals(expectedTotal[i]/(p.length-i-0.0), inc.averageProcessingTime(), 1E-10);
+			inc.extend(partial, i);
+			if (i < partial.numExtensions()) partial.extend(i);
+			else partial.extend(partial.numExtensions()-1);
+		}
+		assertEquals(0, inc.totalProcessingTime());
 	}
 	
 	private static class FakeProblemDuedates implements SingleMachineSchedulingProblem {

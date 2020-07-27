@@ -72,12 +72,12 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	}
 	
 	@Override
-	public Problem<Permutation> getProblem() {
+	public final Problem<Permutation> getProblem() {
 		return problem;
 	}
 	
 	@Override
-	public int completePermutationLength() {
+	public final int completePermutationLength() {
 		return data.numberOfJobs();
 	}
 	

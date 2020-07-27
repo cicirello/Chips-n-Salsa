@@ -61,7 +61,7 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	 */
 	final SingleMachineSchedulingProblemData data;
 	
-	private final boolean HAS_SETUPS; 
+	final boolean HAS_SETUPS; 
 	
 	/**
 	 * Initializes the abstract base class for scheduling heuristics.

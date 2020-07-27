@@ -44,6 +44,27 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testMST() {
+		int[] p        = { 2, 4, 3, 5 };
+		int[] duedates = { 3, 8, 5, 2 };
+		double[] expected = { 7, 4, 6, 11};
+		FakeProblemDuedates problem = new FakeProblemDuedates(duedates, p);
+		MinimumSlackTime h = new MinimumSlackTime(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		for (int j = 0; j < duedates.length; j++) {
+			assertEquals(expected[j], h.h(null, j, inc), 1E-10);
+		}
+		
+		PartialPermutation partial = new PartialPermutation(expected.length);
+		problem = new FakeProblemDuedates(duedates, p, 3);
+		h = new MinimumSlackTime(problem);
+		inc = h.createIncrementalEvaluation();
+		for (int j = 0; j < duedates.length; j++) {
+			assertEquals(expected[j]+3, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testWSPT() {
 		double e = WeightedShortestProcessingTime.MIN_H;
 		int highP = (int)Math.ceil(1 / e)*2;
@@ -394,6 +415,15 @@ public class HeuristicTests {
 			data = new FakeProblemData(d);
 		}
 		
+		public FakeProblemDuedates(int[] d, int[] p) {
+			data = new FakeProblemData(d, p, true);
+		}
+		
+		public FakeProblemDuedates(int[] d, int[] p, int s) {
+			data = new FakeProblemData(d, p, true);
+			data.s = s;
+		}
+		
 		@Override
 		public SingleMachineSchedulingProblemData getInstanceData() {
 			return data;
@@ -437,6 +467,16 @@ public class HeuristicTests {
 		
 		public FakeProblemData(int[] d) {
 			this.d = d.clone();
+			s = -1;
+		}
+		
+		public FakeProblemData(int[] d, int[] p, boolean duedates) {
+			if (duedates) {
+				this.d = d.clone();
+				this.p = p.clone();
+			} else {
+				throw new IllegalArgumentException();
+			}
 			s = -1;
 		}
 		

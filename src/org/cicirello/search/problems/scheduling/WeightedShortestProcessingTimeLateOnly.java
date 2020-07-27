@@ -49,7 +49,7 @@ import org.cicirello.search.ss.PartialPermutation;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 7.24.2020
  */
-public final class WeightedShortestProcessingTimeLateOnly extends SchedulingHeuristic {
+public final class WeightedShortestProcessingTimeLateOnly extends WeightedShortestProcessingTime {
 	
 	/**
 	 * Constructs an WeightedShortestProcessingTimeLateOnly heuristic.
@@ -69,10 +69,7 @@ public final class WeightedShortestProcessingTimeLateOnly extends SchedulingHeur
 		if (data.getDueDate(element) >= ((IncrementalTimeCalculator)incEval).currentTime()) {
 			return MIN_H;
 		} 
-		double w = data.getWeight(element);
-		if (w <= MIN_H) return MIN_H;
-		double value = w / data.getProcessingTime(element);
-		return value <= MIN_H ? MIN_H : value;
+		return super.h(p, element, incEval);
 	}
 	
 	@Override

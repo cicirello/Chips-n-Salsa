@@ -39,7 +39,7 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 7.24.2020
  */
-public final class WeightedShortestProcessingTime extends SchedulingHeuristic {
+public class WeightedShortestProcessingTime extends SchedulingHeuristic {
 	
 	/**
 	 * Constructs an WeightedShortestProcessingTime heuristic.

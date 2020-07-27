@@ -58,6 +58,20 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testSPT() {
+		double e = ShortestProcessingTime.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected = { 1, 0.5, 0.25, 0.125, 1, 0.5, 0.25, 0.125, 1, 0.5, 0.25, 0.125, e};
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p);
+		ShortestProcessingTime h = new ShortestProcessingTime(problem);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals(expected[j], h.h(null, j, null), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testWSPT2() {
 		double e = WeightedShortestProcessingTimeLateOnly.MIN_H;
 		int highP = (int)Math.ceil(1 / e)*2;

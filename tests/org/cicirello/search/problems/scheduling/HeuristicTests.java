@@ -96,7 +96,8 @@ public class HeuristicTests {
 		assertEquals(0, inc.currentTime());
 		for (int i = 0; i < p.length; i++) {
 			inc.extend(partial, i);
-			partial.extend(0);
+			if (i < partial.numExtensions()) partial.extend(i);
+			else partial.extend(partial.numExtensions()-1);
 			assertEquals(e[i], inc.currentTime());
 		}
 	}
@@ -105,8 +106,26 @@ public class HeuristicTests {
 	public void testSchedulingHeuristicIncEvalExtendWithSetups() {
 		int[] w = { 1, 1, 1, 1, 1 };
 		int[] p = { 3, 2, 1, 4, 5 };
-		int[] e = { 10, 13, 16, 23, 32 };
+		int[] e = { 10, 13, 18, 29, 44 };
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 7);
+		WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
+		PartialPermutation partial = new PartialPermutation(e.length);
+		SchedulingHeuristic.IncrementalTimeCalculator inc = (SchedulingHeuristic.IncrementalTimeCalculator)h.createIncrementalEvaluation();
+		assertEquals(0, inc.currentTime());
+		for (int i = 0; i < p.length; i++) {
+			inc.extend(partial, i);
+			if (i < partial.numExtensions()) partial.extend(i);
+			else partial.extend(partial.numExtensions()-1);
+			assertEquals(e[i], inc.currentTime());
+		}
+	}
+	
+	//@Test
+	public void testSchedulingHeuristicSlack() {
+		int[] w = { 1, 1, 1, 1, 1 };
+		int[] p = { 3, 2, 1, 4, 5 };
+		int[] e = { 3, 5, 6, 10, 15 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
 		PartialPermutation partial = new PartialPermutation(e.length);
 		SchedulingHeuristic.IncrementalTimeCalculator inc = (SchedulingHeuristic.IncrementalTimeCalculator)h.createIncrementalEvaluation();
@@ -199,7 +218,7 @@ public class HeuristicTests {
 		@Override public boolean hasWeights() { return w != null; }
 		@Override public int getWeight(int j) { return w[j]; }
 		@Override public int getSetupTime(int j) { return s; }
-		@Override public int getSetupTime(int i, int j) { return j; }
+		@Override public int getSetupTime(int i, int j) { return 2*i + j; }
 		@Override public boolean hasSetupTimes() { return s > 0; }
 	}	
 }

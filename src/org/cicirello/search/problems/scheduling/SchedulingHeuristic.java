@@ -114,5 +114,20 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 		public final int slack(int element) {
 			return data.getDueDate(element) - currentTime - data.getProcessingTime(element);
 		}
+		
+		/**
+		 * Computes the slackness of a job given the current partial schedule.
+		 * @param element The job whose slackness to compute.
+		 * @param p The partial schedule to evaluate this relative to (needed only for setups).
+		 * @return slackness of job element.
+		 */
+		public final int slack(int element, PartialPermutation p) {
+			int s = slack(element);
+			if (HAS_SETUPS) {
+				s -= p.size()==0 ? data.getSetupTime(element) 
+					: data.getSetupTime(p.getLast(), element);
+			}
+			return s;
+		}
 	}
 }

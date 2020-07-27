@@ -27,9 +27,9 @@ import org.cicirello.search.ss.PartialPermutation;
 /**
  * <p>This is an implementation of Montagne's heuristic
  * heuristic.  This heuristic is defined as:
- * h(j) = (w[j]/p[j])(1 - (d[j]/&sigma;<sub>i</sub>p[i]),
+ * h(j) = (w[j]/p[j])(1 - (d[j]/&Sigma;<sub>i</sub>p[i]),
  * where w[j] is the weight of job j, p[j] is its processing time,
- * and d[j] is job j's due date.  The &sigma;<sub>i</sub>p[i] is
+ * and d[j] is job j's due date.  The &Sigma;<sub>i</sub>p[i] is
  * the sum of the processing times of the remaining unscheduled jobs.</p>  
  *
  * <p>The constant {@link #MIN_H} defines the minimum value

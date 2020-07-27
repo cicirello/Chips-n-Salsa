@@ -21,8 +21,8 @@
 package org.cicirello.search.problems.scheduling;
 
 import org.cicirello.permutations.Permutation;
-import org.cicirello.search.ss.PartialPermutation;
 import org.cicirello.search.ss.IncrementalEvaluation;
+import org.cicirello.search.ss.PartialPermutation;
 
 /**
  * This is an implementation of the weighted shortest process time
@@ -66,7 +66,7 @@ public final class WeightedShortestProcessingTimeLateOnly extends SchedulingHeur
 	
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
-		if (data.getDueDate(element) >= ((IncrementalTimeCalculator)incEval).currentTime) {
+		if (data.getDueDate(element) >= ((IncrementalTimeCalculator)incEval).currentTime()) {
 			return MIN_H;
 		} 
 		double w = data.getWeight(element);
@@ -80,22 +80,4 @@ public final class WeightedShortestProcessingTimeLateOnly extends SchedulingHeur
 		return new IncrementalTimeCalculator();
 	}
 	
-	/*
-	 * package-private rather than private to enable test case access
-	 */
-	final class IncrementalTimeCalculator implements IncrementalEvaluation {
-		
-		private int currentTime;
-				
-		@Override
-		public void extend(PartialPermutation p, int element) {
-			currentTime += data.getProcessingTime(element);
-			if (data.hasSetupTimes()) {
-				currentTime += p.size()==0 ? data.getSetupTime(element) 
-					: data.getSetupTime(p.getLast(), element); 
-			}
-		}
-		
-		public int currentTime() { return currentTime; }
-	}
 }

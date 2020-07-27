@@ -85,14 +85,14 @@ public class HeuristicTests {
 	}
 	
 	@Test
-	public void testWSPT2IncEvalExtend() {
+	public void testSchedulingHeuristicIncEvalExtend() {
 		int[] w = { 1, 1, 1, 1, 1 };
 		int[] p = { 3, 2, 1, 4, 5 };
 		int[] e = { 3, 5, 6, 10, 15 };
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
 		PartialPermutation partial = new PartialPermutation(e.length);
-		WeightedShortestProcessingTimeLateOnly.IncrementalTimeCalculator inc = (WeightedShortestProcessingTimeLateOnly.IncrementalTimeCalculator)h.createIncrementalEvaluation();
+		SchedulingHeuristic.IncrementalTimeCalculator inc = (SchedulingHeuristic.IncrementalTimeCalculator)h.createIncrementalEvaluation();
 		assertEquals(0, inc.currentTime());
 		for (int i = 0; i < p.length; i++) {
 			inc.extend(partial, i);
@@ -102,14 +102,14 @@ public class HeuristicTests {
 	}
 	
 	@Test
-	public void testWSPT2IncEvalExtendWithSetups() {
+	public void testSchedulingHeuristicIncEvalExtendWithSetups() {
 		int[] w = { 1, 1, 1, 1, 1 };
 		int[] p = { 3, 2, 1, 4, 5 };
 		int[] e = { 10, 13, 16, 23, 32 };
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 7);
 		WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
 		PartialPermutation partial = new PartialPermutation(e.length);
-		WeightedShortestProcessingTimeLateOnly.IncrementalTimeCalculator inc = (WeightedShortestProcessingTimeLateOnly.IncrementalTimeCalculator)h.createIncrementalEvaluation();
+		SchedulingHeuristic.IncrementalTimeCalculator inc = (SchedulingHeuristic.IncrementalTimeCalculator)h.createIncrementalEvaluation();
 		assertEquals(0, inc.currentTime());
 		for (int i = 0; i < p.length; i++) {
 			inc.extend(partial, i);

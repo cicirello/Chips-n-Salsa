@@ -23,6 +23,8 @@ package org.cicirello.search.problems.scheduling;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ss.ConstructiveHeuristic;
 import org.cicirello.search.problems.Problem;
+import org.cicirello.search.ss.IncrementalEvaluation;
+import org.cicirello.search.ss.PartialPermutation;
 
 /**
  * This class serves as an abstract base class for the
@@ -77,5 +79,24 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	@Override
 	public int completePermutationLength() {
 		return data.numberOfJobs();
+	}
+	
+	/*
+	 * package-private rather than private to enable test case access
+	 */
+	class IncrementalTimeCalculator implements IncrementalEvaluation {
+		
+		private int currentTime;
+				
+		@Override
+		public void extend(PartialPermutation p, int element) {
+			currentTime += data.getProcessingTime(element);
+			if (data.hasSetupTimes()) {
+				currentTime += p.size()==0 ? data.getSetupTime(element) 
+					: data.getSetupTime(p.getLast(), element); 
+			}
+		}
+		
+		public final int currentTime() { return currentTime; }
 	}
 }

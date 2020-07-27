@@ -36,6 +36,17 @@ import org.cicirello.search.problems.Problem;
  */
 abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	
+	/**
+	 * The minimum heuristic value.  If the heuristic value
+	 * as calculated is lower than MIN_H, then MIN_H is used as
+	 * the heuristic value.  The reason is related to the
+	 * primary purpose of the constructive heuristics in the library:
+	 * heuristic guidance for stochastic sampling algorithms, which
+	 * assume positive heuristic values (e.g., an h of 0 would be
+	 * problematic).
+	 */
+	public static final double MIN_H = 0.00001;
+	
 	/** 
 	 * The instance of the scheduling problem that is the target
 	 * of the heuristic. 

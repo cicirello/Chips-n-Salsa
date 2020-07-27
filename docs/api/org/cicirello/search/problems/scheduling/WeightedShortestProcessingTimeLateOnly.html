@@ -156,6 +156,12 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <div class="block">The minimum heuristic value.</div>
 </td>
 </tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static double</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html#MIN_H">MIN_H</a></span></code>
+<div class="block">The minimum heuristic value.</div>
+</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -247,7 +253,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <a name="EPSILON">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>EPSILON</h4>
 <pre>public static final&nbsp;double EPSILON</pre>
@@ -255,6 +261,26 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../constant-values.html#org.cicirello.search.problems.scheduling.WeightedShortestProcessingTimeLateOnly.EPSILON">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a name="MIN_H">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>MIN_H</h4>
+<pre>public static final&nbsp;double MIN_H</pre>
+<div class="block">The minimum heuristic value.  If the heuristic value
+ as calculated is lower than MIN_H, then MIN_H is used as
+ the heuristic value.  The reason is related to the
+ primary purpose of the constructive heuristics in the library:
+ heuristic guidance for stochastic sampling algorithms, which
+ assume positive heuristic values (e.g., an h of 0 would be
+ problematic).</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../constant-values.html#org.cicirello.search.problems.scheduling.WeightedShortestProcessingTimeLateOnly.MIN_H">Constant Field Values</a></dd>
 </dl>
 </li>
 </ul>

@@ -66,7 +66,7 @@ public final class WeightedShortestProcessingTimeLateOnly extends WeightedShorte
 	
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
-		if (data.getDueDate(element) >= ((IncrementalTimeCalculator)incEval).currentTime()) {
+		if (((IncrementalTimeCalculator)incEval).slack(element) >= 0) {
 			return MIN_H;
 		} 
 		return super.h(p, element, incEval);

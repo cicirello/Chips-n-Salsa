@@ -61,6 +61,8 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	 */
 	final SingleMachineSchedulingProblemData data;
 	
+	private final boolean HAS_SETUPS; 
+	
 	/**
 	 * Initializes the abstract base class for scheduling heuristics.
 	 * @param problem The instance of a scheduling problem that is the target
@@ -69,6 +71,7 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	public SchedulingHeuristic(SingleMachineSchedulingProblem problem) {
 		this.problem = problem;
 		data = problem.getInstanceData();
+		HAS_SETUPS = data.hasSetupTimes();
 	}
 	
 	@Override
@@ -91,12 +94,25 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 		@Override
 		public void extend(PartialPermutation p, int element) {
 			currentTime += data.getProcessingTime(element);
-			if (data.hasSetupTimes()) {
+			if (HAS_SETUPS) {
 				currentTime += p.size()==0 ? data.getSetupTime(element) 
 					: data.getSetupTime(p.getLast(), element); 
 			}
 		}
 		
+		/**
+		 * Gets the current time at the end of the current partial schedule.
+		 * @return current time
+		 */
 		public final int currentTime() { return currentTime; }
+		
+		/**
+		 * Computes the slackness of a job given the current partial schedule.
+		 * @param element The job whose slackness to compute.
+		 * @return slackness of job element.
+		 */
+		public final int slack(int element) {
+			return data.getDueDate(element) - currentTime - data.getProcessingTime(element);
+		}
 	}
 }

@@ -34,7 +34,7 @@ import org.cicirello.search.problems.Problem;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 7.24.2020
  */
-public abstract class SchedulingHeuristic implements ConstructiveHeuristic {
+abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	
 	/** 
 	 * The instance of the scheduling problem that is the target

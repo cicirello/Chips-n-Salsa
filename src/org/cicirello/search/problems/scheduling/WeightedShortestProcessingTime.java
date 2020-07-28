@@ -41,6 +41,8 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  */
 public class WeightedShortestProcessingTime extends SchedulingHeuristic {
 	
+	private final double[] h;
+	
 	/**
 	 * Constructs an WeightedShortestProcessingTime heuristic.
 	 * @param problem The instance of a scheduling problem that is
@@ -48,13 +50,20 @@ public class WeightedShortestProcessingTime extends SchedulingHeuristic {
 	 */
 	public WeightedShortestProcessingTime(SingleMachineSchedulingProblem problem) {
 		super(problem);
+		// pre-compute h and cache results.
+		h = new double[data.numberOfJobs()];
+		for (int i = 0; i < h.length; i++) {
+			h[i] = data.getWeight(i);
+			if (h[i] < MIN_H) h[i] = MIN_H;
+			else {
+				h[i] /= data.getProcessingTime(i);
+				if (h[i] < MIN_H) h[i] = MIN_H;
+			}
+		}
 	}
 	
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
-		double w = data.getWeight(element);
-		if (w <= MIN_H) return MIN_H;
-		double value = w / data.getProcessingTime(element);
-		return value <= MIN_H ? MIN_H : value;
+		return h[element];
 	}
 }

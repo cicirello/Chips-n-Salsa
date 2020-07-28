@@ -79,6 +79,37 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testSmallestSetup() {
+		double e = SmallestSetup.MIN_H;
+		int highS = (int)Math.ceil(1 / e)*2;
+		int[][] s = {
+			{highS, highS, highS, highS, highS},
+			{1, 1, 7, 3, 1},
+			{1, 1, 1, 1, 1},
+			{1, 1, 1, 1, 1},
+			{0, 1, 3, 7, 15}
+		};
+		int[] w =    { 7, 8, 2, 10, 4};
+		int[] p =    { 2, 5, 9, 2, 10};
+		double[] expected = { 1, 0.5, 0.25, 0.125, 0.0625 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, s);
+		SmallestSetup h = new SmallestSetup(problem);
+		PartialPermutation partial = new PartialPermutation(expected.length);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
+		partial.extend(0);
+		for (int j = 1; j < expected.length; j++) {
+			assertEquals(e, h.h(partial, j, null), 1E-10);
+		}
+		partial.extend(1);
+		double[] expected2 = { 999, 999, 0.125, 0.25, 0.5 };
+		for (int j = 2; j < expected.length; j++) {
+			assertEquals(expected2[j], h.h(partial, j, null), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testWSPTSetupAdjusted() {
 		double e = WeightedShortestProcessingPlusSetupTime.MIN_H;
 		int highP = (int)Math.ceil(1 / e)*2;
@@ -771,6 +802,10 @@ public class HeuristicTests {
 			data = new FakeProblemData(w, p, d, s);
 		}
 		
+		public FakeProblemWeightsPTime(int[] w, int[] p, int d, int[][] s) {
+			data = new FakeProblemDataSetups(w, p, d, s);
+		}
+		
 		@Override
 		public SingleMachineSchedulingProblemData getInstanceData() {
 			return data;
@@ -778,6 +813,20 @@ public class HeuristicTests {
 		
 		@Override public int cost(Permutation p) { return 10; }
 		@Override public int value(Permutation p) { return 10; }
+	}
+	
+	private static class FakeProblemDataSetups extends FakeProblemData {
+		private int[][] s;
+		public FakeProblemDataSetups(int[] w, int[] p, int d, int[][] s) {
+			super(w, p, d);
+			this.s = new int[s.length][];
+			for (int i = 0; i < s.length; i++) {
+				this.s[i] = s[i].clone();
+			}
+		}
+		@Override public int getSetupTime(int j) { return s[s.length-1][j]; }
+		@Override public int getSetupTime(int i, int j) { return s[i][j]; }
+		@Override public boolean hasSetupTimes() { return true; }
 	}
 	
 	private static class FakeProblemData implements SingleMachineSchedulingProblemData {

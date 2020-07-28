@@ -41,6 +41,8 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  */
 public class ShortestProcessingTime extends SchedulingHeuristic {
 	
+	private final double[] h;
+	
 	/**
 	 * Constructs an ShortestProcessingTime heuristic.
 	 * @param problem The instance of a scheduling problem that is
@@ -48,11 +50,16 @@ public class ShortestProcessingTime extends SchedulingHeuristic {
 	 */
 	public ShortestProcessingTime(SingleMachineSchedulingProblem problem) {
 		super(problem);
+		// pre-compute h and cache results.
+		h = new double[data.numberOfJobs()];
+		for (int i = 0; i < h.length; i++) {
+			h[i] = 1.0 / data.getProcessingTime(i);
+			if (h[i] < MIN_H) h[i] = MIN_H;
+		}
 	}
 	
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
-		double value = 1.0 / data.getProcessingTime(element);
-		return value <= MIN_H ? MIN_H : value;
+		return h[element];
 	}
 }

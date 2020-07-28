@@ -350,6 +350,98 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testCOVERTSetupAdjustedS0() {
+		double e = WeightedCostOverTimeSetupAdjusted.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		for (int i = 1; i < p.length; i++) {
+			slack[i] = 20-p[i]-p[0];
+			if (slack[i] < 0) slack[i] = 0;
+		}
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		//Doesn't really matter: partial.extend(0);
+		// All late tests
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
+		WeightedCostOverTimeSetupAdjusted h = new WeightedCostOverTimeSetupAdjusted(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k default of 2
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new WeightedCostOverTimeSetupAdjusted(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = 1.0 - 0.5 * slack[j] / p[j];
+			if (correction <= 0) correction = 0;
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k=4
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new WeightedCostOverTimeSetupAdjusted(problem, 4);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = 1.0 - 0.25 * slack[j] / p[j];
+			if (correction <= 0) correction = 0;
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testCOVERTSetupAdjustedS1() {
+		double e = WeightedCostOverTimeSetupAdjusted.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 0, 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP-1};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		for (int i = 1; i < p.length; i++) {
+			slack[i] = 20-p[i]-p[0]-2;
+			if (slack[i] < 0) slack[i] = 0;
+		}
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		//Doesn't really matter: partial.extend(0);
+		// All late tests
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 1);
+		WeightedCostOverTimeSetupAdjusted h = new WeightedCostOverTimeSetupAdjusted(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k default of 2
+		problem = new FakeProblemWeightsPTime(w, p, 20, 1);
+		h = new WeightedCostOverTimeSetupAdjusted(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = 1.0 - 0.5 * slack[j] / (1+p[j]);
+			if (correction <= 0) correction = 0;
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k=4
+		problem = new FakeProblemWeightsPTime(w, p, 20, 1);
+		h = new WeightedCostOverTimeSetupAdjusted(problem, 4);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = 1.0 - 0.25 * slack[j] / (1+p[j]);
+			if (correction <= 0) correction = 0;
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testATC() {
 		double e = ApparentTardinessCost.MIN_H;
 		int highP = (int)Math.ceil(1 / e)*2;

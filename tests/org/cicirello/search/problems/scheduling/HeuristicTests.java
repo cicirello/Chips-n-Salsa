@@ -142,6 +142,49 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testWSPT2SetupAdjusted() {
+		double e = WeightedShortestProcessingPlusSetupTimeLateOnly.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		PartialPermutation partial = new PartialPermutation(expected.length);
+		//Doesn't really matter: partial.extend(0);
+		// All late tests
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
+		WeightedShortestProcessingPlusSetupTimeLateOnly h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected.length; j++) {
+			assertEquals("j:"+j, expected[j], h.h(partial, j, inc), 1E-10);
+		}
+		// All on time tests
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected.length; j++) {
+			assertEquals(e, h.h(partial, j, inc), 1E-10);
+		}
+		// Repeat with setups
+		int[] ps =    { 0, 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP-1};
+		problem = new FakeProblemWeightsPTime(w, ps, 0, 1);
+		h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected.length; j++) {
+			assertEquals("j:"+j, expected[j], h.h(partial, j, inc), 1E-10);
+		}
+		problem = new FakeProblemWeightsPTime(w, ps, 20, 1);
+		h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected.length; j++) {
+			assertEquals(e, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testWeightedCriticalRatio() {
 		double e = WeightedCriticalRatio.MIN_H;
 		int highP = (int)Math.ceil(1 / e)*2;

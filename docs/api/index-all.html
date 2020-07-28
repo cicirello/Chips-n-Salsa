@@ -490,6 +490,8 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedCriticalRatio.html#createIncrementalEvaluation--">createIncrementalEvaluation()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedCriticalRatio.html" title="class in org.cicirello.search.problems.scheduling">WeightedCriticalRatio</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingPlusSetupTimeLateOnly.html#createIncrementalEvaluation--">createIncrementalEvaluation()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingPlusSetupTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTimeLateOnly</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html#createIncrementalEvaluation--">createIncrementalEvaluation()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTimeLateOnly</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/ConstructiveHeuristic.html#createIncrementalEvaluation--">createIncrementalEvaluation()</a></span> - Method in interface org.cicirello.search.ss.<a href="org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></dt>
@@ -1145,6 +1147,8 @@
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedCriticalRatio.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h(PartialPermutation, int, IncrementalEvaluation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedCriticalRatio.html" title="class in org.cicirello.search.problems.scheduling">WeightedCriticalRatio</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingPlusSetupTime.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h(PartialPermutation, int, IncrementalEvaluation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingPlusSetupTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTime</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingPlusSetupTimeLateOnly.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h(PartialPermutation, int, IncrementalEvaluation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingPlusSetupTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTimeLateOnly</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h(PartialPermutation, int, IncrementalEvaluation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTime</a></dt>
 <dd>&nbsp;</dd>
@@ -3401,6 +3405,17 @@
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingPlusSetupTime.html#WeightedShortestProcessingPlusSetupTime-org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblem-">WeightedShortestProcessingPlusSetupTime(SingleMachineSchedulingProblem)</a></span> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingPlusSetupTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTime</a></dt>
 <dd>
 <div class="block">Constructs an WeightedShortestProcessingPlusSetupTime heuristic.</div>
+</dd>
+<dt><a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingPlusSetupTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling"><span class="typeNameLink">WeightedShortestProcessingPlusSetupTimeLateOnly</span></a> - Class in <a href="org/cicirello/search/problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a></dt>
+<dd>
+<div class="block">This class implements a variation the weighted shortest process time
+ heuristic with non-zero heuristic values only for late jobs, 
+ but adjusted to incorporate setups times for problems with
+ sequence-dependent setups.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingPlusSetupTimeLateOnly.html#WeightedShortestProcessingPlusSetupTimeLateOnly-org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblem-">WeightedShortestProcessingPlusSetupTimeLateOnly(SingleMachineSchedulingProblem)</a></span> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingPlusSetupTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTimeLateOnly</a></dt>
+<dd>
+<div class="block">Constructs an WeightedShortestProcessingPlusSetupTimeLateOnly heuristic.</div>
 </dd>
 <dt><a href="org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling"><span class="typeNameLink">WeightedShortestProcessingTime</span></a> - Class in <a href="org/cicirello/search/problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a></dt>
 <dd>

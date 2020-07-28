@@ -464,10 +464,12 @@ public class HeuristicTests {
 		private int[] w;
 		private int[] p;
 		private int s;
+		private int n;
 		
 		public FakeProblemData(int[] d) {
 			this.d = d.clone();
 			s = -1;
+			n = d.length;
 		}
 		
 		public FakeProblemData(int[] d, int[] p, boolean duedates) {
@@ -478,12 +480,14 @@ public class HeuristicTests {
 				throw new IllegalArgumentException();
 			}
 			s = -1;
+			n = d.length;
 		}
 		
 		public FakeProblemData(int[] w, int[] p) {
 			this.w = w.clone();
 			this.p = p.clone();
 			s = -1;
+			n = p.length;
 		}
 		
 		public FakeProblemData(int[] w, int[] p, int d) {
@@ -492,14 +496,16 @@ public class HeuristicTests {
 			this.d = new int[w.length];
 			for (int i = 0; i < this.d.length; i++) this.d[i] = d;
 			s = -1;
+			n = p.length;
 		}
 		
 		public FakeProblemData(int[] w, int[] p, int d, int s) {
 			this(w, p, d);
 			this.s = s;
+			n = p.length;
 		}
 		
-		@Override public int numberOfJobs() { return d.length; }
+		@Override public int numberOfJobs() { return n; }
 		@Override public int getProcessingTime(int j) { return p==null? 0: p[j]; }
 		@Override public int[] getCompletionTimes(Permutation schedule) { return null; }
 		@Override public boolean hasDueDates() { return d != null; }

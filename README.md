@@ -111,4 +111,4 @@ The Chips-n-Salsa library is licensed under the [GNU General Public License 3.0]
 
 ## Contribute
 
-Report bugs, suggestions, feature requests, etc via the [issues tracker](https://github.com/cicirello/Chips-n-Salsa/issues). If you would like to directly contribute new code, you may also fork the repository, and create pull requests.  All code contributions must include JUnit tests, and all existing JUnit tests must pass for your code contribution to be accepted.  If your code contribution is a bug-fix, then you must include JUnit tests that recreate the bug prior to your fix, and which pass afterwards.
+If you would like to contribute to Chips-n-Salsa in any way, such as reporting bugs, suggesting new functionality, or code contributions such as bug fixes or implementations of new functionality, then start by reading the [contribution guidelines](CONTRIBUTING.md).

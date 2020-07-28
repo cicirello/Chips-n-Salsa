@@ -57,6 +57,7 @@ import org.cicirello.search.ss.PartialPermutation;
 public final class MinimumSlackTime extends SchedulingHeuristic {
 	
 	private final int DMAX;
+	private final double[] h;
 	
 	/**
 	 * Constructs an MinimumSlackTime heuristic.
@@ -70,16 +71,22 @@ public final class MinimumSlackTime extends SchedulingHeuristic {
 			throw new IllegalArgumentException("This heuristic requires due dates.");
 		}
 		DMAX = computeDMax();
+		// pre-compute static portion of h
+		h = new double[data.numberOfJobs()];
+		for (int i = 0; i < h.length; i++) {
+			h[i] = DMAX + data.getProcessingTime(i) - data.getDueDate(i);
+		}
 	}
 	
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
-		double value = DMAX + data.getProcessingTime(element) - data.getDueDate(element);
 		if (HAS_SETUPS) {
-			value += p.size()==0 ? data.getSetupTime(element) 
-					: data.getSetupTime(p.getLast(), element);
+			return h[element] 
+					+ (p.size()==0 ? data.getSetupTime(element) 
+					: data.getSetupTime(p.getLast(), element));
+		} else {
+			return h[element];
 		}
-		return value;
 	}
 	
 	private int computeDMax() {

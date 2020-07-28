@@ -23,6 +23,8 @@ package org.cicirello.search.problems.scheduling;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ss.ConstructiveHeuristic;
 import org.cicirello.search.problems.Problem;
+import org.cicirello.search.ss.IncrementalEvaluation;
+import org.cicirello.search.ss.PartialPermutation;
 
 /**
  * This class serves as an abstract base class for the
@@ -34,7 +36,18 @@ import org.cicirello.search.problems.Problem;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 7.24.2020
  */
-public abstract class SchedulingHeuristic implements ConstructiveHeuristic {
+abstract class SchedulingHeuristic implements ConstructiveHeuristic {
+	
+	/**
+	 * The minimum heuristic value.  If the heuristic value
+	 * as calculated is lower than MIN_H, then MIN_H is used as
+	 * the heuristic value.  The reason is related to the
+	 * primary purpose of the constructive heuristics in the library:
+	 * heuristic guidance for stochastic sampling algorithms, which
+	 * assume positive heuristic values (e.g., an h of 0 would be
+	 * problematic).
+	 */
+	public static final double MIN_H = 0.00001;
 	
 	/** 
 	 * The instance of the scheduling problem that is the target
@@ -48,6 +61,8 @@ public abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	 */
 	final SingleMachineSchedulingProblemData data;
 	
+	final boolean HAS_SETUPS; 
+	
 	/**
 	 * Initializes the abstract base class for scheduling heuristics.
 	 * @param problem The instance of a scheduling problem that is the target
@@ -56,15 +71,130 @@ public abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	public SchedulingHeuristic(SingleMachineSchedulingProblem problem) {
 		this.problem = problem;
 		data = problem.getInstanceData();
+		HAS_SETUPS = data.hasSetupTimes();
 	}
 	
 	@Override
-	public Problem<Permutation> getProblem() {
+	public final Problem<Permutation> getProblem() {
 		return problem;
 	}
 	
 	@Override
-	public int completePermutationLength() {
+	public final int completePermutationLength() {
 		return data.numberOfJobs();
+	}
+	
+	/*
+	 * package-private rather than private to enable test case access
+	 */
+	class IncrementalTimeCalculator implements IncrementalEvaluation {
+		
+		private int currentTime;
+				
+		@Override
+		public void extend(PartialPermutation p, int element) {
+			currentTime += data.getProcessingTime(element);
+			if (HAS_SETUPS) {
+				currentTime += p.size()==0 ? data.getSetupTime(element) 
+					: data.getSetupTime(p.getLast(), element); 
+			}
+		}
+		
+		/**
+		 * Gets the current time at the end of the current partial schedule.
+		 * @return current time
+		 */
+		public final int currentTime() { return currentTime; }
+		
+		/**
+		 * Computes the slackness of a job given the current partial schedule.
+		 * @param element The job whose slackness to compute.
+		 * @return slackness of job element.
+		 */
+		public final int slack(int element) {
+			return data.getDueDate(element) - currentTime - data.getProcessingTime(element);
+		}
+		
+		/**
+		 * Computes the slackness of a job given the current partial schedule.
+		 * @param element The job whose slackness to compute.
+		 * @param p The partial schedule to evaluate this relative to (needed only for setups).
+		 * @return slackness of job element.
+		 */
+		public final int slack(int element, PartialPermutation p) {
+			int s = slack(element);
+			if (HAS_SETUPS) {
+				s -= p.size()==0 ? data.getSetupTime(element) 
+					: data.getSetupTime(p.getLast(), element);
+			}
+			return s;
+		}
+		
+		/**
+		 * Computes the (non-negative) slackness of a job given the current partial schedule.
+		 * @param element The job whose slackness to compute.
+		 * @return slackness of job element.
+		 */
+		public final int slackPlus(int element) {
+			int s = slack(element);
+			return s > 0 ? s : 0;
+		}
+		
+		/**
+		 * Computes the (non-negative) slackness of a job given the current partial schedule.
+		 * @param element The job whose slackness to compute.
+		 * @param p The partial schedule to evaluate this relative to (needed only for setups).
+		 * @return slackness of job element.
+		 */
+		public final int slackPlus(int element, PartialPermutation p) {
+			int s = slack(element);
+			if (HAS_SETUPS && s > 0) {
+				s -= p.size()==0 ? data.getSetupTime(element) 
+					: data.getSetupTime(p.getLast(), element);
+			}
+			return s > 0 ? s : 0;
+		}
+	}
+	
+	/*
+	 * package-private rather than private to enable test case access
+	 */
+	class IncrementalAverageProcessingCalculator extends IncrementalTimeCalculator {
+		
+		// total processing time of remaining jobs
+		private int totalP;
+		
+		// num jobs left
+		private int n;
+		
+		public IncrementalAverageProcessingCalculator() {
+			super();
+			n = data.numberOfJobs();
+			for (int i = 0; i < n; i++) {
+				totalP += data.getProcessingTime(i);
+			}
+		}
+		
+		@Override
+		public void extend(PartialPermutation p, int element) {
+			super.extend(p, element);
+			totalP -= data.getProcessingTime(element);
+			n--;
+		}
+		
+		/**
+		 * Gets the total processing time of unscheduled jobs.
+		 * @return total processing time of unscheduled jobs
+		 */
+		public int totalProcessingTime() { return totalP; }
+		
+		/**
+		 * Gets the average processing time of unscheduled jobs.
+		 * @return average processing time of unscheduled jobs
+		 */
+		public double averageProcessingTime() {
+			return ((double)totalP) / n;
+		}
+	
 	}
 }

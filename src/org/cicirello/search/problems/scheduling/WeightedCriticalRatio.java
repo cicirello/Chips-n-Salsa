@@ -25,39 +25,41 @@ import org.cicirello.search.ss.IncrementalEvaluation;
 import org.cicirello.search.ss.PartialPermutation;
 
 /**
- * This is an implementation of the weighted shortest process time
- * heuristic.  
- * There are two variations of the weighted shortest processing time
- * heuristic.  The basic form (implemented in {@link WeightedShortestProcessingTime})
- * is defined as: 
- * h(j) = w[j] / p[j],
- * where w[j] is the weight of job j, and p[j] is its processing time.
- * However, for some scheduling cost functions, performance is improved
- * if the heuristic is modified as follows.  If the job j is already late
- * (i.e., its due date d[j] &lt; T, where T is the current time), then
- * its heuristic value is: h(j) = w[j] / p[j], just like in the basic 
- * version.  Otherwise, if the due date hasn't passed yet, then h(j) = 0.
- * This implementation alters this definition slightly as:
- * If job j is already late, then h(j) = max( {@link #MIN_H}, w[j] / p[j]), 
- * where {@link #MIN_H}
- * is a small non-zero value.  If the job j is not yet late, then
- * h(j) = {@link #MIN_H}.  For deterministic construction of a 
- * schedule, this adjustment is unnecessary.  However, for stochastic sampling
- * algorithms it is important for the heuristic to return positive values.
+ * <p>This is an implementation of a variation of the weighted critical ratio
+ * heuristic.  The usual definition of this heuristic is:
+ * h(j) = (w[j]/p[j])(1/(1+S(j)/p[j])),
+ * where w[j] is the weight of job j, p[j] is its processing time,
+ * and S(j) is a calculation of the slack of job j where slack S(j)
+ * is d[j] - T - p[j] - s[j].  The d[j] is the job's due date, T is the
+ * current time, and s[j] is any setup time of the job (for problems with
+ * setup times).</p>  
+ *
+ * <p>Historically, this heuristic has been criticized for
+ * allowing negative evaluations (i.e., slack S(j) is negative for jobs
+ * completing late).  Additionally, this library's use of constructive
+ * heuristics is for stochastic sampling, for which we require positive
+ * heuristic values.  Therefore, we have altered the definition as 
+ * follows: h(j) = (w[j]/p[j])(1/(1+max(0,S(j))/p[j])).</p>
+ *
+ * <p>Furthermore, the constant {@link #MIN_H} defines the minimum value
+ * the heuristic will return, preventing h(j)=0 in support of stochastic
+ * sampling algorithms for which h(j)=0 is problematic.  This implementation 
+ * returns max( {@link #MIN_H}, h(j)), where {@link #MIN_H}
+ * is a small non-zero value.</p>  
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.24.2020
+ * @version 7.27.2020
  */
-public final class WeightedShortestProcessingTimeLateOnly extends WeightedShortestProcessingTime {
+public final class WeightedCriticalRatio extends WeightedShortestProcessingTime {
 	
 	/**
-	 * Constructs an WeightedShortestProcessingTimeLateOnly heuristic.
+	 * Constructs an WeightedCriticalRatio heuristic.
 	 * @param problem The instance of a scheduling problem that is
 	 * the target of the heuristic.
 	 * @throws IllegalArgumentException if problem.hasDueDates() returns false.
 	 */
-	public WeightedShortestProcessingTimeLateOnly(SingleMachineSchedulingProblem problem) {
+	public WeightedCriticalRatio(SingleMachineSchedulingProblem problem) {
 		super(problem);
 		if (!data.hasDueDates()) {
 			throw new IllegalArgumentException("This heuristic requires due dates.");
@@ -66,10 +68,15 @@ public final class WeightedShortestProcessingTimeLateOnly extends WeightedShorte
 	
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
-		if (((IncrementalTimeCalculator)incEval).slack(element, p) >= 0) {
-			return MIN_H;
-		} 
-		return super.h(p, element, incEval);
+		double value = super.h(p, element, incEval);
+		if (value > MIN_H) {
+			double s = ((IncrementalTimeCalculator)incEval).slack(element, p);
+			if (s > 0) {
+				value /= (1.0 + s / data.getProcessingTime(element));
+				return value <= MIN_H ? MIN_H : value;
+			}
+		}		
+		return value;
 	}
 	
 	@Override

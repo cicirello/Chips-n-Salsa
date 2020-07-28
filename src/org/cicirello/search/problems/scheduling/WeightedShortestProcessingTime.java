@@ -29,7 +29,7 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  * heuristic.  This heuristic is usually defined as: h(j) = w[j] / p[j],
  * where w[j] is the weight of job j, and p[j] is its processing time.
  * This implementation alters this definition slightly as:
- * h(j) = max( EPSILON, w[j] / p[j]), where EPSILON (a class constant)
+ * h(j) = max( {@link #MIN_H}, w[j] / p[j]), where {@link #MIN_H}
  * is a small non-zero value.  This is to deal with the possibility of
  * a job with weight w[j] = 0.  For deterministic construction of a 
  * schedule, this adjustment is unnecessary.  However, for stochastic sampling
@@ -39,12 +39,9 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 7.24.2020
  */
-public final class WeightedShortestProcessingTime extends SchedulingHeuristic {
+public class WeightedShortestProcessingTime extends SchedulingHeuristic {
 	
-	/**
-	 * The minimum heuristic value.
-	 */
-	public static final double EPSILON = 0.00001;
+	private final double[] h;
 	
 	/**
 	 * Constructs an WeightedShortestProcessingTime heuristic.
@@ -53,13 +50,20 @@ public final class WeightedShortestProcessingTime extends SchedulingHeuristic {
 	 */
 	public WeightedShortestProcessingTime(SingleMachineSchedulingProblem problem) {
 		super(problem);
+		// pre-compute h and cache results.
+		h = new double[data.numberOfJobs()];
+		for (int i = 0; i < h.length; i++) {
+			h[i] = data.getWeight(i);
+			if (h[i] < MIN_H) h[i] = MIN_H;
+			else {
+				h[i] /= data.getProcessingTime(i);
+				if (h[i] < MIN_H) h[i] = MIN_H;
+			}
+		}
 	}
 	
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
-		double w = data.getWeight(element);
-		if (w <= EPSILON) return EPSILON;
-		double value = w / data.getProcessingTime(element);
-		return value < EPSILON ? EPSILON : value;
+		return h[element];
 	}
 }

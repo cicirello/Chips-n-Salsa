@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10};
+var methods = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -98,12 +98,7 @@ var activeTableTab = "activeTableTab";
 <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../../../org/cicirello/search/problems/scheduling/SchedulingHeuristic.html" title="class in org.cicirello.search.problems.scheduling">org.cicirello.search.problems.scheduling.SchedulingHeuristic</a></li>
-<li>
-<ul class="inheritance">
 <li>org.cicirello.search.problems.scheduling.WeightedShortestProcessingTime</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -114,15 +109,19 @@ var activeTableTab = "activeTableTab";
 <dt>All Implemented Interfaces:</dt>
 <dd><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></dd>
 </dl>
+<dl>
+<dt>Direct Known Subclasses:</dt>
+<dd><a href="../../../../../org/cicirello/search/problems/scheduling/ApparentTardinessCost.html" title="class in org.cicirello.search.problems.scheduling">ApparentTardinessCost</a>, <a href="../../../../../org/cicirello/search/problems/scheduling/Montagne.html" title="class in org.cicirello.search.problems.scheduling">Montagne</a>, <a href="../../../../../org/cicirello/search/problems/scheduling/WeightedCostOverTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedCostOverTime</a>, <a href="../../../../../org/cicirello/search/problems/scheduling/WeightedCriticalRatio.html" title="class in org.cicirello.search.problems.scheduling">WeightedCriticalRatio</a>, <a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTimeLateOnly</a></dd>
+</dl>
 <hr>
 <br>
-<pre>public final class <span class="typeNameLabel">WeightedShortestProcessingTime</span>
-extends <a href="../../../../../org/cicirello/search/problems/scheduling/SchedulingHeuristic.html" title="class in org.cicirello.search.problems.scheduling">SchedulingHeuristic</a></pre>
+<pre>public class <span class="typeNameLabel">WeightedShortestProcessingTime</span>
+extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">This is an implementation of the weighted shortest process time
  heuristic.  This heuristic is usually defined as: h(j) = w[j] / p[j],
  where w[j] is the weight of job j, and p[j] is its processing time.
  This implementation alters this definition slightly as:
- h(j) = max( EPSILON, w[j] / p[j]), where EPSILON (a class constant)
+ h(j) = max( <a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html#MIN_H"><code>MIN_H</code></a>, w[j] / p[j]), where <a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html#MIN_H"><code>MIN_H</code></a>
  is a small non-zero value.  This is to deal with the possibility of
  a job with weight w[j] = 0.  For deterministic construction of a 
  schedule, this adjustment is unnecessary.  However, for stochastic sampling
@@ -147,7 +146,7 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Schedul
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static double</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html#EPSILON">EPSILON</a></span></code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html#MIN_H">MIN_H</a></span></code>
 <div class="block">The minimum heuristic value.</div>
 </td>
 </tr>
@@ -186,6 +185,21 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Schedul
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html#completePermutationLength--">completePermutationLength</a></span>()</code>
+<div class="block">Gets the required length of permutations representing
+ solutions to the problem instance for which this constructive heuristic
+ is configured.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="../../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html#getProblem--">getProblem</a></span>()</code>
+<div class="block">Gets a reference to the instance of the optimization problem 
+ that is the subject of this heuristic.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h</a></span>(<a href="../../../../../org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a>&nbsp;p,
  int&nbsp;element,
@@ -195,13 +209,6 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Schedul
 </td>
 </tr>
 </table>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.org.cicirello.search.problems.scheduling.SchedulingHeuristic">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;org.cicirello.search.problems.scheduling.<a href="../../../../../org/cicirello/search/problems/scheduling/SchedulingHeuristic.html" title="class in org.cicirello.search.problems.scheduling">SchedulingHeuristic</a></h3>
-<code><a href="../../../../../org/cicirello/search/problems/scheduling/SchedulingHeuristic.html#completePermutationLength--">completePermutationLength</a>, <a href="../../../../../org/cicirello/search/problems/scheduling/SchedulingHeuristic.html#getProblem--">getProblem</a></code></li>
-</ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
 <!--   -->
@@ -230,17 +237,23 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Schedul
 <!--   -->
 </a>
 <h3>Field Detail</h3>
-<a name="EPSILON">
+<a name="MIN_H">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>EPSILON</h4>
-<pre>public static final&nbsp;double EPSILON</pre>
-<div class="block">The minimum heuristic value.</div>
+<h4>MIN_H</h4>
+<pre>public static final&nbsp;double MIN_H</pre>
+<div class="block">The minimum heuristic value.  If the heuristic value
+ as calculated is lower than MIN_H, then MIN_H is used as
+ the heuristic value.  The reason is related to the
+ primary purpose of the constructive heuristics in the library:
+ heuristic guidance for stochastic sampling algorithms, which
+ assume positive heuristic values (e.g., an h of 0 would be
+ problematic).</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../../constant-values.html#org.cicirello.search.problems.scheduling.WeightedShortestProcessingTime.EPSILON">Constant Field Values</a></dd>
+<dd><a href="../../../../../constant-values.html#org.cicirello.search.problems.scheduling.WeightedShortestProcessingTime.MIN_H">Constant Field Values</a></dd>
 </dl>
 </li>
 </ul>
@@ -278,7 +291,7 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Schedul
 <a name="h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>h</h4>
 <pre>public&nbsp;double&nbsp;h(<a href="../../../../../org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a>&nbsp;p,
@@ -306,6 +319,45 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Schedul
  element should be added next.  The intention is to compare the value returned
  with the heuristic evaluations of other elements.  Individual results in isolation
  are not necessarily meaningful.</dd>
+</dl>
+</li>
+</ul>
+<a name="getProblem--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getProblem</h4>
+<pre>public final&nbsp;<a href="../../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;getProblem()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#getProblem--">ConstructiveHeuristic</a></code></span></div>
+<div class="block">Gets a reference to the instance of the optimization problem 
+ that is the subject of this heuristic.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#getProblem--">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the instance of the optimization problem 
+ that is the subject of this heuristic.</dd>
+</dl>
+</li>
+</ul>
+<a name="completePermutationLength--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>completePermutationLength</h4>
+<pre>public final&nbsp;int&nbsp;completePermutationLength()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#completePermutationLength--">ConstructiveHeuristic</a></code></span></div>
+<div class="block">Gets the required length of permutations representing
+ solutions to the problem instance for which this constructive heuristic
+ is configured.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#completePermutationLength--">completePermutationLength</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>length of solutions to the problem instance for which this heuristic
+ is configured</dd>
 </dl>
 </li>
 </ul>

@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10};
+var methods = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -203,21 +203,13 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/MinimumSlackTime.html#createIncrementalEvaluation--">createIncrementalEvaluation</a></span>()</code>
-<div class="block">Creates an IncrementalEvaluation object corresponding to an initially
- empty PartialPermutation for use in incrementally constructing a solution
- to the problem for which this heuristic is designed.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/MinimumSlackTime.html#getProblem--">getProblem</a></span>()</code>
 <div class="block">Gets a reference to the instance of the optimization problem 
  that is the subject of this heuristic.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/MinimumSlackTime.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h</a></span>(<a href="../../../../../org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a>&nbsp;p,
  int&nbsp;element,
@@ -233,6 +225,13 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
 <code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#clone--" title="class or interface in java.lang">clone</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#equals-java.lang.Object-" title="class or interface in java.lang">equals</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#finalize--" title="class or interface in java.lang">finalize</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#getClass--" title="class or interface in java.lang">getClass</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#hashCode--" title="class or interface in java.lang">hashCode</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#notify--" title="class or interface in java.lang">notify</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#notifyAll--" title="class or interface in java.lang">notifyAll</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#toString--" title="class or interface in java.lang">toString</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait--" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait-long-" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait-long-int-" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods.inherited.from.class.org.cicirello.search.ss.ConstructiveHeuristic">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;org.cicirello.search.ss.<a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></h3>
+<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#createIncrementalEvaluation--">createIncrementalEvaluation</a></code></li>
 </ul>
 </li>
 </ul>
@@ -332,32 +331,6 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
  element should be added next.  The intention is to compare the value returned
  with the heuristic evaluations of other elements.  Individual results in isolation
  are not necessarily meaningful.</dd>
-</dl>
-</li>
-</ul>
-<a name="createIncrementalEvaluation--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createIncrementalEvaluation</h4>
-<pre>public&nbsp;<a href="../../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&nbsp;createIncrementalEvaluation()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#createIncrementalEvaluation--">ConstructiveHeuristic</a></code></span></div>
-<div class="block"><p>Creates an IncrementalEvaluation object corresponding to an initially
- empty PartialPermutation for use in incrementally constructing a solution
- to the problem for which this heuristic is designed. The object returned 
- incrementally computes any data associated with a PartialPermutation as
- needed by the <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method.  The <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method will assume that 
- it will be given an object of the specific runtime type returned by this
- method.  It is unsafe to pass IncrementalEvaluation objects created by
- one heuristic to the <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method of another.</p>
-
- <p>The default implementation simply returns null, which is appropriate for
- heuristics that won't benefit from incrementally computing heuristic information.</p></div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>An IncrementalEvaluation for an empty PartialPermutation 
- to be used for incrementally computing any data required by the <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method.</dd>
 </dl>
 </li>
 </ul>

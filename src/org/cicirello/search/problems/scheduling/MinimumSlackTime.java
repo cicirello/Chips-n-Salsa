@@ -56,6 +56,8 @@ import org.cicirello.search.ss.PartialPermutation;
  */
 public final class MinimumSlackTime extends SchedulingHeuristic {
 	
+	private final int DMAX;
+	
 	/**
 	 * Constructs an MinimumSlackTime heuristic.
 	 * @param problem The instance of a scheduling problem that is
@@ -67,42 +69,23 @@ public final class MinimumSlackTime extends SchedulingHeuristic {
 		if (!data.hasDueDates()) {
 			throw new IllegalArgumentException("This heuristic requires due dates.");
 		}
+		int max = data.getDueDate(0);
+		final int n = data.numberOfJobs();
+		for (int i = 1; i < n; i++) {
+			if (data.getDueDate(i) > max) {
+				max = data.getDueDate(i);
+			}
+		}
+		DMAX = max;
 	}
 	
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
-		double value = ((WithDMax)incEval).DMAX + data.getProcessingTime(element) - data.getDueDate(element);
+		double value = DMAX + data.getProcessingTime(element) - data.getDueDate(element);
 		if (HAS_SETUPS) {
 			value += p.size()==0 ? data.getSetupTime(element) 
 					: data.getSetupTime(p.getLast(), element);
 		}
 		return value;
-	}
-	
-	@Override
-	public IncrementalEvaluation createIncrementalEvaluation() {
-		return new WithDMax();
-	}
-	
-	/*
-	 * package-private rather than private to enable test case access
-	 */
-	private class WithDMax implements IncrementalEvaluation {
-		
-		private final int DMAX;
-		
-		public WithDMax() {
-			int max = data.getDueDate(0);
-			final int n = data.numberOfJobs();
-			for (int i = 1; i < n; i++) {
-				if (data.getDueDate(i) > max) {
-					max = data.getDueDate(i);
-				}
-			}
-			DMAX = max;
-		}
-		
-		@Override
-		public void extend(PartialPermutation p, int element) { }
 	}
 }

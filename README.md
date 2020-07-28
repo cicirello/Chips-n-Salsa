@@ -69,6 +69,12 @@ comments within the source code explaining the example. Running the examples wit
 source comments is not advised.  Assuming the build was successful, the compiled example programs
 will be in the exbin directory.  See /examples/README.md for details on running the examples individually.
 
+## Versioning Scheme
+
+Chips-n-Salsa uses [Semantic Versioning](https://semver.org/) with version numbers of the form: MAJOR.MINOR.PATCH,
+where differences in MAJOR correspond to incompatible API changes, differences in MINOR correspond to introduction
+of backwards compatible new functionality, and PATCH corresponds to backwards compatible bug fixes. 
+
 ## Importing the Library Into a Project Using Maven
 
 __Step 1__: Add this to the dependencies section of your pom.xml, replacing the version number with the version you want to use.

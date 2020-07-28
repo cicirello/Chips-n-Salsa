@@ -6,6 +6,7 @@ https://www.cicirello.org/
 
 Webpage: https://chips-n-salsa.cicirello.org/
 
+[![status](https://joss.theoj.org/papers/ff6046b4dd41979ff6eb38a8517b4b1b/status.svg)](https://joss.theoj.org/papers/ff6046b4dd41979ff6eb38a8517b4b1b)
 [![DOI](https://zenodo.org/badge/273074441.svg)](https://zenodo.org/badge/latestdoi/273074441)
 [![build](https://github.com/cicirello/Chips-n-Salsa/workflows/build/badge.svg)](https://github.com/cicirello/Chips-n-Salsa/actions?query=workflow%3Abuild)
 [![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE)

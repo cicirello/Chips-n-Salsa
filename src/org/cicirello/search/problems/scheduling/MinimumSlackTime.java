@@ -69,14 +69,7 @@ public final class MinimumSlackTime extends SchedulingHeuristic {
 		if (!data.hasDueDates()) {
 			throw new IllegalArgumentException("This heuristic requires due dates.");
 		}
-		int max = data.getDueDate(0);
-		final int n = data.numberOfJobs();
-		for (int i = 1; i < n; i++) {
-			if (data.getDueDate(i) > max) {
-				max = data.getDueDate(i);
-			}
-		}
-		DMAX = max;
+		DMAX = computeDMax();
 	}
 	
 	@Override
@@ -87,5 +80,16 @@ public final class MinimumSlackTime extends SchedulingHeuristic {
 					: data.getSetupTime(p.getLast(), element);
 		}
 		return value;
+	}
+	
+	private int computeDMax() {
+		int max = data.getDueDate(0);
+		final int n = data.numberOfJobs();
+		for (int i = 1; i < n; i++) {
+			if (data.getDueDate(i) > max) {
+				max = data.getDueDate(i);
+			}
+		}
+		return max;
 	}
 }

@@ -79,6 +79,28 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testWSPTSetupAdjusted() {
+		double e = WeightedShortestProcessingPlusSetupTime.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected = { 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		PartialPermutation partial = new PartialPermutation(expected.length);
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p);
+		WeightedShortestProcessingPlusSetupTime h = new WeightedShortestProcessingPlusSetupTime(problem);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
+		
+		int[] ps =    { 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP - 1};
+		problem = new FakeProblemWeightsPTime(w, ps, 0, 1);
+		h = new WeightedShortestProcessingPlusSetupTime(problem);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testSPT() {
 		double e = ShortestProcessingTime.MIN_H;
 		int highP = (int)Math.ceil(1 / e)*2;

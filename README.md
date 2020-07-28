@@ -67,7 +67,7 @@ The examples directory contains example usage of several of the classes of the l
 contains a README file that provides more details on the examples. Each of the examples contains detailed
 comments within the source code explaining the example. Running the examples without reading the
 source comments is not advised.  Assuming the build was successful, the compiled example programs
-will be in the exbin directory.  See /examples/README.md for details on running the examples individually.
+will be in the exbin directory.  See [examples/README.md](examples/README.md) for details on running the examples individually.
 
 ## Versioning Scheme
 

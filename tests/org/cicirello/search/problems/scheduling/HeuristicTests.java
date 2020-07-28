@@ -87,6 +87,7 @@ public class HeuristicTests {
 			{1, 1, 7, 3, 1},
 			{1, 1, 1, 1, 1},
 			{1, 1, 1, 1, 1},
+			{1, 1, 1, 1, 1},
 			{0, 1, 3, 7, 15}
 		};
 		int[] w =    { 7, 8, 2, 10, 4};
@@ -106,6 +107,36 @@ public class HeuristicTests {
 		double[] expected2 = { 999, 999, 0.125, 0.25, 0.5 };
 		for (int j = 2; j < expected.length; j++) {
 			assertEquals(expected2[j], h.h(partial, j, null), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testSmallestTwoJobSetup() {
+		double e = SmallestTwoJobSetup.MIN_H;
+		int highS = (int)Math.ceil(1 / e)*2;
+		int[][] s = {
+			{highS, highS, highS, 0, highS},
+			{1, 1, 7, 3, 1},
+			{9, 9, 9, 0, 9},
+			{7, 1, 7, 7, 7},
+			{5, 5, 2, 5, 5},
+			{0, 0, 3, 6, 13}
+		};
+		int[] w =    { 7, 8, 2, 10, 4};
+		int[] p =    { 2, 5, 9, 2, 10};
+		double[] expected = { 1, 0.5, 0.25, 0.125, 0.0625 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, s);
+		SmallestTwoJobSetup h = new SmallestTwoJobSetup(problem);
+		PartialPermutation partial = new PartialPermutation(expected.length);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals("scheduled first", expected[j], h.h(partial, j, null), 1E-10);
+		}
+		partial.extend(0);
+		for (int j = 1; j < expected.length; j++) {
+			if (s[0][j]==highS)
+				assertEquals(e, h.h(partial, j, null), 1E-10);
+			else 
+				assertEquals(0.5, h.h(partial, j, null), 1E-10);
 		}
 	}
 	

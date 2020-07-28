@@ -79,6 +79,113 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testSmallestSetup() {
+		double e = SmallestSetup.MIN_H;
+		int highS = (int)Math.ceil(1 / e)*2;
+		int[][] s = {
+			{highS, highS, highS, highS, highS},
+			{1, 1, 7, 3, 1},
+			{1, 1, 1, 1, 1},
+			{1, 1, 1, 1, 1},
+			{1, 1, 1, 1, 1},
+			{0, 1, 3, 7, 15}
+		};
+		int[] w =    { 7, 8, 2, 10, 4};
+		int[] p =    { 2, 5, 9, 2, 10};
+		double[] expected = { 1, 0.5, 0.25, 0.125, 0.0625 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, s);
+		SmallestSetup h = new SmallestSetup(problem);
+		PartialPermutation partial = new PartialPermutation(expected.length);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
+		partial.extend(0);
+		for (int j = 1; j < expected.length; j++) {
+			assertEquals(e, h.h(partial, j, null), 1E-10);
+		}
+		partial.extend(1);
+		double[] expected2 = { 999, 999, 0.125, 0.25, 0.5 };
+		for (int j = 2; j < expected.length; j++) {
+			assertEquals(expected2[j], h.h(partial, j, null), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testSmallestNormalizedSetup() {
+		double e = SmallestNormalizedSetup.MIN_H;
+		int highS = (int)Math.ceil(1 / e)*2;
+		int[][] s = {
+			{0, 3, 2, 4, highS},
+			{1, 0, 2, 4, 1},
+			{1, 3, 0, 4, 1},
+			{1, 3, 1, 0, 1},
+			{1, 3, 1, 4, 0},
+			{0, 3, 9, 999, 999} // don't test last 2 jobs
+		};
+		int[] w =    { 7, 8, 2, 10, 4};
+		int[] p =    { 2, 5, 9, 2, 10};
+		double[] expected = { 1, 0.5, 0.25 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, s);
+		SmallestNormalizedSetup h = new SmallestNormalizedSetup(problem);
+		PartialPermutation partial = new PartialPermutation(p.length);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals("j:"+j, expected[j], h.h(partial, j, null), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testSmallestTwoJobSetup() {
+		double e = SmallestTwoJobSetup.MIN_H;
+		int highS = (int)Math.ceil(1 / e)*2;
+		int[][] s = {
+			{highS, highS, highS, 0, highS},
+			{1, 1, 7, 3, 1},
+			{9, 9, 9, 0, 9},
+			{7, 1, 7, 7, 7},
+			{5, 5, 2, 5, 5},
+			{0, 0, 3, 6, 13}
+		};
+		int[] w =    { 7, 8, 2, 10, 4};
+		int[] p =    { 2, 5, 9, 2, 10};
+		double[] expected = { 1, 0.5, 0.25, 0.125, 0.0625 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, s);
+		SmallestTwoJobSetup h = new SmallestTwoJobSetup(problem);
+		PartialPermutation partial = new PartialPermutation(expected.length);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals("scheduled first", expected[j], h.h(partial, j, null), 1E-10);
+		}
+		partial.extend(0);
+		for (int j = 1; j < expected.length; j++) {
+			if (s[0][j]==highS)
+				assertEquals(e, h.h(partial, j, null), 1E-10);
+			else 
+				assertEquals(0.5, h.h(partial, j, null), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testWSPTSetupAdjusted() {
+		double e = WeightedShortestProcessingPlusSetupTime.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected = { 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		PartialPermutation partial = new PartialPermutation(expected.length);
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p);
+		WeightedShortestProcessingPlusSetupTime h = new WeightedShortestProcessingPlusSetupTime(problem);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
+		
+		int[] ps =    { 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP - 1};
+		problem = new FakeProblemWeightsPTime(w, ps, 0, 1);
+		h = new WeightedShortestProcessingPlusSetupTime(problem);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testSPT() {
 		double e = ShortestProcessingTime.MIN_H;
 		int highP = (int)Math.ceil(1 / e)*2;
@@ -89,6 +196,28 @@ public class HeuristicTests {
 		ShortestProcessingTime h = new ShortestProcessingTime(problem);
 		for (int j = 0; j < expected.length; j++) {
 			assertEquals(expected[j], h.h(null, j, null), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testSPTSetupAdjusted() {
+		double e = ShortestProcessingPlusSetupTime.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected = { 1, 0.5, 0.25, 0.125, 1, 0.5, 0.25, 0.125, 1, 0.5, 0.25, 0.125, e};
+		PartialPermutation partial = new PartialPermutation(expected.length);
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p);
+		ShortestProcessingPlusSetupTime h = new ShortestProcessingPlusSetupTime(problem);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
+		
+		int[] ps =    { 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP - 1};
+		problem = new FakeProblemWeightsPTime(w, ps, 0, 1);
+		h = new ShortestProcessingPlusSetupTime(problem);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
 		}
 	}
 	
@@ -120,6 +249,49 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testWSPT2SetupAdjusted() {
+		double e = WeightedShortestProcessingPlusSetupTimeLateOnly.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		PartialPermutation partial = new PartialPermutation(expected.length);
+		//Doesn't really matter: partial.extend(0);
+		// All late tests
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
+		WeightedShortestProcessingPlusSetupTimeLateOnly h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected.length; j++) {
+			assertEquals("j:"+j, expected[j], h.h(partial, j, inc), 1E-10);
+		}
+		// All on time tests
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected.length; j++) {
+			assertEquals(e, h.h(partial, j, inc), 1E-10);
+		}
+		// Repeat with setups
+		int[] ps =    { 0, 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP-1};
+		problem = new FakeProblemWeightsPTime(w, ps, 0, 1);
+		h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected.length; j++) {
+			assertEquals("j:"+j, expected[j], h.h(partial, j, inc), 1E-10);
+		}
+		problem = new FakeProblemWeightsPTime(w, ps, 20, 1);
+		h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected.length; j++) {
+			assertEquals(e, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testWeightedCriticalRatio() {
 		double e = WeightedCriticalRatio.MIN_H;
 		int highP = (int)Math.ceil(1 / e)*2;
@@ -141,6 +313,55 @@ public class HeuristicTests {
 		// All on time tests
 		problem = new FakeProblemWeightsPTime(w, p, 20);
 		h = new WeightedCriticalRatio(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double expected = expected0[j]/(1.0+slack[j]/p[j]);
+			if (slack[j] <= 0) expected = e;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testWeightedCriticalRatioSetupAdjusted() {
+		double e = WeightedCriticalRatioSetupAdjusted.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		for (int i = 1; i < p.length; i++) slack[i] = 20-p[i]-p[0];
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		//Doesn't really matter: partial.extend(0);
+		// All late tests
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
+		WeightedCriticalRatioSetupAdjusted h = new WeightedCriticalRatioSetupAdjusted(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
+		}
+		// All on time tests
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new WeightedCriticalRatioSetupAdjusted(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double expected = expected0[j]/(1.0+slack[j]/p[j]);
+			if (slack[j] <= 0) expected = e;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+		// Repeat with setups
+		int[] ps =    { 0, 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP-1};
+		problem = new FakeProblemWeightsPTime(w, ps, 0, 1);
+		h = new WeightedCriticalRatioSetupAdjusted(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
+		}
+		problem = new FakeProblemWeightsPTime(w, ps, 20, 1);
+		h = new WeightedCriticalRatioSetupAdjusted(problem);
 		inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
@@ -236,6 +457,98 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testCOVERTSetupAdjustedS0() {
+		double e = WeightedCostOverTimeSetupAdjusted.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		for (int i = 1; i < p.length; i++) {
+			slack[i] = 20-p[i]-p[0];
+			if (slack[i] < 0) slack[i] = 0;
+		}
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		//Doesn't really matter: partial.extend(0);
+		// All late tests
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
+		WeightedCostOverTimeSetupAdjusted h = new WeightedCostOverTimeSetupAdjusted(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k default of 2
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new WeightedCostOverTimeSetupAdjusted(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = 1.0 - 0.5 * slack[j] / p[j];
+			if (correction <= 0) correction = 0;
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k=4
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new WeightedCostOverTimeSetupAdjusted(problem, 4);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = 1.0 - 0.25 * slack[j] / p[j];
+			if (correction <= 0) correction = 0;
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testCOVERTSetupAdjustedS1() {
+		double e = WeightedCostOverTimeSetupAdjusted.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 0, 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP-1};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		for (int i = 1; i < p.length; i++) {
+			slack[i] = 20-p[i]-p[0]-2;
+			if (slack[i] < 0) slack[i] = 0;
+		}
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		//Doesn't really matter: partial.extend(0);
+		// All late tests
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 1);
+		WeightedCostOverTimeSetupAdjusted h = new WeightedCostOverTimeSetupAdjusted(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k default of 2
+		problem = new FakeProblemWeightsPTime(w, p, 20, 1);
+		h = new WeightedCostOverTimeSetupAdjusted(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = 1.0 - 0.5 * slack[j] / (1+p[j]);
+			if (correction <= 0) correction = 0;
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k=4
+		problem = new FakeProblemWeightsPTime(w, p, 20, 1);
+		h = new WeightedCostOverTimeSetupAdjusted(problem, 4);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = 1.0 - 0.25 * slack[j] / (1+p[j]);
+			if (correction <= 0) correction = 0;
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testATC() {
 		double e = ApparentTardinessCost.MIN_H;
 		int highP = (int)Math.ceil(1 / e)*2;
@@ -273,6 +586,100 @@ public class HeuristicTests {
 		// d=20, k=4
 		problem = new FakeProblemWeightsPTime(w, p, 20);
 		h = new ApparentTardinessCost(problem, 4);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = Math.exp(-0.25*slack[j]/pAve);
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testATCSetupAdjustedS0() {
+		double e = ApparentTardinessCostSetupAdjusted.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		double pAve = 0;
+		for (int i = 1; i < p.length; i++) {
+			slack[i] = 20-p[i]-p[0];
+			if (slack[i] < 0) slack[i] = 0;
+			pAve += p[i];
+		}
+		pAve /= p.length - 1;
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		//Doesn't really matter: partial.extend(0);
+		// All late tests
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
+		ApparentTardinessCostSetupAdjusted h = new ApparentTardinessCostSetupAdjusted(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k default of 2
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new ApparentTardinessCostSetupAdjusted(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = Math.exp(-0.5*slack[j]/pAve);
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k=4
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new ApparentTardinessCostSetupAdjusted(problem, 4);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = Math.exp(-0.25*slack[j]/pAve);
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testATCSetupAdjustedS1() {
+		double e = ApparentTardinessCostSetupAdjusted.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 0, 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP-1};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		double pAve = 0;
+		for (int i = 1; i < p.length; i++) {
+			slack[i] = 20-p[i]-p[0]-2;
+			if (slack[i] < 0) slack[i] = 0;
+			pAve += p[i];
+		}
+		pAve /= p.length - 1;
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		//Doesn't really matter: partial.extend(0);
+		// All late tests
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 1);
+		ApparentTardinessCostSetupAdjusted h = new ApparentTardinessCostSetupAdjusted(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k default of 2
+		problem = new FakeProblemWeightsPTime(w, p, 20, 1);
+		h = new ApparentTardinessCostSetupAdjusted(problem);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = Math.exp(-0.5*slack[j]/pAve);
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k=4
+		problem = new FakeProblemWeightsPTime(w, p, 20, 1);
+		h = new ApparentTardinessCostSetupAdjusted(problem, 4);
 		inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
@@ -449,6 +856,10 @@ public class HeuristicTests {
 			data = new FakeProblemData(w, p, d, s);
 		}
 		
+		public FakeProblemWeightsPTime(int[] w, int[] p, int d, int[][] s) {
+			data = new FakeProblemDataSetups(w, p, d, s);
+		}
+		
 		@Override
 		public SingleMachineSchedulingProblemData getInstanceData() {
 			return data;
@@ -456,6 +867,20 @@ public class HeuristicTests {
 		
 		@Override public int cost(Permutation p) { return 10; }
 		@Override public int value(Permutation p) { return 10; }
+	}
+	
+	private static class FakeProblemDataSetups extends FakeProblemData {
+		private int[][] s;
+		public FakeProblemDataSetups(int[] w, int[] p, int d, int[][] s) {
+			super(w, p, d);
+			this.s = new int[s.length][];
+			for (int i = 0; i < s.length; i++) {
+				this.s[i] = s[i].clone();
+			}
+		}
+		@Override public int getSetupTime(int j) { return s[s.length-1][j]; }
+		@Override public int getSetupTime(int i, int j) { return s[i][j]; }
+		@Override public boolean hasSetupTimes() { return true; }
 	}
 	
 	private static class FakeProblemData implements SingleMachineSchedulingProblemData {

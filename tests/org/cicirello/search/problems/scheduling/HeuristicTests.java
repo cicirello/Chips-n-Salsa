@@ -111,6 +111,29 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testSmallestNormalizedSetup() {
+		double e = SmallestNormalizedSetup.MIN_H;
+		int highS = (int)Math.ceil(1 / e)*2;
+		int[][] s = {
+			{0, 3, 2, 4, highS},
+			{1, 0, 2, 4, 1},
+			{1, 3, 0, 4, 1},
+			{1, 3, 1, 0, 1},
+			{1, 3, 1, 4, 0},
+			{0, 3, 9, 999, 999} // don't test last 2 jobs
+		};
+		int[] w =    { 7, 8, 2, 10, 4};
+		int[] p =    { 2, 5, 9, 2, 10};
+		double[] expected = { 1, 0.5, 0.25 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, s);
+		SmallestNormalizedSetup h = new SmallestNormalizedSetup(problem);
+		PartialPermutation partial = new PartialPermutation(p.length);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals("j:"+j, expected[j], h.h(partial, j, null), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testSmallestTwoJobSetup() {
 		double e = SmallestTwoJobSetup.MIN_H;
 		int highS = (int)Math.ceil(1 / e)*2;

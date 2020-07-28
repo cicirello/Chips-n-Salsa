@@ -44,6 +44,8 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  */
 public final class EarliestDueDate extends SchedulingHeuristic {
 	
+	private final double[] h;
+	
 	/**
 	 * Constructs an EarliestDueDate heuristic.
 	 * @param problem The instance of a scheduling problem that is
@@ -55,11 +57,17 @@ public final class EarliestDueDate extends SchedulingHeuristic {
 		if (!data.hasDueDates()) {
 			throw new IllegalArgumentException("This heuristic requires due dates.");
 		}
+		// This heuristic is static (i.e., doesn't depend on job sequence) so 
+		// pre-compute and cache results.
+		h = new double[data.numberOfJobs()];
+		for (int i = 0; i < h.length; i++) {
+			h[i] = 1.0 / (1.0 + data.getDueDate(i));
+			if (h[i] < MIN_H) h[i] = MIN_H;
+		}
 	}
 	
 	@Override
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
-		double value = 1.0 / (1.0 + data.getDueDate(element)); 
-		return value <= MIN_H ? MIN_H : value;
+		return h[element];
 	}
 }

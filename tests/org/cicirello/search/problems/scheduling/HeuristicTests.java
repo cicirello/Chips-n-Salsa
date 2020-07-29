@@ -779,6 +779,46 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testATCSdefault() {
+		double e = ATCS.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		double pAve = 0;
+		for (int i = 1; i < p.length; i++) {
+			slack[i] = 20-p[i];
+			if (slack[i] < 0) slack[i] = 0;
+			pAve += p[i];
+		}
+		pAve /= p.length - 1;
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		// All late tests, 
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
+		ATCS h = new ATCS(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		double sAve = ((ATCS.IncrementalStatsCalculator)inc).averageSetupTime();
+		for (int j = 1; j < expected0.length; j++) {
+			assertTrue("negativeSlack, j:"+j, expected0[j] >= h.h(partial, j, inc));
+		}
+		// d=20, 
+		problem = new FakeProblemWeightsPTime(w, p, 20, 4);
+		h = new ATCS(problem);
+		inc = h.createIncrementalEvaluation();
+		for (int j = 1; j < expected0.length; j++) {
+			assertTrue("positiveSlack, j:"+j, expected0[j] >= h.h(partial, j, inc));
+		}
+		// d=20,
+		problem = new FakeProblemWeightsPTime(w, p, 20, 4);
+		h = new ATCS(problem);
+		inc = h.createIncrementalEvaluation();
+		for (int j = 1; j < expected0.length; j++) {
+			assertTrue("positiveSlack, j:"+j, expected0[j] >= h.h(partial, j, inc));
+		}
+	}
+	
+	@Test
 	public void testSchedulingHeuristicIncEvalExtend() {
 		int[] w = { 1, 1, 1, 1, 1 };
 		int[] p = { 3, 2, 1, 4, 5 };

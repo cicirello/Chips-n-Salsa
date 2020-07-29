@@ -192,7 +192,7 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 		private int totalP;
 		
 		// num jobs left
-		private int n;
+		int n;
 		
 		public IncrementalAverageProcessingCalculator(int sumOfP) {
 			super();

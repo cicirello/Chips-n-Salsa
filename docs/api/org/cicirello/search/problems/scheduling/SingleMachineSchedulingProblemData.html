@@ -491,8 +491,8 @@ var activeTableTab = "activeTableTab";
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>i</code> - The index of the previous job in the schedule,
- which must be in the interval: [0, numberOfJobs()].  Pass
- i = numberOfJobs() for the setup time of job j if it is
+ which must be in the interval: [0, numberOfJobs()).  Pass
+ i = j for the setup time of job j if it is
  the first job in the schedule.</dd>
 <dd><code>j</code> - The index of the job whose setup time you want, 
  which must be in the interval: [0, numberOfJobs()).</dd>
@@ -500,7 +500,7 @@ var activeTableTab = "activeTableTab";
 <dd>the setup time of job j if it immediately follows job i.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IndexOutOfBoundsException.html?is-external=true" title="class or interface in java.lang">IndexOutOfBoundsException</a></code> - if j &lt; 0 or j &ge; numberOfJobs()
- i &lt; 0 or i &gt; numberOfJobs()</dd>
+ i &lt; 0 or i &ge; numberOfJobs()</dd>
 </dl>
 </li>
 </ul>

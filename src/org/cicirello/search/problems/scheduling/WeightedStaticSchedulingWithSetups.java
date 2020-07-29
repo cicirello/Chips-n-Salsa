@@ -206,7 +206,7 @@ public final class WeightedStaticSchedulingWithSetups implements SingleMachineSc
 		process = new int[n];
 		duedates = new int[n];
 		weights = new int[n];
-		setups = new int[n+1][n];
+		setups = new int[n][n];
 		
 		final double AVERAGE_SETUP = AVERAGE_PROCESS_TIME * eta;
 		final int SETUP_BOUND = (int)(2 * AVERAGE_SETUP) + 1;
@@ -219,7 +219,7 @@ public final class WeightedStaticSchedulingWithSetups implements SingleMachineSc
 			process[i] = MIN_PROCESS_TIME + RandomIndexer.nextInt(PROCESS_TIME_SPAN, rand);
 			totalProcessTime += process[i];
 			weights[i] = MIN_WEIGHT + RandomIndexer.nextInt(WEIGHT_SPAN, rand);
-			for (int j = 0; j <= n; j++) {
+			for (int j = 0; j < n; j++) {
 				setups[j][i] = RandomIndexer.nextInt(SETUP_BOUND, rand);
 				sumSetupMatrix += setups[j][i];
 			}
@@ -251,7 +251,7 @@ public final class WeightedStaticSchedulingWithSetups implements SingleMachineSc
 			throw new IllegalArgumentException("schedule is incorrect length");
 		}
 		int[] c = new int[process.length];
-		int last = process.length;
+		int last = schedule.get(0);
 		int time = 0;
 		for (int i = 0; i < c.length; i++) {
 			int j = schedule.get(i);
@@ -299,7 +299,7 @@ public final class WeightedStaticSchedulingWithSetups implements SingleMachineSc
 	
 	@Override
 	public int getSetupTime(int j) {
-		return setups[weights.length][j];
+		return setups[j][j];
 	}
 	
 	@Override

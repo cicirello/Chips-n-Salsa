@@ -103,11 +103,9 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 		if (!HAS_SETUPS) return 0;
 		int total = 0;
 		int n = data.numberOfJobs();
-		for (int i = 0; i <= n; i++) {
+		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				if (i != j) {
-					total += data.getSetupTime(i, j);
-				}
+				total += data.getSetupTime(i, j);
 			}
 		}
 		return total;

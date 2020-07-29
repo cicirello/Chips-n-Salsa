@@ -199,10 +199,14 @@ public final class ATCS extends WeightedShortestProcessingTime {
 		@Override
 		public void extend(PartialPermutation p, int element) {
 			super.extend(p, element);
-			int x = p.numExtensions();
+			int x = p.numExtensions();	
 			for (int i = 0; i < x; i++) {
 				int j = p.getExtension(i);
-				totalS -= data.getSetupTime(p.size()>0 ? p.getLast() : j, j);
+				if (p.size()==0) {
+					totalS -= data.getSetupTime(j);
+				} else {
+					totalS -= data.getSetupTime(p.getLast(), j);
+				}
 				if (j!=element) totalS -= data.getSetupTime(j, element);
 			}
 		}
@@ -218,6 +222,7 @@ public final class ATCS extends WeightedShortestProcessingTime {
 		 * @return average setup time of unscheduled jobs
 		 */
 		public double averageSetupTime() {
+			if (n==0) return 0;
 			return ((double)totalS) / (n*n);
 		}
 	}

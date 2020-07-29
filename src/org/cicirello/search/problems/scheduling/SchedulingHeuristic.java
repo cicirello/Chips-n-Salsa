@@ -87,6 +87,18 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	/*
 	 * package-private rather than private to enable test case access
 	 */
+	int sumOfProcessingTimes() {
+		int total = 0;
+		int n = data.numberOfJobs();
+		for (int i = 0; i < n; i++) {
+			total += data.getProcessingTime(i);
+		}
+		return total;
+	}
+	
+	/*
+	 * package-private rather than private to enable test case access
+	 */
 	class IncrementalTimeCalculator implements IncrementalEvaluation {
 		
 		private int currentTime;
@@ -167,12 +179,10 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 		// num jobs left
 		private int n;
 		
-		public IncrementalAverageProcessingCalculator() {
+		public IncrementalAverageProcessingCalculator(int sumOfP) {
 			super();
 			n = data.numberOfJobs();
-			for (int i = 0; i < n; i++) {
-				totalP += data.getProcessingTime(i);
-			}
+			totalP = sumOfP;
 		}
 		
 		@Override

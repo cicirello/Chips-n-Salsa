@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2020-07-30
 ### Added
 
-* ATCS scheduling heuristic.
+* ATCS scheduling heuristic (as described by the heuristic's authors).
+* DynamicATCS scheduling heuristic (dynamically updates heuristic's parameters during schedule construction).
 * An example program for an industrial scheduling problem, demonstrating using a stochastic sampling search algorithm, VBSS, as well as a hybrid of VBSS and hill climbing.
 * CHANGELOG.md
 

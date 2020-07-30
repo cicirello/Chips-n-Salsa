@@ -35,6 +35,7 @@ integrated (e.g., combining hill climbing with simulated annealing):
 __Industrial Scheduling Problem Examples__: The following examples use scheduling 
 problems, and are also a bit more complex than some of the other example programs.
 * org.cicirello.examples.chipsnsalsa.SchedulingExample
+* org.cicirello.examples.chipsnsalsa.SchedulingWithVBSS
 
 ## Building the Examples
 

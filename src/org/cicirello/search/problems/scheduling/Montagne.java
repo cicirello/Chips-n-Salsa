@@ -44,6 +44,8 @@ import org.cicirello.search.ss.PartialPermutation;
  */
 public final class Montagne extends WeightedShortestProcessingTime {
 	
+	private final int totalProcessTime;
+	
 	/**
 	 * Constructs an Montagne heuristic.
 	 * @param problem The instance of a scheduling problem that is
@@ -55,6 +57,7 @@ public final class Montagne extends WeightedShortestProcessingTime {
 		if (!data.hasDueDates()) {
 			throw new IllegalArgumentException("This heuristic requires due dates.");
 		}
+		totalProcessTime = sumOfProcessingTimes();
 	}
 	
 	@Override
@@ -72,7 +75,7 @@ public final class Montagne extends WeightedShortestProcessingTime {
 	
 	@Override
 	public IncrementalEvaluation createIncrementalEvaluation() {
-		return new IncrementalAverageProcessingCalculator();
+		return new IncrementalAverageProcessingCalculator(totalProcessTime);
 	}
 	
 }

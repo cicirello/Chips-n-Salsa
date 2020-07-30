@@ -19,3 +19,5 @@ examples:
 	java -cp "exbin;dist/chips-n-salsa-1.0-jar-with-dependencies.jar" org.cicirello.examples.chipsnsalsa.PostHillclimbExample
 	java -cp "exbin;dist/chips-n-salsa-1.0-jar-with-dependencies.jar" org.cicirello.examples.chipsnsalsa.PreHillclimbExample
 	java -cp "exbin;dist/chips-n-salsa-1.0-jar-with-dependencies.jar" org.cicirello.examples.chipsnsalsa.SchedulingExample
+	java -cp "exbin;dist/chips-n-salsa-1.0-jar-with-dependencies.jar" org.cicirello.examples.chipsnsalsa.SchedulingWithVBSS
+	

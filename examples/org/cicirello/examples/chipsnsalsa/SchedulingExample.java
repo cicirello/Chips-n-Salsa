@@ -36,7 +36,7 @@ import org.cicirello.search.SolutionCostPair;
 import java.util.ArrayList;
 
 /**
- * This example program optimizes an instance of an
+ * <p>This example program optimizes an instance of an
  * industrial scheduling problem with jobs that have
  * sequence-dependent setup times (e.g., setup time required
  * prior to processing a job depends upon the job that
@@ -44,14 +44,16 @@ import java.util.ArrayList;
  * indicate the importance of the job), and due dates.
  * The cost function minimized in the example is weighted tardiness.
  * This problem is NP-Hard even without the setup times, which
- * significantly increase problem solving difficulty.
+ * significantly increase problem solving difficulty.</p>
  *
- * This example is based on experiments from a research paper:
- *       Vincent A. Cicirello. Variable Annealing Length and 
- *       Parallelism in Simulated Annealing.  Proceedings of the 
- *       Tenth International Symposium on Combinatorial Search 
- *       (SoCS 2017), pages 2-10. AAAI Press, June 2017.
- * That paper proposes two restart schedules for simulated annealing,
+ * <p>This example is based on experiments from a research paper:</p>
+ * <ul>
+ * <li>Vincent A. Cicirello. Variable Annealing Length and 
+ *     Parallelism in Simulated Annealing.  Proceedings of the 
+ *     Tenth International Symposium on Combinatorial Search 
+ *     (SoCS 2017), pages 2-10. AAAI Press, June 2017.</li>
+ * </ul>
+ * <p>That paper proposes two restart schedules for simulated annealing,
  * Variable Annealing Length (VAL) which varies the length of the runs
  * for the restarts rather than all restarts having a fixed length.
  * The run lengths increase exponentially, and the rationale is based on
@@ -62,10 +64,10 @@ import java.util.ArrayList;
  * run length.  VAL tries to balance the run length tradeoff by starting with
  * a short run (tuned for that short length), and progressively increasing the 
  * run length.  The second restart schedule of that paper, P-VAL, spreads the
- * run length schedule of VAL across multiple parallel multistart searches.
+ * run length schedule of VAL across multiple parallel multistart searches.</p>
  *
- * See the comments within the code for detailed explanations of how the
- * library is used to accomplish this comparison. 
+ * <p>See the comments within the code for detailed explanations of how the
+ * library is used to accomplish this comparison.</p> 
  *
  * @author Vincent A. Cicirello, https://www.cicirello.org/
  */

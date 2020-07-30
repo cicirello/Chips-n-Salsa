@@ -156,6 +156,19 @@
 <dd>
 <div class="block">Constructs an ApparentTardinessCostSetupAdjusted heuristic.</div>
 </dd>
+<dt><a href="org/cicirello/search/problems/scheduling/ATCS.html" title="class in org.cicirello.search.problems.scheduling"><span class="typeNameLink">ATCS</span></a> - Class in <a href="org/cicirello/search/problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a></dt>
+<dd>
+<div class="block">This is an implementation of the ATCS (Apparent Tardiness Cost with Setups)
+ heuristic.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/ATCS.html#ATCS-org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblem-double-double-">ATCS(SingleMachineSchedulingProblem, double, double)</a></span> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/ATCS.html" title="class in org.cicirello.search.problems.scheduling">ATCS</a></dt>
+<dd>
+<div class="block">Constructs an ATCS heuristic.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/ATCS.html#ATCS-org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblem-">ATCS(SingleMachineSchedulingProblem)</a></span> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/ATCS.html" title="class in org.cicirello.search.problems.scheduling">ATCS</a></dt>
+<dd>
+<div class="block">Constructs an ATCS heuristic.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html#AVERAGE_PROCESS_TIME">AVERAGE_PROCESS_TIME</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticSchedulingWithSetups</a></dt>
 <dd>
 <div class="block">Defines the average process time.</div>
@@ -501,6 +514,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/ApparentTardinessCostSetupAdjusted.html#createIncrementalEvaluation--">createIncrementalEvaluation()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/ApparentTardinessCostSetupAdjusted.html" title="class in org.cicirello.search.problems.scheduling">ApparentTardinessCostSetupAdjusted</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/ATCS.html#createIncrementalEvaluation--">createIncrementalEvaluation()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/ATCS.html" title="class in org.cicirello.search.problems.scheduling">ATCS</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/DynamicATCS.html#createIncrementalEvaluation--">createIncrementalEvaluation()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/DynamicATCS.html" title="class in org.cicirello.search.problems.scheduling">DynamicATCS</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/Montagne.html#createIncrementalEvaluation--">createIncrementalEvaluation()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/Montagne.html" title="class in org.cicirello.search.problems.scheduling">Montagne</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedCostOverTime.html#createIncrementalEvaluation--">createIncrementalEvaluation()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedCostOverTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedCostOverTime</a></dt>
@@ -690,6 +707,20 @@
 <dd>
 <div class="block">Check whether the solution contained in the ProgressTracker has been marked
  as the best possible solution.</div>
+</dd>
+<dt><a href="org/cicirello/search/problems/scheduling/DynamicATCS.html" title="class in org.cicirello.search.problems.scheduling"><span class="typeNameLink">DynamicATCS</span></a> - Class in <a href="org/cicirello/search/problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a></dt>
+<dd>
+<div class="block">DynamicATCS is an implementation of a variation of the ATCS 
+ (Apparent Tardiness Cost with Setups) heuristic, which dynamically 
+ updates the average processing and setup times as it constructs the schedule.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/DynamicATCS.html#DynamicATCS-org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblem-double-double-">DynamicATCS(SingleMachineSchedulingProblem, double, double)</a></span> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/DynamicATCS.html" title="class in org.cicirello.search.problems.scheduling">DynamicATCS</a></dt>
+<dd>
+<div class="block">Constructs an DynamicATCS heuristic.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/DynamicATCS.html#DynamicATCS-org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblem-">DynamicATCS(SingleMachineSchedulingProblem)</a></span> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/DynamicATCS.html" title="class in org.cicirello.search.problems.scheduling">DynamicATCS</a></dt>
+<dd>
+<div class="block">Constructs an DynamicATCS heuristic.</div>
 </dd>
 </dl>
 <a name="I:E">
@@ -1156,6 +1187,10 @@
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/ApparentTardinessCost.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h(PartialPermutation, int, IncrementalEvaluation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/ApparentTardinessCost.html" title="class in org.cicirello.search.problems.scheduling">ApparentTardinessCost</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/ApparentTardinessCostSetupAdjusted.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h(PartialPermutation, int, IncrementalEvaluation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/ApparentTardinessCostSetupAdjusted.html" title="class in org.cicirello.search.problems.scheduling">ApparentTardinessCostSetupAdjusted</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/ATCS.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h(PartialPermutation, int, IncrementalEvaluation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/ATCS.html" title="class in org.cicirello.search.problems.scheduling">ATCS</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/DynamicATCS.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h(PartialPermutation, int, IncrementalEvaluation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/DynamicATCS.html" title="class in org.cicirello.search.problems.scheduling">DynamicATCS</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/EarliestDueDate.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h(PartialPermutation, int, IncrementalEvaluation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/EarliestDueDate.html" title="class in org.cicirello.search.problems.scheduling">EarliestDueDate</a></dt>
 <dd>&nbsp;</dd>

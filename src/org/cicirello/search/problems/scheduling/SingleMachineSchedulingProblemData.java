@@ -187,14 +187,14 @@ public interface SingleMachineSchedulingProblemData {
 	 * whether setup times are present.
 	 * 
 	 * @param i The index of the previous job in the schedule,
-	 * which must be in the interval: [0, numberOfJobs()].  Pass
-	 * i = numberOfJobs() for the setup time of job j if it is
+	 * which must be in the interval: [0, numberOfJobs()).  Pass
+	 * i = j for the setup time of job j if it is
 	 * the first job in the schedule.
 	 * @param j The index of the job whose setup time you want, 
 	 * which must be in the interval: [0, numberOfJobs()).
 	 * @return the setup time of job j if it immediately follows job i.
 	 * @throws IndexOutOfBoundsException if j &lt; 0 or j &ge; numberOfJobs()
-	 * i &lt; 0 or i &gt; numberOfJobs()
+	 * i &lt; 0 or i &ge; numberOfJobs()
 	 */
 	default int getSetupTime(int i, int j) { return 0; };
 	

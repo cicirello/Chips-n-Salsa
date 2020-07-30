@@ -59,6 +59,7 @@ import org.cicirello.search.ss.PartialPermutation;
 public final class ApparentTardinessCostSetupAdjusted extends WeightedShortestProcessingPlusSetupTime {
 	
 	private final double k;
+	private final int totalProcessTime;
 	
 	/**
 	 * Constructs an ApparentTardinessCostSetupAdjusted heuristic.
@@ -76,6 +77,7 @@ public final class ApparentTardinessCostSetupAdjusted extends WeightedShortestPr
 		}
 		if (k <= 0.0) throw new IllegalArgumentException("k must be positive");
 		this.k = k;
+		totalProcessTime = sumOfProcessingTimes();
 	}
 	
 	/**
@@ -108,7 +110,7 @@ public final class ApparentTardinessCostSetupAdjusted extends WeightedShortestPr
 	
 	@Override
 	public IncrementalEvaluation createIncrementalEvaluation() {
-		return new IncrementalAverageProcessingCalculator();
+		return new IncrementalAverageProcessingCalculator(totalProcessTime);
 	}
 	
 }

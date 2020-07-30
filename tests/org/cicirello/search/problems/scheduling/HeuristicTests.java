@@ -700,7 +700,8 @@ public class HeuristicTests {
 			if (slack[i] < 0) slack[i] = 0;
 			pAve += p[i];
 		}
-		pAve /= p.length - 1;
+		pAve += p[0];
+		pAve /= p.length;
 		PartialPermutation partial = new PartialPermutation(expected0.length);
 		//Doesn't really matter: partial.extend(0);
 		// All late tests, k1=2, k2=7?shouldn't matter
@@ -753,7 +754,7 @@ public class HeuristicTests {
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
 		ATCS h = new ATCS(problem, 2, 1);
 		IncrementalEvaluation inc = h.createIncrementalEvaluation();
-		double sAve = ((ATCS.IncrementalStatsCalculator)inc).averageSetupTime();
+		double sAve = h.getSetupAverage();
 		for (int j = 1; j < expected0.length; j++) {
 			double correction = expected0[j]*Math.exp(-4.0/sAve);
 			assertEquals("negativeSlack, j:"+j, correction < e ? e : correction, h.h(partial, j, inc), 1E-10);
@@ -798,7 +799,7 @@ public class HeuristicTests {
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
 		ATCS h = new ATCS(problem);
 		IncrementalEvaluation inc = h.createIncrementalEvaluation();
-		double sAve = ((ATCS.IncrementalStatsCalculator)inc).averageSetupTime();
+		double sAve = h.getSetupAverage();
 		for (int j = 1; j < expected0.length; j++) {
 			assertTrue("negativeSlack, j:"+j, expected0[j] >= h.h(partial, j, inc));
 		}

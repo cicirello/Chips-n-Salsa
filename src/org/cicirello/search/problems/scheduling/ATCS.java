@@ -35,10 +35,10 @@ import org.cicirello.search.ss.PartialPermutation;
  * current time, and s[i][j] is any setup time of the job if it follows job i.  
  * The k<sub>1</sub> and k<sub>2</sub> are parameters that can be tuned based on 
  * problem instance characteristics, p&#772; is the average processing
- * time of remaining unscheduled jobs, and s&#772; is the average setup time
- * of the remaining unscheduled jobs.  The authors of the ATCS heuristic
- * simply computed p&#772; and s&#772; once at the start, while our implementation
- * updates these dynamically along the way as jobs are scheduled.</p>  
+ * time of all jobs, and s&#772; is the average setup time
+ * of all jobs.  The p&#772; and s&#772; are computed once at the start.
+ * For a version of the heuristic that dynamically updates these, see
+ * the {@link DynamicATCS} class.</p>  
  *
  * <p>The constant {@link #MIN_H} defines the minimum value
  * the heuristic will return, preventing h(j)=0 in support of stochastic
@@ -48,14 +48,14 @@ import org.cicirello.search.ss.PartialPermutation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.29.2020
+ * @version 7.30.2020
  */
 public final class ATCS extends WeightedShortestProcessingTime {
 	
 	private final double k1;
 	private final double k2;
-	private final int pSum;
-	private final int sSum;
+	private final double pAve;
+	private final double sAve;
 	
 	/**
 	 * Constructs an ATCS heuristic.
@@ -74,8 +74,9 @@ public final class ATCS extends WeightedShortestProcessingTime {
 		if (k1 <= 0.0 || k2 <= 0.0) {
 			throw new IllegalArgumentException("k1 and k2 must be positive");
 		}
-		pSum = sumOfProcessingTimes();
-		sSum = sumOfSetupTimes();
+		int n = data.numberOfJobs();
+		pAve = ((double)sumOfProcessingTimes()) / n;
+		sAve = ((double)sumOfSetupTimes()) / (n*n);
 		this.k1 = k1;
 		this.k2 = k2;
 	}
@@ -95,21 +96,21 @@ public final class ATCS extends WeightedShortestProcessingTime {
 		}
 		
 		int n = data.numberOfJobs();
-		pSum = sumOfProcessingTimes();
-		sSum = sumOfSetupTimes();
 		double cv = 0;
 		double eta = 0;
+		int pSum = sumOfProcessingTimes();
 		double cmax = pSum;
-		if (sSum > 0) {
-			double meanS = ((double)sSum)/(n*n);
-			eta = n * meanS / pSum;
+		pAve = ((double)pSum) / n;
+		sAve = ((double)sumOfSetupTimes()) / (n*n);
+		if (sAve > 0) {
+			eta = n * sAve / pSum;
 			
-			cv = setupVariance(meanS) / (meanS * meanS);
+			cv = setupVariance(sAve) / (sAve * sAve);
 			if (cv < 1E-10) cv = 0;
 			else if (cv > 0.3333333333) cv = 0.3333333333;
 			final double BETA_MIN = n < 153 ? -0.097 * Math.log(n) + 0.6876 : 0.2;
 			final double BETA = cv == 0 ? 1.0 : 1.0 - (1.0 - BETA_MIN) * cv / 0.3333333333;
-			cmax += n * meanS * BETA;
+			cmax += n * sAve * BETA;
 		}
 		double[] d_stats = computeDueDateStats();
 		double R = (d_stats[1] - d_stats[0]) / cmax;
@@ -131,18 +132,18 @@ public final class ATCS extends WeightedShortestProcessingTime {
 	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
 		double value = super.h(p, element, incEval);
 		if (value > MIN_H) {
-			double num = data.getDueDate(element) - data.getProcessingTime(element) - ((IncrementalStatsCalculator)incEval).currentTime();
+			double num = data.getDueDate(element) - data.getProcessingTime(element) - ((IncrementalTimeCalculator)incEval).currentTime();
 			if (num > 0) {
-				double denom = k1 * ((IncrementalStatsCalculator)incEval).averageProcessingTime();
+				double denom = k1 * pAve;
 				value *= Math.exp(-num / denom);
 				if (value <= MIN_H) return MIN_H;
 			}
-			if (HAS_SETUPS && sSum > 0) {
+			if (HAS_SETUPS && sAve > 0) {
 				num = p.size() == 0 ? 
 						data.getSetupTime(element) 
 						: data.getSetupTime(p.getLast(), element); 
 				if (num > 0) {
-					double denom = k2 * ((IncrementalStatsCalculator)incEval).averageSetupTime();
+					double denom = k2 * sAve;
 					value *= Math.exp(-num / denom);
 					if (value <= MIN_H) return MIN_H;
 				}
@@ -153,7 +154,7 @@ public final class ATCS extends WeightedShortestProcessingTime {
 	
 	@Override
 	public IncrementalEvaluation createIncrementalEvaluation() {
-		return new IncrementalStatsCalculator(pSum, sSum);
+		return new IncrementalTimeCalculator();
 	}
 	
 	private double[] computeDueDateStats() {
@@ -182,49 +183,6 @@ public final class ATCS extends WeightedShortestProcessingTime {
 		return total / (n*n) - mean*mean;
 	}
 	
-	
-	/*
-	 * package-private rather than private to enable test case access
-	 */
-	class IncrementalStatsCalculator extends IncrementalAverageProcessingCalculator {
-		
-		// total setup time of remaining jobs
-		private int totalS;
-		
-		public IncrementalStatsCalculator(int pSum, int sSum) {
-			super(pSum);
-			totalS = sSum;
-		}
-		
-		@Override
-		public void extend(PartialPermutation p, int element) {
-			super.extend(p, element);
-			int x = p.numExtensions();	
-			for (int i = 0; i < x; i++) {
-				int j = p.getExtension(i);
-				if (p.size()==0) {
-					totalS -= data.getSetupTime(j);
-				} else {
-					totalS -= data.getSetupTime(p.getLast(), j);
-				}
-				if (j!=element) totalS -= data.getSetupTime(j, element);
-			}
-		}
-		
-		/**
-		 * Gets the total setup time of unscheduled jobs.
-		 * @return total setup time of unscheduled jobs
-		 */
-		public int totalSetupTime() { return totalS; }
-		
-		/**
-		 * Gets the average setup time of unscheduled jobs.
-		 * @return average setup time of unscheduled jobs
-		 */
-		public double averageSetupTime() {
-			if (n==0) return 0;
-			return ((double)totalS) / (n*n);
-		}
-	}
-	
+	/* package-private: here to support testing only */
+	final double getSetupAverage() { return sAve; } 
 }

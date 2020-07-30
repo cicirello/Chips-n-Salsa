@@ -128,10 +128,10 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Weighte
  current time, and s[i][j] is any setup time of the job if it follows job i.  
  The k<sub>1</sub> and k<sub>2</sub> are parameters that can be tuned based on 
  problem instance characteristics, p&#772; is the average processing
- time of remaining unscheduled jobs, and s&#772; is the average setup time
- of the remaining unscheduled jobs.  The authors of the ATCS heuristic
- simply computed p&#772; and s&#772; once at the start, while our implementation
- updates these dynamically along the way as jobs are scheduled.</p>  
+ time of all jobs, and s&#772; is the average setup time
+ of all jobs.  The p&#772; and s&#772; are computed once at the start.
+ For a version of the heuristic that dynamically updates these, see
+ the <a href="../../../../../org/cicirello/search/problems/scheduling/DynamicATCS.html" title="class in org.cicirello.search.problems.scheduling"><code>DynamicATCS</code></a> class.</p>  
 
  <p>The constant <a href="../../../../../org/cicirello/search/problems/scheduling/ATCS.html#MIN_H"><code>MIN_H</code></a> defines the minimum value
  the heuristic will return, preventing h(j)=0 in support of stochastic

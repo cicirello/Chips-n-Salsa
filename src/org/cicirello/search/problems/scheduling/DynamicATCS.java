@@ -25,8 +25,11 @@ import org.cicirello.search.ss.IncrementalEvaluation;
 import org.cicirello.search.ss.PartialPermutation;
 
 /**
- * <p>This is an implementation of the ATCS (Apparent Tardiness Cost with Setups)
- * heuristic.   
+ * <p>DynamicATCS is an implementation of a variation of the ATCS 
+ * (Apparent Tardiness Cost with Setups) heuristic, which dynamically 
+ * updates the average processing and setup times as it constructs the schedule.
+ * For an implementation of the original version of ATCS, without the dynamic
+ * parameter updates, see the {@link ATCS} class. 
  * ATCS is defined as:
  * h(j) = (w[j]/p[j]) exp( -max(0,d[j] - T - p[j]) / (k<sub>1</sub> p&#772;) ) 
  * exp( -s[i][j] / (k<sub>2</sub> s&#772;)),
@@ -48,9 +51,9 @@ import org.cicirello.search.ss.PartialPermutation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.29.2020
+ * @version 7.30.2020
  */
-public final class ATCS extends WeightedShortestProcessingTime {
+public final class DynamicATCS extends WeightedShortestProcessingTime {
 	
 	private final double k1;
 	private final double k2;
@@ -58,7 +61,7 @@ public final class ATCS extends WeightedShortestProcessingTime {
 	private final int sSum;
 	
 	/**
-	 * Constructs an ATCS heuristic.
+	 * Constructs an DynamicATCS heuristic.
 	 * @param problem The instance of a scheduling problem that is
 	 * the target of the heuristic.
 	 * @param k1 A parameter to the heuristic, which must be positive.
@@ -66,7 +69,7 @@ public final class ATCS extends WeightedShortestProcessingTime {
 	 * @throws IllegalArgumentException if problem.hasDueDates() returns false.
 	 * @throws IllegalArgumentException if k &le; 0.0.
 	 */
-	public ATCS(SingleMachineSchedulingProblem problem, double k1, double k2) {
+	public DynamicATCS(SingleMachineSchedulingProblem problem, double k1, double k2) {
 		super(problem);
 		if (!data.hasDueDates()) {
 			throw new IllegalArgumentException("This heuristic requires due dates.");
@@ -81,14 +84,14 @@ public final class ATCS extends WeightedShortestProcessingTime {
 	}
 	
 	/**
-	 * Constructs an ATCS heuristic.  Sets the values of k1 and k2 
+	 * Constructs an DynamicATCS heuristic.  Sets the values of k1 and k2 
 	 * according to the procedure described by the authors of the ATCS
 	 * heuristic.
 	 * @param problem The instance of a scheduling problem that is
 	 * the target of the heuristic.
 	 * @throws IllegalArgumentException if problem.hasDueDates() returns false.
 	 */
-	public ATCS(SingleMachineSchedulingProblem problem) {
+	public DynamicATCS(SingleMachineSchedulingProblem problem) {
 		super(problem);
 		if (!data.hasDueDates()) {
 			throw new IllegalArgumentException("This heuristic requires due dates.");

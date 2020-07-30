@@ -819,6 +819,138 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testDynamicATCS0() {
+		double e = DynamicATCS.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		double pAve = 0;
+		for (int i = 1; i < p.length; i++) {
+			slack[i] = 20-p[i]-p[0];
+			if (slack[i] < 0) slack[i] = 0;
+			pAve += p[i];
+		}
+		pAve /= p.length - 1;
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		//Doesn't really matter: partial.extend(0);
+		// All late tests, k1=2, k2=7?shouldn't matter
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
+		DynamicATCS h = new DynamicATCS(problem, 2, 7);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k1=2, k2=7?shouldn't matter
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new DynamicATCS(problem, 2, 7);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = Math.exp(-0.5*slack[j]/pAve);
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k=4, k2=7?shouldn't matter
+		problem = new FakeProblemWeightsPTime(w, p, 20);
+		h = new DynamicATCS(problem, 4, 7);
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = Math.exp(-0.25*slack[j]/pAve);
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testDynamicATCS1() {
+		double e = DynamicATCS.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		double pAve = 0;
+		for (int i = 1; i < p.length; i++) {
+			slack[i] = 20-p[i];
+			if (slack[i] < 0) slack[i] = 0;
+			pAve += p[i];
+		}
+		pAve /= p.length - 1;
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		// All late tests, k1=2, k2=1
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
+		DynamicATCS h = new DynamicATCS(problem, 2, 1);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		double sAve = ((DynamicATCS.IncrementalStatsCalculator)inc).averageSetupTime();
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = expected0[j]*Math.exp(-4.0/sAve);
+			assertEquals("negativeSlack, j:"+j, correction < e ? e : correction, h.h(partial, j, inc), 1E-10);
+		}
+		// d=20, k1=2, k2=2
+		problem = new FakeProblemWeightsPTime(w, p, 20, 4);
+		h = new DynamicATCS(problem, 2, 2);
+		inc = h.createIncrementalEvaluation();
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = Math.exp(-0.5*slack[j]/pAve)*Math.exp(-2.0/sAve);
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-4);
+		}
+		// d=20, k=4, k2=3
+		problem = new FakeProblemWeightsPTime(w, p, 20, 4);
+		h = new DynamicATCS(problem, 4, 3);
+		inc = h.createIncrementalEvaluation();
+		for (int j = 1; j < expected0.length; j++) {
+			double correction = Math.exp(-0.25*slack[j]/pAve)*Math.exp(-4.0/3.0/sAve);
+			double expected = expected0[j] * correction;
+			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-4);
+		}
+	}
+	
+	@Test
+	public void testDynamicATCSdefault() {
+		double e = DynamicATCS.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2, 1};
+		int[] p =    { 1, 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
+		double[] expected0 = { 999, 1, 0.5, 0.25, 0.125, e, e, e, e, 2, 1, 0.5, 0.25, e};
+		double[] slack = new double[p.length];
+		double pAve = 0;
+		for (int i = 1; i < p.length; i++) {
+			slack[i] = 20-p[i];
+			if (slack[i] < 0) slack[i] = 0;
+			pAve += p[i];
+		}
+		pAve /= p.length - 1;
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		// All late tests, 
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
+		DynamicATCS h = new DynamicATCS(problem);
+		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		double sAve = ((DynamicATCS.IncrementalStatsCalculator)inc).averageSetupTime();
+		for (int j = 1; j < expected0.length; j++) {
+			assertTrue("negativeSlack, j:"+j, expected0[j] >= h.h(partial, j, inc));
+		}
+		// d=20, 
+		problem = new FakeProblemWeightsPTime(w, p, 20, 4);
+		h = new DynamicATCS(problem);
+		inc = h.createIncrementalEvaluation();
+		for (int j = 1; j < expected0.length; j++) {
+			assertTrue("positiveSlack, j:"+j, expected0[j] >= h.h(partial, j, inc));
+		}
+		// d=20,
+		problem = new FakeProblemWeightsPTime(w, p, 20, 4);
+		h = new DynamicATCS(problem);
+		inc = h.createIncrementalEvaluation();
+		for (int j = 1; j < expected0.length; j++) {
+			assertTrue("positiveSlack, j:"+j, expected0[j] >= h.h(partial, j, inc));
+		}
+	}
+	
+	@Test
 	public void testSchedulingHeuristicIncEvalExtend() {
 		int[] w = { 1, 1, 1, 1, 1 };
 		int[] p = { 3, 2, 1, 4, 5 };
@@ -955,9 +1087,9 @@ public class HeuristicTests {
 			{8, 1, 2, 3}  
 		};
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, d, s);
-		ATCS h = new ATCS(problem, 2, 1);
+		DynamicATCS h = new DynamicATCS(problem, 2, 1);
 		IncrementalEvaluation inc = h.createIncrementalEvaluation();
-		ATCS.IncrementalStatsCalculator incATCS = (ATCS.IncrementalStatsCalculator)inc;
+		DynamicATCS.IncrementalStatsCalculator incATCS = (DynamicATCS.IncrementalStatsCalculator)inc;
 		assertEquals(58.0/16, incATCS.averageSetupTime(), 1E-10);
 		PartialPermutation partial = new PartialPermutation(4);
 		inc.extend(partial, 3);

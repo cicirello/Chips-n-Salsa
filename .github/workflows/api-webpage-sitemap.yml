@@ -1,3 +1,5 @@
+name: Generate API sitemap
+
 on:
   push:
     branches:

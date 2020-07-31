@@ -6,20 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2020-07-30
 ### Added
-
 * ATCS scheduling heuristic (as described by the heuristic's authors).
 * DynamicATCS scheduling heuristic (dynamically updates heuristic's parameters during schedule construction).
 * An example program for an industrial scheduling problem, demonstrating using a stochastic sampling search algorithm, VBSS, as well as a hybrid of VBSS and hill climbing.
 * CHANGELOG.md
+* Automated sitemap.xml generation for the API website.
 
 ### Changed
-
 * Improved representation of setup times for scheduling problems with sequence-dependent setups.
 * Refactored ATC and Montagne scheduling heuristics, and scheduling heuristic abstract base class for performance and style.
 
 ### Deprecated
 
 ### Removed
+* Unnecessary maven settings.xml.
 
 ### Fixed
 

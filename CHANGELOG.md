@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Improved representation of setup times for scheduling problems with sequence-dependent setups.
 * Refactored ATC and Montagne scheduling heuristics, and scheduling heuristic abstract base class for performance and style.
+* Refactored hill climbing classes, introducing an abstract base class, to eliminate redundant code.
 
 ### Deprecated
 

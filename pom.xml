@@ -6,7 +6,7 @@
  
   <groupId>org.cicirello</groupId>
   <artifactId>chips-n-salsa</artifactId>
-  <version>1.0.1</version>
+  <version>1.3.0</version>
   
   <dependencies>
     <dependency>
@@ -174,7 +174,9 @@
    <name>Chips-n-Salsa</name>
    <description>Chips-n-Salsa is a Java library of customizable, 
 		hybridizable, iterative, parallel, stochastic, and 
-		self-adaptive local search algorithms</description>
+		self-adaptive local search algorithms. It currently includes
+		simulated annealing, hill climbers, and several stochastic
+		sampling algorithms.</description>
    <url>https://chips-n-salsa.cicirello.org/</url>
    <licenses>
 	  <license>
@@ -184,13 +186,16 @@
 	  </license>
 	</licenses>
 	<organization>
-		<name>Vincent A. Cicirello</name>
+		<name>Cicirello.Org</name>
 		<url>https://www.cicirello.org/</url>
-	</organization>
+	</organization>		
 	<developers>
 		<developer>
-		  <name>Vincent A. Cicirello</name>
-		  <url>https://www.cicirello.org/</url>
+			<name>Vincent A. Cicirello</name>
+			<email>development@cicirello.org</email>
+			<url>https://www.cicirello.org/</url>
+			<organization>Cicirello.Org</organization>
+			<organizationUrl>https://www.cicirello.org/</organizationUrl>
 		</developer>
 	</developers>
 	

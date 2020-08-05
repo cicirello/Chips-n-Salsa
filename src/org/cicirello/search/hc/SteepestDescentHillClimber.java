@@ -22,16 +22,12 @@ package org.cicirello.search.hc;
 
 import org.cicirello.util.Copyable;
 import org.cicirello.search.ProgressTracker;
-import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.problems.Problem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.operators.IterableMutationOperator;
-import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.operators.Initializer;
-import org.cicirello.search.Metaheuristic;
-import org.cicirello.search.SimpleLocalMetaheuristic;
-
+import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.operators.MutationIterator;
 
 /**
  * <p>This class implements steepest descent hill climbing.
@@ -55,18 +51,10 @@ import org.cicirello.search.SimpleLocalMetaheuristic;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.15.2020
+ * @version 8.5.2020
  */
-public final class SteepestDescentHillClimber<T extends Copyable<T>> implements Metaheuristic<T>, SimpleLocalMetaheuristic<T> {
-	
-	private final OptimizationProblem<T> pOpt;
-	private final IntegerCostOptimizationProblem<T> pOptInt;
-	private final Initializer<T> initializer;
-	private ProgressTracker<T> tracker;
-	private final IterableMutationOperator<T> mutation;
-	private final OneClimb<T> climber;
-	private long neighborCount;
-	
+public final class SteepestDescentHillClimber<T extends Copyable<T>> extends AbstractHillClimber<T> {
+		
 	/**
 	 * Constructs a steepest descent hill climber object for real-valued optimization problem.
 	 * @param problem An instance of an optimization problem to solve.
@@ -77,15 +65,7 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>> implements 
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
 	public SteepestDescentHillClimber(OptimizationProblem<T> problem, IterableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker) {
-		if (problem == null || mutation == null || initializer == null || tracker == null) {
-			throw new NullPointerException();
-		}
-		pOpt = problem;
-		pOptInt = null;
-		this.mutation = mutation;
-		this.initializer = initializer;
-		this.tracker = tracker;
-		climber = initClimberDouble();
+		super(problem, mutation, initializer, tracker);
 	}
 	
 	/**
@@ -98,15 +78,7 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>> implements 
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
 	public SteepestDescentHillClimber(IntegerCostOptimizationProblem<T> problem, IterableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker) {
-		if (problem == null || mutation == null || initializer == null || tracker == null) {
-			throw new NullPointerException();
-		}
-		pOptInt = problem;
-		pOpt = null;
-		this.mutation = mutation;
-		this.initializer = initializer;
-		this.tracker = tracker;
-		climber = initClimberInt();
+		super(problem, mutation, initializer, tracker);
 	}
 	
 	/**
@@ -118,7 +90,7 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>> implements 
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
 	public SteepestDescentHillClimber(OptimizationProblem<T> problem, IterableMutationOperator<T> mutation, Initializer<T> initializer) {
-		this(problem, mutation, initializer, new ProgressTracker<T>());
+		super(problem, mutation, initializer, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -130,7 +102,7 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>> implements 
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
 	public SteepestDescentHillClimber(IntegerCostOptimizationProblem<T> problem, IterableMutationOperator<T> mutation, Initializer<T> initializer) {
-		this(problem, mutation, initializer, new ProgressTracker<T>());
+		super(problem, mutation, initializer, new ProgressTracker<T>());
 	}
 	
 	/*
@@ -138,98 +110,15 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>> implements 
 	 * note: copies references to thread-safe components, and splits potentially non-threadsafe components 
 	 */
 	private SteepestDescentHillClimber(SteepestDescentHillClimber<T> other) {
-		// these are threadsafe, so just copy references
-		pOpt = other.pOpt;
-		pOptInt = other.pOptInt;
+		super(other);
+	}
 		
-		// this one must be shared.
-		tracker = other.tracker;
-		
-		// split: not threadsafe
-		mutation = other.mutation.split();
-		initializer = other.initializer.split();
-		
-		climber = pOptInt != null ? initClimberInt() : initClimberDouble();
-		
-		// use default of 0 for this one: neighborCount
-	}
-	
-	@Override
-	public SolutionCostPair<T> optimize() {
-		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		neighborCount++;
-		return climber.climbOnce(initializer.createCandidateSolution());
-	}
-	
-	@Override
-	public SolutionCostPair<T> optimize(T start) {
-		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		return climber.climbOnce(start.copy());
-	}
-	
-	/**
-	 * <p>Executes multiple restarts of the hill climber.  Each restart begins from a new
-	 * random starting solution.  Returns the best solution across the restarts.</p>
-	 *
-	 * @param numRestarts The number of restarts of the hill climber.
-	 * @return The best solution of this set of restarts, which may or may not be the 
-	 * same as the solution contained
-	 * in this hill climber's {@link org.cicirello.search.ProgressTracker ProgressTracker}, 
-	 * which contains the best of all runs
-	 * across all calls to the various optimize methods.
-	 * Returns null if no runs executed, such as if the ProgressTracker already contains
-	 * the theoretical best solution.
-	 */
-	@Override
-	public SolutionCostPair<T> optimize(int numRestarts) {
-		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		SolutionCostPair<T> best = null;
-		for (int i = 0; i < numRestarts && !tracker.didFindBest() && !tracker.isStopped(); i++) {
-			SolutionCostPair<T> current = climber.climbOnce(initializer.createCandidateSolution());
-			neighborCount++;
-			if (best == null || current.compareTo(best) < 0) best = current;
-		}
-		return best;
-	}
-	
-	@Override
-	public ProgressTracker<T> getProgressTracker() {
-		return tracker;
-	}
-	
-	@Override
-	public void setProgressTracker(ProgressTracker<T> tracker) {
-		if (tracker != null) this.tracker = tracker;
-	}
-	
-	@Override
-	public Problem<T> getProblem() {
-		return (pOptInt != null) ? pOptInt : pOpt;
-	}
-	
-	/**
-	 * <p>Gets the total run length, where run length is number of candidate solutions
-	 * generated by the hill climber.  This is the total run length
-	 * across all calls to the search.</p>
-	 *
-	 * @return the total number of candidate solutions generated by the search, across
-	 * all calls to the various optimize methods.
-	 */
-	@Override
-	public long getTotalRunLength() {
-		return neighborCount;
-	}
-	
 	@Override
 	public SteepestDescentHillClimber<T> split() {
 		return new SteepestDescentHillClimber<T>(this);
 	}
 	
-	private interface OneClimb<T extends Copyable<T>> {
-		SolutionCostPair<T> climbOnce(T current);
-	}
-	
-	private OneClimb<T> initClimberInt() {
+	OneClimb<T> initClimberInt() {
 		return current -> {
 				// compute cost of start
 				int currentCost = pOptInt.cost(current);
@@ -264,7 +153,7 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>> implements 
 		};
 	}
 	
-	private OneClimb<T> initClimberDouble() {
+	OneClimb<T> initClimberDouble() {
 		return current -> {
 				// compute cost of start
 				double currentCost = pOpt.cost(current);				

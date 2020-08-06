@@ -59,7 +59,7 @@ import java.util.SplittableRandom;
  * implementations of scheduling cost functions deliberately to enable
  * defining additional problems (i.e., different cost functions to optimize)
  * using the same scheduling problem generators.  This is very much like
- * was was suggested in the following paper:</p>
+ * what was suggested in the following paper:</p>
  * <ul>
  * <li>Vincent A. Cicirello. 
  * <a href="https://www.cicirello.org/publications/cicirello2007icaps.html">The 
@@ -69,7 +69,7 @@ import java.util.SplittableRandom;
  * a Scheduling Competition. AAAI Press, September 2007.</li>
  * </ul>
  * <p>This is a reimplementation of the above problem instance generator,
- * using more a efficient random number generator, and a better estimator of
+ * using a more efficient random number generator, and a better estimator of
  * makespan (which is used in determining the random due dates).</p>
  *
  * <p>The constructors that generate random scheduling problem instances

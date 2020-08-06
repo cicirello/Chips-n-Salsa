@@ -4,7 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-07-30
+## [Unreleased] - 2020-08-06
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+
+
+## [1.3.0] - 2020-08-06
 ### Added
 * ATCS scheduling heuristic (as described by the heuristic's authors).
 * DynamicATCS scheduling heuristic (dynamically updates heuristic's parameters during schedule construction).
@@ -16,8 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Improved representation of setup times for scheduling problems with sequence-dependent setups.
 * Refactored ATC and Montagne scheduling heuristics, and scheduling heuristic abstract base class for performance and style.
 * Refactored hill climbing classes, introducing an abstract base class, to eliminate redundant code.
-
-### Deprecated
 
 ### Removed
 * Unnecessary maven settings.xml.

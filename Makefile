@@ -21,6 +21,7 @@ examples:
 	java -cp $(ClassPathOSAdjusted) org.cicirello.examples.chipsnsalsa.PostHillclimbExample
 	java -cp $(ClassPathOSAdjusted) org.cicirello.examples.chipsnsalsa.PreHillclimbExample
 	java -cp $(ClassPathOSAdjusted) org.cicirello.examples.chipsnsalsa.SchedulingExample
+	java -cp $(ClassPathOSAdjusted) org.cicirello.examples.chipsnsalsa.SchedulingWithVBSS
 
 .PHONY: clean
 clean:

@@ -21,10 +21,6 @@
 package org.cicirello.search.ss;
 
 import org.cicirello.permutations.Permutation;
-import org.cicirello.search.SimpleMetaheuristic;
-import org.cicirello.search.Metaheuristic;
-import org.cicirello.search.problems.Problem;
-import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.math.rand.RandomIndexer;
@@ -109,14 +105,12 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.10.2020
+ * @version 8.7.2020
  */
-public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permutation>, Metaheuristic<Permutation> {
+public final class AcceptanceBandSampling extends AbstractStochasticSampler {
 	
-	private final Sampler sampler;
+	private final ConstructiveHeuristic heuristic;
 	private final double acceptancePercentage;
-	private ProgressTracker<Permutation> tracker;
-	private int numGenerated;
 	
 	/**
 	 * Constructs an AcceptanceBandSampling search object.  
@@ -178,86 +172,21 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 	 * @throws IllegalArgumentException if beta is less than 0.0 or greater than 1.0.
 	 */
 	public AcceptanceBandSampling(ConstructiveHeuristic heuristic, double beta, ProgressTracker<Permutation> tracker) {
-		if (heuristic == null || tracker == null) {
-			throw new NullPointerException();
-		}
+		super(heuristic.getProblem(), tracker);
+		this.heuristic = heuristic;
 		if (beta < 0.0 || beta > 1.0) {
 			throw new IllegalArgumentException("beta must be in the interval: [0.0, 1.0].");
 		}
-		this.tracker = tracker;
 		acceptancePercentage = 1.0 - beta;
-		if (heuristic.getProblem() instanceof IntegerCostOptimizationProblem) {
-			sampler = new IntCost(heuristic);
-		} else {
-			sampler = new DoubleCost(heuristic);
-		}
-		// default: numGenerated = 0;
 	}
 	
 	/*
 	 * private for use by split method
 	 */
 	private AcceptanceBandSampling(AcceptanceBandSampling other) {
-		tracker = other.tracker;
+		super(other);
+		heuristic = other.heuristic;
 		acceptancePercentage = other.acceptancePercentage;
-		if (other.sampler instanceof IntCost) {
-			sampler = new IntCost((IntCost)other.sampler);
-		} else {
-			sampler = new DoubleCost((DoubleCost)other.sampler);
-		}
-		// default: numGenerated = 0;
-	}
-	
-	@Override
-	public SolutionCostPair<Permutation> optimize() {
-		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		numGenerated++;
-		return sampler.optimize();
-	}
-	
-	/**
-	 * <p>Generates multiple samples using Acceptance Band Sampling.  
-	 * Returns the best solution of the set of samples.</p>
-	 *
-	 * @param numSamples The number of samples to perform.
-	 * @return The best solution of this set of samples, which may or may not be the 
-	 * same as the solution contained
-	 * in this search's {@link org.cicirello.search.ProgressTracker ProgressTracker}, 
-	 * which contains the best of all runs
-	 * across all calls to the various optimize methods.
-	 * Returns null if no runs executed, such as if the ProgressTracker already contains
-	 * the theoretical best solution.
-	 */
-	@Override
-	public SolutionCostPair<Permutation> optimize(int numSamples) {
-		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		SolutionCostPair<Permutation> best = null;
-		for (int i = 0; i < numSamples && !tracker.didFindBest() && !tracker.isStopped(); i++) {
-			SolutionCostPair<Permutation> current = sampler.optimize();
-			numGenerated++;
-			if (best == null || current.compareTo(best) < 0) best = current;
-		}
-		return best;
-	}
-	
-	@Override
-	public ProgressTracker<Permutation> getProgressTracker() {
-		return tracker;
-	}
-	
-	@Override
-	public void setProgressTracker(ProgressTracker<Permutation> tracker) {
-		if (tracker != null) this.tracker = tracker;
-	}
-	
-	@Override
-	public long getTotalRunLength() {
-		return numGenerated;
-	}
-	
-	@Override
-	public Problem<Permutation> getProblem() {
-		return sampler.getProblem();
 	}
 	
 	@Override
@@ -280,31 +209,8 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 		return equivalents[RandomIndexer.nextInt(n)];
 	}
 	
-	private interface Sampler {
-		SolutionCostPair<Permutation> optimize();
-		Problem<Permutation> getProblem();
-	}
-	
-	/*
-	 * private inner class for handling the case when costs are integers
-	 */
-	private final class IntCost implements Sampler {
-		
-		private final ConstructiveHeuristic heuristic;
-		
-		public IntCost(ConstructiveHeuristic heuristic) {
-			this.heuristic = heuristic;
-		}
-		
-		/*
-		 * private for use by split method
-		 */
-		private IntCost(IntCost other) {
-			heuristic = other.heuristic;
-		}
-		
-		@Override
-		public SolutionCostPair<Permutation> optimize() {
+	Sampler initSamplerInt() {
+		return () -> {
 			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
@@ -327,40 +233,17 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 				}
 			}
 			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			SolutionCostPair<Permutation> solution = pOptInt.getSolutionCostPair(complete);
 			int cost = solution.getCost();
 			if (cost < tracker.getCost()) {
 				tracker.update(cost, complete);
 			}
 			return solution;
-		}
-		
-		@Override
-		public Problem<Permutation> getProblem() {
-			return heuristic.getProblem();
-		}
+		};
 	}
 	
-	/*
-	 * private inner class for handling the case when costs are doubles
-	 */
-	private final class DoubleCost implements Sampler {
-		
-		private final ConstructiveHeuristic heuristic;
-		
-		public DoubleCost(ConstructiveHeuristic heuristic) {
-			this.heuristic = heuristic;
-		}
-		
-		/*
-		 * private for use by split method
-		 */
-		private DoubleCost(DoubleCost other) {
-			heuristic = other.heuristic;
-		}
-		
-		@Override
-		public SolutionCostPair<Permutation> optimize() {
+	Sampler initSamplerDouble() {
+		return () -> {
 			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
@@ -383,17 +266,12 @@ public final class AcceptanceBandSampling implements SimpleMetaheuristic<Permuta
 				}
 			}
 			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			SolutionCostPair<Permutation> solution = pOpt.getSolutionCostPair(complete);
 			double cost = solution.getCostDouble();
 			if (cost < tracker.getCostDouble()) {
 				tracker.update(cost, complete);
 			}
 			return solution;
-		}
-		
-		@Override
-		public Problem<Permutation> getProblem() {
-			return heuristic.getProblem();
-		}
+		};
 	}
 }

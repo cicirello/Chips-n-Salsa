@@ -21,10 +21,6 @@
 package org.cicirello.search.ss;
 
 import org.cicirello.permutations.Permutation;
-import org.cicirello.search.SimpleMetaheuristic;
-import org.cicirello.search.Metaheuristic;
-import org.cicirello.search.problems.Problem;
-import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 import java.util.concurrent.ThreadLocalRandom;
@@ -153,14 +149,13 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.9.2020
+ * @version 8.7.2020
  */
-public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuristic<Permutation>, Metaheuristic<Permutation> {
+public final class HeuristicBiasedStochasticSampling extends AbstractStochasticSampler {
 	
-	private final HBSSSampler sampler;
-	private ProgressTracker<Permutation> tracker;
-	private int numGenerated;
 	private final BiasFunction bias;
+	private final ConstructiveHeuristic heuristic;
+	private final double[] biases;
 	
 	/**
 	 * Constructs a HeuristicBiasedStochasticSampling search object.  A ProgressTracker 
@@ -247,83 +242,20 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
 	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, BiasFunction bias, ProgressTracker<Permutation> tracker) {
-		if (heuristic == null || tracker == null) {
-			throw new NullPointerException();
-		}
-		this.tracker = tracker;
+		super(heuristic.getProblem(), tracker);
 		this.bias = bias;
-		// default: numGenerated = 0;
-		if (heuristic.getProblem() instanceof IntegerCostOptimizationProblem) {
-			sampler = new IntCost(heuristic);
-		} else {
-			sampler = new DoubleCost(heuristic);
-		}
+		this.heuristic = heuristic;
+		biases = precomputeBiases(heuristic.completePermutationLength());
 	}
 	
 	/*
 	 * private for use by split method
 	 */
 	private HeuristicBiasedStochasticSampling(HeuristicBiasedStochasticSampling other) {
-		tracker = other.tracker;
+		super(other);
 		bias = other.bias;
-		if (other.sampler instanceof IntCost) {
-			sampler = new IntCost((IntCost)other.sampler);
-		} else {
-			sampler = new DoubleCost((DoubleCost)other.sampler);
-		}
-		// default: numGenerated = 0;
-	}
-	
-	@Override
-	public SolutionCostPair<Permutation> optimize() {
-		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		numGenerated++;
-		return sampler.optimize();
-	}
-	
-	/**
-	 * <p>Generates multiple samples using Heuristic Biased Stochastic Sampling
-	 * (HBSS).  Returns the best solution of the set of samples.</p>
-	 *
-	 * @param numSamples The number of samples of HBSS to perform.
-	 * @return The best solution of this set of samples, which may or may not be the 
-	 * same as the solution contained
-	 * in this search's {@link org.cicirello.search.ProgressTracker ProgressTracker}, 
-	 * which contains the best of all runs
-	 * across all calls to the various optimize methods.
-	 * Returns null if no runs executed, such as if the ProgressTracker already contains
-	 * the theoretical best solution.
-	 */
-	@Override
-	public SolutionCostPair<Permutation> optimize(int numSamples) {
-		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		SolutionCostPair<Permutation> best = null;
-		for (int i = 0; i < numSamples && !tracker.didFindBest() && !tracker.isStopped(); i++) {
-			SolutionCostPair<Permutation> current = sampler.optimize();
-			numGenerated++;
-			if (best == null || current.compareTo(best) < 0) best = current;
-		}
-		return best;
-	}
-	
-	@Override
-	public ProgressTracker<Permutation> getProgressTracker() {
-		return tracker;
-	}
-	
-	@Override
-	public void setProgressTracker(ProgressTracker<Permutation> tracker) {
-		if (tracker != null) this.tracker = tracker;
-	}
-	
-	@Override
-	public long getTotalRunLength() {
-		return numGenerated;
-	}
-	
-	@Override
-	public Problem<Permutation> getProblem() {
-		return sampler.getProblem();
+		heuristic = other.heuristic;
+		biases = other.biases;
 	}
 	
 	@Override
@@ -438,35 +370,8 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 		return pivot;
 	}
 	
-	
-	private interface HBSSSampler {
-		SolutionCostPair<Permutation> optimize();
-		Problem<Permutation> getProblem();
-	}
-	
-	/*
-	 * private inner class for handling the case when costs are integers
-	 */
-	private final class IntCost implements HBSSSampler {
-		
-		private final ConstructiveHeuristic heuristic;
-		private final double[] biases;
-		
-		public IntCost(ConstructiveHeuristic heuristic) {
-			this.heuristic = heuristic;
-			biases = precomputeBiases(heuristic.completePermutationLength());
-		}
-		
-		/*
-		 * private for use by split method
-		 */
-		private IntCost(IntCost other) {
-			heuristic = other.heuristic;
-			biases = other.biases;
-		}
-		
-		@Override
-		public SolutionCostPair<Permutation> optimize() {
+	Sampler initSamplerInt() {
+		return () -> {
 			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
@@ -490,43 +395,17 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 				}
 			}
 			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			SolutionCostPair<Permutation> solution = pOptInt.getSolutionCostPair(complete);
 			int cost = solution.getCost();
 			if (cost < tracker.getCost()) {
 				tracker.update(cost, complete);
 			}
 			return solution;
-		}
-		
-		@Override
-		public Problem<Permutation> getProblem() {
-			return heuristic.getProblem();
-		}
+		};
 	}
 	
-	/*
-	 * private inner class for handling the case when costs are doubles
-	 */
-	private final class DoubleCost implements HBSSSampler {
-		
-		private final ConstructiveHeuristic heuristic;
-		private final double[] biases;
-		
-		public DoubleCost(ConstructiveHeuristic heuristic) {
-			this.heuristic = heuristic;
-			biases = precomputeBiases(heuristic.completePermutationLength());
-		}
-		
-		/*
-		 * private for use by split method
-		 */
-		private DoubleCost(DoubleCost other) {
-			heuristic = other.heuristic;
-			biases = other.biases;
-		}
-		
-		@Override
-		public SolutionCostPair<Permutation> optimize() {
+	Sampler initSamplerDouble() {
+		return () -> {
 			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
 			PartialPermutation p = new PartialPermutation(n);
@@ -550,17 +429,12 @@ public final class HeuristicBiasedStochasticSampling implements SimpleMetaheuris
 				}
 			}
 			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
+			SolutionCostPair<Permutation> solution = pOpt.getSolutionCostPair(complete);
 			double cost = solution.getCostDouble();
 			if (cost < tracker.getCostDouble()) {
 				tracker.update(cost, complete);
 			}
 			return solution;
-		}
-		
-		@Override
-		public Problem<Permutation> getProblem() {
-			return heuristic.getProblem();
-		}
+		};
 	}
 }

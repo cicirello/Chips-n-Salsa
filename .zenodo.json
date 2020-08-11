@@ -1,0 +1,30 @@
+{
+    "license": "GPL-3.0-or-later", 
+    "upload_type": "software", 
+    "creators": [
+        {
+            "orcid": "0000-0003-1072-8559", 
+            "affiliation": "Stockton University", 
+            "name": "Vincent A. Cicirello"
+        }
+    ], 
+    "keywords": [
+		"local search",
+		"simulated annealing",
+		"hill climbing",
+		"stochastic sampling",
+		"HBSS",
+		"VBSS",
+		"heuristic biased stochastic sampling",
+		"value biased stochastic sampling",
+		"randomized heuristics",
+		"metaheuristics",
+		"discrete optimization",
+		"permutations",
+		"scheduling",
+		"parallel",
+		"self-adaptive",
+		"self-tuning",
+		"constructive heuristic"
+	]
+}

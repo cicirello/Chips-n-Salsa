@@ -314,13 +314,13 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code><a href="../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></td>
+<td class="colFirst"><code><a href="../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#getProblem--">getProblem</a></span>()</code>
 <div class="block">Gets a reference to the problem that this search is solving.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></td>
+<td class="colFirst"><code><a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#getProgressTracker--">getProgressTracker</a></span>()</code>
 <div class="block">Gets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
  tracking search progress.</div>
@@ -333,7 +333,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code><a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></td>
+<td class="colFirst"><code><a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#optimize--">optimize</a></span>()</code>
 <div class="block">Executes a single run of a metaheuristic whose run length cannot be specified
  (e.g., a hill climber that terminates when it reaches a local optima, or a stochastic
@@ -341,14 +341,14 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code><a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></td>
+<td class="colFirst"><code><a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#optimize-int-">optimize</a></span>(int&nbsp;numSamples)</code>
 <div class="block">Generates multiple stochastic heuristic samples.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker</a></span>(<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;tracker)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker</a></span>(<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</code>
 <div class="block">Sets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
  tracking search progress.</div>
 </td>
@@ -550,7 +550,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>optimize</h4>
-<pre>public final&nbsp;<a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;optimize()</pre>
+<pre>public final&nbsp;<a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;&nbsp;optimize()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html#optimize--">SimpleMetaheuristic</a></code></span></div>
 <div class="block"><p>Executes a single run of a metaheuristic whose run length cannot be specified
  (e.g., a hill climber that terminates when it reaches a local optima, or a stochastic
@@ -561,7 +561,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
  that may have changed during the previous call to optimize to the start of run state.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html#optimize--">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
+<dd><code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html#optimize--">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The current solution at the end of this run and its cost, 
  which may or may not be the same as the solution contained
@@ -578,12 +578,12 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>optimize</h4>
-<pre>public final&nbsp;<a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;optimize(int&nbsp;numSamples)</pre>
+<pre>public final&nbsp;<a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;&nbsp;optimize(int&nbsp;numSamples)</pre>
 <div class="block"><p>Generates multiple stochastic heuristic samples.  
  Returns the best solution of the set of samples.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/Metaheuristic.html#optimize-int-">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
+<dd><code><a href="../../../../org/cicirello/search/Metaheuristic.html#optimize-int-">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>numSamples</code> - The number of samples to perform.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -603,7 +603,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getProgressTracker</h4>
-<pre>public final&nbsp;<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;getProgressTracker()</pre>
+<pre>public final&nbsp;<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;getProgressTracker()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProgressTracker--">TrackableSearch</a></code></span></div>
 <div class="block">Gets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
  tracking search progress.  The object returned by this method
@@ -615,7 +615,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
  the search data tracked by this object.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProgressTracker--">getProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
+<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProgressTracker--">getProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> in use by this metaheuristic.</dd>
 </dl>
@@ -627,14 +627,14 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setProgressTracker</h4>
-<pre>public final&nbsp;void&nbsp;setProgressTracker(<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;tracker)</pre>
+<pre>public final&nbsp;void&nbsp;setProgressTracker(<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html#setProgressTracker-org.cicirello.search.ProgressTracker-">TrackableSearch</a></code></span></div>
 <div class="block">Sets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
  tracking search progress.  Any previously set ProgressTracker is
  replaced by this one.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
+<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>tracker</code> - The new ProgressTracker to set.  The tracker must not be null.
  This method does nothing if tracker is null.</dd>
@@ -662,7 +662,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
  the interface documentation.</p></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getTotalRunLength--">getTotalRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
+<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getTotalRunLength--">getTotalRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the total run length of the metaheuristic</dd>
 </dl>
@@ -674,12 +674,12 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getProblem</h4>
-<pre>public final&nbsp;<a href="../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;getProblem()</pre>
+<pre>public final&nbsp;<a href="../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;T&gt;&nbsp;getProblem()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProblem--">TrackableSearch</a></code></span></div>
 <div class="block">Gets a reference to the problem that this search is solving.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProblem--">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
+<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProblem--">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a reference to the problem.</dd>
 </dl>

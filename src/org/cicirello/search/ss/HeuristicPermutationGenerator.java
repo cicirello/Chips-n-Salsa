@@ -24,6 +24,7 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.search.SimpleMetaheuristic;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
+import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 
@@ -54,11 +55,13 @@ import org.cicirello.search.ProgressTracker;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.7.2020
+ * @version 8.12.2020
  */
 public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<Permutation> {
 	
-	private final HeuristicGenerator generator;
+	private final OptimizationProblem<Permutation> pOpt;
+	private final IntegerCostOptimizationProblem<Permutation> pOptInt;
+	private final ConstructiveHeuristic heuristic;
 	private ProgressTracker<Permutation> tracker;
 	private int numGenerated;
 	
@@ -85,11 +88,15 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 			throw new NullPointerException();
 		}
 		this.tracker = tracker;
+		this.heuristic = heuristic;
 		// default: numGenerated = 0;
+		Problem<Permutation> problem = heuristic.getProblem();
 		if (heuristic.getProblem() instanceof IntegerCostOptimizationProblem) {
-			generator = new IntCost(heuristic);
+			pOptInt = (IntegerCostOptimizationProblem<Permutation>)problem;
+			pOpt = null;
 		} else {
-			generator = new DoubleCost(heuristic);
+			pOpt = (OptimizationProblem<Permutation>)problem;
+			pOptInt = null;
 		}
 	}
 	
@@ -97,18 +104,24 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	 * private for use by split method
 	 */
 	private HeuristicPermutationGenerator(HeuristicPermutationGenerator other) {
+		// these are threadsafe, so just copy references
+		pOpt = other.pOpt;
+		pOptInt = other.pOptInt;
+		heuristic = other.heuristic;
+		
+		// this one must be shared.
 		tracker = other.tracker;
-		if (other.generator instanceof IntCost) {
-			generator = new IntCost((IntCost)other.generator);
-		} else {
-			generator = new DoubleCost((DoubleCost)other.generator);
-		}
+		
 		// default: numGenerated = 0;
 	}
 	
 	@Override
 	public SolutionCostPair<Permutation> optimize() {
-		return generator.optimize();
+		if (tracker.isStopped() || tracker.didFindBest()) {
+			return null;
+		}
+		numGenerated++;
+		return generate(); 
 	}
 	
 	@Override
@@ -128,7 +141,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	
 	@Override
 	public Problem<Permutation> getProblem() {
-		return generator.getProblem();
+		return (pOptInt != null) ? pOptInt : pOpt;
 	}
 	
 	@Override
@@ -136,124 +149,54 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 		return new HeuristicPermutationGenerator(this);
 	}
 	
-	private interface HeuristicGenerator {
-		SolutionCostPair<Permutation> optimize();
-		Problem<Permutation> getProblem();
-	}
-	
-	/*
-	 * private inner class for handling the case when costs are integers
-	 */
-	private final class IntCost implements HeuristicGenerator {
-		
-		private final ConstructiveHeuristic heuristic;
-		
-		public IntCost(ConstructiveHeuristic heuristic) {
-			this.heuristic = heuristic;
-		}
-		
-		/*
-		 * private for use by split method
-		 */
-		private IntCost(IntCost other) {
-			heuristic = other.heuristic;
-		}
-		
-		@Override
-		public SolutionCostPair<Permutation> optimize() {
-			if (tracker.isStopped() || tracker.didFindBest()) {
-				return null;
-			}
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					double bestH = Double.NEGATIVE_INFINITY;
-					int which = 0;
-					for (int i = 0; i < k; i++) {
-						double h = heuristic.h(p, p.getExtension(i), incEval);
-						if (h > bestH) {
-							bestH = h;
-							which = i;
-						}
-					}
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
+	private SolutionCostPair<Permutation> evaluateAndPackageSolution(Permutation complete) {
+		if (pOptInt != null) {
+			SolutionCostPair<Permutation> solution = pOptInt.getSolutionCostPair(complete);
+			int cost = solution.getCost();
+			if (cost < tracker.getCost()) {
+				tracker.update(cost, complete);
+				if (cost == pOptInt.minCost()) {
+					tracker.setFoundBest();
 				}
 			}
-			numGenerated++;
-			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
-			tracker.update(solution.getCost(), complete);
-			return solution; 
-		}
-		
-		@Override
-		public Problem<Permutation> getProblem() {
-			return heuristic.getProblem();
-		}
-	}
-	
-	/*
-	 * private inner class for handling the case when costs are doubles
-	 */
-	private final class DoubleCost implements HeuristicGenerator {
-		
-		private final ConstructiveHeuristic heuristic;
-		
-		public DoubleCost(ConstructiveHeuristic heuristic) {
-			this.heuristic = heuristic;
-		}
-		
-		/*
-		 * private for use by split method
-		 */
-		private DoubleCost(DoubleCost other) {
-			heuristic = other.heuristic;
-		}
-		
-		@Override
-		public SolutionCostPair<Permutation> optimize() {
-			if (tracker.isStopped() || tracker.didFindBest()) {
-				return null;
-			}
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					double bestH = Double.NEGATIVE_INFINITY;
-					int which = 0;
-					for (int i = 0; i < k; i++) {
-						double h = heuristic.h(p, p.getExtension(i), incEval);
-						if (h > bestH) {
-							bestH = h;
-							which = i;
-						}
-					}
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
+			return solution;
+		} else {
+			SolutionCostPair<Permutation> solution = pOpt.getSolutionCostPair(complete);
+			double cost = solution.getCostDouble();
+			if (cost < tracker.getCostDouble()) {
+				tracker.update(cost, complete);
+				if (cost == pOpt.minCost()) {
+					tracker.setFoundBest();
 				}
 			}
-			numGenerated++;
-			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = heuristic.getProblem().getSolutionCostPair(complete);
-			tracker.update(solution.getCostDouble(), complete);
 			return solution;
 		}
-		
-		@Override
-		public Problem<Permutation> getProblem() {
-			return heuristic.getProblem();
+	}
+	
+	private SolutionCostPair<Permutation> generate() {
+		IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
+		int n = heuristic.completePermutationLength();
+		PartialPermutation p = new PartialPermutation(n);
+		while (!p.isComplete()) {
+			int k = p.numExtensions();
+			if (k==1) {
+				incEval.extend(p, p.getExtension(0));
+				p.extend(0);
+			} else {
+				double bestH = Double.NEGATIVE_INFINITY;
+				int which = 0;
+				for (int i = 0; i < k; i++) {
+					double h = heuristic.h(p, p.getExtension(i), incEval);
+					if (h > bestH) {
+						bestH = h;
+						which = i;
+					}
+				}
+				incEval.extend(p, p.getExtension(which));
+				p.extend(which);
+			}
 		}
+		Permutation complete = p.toComplete();
+		return evaluateAndPackageSolution(complete);
 	}
 }

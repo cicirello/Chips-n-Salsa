@@ -20,7 +20,6 @@
  
 package org.cicirello.search.ss;
 
-import org.cicirello.permutations.Permutation;
 import org.cicirello.search.SimpleMetaheuristic;
 import org.cicirello.search.Metaheuristic;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
@@ -28,7 +27,7 @@ import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
-
+import org.cicirello.util.Copyable;
 
 /**
  * <p>This class serves as an abstract base class for the stochastic
@@ -38,14 +37,13 @@ import org.cicirello.search.SolutionCostPair;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.7.2020
+ * @version 8.12.2020
  */
-abstract class AbstractStochasticSampler implements SimpleMetaheuristic<Permutation>, Metaheuristic<Permutation> {
+abstract class AbstractStochasticSampler<T extends Copyable<T>> implements SimpleMetaheuristic<T>, Metaheuristic<T> {
 	
-	final OptimizationProblem<Permutation> pOpt;
-	final IntegerCostOptimizationProblem<Permutation> pOptInt;
-	ProgressTracker<Permutation> tracker;
-	private final Sampler sampler;
+	final OptimizationProblem<T> pOpt;
+	final IntegerCostOptimizationProblem<T> pOptInt;
+	ProgressTracker<T> tracker;
 	private int numGenerated;
 	
 	/**
@@ -54,20 +52,18 @@ abstract class AbstractStochasticSampler implements SimpleMetaheuristic<Permutat
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if problem or tracker is null.
 	 */
-	AbstractStochasticSampler(Problem<Permutation> problem, ProgressTracker<Permutation> tracker) {
+	AbstractStochasticSampler(Problem<T> problem, ProgressTracker<T> tracker) {
 		if (problem == null || tracker == null) {
 			throw new NullPointerException();
 		}
 		this.tracker = tracker;
 		// default: numGenerated = 0;
 		if (problem instanceof IntegerCostOptimizationProblem) {
-			pOptInt = (IntegerCostOptimizationProblem<Permutation>)problem;
+			pOptInt = (IntegerCostOptimizationProblem<T>)problem;
 			pOpt = null;
-			sampler = initSamplerInt();
 		} else {
-			pOpt = (OptimizationProblem<Permutation>)problem;
+			pOpt = (OptimizationProblem<T>)problem;
 			pOptInt = null;
-			sampler = initSamplerDouble();
 		}
 	}
 	
@@ -75,25 +71,22 @@ abstract class AbstractStochasticSampler implements SimpleMetaheuristic<Permutat
 	 * package-private copy constructor in support of the split method.
 	 * note: copies references to thread-safe components, and splits potentially non-threadsafe components 
 	 */
-	AbstractStochasticSampler(AbstractStochasticSampler other) {
+	AbstractStochasticSampler(AbstractStochasticSampler<T> other) {
 		// these are threadsafe, so just copy references
 		pOpt = other.pOpt;
 		pOptInt = other.pOptInt;
 		
 		// this one must be shared.
 		tracker = other.tracker;
-		
-		// not threadsafe
-		sampler = pOptInt != null ? initSamplerInt() : initSamplerDouble();
-		
+	
 		// use default of 0 for this one: numGenerated
 	}
 	
 	@Override
-	public final SolutionCostPair<Permutation> optimize() {
+	public final SolutionCostPair<T> optimize() {
 		if (tracker.didFindBest() || tracker.isStopped()) return null;
 		numGenerated++;
-		return sampler.optimize();
+		return sample();
 	}
 	
 	/**
@@ -110,11 +103,11 @@ abstract class AbstractStochasticSampler implements SimpleMetaheuristic<Permutat
 	 * the theoretical best solution.
 	 */
 	@Override
-	public final SolutionCostPair<Permutation> optimize(int numSamples) {
+	public final SolutionCostPair<T> optimize(int numSamples) {
 		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		SolutionCostPair<Permutation> best = null;
+		SolutionCostPair<T> best = null;
 		for (int i = 0; i < numSamples && !tracker.didFindBest() && !tracker.isStopped(); i++) {
-			SolutionCostPair<Permutation> current = sampler.optimize();
+			SolutionCostPair<T> current = sample();
 			numGenerated++;
 			if (best == null || current.compareTo(best) < 0) best = current;
 		}
@@ -122,12 +115,12 @@ abstract class AbstractStochasticSampler implements SimpleMetaheuristic<Permutat
 	}
 	
 	@Override
-	public final ProgressTracker<Permutation> getProgressTracker() {
+	public final ProgressTracker<T> getProgressTracker() {
 		return tracker;
 	}
 	
 	@Override
-	public final void setProgressTracker(ProgressTracker<Permutation> tracker) {
+	public final void setProgressTracker(ProgressTracker<T> tracker) {
 		if (tracker != null) this.tracker = tracker;
 	}
 	
@@ -137,20 +130,37 @@ abstract class AbstractStochasticSampler implements SimpleMetaheuristic<Permutat
 	}
 	
 	@Override
-	public final Problem<Permutation> getProblem() {
+	public final Problem<T> getProblem() {
 		return (pOptInt != null) ? pOptInt : pOpt;
 	}
 
 	@Override
-	public abstract AbstractStochasticSampler split();
+	public abstract AbstractStochasticSampler<T> split();
 	
-	
-	interface Sampler {
-		SolutionCostPair<Permutation> optimize();
+	SolutionCostPair<T> evaluateAndPackageSolution(T complete) {
+		if (pOptInt != null) {
+			int cost = pOptInt.cost(complete);
+			// update tracker
+			if (cost < tracker.getCost()) {
+				tracker.update(cost, complete);
+				if (cost == pOptInt.minCost()) {
+					tracker.setFoundBest();
+				}
+			}
+			return new SolutionCostPair<T>(complete, cost);
+		} else {
+			double cost = pOpt.cost(complete);
+			// update tracker
+			if (cost < tracker.getCostDouble()) {
+				tracker.update(cost, complete);
+				if (cost == pOpt.minCost()) {
+					tracker.setFoundBest();
+				}
+			}
+			return new SolutionCostPair<T>(complete, cost);
+		}
 	}
 	
-	abstract Sampler initSamplerInt();
-	
-	abstract Sampler initSamplerDouble();
+	abstract SolutionCostPair<T> sample();
 }
 

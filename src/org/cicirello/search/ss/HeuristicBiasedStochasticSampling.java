@@ -149,9 +149,9 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.7.2020
+ * @version 8.12.2020
  */
-public final class HeuristicBiasedStochasticSampling extends AbstractStochasticSampler {
+public final class HeuristicBiasedStochasticSampling extends AbstractStochasticSampler<Permutation> {
 	
 	private final BiasFunction bias;
 	private final ConstructiveHeuristic heuristic;
@@ -370,71 +370,31 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 		return pivot;
 	}
 	
-	Sampler initSamplerInt() {
-		return () -> {
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			double[] v = new double[n];
-			int[] extensions = new int[n];
-			ThreadLocalRandom r = ThreadLocalRandom.current();
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					int chosenRank = 1 + select(biases, k, r.nextDouble(biases[k-1]));
-					for (int i = 0; i < k; i++) {
-						v[i] = heuristic.h(p, p.getExtension(i), incEval);
-						extensions[i] = i;
-					}
-					int which = randomizedSelect(extensions, v, k, chosenRank);
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
+	@Override
+	SolutionCostPair<Permutation> sample() {
+		IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
+		int n = heuristic.completePermutationLength();
+		PartialPermutation p = new PartialPermutation(n);
+		double[] v = new double[n];
+		int[] extensions = new int[n];
+		ThreadLocalRandom r = ThreadLocalRandom.current();
+		while (!p.isComplete()) {
+			int k = p.numExtensions();
+			if (k==1) {
+				incEval.extend(p, p.getExtension(0));
+				p.extend(0);
+			} else {
+				int chosenRank = 1 + select(biases, k, r.nextDouble(biases[k-1]));
+				for (int i = 0; i < k; i++) {
+					v[i] = heuristic.h(p, p.getExtension(i), incEval);
+					extensions[i] = i;
 				}
+				int which = randomizedSelect(extensions, v, k, chosenRank);
+				incEval.extend(p, p.getExtension(which));
+				p.extend(which);
 			}
-			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = pOptInt.getSolutionCostPair(complete);
-			int cost = solution.getCost();
-			if (cost < tracker.getCost()) {
-				tracker.update(cost, complete);
-			}
-			return solution;
-		};
-	}
-	
-	Sampler initSamplerDouble() {
-		return () -> {
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			double[] v = new double[n];
-			int[] extensions = new int[n];
-			ThreadLocalRandom r = ThreadLocalRandom.current();
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					int chosenRank = 1 + select(biases, k, r.nextDouble(biases[k-1]));
-					for (int i = 0; i < k; i++) {
-						v[i] = heuristic.h(p, p.getExtension(i), incEval);
-						extensions[i] = i;
-					}
-					int which = randomizedSelect(extensions, v, k, chosenRank);
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
-				}
-			}
-			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = pOpt.getSolutionCostPair(complete);
-			double cost = solution.getCostDouble();
-			if (cost < tracker.getCostDouble()) {
-				tracker.update(cost, complete);
-			}
-			return solution;
-		};
+		}
+		Permutation complete = p.toComplete();
+		return evaluateAndPackageSolution(complete);
 	}
 }

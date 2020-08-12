@@ -116,8 +116,7 @@ var activeTableTab = "activeTableTab";
 <hr>
 <br>
 <pre>public final class <span class="typeNameLabel">IterativeSampling&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</span>
-extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
-implements <a href="../../../../org/cicirello/search/Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;T&gt;, <a href="../../../../org/cicirello/search/SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;T&gt;</pre>
+extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block"><p>Iterative sampling is the simplest possible form of a stochastic sampling search.
  In iterative sampling, the search generates N random candidate solutions to the 
  problem, each sampled uniformly at random from the space of possible solutions.
@@ -192,13 +191,13 @@ implements <a href="../../../../org/cicirello/search/Metaheuristic.html" title="
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code><a href="../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;</code></td>
+<td class="colFirst"><code><a href="../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/IterativeSampling.html#getProblem--">getProblem</a></span>()</code>
 <div class="block">Gets a reference to the problem that this search is solving.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;</code></td>
+<td class="colFirst"><code><a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/IterativeSampling.html#getProgressTracker--">getProgressTracker</a></span>()</code>
 <div class="block">Gets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
  tracking search progress.</div>
@@ -207,12 +206,11 @@ implements <a href="../../../../org/cicirello/search/Metaheuristic.html" title="
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>long</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/IterativeSampling.html#getTotalRunLength--">getTotalRunLength</a></span>()</code>
-<div class="block">Gets the total run length, where run length is number of samples
- generated.</div>
+<div class="block">Gets the total run length of the metaheuristic.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code><a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;</code></td>
+<td class="colFirst"><code><a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/IterativeSampling.html#optimize--">optimize</a></span>()</code>
 <div class="block">Executes a single run of a metaheuristic whose run length cannot be specified
  (e.g., a hill climber that terminates when it reaches a local optima, or a stochastic
@@ -220,14 +218,14 @@ implements <a href="../../../../org/cicirello/search/Metaheuristic.html" title="
 </td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code><a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;</code></td>
+<td class="colFirst"><code><a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/IterativeSampling.html#optimize-int-">optimize</a></span>(int&nbsp;numSamples)</code>
-<div class="block">Generates multiple samples using Iterative Sampling.</div>
+<div class="block">Generates multiple stochastic heuristic samples.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/IterativeSampling.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker</a></span>(<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&nbsp;tracker)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/IterativeSampling.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker</a></span>(<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</code>
 <div class="block">Sets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
  tracking search progress.</div>
 </td>
@@ -349,143 +347,10 @@ implements <a href="../../../../org/cicirello/search/Metaheuristic.html" title="
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="optimize--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>optimize</h4>
-<pre>public&nbsp;<a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&nbsp;optimize()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html#optimize--">SimpleMetaheuristic</a></code></span></div>
-<div class="block"><p>Executes a single run of a metaheuristic whose run length cannot be specified
- (e.g., a hill climber that terminates when it reaches a local optima, or a stochastic
- sampler that terminates when it constructs one solution, etc).
- If this method is called multiple times, each call is randomized in some algorithm
- dependent way (e.g., a hill climber begins at a new randomly generated
- starting solution), and reinitializes any control parameters  
- that may have changed during the previous call to optimize to the start of run state.</p></div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html#optimize--">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The current solution at the end of this run and its cost, 
- which may or may not be the same as the solution contained
- in this metaheuristic's <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, 
- which contains the best of all runs.
- Returns null if the run did not execute, such as if the ProgressTracker already contains
- the theoretical best solution.</dd>
-</dl>
-</li>
-</ul>
-<a name="optimize-int-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>optimize</h4>
-<pre>public&nbsp;<a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&nbsp;optimize(int&nbsp;numSamples)</pre>
-<div class="block"><p>Generates multiple samples using Iterative Sampling.
- Returns the best solution of the set of samples.</p></div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/Metaheuristic.html#optimize-int-">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&gt;</code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>numSamples</code> - The number of samples of Iterative Sampling to perform.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The best solution of this set of samples, which may or may not be the 
- same as the solution contained
- in this search's <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, 
- which contains the best of all runs
- across all calls to the various optimize methods.
- Returns null if no runs executed, such as if the ProgressTracker already contains
- the theoretical best solution.</dd>
-</dl>
-</li>
-</ul>
-<a name="getTotalRunLength--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getTotalRunLength</h4>
-<pre>public&nbsp;long&nbsp;getTotalRunLength()</pre>
-<div class="block"><p>Gets the total run length, where run length is number of samples
- generated.  This is the total run length
- across all calls to the search.</p></div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getTotalRunLength--">getTotalRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the total number of solutions sampled by the search, across
- all calls to the various optimize methods.</dd>
-</dl>
-</li>
-</ul>
-<a name="getProgressTracker--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getProgressTracker</h4>
-<pre>public&nbsp;<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&nbsp;getProgressTracker()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProgressTracker--">TrackableSearch</a></code></span></div>
-<div class="block">Gets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.  The object returned by this method
- contains the best solution found during the search (including across
- multiple concurrent runs if the search is multithreaded, or across
- multiple restarts if the run methods were called 
- multiple times), as well as cost of that solution, among other information.
- See the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> documentation for more information about
- the search data tracked by this object.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProgressTracker--">getProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> in use by this metaheuristic.</dd>
-</dl>
-</li>
-</ul>
-<a name="setProgressTracker-org.cicirello.search.ProgressTracker-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setProgressTracker</h4>
-<pre>public&nbsp;void&nbsp;setProgressTracker(<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&nbsp;tracker)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html#setProgressTracker-org.cicirello.search.ProgressTracker-">TrackableSearch</a></code></span></div>
-<div class="block">Sets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.  Any previously set ProgressTracker is
- replaced by this one.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&gt;</code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>tracker</code> - The new ProgressTracker to set.  The tracker must not be null.
- This method does nothing if tracker is null.</dd>
-</dl>
-</li>
-</ul>
-<a name="getProblem--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getProblem</h4>
-<pre>public&nbsp;<a href="../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&nbsp;getProblem()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProblem--">TrackableSearch</a></code></span></div>
-<div class="block">Gets a reference to the problem that this search is solving.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProblem--">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>a reference to the problem.</dd>
-</dl>
-</li>
-</ul>
 <a name="split--">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>split</h4>
 <pre>public&nbsp;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="class in org.cicirello.search.ss">IterativeSampling</a>&lt;<a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&nbsp;split()</pre>
@@ -515,6 +380,147 @@ implements <a href="../../../../org/cicirello/search/Metaheuristic.html" title="
 <dd>A functionally identical copy of the object, or a reference to this if
  it is both safe and efficient for multiple threads to share a single instance of this
  Splittable object.</dd>
+</dl>
+</li>
+</ul>
+<a name="optimize--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>optimize</h4>
+<pre>public final&nbsp;<a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;&nbsp;optimize()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html#optimize--">SimpleMetaheuristic</a></code></span></div>
+<div class="block"><p>Executes a single run of a metaheuristic whose run length cannot be specified
+ (e.g., a hill climber that terminates when it reaches a local optima, or a stochastic
+ sampler that terminates when it constructs one solution, etc).
+ If this method is called multiple times, each call is randomized in some algorithm
+ dependent way (e.g., a hill climber begins at a new randomly generated
+ starting solution), and reinitializes any control parameters  
+ that may have changed during the previous call to optimize to the start of run state.</p></div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html#optimize--">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The current solution at the end of this run and its cost, 
+ which may or may not be the same as the solution contained
+ in this metaheuristic's <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, 
+ which contains the best of all runs.
+ Returns null if the run did not execute, such as if the ProgressTracker already contains
+ the theoretical best solution.</dd>
+</dl>
+</li>
+</ul>
+<a name="optimize-int-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>optimize</h4>
+<pre>public final&nbsp;<a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;&nbsp;optimize(int&nbsp;numSamples)</pre>
+<div class="block"><p>Generates multiple stochastic heuristic samples.  
+ Returns the best solution of the set of samples.</p></div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/Metaheuristic.html#optimize-int-">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>numSamples</code> - The number of samples to perform.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The best solution of this set of samples, which may or may not be the 
+ same as the solution contained
+ in this search's <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, 
+ which contains the best of all runs
+ across all calls to the various optimize methods.
+ Returns null if no runs executed, such as if the ProgressTracker already contains
+ the theoretical best solution.</dd>
+</dl>
+</li>
+</ul>
+<a name="getProgressTracker--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getProgressTracker</h4>
+<pre>public final&nbsp;<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;getProgressTracker()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProgressTracker--">TrackableSearch</a></code></span></div>
+<div class="block">Gets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
+ tracking search progress.  The object returned by this method
+ contains the best solution found during the search (including across
+ multiple concurrent runs if the search is multithreaded, or across
+ multiple restarts if the run methods were called 
+ multiple times), as well as cost of that solution, among other information.
+ See the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> documentation for more information about
+ the search data tracked by this object.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProgressTracker--">getProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> in use by this metaheuristic.</dd>
+</dl>
+</li>
+</ul>
+<a name="setProgressTracker-org.cicirello.search.ProgressTracker-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setProgressTracker</h4>
+<pre>public final&nbsp;void&nbsp;setProgressTracker(<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html#setProgressTracker-org.cicirello.search.ProgressTracker-">TrackableSearch</a></code></span></div>
+<div class="block">Sets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
+ tracking search progress.  Any previously set ProgressTracker is
+ replaced by this one.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>tracker</code> - The new ProgressTracker to set.  The tracker must not be null.
+ This method does nothing if tracker is null.</dd>
+</dl>
+</li>
+</ul>
+<a name="getTotalRunLength--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTotalRunLength</h4>
+<pre>public final&nbsp;long&nbsp;getTotalRunLength()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html#getTotalRunLength--">TrackableSearch</a></code></span></div>
+<div class="block"><p>Gets the total run length of the metaheuristic.  This is the total run length
+ across all calls to the search.
+ This may differ from what may be expected based on run lengths.  
+ For example, the search terminates 
+ if it finds the theoretical best solution, and also immediately returns if
+ a prior call found the theoretical best.  In such cases, the total run length may
+ be less than the requested run length.</p>
+
+ <p>The meaning of run length may vary from one metaheuristic to another.  Therefore,
+ implementing classes should provide fresh documentation rather than relying entirely on
+ the interface documentation.</p></div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getTotalRunLength--">getTotalRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the total run length of the metaheuristic</dd>
+</dl>
+</li>
+</ul>
+<a name="getProblem--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getProblem</h4>
+<pre>public final&nbsp;<a href="../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;T&gt;&nbsp;getProblem()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProblem--">TrackableSearch</a></code></span></div>
+<div class="block">Gets a reference to the problem that this search is solving.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/TrackableSearch.html#getProblem--">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to the problem.</dd>
 </dl>
 </li>
 </ul>

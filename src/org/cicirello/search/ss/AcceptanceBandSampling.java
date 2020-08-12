@@ -105,9 +105,9 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.7.2020
+ * @version 8.12.2020
  */
-public final class AcceptanceBandSampling extends AbstractStochasticSampler {
+public final class AcceptanceBandSampling extends AbstractStochasticSampler<Permutation> {
 	
 	private final ConstructiveHeuristic heuristic;
 	private final double acceptancePercentage;
@@ -209,69 +209,30 @@ public final class AcceptanceBandSampling extends AbstractStochasticSampler {
 		return equivalents[RandomIndexer.nextInt(n)];
 	}
 	
-	Sampler initSamplerInt() {
-		return () -> {
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			double[] v = new double[n];
-			int[] equivalents = new int[n];
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					double max = Double.NEGATIVE_INFINITY;
-					for (int i = 0; i < k; i++) {
-						v[i] = heuristic.h(p, p.getExtension(i), incEval);
-						if (v[i] > max) max = v[i];
-					}
-					int which = choose(v, k, max, equivalents);		
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
+	@Override
+	SolutionCostPair<Permutation> sample() {
+		IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
+		int n = heuristic.completePermutationLength();
+		PartialPermutation p = new PartialPermutation(n);
+		double[] v = new double[n];
+		int[] equivalents = new int[n];
+		while (!p.isComplete()) {
+			int k = p.numExtensions();
+			if (k==1) {
+				incEval.extend(p, p.getExtension(0));
+				p.extend(0);
+			} else {
+				double max = Double.NEGATIVE_INFINITY;
+				for (int i = 0; i < k; i++) {
+					v[i] = heuristic.h(p, p.getExtension(i), incEval);
+					if (v[i] > max) max = v[i];
 				}
+				int which = choose(v, k, max, equivalents);		
+				incEval.extend(p, p.getExtension(which));
+				p.extend(which);
 			}
-			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = pOptInt.getSolutionCostPair(complete);
-			int cost = solution.getCost();
-			if (cost < tracker.getCost()) {
-				tracker.update(cost, complete);
-			}
-			return solution;
-		};
-	}
-	
-	Sampler initSamplerDouble() {
-		return () -> {
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			double[] v = new double[n];
-			int[] equivalents = new int[n];
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					double max = Double.NEGATIVE_INFINITY;
-					for (int i = 0; i < k; i++) {
-						v[i] = heuristic.h(p, p.getExtension(i), incEval);
-						if (v[i] > max) max = v[i];
-					}
-					int which = choose(v, k, max, equivalents);
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
-				}
-			}
-			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = pOpt.getSolutionCostPair(complete);
-			double cost = solution.getCostDouble();
-			if (cost < tracker.getCostDouble()) {
-				tracker.update(cost, complete);
-			}
-			return solution;
-		};
+		}
+		Permutation complete = p.toComplete();
+		return evaluateAndPackageSolution(complete);
 	}
 }

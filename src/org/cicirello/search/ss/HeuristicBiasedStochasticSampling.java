@@ -399,6 +399,9 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 			int cost = solution.getCost();
 			if (cost < tracker.getCost()) {
 				tracker.update(cost, complete);
+				if (cost == pOptInt.minCost()) {
+					tracker.setFoundBest();
+				}
 			}
 			return solution;
 		};
@@ -433,6 +436,9 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 			double cost = solution.getCostDouble();
 			if (cost < tracker.getCostDouble()) {
 				tracker.update(cost, complete);
+				if (cost == pOpt.minCost()) {
+					tracker.setFoundBest();
+				}
 			}
 			return solution;
 		};

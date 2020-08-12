@@ -61,7 +61,6 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	
 	private final OptimizationProblem<Permutation> pOpt;
 	private final IntegerCostOptimizationProblem<Permutation> pOptInt;
-	private final HeuristicGenerator generator;
 	private final ConstructiveHeuristic heuristic;
 	private ProgressTracker<Permutation> tracker;
 	private int numGenerated;
@@ -95,11 +94,9 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 		if (heuristic.getProblem() instanceof IntegerCostOptimizationProblem) {
 			pOptInt = (IntegerCostOptimizationProblem<Permutation>)problem;
 			pOpt = null;
-			generator = initGeneratorInt();
 		} else {
 			pOpt = (OptimizationProblem<Permutation>)problem;
 			pOptInt = null;
-			generator = initGeneratorDouble();
 		}
 	}
 	
@@ -115,9 +112,6 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 		// this one must be shared.
 		tracker = other.tracker;
 		
-		// not threadsafe
-		generator = pOptInt != null ? initGeneratorInt() : initGeneratorDouble();
-
 		// default: numGenerated = 0;
 	}
 	
@@ -127,7 +121,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 			return null;
 		}
 		numGenerated++;
-		return generator.optimize();
+		return generate(); 
 	}
 	
 	@Override
@@ -155,35 +149,8 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 		return new HeuristicPermutationGenerator(this);
 	}
 	
-	private interface HeuristicGenerator {
-		SolutionCostPair<Permutation> optimize();
-	}
-	
-	private HeuristicGenerator initGeneratorInt() {
-		return () -> {
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					double bestH = Double.NEGATIVE_INFINITY;
-					int which = 0;
-					for (int i = 0; i < k; i++) {
-						double h = heuristic.h(p, p.getExtension(i), incEval);
-						if (h > bestH) {
-							bestH = h;
-							which = i;
-						}
-					}
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
-				}
-			}
-			Permutation complete = p.toComplete();
+	private SolutionCostPair<Permutation> evaluateAndPackageSolution(Permutation complete) {
+		if (pOptInt != null) {
 			SolutionCostPair<Permutation> solution = pOptInt.getSolutionCostPair(complete);
 			int cost = solution.getCost();
 			if (cost < tracker.getCost()) {
@@ -193,34 +160,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 				}
 			}
 			return solution;
-		};
-	}
-	
-	private HeuristicGenerator initGeneratorDouble() {
-		return () -> {
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					double bestH = Double.NEGATIVE_INFINITY;
-					int which = 0;
-					for (int i = 0; i < k; i++) {
-						double h = heuristic.h(p, p.getExtension(i), incEval);
-						if (h > bestH) {
-							bestH = h;
-							which = i;
-						}
-					}
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
-				}
-			}
-			Permutation complete = p.toComplete();
+		} else {
 			SolutionCostPair<Permutation> solution = pOpt.getSolutionCostPair(complete);
 			double cost = solution.getCostDouble();
 			if (cost < tracker.getCostDouble()) {
@@ -230,6 +170,33 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 				}
 			}
 			return solution;
-		};
+		}
+	}
+	
+	private SolutionCostPair<Permutation> generate() {
+		IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
+		int n = heuristic.completePermutationLength();
+		PartialPermutation p = new PartialPermutation(n);
+		while (!p.isComplete()) {
+			int k = p.numExtensions();
+			if (k==1) {
+				incEval.extend(p, p.getExtension(0));
+				p.extend(0);
+			} else {
+				double bestH = Double.NEGATIVE_INFINITY;
+				int which = 0;
+				for (int i = 0; i < k; i++) {
+					double h = heuristic.h(p, p.getExtension(i), incEval);
+					if (h > bestH) {
+						bestH = h;
+						which = i;
+					}
+				}
+				incEval.extend(p, p.getExtension(which));
+				p.extend(which);
+			}
+		}
+		Permutation complete = p.toComplete();
+		return evaluateAndPackageSolution(complete);
 	}
 }

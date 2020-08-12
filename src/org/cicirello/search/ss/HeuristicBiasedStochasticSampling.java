@@ -149,9 +149,9 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.7.2020
+ * @version 8.12.2020
  */
-public final class HeuristicBiasedStochasticSampling extends AbstractStochasticSampler {
+public final class HeuristicBiasedStochasticSampling extends AbstractStochasticSampler<Permutation> {
 	
 	private final BiasFunction bias;
 	private final ConstructiveHeuristic heuristic;
@@ -370,7 +370,7 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 		return pivot;
 	}
 	
-	Sampler initSamplerInt() {
+	Sampler<Permutation> initSamplerInt() {
 		return () -> {
 			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();
@@ -404,7 +404,7 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 		};
 	}
 	
-	Sampler initSamplerDouble() {
+	Sampler<Permutation> initSamplerDouble() {
 		return () -> {
 			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
 			int n = heuristic.completePermutationLength();

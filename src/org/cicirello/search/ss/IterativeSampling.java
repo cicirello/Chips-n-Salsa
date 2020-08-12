@@ -23,12 +23,9 @@ package org.cicirello.search.ss;
 import org.cicirello.util.Copyable;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.problems.Problem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.operators.Initializer;
-import org.cicirello.search.Metaheuristic;
-import org.cicirello.search.SimpleMetaheuristic;
 
 /**
  * <p>Iterative sampling is the simplest possible form of a stochastic sampling search.
@@ -49,16 +46,11 @@ import org.cicirello.search.SimpleMetaheuristic;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.15.2020
+ * @version 8.12.2020
  */
-public final class IterativeSampling<T extends Copyable<T>> implements Metaheuristic<T>, SimpleMetaheuristic<T> {
+public final class IterativeSampling<T extends Copyable<T>> extends AbstractStochasticSampler<T> {
 	
-	private final OptimizationProblem<T> pOpt;
-	private final IntegerCostOptimizationProblem<T> pOptInt;
 	private final Initializer<T> initializer;
-	private ProgressTracker<T> tracker;
-	private long totalNumSamples;
-	private final OneSample<T> sampler;
 	
 	/**
 	 * Constructs an iterative sampling search for a real-valued optimization problem.
@@ -69,15 +61,11 @@ public final class IterativeSampling<T extends Copyable<T>> implements Metaheuri
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
 	public IterativeSampling(OptimizationProblem<T> problem, Initializer<T> initializer, ProgressTracker<T> tracker) {
-		if (problem == null || initializer == null || tracker == null) {
+		super(problem, tracker);
+		if (initializer == null) {
 			throw new NullPointerException();
 		}
-		pOpt = problem;
-		pOptInt = null;
 		this.initializer = initializer;
-		this.tracker = tracker;
-		// Deliberately using default: totalNumSamples = 0;
-		sampler = initSamplerDouble();
 	}
 	
 	/**
@@ -89,15 +77,11 @@ public final class IterativeSampling<T extends Copyable<T>> implements Metaheuri
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
 	public IterativeSampling(IntegerCostOptimizationProblem<T> problem, Initializer<T> initializer, ProgressTracker<T> tracker) {
-		if (problem == null || initializer == null || tracker == null) {
+		super(problem, tracker);
+		if (initializer == null) {
 			throw new NullPointerException();
 		}
-		pOptInt = problem;
-		pOpt = null;
 		this.initializer = initializer;
-		this.tracker = tracker;
-		// Deliberately using default: totalNumSamples = 0;
-		sampler = initSamplerInt();
 	}
 	
 	/**
@@ -127,79 +111,9 @@ public final class IterativeSampling<T extends Copyable<T>> implements Metaheuri
 	 * note: copies references to thread-safe components, and splits potentially non-threadsafe components 
 	 */
 	private IterativeSampling(IterativeSampling<T> other) {
-		// these are threadsafe, so just copy references
-		pOpt = other.pOpt;
-		pOptInt = other.pOptInt;
-		
-		// this one must be shared so just copy reference.
-		tracker = other.tracker;
-		
+		super(other);
 		// split: might not be threadsafe
 		initializer = other.initializer.split();
-
-		// initialize fresh: NOT threadsafe
-		sampler = pOptInt != null ? initSamplerInt() : initSamplerDouble();
-		
-		// use default of 0 for this one: totalNumSamples
-	}
-	
-	
-	@Override
-	public SolutionCostPair<T> optimize() {
-		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		return sampler.oneSample();
-	}
-	
-	/**
-	 * <p>Generates multiple samples using Iterative Sampling.
-	 * Returns the best solution of the set of samples.</p>
-	 *
-	 * @param numSamples The number of samples of Iterative Sampling to perform.
-	 * @return The best solution of this set of samples, which may or may not be the 
-	 * same as the solution contained
-	 * in this search's {@link org.cicirello.search.ProgressTracker ProgressTracker}, 
-	 * which contains the best of all runs
-	 * across all calls to the various optimize methods.
-	 * Returns null if no runs executed, such as if the ProgressTracker already contains
-	 * the theoretical best solution.
-	 */
-	@Override
-	public SolutionCostPair<T> optimize(int numSamples) {
-		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		SolutionCostPair<T> best = null;
-		for (int i = 0; i < numSamples && !tracker.didFindBest() && !tracker.isStopped(); i++) {
-			SolutionCostPair<T> current = sampler.oneSample();
-			if (best == null || current.compareTo(best) < 0) best = current;
-		}
-		return best;
-	}
-	
-	/**
-	 * <p>Gets the total run length, where run length is number of samples
-	 * generated.  This is the total run length
-	 * across all calls to the search.</p>
-	 *
-	 * @return the total number of solutions sampled by the search, across
-	 * all calls to the various optimize methods.
-	 */
-	@Override
-	public long getTotalRunLength() {
-		return totalNumSamples;
-	}
-	
-	@Override
-	public ProgressTracker<T> getProgressTracker() {
-		return tracker;
-	}
-	
-	@Override
-	public void setProgressTracker(ProgressTracker<T> tracker) {
-		if (tracker != null) this.tracker = tracker;
-	}
-	
-	@Override
-	public Problem<T> getProblem() {
-		return (pOptInt != null) ? pOptInt : pOpt;
 	}
 	
 	@Override
@@ -207,43 +121,33 @@ public final class IterativeSampling<T extends Copyable<T>> implements Metaheuri
 		return new IterativeSampling<T>(this);
 	}
 	
-	private interface OneSample<T extends Copyable<T>> {
-		SolutionCostPair<T> oneSample();
-	}
-	
-	private OneSample<T> initSamplerDouble() {
-		return new OneSample<T>() {
-			public SolutionCostPair<T> oneSample() {
-				T s = initializer.createCandidateSolution();
-				totalNumSamples++;
-				double cost = pOpt.cost(s);
-				// update tracker
-				if (cost < tracker.getCostDouble()) {
-					tracker.update(cost, s);
-					if (cost == pOpt.minCost()) {
-						tracker.setFoundBest();
-					}
+	Sampler<T> initSamplerDouble() {
+		return () -> {
+			T s = initializer.createCandidateSolution();
+			double cost = pOpt.cost(s);
+			// update tracker
+			if (cost < tracker.getCostDouble()) {
+				tracker.update(cost, s);
+				if (cost == pOpt.minCost()) {
+					tracker.setFoundBest();
 				}
-				return new SolutionCostPair<T>(s, cost);
 			}
+			return new SolutionCostPair<T>(s, cost);
 		};
 	}
 	
-	private OneSample<T> initSamplerInt() {
-		return new OneSample<T>() {
-			public SolutionCostPair<T> oneSample() {
-				T s = initializer.createCandidateSolution();
-				totalNumSamples++;
-				int cost = pOptInt.cost(s);
-				// update tracker
-				if (cost < tracker.getCost()) {
-					tracker.update(cost, s);
-					if (cost == pOptInt.minCost()) {
-						tracker.setFoundBest();
-					}
+	Sampler<T> initSamplerInt() {
+		return () -> {
+			T s = initializer.createCandidateSolution();
+			int cost = pOptInt.cost(s);
+			// update tracker
+			if (cost < tracker.getCost()) {
+				tracker.update(cost, s);
+				if (cost == pOptInt.minCost()) {
+					tracker.setFoundBest();
 				}
-				return new SolutionCostPair<T>(s, cost);
 			}
+			return new SolutionCostPair<T>(s, cost);
 		};
 	}
 	

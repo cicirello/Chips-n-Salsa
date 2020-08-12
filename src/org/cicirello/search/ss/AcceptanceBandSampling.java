@@ -209,75 +209,30 @@ public final class AcceptanceBandSampling extends AbstractStochasticSampler<Perm
 		return equivalents[RandomIndexer.nextInt(n)];
 	}
 	
-	Sampler<Permutation> initSamplerInt() {
-		return () -> {
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			double[] v = new double[n];
-			int[] equivalents = new int[n];
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					double max = Double.NEGATIVE_INFINITY;
-					for (int i = 0; i < k; i++) {
-						v[i] = heuristic.h(p, p.getExtension(i), incEval);
-						if (v[i] > max) max = v[i];
-					}
-					int which = choose(v, k, max, equivalents);		
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
+	@Override
+	SolutionCostPair<Permutation> sample() {
+		IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
+		int n = heuristic.completePermutationLength();
+		PartialPermutation p = new PartialPermutation(n);
+		double[] v = new double[n];
+		int[] equivalents = new int[n];
+		while (!p.isComplete()) {
+			int k = p.numExtensions();
+			if (k==1) {
+				incEval.extend(p, p.getExtension(0));
+				p.extend(0);
+			} else {
+				double max = Double.NEGATIVE_INFINITY;
+				for (int i = 0; i < k; i++) {
+					v[i] = heuristic.h(p, p.getExtension(i), incEval);
+					if (v[i] > max) max = v[i];
 				}
+				int which = choose(v, k, max, equivalents);		
+				incEval.extend(p, p.getExtension(which));
+				p.extend(which);
 			}
-			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = pOptInt.getSolutionCostPair(complete);
-			int cost = solution.getCost();
-			if (cost < tracker.getCost()) {
-				tracker.update(cost, complete);
-				if (cost == pOptInt.minCost()) {
-					tracker.setFoundBest();
-				}
-			}
-			return solution;
-		};
-	}
-	
-	Sampler<Permutation> initSamplerDouble() {
-		return () -> {
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			double[] v = new double[n];
-			int[] equivalents = new int[n];
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					double max = Double.NEGATIVE_INFINITY;
-					for (int i = 0; i < k; i++) {
-						v[i] = heuristic.h(p, p.getExtension(i), incEval);
-						if (v[i] > max) max = v[i];
-					}
-					int which = choose(v, k, max, equivalents);
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
-				}
-			}
-			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = pOpt.getSolutionCostPair(complete);
-			double cost = solution.getCostDouble();
-			if (cost < tracker.getCostDouble()) {
-				tracker.update(cost, complete);
-				if (cost == pOpt.minCost()) {
-					tracker.setFoundBest();
-				}
-			}
-			return solution;
-		};
+		}
+		Permutation complete = p.toComplete();
+		return evaluateAndPackageSolution(complete);
 	}
 }

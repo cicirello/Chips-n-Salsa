@@ -44,7 +44,6 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>> implements Simpl
 	final OptimizationProblem<T> pOpt;
 	final IntegerCostOptimizationProblem<T> pOptInt;
 	ProgressTracker<T> tracker;
-	private final Sampler<T> sampler;
 	private int numGenerated;
 	
 	/**
@@ -62,11 +61,9 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>> implements Simpl
 		if (problem instanceof IntegerCostOptimizationProblem) {
 			pOptInt = (IntegerCostOptimizationProblem<T>)problem;
 			pOpt = null;
-			sampler = initSamplerInt();
 		} else {
 			pOpt = (OptimizationProblem<T>)problem;
 			pOptInt = null;
-			sampler = initSamplerDouble();
 		}
 	}
 	
@@ -81,10 +78,7 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>> implements Simpl
 		
 		// this one must be shared.
 		tracker = other.tracker;
-		
-		// not threadsafe
-		sampler = pOptInt != null ? initSamplerInt() : initSamplerDouble();
-		
+	
 		// use default of 0 for this one: numGenerated
 	}
 	
@@ -92,7 +86,7 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>> implements Simpl
 	public final SolutionCostPair<T> optimize() {
 		if (tracker.didFindBest() || tracker.isStopped()) return null;
 		numGenerated++;
-		return sampler.optimize();
+		return sample();
 	}
 	
 	/**
@@ -113,7 +107,7 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>> implements Simpl
 		if (tracker.didFindBest() || tracker.isStopped()) return null;
 		SolutionCostPair<T> best = null;
 		for (int i = 0; i < numSamples && !tracker.didFindBest() && !tracker.isStopped(); i++) {
-			SolutionCostPair<T> current = sampler.optimize();
+			SolutionCostPair<T> current = sample();
 			numGenerated++;
 			if (best == null || current.compareTo(best) < 0) best = current;
 		}
@@ -143,13 +137,30 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>> implements Simpl
 	@Override
 	public abstract AbstractStochasticSampler<T> split();
 	
-	
-	interface Sampler<T extends Copyable<T>> {
-		SolutionCostPair<T> optimize();
+	SolutionCostPair<T> evaluateAndPackageSolution(T complete) {
+		if (pOptInt != null) {
+			SolutionCostPair<T> solution = pOptInt.getSolutionCostPair(complete);
+			int cost = solution.getCost();
+			if (cost < tracker.getCost()) {
+				tracker.update(cost, complete);
+				if (cost == pOptInt.minCost()) {
+					tracker.setFoundBest();
+				}
+			}
+			return solution;
+		} else {
+			SolutionCostPair<T> solution = pOpt.getSolutionCostPair(complete);
+			double cost = solution.getCostDouble();
+			if (cost < tracker.getCostDouble()) {
+				tracker.update(cost, complete);
+				if (cost == pOpt.minCost()) {
+					tracker.setFoundBest();
+				}
+			}
+			return solution;
+		}
 	}
 	
-	abstract Sampler<T> initSamplerInt();
-	
-	abstract Sampler<T> initSamplerDouble();
+	abstract SolutionCostPair<T> sample();
 }
 

@@ -292,73 +292,29 @@ public final class ValueBiasedStochasticSampling extends AbstractStochasticSampl
 		else return select(values, mid+1, last, u);
 	}
 	
-	Sampler<Permutation> initSamplerInt() {
-		return () -> {
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			double[] b = new double[n];
-			ThreadLocalRandom r = ThreadLocalRandom.current();
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					for (int i = 0; i < k; i++) {
-						b[i] = heuristic.h(p, p.getExtension(i), incEval);
-					}
-					adjustForBias(b, k);
-					int which = select(b, k, r.nextDouble());
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
+	@Override
+	SolutionCostPair<Permutation> sample() {
+		IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
+		int n = heuristic.completePermutationLength();
+		PartialPermutation p = new PartialPermutation(n);
+		double[] b = new double[n];
+		ThreadLocalRandom r = ThreadLocalRandom.current();
+		while (!p.isComplete()) {
+			int k = p.numExtensions();
+			if (k==1) {
+				incEval.extend(p, p.getExtension(0));
+				p.extend(0);
+			} else {
+				for (int i = 0; i < k; i++) {
+					b[i] = heuristic.h(p, p.getExtension(i), incEval);
 				}
+				adjustForBias(b, k);
+				int which = select(b, k, r.nextDouble());
+				incEval.extend(p, p.getExtension(which));
+				p.extend(which);
 			}
-			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = pOptInt.getSolutionCostPair(complete);
-			int cost = solution.getCost();
-			if (cost < tracker.getCost()) {
-				tracker.update(cost, complete);
-				if (cost == pOptInt.minCost()) {
-					tracker.setFoundBest();
-				}
-			}
-			return solution;
-		};
-	}
-	
-	Sampler<Permutation> initSamplerDouble() {
-		return () -> {
-			IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-			int n = heuristic.completePermutationLength();
-			PartialPermutation p = new PartialPermutation(n);
-			double[] b = new double[n];
-			ThreadLocalRandom r = ThreadLocalRandom.current();
-			while (!p.isComplete()) {
-				int k = p.numExtensions();
-				if (k==1) {
-					incEval.extend(p, p.getExtension(0));
-					p.extend(0);
-				} else {
-					for (int i = 0; i < k; i++) {
-						b[i] = heuristic.h(p, p.getExtension(i), incEval);
-					}
-					adjustForBias(b, k);
-					int which = select(b, k, r.nextDouble());
-					incEval.extend(p, p.getExtension(which));
-					p.extend(which);
-				}
-			}
-			Permutation complete = p.toComplete();
-			SolutionCostPair<Permutation> solution = pOpt.getSolutionCostPair(complete);
-			double cost = solution.getCostDouble();
-			if (cost < tracker.getCostDouble()) {
-				tracker.update(cost, complete);
-				if (cost == pOpt.minCost()) {
-					tracker.setFoundBest();
-				}
-			}
-			return solution;
-		};
+		}
+		Permutation complete = p.toComplete();
+		return evaluateAndPackageSolution(complete);
 	}
 }

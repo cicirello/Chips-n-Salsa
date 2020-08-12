@@ -93,6 +93,8 @@ import org.cicirello.search.SimpleLocalMetaheuristic;
  */
 public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolutionMetaheuristic<T> {
 	
+	private final IntegerCostOptimizationProblem<T> pOptInt;
+	private final OptimizationProblem<T> pOpt;
 	private final Initializer<T> initializer;
 	private final UndoableMutationOperator<T> mutation;
 	private final AnnealingSchedule anneal;
@@ -111,8 +113,10 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 		this.mutation = mutation;
 		this.anneal = anneal;
 		this.tracker = tracker;
+		pOptInt = problem;
+		pOpt = null;
 		// default on purpose: elapsedEvals = 0;
-		sr = new IntCost(problem);
+		sr = initSingleRunInt();
 	}
 	
 	/*
@@ -126,8 +130,10 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 		this.mutation = mutation;
 		this.anneal = anneal;
 		this.tracker = tracker;
+		pOpt = problem;
+		pOptInt = null;
 		// default on purpose: elapsedEvals = 0;
-		sr = new DoubleCost(problem);
+		sr = initSingleRunDouble();
 	}
 	
 	/*
@@ -135,6 +141,10 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * note: copies references to thread-safe components, and splits potentially non-threadsafe components 
 	 */
 	private SimulatedAnnealing(SimulatedAnnealing<T> other) {
+		// these are threadsafe, so just copy references
+		pOpt = other.pOpt;
+		pOptInt = other.pOptInt;
+		
 		// this one must be shared.
 		tracker = other.tracker;
 	
@@ -143,14 +153,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 		mutation = other.mutation.split();
 		anneal = other.anneal.split();
 		
-		// the SingleRun object is tied to the SimulatedAnnealing instance.
-		// need a new one
-		Problem<T> p = other.sr.getProblem();
-		@SuppressWarnings("unchecked")
-		SingleRun<T> sr = p instanceof IntegerCostOptimizationProblem ? 
-			new IntCost((IntegerCostOptimizationProblem<T>)p) : 
-			new DoubleCost((OptimizationProblem<T>)p);
-		this.sr = sr;
+		sr = pOptInt != null ? initSingleRunInt() : initSingleRunDouble();
 	}
 	
 	/**
@@ -469,7 +472,6 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 */
 	@Override
 	public final SolutionCostPair<T> reoptimize(int maxEvals) {
-		ProgressTracker<T> tracker = getProgressTracker();
 		if (tracker.didFindBest() || tracker.isStopped()) return null;
 		T start = tracker.getSolution();
 		if (start == null) start = initializer.createCandidateSolution();
@@ -492,7 +494,6 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 */
 	@Override
 	public final SolutionCostPair<T> optimize(int maxEvals) {
-		ProgressTracker<T> tracker = getProgressTracker();
 		if (tracker.didFindBest() || tracker.isStopped()) return null;
 		return optimizeSingleRun(maxEvals, initializer.createCandidateSolution());
 	}
@@ -513,14 +514,13 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 */
 	@Override
 	public final SolutionCostPair<T> optimize(int maxEvals, T start) {
-		ProgressTracker<T> tracker = getProgressTracker();
 		if (tracker.didFindBest() || tracker.isStopped()) return null;
 		return optimizeSingleRun(maxEvals, start.copy());
 	}
 	
 	@Override
 	public final Problem<T> getProblem() {
-		return sr.getProblem();
+		return (pOptInt != null) ? pOptInt : pOpt;
 	}
 	
 	@Override
@@ -563,24 +563,10 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	
 	private interface SingleRun<T extends Copyable<T>> {
 		SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current);
-		Problem<T> getProblem();
 	}
 	
-	private final class IntCost implements SingleRun<T> {
-		
-		private final IntegerCostOptimizationProblem<T> pOptInt;
-		
-		private IntCost(IntegerCostOptimizationProblem<T> problem) {
-			pOptInt = problem;
-		}
-		
-		@Override
-		public IntegerCostOptimizationProblem<T> getProblem() {
-			return pOptInt;
-		}
-		
-		@Override
-		public SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current) {
+	private SingleRun<T> initSingleRunInt() {
+		return (int maxEvals, T current) -> {
 			// compute cost of start
 			int currentCost = pOptInt.cost(current);
 			
@@ -626,24 +612,11 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 			}
 			elapsedEvals += maxEvals;
 			return new SolutionCostPair<T>(current, currentCost);
-		}
+		};
 	}
 	
-	private final class DoubleCost implements SingleRun<T> {
-		
-		private final OptimizationProblem<T> pOpt;
-		
-		DoubleCost(OptimizationProblem<T> problem) {
-			pOpt = problem;
-		}
-		
-		@Override
-		public final OptimizationProblem<T> getProblem() {
-			return pOpt;
-		}
-
-		@Override
-		public SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current) {
+	private SingleRun<T> initSingleRunDouble() {
+		return (int maxEvals, T current) -> {
 			// compute cost of start
 			double currentCost = pOpt.cost(current);
 			
@@ -689,7 +662,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 			}
 			elapsedEvals += maxEvals;
 			return new SolutionCostPair<T>(current, currentCost);
-		}
+		};
 	}
 	
 	/*

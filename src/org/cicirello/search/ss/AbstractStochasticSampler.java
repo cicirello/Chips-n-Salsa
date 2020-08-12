@@ -139,25 +139,25 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>> implements Simpl
 	
 	SolutionCostPair<T> evaluateAndPackageSolution(T complete) {
 		if (pOptInt != null) {
-			SolutionCostPair<T> solution = pOptInt.getSolutionCostPair(complete);
-			int cost = solution.getCost();
+			int cost = pOptInt.cost(complete);
+			// update tracker
 			if (cost < tracker.getCost()) {
 				tracker.update(cost, complete);
 				if (cost == pOptInt.minCost()) {
 					tracker.setFoundBest();
 				}
 			}
-			return solution;
+			return new SolutionCostPair<T>(complete, cost);
 		} else {
-			SolutionCostPair<T> solution = pOpt.getSolutionCostPair(complete);
-			double cost = solution.getCostDouble();
+			double cost = pOpt.cost(complete);
+			// update tracker
 			if (cost < tracker.getCostDouble()) {
 				tracker.update(cost, complete);
 				if (cost == pOpt.minCost()) {
 					tracker.setFoundBest();
 				}
 			}
-			return solution;
+			return new SolutionCostPair<T>(complete, cost);
 		}
 	}
 	

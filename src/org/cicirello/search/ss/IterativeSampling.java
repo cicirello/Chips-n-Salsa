@@ -126,36 +126,4 @@ public final class IterativeSampling<T extends Copyable<T>> extends AbstractStoc
 		T s = initializer.createCandidateSolution();
 		return evaluateAndPackageSolution(s);
 	}
-	
-	/*
-	Sampler<T> initSamplerDouble() {
-		return () -> {
-			T s = initializer.createCandidateSolution();
-			double cost = pOpt.cost(s);
-			// update tracker
-			if (cost < tracker.getCostDouble()) {
-				tracker.update(cost, s);
-				if (cost == pOpt.minCost()) {
-					tracker.setFoundBest();
-				}
-			}
-			return new SolutionCostPair<T>(s, cost);
-		};
-	}
-	
-	Sampler<T> initSamplerInt() {
-		return () -> {
-			T s = initializer.createCandidateSolution();
-			int cost = pOptInt.cost(s);
-			// update tracker
-			if (cost < tracker.getCost()) {
-				tracker.update(cost, s);
-				if (cost == pOptInt.minCost()) {
-					tracker.setFoundBest();
-				}
-			}
-			return new SolutionCostPair<T>(s, cost);
-		};
-	}
-	*/
 }

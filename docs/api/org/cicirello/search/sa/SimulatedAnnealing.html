@@ -17,8 +17,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -74,13 +74,13 @@ var activeTableTab = "activeTableTab";
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -164,10 +164,7 @@ implements <a href="../../../../org/cicirello/search/SingleSolutionMetaheuristic
  interface, such as the most commonly used
  hill climbers (steepest descent and first descent) implemented by the 
  <a href="../../../../org/cicirello/search/hc/SteepestDescentHillClimber.html" title="class in org.cicirello.search.hc"><code>SteepestDescentHillClimber</code></a> 
- and <a href="../../../../org/cicirello/search/hc/FirstDescentHillClimber.html" title="class in org.cicirello.search.hc"><code>FirstDescentHillClimber</code></a> classes.</p>
-
- <p>Instances of SimulatedAnnealing are created through static factory methods named
- <a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-"><code>createInstance(org.cicirello.search.problems.OptimizationProblem&lt;T&gt;, org.cicirello.search.operators.UndoableMutationOperator&lt;T&gt;, org.cicirello.search.operators.Initializer&lt;T&gt;, org.cicirello.search.sa.AnnealingSchedule, org.cicirello.search.ProgressTracker&lt;T&gt;)</code></a>, rather than constructors.</p></div>
+ and <a href="../../../../org/cicirello/search/hc/FirstDescentHillClimber.html" title="class in org.cicirello.search.hc"><code>FirstDescentHillClimber</code></a> classes.</p></div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>1.0</dd>
@@ -178,6 +175,172 @@ implements <a href="../../../../org/cicirello/search/SingleSolutionMetaheuristic
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor.summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                  <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                  <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker,
+                  <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems
+ that runs a hill climber as a post-processing step.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.SimpleLocalMetaheuristic-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                  <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems
+ that runs a hill climber as a post-processing step.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker,
+                  <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
+ that runs a hill climber as a post-processing step.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.SimpleLocalMetaheuristic-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
+ that runs a hill climber as a post-processing step.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                  <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                  <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker,
+                  <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems
+ that runs a hill climber as a post-processing step.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.SimpleLocalMetaheuristic-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                  <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems
+ that runs a hill climber as a post-processing step.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker,
+                  <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
+ that runs a hill climber as a post-processing step.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.SimpleLocalMetaheuristic-">SimulatedAnnealing</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                  <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                  <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                  <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
+ that runs a hill climber as a post-processing step.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ========== METHOD SUMMARY =========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.summary">
@@ -185,227 +348,59 @@ implements <a href="../../../../org/cicirello/search/SingleSolutionMetaheuristic
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-              <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems.</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-              <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker,
-              <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems
- that runs a hill climber as a post-processing step.</div>
-</td>
-</tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.SimpleLocalMetaheuristic-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-              <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems
- that runs a hill climber as a post-processing step.</div>
-</td>
-</tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
-</td>
-</tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker,
-              <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
-</td>
-</tr>
-<tr id="i7" class="rowColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.SimpleLocalMetaheuristic-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
-</td>
-</tr>
-<tr id="i8" class="altColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
-</td>
-</tr>
-<tr id="i9" class="rowColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems.</div>
-</td>
-</tr>
-<tr id="i10" class="altColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-              <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems.</div>
-</td>
-</tr>
-<tr id="i11" class="rowColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-              <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker,
-              <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems
- that runs a hill climber as a post-processing step.</div>
-</td>
-</tr>
-<tr id="i12" class="altColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.SimpleLocalMetaheuristic-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-              <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems
- that runs a hill climber as a post-processing step.</div>
-</td>
-</tr>
-<tr id="i13" class="rowColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
-</td>
-</tr>
-<tr id="i14" class="altColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker,
-              <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
-</td>
-</tr>
-<tr id="i15" class="rowColor">
-<td class="colFirst"><code>static &lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;<br><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.SimpleLocalMetaheuristic-">createInstance</a></span>(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-              <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-              <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-              <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</code>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
-</td>
-</tr>
-<tr id="i16" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#getProblem--">getProblem</a></span>()</code>
 <div class="block">Gets a reference to the problem that this search is solving.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#getProgressTracker--">getProgressTracker</a></span>()</code>
 <div class="block">Gets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
  tracking search progress.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>long</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#getTotalRunLength--">getTotalRunLength</a></span>()</code>
 <div class="block">Gets the total number of simulated annealing evaluations (iterations)
  performed by this SimulatedAnnealing object.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#optimize-int-">optimize</a></span>(int&nbsp;maxEvals)</code>
 <div class="block">Executes a run of simulated annealing beginning at a randomly generated solution.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#optimize-int-T-">optimize</a></span>(int&nbsp;maxEvals,
         <a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&nbsp;start)</code>
 <div class="block">Executes a run of simulated annealing beginning at a specified starting solution.</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#reoptimize-int-">reoptimize</a></span>(int&nbsp;maxEvals)</code>
 <div class="block">Reaneals starting from the previous best found solution contained
  in the tracker object.</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker</a></span>(<a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</code>
 <div class="block">Sets the <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
  tracking search progress.</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html#split--">split</a></span>()</code>
 <div class="block">Generates a functionally identical copy of this object, for use in
@@ -428,508 +423,468 @@ implements <a href="../../../../org/cicirello/search/SingleSolutionMetaheuristic
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor.detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                          <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>anneal</code> - An annealing schedule.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
+ solution found during the run, the time when it was found, and other related data.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                          <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>anneal</code> - An annealing schedule.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
+ solution found during the run, the time when it was found, and other related data.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                          <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker,
+                          <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems
+ that runs a hill climber as a post-processing step.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>anneal</code> - An annealing schedule.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
+ solution found during the run, the time when it was found, and other related data.</dd>
+<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
+ run solution.  If hc is null, then no post-processing step is performed, and the
+ search is strictly simulated annealing.  
+ If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+ reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+ and the Hill Climber.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null (except for hc, which may be null).</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if hc is not null and problem is not equal to hc.getProblem()</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                          <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker,
+                          <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems
+ that runs a hill climber as a post-processing step.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>anneal</code> - An annealing schedule.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
+ solution found during the run, the time when it was found, and other related data.</dd>
+<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
+ run solution.  If hc is null, then no post-processing step is performed, and the
+ search is strictly simulated annealing.  
+ If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+ reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+ and the Hill Climber.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null (except for hc, which may be null).</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if hc is not null and problem is not equal to hc.getProblem()</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
+ solution found during the run, the time when it was found, and other related data.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
+ solution found during the run, the time when it was found, and other related data.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker,
+                          <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
+ that runs a hill climber as a post-processing step.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
+ solution found during the run, the time when it was found, and other related data.</dd>
+<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
+ run solution.  If hc is null, then no post-processing step is performed, and the
+ search is strictly simulated annealing.  
+ If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+ reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+ and the Hill Climber.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null (except for hc, which may be null).</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if hc is not null and problem is not equal to hc.getProblem()</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker,
+                          <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
+ that runs a hill climber as a post-processing step.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
+ solution found during the run, the time when it was found, and other related data.</dd>
+<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
+ run solution.  If hc is null, then no post-processing step is performed, and the
+ search is strictly simulated annealing.  
+ If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+ reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+ and the Hill Climber.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null (except for hc, which may be null).</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if hc is not null and problem is not equal to hc.getProblem()</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems.  
+ A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>anneal</code> - An annealing schedule.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems.  
+ A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>anneal</code> - An annealing schedule.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.SimpleLocalMetaheuristic-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                          <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems
+ that runs a hill climber as a post-processing step.  
+ A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>anneal</code> - An annealing schedule.</dd>
+<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
+ run solution.  If hc is null, then no post-processing step is performed, and the
+ search is strictly simulated annealing.  
+ If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+ reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+ and the Hill Climber.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null (except for hc, which may be null).</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if hc is not null and problem is not equal to hc.getProblem()</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.SimpleLocalMetaheuristic-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
+                          <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems
+ that runs a hill climber as a post-processing step.  
+ A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>anneal</code> - An annealing schedule.</dd>
+<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
+ run solution.  If hc is null, then no post-processing step is performed, and the
+ search is strictly simulated annealing.  
+ If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+ reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+ and the Hill Climber.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null (except for hc, which may be null).</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if hc is not null and problem is not equal to hc.getProblem()</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.  
+ A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.  
+ A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.SimpleLocalMetaheuristic-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
+ that runs a hill climber as a post-processing step.  
+ A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
+ run solution.  If hc is null, then no post-processing step is performed, and the
+ search is strictly simulated annealing.  
+ If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+ reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+ and the Hill Climber.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null (except for hc, which may be null).</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if hc is not null and problem is not equal to hc.getProblem()</dd>
+</dl>
+</li>
+</ul>
+<a name="SimulatedAnnealing-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.SimpleLocalMetaheuristic-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>SimulatedAnnealing</h4>
+<pre>public&nbsp;SimulatedAnnealing(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;problem,
+                          <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
+                          <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
+                          <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
+<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+ with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
+ that runs a hill climber as a post-processing step.  
+ A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
+<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
+<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
+<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
+ run solution.  If hc is null, then no post-processing step is performed, and the
+ search is strictly simulated annealing.  
+ If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+ reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+ and the Hill Climber.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null (except for hc, which may be null).</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if hc is not null and problem is not equal to hc.getProblem()</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ============ METHOD DETAIL ========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.detail">
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-                                                                           <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>anneal</code> - An annealing schedule.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems.  
- A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>anneal</code> - An annealing schedule.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.  
- A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-                                                                           <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>anneal</code> - An annealing schedule.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems.  
- A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>anneal</code> - An annealing schedule.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.  
- A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-                                                                           <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker,
-                                                                           <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems
- that runs a hill climber as a post-processing step.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>anneal</code> - An annealing schedule.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
-<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
- run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
- reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
- and the Hill Climber.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if problem is not equal to hc.getProblem()</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker,
-                                                                           <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
-<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
- run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
- reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
- and the Hill Climber.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if problem is not equal to hc.getProblem()</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.SimpleLocalMetaheuristic-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-                                                                           <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems
- that runs a hill climber as a post-processing step.  
- A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>anneal</code> - An annealing schedule.</dd>
-<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
- run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
- reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
- and the Hill Climber.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if problem is not equal to hc.getProblem()</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.OptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.SimpleLocalMetaheuristic-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.  
- A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
- run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
- reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
- and the Hill Climber.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if problem is not equal to hc.getProblem()</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-                                                                           <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker,
-                                                                           <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems
- that runs a hill climber as a post-processing step.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>anneal</code> - An annealing schedule.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
-<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
- run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
- reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
- and the Hill Climber.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if problem is not equal to hc.getProblem()</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.ProgressTracker-org.cicirello.search.SimpleLocalMetaheuristic-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker,
-                                                                           <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
-<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
- run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
- reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
- and the Hill Climber.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if problem is not equal to hc.getProblem()</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.sa.AnnealingSchedule-org.cicirello.search.SimpleLocalMetaheuristic-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a>&nbsp;anneal,
-                                                                           <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems
- that runs a hill climber as a post-processing step.  
- A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>anneal</code> - An annealing schedule.</dd>
-<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
- run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
- reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
- and the Hill Climber.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if problem is not equal to hc.getProblem()</dd>
-</dl>
-</li>
-</ul>
-<a name="createInstance-org.cicirello.search.problems.IntegerCostOptimizationProblem-org.cicirello.search.operators.UndoableMutationOperator-org.cicirello.search.operators.Initializer-org.cicirello.search.SimpleLocalMetaheuristic-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createInstance</h4>
-<pre>public static&nbsp;&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;&nbsp;<a href="../../../../org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a>&lt;T&gt;&nbsp;createInstance(<a href="../../../../org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;T&gt;&nbsp;problem,
-                                                                           <a href="../../../../org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;&nbsp;mutation,
-                                                                           <a href="../../../../org/cicirello/search/operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;&nbsp;initializer,
-                                                                           <a href="../../../../org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T&gt;&nbsp;hc)</pre>
-<div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="../../../../org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.  
- A <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The type of object under optimization.</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
-<dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
-<dd><code>initializer</code> - The source of random initial states for simulated annealing.</dd>
-<dd><code>hc</code> - The Hill Climber that is used to locally optimize simulated annealing's end of
- run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
- reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
- and the Hill Climber.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an instance of SimulatedAnnealing configured as specified.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if any of the parameters are null.</dd>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if problem is not equal to hc.getProblem()</dd>
-</dl>
-</li>
-</ul>
 <a name="reoptimize-int-">
 <!--   -->
 </a>
@@ -1193,13 +1148,13 @@ implements <a href="../../../../org/cicirello/search/SingleSolutionMetaheuristic
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>

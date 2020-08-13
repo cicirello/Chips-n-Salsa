@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * .zenodo.json to provide project metadata to Zenodo during releases
 
 ### Changed
+* Refactored SimulatedAnnealing to simplify implementation.
+* Minor modifications to example programs that involve the SimulatedAnnealing class to use simplified constructors.
 * Refactored HBSS, VBSS, AcceptanceBandSampling, and IterativeSampling to use a common abstract base class to remove code redundancy.
 * Refactored HeuristicPermutationGenerator to simplify implementation.
 

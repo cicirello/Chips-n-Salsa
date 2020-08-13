@@ -81,9 +81,9 @@ public class TimedParallelExample {
 		// Create the simulated annealing object.  
 		// We're using the default annealing schedule,
 		// the Modified Lam schedule in this example.  
-		// There is another factory method that enables
+		// There is another constructor that enables
 		// specifying a different annealing schedule.
-		SimulatedAnnealing<BitVector> sa = SimulatedAnnealing.createInstance(problem, mutation, init);
+		SimulatedAnnealing<BitVector> sa = new SimulatedAnnealing<BitVector>(problem, mutation, init);
 		
 		// Construct the TimedParallelMultistarter.  
 		// There are several constructors for this class.

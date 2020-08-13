@@ -84,11 +84,11 @@ public class IntegerVectorExample {
 		// Create the simulated annealer, giving it the problem to solve, the 
 		// mutation operator, and the initializer.  This example uses the default
 		// annealing schedule, the Modified Lam schedule.  There are other
-		// factory methods that allow specifying a different annealing schedule.
+		// constructors that allow specifying a different annealing schedule.
 		// The library uses generics so that simulated annealing can easily be applied
 		// to optimizing a variety of types of structures.  So we need to specify the
 		// type under optimization, in this example IntegerVector.
-		SimulatedAnnealing<IntegerVector> sa = SimulatedAnnealing.createInstance(problem, mutation, initializer);
+		SimulatedAnnealing<IntegerVector> sa = new SimulatedAnnealing<IntegerVector>(problem, mutation, initializer);
 		
 		// Run the simulated annealer.  The parameter of 10000 means to run
 		// 10000 iterations (i.e., an iteration involves generating a random neighbor with

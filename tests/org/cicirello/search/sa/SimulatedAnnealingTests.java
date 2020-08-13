@@ -52,10 +52,10 @@ public class SimulatedAnnealingTests {
 		pd_known = new TestProblemKnownMin();
 		pi_unknown = new TestProblemInt();
 		pi_known = new TestProblemIntKnownMin();
-		d_unknown = SimulatedAnnealing.createInstance(pd_unknown, new TestMutation(), new TestInitializer());
-		d_known = SimulatedAnnealing.createInstance(pd_known, new TestMutation(), new TestInitializer());
-		i_unknown = SimulatedAnnealing.createInstance(pi_unknown, new TestMutation(), new TestInitializer());
-		i_known = SimulatedAnnealing.createInstance(pi_known, new TestMutation(), new TestInitializer());
+		d_unknown = new SimulatedAnnealing<TestObject>(pd_unknown, new TestMutation(), new TestInitializer());
+		d_known = new SimulatedAnnealing<TestObject>(pd_known, new TestMutation(), new TestInitializer());
+		i_unknown = new SimulatedAnnealing<TestObject>(pi_unknown, new TestMutation(), new TestInitializer());
+		i_known = new SimulatedAnnealing<TestObject>(pi_known, new TestMutation(), new TestInitializer());
 	}
 	
 	@Test

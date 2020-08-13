@@ -67,18 +67,18 @@ public class SimulatedAnnealingHCTests {
 		
 		// These SimulatedAnnealing use a hill climber that does nothing to verify
 		// that the SA part works.
-		d_unknown = SimulatedAnnealing.createInstance(pd_unknown, new TestMutation(), new TestInitializer(), new NoHillClimber(pd_unknown));
-		d_known = SimulatedAnnealing.createInstance(pd_known, new TestMutation(), new TestInitializer(), new NoHillClimber(pd_known));
-		i_unknown = SimulatedAnnealing.createInstance(pi_unknown, new TestMutation(), new TestInitializer(), new NoHillClimber(pi_unknown));
-		i_known = SimulatedAnnealing.createInstance(pi_known, new TestMutation(), new TestInitializer(), new NoHillClimber(pi_known));
+		d_unknown = new SimulatedAnnealing<TestObject>(pd_unknown, new TestMutation(), new TestInitializer(), new NoHillClimber(pd_unknown));
+		d_known = new SimulatedAnnealing<TestObject>(pd_known, new TestMutation(), new TestInitializer(), new NoHillClimber(pd_known));
+		i_unknown = new SimulatedAnnealing<TestObject>(pi_unknown, new TestMutation(), new TestInitializer(), new NoHillClimber(pi_unknown));
+		i_known = new SimulatedAnnealing<TestObject>(pi_known, new TestMutation(), new TestInitializer(), new NoHillClimber(pi_known));
 		
 		
 		// These SimulatedAnnealing use a SA that does nothing to verify
 		// that the HC part works.
-		d_unknown_hc = SimulatedAnnealing.createInstance(pd_unknown, new TestDoNothingMutation(), new TestInitializer(), new SteepestDescentHillClimber<TestObject>(pd_unknown, new TestDoNothingMutation(), new TestInitializer()));
-		d_known_hc = SimulatedAnnealing.createInstance(pd_known, new TestDoNothingMutation(), new TestInitializer(), new SteepestDescentHillClimber<TestObject>(pd_known, new TestDoNothingMutation(), new TestInitializer()));
-		i_unknown_hc = SimulatedAnnealing.createInstance(pi_unknown, new TestDoNothingMutation(), new TestInitializer(), new SteepestDescentHillClimber<TestObject>(pi_unknown, new TestDoNothingMutation(), new TestInitializer()));
-		i_known_hc = SimulatedAnnealing.createInstance(pi_known, new TestDoNothingMutation(), new TestInitializer(), new SteepestDescentHillClimber<TestObject>(pi_known, new TestDoNothingMutation(), new TestInitializer()));
+		d_unknown_hc = new SimulatedAnnealing<TestObject>(pd_unknown, new TestDoNothingMutation(), new TestInitializer(), new SteepestDescentHillClimber<TestObject>(pd_unknown, new TestDoNothingMutation(), new TestInitializer()));
+		d_known_hc = new SimulatedAnnealing<TestObject>(pd_known, new TestDoNothingMutation(), new TestInitializer(), new SteepestDescentHillClimber<TestObject>(pd_known, new TestDoNothingMutation(), new TestInitializer()));
+		i_unknown_hc = new SimulatedAnnealing<TestObject>(pi_unknown, new TestDoNothingMutation(), new TestInitializer(), new SteepestDescentHillClimber<TestObject>(pi_unknown, new TestDoNothingMutation(), new TestInitializer()));
+		i_known_hc = new SimulatedAnnealing<TestObject>(pi_known, new TestDoNothingMutation(), new TestInitializer(), new SteepestDescentHillClimber<TestObject>(pi_known, new TestDoNothingMutation(), new TestInitializer()));
 	}
 	
 	@Test

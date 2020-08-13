@@ -173,7 +173,7 @@ public class SchedulingExample {
 			// which is what was used in the above paper, and we are using the default
 			// annealing schedule, the modified Lam schedule, which is an adaptive 
 			// annealing schedule.
-			SimulatedAnnealing.createInstance(
+			new SimulatedAnnealing<Permutation>(
 				problem,
 				new InsertionMutation(),
 				new PermutationInitializer(NUM_JOBS)),
@@ -188,7 +188,7 @@ public class SchedulingExample {
 		// multiple threads all using the sequential version of the schedule VAL.
 		TimedParallelMultistarter<Permutation> val = new TimedParallelMultistarter<Permutation>(
 			// We configure simulated annealing the same as above for consistency.
-			SimulatedAnnealing.createInstance(
+			new SimulatedAnnealing<Permutation>(
 				problem,
 				new InsertionMutation(),
 				new PermutationInitializer(NUM_JOBS)),
@@ -206,7 +206,7 @@ public class SchedulingExample {
 		// multiple threads all using a fixed run length.
 		TimedParallelMultistarter<Permutation> fal = new TimedParallelMultistarter<Permutation>(
 			// We configure simulated annealing the same as above for consistency.
-			SimulatedAnnealing.createInstance(
+			new SimulatedAnnealing<Permutation>(
 				problem,
 				new InsertionMutation(),
 				new PermutationInitializer(NUM_JOBS)),

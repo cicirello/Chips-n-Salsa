@@ -80,8 +80,6 @@ import org.cicirello.search.SimpleLocalMetaheuristic;
  * {@link org.cicirello.search.hc.SteepestDescentHillClimber SteepestDescentHillClimber} 
  * and {@link org.cicirello.search.hc.FirstDescentHillClimber FirstDescentHillClimber} classes.</p>
  *
- * <p>Instances of SimulatedAnnealing are created through static factory methods named
- * {@link #createInstance}, rather than constructors.</p>
  *
  * @param <T> The type of object under optimization.
  *
@@ -89,7 +87,7 @@ import org.cicirello.search.SimpleLocalMetaheuristic;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.12.2020
+ * @version 8.13.2020
  */
 public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolutionMetaheuristic<T> {
 	
@@ -103,21 +101,53 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	private ProgressTracker<T> tracker;
 	private final SingleRun<T> sr;
 		
-	/*
-	 * internal constructor
+	/**
+	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param anneal An annealing schedule.
+	 * @param tracker A ProgressTracker object, which is used to keep track of the best
+	 * solution found during the run, the time when it was found, and other related data.
+	 * @throws NullPointerException if any of the parameters are null.
 	 */
-	private SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker) {
+	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker) {
 		this(problem, mutation, initializer, anneal, tracker, null);
 	}
 	
-	/*
-	 * internal constructor
+	/**
+	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param anneal An annealing schedule.
+	 * @param tracker A ProgressTracker object, which is used to keep track of the best
+	 * solution found during the run, the time when it was found, and other related data.
+	 * @throws NullPointerException if any of the parameters are null.
 	 */
-	private SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker) {
+	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker) {
 		this(problem, mutation, initializer, anneal, tracker, null);
 	}
 	
-	private SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
+	/**
+	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems
+	 * that runs a hill climber as a post-processing step.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param anneal An annealing schedule.
+	 * @param tracker A ProgressTracker object, which is used to keep track of the best
+	 * solution found during the run, the time when it was found, and other related data.
+	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
+	 * run solution.  If hc is null, then no post-processing step is performed, and the
+	 * search is strictly simulated annealing.  
+	 * If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+	 * and the Hill Climber.
+	 * @throws NullPointerException if any of the parameters are null (except for hc, which may be null).
+	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
+	 */
+	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
 		if (problem == null || mutation == null || anneal == null || initializer == null || tracker == null) {
 			throw new NullPointerException();
 		}
@@ -141,7 +171,25 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 		}
 	}
 	
-	private SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
+	/**
+	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems
+	 * that runs a hill climber as a post-processing step.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param anneal An annealing schedule.
+	 * @param tracker A ProgressTracker object, which is used to keep track of the best
+	 * solution found during the run, the time when it was found, and other related data.
+	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
+	 * run solution.  If hc is null, then no post-processing step is performed, and the
+	 * search is strictly simulated annealing.  
+	 * If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+	 * and the Hill Climber.
+	 * @throws NullPointerException if any of the parameters are null (except for hc, which may be null).
+	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
+	 */
+	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
 		if (problem == null || mutation == null || anneal == null || initializer == null || tracker == null) {
 			throw new NullPointerException();
 		}
@@ -165,6 +213,214 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 		}
 	}
 	
+	/**
+	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+	 * with a default annealing schedule of {@link ModifiedLam}.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param tracker A ProgressTracker object, which is used to keep track of the best
+	 * solution found during the run, the time when it was found, and other related data.
+	 * @throws NullPointerException if any of the parameters are null.
+	 */
+	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker) {
+		this(problem, mutation, initializer, new ModifiedLam(), tracker, null);
+	}
+	
+	/**
+	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+	 * with a default annealing schedule of {@link ModifiedLam}.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param tracker A ProgressTracker object, which is used to keep track of the best
+	 * solution found during the run, the time when it was found, and other related data.
+	 * @throws NullPointerException if any of the parameters are null.
+	 */
+	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker) {
+		this(problem, mutation, initializer, new ModifiedLam(), tracker, null);
+	}
+	
+	/**
+	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+	 * with a default annealing schedule of {@link ModifiedLam}
+	 * that runs a hill climber as a post-processing step.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param tracker A ProgressTracker object, which is used to keep track of the best
+	 * solution found during the run, the time when it was found, and other related data.
+	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
+	 * run solution.  If hc is null, then no post-processing step is performed, and the
+	 * search is strictly simulated annealing.  
+	 * If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+	 * and the Hill Climber.
+	 * @throws NullPointerException if any of the parameters are null (except for hc, which may be null).
+	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
+	 */
+	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
+		this(problem, mutation, initializer, new ModifiedLam(), tracker, hc);
+	}
+	
+	/**
+	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+	 * with a default annealing schedule of {@link ModifiedLam}
+	 * that runs a hill climber as a post-processing step.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param tracker A ProgressTracker object, which is used to keep track of the best
+	 * solution found during the run, the time when it was found, and other related data.
+	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
+	 * run solution.  If hc is null, then no post-processing step is performed, and the
+	 * search is strictly simulated annealing.  
+	 * If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+	 * and the Hill Climber.
+	 * @throws NullPointerException if any of the parameters are null (except for hc, which may be null).
+	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
+	 */
+	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
+		this(problem, mutation, initializer, new ModifiedLam(), tracker, hc);
+	}
+	
+	/**
+	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems.  
+	 * A {@link ProgressTracker} is created for you.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param anneal An annealing schedule.
+	 * @throws NullPointerException if any of the parameters are null.
+	 */
+	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal) {
+		this(problem, mutation, initializer, anneal, new ProgressTracker<T>(), null);
+	}
+	
+	/**
+	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems.  
+	 * A {@link ProgressTracker} is created for you.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param anneal An annealing schedule.
+	 * @throws NullPointerException if any of the parameters are null.
+	 */
+	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal) {
+		this(problem, mutation, initializer, anneal, new ProgressTracker<T>(), null);
+	}
+	
+	/**
+	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems
+	 * that runs a hill climber as a post-processing step.  
+	 * A {@link ProgressTracker} is created for you.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param anneal An annealing schedule.
+	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
+	 * run solution.  If hc is null, then no post-processing step is performed, and the
+	 * search is strictly simulated annealing.  
+	 * If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+	 * and the Hill Climber.
+	 * @throws NullPointerException if any of the parameters are null (except for hc, which may be null).
+	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
+	 */
+	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, SimpleLocalMetaheuristic<T> hc) {
+		this(problem, mutation, initializer, anneal, new ProgressTracker<T>(), hc);
+	}
+	
+	/**
+	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems
+	 * that runs a hill climber as a post-processing step.  
+	 * A {@link ProgressTracker} is created for you.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param anneal An annealing schedule.
+	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
+	 * run solution.  If hc is null, then no post-processing step is performed, and the
+	 * search is strictly simulated annealing.  
+	 * If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+	 * and the Hill Climber.
+	 * @throws NullPointerException if any of the parameters are null (except for hc, which may be null).
+	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
+	 */
+	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, SimpleLocalMetaheuristic<T> hc) {
+		this(problem, mutation, initializer, anneal, new ProgressTracker<T>(), hc);
+	}
+	
+	/**
+	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+	 * with a default annealing schedule of {@link ModifiedLam}.  
+	 * A {@link ProgressTracker} is created for you.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @throws NullPointerException if any of the parameters are null.
+	 */
+	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer) {
+		this(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), null);
+	}
+	
+	/**
+	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+	 * with a default annealing schedule of {@link ModifiedLam}.  
+	 * A {@link ProgressTracker} is created for you.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @throws NullPointerException if any of the parameters are null.
+	 */
+	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer) {
+		this(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), null);
+	}
+	
+	/**
+	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
+	 * with a default annealing schedule of {@link ModifiedLam}
+	 * that runs a hill climber as a post-processing step.  
+	 * A {@link ProgressTracker} is created for you.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
+	 * run solution.  If hc is null, then no post-processing step is performed, and the
+	 * search is strictly simulated annealing.  
+	 * If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+	 * and the Hill Climber.
+	 * @throws NullPointerException if any of the parameters are null (except for hc, which may be null).
+	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
+	 */
+	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, SimpleLocalMetaheuristic<T> hc) {
+		this(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), hc);
+	}
+	
+	/**
+	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
+	 * with a default annealing schedule of {@link ModifiedLam}
+	 * that runs a hill climber as a post-processing step.  
+	 * A {@link ProgressTracker} is created for you.
+	 * @param problem An instance of an optimization problem to solve.
+	 * @param mutation A mutation operator supporting the undo operation.
+	 * @param initializer The source of random initial states for simulated annealing.
+	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
+	 * run solution.  If hc is null, then no post-processing step is performed, and the
+	 * search is strictly simulated annealing.  
+	 * If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
+	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
+	 * and the Hill Climber.
+	 * @throws NullPointerException if any of the parameters are null (except for hc, which may be null).
+	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
+	 */
+	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, SimpleLocalMetaheuristic<T> hc) {
+		this(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), hc);
+	}
+	
 	/*
 	 * private copy constructor in support of the split method.
 	 * note: copies references to thread-safe components, and splits potentially non-threadsafe components 
@@ -185,303 +441,6 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 		
 		sr = pOptInt != null ? initSingleRunInt() : initSingleRunDouble();
 	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param anneal An annealing schedule.
-	 * @param tracker A ProgressTracker object, which is used to keep track of the best
-	 * solution found during the run, the time when it was found, and other related data.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, tracker);
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param tracker A ProgressTracker object, which is used to keep track of the best
-	 * solution found during the run, the time when it was found, and other related data.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), tracker);
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems.  
-	 * A {@link ProgressTracker} is created for you.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param anneal An annealing schedule.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, new ProgressTracker<T>());
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}.  
-	 * A {@link ProgressTracker} is created for you.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>());
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param anneal An annealing schedule.
-	 * @param tracker A ProgressTracker object, which is used to keep track of the best
-	 * solution found during the run, the time when it was found, and other related data.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, tracker);
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param tracker A ProgressTracker object, which is used to keep track of the best
-	 * solution found during the run, the time when it was found, and other related data.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), tracker);
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems.  
-	 * A {@link ProgressTracker} is created for you.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param anneal An annealing schedule.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, new ProgressTracker<T>());
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}.  
-	 * A {@link ProgressTracker} is created for you.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>());
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems
-	 * that runs a hill climber as a post-processing step.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param anneal An annealing schedule.
-	 * @param tracker A ProgressTracker object, which is used to keep track of the best
-	 * solution found during the run, the time when it was found, and other related data.
-	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
-	 * run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
-	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
-	 * and the Hill Climber.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, tracker, hc);
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}
-	 * that runs a hill climber as a post-processing step.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param tracker A ProgressTracker object, which is used to keep track of the best
-	 * solution found during the run, the time when it was found, and other related data.
-	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
-	 * run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
-	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
-	 * and the Hill Climber.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), tracker, hc);
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems
-	 * that runs a hill climber as a post-processing step.  
-	 * A {@link ProgressTracker} is created for you.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param anneal An annealing schedule.
-	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
-	 * run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
-	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
-	 * and the Hill Climber.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, new ProgressTracker<T>(), hc);
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}
-	 * that runs a hill climber as a post-processing step.  
-	 * A {@link ProgressTracker} is created for you.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
-	 * run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
-	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
-	 * and the Hill Climber.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), hc);
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems
-	 * that runs a hill climber as a post-processing step.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param anneal An annealing schedule.
-	 * @param tracker A ProgressTracker object, which is used to keep track of the best
-	 * solution found during the run, the time when it was found, and other related data.
-	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
-	 * run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
-	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
-	 * and the Hill Climber.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, tracker, hc);
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}
-	 * that runs a hill climber as a post-processing step.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param tracker A ProgressTracker object, which is used to keep track of the best
-	 * solution found during the run, the time when it was found, and other related data.
-	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
-	 * run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
-	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
-	 * and the Hill Climber.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), tracker, hc);
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems
-	 * that runs a hill climber as a post-processing step.  
-	 * A {@link ProgressTracker} is created for you.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param anneal An annealing schedule.
-	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
-	 * run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
-	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
-	 * and the Hill Climber.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, new ProgressTracker<T>(), hc);
-	}
-	
-	/**
-	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}
-	 * that runs a hill climber as a post-processing step.  
-	 * A {@link ProgressTracker} is created for you.
-	 * @param problem An instance of an optimization problem to solve.
-	 * @param mutation A mutation operator supporting the undo operation.
-	 * @param initializer The source of random initial states for simulated annealing.
-	 * @param hc The Hill Climber that is used to locally optimize simulated annealing's end of
-	 * run solution.  If hc.getProgressTracker() is not equal to tracker, then hc's ProgressTracker is
-	 * reset to tracker.  That is, the ProgressTracker must be shared between the simulated annealer
-	 * and the Hill Climber.
-	 * @param <T> The type of object under optimization.
-	 * @return an instance of SimulatedAnnealing configured as specified.
-	 * @throws NullPointerException if any of the parameters are null.
-	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
-	 */
-	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), hc);
-	}
-	
 	
 	/**
 	 * Reaneals starting from the previous best found solution contained

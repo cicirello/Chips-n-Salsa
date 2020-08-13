@@ -127,7 +127,7 @@ public class ParallelPermutationExample {
 			// as the Modified Lam schedule.  There is an optional fourth parameter that can be used
 			// to specify a different annealing schedule, and there are several to choose from 
 			// in the library.
-			SimulatedAnnealing<Permutation> sa = SimulatedAnnealing.createInstance(problem, mutation, init);
+			SimulatedAnnealing<Permutation> sa = new SimulatedAnnealing<Permutation>(problem, mutation, init);
 			
 			// If you want to run a multistart search (i.e., run same search multiple times, taking the
 			// best of the solutions found across the restarts), then you can use a Multistarter.
@@ -165,7 +165,7 @@ public class ParallelPermutationExample {
 				// and initializer as the sequential case above.
 				mutation = new SwapMutation();
 				init = new PermutationInitializer(permutationLength);
-				sa = SimulatedAnnealing.createInstance(problem, mutation, init);
+				sa = new SimulatedAnnealing<Permutation>(problem, mutation, init);
 				
 				// We now use a ParallelMultistarter, which uses multiple threads to run multistart in parallel.
 				// The ParallelMultistarter is given the Simulated Annealer and the run length for the restarts,

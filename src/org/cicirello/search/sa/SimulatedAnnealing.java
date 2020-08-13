@@ -89,10 +89,11 @@ import org.cicirello.search.SimpleLocalMetaheuristic;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.15.2020
+ * @version 8.12.2020
  */
 public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolutionMetaheuristic<T> {
 	
+	private final SimpleLocalMetaheuristic<T> hc;
 	private final IntegerCostOptimizationProblem<T> pOptInt;
 	private final OptimizationProblem<T> pOpt;
 	private final Initializer<T> initializer;
@@ -106,23 +107,17 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * internal constructor
 	 */
 	private SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker) {
-		if (problem == null || mutation == null || anneal == null || initializer == null || tracker == null) {
-			throw new NullPointerException();
-		}
-		this.initializer = initializer;
-		this.mutation = mutation;
-		this.anneal = anneal;
-		this.tracker = tracker;
-		pOptInt = problem;
-		pOpt = null;
-		// default on purpose: elapsedEvals = 0;
-		sr = initSingleRunInt();
+		this(problem, mutation, initializer, anneal, tracker, null);
 	}
 	
 	/*
 	 * internal constructor
 	 */
 	private SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker) {
+		this(problem, mutation, initializer, anneal, tracker, null);
+	}
+	
+	private SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
 		if (problem == null || mutation == null || anneal == null || initializer == null || tracker == null) {
 			throw new NullPointerException();
 		}
@@ -134,6 +129,40 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 		pOptInt = null;
 		// default on purpose: elapsedEvals = 0;
 		sr = initSingleRunDouble();
+		
+		this.hc = hc;
+		if (hc != null) {
+			if (problem != hc.getProblem()) {
+				throw new IllegalArgumentException("hc must be configured with the same problem.");
+			}
+			if (hc.getProgressTracker() != tracker) {
+				hc.setProgressTracker(tracker);
+			}
+		}
+	}
+	
+	private SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
+		if (problem == null || mutation == null || anneal == null || initializer == null || tracker == null) {
+			throw new NullPointerException();
+		}
+		this.initializer = initializer;
+		this.mutation = mutation;
+		this.anneal = anneal;
+		this.tracker = tracker;
+		pOptInt = problem;
+		pOpt = null;
+		// default on purpose: elapsedEvals = 0;
+		sr = initSingleRunInt();
+		
+		this.hc = hc;
+		if (hc != null) {
+			if (problem != hc.getProblem()) {
+				throw new IllegalArgumentException("hc must be configured with the same problem.");
+			}
+			if (hc.getProgressTracker() != tracker) {
+				hc.setProgressTracker(tracker);
+			}
+		}
 	}
 	
 	/*
@@ -152,6 +181,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 		initializer = other.initializer.split();
 		mutation = other.mutation.split();
 		anneal = other.anneal.split();
+		hc = other.hc != null ? other.hc.split() : null;
 		
 		sr = pOptInt != null ? initSingleRunInt() : initSingleRunDouble();
 	}
@@ -299,7 +329,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
 	 */
 	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealingHC<T>(problem, mutation, initializer, anneal, tracker, hc);
+		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, tracker, hc);
 	}
 	
 	/**
@@ -321,7 +351,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
 	 */
 	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealingHC<T>(problem, mutation, initializer, new ModifiedLam(), tracker, hc);
+		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), tracker, hc);
 	}
 	
 	/**
@@ -342,7 +372,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
 	 */
 	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealingHC<T>(problem, mutation, initializer, anneal, new ProgressTracker<T>(), hc);
+		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, new ProgressTracker<T>(), hc);
 	}
 	
 	/**
@@ -363,7 +393,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
 	 */
 	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealingHC<T>(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), hc);
+		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), hc);
 	}
 	
 	/**
@@ -385,7 +415,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
 	 */
 	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealingHC<T>(problem, mutation, initializer, anneal, tracker, hc);
+		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, tracker, hc);
 	}
 	
 	/**
@@ -407,7 +437,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
 	 */
 	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealingHC<T>(problem, mutation, initializer, new ModifiedLam(), tracker, hc);
+		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), tracker, hc);
 	}
 	
 	/**
@@ -428,7 +458,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
 	 */
 	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealingHC<T>(problem, mutation, initializer, anneal, new ProgressTracker<T>(), hc);
+		return new SimulatedAnnealing<T>(problem, mutation, initializer, anneal, new ProgressTracker<T>(), hc);
 	}
 	
 	/**
@@ -449,7 +479,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if problem is not equal to hc.getProblem()
 	 */
 	public static <T extends Copyable<T>> SimulatedAnnealing<T> createInstance(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, SimpleLocalMetaheuristic<T> hc) {
-		return new SimulatedAnnealingHC<T>(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), hc);
+		return new SimulatedAnnealing<T>(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), hc);
 	}
 	
 	
@@ -554,7 +584,11 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 */
 	@Override
 	public long getTotalRunLength() {
-		return elapsedEvals;
+		if (hc == null) {
+			return elapsedEvals;
+		} else {
+			return elapsedEvals + hc.getTotalRunLength();
+		}
 	}
 	
 	SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current) {
@@ -611,7 +645,9 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 				}
 			}
 			elapsedEvals += maxEvals;
-			return new SolutionCostPair<T>(current, currentCost);
+			return hc==null 
+				? new SolutionCostPair<T>(current, currentCost)
+				: hc.optimize(current);
 		};
 	}
 	
@@ -661,61 +697,9 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 				}
 			}
 			elapsedEvals += maxEvals;
-			return new SolutionCostPair<T>(current, currentCost);
+			return hc==null 
+				? new SolutionCostPair<T>(current, currentCost)
+				: hc.optimize(current);
 		};
-	}
-	
-	/*
-	 * Internal private subclass with hill climbing.
-	 */
-	private static class SimulatedAnnealingHC<T extends Copyable<T>> extends SimulatedAnnealing<T> {
-		
-		private final SimpleLocalMetaheuristic<T> hc;
-	
-		private SimulatedAnnealingHC(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-			super(problem, mutation, initializer, anneal, tracker);
-			if (hc == null) throw new NullPointerException("hc must not be null");
-			if (problem != hc.getProblem()) throw new IllegalArgumentException("hc must be configured with the same problem.");
-			if (hc.getProgressTracker() != tracker) hc.setProgressTracker(tracker);
-			this.hc = hc;
-		}
-		
-		private SimulatedAnnealingHC(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, AnnealingSchedule anneal, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-			super(problem, mutation, initializer, anneal, tracker);
-			if (hc == null) throw new NullPointerException("hc must not be null");
-			if (problem != hc.getProblem()) throw new IllegalArgumentException("hc must be configured with the same problem.");
-			if (hc.getProgressTracker() != tracker) hc.setProgressTracker(tracker);
-			this.hc = hc;
-		}
-		
-		/*
-		 * private copy constructor in support of the split method.
-		 * note: copies references to thread-safe components, 
-		 * and splits potentially non-threadsafe components 
-		 */
-		private SimulatedAnnealingHC(SimulatedAnnealingHC<T> other) {
-			super(other);
-			hc = other.hc.split();
-		}
-		
-		@Override
-		public long getTotalRunLength() {
-			return super.getTotalRunLength() + hc.getTotalRunLength();
-		}
-		
-		@Override
-		public SimulatedAnnealingHC<T> split() {
-			return new SimulatedAnnealingHC<T>(this);
-		}
-		
-		@Override
-		SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current) {
-			SolutionCostPair<T> result = super.optimizeSingleRun(maxEvals, current);
-			if (getProgressTracker().didFindBest() || getProgressTracker().isStopped()) {
-				return result;
-			} else {
-				return hc.optimize(result.getSolution());
-			}
-		}
 	}
 }

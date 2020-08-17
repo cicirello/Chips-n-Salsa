@@ -43,7 +43,7 @@ jobs:
         
     - name: Get the upload URL for a release
       id: get
-      uses: bruceadams/get-release@v1.2.0
+      uses: bruceadams/get-release@v1.2.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         

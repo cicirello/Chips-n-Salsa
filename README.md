@@ -16,7 +16,7 @@ Webpage: https://chips-n-salsa.cicirello.org/
 
 If you use this library in your research, please cite the following paper:
 
-> Cicirello, Vincent A
+> Cicirello, V. A., (2020). Chips-n-Salsa: A Java Library of Customizable, Hybridizable, Iterative, Parallel, Stochastic, and Self-Adaptive Local Search Algorithms. *Journal of Open Source Software*, 5(52), 2448, https://doi.org/10.21105/joss.02448 .
 
 ## Overview
 

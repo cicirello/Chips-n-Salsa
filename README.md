@@ -12,6 +12,12 @@ Webpage: https://chips-n-salsa.cicirello.org/
 [![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/Chips-n-Salsa?logo=GitHub)](https://github.com/cicirello/Chips-n-Salsa/releases)
 
+## How to Cite
+
+If you use this library in your research, please cite the following paper:
+
+> Cicirello, Vincent A
+
 ## Overview
 
 Chips-n-Salsa is a Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms. The library includes implementations of several stochastic local search algorithms, including simulated annealing, hill climbers, as well as constructive search algorithms such as stochastic sampling. The library most extensively supports simulated annealing. It includes several classes for representing solutions to a variety of optimization problems. For example, the library includes a BitVector class that implements vectors of bits, as well as classes for representing solutions to problems where we are searching for an optimal vector of integers or reals. For each of the built-in representations, the library provides the most common mutation operators for generating random neighbors of candidate solutions. Additionally, the library provides extensive support for permutation optimization problems, including implementations of many different mutation operators for permutations, and utilizing the efficiently implemented Permutation class of the [JavaPermutationTools (JPT)](https://jpt.cicirello.org/) library.

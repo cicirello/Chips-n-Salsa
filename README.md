@@ -6,11 +6,17 @@ https://www.cicirello.org/
 
 Webpage: https://chips-n-salsa.cicirello.org/
 
-[![status](https://joss.theoj.org/papers/ff6046b4dd41979ff6eb38a8517b4b1b/status.svg)](https://joss.theoj.org/papers/ff6046b4dd41979ff6eb38a8517b4b1b)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.02448/status.svg)](https://doi.org/10.21105/joss.02448)
 [![DOI](https://zenodo.org/badge/273074441.svg)](https://zenodo.org/badge/latestdoi/273074441)
 [![build](https://github.com/cicirello/Chips-n-Salsa/workflows/build/badge.svg)](https://github.com/cicirello/Chips-n-Salsa/actions?query=workflow%3Abuild)
 [![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/Chips-n-Salsa?logo=GitHub)](https://github.com/cicirello/Chips-n-Salsa/releases)
+
+## How to Cite
+
+If you use this library in your research, please cite the following paper:
+
+> Cicirello, V. A., (2020). Chips-n-Salsa: A Java Library of Customizable, Hybridizable, Iterative, Parallel, Stochastic, and Self-Adaptive Local Search Algorithms. *Journal of Open Source Software*, 5(52), 2448, https://doi.org/10.21105/joss.02448 .
 
 ## Overview
 

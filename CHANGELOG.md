@@ -4,7 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-08-11
+## [Unreleased] - 2020-08-18
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+
+## [1.4.0] - 2020-08-18
 ### Added
 * .zenodo.json to provide project metadata to Zenodo during releases
 * Enabled DependaBot to keep dependencies up to date.
@@ -15,14 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored HBSS, VBSS, AcceptanceBandSampling, and IterativeSampling to use a common abstract base class to remove code redundancy.
 * Refactored HeuristicPermutationGenerator to simplify implementation.
 * Updated dependency versions.
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-
 
 ## [1.3.0] - 2020-08-06
 ### Added
@@ -42,7 +46,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 * Fixed classpath bug in Makefile (Windows use of semicolon vs Linux, etc use of colon as delimiter). Now adjusts based on OS.
-
 
 ## [1.2.0]
 ### Added

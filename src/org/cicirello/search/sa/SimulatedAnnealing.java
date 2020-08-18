@@ -465,7 +465,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 		T start = tracker.getSolution();
 		if (start == null) start = initializer.createCandidateSolution();
 		else start = start.copy();
-		return optimizeSingleRun(maxEvals, start);
+		return sr.optimizeSingleRun(maxEvals, start);
 	}
 	
 	/**
@@ -484,7 +484,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	@Override
 	public final SolutionCostPair<T> optimize(int maxEvals) {
 		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		return optimizeSingleRun(maxEvals, initializer.createCandidateSolution());
+		return sr.optimizeSingleRun(maxEvals, initializer.createCandidateSolution());
 	}
 	
 	/**
@@ -504,7 +504,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	@Override
 	public final SolutionCostPair<T> optimize(int maxEvals, T start) {
 		if (tracker.didFindBest() || tracker.isStopped()) return null;
-		return optimizeSingleRun(maxEvals, start.copy());
+		return sr.optimizeSingleRun(maxEvals, start.copy());
 	}
 	
 	@Override
@@ -548,10 +548,6 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 		} else {
 			return elapsedEvals + hc.getTotalRunLength();
 		}
-	}
-	
-	SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current) {
-		return sr.optimizeSingleRun(maxEvals, current);
 	}
 	
 	private interface SingleRun<T extends Copyable<T>> {

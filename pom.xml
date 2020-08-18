@@ -179,7 +179,7 @@
 		sampling algorithms.</description>
    <url>https://chips-n-salsa.cicirello.org/</url>
    
-   <licenses>
+	<licenses>
 	  <license>
 		<name>GPL-3.0-or-later</name>
 		<url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>

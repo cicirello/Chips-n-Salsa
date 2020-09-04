@@ -47,7 +47,7 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -105,10 +105,15 @@ var activeTableTab = "activeTableTab";
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</dd>
+</dl>
 <hr>
 <br>
 <pre>public final class <span class="typeNameLabel">PartialPermutation</span>
-extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
+extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
+implements <a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</pre>
 <div class="block"><p>A PartialPermutation represents a permutation that is being 
  iteratively constructed as a solution to an optimization problem
  over the space of permutations.
@@ -118,10 +123,6 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 
  <p>In the context of this library, a permutation of length n is
  a permutation of the integers { 0, 1, ..., (n-1)}.</p></div>
-<dl>
-<dt><span class="simpleTagLabel">Since:</span></dt>
-<dd>1.0</dd>
-</dl>
 </li>
 </ul>
 </div>
@@ -163,54 +164,53 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/PartialPermutation.html#extend-int-">extend</a></span>(int&nbsp;extensionIndex)</code>
-<div class="block">Extends the PartialPermutation by adding an element to the
- end of the PartialPermutation.</div>
+<div class="block">Extends the Partial by adding an element to the
+ end of the Partial.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/PartialPermutation.html#get-int-">get</a></span>(int&nbsp;index)</code>
-<div class="block">Gets the element in the PartialPermutation at position index.</div>
+<div class="block">Gets the element in the Partial at position index.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/PartialPermutation.html#getExtension-int-">getExtension</a></span>(int&nbsp;extensionIndex)</code>
-<div class="block">Gets the element in position index of the list of extensions.</div>
+<div class="block">Gets the element in position index of the list of possible extensions.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/PartialPermutation.html#getLast--">getLast</a></span>()</code>
-<div class="block">Gets the element in the current last position of the PartialPermutation,
+<div class="block">Gets the element in the current last position of the Partial,
  i.e., the element at index: size()-1.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/PartialPermutation.html#isComplete--">isComplete</a></span>()</code>
-<div class="block">Checks if the PartialPermutation is actually a complete permutation
- (i.e., all elements added to it).</div>
+<div class="block">Checks if the Partial is actually a complete T.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/PartialPermutation.html#numExtensions--">numExtensions</a></span>()</code>
-<div class="block">Gets the number of elements not yet added to the PartialPermutation.</div>
+<div class="block">Gets the number of elements not yet added to the Partial.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/PartialPermutation.html#size--">size</a></span>()</code>
-<div class="block">Gets the size of the PartialPermutation, which is the number of elements
+<div class="block">Gets the size of the Partial, which is the number of elements
  that have already been added to it.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/PartialPermutation.html#toComplete--">toComplete</a></span>()</code>
-<div class="block">Generates a Permutation object that is consistent with this
- PartialPermutation.</div>
+<div class="block">Generates a complete instance that is consistent with this
+ Partial.</div>
 </td>
 </tr>
 </table>
@@ -267,15 +267,18 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <li class="blockList">
 <h4>toComplete</h4>
 <pre>public&nbsp;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&nbsp;toComplete()</pre>
-<div class="block">Generates a Permutation object that is consistent with this
- PartialPermutation.  That is, elements already added to the
- PartialPermutation will retain their positions, while elements
- not already in the PartialPermutation will be added in an undefined
- order at the end such that the result is a valid Permutation.</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html#toComplete--">Partial</a></code></span></div>
+<div class="block">Generates a complete instance that is consistent with this
+ Partial.  That is, elements already added to the
+ Partial will retain their positions, while elements
+ not already in the Partial will be added in an undefined
+ order such that the result is a valid complete object of type T.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/ss/Partial.html#toComplete--">toComplete</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>a valid Permutation consistent with the current state
- of this PartialPermutation</dd>
+<dd>a valid object of type T consistent with the current state
+ of this Partial</dd>
 </dl>
 </li>
 </ul>
@@ -286,11 +289,13 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <li class="blockList">
 <h4>isComplete</h4>
 <pre>public&nbsp;boolean&nbsp;isComplete()</pre>
-<div class="block">Checks if the PartialPermutation is actually a complete permutation
- (i.e., all elements added to it).</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html#isComplete--">Partial</a></code></span></div>
+<div class="block">Checks if the Partial is actually a complete T.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/ss/Partial.html#isComplete--">isComplete</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>true if the PartialPermutation is a complete permutation.</dd>
+<dd>true if the Partial is a complete T.</dd>
 </dl>
 </li>
 </ul>
@@ -301,15 +306,16 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <li class="blockList">
 <h4>get</h4>
 <pre>public&nbsp;int&nbsp;get(int&nbsp;index)</pre>
-<div class="block">Gets the element in the PartialPermutation at position index.</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html#get-int-">Partial</a></code></span></div>
+<div class="block">Gets the element in the Partial at position index.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/ss/Partial.html#get-int-">get</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>index</code> - The position, which must be less than size().
  The valid index values are [0, 1, ..., (size()-1)].</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the element in position index.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ArrayIndexOutOfBoundsException.html?is-external=true" title="class or interface in java.lang">ArrayIndexOutOfBoundsException</a></code> - if index is greater than or equal to size(), or if index is less than 0</dd>
 </dl>
 </li>
 </ul>
@@ -320,13 +326,14 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <li class="blockList">
 <h4>getLast</h4>
 <pre>public&nbsp;int&nbsp;getLast()</pre>
-<div class="block">Gets the element in the current last position of the PartialPermutation,
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html#getLast--">Partial</a></code></span></div>
+<div class="block">Gets the element in the current last position of the Partial,
  i.e., the element at index: size()-1.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/ss/Partial.html#getLast--">getLast</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The element in the current last position of the PartialPermutation.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ArrayIndexOutOfBoundsException.html?is-external=true" title="class or interface in java.lang">ArrayIndexOutOfBoundsException</a></code> - if size() is 0</dd>
+<dd>The element in the current last position of the Partial.</dd>
 </dl>
 </li>
 </ul>
@@ -337,11 +344,16 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <li class="blockList">
 <h4>size</h4>
 <pre>public&nbsp;int&nbsp;size()</pre>
-<div class="block">Gets the size of the PartialPermutation, which is the number of elements
- that have already been added to it.</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html#size--">Partial</a></code></span></div>
+<div class="block">Gets the size of the Partial, which is the number of elements
+ that have already been added to it.  Note that this is NOT the
+ size of the final complete T.  Rather, it is the current size
+ of the Partial.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/ss/Partial.html#size--">size</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>size The size of the PartialPermutation</dd>
+<dd>size The size of the Partial.</dd>
 </dl>
 </li>
 </ul>
@@ -352,12 +364,15 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <li class="blockList">
 <h4>numExtensions</h4>
 <pre>public&nbsp;int&nbsp;numExtensions()</pre>
-<div class="block">Gets the number of elements not yet added to the PartialPermutation.
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html#numExtensions--">Partial</a></code></span></div>
+<div class="block">Gets the number of elements not yet added to the Partial.
  We refer to these as extensions since adding an element will extend the
- size of the PartialPermutation.</div>
+ size of the Partial.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/ss/Partial.html#numExtensions--">numExtensions</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the number of elements not yet added to the PartialPermutation</dd>
+<dd>the number of elements not yet added to the Partial</dd>
 </dl>
 </li>
 </ul>
@@ -368,20 +383,25 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <li class="blockList">
 <h4>getExtension</h4>
 <pre>public&nbsp;int&nbsp;getExtension(int&nbsp;extensionIndex)</pre>
-<div class="block">Gets the element in position index of the list of extensions.   
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html#getExtension-int-">Partial</a></code></span></div>
+<div class="block">Gets the element in position index of the list of possible extensions.   
  This method gets the element at position index from the list of those elements
- that have not yet been added to the PartialPermutation. Note that each time
- <a href="../../../../org/cicirello/search/ss/PartialPermutation.html#extend-int-"><code>extend(int)</code></a> is called that the remaining elements may be reordered.</div>
+ that can be added next to the Partial. For example, if this is a partial
+ permutation, then this would get one of the elements not yet added to the permutation.
+ Or for example, if this is a partial vector of integers, then this would get one
+ of the values that is allowed to be added to the next position of the vector.
+ Note that each time
+ <a href="../../../../org/cicirello/search/ss/Partial.html#extend-int-"><code>Partial.extend(int)</code></a> is called that the remaining elements may be reordered, so you cannot
+ assume that the extensions remain in the same positions once you call extend.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/ss/Partial.html#getExtension-int-">getExtension</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>extensionIndex</code> - An index into the list of elements not yet added to the 
- PartialPermutation.  The valid extensionIndex values are [0, 1, ..., (numExtensions()-1)].</dd>
+<dd><code>extensionIndex</code> - An index into the list of elements that can be added to the Partial next. 
+ The valid extensionIndex values are [0, 1, ..., (numExtensions()-1)].</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the element at the designated index in the list of elements 
- not yet added to the PartialPermutation.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ArrayIndexOutOfBoundsException.html?is-external=true" title="class or interface in java.lang">ArrayIndexOutOfBoundsException</a></code> - if extensionIndex is greater than or equal to numExtensions(), 
- or if extensionIndex is less than 0</dd>
+ that can be added to the Partial.</dd>
 </dl>
 </li>
 </ul>
@@ -392,17 +412,17 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <li class="blockList">
 <h4>extend</h4>
 <pre>public&nbsp;void&nbsp;extend(int&nbsp;extensionIndex)</pre>
-<div class="block"><p>Extends the PartialPermutation by adding an element to the
- end of the PartialPermutation.  If size() is the size of the
- PartialPermutation before the extension, then the new element
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html#extend-int-">Partial</a></code></span></div>
+<div class="block"><p>Extends the Partial by adding an element to the
+ end of the Partial.  If size() is the size of the
+ Partial before the extension, then the new element
  is added to position size() and the size() is increased by 1.</p></div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../org/cicirello/search/ss/Partial.html#extend-int-">extend</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>extensionIndex</code> - An index into the list of elements not yet added to the 
- PartialPermutation.  The valid extensionIndex values are [0, 1, ..., (numExtensions()-1)].</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ArrayIndexOutOfBoundsException.html?is-external=true" title="class or interface in java.lang">ArrayIndexOutOfBoundsException</a></code> - if extensionIndex is greater than or equal to numExtensions(), 
- or if extensionIndex is less than 0</dd>
+<dd><code>extensionIndex</code> - An index into the list of elements that can be added to the 
+ Partial.  The valid extensionIndex values are [0, 1, ..., (numExtensions()-1)].</dd>
 </dl>
 </li>
 </ul>
@@ -433,7 +453,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">

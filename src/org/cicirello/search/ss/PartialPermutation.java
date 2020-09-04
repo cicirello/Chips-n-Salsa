@@ -33,13 +33,12 @@ import org.cicirello.permutations.Permutation;
  * <p>In the context of this library, a permutation of length n is
  * a permutation of the integers { 0, 1, ..., (n-1)}.</p> 
  *
- * @since 1.0
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.6.2020
+ * @version 9.4.2020
  */
-public final class PartialPermutation {
+public final class PartialPermutation implements Partial<Permutation> {
 	
 	private final int[] partial;
 	private final int[] remainingElements;
@@ -63,15 +62,7 @@ public final class PartialPermutation {
 		// deliberately using default: size=0;
 	}
 	
-	/**
-	 * Generates a Permutation object that is consistent with this
-	 * PartialPermutation.  That is, elements already added to the
-	 * PartialPermutation will retain their positions, while elements
-	 * not already in the PartialPermutation will be added in an undefined
-	 * order at the end such that the result is a valid Permutation.
-	 * @return a valid Permutation consistent with the current state
-	 * of this PartialPermutation
-	 */
+	@Override
 	public Permutation toComplete() {
 		if (remaining > 0) {
 			System.arraycopy(remainingElements, 0, partial, size, remaining);
@@ -79,23 +70,12 @@ public final class PartialPermutation {
 		return new Permutation(partial);
 	}
 	
-	/**
-	 * Checks if the PartialPermutation is actually a complete permutation
-	 * (i.e., all elements added to it).
-	 * @return true if the PartialPermutation is a complete permutation.
-	 */
+	@Override
 	public boolean isComplete() {
 		return remaining==0;
 	}
 	
-	/**
-	 * Gets the element in the PartialPermutation at position index.
-	 * @param index The position, which must be less than size().
-	 * The valid index values are [0, 1, ..., (size()-1)].
-	 * @return the element in position index.
-	 * @throws ArrayIndexOutOfBoundsException 
-	 * if index is greater than or equal to size(), or if index is less than 0
-	 */
+	@Override
 	public int get(int index) {
 		if (index >= size) {
 			throw new ArrayIndexOutOfBoundsException("index must be less than size");
@@ -103,48 +83,22 @@ public final class PartialPermutation {
 		return partial[index];
 	}
 	
-	/**
-	 * Gets the element in the current last position of the PartialPermutation,
-	 * i.e., the element at index: size()-1.
-	 * @return The element in the current last position of the PartialPermutation.
-	 * @throws ArrayIndexOutOfBoundsException if size() is 0
-	 */ 
+	@Override
 	public int getLast() {
 		return partial[size-1];
 	}
 	
-	/**
-	 * Gets the size of the PartialPermutation, which is the number of elements
-	 * that have already been added to it.
-	 * @return size The size of the PartialPermutation
-	 */
+	@Override
 	public int size() {
 		return size;
 	}
 	
-	/**
-	 * Gets the number of elements not yet added to the PartialPermutation.
-	 * We refer to these as extensions since adding an element will extend the
-	 * size of the PartialPermutation.
-	 * @return the number of elements not yet added to the PartialPermutation
-	 */
+	@Override
 	public int numExtensions() {
 		return remaining;
 	}
 	
-	/**
-	 * Gets the element in position index of the list of extensions.   
-	 * This method gets the element at position index from the list of those elements
-	 * that have not yet been added to the PartialPermutation. Note that each time
-	 * {@link #extend} is called that the remaining elements may be reordered.
-	 * @param extensionIndex An index into the list of elements not yet added to the 
-	 * PartialPermutation.  The valid extensionIndex values are [0, 1, ..., (numExtensions()-1)].
-	 * @return the element at the designated index in the list of elements 
-	 * not yet added to the PartialPermutation. 
-	 * @throws ArrayIndexOutOfBoundsException 
-	 * if extensionIndex is greater than or equal to numExtensions(), 
-	 * or if extensionIndex is less than 0
-	 */
+	@Override
 	public int getExtension(int extensionIndex) {
 		if (extensionIndex >= remaining) {
 			throw new ArrayIndexOutOfBoundsException("extensionIndex must be less than numExtensions()");
@@ -152,18 +106,7 @@ public final class PartialPermutation {
 		return remainingElements[extensionIndex];
 	}
 	
-	/**
-	 * <p>Extends the PartialPermutation by adding an element to the
-	 * end of the PartialPermutation.  If size() is the size of the
-	 * PartialPermutation before the extension, then the new element
-	 * is added to position size() and the size() is increased by 1.</p>
-	 *
-	 * @param extensionIndex An index into the list of elements not yet added to the 
-	 * PartialPermutation.  The valid extensionIndex values are [0, 1, ..., (numExtensions()-1)].
-	 * @throws ArrayIndexOutOfBoundsException 
-	 * if extensionIndex is greater than or equal to numExtensions(), 
-	 * or if extensionIndex is less than 0
-	 */
+	@Override
 	public void extend(int extensionIndex) {
 		if (extensionIndex >= remaining) {
 			throw new ArrayIndexOutOfBoundsException("extensionIndex must be less than numExtensions()");

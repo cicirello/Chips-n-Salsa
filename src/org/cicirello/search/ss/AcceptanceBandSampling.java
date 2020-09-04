@@ -213,7 +213,7 @@ public final class AcceptanceBandSampling<T extends Copyable<T>> extends Abstrac
 	@Override
 	SolutionCostPair<T> sample() {
 		IncrementalEvaluation<T> incEval = heuristic.createIncrementalEvaluation();
-		int n = heuristic.completePermutationLength();
+		int n = heuristic.completeLength();
 		Partial<T> p = heuristic.createPartial(n);
 		double[] v = new double[n];
 		int[] equivalents = new int[n];

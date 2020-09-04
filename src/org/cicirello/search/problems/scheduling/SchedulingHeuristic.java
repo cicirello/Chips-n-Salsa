@@ -86,7 +86,7 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic<Permutation>
 	}
 	
 	@Override
-	public final int completePermutationLength() {
+	public final int completeLength() {
 		return data.numberOfJobs();
 	}
 	

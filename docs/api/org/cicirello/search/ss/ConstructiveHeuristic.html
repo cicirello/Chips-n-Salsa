@@ -113,9 +113,8 @@ var activeTableTab = "activeTableTab";
 <pre>public interface <span class="typeNameLabel">ConstructiveHeuristic&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</span></pre>
 <div class="block"><p>Classes implementing this interface are used
  as constructive heuristics for constructing heuristic solutions
- to permutation optimization problems, as well as for
- certain stochastic sampling search algorithms over the space
- of permutations.</p></div>
+ to optimization problems, as well as for
+ certain stochastic sampling search algorithms.</p></div>
 </li>
 </ul>
 </div>
@@ -136,9 +135,9 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#completePermutationLength--">completePermutationLength</a></span>()</code>
-<div class="block">Gets the required length of permutations representing
- solutions to the problem instance for which this constructive heuristic
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#completeLength--">completeLength</a></span>()</code>
+<div class="block">Gets the required length of complete solutions 
+ to the problem instance for which this constructive heuristic
  is configured.</div>
 </td>
 </tr>
@@ -267,15 +266,15 @@ var activeTableTab = "activeTableTab";
 </dl>
 </li>
 </ul>
-<a name="completePermutationLength--">
+<a name="completeLength--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>completePermutationLength</h4>
-<pre>int&nbsp;completePermutationLength()</pre>
-<div class="block">Gets the required length of permutations representing
- solutions to the problem instance for which this constructive heuristic
+<h4>completeLength</h4>
+<pre>int&nbsp;completeLength()</pre>
+<div class="block">Gets the required length of complete solutions 
+ to the problem instance for which this constructive heuristic
  is configured.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>

@@ -490,7 +490,7 @@ public class AcceptanceBandTests {
 		private int n;
 		public IntHeuristic(IntProblem problem, int n) { this.problem = problem; this.n = n; }
 		@Override public IntProblem getProblem() { return problem; }
-		@Override public int completePermutationLength() { return n; }
+		@Override public int completeLength() { return n; }
 		@Override public IntIncEval createIncrementalEvaluation() {
 			return new IntIncEval();
 		}
@@ -515,7 +515,7 @@ public class AcceptanceBandTests {
 		private int n;
 		public DoubleHeuristic(DoubleProblem problem, int n) { this.problem = problem; this.n = n; }
 		@Override public DoubleProblem getProblem() { return problem; }
-		@Override public int completePermutationLength() { return n; }
+		@Override public int completeLength() { return n; }
 		@Override public DoubleIncEval createIncrementalEvaluation() {
 			return new DoubleIncEval();
 		}

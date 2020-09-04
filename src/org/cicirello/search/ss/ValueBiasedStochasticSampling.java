@@ -294,7 +294,7 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends 
 	@Override
 	SolutionCostPair<T> sample() {
 		IncrementalEvaluation<T> incEval = heuristic.createIncrementalEvaluation();
-		int n = heuristic.completePermutationLength();
+		int n = heuristic.completeLength();
 		Partial<T> p = heuristic.createPartial(n);
 		double[] b = new double[n];
 		ThreadLocalRandom r = ThreadLocalRandom.current();

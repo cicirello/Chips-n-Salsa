@@ -173,7 +173,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	
 	private SolutionCostPair<Permutation> generate() {
 		IncrementalEvaluation<Permutation> incEval = heuristic.createIncrementalEvaluation();
-		int n = heuristic.completePermutationLength();
+		int n = heuristic.completeLength();
 		PartialPermutation p = new PartialPermutation(n);
 		while (!p.isComplete()) {
 			int k = p.numExtensions();

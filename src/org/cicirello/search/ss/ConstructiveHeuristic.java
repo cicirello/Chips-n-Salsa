@@ -20,16 +20,14 @@
 
 package org.cicirello.search.ss;
 
-import org.cicirello.permutations.Permutation;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.util.Copyable;
 
 /**
  * <p>Classes implementing this interface are used
  * as constructive heuristics for constructing heuristic solutions
- * to permutation optimization problems, as well as for
- * certain stochastic sampling search algorithms over the space
- * of permutations.</p>
+ * to optimization problems, as well as for
+ * certain stochastic sampling search algorithms.</p>
  *
  * @param <T> The type of Partial object for which this 
  * ConstructiveHeuristic guides construction, which is 
@@ -96,13 +94,13 @@ public interface ConstructiveHeuristic<T extends Copyable<T>> {
 	Partial<T> createPartial(int n);
 	
 	/**
-	 * Gets the required length of permutations representing
-	 * solutions to the problem instance for which this constructive heuristic
+	 * Gets the required length of complete solutions 
+	 * to the problem instance for which this constructive heuristic
 	 * is configured.
 	 * @return length of solutions to the problem instance for which this heuristic
 	 * is configured
 	 */
-	int completePermutationLength();
+	int completeLength();
 	
 	/**
 	 * Gets a reference to the instance of the optimization problem 

@@ -246,7 +246,7 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> exte
 		super(heuristic.getProblem(), tracker);
 		this.bias = bias;
 		this.heuristic = heuristic;
-		biases = precomputeBiases(heuristic.completePermutationLength());
+		biases = precomputeBiases(heuristic.completeLength());
 	}
 	
 	/*
@@ -372,7 +372,7 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> exte
 	@Override
 	SolutionCostPair<T> sample() {
 		IncrementalEvaluation<T> incEval = heuristic.createIncrementalEvaluation();
-		int n = heuristic.completePermutationLength();
+		int n = heuristic.completeLength();
 		Partial<T> p = heuristic.createPartial(n);
 		double[] v = new double[n];
 		int[] extensions = new int[n];

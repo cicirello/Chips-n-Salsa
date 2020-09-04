@@ -4,10 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-08-18
+## [Unreleased] - 2020-09-4
 ### Added
+* An interface Partial to enable generalizing the various stochastic sampling search algorithms from optimizing space of permutations to more general types.
+* A method was added to ConstructiveHeuristic for creating empty Partials of the appropriate length needed by the heuristic.
 
 ### Changed
+* ConstructiveHeuristic and IncrementalEvaluation now have a type parameter.
+* All of the scheduling heuristics were modified based on interface changes.
 
 ### Deprecated
 

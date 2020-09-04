@@ -51,17 +51,15 @@ import org.cicirello.search.ProgressTracker;
  * time, then the cost to heuristically construct 
  * a permutation is simply O(N<sup>2</sup>).</p>
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.12.2020
+ * @version 9.4.2020
  */
 public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<Permutation> {
 	
 	private final OptimizationProblem<Permutation> pOpt;
 	private final IntegerCostOptimizationProblem<Permutation> pOptInt;
-	private final ConstructiveHeuristic heuristic;
+	private final ConstructiveHeuristic<Permutation> heuristic;
 	private ProgressTracker<Permutation> tracker;
 	private int numGenerated;
 	
@@ -72,7 +70,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	 * @param heuristic The constructive heuristic.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public HeuristicPermutationGenerator(ConstructiveHeuristic heuristic) {
+	public HeuristicPermutationGenerator(ConstructiveHeuristic<Permutation> heuristic) {
 		this(heuristic, new ProgressTracker<Permutation>());
 	}
 	
@@ -83,7 +81,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicPermutationGenerator(ConstructiveHeuristic heuristic, ProgressTracker<Permutation> tracker) {
+	public HeuristicPermutationGenerator(ConstructiveHeuristic<Permutation> heuristic, ProgressTracker<Permutation> tracker) {
 		if (heuristic == null || tracker == null) {
 			throw new NullPointerException();
 		}
@@ -174,7 +172,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	}
 	
 	private SolutionCostPair<Permutation> generate() {
-		IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> incEval = heuristic.createIncrementalEvaluation();
 		int n = heuristic.completePermutationLength();
 		PartialPermutation p = new PartialPermutation(n);
 		while (!p.isComplete()) {

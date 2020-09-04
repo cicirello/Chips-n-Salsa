@@ -22,7 +22,7 @@ package org.cicirello.search.problems.scheduling;
 
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ss.IncrementalEvaluation;
-import org.cicirello.search.ss.PartialPermutation;
+import org.cicirello.search.ss.Partial;
 
 /**
  * <p>This heuristic is the smallest setup first.
@@ -32,7 +32,7 @@ import org.cicirello.search.ss.PartialPermutation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.28.2020
+ * @version 9.4.2020
  */
 public final class SmallestSetup extends SchedulingHeuristic {
 	
@@ -46,7 +46,7 @@ public final class SmallestSetup extends SchedulingHeuristic {
 	}
 	
 	@Override
-	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
+	public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
 		if (HAS_SETUPS) {
 			double s = 1.0 /
 				(1.0 +

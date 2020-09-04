@@ -50,7 +50,7 @@ public class HeuristicTests {
 		double[] expected = { 7, 4, 6, 11};
 		FakeProblemDuedates problem = new FakeProblemDuedates(duedates, p);
 		MinimumSlackTime h = new MinimumSlackTime(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		for (int j = 0; j < duedates.length; j++) {
 			assertEquals(expected[j], h.h(null, j, inc), 1E-10);
 		}
@@ -230,7 +230,7 @@ public class HeuristicTests {
 		// All late tests
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected.length; j++) {
 			assertEquals("j:"+j, expected[j], h.h(partial, j, inc), 1E-10);
@@ -257,7 +257,7 @@ public class HeuristicTests {
 		// All late tests
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		WeightedShortestProcessingPlusSetupTimeLateOnly h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected.length; j++) {
 			assertEquals("j:"+j, expected[j], h.h(partial, j, inc), 1E-10);
@@ -302,7 +302,7 @@ public class HeuristicTests {
 		// All late tests
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		WeightedCriticalRatio h = new WeightedCriticalRatio(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
 			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
@@ -333,7 +333,7 @@ public class HeuristicTests {
 		// All late tests
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		WeightedCriticalRatioSetupAdjusted h = new WeightedCriticalRatioSetupAdjusted(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
 			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
@@ -382,7 +382,7 @@ public class HeuristicTests {
 		// All d=0
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		Montagne h = new Montagne(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
 			assertEquals("d=0, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
@@ -424,7 +424,7 @@ public class HeuristicTests {
 		// All late tests
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		WeightedCostOverTime h = new WeightedCostOverTime(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
 			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
@@ -470,7 +470,7 @@ public class HeuristicTests {
 		// All late tests
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		WeightedCostOverTimeSetupAdjusted h = new WeightedCostOverTimeSetupAdjusted(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
 			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
@@ -516,7 +516,7 @@ public class HeuristicTests {
 		// All late tests
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 1);
 		WeightedCostOverTimeSetupAdjusted h = new WeightedCostOverTimeSetupAdjusted(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
 			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
@@ -565,7 +565,7 @@ public class HeuristicTests {
 		// All late tests
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		ApparentTardinessCost h = new ApparentTardinessCost(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
 			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
@@ -612,7 +612,7 @@ public class HeuristicTests {
 		// All late tests
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		ApparentTardinessCostSetupAdjusted h = new ApparentTardinessCostSetupAdjusted(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
 			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
@@ -659,7 +659,7 @@ public class HeuristicTests {
 		// All late tests
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 1);
 		ApparentTardinessCostSetupAdjusted h = new ApparentTardinessCostSetupAdjusted(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
 			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
@@ -707,7 +707,7 @@ public class HeuristicTests {
 		// All late tests, k1=2, k2=7?shouldn't matter
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		ATCS h = new ATCS(problem, 2, 7);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
 			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
@@ -753,7 +753,7 @@ public class HeuristicTests {
 		// All late tests, k1=2, k2=1
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
 		ATCS h = new ATCS(problem, 2, 1);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		double sAve = h.getSetupAverage();
 		for (int j = 1; j < expected0.length; j++) {
 			double correction = expected0[j]*Math.exp(-4.0/sAve);
@@ -798,7 +798,7 @@ public class HeuristicTests {
 		// All late tests, 
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
 		ATCS h = new ATCS(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		double sAve = h.getSetupAverage();
 		for (int j = 1; j < expected0.length; j++) {
 			assertTrue("negativeSlack, j:"+j, expected0[j] >= h.h(partial, j, inc));
@@ -839,7 +839,7 @@ public class HeuristicTests {
 		// All late tests, k1=2, k2=7?shouldn't matter
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
 		DynamicATCS h = new DynamicATCS(problem, 2, 7);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		for (int j = 1; j < expected0.length; j++) {
 			assertEquals("negativeSlack, j:"+j, expected0[j], h.h(partial, j, inc), 1E-10);
@@ -885,7 +885,7 @@ public class HeuristicTests {
 		// All late tests, k1=2, k2=1
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
 		DynamicATCS h = new DynamicATCS(problem, 2, 1);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		double sAve = ((DynamicATCS.IncrementalStatsCalculator)inc).averageSetupTime();
 		for (int j = 1; j < expected0.length; j++) {
 			double correction = expected0[j]*Math.exp(-4.0/sAve);
@@ -930,7 +930,7 @@ public class HeuristicTests {
 		// All late tests, 
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
 		DynamicATCS h = new DynamicATCS(problem);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		double sAve = ((DynamicATCS.IncrementalStatsCalculator)inc).averageSetupTime();
 		for (int j = 1; j < expected0.length; j++) {
 			assertTrue("negativeSlack, j:"+j, expected0[j] >= h.h(partial, j, inc));
@@ -1089,7 +1089,7 @@ public class HeuristicTests {
 		};
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, d, s);
 		DynamicATCS h = new DynamicATCS(problem, 2, 1);
-		IncrementalEvaluation inc = h.createIncrementalEvaluation();
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		DynamicATCS.IncrementalStatsCalculator incATCS = (DynamicATCS.IncrementalStatsCalculator)inc;
 		assertEquals(58.0/16, incATCS.averageSetupTime(), 1E-10);
 		PartialPermutation partial = new PartialPermutation(4);

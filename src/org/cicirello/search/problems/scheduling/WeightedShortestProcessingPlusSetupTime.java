@@ -21,8 +21,8 @@
 package org.cicirello.search.problems.scheduling;
 
 import org.cicirello.permutations.Permutation;
-import org.cicirello.search.ss.PartialPermutation;
 import org.cicirello.search.ss.IncrementalEvaluation;
+import org.cicirello.search.ss.Partial;
 
 /**
  * <p>This class implements a variation the weighted shortest process time
@@ -48,7 +48,7 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.28.2020
+ * @version 9.4.2020
  */
 public class WeightedShortestProcessingPlusSetupTime extends SchedulingHeuristic {
 	
@@ -62,7 +62,7 @@ public class WeightedShortestProcessingPlusSetupTime extends SchedulingHeuristic
 	}
 	
 	@Override
-	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
+	public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
 		double value = data.getWeight(element);
 		if (value < MIN_H) return MIN_H;
 		double denominator = data.getProcessingTime(element);

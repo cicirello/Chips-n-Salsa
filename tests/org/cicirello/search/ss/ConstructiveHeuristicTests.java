@@ -236,7 +236,7 @@ public class ConstructiveHeuristicTests {
 	 * designed to prefer even permutation elements (largest to smallest), followed by odd
 	 * (largest to smallest).
 	 */
-	private static class IntHeuristic implements ConstructiveHeuristic {
+	private static class IntHeuristic implements ConstructiveHeuristic<Permutation> {
 		private IntProblem problem;
 		private int n;
 		public IntHeuristic(IntProblem problem, int n) { this.problem = problem; this.n = n; }
@@ -245,10 +245,14 @@ public class ConstructiveHeuristicTests {
 		@Override public IntIncEval createIncrementalEvaluation() {
 			return new IntIncEval();
 		}
-		@Override public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
+		@Override public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
 			IntIncEval inc = (IntIncEval)incEval;
 			if (element % 2 == 0) return n + element;
 			else return element;
+		}
+		@Override
+		public final Partial<Permutation> createPartial(int n) {
+			return new PartialPermutation(n);
 		}
 	}
 	
@@ -257,7 +261,7 @@ public class ConstructiveHeuristicTests {
 	 * designed to prefer even permutation elements (largest to smallest), followed by odd
 	 * (largest to smallest).
 	 */
-	private static class DoubleHeuristic implements ConstructiveHeuristic {
+	private static class DoubleHeuristic implements ConstructiveHeuristic<Permutation> {
 		private DoubleProblem problem;
 		private int n;
 		public DoubleHeuristic(DoubleProblem problem, int n) { this.problem = problem; this.n = n; }
@@ -266,27 +270,31 @@ public class ConstructiveHeuristicTests {
 		@Override public DoubleIncEval createIncrementalEvaluation() {
 			return new DoubleIncEval();
 		}
-		@Override public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
+		@Override public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
 			DoubleIncEval inc = (DoubleIncEval)incEval;
 			if (element % 2 == 0) return n + element;
 			else return element;
+		}
+		@Override
+		public final Partial<Permutation> createPartial(int n) {
+			return new PartialPermutation(n);
 		}
 	}
 	
 	/*
 	 * Fake designed for predictable test cases.
 	 */
-	private static class IntIncEval implements IncrementalEvaluation {
+	private static class IntIncEval implements IncrementalEvaluation<Permutation> {
 		private int sum;
-		@Override public void extend(PartialPermutation p, int element) { sum += element + 1; }
+		@Override public void extend(Partial<Permutation> p, int element) { sum += element + 1; }
 	}
 	
 	/*
 	 * Fake designed for predictable test cases.
 	 */
-	private static class DoubleIncEval implements IncrementalEvaluation {
+	private static class DoubleIncEval implements IncrementalEvaluation<Permutation> {
 		private int sum;
-		@Override public void extend(PartialPermutation p, int element) { sum += element + 1; }
+		@Override public void extend(Partial<Permutation> p, int element) { sum += element + 1; }
 	}
 	
 	/*

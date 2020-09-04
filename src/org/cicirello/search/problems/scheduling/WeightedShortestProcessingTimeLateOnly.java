@@ -22,7 +22,7 @@ package org.cicirello.search.problems.scheduling;
 
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ss.IncrementalEvaluation;
-import org.cicirello.search.ss.PartialPermutation;
+import org.cicirello.search.ss.Partial;
 
 /**
  * This is an implementation of the weighted shortest process time
@@ -47,7 +47,7 @@ import org.cicirello.search.ss.PartialPermutation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.24.2020
+ * @version 9.4.2020
  */
 public final class WeightedShortestProcessingTimeLateOnly extends WeightedShortestProcessingTime {
 	
@@ -65,7 +65,7 @@ public final class WeightedShortestProcessingTimeLateOnly extends WeightedShorte
 	}
 	
 	@Override
-	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
+	public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
 		if (((IncrementalTimeCalculator)incEval).slack(element, p) >= 0) {
 			return MIN_H;
 		} 
@@ -73,7 +73,7 @@ public final class WeightedShortestProcessingTimeLateOnly extends WeightedShorte
 	}
 	
 	@Override
-	public IncrementalEvaluation createIncrementalEvaluation() {
+	public IncrementalEvaluation<Permutation> createIncrementalEvaluation() {
 		return new IncrementalTimeCalculator();
 	}
 	

@@ -40,7 +40,7 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -65,7 +65,7 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -90,7 +90,7 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -115,7 +115,7 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -141,7 +141,7 @@ public class HBSSTests {
 			ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, originalTracker);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, originalTracker);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -164,7 +164,7 @@ public class HBSSTests {
 			ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, originalTracker);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, originalTracker);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -186,8 +186,8 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling chOriginal = new HeuristicBiasedStochasticSampling(h);
-			HeuristicBiasedStochasticSampling ch = chOriginal.split();
+			HeuristicBiasedStochasticSampling<Permutation> chOriginal = new HeuristicBiasedStochasticSampling<Permutation>(h);
+			HeuristicBiasedStochasticSampling<Permutation> ch = chOriginal.split();
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -208,8 +208,8 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling chOriginal = new HeuristicBiasedStochasticSampling(h);
-			HeuristicBiasedStochasticSampling ch = chOriginal.split();
+			HeuristicBiasedStochasticSampling<Permutation> chOriginal = new HeuristicBiasedStochasticSampling<Permutation>(h);
+			HeuristicBiasedStochasticSampling<Permutation> ch = chOriginal.split();
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -230,7 +230,7 @@ public class HBSSTests {
 		for (int n = 0; n < 8; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h);
 			double[] biases = ch.precomputeBiases(n);
 			double expected = 0;
 			for (int i = 1; i <= n; i++) {
@@ -241,7 +241,7 @@ public class HBSSTests {
 		for (int n = 0; n < 8; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, 2.0);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, 2.0);
 			double[] biases = ch.precomputeBiases(n);
 			double expected = 0;
 			for (int i = 1; i <= n; i++) {
@@ -252,7 +252,7 @@ public class HBSSTests {
 		for (int n = 0; n < 8; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, true);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, true);
 			double[] biases = ch.precomputeBiases(n);
 			double expected = 0;
 			for (int i = 1; i <= n; i++) {
@@ -267,7 +267,7 @@ public class HBSSTests {
 		for (int n = 0; n < 8; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, bias);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, bias);
 			double[] biases = ch.precomputeBiases(n);
 			double expected = 0;
 			for (int i = 1; i <= n; i++) {
@@ -282,7 +282,7 @@ public class HBSSTests {
 		for (int n = 2; n < 8; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h);
 			for (int k = 2; k <= n; k++) {
 				double inc = 1.0 / k;
 				double[] values = new double[n];
@@ -311,7 +311,7 @@ public class HBSSTests {
 		for (int n = 0; n < 8; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h);
 			for (int k = 1; k <= n; k++) {
 				double[] values = new double[n];
 				for (int i = 0; i < k; i++) values[i] = 100-i;
@@ -343,7 +343,7 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, 2.0);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, 2.0);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -368,7 +368,7 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, 2.0);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, 2.0);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -394,7 +394,7 @@ public class HBSSTests {
 			ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, 2.0, originalTracker);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, 2.0, originalTracker);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -417,7 +417,7 @@ public class HBSSTests {
 			ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, 2.0, originalTracker);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, 2.0, originalTracker);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -439,8 +439,8 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling chOriginal = new HeuristicBiasedStochasticSampling(h, 2.0);
-			HeuristicBiasedStochasticSampling ch = chOriginal.split();
+			HeuristicBiasedStochasticSampling<Permutation> chOriginal = new HeuristicBiasedStochasticSampling<Permutation>(h, 2.0);
+			HeuristicBiasedStochasticSampling<Permutation> ch = chOriginal.split();
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -461,8 +461,8 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling chOriginal = new HeuristicBiasedStochasticSampling(h, 2.0);
-			HeuristicBiasedStochasticSampling ch = chOriginal.split();
+			HeuristicBiasedStochasticSampling<Permutation> chOriginal = new HeuristicBiasedStochasticSampling<Permutation>(h, 2.0);
+			HeuristicBiasedStochasticSampling<Permutation> ch = chOriginal.split();
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -490,7 +490,7 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, bias);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, bias);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -519,7 +519,7 @@ public class HBSSTests {
 		for (int n = 0; n < 10; n++) {
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, bias);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, bias);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -549,7 +549,7 @@ public class HBSSTests {
 			ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, bias, originalTracker);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, bias, originalTracker);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -576,7 +576,7 @@ public class HBSSTests {
 			ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
-			HeuristicBiasedStochasticSampling ch = new HeuristicBiasedStochasticSampling(h, bias, originalTracker);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h, bias, originalTracker);
 			assertEquals(0, ch.getTotalRunLength());
 			assertTrue(problem == ch.getProblem());
 			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -599,7 +599,7 @@ public class HBSSTests {
 	 * designed to prefer even permutation elements (largest to smallest), followed by odd
 	 * (largest to smallest).
 	 */
-	private static class IntHeuristic implements ConstructiveHeuristic {
+	private static class IntHeuristic implements ConstructiveHeuristic<Permutation> {
 		private IntProblem problem;
 		private int n;
 		public IntHeuristic(IntProblem problem, int n) { this.problem = problem; this.n = n; }
@@ -608,10 +608,14 @@ public class HBSSTests {
 		@Override public IntIncEval createIncrementalEvaluation() {
 			return new IntIncEval();
 		}
-		@Override public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
+		@Override public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
 			IntIncEval inc = (IntIncEval)incEval;
 			if (element % 2 == 0) return n + element;
 			else return element;
+		}
+		@Override
+		public final Partial<Permutation> createPartial(int n) {
+			return new PartialPermutation(n);
 		}
 	}
 	
@@ -620,7 +624,7 @@ public class HBSSTests {
 	 * designed to prefer even permutation elements (largest to smallest), followed by odd
 	 * (largest to smallest).
 	 */
-	private static class DoubleHeuristic implements ConstructiveHeuristic {
+	private static class DoubleHeuristic implements ConstructiveHeuristic<Permutation> {
 		private DoubleProblem problem;
 		private int n;
 		public DoubleHeuristic(DoubleProblem problem, int n) { this.problem = problem; this.n = n; }
@@ -629,27 +633,31 @@ public class HBSSTests {
 		@Override public DoubleIncEval createIncrementalEvaluation() {
 			return new DoubleIncEval();
 		}
-		@Override public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
+		@Override public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
 			DoubleIncEval inc = (DoubleIncEval)incEval;
 			if (element % 2 == 0) return n + element;
 			else return element;
+		}
+		@Override
+		public final Partial<Permutation> createPartial(int n) {
+			return new PartialPermutation(n);
 		}
 	}
 	
 	/*
 	 * Fake designed for predictable test cases.
 	 */
-	private static class IntIncEval implements IncrementalEvaluation {
+	private static class IntIncEval implements IncrementalEvaluation<Permutation> {
 		private int sum;
-		@Override public void extend(PartialPermutation p, int element) { sum += element + 1; }
+		@Override public void extend(Partial<Permutation> p, int element) { sum += element + 1; }
 	}
 	
 	/*
 	 * Fake designed for predictable test cases.
 	 */
-	private static class DoubleIncEval implements IncrementalEvaluation {
+	private static class DoubleIncEval implements IncrementalEvaluation<Permutation> {
 		private int sum;
-		@Override public void extend(PartialPermutation p, int element) { sum += element + 1; }
+		@Override public void extend(Partial<Permutation> p, int element) { sum += element + 1; }
 	}
 	
 	/*

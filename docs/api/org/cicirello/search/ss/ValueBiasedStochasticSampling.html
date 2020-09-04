@@ -91,14 +91,14 @@ var activeTableTab = "activeTableTab";
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="subTitle">org.cicirello.search.ss</div>
-<h2 title="Class ValueBiasedStochasticSampling" class="title">Class ValueBiasedStochasticSampling</h2>
+<h2 title="Class ValueBiasedStochasticSampling" class="title">Class ValueBiasedStochasticSampling&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</h2>
 </div>
 <div class="contentContainer">
 <ul class="inheritance">
 <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
 <li>
 <ul class="inheritance">
-<li>org.cicirello.search.ss.ValueBiasedStochasticSampling</li>
+<li>org.cicirello.search.ss.ValueBiasedStochasticSampling&lt;T&gt;</li>
 </ul>
 </li>
 </ul>
@@ -106,12 +106,16 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>T</code> - The type of object under optimization.</dd>
+</dl>
+<dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><a href="../../../../org/cicirello/search/concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&gt;, <a href="../../../../org/cicirello/search/Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;, <a href="../../../../org/cicirello/search/SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;, <a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</dd>
+<dd><a href="../../../../org/cicirello/search/concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T&gt;&gt;, <a href="../../../../org/cicirello/search/Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;T&gt;, <a href="../../../../org/cicirello/search/SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;T&gt;, <a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T&gt;</dd>
 </dl>
 <hr>
 <br>
-<pre>public final class <span class="typeNameLabel">ValueBiasedStochasticSampling</span>
+<pre>public final class <span class="typeNameLabel">ValueBiasedStochasticSampling&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</span>
 extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block"><p>Value Biased Stochastic Sampling (VBSS) is a form of stochastic sampling 
  search that uses a constructive heuristic to bias the random decisions.
@@ -121,9 +125,9 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
  It evaluates each of the N candidate solutions with respect to the optimization
  problem's cost function, and returns the best of the N candidate solutions.</p>
 
- <p>Although the VBSS algorithm itself is not technically restricted to 
- permutation problems, the ValueBiasedStochasticSampling class only supports
- optimization problems over the space of permutations.</p>
+ <p>Although the VBSS algorithm itself is not restricted to 
+ permutation problems, the examples that follow in this documentation focus
+ on permutations for illustrative purposes.</p>
 
  <p>Let's consider an illustrative example.  Consider a problem whose solution
  is to be represented with a permutation of length L of the integers 
@@ -218,10 +222,6 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
  Stochastic Search Performance by Value-Biased Randomization of Heuristics."</a>
  Journal of Heuristics, 11(1):5-34, January 2005.</li>
  </ul></div>
-<dl>
-<dt><span class="simpleTagLabel">Since:</span></dt>
-<dd>1.0</dd>
-</dl>
 </li>
 </ul>
 </div>
@@ -262,39 +262,39 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic)</code>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic)</code>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-double-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-double-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic,
                              double&nbsp;exponent)</code>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-double-org.cicirello.search.ProgressTracker-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-double-org.cicirello.search.ProgressTracker-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic,
                              double&nbsp;exponent,
-                             <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;tracker)</code>
+                             <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;tracker)</code>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-org.cicirello.search.ProgressTracker-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic,
-                             <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;tracker)</code>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-org.cicirello.search.ProgressTracker-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic,
+                             <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;tracker)</code>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-org.cicirello.search.ss.ValueBiasedStochasticSampling.BiasFunction-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-org.cicirello.search.ss.ValueBiasedStochasticSampling.BiasFunction-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic,
                              <a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.BiasFunction.html" title="interface in org.cicirello.search.ss">ValueBiasedStochasticSampling.BiasFunction</a>&nbsp;bias)</code>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-org.cicirello.search.ss.ValueBiasedStochasticSampling.BiasFunction-org.cicirello.search.ProgressTracker-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#ValueBiasedStochasticSampling-org.cicirello.search.ss.ConstructiveHeuristic-org.cicirello.search.ss.ValueBiasedStochasticSampling.BiasFunction-org.cicirello.search.ProgressTracker-">ValueBiasedStochasticSampling</a></span>(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic,
                              <a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.BiasFunction.html" title="interface in org.cicirello.search.ss">ValueBiasedStochasticSampling.BiasFunction</a>&nbsp;bias,
-                             <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;tracker)</code>
+                             <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;tracker)</code>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object.</div>
 </td>
 </tr>
@@ -354,7 +354,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </td>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><code><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a></code></td>
+<td class="colFirst"><code><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html#split--">split</a></span>()</code>
 <div class="block">Generates a functionally identical copy of this object, for use in
  multithreaded implementations of search algorithms.</div>
@@ -388,7 +388,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>ValueBiasedStochasticSampling</h4>
-<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic)</pre>
+<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic)</pre>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object.  A ProgressTracker 
  is created for you.  The bias function simply returns the heuristic value
  (random decisions are simply proportional
@@ -407,8 +407,8 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>ValueBiasedStochasticSampling</h4>
-<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic,
-                                     <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;tracker)</pre>
+<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic,
+                                     <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;tracker)</pre>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object.    
  The bias function simply returns the heuristic value
  (random decisions are simply proportional
@@ -428,7 +428,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>ValueBiasedStochasticSampling</h4>
-<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic,
+<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic,
                                      double&nbsp;exponent)</pre>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object.  A ProgressTracker 
  is created for you.</div>
@@ -447,9 +447,9 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>ValueBiasedStochasticSampling</h4>
-<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic,
+<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic,
                                      double&nbsp;exponent,
-                                     <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;tracker)</pre>
+                                     <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;tracker)</pre>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -467,7 +467,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>ValueBiasedStochasticSampling</h4>
-<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic,
+<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic,
                                      <a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.BiasFunction.html" title="interface in org.cicirello.search.ss">ValueBiasedStochasticSampling.BiasFunction</a>&nbsp;bias)</pre>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object. A ProgressTracker 
  is created for you.</div>
@@ -486,9 +486,9 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>ValueBiasedStochasticSampling</h4>
-<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&nbsp;heuristic,
+<pre>public&nbsp;ValueBiasedStochasticSampling(<a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;heuristic,
                                      <a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.BiasFunction.html" title="interface in org.cicirello.search.ss">ValueBiasedStochasticSampling.BiasFunction</a>&nbsp;bias,
-                                     <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;tracker)</pre>
+                                     <a href="../../../../org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;tracker)</pre>
 <div class="block">Constructs a ValueBiasedStochasticSampling search object.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -514,7 +514,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>split</h4>
-<pre>public&nbsp;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a>&nbsp;split()</pre>
+<pre>public&nbsp;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&nbsp;split()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../org/cicirello/search/concurrent/Splittable.html#split--">Splittable</a></code></span></div>
 <div class="block">Generates a functionally identical copy of this object, for use in
  multithreaded implementations of search algorithms.  The state of the object
@@ -532,11 +532,11 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
  state.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/concurrent/Splittable.html#split--">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&gt;</code></dd>
+<dd><code><a href="../../../../org/cicirello/search/concurrent/Splittable.html#split--">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../../../../org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&gt;&gt;</code></dd>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/Metaheuristic.html#split--">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
+<dd><code><a href="../../../../org/cicirello/search/Metaheuristic.html#split--">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&gt;</code></dd>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html#split--">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
+<dd><code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html#split--">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/cicirello/search/SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;<a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="type parameter in ValueBiasedStochasticSampling">T</a>&gt;&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A functionally identical copy of the object, or a reference to this if
  it is both safe and efficient for multiple threads to share a single instance of this

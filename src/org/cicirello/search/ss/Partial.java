@@ -20,6 +20,8 @@
 
 package org.cicirello.search.ss;
 
+import org.cicirello.util.Copyable;
+
 /**
  * <p>A Partial represents a partial solution to a problem (e.g.,
  * a partial permutation or a partial integer vector) that is being 
@@ -36,7 +38,7 @@ package org.cicirello.search.ss;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 9.4.2020
  */
- public interface Partial<T> {
+ public interface Partial<T extends Copyable<T>> {
 	 
 	/**
 	 * Generates a complete instance that is consistent with this

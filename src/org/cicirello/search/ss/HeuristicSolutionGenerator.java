@@ -20,80 +20,71 @@
 
 package org.cicirello.search.ss;
 
-import org.cicirello.permutations.Permutation;
 import org.cicirello.search.SimpleMetaheuristic;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
+import org.cicirello.util.Copyable;
 
 /**
- * <p>This class generates solutions to permutation optimization
+ * <p>This class generates solutions to optimization
  * problems using a constructive heuristic. Unless the heuristic
  * given to it is randomized, this class is completely deterministic
  * and has no randomized behavior. Thus, executing the {@link #optimize}
  * method multiple times should produce the same result each time.
  * When using a constructive heuristic, you begin with an empty solution,
- * in this case an empty permutation, and you then use a constructive
- * heuristic to choose which element to add to the partial solution,
- * in this case to the partial permutation.  This is repeated until
- * you derive a complete solution (i.e., a complete permutation).</p>
+ * (e.g., an empty permutation for a permutation optimization problem), 
+ * and you then use a constructive
+ * heuristic to choose which element to add to the partial solution.
+ * This is repeated until
+ * you derive a complete solution.</p>
  *
- * <p>Constructive heuristics are not  
- * just for permutations.  See the {@link HeuristicSolutionGenerator} class
- * for a more general implementation.</p>
- *
- * <p>Assuming that the length of the permutation is N, and that the runtime
- * of the heuristic is O(f(N)), the runtime to construct one permutation
- * using a constructive heuristic is O(N<sup>2</sup> f(N)).  If the cost, f(N), to
- * heuristically evaluate one permutation element is simply, O(1), constant
- * time, then the cost to heuristically construct 
- * a permutation is simply O(N<sup>2</sup>).</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.4.2020
+ * @version 9.6.2020
  */
-public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<Permutation> {
+public final class HeuristicSolutionGenerator<T extends Copyable<T>> implements SimpleMetaheuristic<T> {
 	
-	private final OptimizationProblem<Permutation> pOpt;
-	private final IntegerCostOptimizationProblem<Permutation> pOptInt;
-	private final ConstructiveHeuristic<Permutation> heuristic;
-	private ProgressTracker<Permutation> tracker;
+	private final OptimizationProblem<T> pOpt;
+	private final IntegerCostOptimizationProblem<T> pOptInt;
+	private final ConstructiveHeuristic<T> heuristic;
+	private ProgressTracker<T> tracker;
 	private int numGenerated;
 	
 	/**
-	 * Constructs an HeuristicPermutationGenerator for generating solutions
+	 * Constructs an HeuristicSolutionGenerator for generating solutions
 	 * to an optimization problem using a constructive heuristic.  A ProgressTracker 
 	 * is created for you.
 	 * @param heuristic The constructive heuristic.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public HeuristicPermutationGenerator(ConstructiveHeuristic<Permutation> heuristic) {
-		this(heuristic, new ProgressTracker<Permutation>());
+	public HeuristicSolutionGenerator(ConstructiveHeuristic<T> heuristic) {
+		this(heuristic, new ProgressTracker<T>());
 	}
 	
 	/**
-	 * Constructs an HeuristicPermutationGenerator for generating solutions
+	 * Constructs an HeuristicSolutionGenerator for generating solutions
 	 * to an optimization problem using a constructive heuristic.
 	 * @param heuristic The constructive heuristic.
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicPermutationGenerator(ConstructiveHeuristic<Permutation> heuristic, ProgressTracker<Permutation> tracker) {
+	public HeuristicSolutionGenerator(ConstructiveHeuristic<T> heuristic, ProgressTracker<T> tracker) {
 		if (heuristic == null || tracker == null) {
 			throw new NullPointerException();
 		}
 		this.tracker = tracker;
 		this.heuristic = heuristic;
 		// default: numGenerated = 0;
-		Problem<Permutation> problem = heuristic.getProblem();
+		Problem<T> problem = heuristic.getProblem();
 		if (heuristic.getProblem() instanceof IntegerCostOptimizationProblem) {
-			pOptInt = (IntegerCostOptimizationProblem<Permutation>)problem;
+			pOptInt = (IntegerCostOptimizationProblem<T>)problem;
 			pOpt = null;
 		} else {
-			pOpt = (OptimizationProblem<Permutation>)problem;
+			pOpt = (OptimizationProblem<T>)problem;
 			pOptInt = null;
 		}
 	}
@@ -101,7 +92,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	/*
 	 * private for use by split method
 	 */
-	private HeuristicPermutationGenerator(HeuristicPermutationGenerator other) {
+	private HeuristicSolutionGenerator(HeuristicSolutionGenerator<T> other) {
 		// these are threadsafe, so just copy references
 		pOpt = other.pOpt;
 		pOptInt = other.pOptInt;
@@ -114,7 +105,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	}
 	
 	@Override
-	public SolutionCostPair<Permutation> optimize() {
+	public SolutionCostPair<T> optimize() {
 		if (tracker.isStopped() || tracker.didFindBest()) {
 			return null;
 		}
@@ -123,12 +114,12 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	}
 	
 	@Override
-	public ProgressTracker<Permutation> getProgressTracker() {
+	public ProgressTracker<T> getProgressTracker() {
 		return tracker;
 	}
 	
 	@Override
-	public void setProgressTracker(ProgressTracker<Permutation> tracker) {
+	public void setProgressTracker(ProgressTracker<T> tracker) {
 		if (tracker != null) this.tracker = tracker;
 	}
 	
@@ -138,18 +129,18 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	}
 	
 	@Override
-	public Problem<Permutation> getProblem() {
+	public Problem<T> getProblem() {
 		return (pOptInt != null) ? pOptInt : pOpt;
 	}
 	
 	@Override
-	public HeuristicPermutationGenerator split() {
-		return new HeuristicPermutationGenerator(this);
+	public HeuristicSolutionGenerator<T> split() {
+		return new HeuristicSolutionGenerator<T>(this);
 	}
 	
-	private SolutionCostPair<Permutation> evaluateAndPackageSolution(Permutation complete) {
+	private SolutionCostPair<T> evaluateAndPackageSolution(T complete) {
 		if (pOptInt != null) {
-			SolutionCostPair<Permutation> solution = pOptInt.getSolutionCostPair(complete);
+			SolutionCostPair<T> solution = pOptInt.getSolutionCostPair(complete);
 			int cost = solution.getCost();
 			if (cost < tracker.getCost()) {
 				tracker.update(cost, complete);
@@ -159,7 +150,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 			}
 			return solution;
 		} else {
-			SolutionCostPair<Permutation> solution = pOpt.getSolutionCostPair(complete);
+			SolutionCostPair<T> solution = pOpt.getSolutionCostPair(complete);
 			double cost = solution.getCostDouble();
 			if (cost < tracker.getCostDouble()) {
 				tracker.update(cost, complete);
@@ -171,10 +162,10 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 		}
 	}
 	
-	private SolutionCostPair<Permutation> generate() {
-		IncrementalEvaluation<Permutation> incEval = heuristic.createIncrementalEvaluation();
+	private SolutionCostPair<T> generate() {
+		IncrementalEvaluation<T> incEval = heuristic.createIncrementalEvaluation();
 		int n = heuristic.completeLength();
-		PartialPermutation p = new PartialPermutation(n);
+		Partial<T> p = heuristic.createPartial(n);
 		while (!p.isComplete()) {
 			int k = p.numExtensions();
 			if (k==1) {
@@ -194,7 +185,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 				p.extend(which);
 			}
 		}
-		Permutation complete = p.toComplete();
+		T complete = p.toComplete();
 		return evaluateAndPackageSolution(complete);
 	}
 }

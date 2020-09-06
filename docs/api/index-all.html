@@ -927,6 +927,8 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html#getProblem--">getProblem()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html#getProblem--">getProblem()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/TrackableSearch.html#getProblem--">getProblem()</a></span> - Method in interface org.cicirello.search.<a href="org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a></dt>
 <dd>
 <div class="block">Gets a reference to the problem that this search is solving.</div>
@@ -951,6 +953,8 @@
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#getProgressTracker--">getProgressTracker()</a></span> - Method in class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html#getProgressTracker--">getProgressTracker()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html#getProgressTracker--">getProgressTracker()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/TrackableSearch.html#getProgressTracker--">getProgressTracker()</a></span> - Method in interface org.cicirello.search.<a href="org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a></dt>
 <dd>
@@ -1052,6 +1056,8 @@
  performed by this SimulatedAnnealing object.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html#getTotalRunLength--">getTotalRunLength()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html#getTotalRunLength--">getTotalRunLength()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/TrackableSearch.html#getTotalRunLength--">getTotalRunLength()</a></span> - Method in interface org.cicirello.search.<a href="org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a></dt>
 <dd>
@@ -1246,6 +1252,21 @@
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html#HeuristicPermutationGenerator-org.cicirello.search.ss.ConstructiveHeuristic-org.cicirello.search.ProgressTracker-">HeuristicPermutationGenerator(ConstructiveHeuristic&lt;Permutation&gt;, ProgressTracker&lt;Permutation&gt;)</a></span> - Constructor for class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></dt>
 <dd>
 <div class="block">Constructs an HeuristicPermutationGenerator for generating solutions
+ to an optimization problem using a constructive heuristic.</div>
+</dd>
+<dt><a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">HeuristicSolutionGenerator</span></a>&lt;<a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;<a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&gt; - Class in <a href="org/cicirello/search/ss/package-summary.html">org.cicirello.search.ss</a></dt>
+<dd>
+<div class="block">This class generates solutions to optimization
+ problems using a constructive heuristic.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html#HeuristicSolutionGenerator-org.cicirello.search.ss.ConstructiveHeuristic-">HeuristicSolutionGenerator(ConstructiveHeuristic&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a></dt>
+<dd>
+<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions
+ to an optimization problem using a constructive heuristic.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html#HeuristicSolutionGenerator-org.cicirello.search.ss.ConstructiveHeuristic-org.cicirello.search.ProgressTracker-">HeuristicSolutionGenerator(ConstructiveHeuristic&lt;T&gt;, ProgressTracker&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a></dt>
+<dd>
+<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions
  to an optimization problem using a constructive heuristic.</div>
 </dd>
 <dt><a href="org/cicirello/search/operators/HybridMutation.html" title="class in org.cicirello.search.operators"><span class="typeNameLink">HybridMutation</span></a>&lt;<a href="org/cicirello/search/operators/HybridMutation.html" title="type parameter in HybridMutation">T</a>&gt; - Class in <a href="org/cicirello/search/operators/package-summary.html">org.cicirello.search.operators</a></dt>
@@ -2010,6 +2031,8 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html#optimize--">optimize()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html#optimize--">optimize()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.html#or-org.cicirello.search.representations.BitVector-">or(BitVector)</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
 <div class="block">Computes the bitwise OR of this BitVector and another BitVector.</div>
@@ -2564,6 +2587,8 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker(ProgressTracker&lt;Permutation&gt;)</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker(ProgressTracker&lt;T&gt;)</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/TrackableSearch.html#setProgressTracker-org.cicirello.search.ProgressTracker-">setProgressTracker(ProgressTracker&lt;T&gt;)</a></span> - Method in interface org.cicirello.search.<a href="org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a></dt>
 <dd>
 <div class="block">Sets the <a href="org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
@@ -2936,6 +2961,8 @@
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicBiasedStochasticSampling.html#split--">split()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">HeuristicBiasedStochasticSampling</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html#split--">split()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html#split--">split()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/IterativeSampling.html#split--">split()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/IterativeSampling.html" title="class in org.cicirello.search.ss">IterativeSampling</a></dt>
 <dd>&nbsp;</dd>

@@ -53,15 +53,9 @@ import org.cicirello.search.ProgressTracker;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.4.2020
+ * @version 9.6.2020
  */
-public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<Permutation> {
-	
-	private final OptimizationProblem<Permutation> pOpt;
-	private final IntegerCostOptimizationProblem<Permutation> pOptInt;
-	private final ConstructiveHeuristic<Permutation> heuristic;
-	private ProgressTracker<Permutation> tracker;
-	private int numGenerated;
+public final class HeuristicPermutationGenerator extends HeuristicSolutionGenerator<Permutation> {
 	
 	/**
 	 * Constructs an HeuristicPermutationGenerator for generating solutions
@@ -71,7 +65,7 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	 * @throws NullPointerException if heuristic is null
 	 */
 	public HeuristicPermutationGenerator(ConstructiveHeuristic<Permutation> heuristic) {
-		this(heuristic, new ProgressTracker<Permutation>());
+		super(heuristic, new ProgressTracker<Permutation>());
 	}
 	
 	/**
@@ -82,119 +76,18 @@ public final class HeuristicPermutationGenerator implements SimpleMetaheuristic<
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
 	public HeuristicPermutationGenerator(ConstructiveHeuristic<Permutation> heuristic, ProgressTracker<Permutation> tracker) {
-		if (heuristic == null || tracker == null) {
-			throw new NullPointerException();
-		}
-		this.tracker = tracker;
-		this.heuristic = heuristic;
-		// default: numGenerated = 0;
-		Problem<Permutation> problem = heuristic.getProblem();
-		if (heuristic.getProblem() instanceof IntegerCostOptimizationProblem) {
-			pOptInt = (IntegerCostOptimizationProblem<Permutation>)problem;
-			pOpt = null;
-		} else {
-			pOpt = (OptimizationProblem<Permutation>)problem;
-			pOptInt = null;
-		}
+		super(heuristic, tracker);
 	}
 	
 	/*
 	 * private for use by split method
 	 */
 	private HeuristicPermutationGenerator(HeuristicPermutationGenerator other) {
-		// these are threadsafe, so just copy references
-		pOpt = other.pOpt;
-		pOptInt = other.pOptInt;
-		heuristic = other.heuristic;
-		
-		// this one must be shared.
-		tracker = other.tracker;
-		
-		// default: numGenerated = 0;
-	}
-	
-	@Override
-	public SolutionCostPair<Permutation> optimize() {
-		if (tracker.isStopped() || tracker.didFindBest()) {
-			return null;
-		}
-		numGenerated++;
-		return generate(); 
-	}
-	
-	@Override
-	public ProgressTracker<Permutation> getProgressTracker() {
-		return tracker;
-	}
-	
-	@Override
-	public void setProgressTracker(ProgressTracker<Permutation> tracker) {
-		if (tracker != null) this.tracker = tracker;
-	}
-	
-	@Override
-	public long getTotalRunLength() {
-		return numGenerated;
-	}
-	
-	@Override
-	public Problem<Permutation> getProblem() {
-		return (pOptInt != null) ? pOptInt : pOpt;
+		super(other);
 	}
 	
 	@Override
 	public HeuristicPermutationGenerator split() {
 		return new HeuristicPermutationGenerator(this);
-	}
-	
-	private SolutionCostPair<Permutation> evaluateAndPackageSolution(Permutation complete) {
-		if (pOptInt != null) {
-			SolutionCostPair<Permutation> solution = pOptInt.getSolutionCostPair(complete);
-			int cost = solution.getCost();
-			if (cost < tracker.getCost()) {
-				tracker.update(cost, complete);
-				if (cost == pOptInt.minCost()) {
-					tracker.setFoundBest();
-				}
-			}
-			return solution;
-		} else {
-			SolutionCostPair<Permutation> solution = pOpt.getSolutionCostPair(complete);
-			double cost = solution.getCostDouble();
-			if (cost < tracker.getCostDouble()) {
-				tracker.update(cost, complete);
-				if (cost == pOpt.minCost()) {
-					tracker.setFoundBest();
-				}
-			}
-			return solution;
-		}
-	}
-	
-	private SolutionCostPair<Permutation> generate() {
-		IncrementalEvaluation<Permutation> incEval = heuristic.createIncrementalEvaluation();
-		int n = heuristic.completeLength();
-		PartialPermutation p = new PartialPermutation(n);
-		while (!p.isComplete()) {
-			int k = p.numExtensions();
-			if (k==1) {
-				incEval.extend(p, p.getExtension(0));
-				p.extend(0);
-			} else {
-				double bestH = Double.NEGATIVE_INFINITY;
-				int which = 0;
-				for (int i = 0; i < k; i++) {
-					double h = heuristic.h(p, p.getExtension(i), incEval);
-					if (h > bestH) {
-						bestH = h;
-						which = i;
-					}
-				}
-				incEval.extend(p, p.getExtension(which));
-				p.extend(which);
-			}
-		}
-		Permutation complete = p.toComplete();
-		return evaluateAndPackageSolution(complete);
 	}
 }

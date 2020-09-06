@@ -46,7 +46,7 @@ import org.cicirello.util.Copyable;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 9.6.2020
  */
-public final class HeuristicSolutionGenerator<T extends Copyable<T>> implements SimpleMetaheuristic<T> {
+public class HeuristicSolutionGenerator<T extends Copyable<T>> implements SimpleMetaheuristic<T> {
 	
 	private final OptimizationProblem<T> pOpt;
 	private final IntegerCostOptimizationProblem<T> pOptInt;
@@ -90,9 +90,9 @@ public final class HeuristicSolutionGenerator<T extends Copyable<T>> implements 
 	}
 	
 	/*
-	 * private for use by split method
+	 * package-private for use by split method, and subclasses in same package
 	 */
-	private HeuristicSolutionGenerator(HeuristicSolutionGenerator<T> other) {
+	HeuristicSolutionGenerator(HeuristicSolutionGenerator<T> other) {
 		// these are threadsafe, so just copy references
 		pOpt = other.pOpt;
 		pOptInt = other.pOptInt;
@@ -105,7 +105,7 @@ public final class HeuristicSolutionGenerator<T extends Copyable<T>> implements 
 	}
 	
 	@Override
-	public SolutionCostPair<T> optimize() {
+	public final SolutionCostPair<T> optimize() {
 		if (tracker.isStopped() || tracker.didFindBest()) {
 			return null;
 		}
@@ -114,22 +114,22 @@ public final class HeuristicSolutionGenerator<T extends Copyable<T>> implements 
 	}
 	
 	@Override
-	public ProgressTracker<T> getProgressTracker() {
+	public final ProgressTracker<T> getProgressTracker() {
 		return tracker;
 	}
 	
 	@Override
-	public void setProgressTracker(ProgressTracker<T> tracker) {
+	public final void setProgressTracker(ProgressTracker<T> tracker) {
 		if (tracker != null) this.tracker = tracker;
 	}
 	
 	@Override
-	public long getTotalRunLength() {
+	public final long getTotalRunLength() {
 		return numGenerated;
 	}
 	
 	@Override
-	public Problem<T> getProblem() {
+	public final Problem<T> getProblem() {
 		return (pOptInt != null) ? pOptInt : pOpt;
 	}
 	

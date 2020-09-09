@@ -28,6 +28,6 @@ import org.cicirello.search.representations.IntegerVector;
 /**
  * JUnit tests for the PartialIntegerVector class.
  */
-public class PartialIntegerVector {
+public class PartialIntegerVectorTests {
 	
 }

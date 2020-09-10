@@ -78,7 +78,7 @@ public final class PartialIntegerVector implements Partial<IntegerVector> {
 		if (min > max) throw new IllegalArgumentException("min must be less than or equal to max");
 		this.min = min;
 		this.max = max;
-		extendCount = max - min + 1;
+		extendCount = n > 0 ? max - min + 1 : 0;
 		this.enforceBounds = enforceBounds;
 		partial = new int[n];
 		// deliberately using default of size=0

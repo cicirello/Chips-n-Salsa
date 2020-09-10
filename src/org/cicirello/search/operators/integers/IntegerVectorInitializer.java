@@ -288,30 +288,16 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 */
 		@Override
 		public final void set(int i, int value) {
-			if (min.length == 1) {
-				if (value < min[0]) super.set(i, min[0]);
-				else if (value > max[0]) super.set(i, max[0]);
-				else super.set(i, value);
-			} else {
-				if (value < min[i]) super.set(i, min[i]);
-				else if (value > max[i]) super.set(i, max[i]);
-				else super.set(i, value);
-			}
+			if (value < min[i]) super.set(i, min[i]);
+			else if (value > max[i]) super.set(i, max[i]);
+			else super.set(i, value);
 		}
 		
 		private void setAll(int[] x) {
-			if (min.length == 1) {
-				for (int i = 0; i < x.length; i++) {
-					if (x[i] < min[0]) super.set(i, min[0]);
-					else if (x[i] > max[0]) super.set(i, max[0]);
-					else super.set(i, x[i]);
-				}
-			} else {
-				for (int i = 0; i < x.length; i++) {
-					if (x[i] < min[i]) super.set(i, min[i]);
-					else if (x[i] > max[i]) super.set(i, max[i]);
-					else super.set(i, x[i]);
-				}
+			for (int i = 0; i < x.length; i++) {
+				if (x[i] < min[i]) super.set(i, min[i]);
+				else if (x[i] > max[i]) super.set(i, max[i]);
+				else super.set(i, x[i]);
 			}
 		}
 		
@@ -325,8 +311,6 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		}
 		
 		private IntegerVectorInitializer getOuterThis() { return IntegerVectorInitializer.this; };
-		
-		
 		
 		/**
 		 * Indicates whether some other object is "equal to" this one.
@@ -349,17 +333,12 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 */
 		@Override
 		public int hashCode() {
-			int hash;
-			if (min.length == 1) {
-				hash = 31 * (31 + min[0]) + max[0];
-			} else {
-				hash = 1;
-				for (int v : min) {
-					hash = 31 * hash + v;
-				}
-				for (int v : max) {
-					hash = 31 * hash + v;
-				}
+			int hash = 1;
+			for (int v : min) {
+				hash = 31 * hash + v;
+			}
+			for (int v : max) {
+				hash = 31 * hash + v;
 			}
 			int L = length();
 			for (int i = 0; i < L; i++) {

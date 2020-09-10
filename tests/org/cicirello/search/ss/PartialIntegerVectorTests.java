@@ -30,4 +30,8 @@ import org.cicirello.search.representations.IntegerVector;
  */
 public class PartialIntegerVectorTests {
 	
+	@Test
+	public void test() {
+		
+	}
 }

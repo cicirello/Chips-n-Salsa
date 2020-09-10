@@ -198,4 +198,63 @@ public class NumericRepresentationsTests {
 			assertEquals("hashCodes of equal objects should be equal", f2.hashCode(), copy2.hashCode());
 		}
 	}
+	
+	@Test
+	public void testBoundedIntegerVector() {
+		for (int n = 0; n <= 10; n++) {
+			int[] initial = new int[n];
+			for (int i = 0; i < n; i++) {
+				initial[i] = n - i;
+			}
+			BoundedIntegerVector f2 = new BoundedIntegerVector(initial, 1, (n >= 1? n : 1)+1);
+			int[] array = f2.toArray(null);
+			int[] array2 = new int[n];
+			int[] array3 = f2.toArray(array2);
+			assertTrue("toArray should return the same array", array2 == array3);
+			BoundedIntegerVector f3 = new BoundedIntegerVector(initial, 1, (n >= 1? n : 1)+1);
+			assertEquals("length should be the number of values", n, f2.length());
+			assertEquals("length toArray should be the number of values", n, array.length);
+			assertEquals("Testing equals: same", f2, f3);
+			assertEquals("hashCodes of equal objects should be equal", f2.hashCode(), f3.hashCode());
+			for (int i = 0; i < n; i++) {
+				assertEquals("Testing constructor 2 and get", n-i, f2.get(i));
+				assertEquals("Testing toArray", (n-i), array[i]);
+				assertEquals("Testing toArray", (n-i), array3[i]);
+				f3.set(i, n+1);
+				assertEquals("Testing set and get", n+1, f3.get(i));
+				assertNotEquals("Testing equals: different after set", f2, f3);
+			}
+			BoundedIntegerVector copy = new BoundedIntegerVector(f2);
+			BoundedIntegerVector copy2 = f2.copy();
+			assertEquals("Verify copy method returns correct runtime type", f2.getClass(), copy2.getClass());
+			assertEquals("Testing copy constructor", f2, copy);
+			assertEquals("Testing copy method", f2, copy2);
+			assertTrue("Testing copy method produces new object", f2 != copy2);
+			assertEquals("hashCodes of equal objects should be equal", f2.hashCode(), copy.hashCode());
+			assertEquals("hashCodes of equal objects should be equal", f2.hashCode(), copy2.hashCode());
+		}
+		for (int n = 1; n <= 10; n++) {
+			int[] initial = new int[n];
+			for (int i = 0; i < n; i++) {
+				initial[i] = i;
+			}
+			BoundedIntegerVector f = new BoundedIntegerVector(initial, 2, 5);
+			for (int i = 0; i < n; i++) {
+				if (i < 2) assertEquals(2, f.get(i));
+				else if (i < 5) assertEquals(i, f.get(i));
+				else assertEquals(5, f.get(i));
+			}
+			for (int i = 0; i < n; i++) {
+				for (int j = 2; j <= 5; j++) {
+					f.set(i, j);
+					assertEquals(j, f.get(i));
+				}
+				f.set(i, 1);
+				assertEquals(2, f.get(i));
+				f.set(i, 6);
+				assertEquals(5, f.get(i));
+			}
+		}
+	}
+	
 }

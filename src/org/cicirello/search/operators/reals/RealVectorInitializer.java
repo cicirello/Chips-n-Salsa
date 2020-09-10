@@ -22,6 +22,7 @@ package org.cicirello.search.operators.reals;
 
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.RealVector;
+import org.cicirello.search.representations.BoundedRealVector;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -225,7 +226,9 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 			}
 		}
 		if (min != null) {
-			return new MultiBoundedRealVector(x);
+			return min.length > 1 
+				? new MultiBoundedRealVector(x)
+				: new BoundedRealVector(x, min[0], max[0]);
 		} else {
 			return new RealVector(x);
 		}

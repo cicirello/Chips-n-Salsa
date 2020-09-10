@@ -22,6 +22,7 @@ package org.cicirello.search.operators.integers;
 
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.IntegerVector;
+import org.cicirello.search.representations.BoundedIntegerVector;
 import org.cicirello.math.rand.RandomIndexer;
 
 /**
@@ -226,7 +227,9 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 			}
 		}
 		if (min != null) {
-			return new MultiBoundedIntegerVector(x);
+			return min.length > 1 
+				? new MultiBoundedIntegerVector(x)
+				: new BoundedIntegerVector(x, min[0], max[0]);
 		} else {
 			return new IntegerVector(x);
 		}

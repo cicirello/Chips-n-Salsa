@@ -22,6 +22,7 @@ package org.cicirello.search.ss;
 
 
 import org.cicirello.search.representations.IntegerVector;
+import org.cicirello.search.representations.BoundedIntegerVector;
 import java.util.Arrays;
 
 /**
@@ -137,80 +138,5 @@ public final class PartialIntegerVector implements Partial<IntegerVector> {
 		partial[size] = min + extensionIndex;
 		size++;
 		if (size == partial.length) extendCount = 0;
-	}
-	
-	private static final class BoundedIntegerVector extends IntegerVector {
-		
-		private final int min;
-		private final int max;
-		
-		BoundedIntegerVector(int[] x, int min, int max) {
-			super(x);
-			this.min = min;
-			this.max = max;
-		}
-		
-		BoundedIntegerVector(BoundedIntegerVector other) {
-			super(other);
-			min = other.min;
-			max = other.max;
-		}
-		
-		/**
-		 * Sets a parameter to a specified value, subject to the
-		 * lower and upper bounds for this function input.  If the specified
-		 * new value is less than the min, then the function input is set to
-		 * the min.  If the specified new value is greater than the max, then
-		 * the function input is set to the max.  Otherwise, the function input
-		 * is set to the specified value.
-		 * @param i The input to set.
-		 * @param value The new value for the i-th function input.
-		 * @throws ArrayIndexOutOfBoundsException if i &lt; 0 or i &ge; length().
-		 */
-		@Override
-		public final void set(int i, int value) {
-			if (value < min) super.set(i, min);
-			else if (value > max) super.set(i, max);
-			else super.set(i, value);
-		}
-		
-		/**
-		 * Creates an identical copy of this object.
-		 * @return an identical copy of this object
-		 */
-		@Override
-		public BoundedIntegerVector copy() {
-			return new BoundedIntegerVector(this);
-		}
-		
-		/**
-		 * Indicates whether some other object is "equal to" this one.
-		 * To be equal, the other object must be of the same runtime type and contain the
-		 * same values and bounds.
-		 * @param other The other object to compare.
-		 * @return true if other is not null, is of the same runtime type as this, and contains
-		 * the same values and bounds.
-		 */
-		@Override
-		public boolean equals(Object other) {
-			if (!super.equals(other)) return false;
-			BoundedIntegerVector b = (BoundedIntegerVector)other;
-			return min == b.min && max == b.max;
-		}
-		
-		/**
-		 * Returns a hash code value.
-		 * @return a hash code value
-		 */
-		@Override
-		public int hashCode() {
-			int hash;
-			hash = 31 * (31 + min) + max;
-			int L = length();
-			for (int i = 0; i < L; i++) {
-				hash = 31 * hash + get(i);
-			}
-			return hash;
-		}
 	}
 }

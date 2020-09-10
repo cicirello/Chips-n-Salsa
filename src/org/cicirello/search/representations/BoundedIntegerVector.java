@@ -24,8 +24,6 @@ package org.cicirello.search.representations;
  * A class for representing the input to a multivariate function,
  * with integer values that are bounded in some interval [min, max].
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 9.10.2020

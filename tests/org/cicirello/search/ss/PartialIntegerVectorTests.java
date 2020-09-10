@@ -24,6 +24,7 @@ package org.cicirello.search.ss;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.cicirello.search.representations.IntegerVector;
+import org.cicirello.search.representations.BoundedIntegerVector;
 
 /**
  * JUnit tests for the PartialIntegerVector class.
@@ -31,7 +32,145 @@ import org.cicirello.search.representations.IntegerVector;
 public class PartialIntegerVectorTests {
 	
 	@Test
-	public void test() {
-		
+	public void testConstructor1() {
+		for (int n = 0; n < 5; n++) {
+			for (int width = 1; width <= 3; width++) {
+				int min = 3;
+				int max = min + width - 1;
+				PartialIntegerVector v = new PartialIntegerVector(n, min, max);
+				if (n > 0) assertFalse(v.isComplete());
+				else assertTrue(v.isComplete());
+				assertEquals(0, v.size());
+				assertEquals(n>0?width:0,v.numExtensions());
+				for (int i = 0; i < v.numExtensions(); i++) {
+					assertEquals(min + i, v.getExtension(i));
+				}
+				IntegerVector c = v.toComplete();
+				assertTrue(c instanceof BoundedIntegerVector);
+				assertEquals(n, c.length());
+				for (int i = 0; i < n; i++) {
+					assertTrue( c.get(i) >= min && c.get(i) <= max);
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void testConstructor2true() {
+		for (int n = 0; n < 5; n++) {
+			for (int width = 1; width <= 3; width++) {
+				int min = 3;
+				int max = min + width - 1;
+				PartialIntegerVector v = new PartialIntegerVector(n, min, max, true);
+				if (n > 0) assertFalse(v.isComplete());
+				else assertTrue(v.isComplete());
+				assertEquals(0, v.size());
+				assertEquals(n>0?width:0,v.numExtensions());
+				for (int i = 0; i < v.numExtensions(); i++) {
+					assertEquals(min + i, v.getExtension(i));
+				}
+				IntegerVector c = v.toComplete();
+				assertTrue(c instanceof BoundedIntegerVector);
+				assertEquals(n, c.length());
+				for (int i = 0; i < n; i++) {
+					assertTrue( c.get(i) >= min && c.get(i) <= max);
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void testConstructor2false() {
+		for (int n = 0; n < 5; n++) {
+			for (int width = 1; width <= 3; width++) {
+				int min = 3;
+				int max = min + width - 1;
+				PartialIntegerVector v = new PartialIntegerVector(n, min, max, false);
+				if (n > 0) assertFalse(v.isComplete());
+				else assertTrue(v.isComplete());
+				assertEquals(0, v.size());
+				assertEquals(n>0?width:0,v.numExtensions());
+				for (int i = 0; i < v.numExtensions(); i++) {
+					assertEquals(min + i, v.getExtension(i));
+				}
+				IntegerVector c = v.toComplete();
+				assertFalse(c instanceof BoundedIntegerVector);
+				assertEquals(n, c.length());
+				for (int i = 0; i < n; i++) {
+					assertTrue( c.get(i) >= min && c.get(i) <= max);
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void testExtend() {
+		for (int n = 1; n < 5; n++) {
+			for (int width = 1; width <= 3; width++) {
+				int min = 3;
+				int max = min + width - 1;
+				PartialIntegerVector v = new PartialIntegerVector(n, min, max);
+				for (int i = 0; i < n; i++) {
+					assertFalse(v.isComplete());
+					assertEquals(i, v.size());
+					assertEquals(width, v.numExtensions());
+					for (int j = 0; j < v.numExtensions(); j++) {
+						assertEquals(min + j, v.getExtension(j));
+					}
+					v.extend(i % width);
+					assertEquals(i+1, v.size());
+					for (int j = 0; j <= i; j++) {
+						assertEquals(min + j % width, v.get(j));
+					}
+				}
+				assertTrue(v.isComplete());
+			}
+		}
+	}
+	
+	@Test
+	public void testToCompleteWithBoundsEnforcement() {
+		for (int n = 1; n < 5; n++) {
+			for (int width = 1; width <= 3; width++) {
+				int min = 3;
+				int max = min + width - 1;
+				PartialIntegerVector v = new PartialIntegerVector(n, min, max);
+				for (int i = 0; i < n; i++) {
+					v.extend(i % width);
+					IntegerVector c = v.toComplete();
+					assertTrue(c instanceof BoundedIntegerVector);
+					assertEquals("length of returned vector", n, c.length());
+					for (int j = 0; j <= i; j++) {
+						assertEquals(min + j % width, c.get(j));
+					}
+					for (int j = i+1; j < n; j++) {
+						assertTrue(c.get(j) >= min && c.get(j) <= max);
+					}
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void testToCompleteNoBoundsEnforcement() {
+		for (int n = 1; n < 5; n++) {
+			for (int width = 1; width <= 3; width++) {
+				int min = 3;
+				int max = min + width - 1;
+				PartialIntegerVector v = new PartialIntegerVector(n, min, max, false);
+				for (int i = 0; i < n; i++) {
+					v.extend(i % width);
+					IntegerVector c = v.toComplete();
+					assertFalse(c instanceof BoundedIntegerVector);
+					assertEquals("length of returned vector", n, c.length());
+					for (int j = 0; j <= i; j++) {
+						assertEquals(min + j % width, c.get(j));
+					}
+					for (int j = i+1; j < n; j++) {
+						assertTrue(c.get(j) >= min && c.get(j) <= max);
+					}
+				}
+			}
+		}
 	}
 }

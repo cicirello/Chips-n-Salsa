@@ -16,7 +16,7 @@ simply upgrade to this new version without need to change anything in dependent 
 * A method was added to ConstructiveHeuristic for creating empty Partials of the appropriate length needed by the heuristic.
 * Class HeuristicSolutionGenerator, which is a generalization of existing class HeuristicPermutationGenerator, for constructing solutions to optimization problems via constructive heuristics (HeuristicPermutationGenerator now extends this new class).
 * PartialIntegerVector class to support using stochastic sampling search algorithms to generate vectors of integers.
-* BoundedIntegerVector and BoundedRealVector classes to the package org.cicirello.search.representations
+* BoundedIntegerVector and BoundedRealVector classes added to the package org.cicirello.search.representations
 
 ### Changed
 * ConstructiveHeuristic and IncrementalEvaluation now have a type parameter.

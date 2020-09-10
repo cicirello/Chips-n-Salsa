@@ -288,30 +288,16 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		 */
 		@Override
 		public final void set(int i, double value) {
-			if (min.length == 1) {
-				if (value < min[0]) super.set(i, min[0]);
-				else if (value > max[0]) super.set(i, max[0]);
-				else super.set(i, value);
-			} else {
-				if (value < min[i]) super.set(i, min[i]);
-				else if (value > max[i]) super.set(i, max[i]);
-				else super.set(i, value);
-			}
+			if (value < min[i]) super.set(i, min[i]);
+			else if (value > max[i]) super.set(i, max[i]);
+			else super.set(i, value);
 		}
 		
 		private void setAll(double[] x) {
-			if (min.length == 1) {
-				for (int i = 0; i < x.length; i++) {
-					if (x[i] < min[0]) super.set(i, min[0]);
-					else if (x[i] > max[0]) super.set(i, max[0]);
-					else super.set(i, x[i]);
-				}
-			} else {
-				for (int i = 0; i < x.length; i++) {
-					if (x[i] < min[i]) super.set(i, min[i]);
-					else if (x[i] > max[i]) super.set(i, max[i]);
-					else super.set(i, x[i]);
-				}
+			for (int i = 0; i < x.length; i++) {
+				if (x[i] < min[i]) super.set(i, min[i]);
+				else if (x[i] > max[i]) super.set(i, max[i]);
+				else super.set(i, x[i]);
 			}
 		}
 		
@@ -347,22 +333,15 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		 * @return a hash code value
 		 */
 		@Override
-		public int hashCode() {
-			int hash;
-			if (min.length == 1) {
-				long bitsMin = Double.doubleToLongBits(min[0]);
-				long bitsMax = Double.doubleToLongBits(max[0]);
-				hash = 31 * (31 + ((int)(bitsMin ^ (bitsMin >>> 32)))) + ((int)(bitsMax ^ (bitsMax >>> 32)));
-			} else {
-				hash = 1;
-				for (double v : min) {
-					long bitsV = Double.doubleToLongBits(v);
-					hash = 31 * hash + ((int)(bitsV ^ (bitsV >>> 32)));
-				}
-				for (double v : max) {
-					long bitsV = Double.doubleToLongBits(v);
-					hash = 31 * hash + ((int)(bitsV ^ (bitsV >>> 32)));
-				}
+		public int hashCode() {			
+			int hash = 1;
+			for (double v : min) {
+				long bitsV = Double.doubleToLongBits(v);
+				hash = 31 * hash + ((int)(bitsV ^ (bitsV >>> 32)));
+			}
+			for (double v : max) {
+				long bitsV = Double.doubleToLongBits(v);
+				hash = 31 * hash + ((int)(bitsV ^ (bitsV >>> 32)));
 			}
 			int L = length();
 			for (int i = 0; i < L; i++) {

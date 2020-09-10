@@ -34,11 +34,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * the min if a value is passed less than min (and similarly for max). 
  *
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.10.2020
+ * @version 9.10.2020
  */
 public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 	
@@ -228,7 +226,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 			}
 		}
 		if (min != null) {
-			return new BoundedIntegerVector(x);
+			return new MultiBoundedIntegerVector(x);
 		} else {
 			return new IntegerVector(x);
 		}
@@ -250,7 +248,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 	 * made to set the value of this function input to a value greater than
 	 * the maximum, then it is instead set to the maximum.
 	 */
-	private final class BoundedIntegerVector extends IntegerVector {
+	private final class MultiBoundedIntegerVector extends IntegerVector {
 		
 		/**
 		 * Initializes the parameters, with one pair of min and max bounds
@@ -261,7 +259,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 * function parameter i is initialized to max.
 		 * @throws IllegalArgumentException if min &gt; max.
 		 */
-		public BoundedIntegerVector(int[] x) {
+		public MultiBoundedIntegerVector(int[] x) {
 			super(x.length);
 			setAll(x);
 		}
@@ -270,7 +268,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 * Initializes as a copy of another.
 		 * @param other The other to copy.
 		 */
-		public BoundedIntegerVector(BoundedIntegerVector other) {
+		public MultiBoundedIntegerVector(MultiBoundedIntegerVector other) {
 			super(other);
 		}
 		
@@ -319,8 +317,8 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 * @return an identical copy of this object
 		 */
 		@Override
-		public BoundedIntegerVector copy() {
-			return new BoundedIntegerVector(this);
+		public MultiBoundedIntegerVector copy() {
+			return new MultiBoundedIntegerVector(this);
 		}
 		
 		private IntegerVectorInitializer getOuterThis() { return IntegerVectorInitializer.this; };
@@ -338,7 +336,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		@Override
 		public boolean equals(Object other) {
 			if (!super.equals(other)) return false;
-			BoundedIntegerVector b = (BoundedIntegerVector)other;
+			MultiBoundedIntegerVector b = (MultiBoundedIntegerVector)other;
 			return IntegerVectorInitializer.this == b.getOuterThis();
 		}
 		

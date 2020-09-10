@@ -257,4 +257,62 @@ public class NumericRepresentationsTests {
 		}
 	}
 	
+	@Test
+	public void testBoundedRealVector() {
+		for (int n = 0; n <= 10; n++) {
+			double[] initial = new double[n];
+			for (int i = 0; i < n; i++) {
+				initial[i] = n - i;
+			}
+			BoundedRealVector f2 = new BoundedRealVector(initial, 1, (n >= 1? n : 1)+1);
+			double[] array = f2.toArray(null);
+			double[] array2 = new double[n];
+			double[] array3 = f2.toArray(array2);
+			assertTrue("toArray should return the same array", array2 == array3);
+			BoundedRealVector f3 = new BoundedRealVector(initial, 1, (n >= 1? n : 1)+1);
+			assertEquals("length should be the number of values", n, f2.length());
+			assertEquals("length toArray should be the number of values", n, array.length);
+			assertEquals("Testing equals: same", f2, f3);
+			assertEquals("hashCodes of equal objects should be equal", f2.hashCode(), f3.hashCode());
+			for (int i = 0; i < n; i++) {
+				assertEquals("Testing constructor 2 and get", n-i, f2.get(i), 0.0);
+				assertEquals("Testing toArray", (n-i), array[i], 0.0);
+				assertEquals("Testing toArray", (n-i), array3[i], 0.0);
+				f3.set(i, n+1);
+				assertEquals("Testing set and get", n+1, f3.get(i), 0.0);
+				assertNotEquals("Testing equals: different after set", f2, f3);
+			}
+			BoundedRealVector copy = new BoundedRealVector(f2);
+			BoundedRealVector copy2 = f2.copy();
+			assertEquals("Verify copy method returns correct runtime type", f2.getClass(), copy2.getClass());
+			assertEquals("Testing copy constructor", f2, copy);
+			assertEquals("Testing copy method", f2, copy2);
+			assertTrue("Testing copy method produces new object", f2 != copy2);
+			assertEquals("hashCodes of equal objects should be equal", f2.hashCode(), copy.hashCode());
+			assertEquals("hashCodes of equal objects should be equal", f2.hashCode(), copy2.hashCode());
+		}
+		for (int n = 1; n <= 10; n++) {
+			double[] initial = new double[n];
+			for (int i = 0; i < n; i++) {
+				initial[i] = i;
+			}
+			BoundedRealVector f = new BoundedRealVector(initial, 2, 5);
+			for (int i = 0; i < n; i++) {
+				if (i < 2) assertEquals(2, f.get(i), 0.0);
+				else if (i < 5) assertEquals(i, f.get(i), 0.0);
+				else assertEquals(5, f.get(i), 0.0);
+			}
+			for (int i = 0; i < n; i++) {
+				for (int j = 2; j <= 5; j++) {
+					f.set(i, j);
+					assertEquals(j, f.get(i), 0.0);
+				}
+				f.set(i, 1);
+				assertEquals(2, f.get(i), 0.0);
+				f.set(i, 6);
+				assertEquals(5, f.get(i), 0.0);
+			}
+		}
+	}
+	
 }

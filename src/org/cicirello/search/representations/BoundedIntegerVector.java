@@ -55,10 +55,11 @@ public final class BoundedIntegerVector extends IntegerVector {
 		}
 	}
 	
-	/*
-	 * internal constructor to support the copy method
+	/**
+	 * Copies a BoundedIntegerVector.
+	 * @param other The other BoundedIntegerVector
 	 */
-	private BoundedIntegerVector(BoundedIntegerVector other) {
+	public BoundedIntegerVector(BoundedIntegerVector other) {
 		super(other);
 		min = other.min;
 		max = other.max;

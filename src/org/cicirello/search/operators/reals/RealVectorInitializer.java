@@ -33,11 +33,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * to {@link RealVector#set} such that the {@link RealVector#set} method will set the value to
  * the min if a value is passed less than min (and similarly for max). 
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.10.2020
+ * @version 9.10.2020
  */
 public class RealVectorInitializer implements Initializer<RealVector> {
 	
@@ -227,7 +225,7 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 			}
 		}
 		if (min != null) {
-			return new BoundedRealVector(x);
+			return new MultiBoundedRealVector(x);
 		} else {
 			return new RealVector(x);
 		}
@@ -248,7 +246,7 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 	 * the maximum, then it is instead set to the maximum.
 	 *
 	 */
-	private final class BoundedRealVector extends RealVector {
+	private final class MultiBoundedRealVector extends RealVector {
 		
 		/**
 		 * Initializes the parameters, with one pair of min and max bounds
@@ -261,7 +259,7 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		 * function input i is initialized to max.
 		 * @throws IllegalArgumentException if min &gt; max.
 		 */
-		public BoundedRealVector(double[] x) {
+		public MultiBoundedRealVector(double[] x) {
 			super(x.length);
 			setAll(x);
 		}
@@ -270,7 +268,7 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		 * Initializes the parameters as a copy of another.
 		 * @param other The other function input to copy.
 		 */
-		public BoundedRealVector(BoundedRealVector other) {
+		public MultiBoundedRealVector(MultiBoundedRealVector other) {
 			super(other);
 		}
 		
@@ -319,8 +317,8 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		 * @return an identical copy of this object
 		 */
 		@Override
-		public BoundedRealVector copy() {
-			return new BoundedRealVector(this);
+		public MultiBoundedRealVector copy() {
+			return new MultiBoundedRealVector(this);
 		}
 		
 		private RealVectorInitializer getOuterThis() { return RealVectorInitializer.this; };
@@ -337,7 +335,7 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		@Override
 		public boolean equals(Object other) {
 			if (!super.equals(other)) return false;
-			BoundedRealVector b = (BoundedRealVector)other;
+			MultiBoundedRealVector b = (MultiBoundedRealVector)other;
 			return RealVectorInitializer.this == b.getOuterThis();
 		}
 		

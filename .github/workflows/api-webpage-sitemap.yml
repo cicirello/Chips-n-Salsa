@@ -16,7 +16,7 @@ jobs:
         fetch-depth: 0 
     - name: Generate the sitemap
       id: sitemap
-      uses: cicirello/generate-sitemap@v1.2.0
+      uses: cicirello/generate-sitemap@v1.3.0
       with:
         base-url-path: https://chips-n-salsa.cicirello.org/
         path-to-root: docs

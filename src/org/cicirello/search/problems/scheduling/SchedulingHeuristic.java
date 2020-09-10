@@ -24,6 +24,7 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ss.ConstructiveHeuristic;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.ss.IncrementalEvaluation;
+import org.cicirello.search.ss.Partial;
 import org.cicirello.search.ss.PartialPermutation;
 
 /**
@@ -34,9 +35,9 @@ import org.cicirello.search.ss.PartialPermutation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.24.2020
+ * @version 9.4.2020
  */
-abstract class SchedulingHeuristic implements ConstructiveHeuristic {
+abstract class SchedulingHeuristic implements ConstructiveHeuristic<Permutation> {
 	
 	/**
 	 * The minimum heuristic value.  If the heuristic value
@@ -80,7 +81,12 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	}
 	
 	@Override
-	public final int completePermutationLength() {
+	public final Partial<Permutation> createPartial(int n) {
+		return new PartialPermutation(n);
+	}
+	
+	@Override
+	public final int completeLength() {
 		return data.numberOfJobs();
 	}
 	
@@ -114,12 +120,12 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 	/*
 	 * package-private rather than private to enable test case access
 	 */
-	class IncrementalTimeCalculator implements IncrementalEvaluation {
+	class IncrementalTimeCalculator implements IncrementalEvaluation<Permutation> {
 		
 		private int currentTime;
 				
 		@Override
-		public void extend(PartialPermutation p, int element) {
+		public void extend(Partial<Permutation> p, int element) {
 			currentTime += data.getProcessingTime(element);
 			if (HAS_SETUPS) {
 				currentTime += p.size()==0 ? data.getSetupTime(element) 
@@ -148,7 +154,7 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 		 * @param p The partial schedule to evaluate this relative to (needed only for setups).
 		 * @return slackness of job element.
 		 */
-		public final int slack(int element, PartialPermutation p) {
+		public final int slack(int element, Partial<Permutation> p) {
 			int s = slack(element);
 			if (HAS_SETUPS) {
 				s -= p.size()==0 ? data.getSetupTime(element) 
@@ -173,7 +179,7 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 		 * @param p The partial schedule to evaluate this relative to (needed only for setups).
 		 * @return slackness of job element.
 		 */
-		public final int slackPlus(int element, PartialPermutation p) {
+		public final int slackPlus(int element, Partial<Permutation> p) {
 			int s = slack(element);
 			if (HAS_SETUPS && s > 0) {
 				s -= p.size()==0 ? data.getSetupTime(element) 
@@ -201,7 +207,7 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic {
 		}
 		
 		@Override
-		public void extend(PartialPermutation p, int element) {
+		public void extend(Partial<Permutation> p, int element) {
 			super.extend(p, element);
 			totalP -= data.getProcessingTime(element);
 			n--;

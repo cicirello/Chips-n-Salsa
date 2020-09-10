@@ -86,13 +86,12 @@
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></td>
+<td class="colFirst"><a href="../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</td>
 <td class="colLast">
 <div class="block">Classes implementing this interface are used
  as constructive heuristics for constructing heuristic solutions
- to permutation optimization problems, as well as for
- certain stochastic sampling search algorithms over the space
- of permutations.</div>
+ to optimization problems, as well as for
+ certain stochastic sampling search algorithms.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -103,16 +102,24 @@
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><a href="../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a></td>
+<td class="colFirst"><a href="../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</td>
 <td class="colLast">
 <div class="block">The implementations of constructive heuristics and
  stochastic samplers biased by constructive heuristics
  in the library support incremental updates, 
- as the permutation is heuristically assembled,
+ as the solution is heuristically assembled,
  to problem and/or heuristic data utilized by the heuristic.</div>
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</td>
+<td class="colLast">
+<div class="block">A Partial represents a partial solution to a problem (e.g.,
+ a partial permutation or a partial integer vector) that is being 
+ iteratively constructed as a solution to an optimization problem.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.BiasFunction.html" title="interface in org.cicirello.search.ss">ValueBiasedStochasticSampling.BiasFunction</a></td>
 <td class="colLast">
 <div class="block">Implement this interface to implement the bias function
@@ -131,14 +138,14 @@
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a href="../../../../org/cicirello/search/ss/AcceptanceBandSampling.html" title="class in org.cicirello.search.ss">AcceptanceBandSampling</a></td>
+<td class="colFirst"><a href="../../../../org/cicirello/search/ss/AcceptanceBandSampling.html" title="class in org.cicirello.search.ss">AcceptanceBandSampling</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</td>
 <td class="colLast">
 <div class="block">The AcceptanceBandSampling class implements a form of stochastic sampling 
  search that uses a constructive heuristic to guide the random decisions.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a href="../../../../org/cicirello/search/ss/HeuristicBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">HeuristicBiasedStochasticSampling</a></td>
+<td class="colFirst"><a href="../../../../org/cicirello/search/ss/HeuristicBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">HeuristicBiasedStochasticSampling</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</td>
 <td class="colLast">
 <div class="block">Heuristic Biased Stochastic Sampling (HBSS) is a form of stochastic sampling 
  search that uses a constructive heuristic to bias the random decisions.</div>
@@ -152,9 +159,24 @@
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><a href="../../../../org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</td>
+<td class="colLast">
+<div class="block">This class generates solutions to optimization
+ problems using a constructive heuristic.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="class in org.cicirello.search.ss">IterativeSampling</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</td>
 <td class="colLast">
 <div class="block">Iterative sampling is the simplest possible form of a stochastic sampling search.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="../../../../org/cicirello/search/ss/PartialIntegerVector.html" title="class in org.cicirello.search.ss">PartialIntegerVector</a></td>
+<td class="colLast">
+<div class="block">A PartialIntegerVector represents a vector of integers that is being 
+ iteratively constructed as a solution to an optimization problem
+ over the space of integer vectors.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -166,7 +188,7 @@
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a></td>
+<td class="colFirst"><a href="../../../../org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</td>
 <td class="colLast">
 <div class="block">Value Biased Stochastic Sampling (VBSS) is a form of stochastic sampling 
  search that uses a constructive heuristic to bias the random decisions.</div>

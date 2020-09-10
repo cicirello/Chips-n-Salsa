@@ -28,7 +28,6 @@ import org.cicirello.util.Copyable;
  * A simple class for representing the input to a multivariate function,
  * with integer values.
  *
- * @since 1.0
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

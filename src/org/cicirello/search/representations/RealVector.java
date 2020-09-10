@@ -27,8 +27,6 @@ import org.cicirello.util.Copyable;
 /**
  * A simple class for representing the parameters to a multivariate function.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 6.10.2020

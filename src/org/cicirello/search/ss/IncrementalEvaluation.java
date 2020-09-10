@@ -20,11 +20,13 @@
 
 package org.cicirello.search.ss;
 
+import org.cicirello.util.Copyable;
+
 /**
  * <p>The implementations of constructive heuristics and
  * stochastic samplers biased by constructive heuristics
  * in the library support incremental updates, 
- * as the permutation is heuristically assembled,
+ * as the solution is heuristically assembled,
  * to problem and/or heuristic data utilized by the heuristic. 
  * Implementations of this interface depend upon the
  * specific optimization problem, as well as
@@ -38,39 +40,41 @@ package org.cicirello.search.ss;
  * for which it would be more efficient to compute incrementally
  * than to recompute fresh each step of the problem solving process.</p>
  *
- * @since 1.0
+ * @param <T> The type of Partial object that this IncrementalEvaluation evaluates, which is 
+ * assumed to be an object that is a sequence of integers (e.g., vector of integers,
+ * permutation, or some other indexable type that stores integers).
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.7.2020
+ * @version 9.4.2020
  */
-public interface IncrementalEvaluation {
+public interface IncrementalEvaluation<T extends Copyable<T>> {
 	
 	/**
 	 * <p>Extends an 
 	 * incremental evaluation,
-	 * to account for extending a PartialPermutation by the addition of 
+	 * to account for extending a Partial by the addition of 
 	 * one element.</p>
 	 *
 	 * <p>This method assumes that this IncrementalEvaluation object
-	 * is consistent and up to date with the PartialPermutation p passed
+	 * is consistent and up to date with the Partial p passed
 	 * as a parameter.</p>
 	 *
 	 * <p>This extension is problem-dependent and this IncrementalEvaluation
 	 * includes maintenance of any data for which incremental updates
-	 * as the PartialPermutation is gradually transformed into a full Permutation
+	 * as the Partial is gradually transformed into a full T
 	 * is beneficial to performance.  For example, for a scheduling problem,
 	 * the IncrementalEvaluation might keep track of current time in the schedule,
 	 * accounting for all of the jobs already scheduled, to avoid having to 
 	 * recompute it with each extension (if the heuristic uses that to evaluate
 	 * a job).</p>
 	 *
-	 * @param p The current state of the PartialPermutation 
-	 * (assumed to be the PartialPermutation
+	 * @param p The current state of the Partial 
+	 * (assumed to be the Partial
 	 * that is the subject of the IncrementalEvaluation).
-	 * @param element The element that will be added to the PartialPermutation.
+	 * @param element The element that will be added to the Partial.
 	 * This method should not actually add element to p. Rather, it should update
 	 * the IncrementalEvaluation to coincide with the addition of element to p.
 	 */
-	void extend(PartialPermutation p, int element);
+	void extend(Partial<T> p, int element);
 }

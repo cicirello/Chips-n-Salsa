@@ -4,16 +4,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-08-18
+## [Unreleased] - 2020-09-9
+
+The next release will be a new major release, 2.0.0, due to incompatible interface changes within the
+org.cicirello.search.ss package.  Code that doesn't depend upon any of the stochastic sampling search
+algorithm implementations should be unaffected by these changes, and in those cases should be safe to
+simply upgrade to this new version without need to change anything in dependent code.
+
 ### Added
+* An interface Partial to enable generalizing the various stochastic sampling search algorithms from optimizing the space of permutations to more general types.
+* A method was added to ConstructiveHeuristic for creating empty Partials of the appropriate length needed by the heuristic.
+* Class HeuristicSolutionGenerator, which is a generalization of existing class HeuristicPermutationGenerator, for constructing solutions to optimization problems via constructive heuristics (HeuristicPermutationGenerator now extends this new class).
+* PartialIntegerVector class to support using stochastic sampling search algorithms to generate vectors of integers.
+* BoundedIntegerVector and BoundedRealVector classes added to the package org.cicirello.search.representations
 
 ### Changed
+* ConstructiveHeuristic and IncrementalEvaluation now have a type parameter.
+* ValueBiasedStochasticSampling, HeuristicBiasedStochasticSampling, and AcceptanceBandSampling also now have a type parameter.
+* All of the scheduling heuristics were modified based on interface changes.
+* Renamed ConstructiveHeuristic.completePermutationLength to ConstructiveHeuristic.completeLength to be more general.
+* Minor edits to the example program SchedulingWithVBSS related to other changes (added missing type parameter to construction of the ValueBiasedStochasticSampling instance to avoid compiler warning).
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
 
 
 ## [1.4.0] - 2020-08-18

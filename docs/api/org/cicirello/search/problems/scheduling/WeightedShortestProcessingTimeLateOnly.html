@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -112,7 +112,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></dd>
+<dd><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</dd>
 </dl>
 <hr>
 <br>
@@ -197,34 +197,41 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Weighte
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html#completePermutationLength--">completePermutationLength</a></span>()</code>
-<div class="block">Gets the required length of permutations representing
- solutions to the problem instance for which this constructive heuristic
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html#completeLength--">completeLength</a></span>()</code>
+<div class="block">Gets the required length of complete solutions 
+ to the problem instance for which this constructive heuristic
  is configured.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a></code></td>
+<td class="colFirst"><code><a href="../../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html#createIncrementalEvaluation--">createIncrementalEvaluation</a></span>()</code>
 <div class="block">Creates an IncrementalEvaluation object corresponding to an initially
- empty PartialPermutation for use in incrementally constructing a solution
+ empty Partial for use in incrementally constructing a solution
  to the problem for which this heuristic is designed.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="../../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html#createPartial-int-">createPartial</a></span>(int&nbsp;n)</code>
+<div class="block">Creates an empty Partial solution, which will be incrementally
+ transformed into a complete solution of a specified length.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html#getProblem--">getProblem</a></span>()</code>
 <div class="block">Gets a reference to the instance of the optimization problem 
  that is the subject of this heuristic.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>double</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h</a></span>(<a href="../../../../../org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a>&nbsp;p,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html#h-org.cicirello.search.ss.Partial-int-org.cicirello.search.ss.IncrementalEvaluation-">h</a></span>(<a href="../../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;p,
  int&nbsp;element,
- <a href="../../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&nbsp;incEval)</code>
+ <a href="../../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;incEval)</code>
 <div class="block">Heuristically evaluates the possible addition of an element to the
- end of a PartialPermutation.</div>
+ end of a Partial.</div>
 </td>
 </tr>
 </table>
@@ -302,18 +309,18 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Weighte
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">
+<a name="h-org.cicirello.search.ss.Partial-int-org.cicirello.search.ss.IncrementalEvaluation-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>h</h4>
-<pre>public&nbsp;double&nbsp;h(<a href="../../../../../org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a>&nbsp;p,
+<pre>public&nbsp;double&nbsp;h(<a href="../../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;p,
                 int&nbsp;element,
-                <a href="../../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&nbsp;incEval)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">ConstructiveHeuristic</a></code></span></div>
+                <a href="../../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;incEval)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.Partial-int-org.cicirello.search.ss.IncrementalEvaluation-">ConstructiveHeuristic</a></code></span></div>
 <div class="block">Heuristically evaluates the possible addition of an element to the
- end of a PartialPermutation.  Higher evaluations imply that the element is
+ end of a Partial.  Higher evaluations imply that the element is
  a better choice for the next element to add.  For example, if you evaluate
  two elements, x and y, with h, and h returns a higher value for y than for x,
  then this means that y is believed to be the better choice according to the 
@@ -323,12 +330,12 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Weighte
  positive values.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></code></dd>
+<dd><code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.Partial-int-org.cicirello.search.ss.IncrementalEvaluation-">h</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-">h</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTime</a></code></dd>
+<dd><code><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html#h-org.cicirello.search.ss.Partial-int-org.cicirello.search.ss.IncrementalEvaluation-">h</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTime</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>p</code> - The current state of the PartialPermutation</dd>
-<dd><code>element</code> - The element under consideration for adding to the PartialPermutation</dd>
+<dd><code>p</code> - The current state of the Partial</dd>
+<dd><code>element</code> - The element under consideration for adding to the Partial</dd>
 <dd><code>incEval</code> - An IncrementalEvaluation of p.  This method assumes that incEval
  is of the same runtime type as the object returned by <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#createIncrementalEvaluation--"><code>ConstructiveHeuristic.createIncrementalEvaluation()</code></a>.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -346,23 +353,23 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Weighte
 <ul class="blockList">
 <li class="blockList">
 <h4>createIncrementalEvaluation</h4>
-<pre>public&nbsp;<a href="../../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&nbsp;createIncrementalEvaluation()</pre>
+<pre>public&nbsp;<a href="../../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;createIncrementalEvaluation()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#createIncrementalEvaluation--">ConstructiveHeuristic</a></code></span></div>
 <div class="block"><p>Creates an IncrementalEvaluation object corresponding to an initially
- empty PartialPermutation for use in incrementally constructing a solution
+ empty Partial for use in incrementally constructing a solution
  to the problem for which this heuristic is designed. The object returned 
- incrementally computes any data associated with a PartialPermutation as
- needed by the <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method.  The <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method will assume that 
+ incrementally computes any data associated with a Partial as
+ needed by the <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.Partial-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method.  The <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.Partial-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method will assume that 
  it will be given an object of the specific runtime type returned by this
  method.  It is unsafe to pass IncrementalEvaluation objects created by
- one heuristic to the <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method of another.</p>
+ one heuristic to the <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.Partial-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method of another.</p>
 
  <p>The default implementation simply returns null, which is appropriate for
  heuristics that won't benefit from incrementally computing heuristic information.</p></div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>An IncrementalEvaluation for an empty PartialPermutation 
- to be used for incrementally computing any data required by the <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.PartialPermutation-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.PartialPermutation, int, org.cicirello.search.ss.IncrementalEvaluation)</code></a> method.</dd>
+<dd>An IncrementalEvaluation for an empty Partial 
+ to be used for incrementally computing any data required by the <a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#h-org.cicirello.search.ss.Partial-int-org.cicirello.search.ss.IncrementalEvaluation-"><code>ConstructiveHeuristic.h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method.</dd>
 </dl>
 </li>
 </ul>
@@ -378,27 +385,47 @@ extends <a href="../../../../../org/cicirello/search/problems/scheduling/Weighte
  that is the subject of this heuristic.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#getProblem--">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></code></dd>
+<dd><code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#getProblem--">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the instance of the optimization problem 
  that is the subject of this heuristic.</dd>
 </dl>
 </li>
 </ul>
-<a name="completePermutationLength--">
+<a name="createPartial-int-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createPartial</h4>
+<pre>public final&nbsp;<a href="../../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;&nbsp;createPartial(int&nbsp;n)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#createPartial-int-">ConstructiveHeuristic</a></code></span></div>
+<div class="block">Creates an empty Partial solution, which will be incrementally
+ transformed into a complete solution of a specified length.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#createPartial-int-">createPartial</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>n</code> - the desired length of the final complete solution.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>an empty Partial solution</dd>
+</dl>
+</li>
+</ul>
+<a name="completeLength--">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>completePermutationLength</h4>
-<pre>public final&nbsp;int&nbsp;completePermutationLength()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#completePermutationLength--">ConstructiveHeuristic</a></code></span></div>
-<div class="block">Gets the required length of permutations representing
- solutions to the problem instance for which this constructive heuristic
+<h4>completeLength</h4>
+<pre>public final&nbsp;int&nbsp;completeLength()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#completeLength--">ConstructiveHeuristic</a></code></span></div>
+<div class="block">Gets the required length of complete solutions 
+ to the problem instance for which this constructive heuristic
  is configured.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#completePermutationLength--">completePermutationLength</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></code></dd>
+<dd><code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html#completeLength--">completeLength</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations">Permutation</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>length of solutions to the problem instance for which this heuristic
  is configured</dd>

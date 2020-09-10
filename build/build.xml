@@ -3,7 +3,7 @@
   Build file for the Chips-n-Salsa library.
   </description>
   <!-- global properties for this build -->
-  <property name="VERSION" value="1.0"/>
+  <property name="VERSION" value="2.0"/>
   <property name="junit" location="build/junit-4.12.jar"/>
   <property name="hamcrest" location="build/hamcrest-core-1.3.jar"/>
   <property name="src" location="src"/>

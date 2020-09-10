@@ -47,7 +47,7 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../org/cicirello/search/ss/HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li><a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -91,19 +91,25 @@ var activeTableTab = "activeTableTab";
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="subTitle">org.cicirello.search.ss</div>
-<h2 title="Interface IncrementalEvaluation" class="title">Interface IncrementalEvaluation</h2>
+<h2 title="Interface IncrementalEvaluation" class="title">Interface IncrementalEvaluation&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</h2>
 </div>
 <div class="contentContainer">
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>T</code> - The type of Partial object that this IncrementalEvaluation evaluates, which is 
+ assumed to be an object that is a sequence of integers (e.g., vector of integers,
+ permutation, or some other indexable type that stores integers).</dd>
+</dl>
 <hr>
 <br>
-<pre>public interface <span class="typeNameLabel">IncrementalEvaluation</span></pre>
+<pre>public interface <span class="typeNameLabel">IncrementalEvaluation&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util">Copyable</a>&lt;T&gt;&gt;</span></pre>
 <div class="block"><p>The implementations of constructive heuristics and
  stochastic samplers biased by constructive heuristics
  in the library support incremental updates, 
- as the permutation is heuristically assembled,
+ as the solution is heuristically assembled,
  to problem and/or heuristic data utilized by the heuristic. 
  Implementations of this interface depend upon the
  specific optimization problem, as well as
@@ -116,10 +122,6 @@ var activeTableTab = "activeTableTab";
  a characteristic of the portion of the problem not yet solved
  for which it would be more efficient to compute incrementally
  than to recompute fresh each step of the problem solving process.</p></div>
-<dl>
-<dt><span class="simpleTagLabel">Since:</span></dt>
-<dd>1.0</dd>
-</dl>
 </li>
 </ul>
 </div>
@@ -140,11 +142,11 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/IncrementalEvaluation.html#extend-org.cicirello.search.ss.PartialPermutation-int-">extend</a></span>(<a href="../../../../org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a>&nbsp;p,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/cicirello/search/ss/IncrementalEvaluation.html#extend-org.cicirello.search.ss.Partial-int-">extend</a></span>(<a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="type parameter in IncrementalEvaluation">T</a>&gt;&nbsp;p,
       int&nbsp;element)</code>
 <div class="block">Extends an 
  incremental evaluation,
- to account for extending a PartialPermutation by the addition of 
+ to account for extending a Partial by the addition of 
  one element.</div>
 </td>
 </tr>
@@ -163,26 +165,26 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="extend-org.cicirello.search.ss.PartialPermutation-int-">
+<a name="extend-org.cicirello.search.ss.Partial-int-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>extend</h4>
-<pre>void&nbsp;extend(<a href="../../../../org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a>&nbsp;p,
+<pre>void&nbsp;extend(<a href="../../../../org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="../../../../org/cicirello/search/ss/IncrementalEvaluation.html" title="type parameter in IncrementalEvaluation">T</a>&gt;&nbsp;p,
             int&nbsp;element)</pre>
 <div class="block"><p>Extends an 
  incremental evaluation,
- to account for extending a PartialPermutation by the addition of 
+ to account for extending a Partial by the addition of 
  one element.</p>
 
  <p>This method assumes that this IncrementalEvaluation object
- is consistent and up to date with the PartialPermutation p passed
+ is consistent and up to date with the Partial p passed
  as a parameter.</p>
 
  <p>This extension is problem-dependent and this IncrementalEvaluation
  includes maintenance of any data for which incremental updates
- as the PartialPermutation is gradually transformed into a full Permutation
+ as the Partial is gradually transformed into a full T
  is beneficial to performance.  For example, for a scheduling problem,
  the IncrementalEvaluation might keep track of current time in the schedule,
  accounting for all of the jobs already scheduled, to avoid having to 
@@ -190,10 +192,10 @@ var activeTableTab = "activeTableTab";
  a job).</p></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>p</code> - The current state of the PartialPermutation 
- (assumed to be the PartialPermutation
+<dd><code>p</code> - The current state of the Partial 
+ (assumed to be the Partial
  that is the subject of the IncrementalEvaluation).</dd>
-<dd><code>element</code> - The element that will be added to the PartialPermutation.
+<dd><code>element</code> - The element that will be added to the Partial.
  This method should not actually add element to p. Rather, it should update
  the IncrementalEvaluation to coincide with the addition of element to p.</dd>
 </dl>
@@ -226,7 +228,7 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../org/cicirello/search/ss/HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../org/cicirello/search/ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li><a href="../../../../org/cicirello/search/ss/IterativeSampling.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">

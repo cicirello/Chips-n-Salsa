@@ -20,10 +20,10 @@
 
 package org.cicirello.search.ss;
 
-import org.cicirello.permutations.Permutation;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.util.Copyable;
 
 /**
  * <p>Value Biased Stochastic Sampling (VBSS) is a form of stochastic sampling 
@@ -34,9 +34,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * It evaluates each of the N candidate solutions with respect to the optimization
  * problem's cost function, and returns the best of the N candidate solutions.</p>
  *
- * <p>Although the VBSS algorithm itself is not technically restricted to 
- * permutation problems, the ValueBiasedStochasticSampling class only supports
- * optimization problems over the space of permutations.</p>
+ * <p>Although the VBSS algorithm itself is not restricted to 
+ * permutation problems, the examples that follow in this documentation focus
+ * on permutations for illustrative purposes.</p>
  *
  * <p>Let's consider an illustrative example.  Consider a problem whose solution
  * is to be represented with a permutation of length L of the integers 
@@ -132,16 +132,17 @@ import java.util.concurrent.ThreadLocalRandom;
  * Journal of Heuristics, 11(1):5-34, January 2005.</li>
  * </ul>
  *
- * @since 1.0
+ * @param <T> The type of object under optimization.
+ *
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.12.2020
+ * @version 9.4.2020
  */
-public final class ValueBiasedStochasticSampling extends AbstractStochasticSampler<Permutation> {
+public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends AbstractStochasticSampler<T> {
 	
 	private final BiasFunction bias;
-	private final ConstructiveHeuristic heuristic;
+	private final ConstructiveHeuristic<T> heuristic;
 	
 	/**
 	 * Constructs a ValueBiasedStochasticSampling search object.  A ProgressTracker 
@@ -151,8 +152,8 @@ public final class ValueBiasedStochasticSampling extends AbstractStochasticSampl
 	 * @param heuristic The constructive heuristic.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic) {
-		this(heuristic, null, new ProgressTracker<Permutation>());
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic) {
+		this(heuristic, null, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -164,7 +165,7 @@ public final class ValueBiasedStochasticSampling extends AbstractStochasticSampl
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic, ProgressTracker<Permutation> tracker) {
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, ProgressTracker<T> tracker) {
 		this(heuristic, null, tracker);
 	}
 	
@@ -175,8 +176,8 @@ public final class ValueBiasedStochasticSampling extends AbstractStochasticSampl
 	 * @param exponent The bias function is defined as: bias(value) = pow(value, exponent).
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic, double exponent) {
-		this(heuristic, exponent, new ProgressTracker<Permutation>());
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, double exponent) {
+		this(heuristic, exponent, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -186,7 +187,7 @@ public final class ValueBiasedStochasticSampling extends AbstractStochasticSampl
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic, double exponent, ProgressTracker<Permutation> tracker) {
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, double exponent, ProgressTracker<T> tracker) {
 		this(heuristic, value -> Math.pow(value, exponent), tracker);
 	}
 	
@@ -197,8 +198,8 @@ public final class ValueBiasedStochasticSampling extends AbstractStochasticSampl
 	 * @param bias The bias function.  If null, then the default bias is used.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic, BiasFunction bias) {
-		this(heuristic, bias, new ProgressTracker<Permutation>());
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, BiasFunction bias) {
+		this(heuristic, bias, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -208,7 +209,7 @@ public final class ValueBiasedStochasticSampling extends AbstractStochasticSampl
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public ValueBiasedStochasticSampling(ConstructiveHeuristic heuristic, BiasFunction bias, ProgressTracker<Permutation> tracker) {
+	public ValueBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, BiasFunction bias, ProgressTracker<T> tracker) {
 		super(heuristic.getProblem(), tracker);
 		this.bias = bias;
 		this.heuristic = heuristic;
@@ -217,15 +218,15 @@ public final class ValueBiasedStochasticSampling extends AbstractStochasticSampl
 	/*
 	 * private for use by split method
 	 */
-	private ValueBiasedStochasticSampling(ValueBiasedStochasticSampling other) {
+	private ValueBiasedStochasticSampling(ValueBiasedStochasticSampling<T> other) {
 		super(other);
 		bias = other.bias;
 		heuristic = other.heuristic;
 	}
 	
 	@Override
-	public ValueBiasedStochasticSampling split() {
-		return new ValueBiasedStochasticSampling(this);
+	public ValueBiasedStochasticSampling<T> split() {
+		return new ValueBiasedStochasticSampling<T>(this);
 	}
 	
 	/**
@@ -238,8 +239,6 @@ public final class ValueBiasedStochasticSampling extends AbstractStochasticSampl
 	 * with a probability proportional to bias(value).  
 	 * How you implement this depends upon how much confidence you
 	 * have in the specific heuristic you are randomizing.</p>
-	 *
-	 * @since 1.0
 	 *
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
@@ -293,10 +292,10 @@ public final class ValueBiasedStochasticSampling extends AbstractStochasticSampl
 	}
 	
 	@Override
-	SolutionCostPair<Permutation> sample() {
-		IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-		int n = heuristic.completePermutationLength();
-		PartialPermutation p = new PartialPermutation(n);
+	SolutionCostPair<T> sample() {
+		IncrementalEvaluation<T> incEval = heuristic.createIncrementalEvaluation();
+		int n = heuristic.completeLength();
+		Partial<T> p = heuristic.createPartial(n);
 		double[] b = new double[n];
 		ThreadLocalRandom r = ThreadLocalRandom.current();
 		while (!p.isComplete()) {
@@ -314,7 +313,7 @@ public final class ValueBiasedStochasticSampling extends AbstractStochasticSampl
 				p.extend(which);
 			}
 		}
-		Permutation complete = p.toComplete();
+		T complete = p.toComplete();
 		return evaluateAndPackageSolution(complete);
 	}
 }

@@ -22,7 +22,7 @@ package org.cicirello.search.problems.scheduling;
 
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ss.IncrementalEvaluation;
-import org.cicirello.search.ss.PartialPermutation;
+import org.cicirello.search.ss.Partial;
 
 /**
  * <p>DynamicATCS is an implementation of a variation of the ATCS 
@@ -51,7 +51,7 @@ import org.cicirello.search.ss.PartialPermutation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.30.2020
+ * @version 9.4.2020
  */
 public final class DynamicATCS extends WeightedShortestProcessingTime {
 	
@@ -131,7 +131,7 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
 	}
 	
 	@Override
-	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
+	public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
 		double value = super.h(p, element, incEval);
 		if (value > MIN_H) {
 			double num = data.getDueDate(element) - data.getProcessingTime(element) - ((IncrementalStatsCalculator)incEval).currentTime();
@@ -155,7 +155,7 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
 	}
 	
 	@Override
-	public IncrementalEvaluation createIncrementalEvaluation() {
+	public IncrementalEvaluation<Permutation> createIncrementalEvaluation() {
 		return new IncrementalStatsCalculator(pSum, sSum);
 	}
 	
@@ -200,7 +200,7 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
 		}
 		
 		@Override
-		public void extend(PartialPermutation p, int element) {
+		public void extend(Partial<Permutation> p, int element) {
 			super.extend(p, element);
 			int x = p.numExtensions();	
 			for (int i = 0; i < x; i++) {

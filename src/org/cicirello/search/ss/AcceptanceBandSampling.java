@@ -20,7 +20,7 @@
 
 package org.cicirello.search.ss;
 
-import org.cicirello.permutations.Permutation;
+import org.cicirello.util.Copyable;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.math.rand.RandomIndexer;
@@ -40,9 +40,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * It evaluates each of the N candidate solutions with respect to the optimization
  * problem's cost function, and returns the best of the N candidate solutions.</p>
  *
- * <p>Although the algorithm itself is not technically restricted to 
- * permutation problems, the AcceptanceBandSampling class only supports
- * optimization problems over the space of permutations.</p>
+ * <p>Although AcceptanceBandSampling itself is not restricted to 
+ * permutation problems, the examples that follow in this documentation focus
+ * on permutations for illustrative purposes.</p>
  *
  * <p>The acceptance bands are defined in terms of a parameter &beta;,
  * which must be in the interval [0.0, 1.0].  Imagine that we have a set of k
@@ -101,15 +101,16 @@ import org.cicirello.math.rand.RandomIndexer;
  * implements the stochastic sampling version, and does not involve any
  * backtracking.</p>
  *
- * @since 1.0
+ * @param <T> The type of object under optimization.
+ *
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.12.2020
+ * @version 9.4.2020
  */
-public final class AcceptanceBandSampling extends AbstractStochasticSampler<Permutation> {
+public final class AcceptanceBandSampling<T extends Copyable<T>> extends AbstractStochasticSampler<T> {
 	
-	private final ConstructiveHeuristic heuristic;
+	private final ConstructiveHeuristic<T> heuristic;
 	private final double acceptancePercentage;
 	
 	/**
@@ -122,8 +123,8 @@ public final class AcceptanceBandSampling extends AbstractStochasticSampler<Perm
 	 * @param heuristic The constructive heuristic.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public AcceptanceBandSampling(ConstructiveHeuristic heuristic) {
-		this(heuristic, 0.1, new ProgressTracker<Permutation>());
+	public AcceptanceBandSampling(ConstructiveHeuristic<T> heuristic) {
+		this(heuristic, 0.1, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -135,7 +136,7 @@ public final class AcceptanceBandSampling extends AbstractStochasticSampler<Perm
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public AcceptanceBandSampling(ConstructiveHeuristic heuristic, ProgressTracker<Permutation> tracker) {
+	public AcceptanceBandSampling(ConstructiveHeuristic<T> heuristic, ProgressTracker<T> tracker) {
 		this(heuristic, 0.1, tracker);
 	}
 	
@@ -153,8 +154,8 @@ public final class AcceptanceBandSampling extends AbstractStochasticSampler<Perm
 	 * @throws NullPointerException if heuristic is null
 	 * @throws IllegalArgumentException if beta is less than 0.0 or greater than 1.0.
 	 */
-	public AcceptanceBandSampling(ConstructiveHeuristic heuristic, double beta) {
-		this(heuristic, beta, new ProgressTracker<Permutation>());
+	public AcceptanceBandSampling(ConstructiveHeuristic<T> heuristic, double beta) {
+		this(heuristic, beta, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -171,7 +172,7 @@ public final class AcceptanceBandSampling extends AbstractStochasticSampler<Perm
 	 * @throws NullPointerException if heuristic or tracker is null
 	 * @throws IllegalArgumentException if beta is less than 0.0 or greater than 1.0.
 	 */
-	public AcceptanceBandSampling(ConstructiveHeuristic heuristic, double beta, ProgressTracker<Permutation> tracker) {
+	public AcceptanceBandSampling(ConstructiveHeuristic<T> heuristic, double beta, ProgressTracker<T> tracker) {
 		super(heuristic.getProblem(), tracker);
 		this.heuristic = heuristic;
 		if (beta < 0.0 || beta > 1.0) {
@@ -183,15 +184,15 @@ public final class AcceptanceBandSampling extends AbstractStochasticSampler<Perm
 	/*
 	 * private for use by split method
 	 */
-	private AcceptanceBandSampling(AcceptanceBandSampling other) {
+	private AcceptanceBandSampling(AcceptanceBandSampling<T> other) {
 		super(other);
 		heuristic = other.heuristic;
 		acceptancePercentage = other.acceptancePercentage;
 	}
 	
 	@Override
-	public AcceptanceBandSampling split() {
-		return new AcceptanceBandSampling(this);
+	public AcceptanceBandSampling<T> split() {
+		return new AcceptanceBandSampling<T>(this);
 	}
 	
 	/*
@@ -210,10 +211,10 @@ public final class AcceptanceBandSampling extends AbstractStochasticSampler<Perm
 	}
 	
 	@Override
-	SolutionCostPair<Permutation> sample() {
-		IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-		int n = heuristic.completePermutationLength();
-		PartialPermutation p = new PartialPermutation(n);
+	SolutionCostPair<T> sample() {
+		IncrementalEvaluation<T> incEval = heuristic.createIncrementalEvaluation();
+		int n = heuristic.completeLength();
+		Partial<T> p = heuristic.createPartial(n);
 		double[] v = new double[n];
 		int[] equivalents = new int[n];
 		while (!p.isComplete()) {
@@ -232,7 +233,7 @@ public final class AcceptanceBandSampling extends AbstractStochasticSampler<Perm
 				p.extend(which);
 			}
 		}
-		Permutation complete = p.toComplete();
+		T complete = p.toComplete();
 		return evaluateAndPackageSolution(complete);
 	}
 }

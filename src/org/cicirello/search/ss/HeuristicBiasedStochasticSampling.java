@@ -20,11 +20,11 @@
 
 package org.cicirello.search.ss;
 
-import org.cicirello.permutations.Permutation;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 import java.util.concurrent.ThreadLocalRandom;
 import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.util.Copyable;
 
 /**
  * <p>Heuristic Biased Stochastic Sampling (HBSS) is a form of stochastic sampling 
@@ -36,9 +36,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * It evaluates each of the N candidate solutions with respect to the optimization
  * problem's cost function, and returns the best of the N candidate solutions.</p>
  *
- * <p>Although the HBSS algorithm itself is not technically restricted to 
- * permutation problems, the HeuristicBiasedStochasticSampling class only supports
- * optimization problems over the space of permutations.</p>
+ * <p>Although the HBSS algorithm itself is not restricted to 
+ * permutation problems, the examples that follow in this documentation focus
+ * on permutations for illustrative purposes.</p>
  *
  * <p>Let's consider an illustrative example.  Consider a problem whose solution
  * is to be represented with a permutation of length L of the integers 
@@ -145,16 +145,17 @@ import org.cicirello.math.rand.RandomIndexer;
  * Intelligence, AAAI Press, pp. 271–278.
  * </p>
  *
- * @since 1.0
+ * @param <T> The type of object under optimization.
+ *
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.12.2020
+ * @version 9.4.2020
  */
-public final class HeuristicBiasedStochasticSampling extends AbstractStochasticSampler<Permutation> {
+public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> extends AbstractStochasticSampler<T> {
 	
 	private final BiasFunction bias;
-	private final ConstructiveHeuristic heuristic;
+	private final ConstructiveHeuristic<T> heuristic;
 	private final double[] biases;
 	
 	/**
@@ -163,8 +164,8 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 	 * @param heuristic The constructive heuristic.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic) {
-		this(heuristic, false, new ProgressTracker<Permutation>());
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic) {
+		this(heuristic, false, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -174,7 +175,7 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, ProgressTracker<Permutation> tracker) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, ProgressTracker<T> tracker) {
 		this(heuristic, false, tracker);
 	}
 	
@@ -185,8 +186,8 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 	 * if false, the bias function is the default of 1/rank.
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, boolean exponentialBias) {
-		this(heuristic, exponentialBias, new ProgressTracker<Permutation>());
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, boolean exponentialBias) {
+		this(heuristic, exponentialBias, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -197,7 +198,7 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, boolean exponentialBias, ProgressTracker<Permutation> tracker) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, boolean exponentialBias, ProgressTracker<T> tracker) {
 		this(heuristic, exponentialBias ? (rank -> Math.exp(-rank)) : (rank -> 1.0/rank), tracker);
 	}
 	
@@ -208,8 +209,8 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 	 * @param exponent The bias function is defined as: bias(rank) = 1 / pow(rank, exponent).
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, double exponent) {
-		this(heuristic, exponent, new ProgressTracker<Permutation>());
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, double exponent) {
+		this(heuristic, exponent, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -219,7 +220,7 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, double exponent, ProgressTracker<Permutation> tracker) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, double exponent, ProgressTracker<T> tracker) {
 		this(heuristic, rank -> Math.pow(1.0/rank, exponent), tracker);
 	}
 	
@@ -230,8 +231,8 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 	 * @param bias The bias function.  If null, the default bias is used.
 	 * @throws NullPointerException if heuristic is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, BiasFunction bias) {
-		this(heuristic, bias, new ProgressTracker<Permutation>());
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, BiasFunction bias) {
+		this(heuristic, bias, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -241,17 +242,17 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 	 * @param tracker A ProgressTracker
 	 * @throws NullPointerException if heuristic or tracker is null
 	 */
-	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic heuristic, BiasFunction bias, ProgressTracker<Permutation> tracker) {
+	public HeuristicBiasedStochasticSampling(ConstructiveHeuristic<T> heuristic, BiasFunction bias, ProgressTracker<T> tracker) {
 		super(heuristic.getProblem(), tracker);
 		this.bias = bias;
 		this.heuristic = heuristic;
-		biases = precomputeBiases(heuristic.completePermutationLength());
+		biases = precomputeBiases(heuristic.completeLength());
 	}
 	
 	/*
 	 * private for use by split method
 	 */
-	private HeuristicBiasedStochasticSampling(HeuristicBiasedStochasticSampling other) {
+	private HeuristicBiasedStochasticSampling(HeuristicBiasedStochasticSampling<T> other) {
 		super(other);
 		bias = other.bias;
 		heuristic = other.heuristic;
@@ -259,8 +260,8 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 	}
 	
 	@Override
-	public HeuristicBiasedStochasticSampling split() {
-		return new HeuristicBiasedStochasticSampling(this);
+	public HeuristicBiasedStochasticSampling<T> split() {
+		return new HeuristicBiasedStochasticSampling<T>(this);
 	}
 	
 	/**
@@ -278,8 +279,6 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 	 * sure that you remember that the lowest rank, rank of 1, is the element 
 	 * perceived to be best by the heuristic.  So the bias function must
 	 * map lower ranks to higher values, and the output must be positive.</p>
-	 *
-	 * @since 1.0
 	 *
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
@@ -371,10 +370,10 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 	}
 	
 	@Override
-	SolutionCostPair<Permutation> sample() {
-		IncrementalEvaluation incEval = heuristic.createIncrementalEvaluation();
-		int n = heuristic.completePermutationLength();
-		PartialPermutation p = new PartialPermutation(n);
+	SolutionCostPair<T> sample() {
+		IncrementalEvaluation<T> incEval = heuristic.createIncrementalEvaluation();
+		int n = heuristic.completeLength();
+		Partial<T> p = heuristic.createPartial(n);
 		double[] v = new double[n];
 		int[] extensions = new int[n];
 		ThreadLocalRandom r = ThreadLocalRandom.current();
@@ -394,7 +393,7 @@ public final class HeuristicBiasedStochasticSampling extends AbstractStochasticS
 				p.extend(which);
 			}
 		}
-		Permutation complete = p.toComplete();
+		T complete = p.toComplete();
 		return evaluateAndPackageSolution(complete);
 	}
 }

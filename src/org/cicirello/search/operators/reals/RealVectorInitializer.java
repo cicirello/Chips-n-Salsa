@@ -22,6 +22,7 @@ package org.cicirello.search.operators.reals;
 
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.RealVector;
+import org.cicirello.search.representations.BoundedRealVector;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -33,11 +34,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * to {@link RealVector#set} such that the {@link RealVector#set} method will set the value to
  * the min if a value is passed less than min (and similarly for max). 
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.10.2020
+ * @version 9.10.2020
  */
 public class RealVectorInitializer implements Initializer<RealVector> {
 	
@@ -227,7 +226,9 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 			}
 		}
 		if (min != null) {
-			return new BoundedRealVector(x);
+			return min.length > 1 
+				? new MultiBoundedRealVector(x)
+				: new BoundedRealVector(x, min[0], max[0]);
 		} else {
 			return new RealVector(x);
 		}
@@ -248,7 +249,7 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 	 * the maximum, then it is instead set to the maximum.
 	 *
 	 */
-	private final class BoundedRealVector extends RealVector {
+	private final class MultiBoundedRealVector extends RealVector {
 		
 		/**
 		 * Initializes the parameters, with one pair of min and max bounds
@@ -261,7 +262,7 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		 * function input i is initialized to max.
 		 * @throws IllegalArgumentException if min &gt; max.
 		 */
-		public BoundedRealVector(double[] x) {
+		public MultiBoundedRealVector(double[] x) {
 			super(x.length);
 			setAll(x);
 		}
@@ -270,7 +271,7 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		 * Initializes the parameters as a copy of another.
 		 * @param other The other function input to copy.
 		 */
-		public BoundedRealVector(BoundedRealVector other) {
+		public MultiBoundedRealVector(MultiBoundedRealVector other) {
 			super(other);
 		}
 		
@@ -287,30 +288,16 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		 */
 		@Override
 		public final void set(int i, double value) {
-			if (min.length == 1) {
-				if (value < min[0]) super.set(i, min[0]);
-				else if (value > max[0]) super.set(i, max[0]);
-				else super.set(i, value);
-			} else {
-				if (value < min[i]) super.set(i, min[i]);
-				else if (value > max[i]) super.set(i, max[i]);
-				else super.set(i, value);
-			}
+			if (value < min[i]) super.set(i, min[i]);
+			else if (value > max[i]) super.set(i, max[i]);
+			else super.set(i, value);
 		}
 		
 		private void setAll(double[] x) {
-			if (min.length == 1) {
-				for (int i = 0; i < x.length; i++) {
-					if (x[i] < min[0]) super.set(i, min[0]);
-					else if (x[i] > max[0]) super.set(i, max[0]);
-					else super.set(i, x[i]);
-				}
-			} else {
-				for (int i = 0; i < x.length; i++) {
-					if (x[i] < min[i]) super.set(i, min[i]);
-					else if (x[i] > max[i]) super.set(i, max[i]);
-					else super.set(i, x[i]);
-				}
+			for (int i = 0; i < x.length; i++) {
+				if (x[i] < min[i]) super.set(i, min[i]);
+				else if (x[i] > max[i]) super.set(i, max[i]);
+				else super.set(i, x[i]);
 			}
 		}
 		
@@ -319,8 +306,8 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		 * @return an identical copy of this object
 		 */
 		@Override
-		public BoundedRealVector copy() {
-			return new BoundedRealVector(this);
+		public MultiBoundedRealVector copy() {
+			return new MultiBoundedRealVector(this);
 		}
 		
 		private RealVectorInitializer getOuterThis() { return RealVectorInitializer.this; };
@@ -337,7 +324,7 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		@Override
 		public boolean equals(Object other) {
 			if (!super.equals(other)) return false;
-			BoundedRealVector b = (BoundedRealVector)other;
+			MultiBoundedRealVector b = (MultiBoundedRealVector)other;
 			return RealVectorInitializer.this == b.getOuterThis();
 		}
 		
@@ -346,22 +333,15 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		 * @return a hash code value
 		 */
 		@Override
-		public int hashCode() {
-			int hash;
-			if (min.length == 1) {
-				long bitsMin = Double.doubleToLongBits(min[0]);
-				long bitsMax = Double.doubleToLongBits(max[0]);
-				hash = 31 * (31 + ((int)(bitsMin ^ (bitsMin >>> 32)))) + ((int)(bitsMax ^ (bitsMax >>> 32)));
-			} else {
-				hash = 1;
-				for (double v : min) {
-					long bitsV = Double.doubleToLongBits(v);
-					hash = 31 * hash + ((int)(bitsV ^ (bitsV >>> 32)));
-				}
-				for (double v : max) {
-					long bitsV = Double.doubleToLongBits(v);
-					hash = 31 * hash + ((int)(bitsV ^ (bitsV >>> 32)));
-				}
+		public int hashCode() {			
+			int hash = 1;
+			for (double v : min) {
+				long bitsV = Double.doubleToLongBits(v);
+				hash = 31 * hash + ((int)(bitsV ^ (bitsV >>> 32)));
+			}
+			for (double v : max) {
+				long bitsV = Double.doubleToLongBits(v);
+				hash = 31 * hash + ((int)(bitsV ^ (bitsV >>> 32)));
 			}
 			int L = length();
 			for (int i = 0; i < L; i++) {

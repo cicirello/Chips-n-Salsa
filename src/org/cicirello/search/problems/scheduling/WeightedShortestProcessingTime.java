@@ -21,7 +21,7 @@
 package org.cicirello.search.problems.scheduling;
 
 import org.cicirello.permutations.Permutation;
-import org.cicirello.search.ss.PartialPermutation;
+import org.cicirello.search.ss.Partial;
 import org.cicirello.search.ss.IncrementalEvaluation;
 
 /**
@@ -37,7 +37,7 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.24.2020
+ * @version 9.4.2020
  */
 public class WeightedShortestProcessingTime extends SchedulingHeuristic {
 	
@@ -63,7 +63,7 @@ public class WeightedShortestProcessingTime extends SchedulingHeuristic {
 	}
 	
 	@Override
-	public double h(PartialPermutation p, int element, IncrementalEvaluation incEval) {
+	public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
 		return h[element];
 	}
 }

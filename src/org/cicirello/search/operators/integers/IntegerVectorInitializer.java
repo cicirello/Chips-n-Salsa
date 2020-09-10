@@ -22,6 +22,7 @@ package org.cicirello.search.operators.integers;
 
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.IntegerVector;
+import org.cicirello.search.representations.BoundedIntegerVector;
 import org.cicirello.math.rand.RandomIndexer;
 
 /**
@@ -34,11 +35,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * the min if a value is passed less than min (and similarly for max). 
  *
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.10.2020
+ * @version 9.10.2020
  */
 public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 	
@@ -228,7 +227,9 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 			}
 		}
 		if (min != null) {
-			return new BoundedIntegerVector(x);
+			return min.length > 1 
+				? new MultiBoundedIntegerVector(x)
+				: new BoundedIntegerVector(x, min[0], max[0]);
 		} else {
 			return new IntegerVector(x);
 		}
@@ -250,7 +251,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 	 * made to set the value of this function input to a value greater than
 	 * the maximum, then it is instead set to the maximum.
 	 */
-	private final class BoundedIntegerVector extends IntegerVector {
+	private final class MultiBoundedIntegerVector extends IntegerVector {
 		
 		/**
 		 * Initializes the parameters, with one pair of min and max bounds
@@ -261,7 +262,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 * function parameter i is initialized to max.
 		 * @throws IllegalArgumentException if min &gt; max.
 		 */
-		public BoundedIntegerVector(int[] x) {
+		public MultiBoundedIntegerVector(int[] x) {
 			super(x.length);
 			setAll(x);
 		}
@@ -270,7 +271,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 * Initializes as a copy of another.
 		 * @param other The other to copy.
 		 */
-		public BoundedIntegerVector(BoundedIntegerVector other) {
+		public MultiBoundedIntegerVector(MultiBoundedIntegerVector other) {
 			super(other);
 		}
 		
@@ -287,30 +288,16 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 */
 		@Override
 		public final void set(int i, int value) {
-			if (min.length == 1) {
-				if (value < min[0]) super.set(i, min[0]);
-				else if (value > max[0]) super.set(i, max[0]);
-				else super.set(i, value);
-			} else {
-				if (value < min[i]) super.set(i, min[i]);
-				else if (value > max[i]) super.set(i, max[i]);
-				else super.set(i, value);
-			}
+			if (value < min[i]) super.set(i, min[i]);
+			else if (value > max[i]) super.set(i, max[i]);
+			else super.set(i, value);
 		}
 		
 		private void setAll(int[] x) {
-			if (min.length == 1) {
-				for (int i = 0; i < x.length; i++) {
-					if (x[i] < min[0]) super.set(i, min[0]);
-					else if (x[i] > max[0]) super.set(i, max[0]);
-					else super.set(i, x[i]);
-				}
-			} else {
-				for (int i = 0; i < x.length; i++) {
-					if (x[i] < min[i]) super.set(i, min[i]);
-					else if (x[i] > max[i]) super.set(i, max[i]);
-					else super.set(i, x[i]);
-				}
+			for (int i = 0; i < x.length; i++) {
+				if (x[i] < min[i]) super.set(i, min[i]);
+				else if (x[i] > max[i]) super.set(i, max[i]);
+				else super.set(i, x[i]);
 			}
 		}
 		
@@ -319,13 +306,11 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 * @return an identical copy of this object
 		 */
 		@Override
-		public BoundedIntegerVector copy() {
-			return new BoundedIntegerVector(this);
+		public MultiBoundedIntegerVector copy() {
+			return new MultiBoundedIntegerVector(this);
 		}
 		
 		private IntegerVectorInitializer getOuterThis() { return IntegerVectorInitializer.this; };
-		
-		
 		
 		/**
 		 * Indicates whether some other object is "equal to" this one.
@@ -338,7 +323,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		@Override
 		public boolean equals(Object other) {
 			if (!super.equals(other)) return false;
-			BoundedIntegerVector b = (BoundedIntegerVector)other;
+			MultiBoundedIntegerVector b = (MultiBoundedIntegerVector)other;
 			return IntegerVectorInitializer.this == b.getOuterThis();
 		}
 		
@@ -348,17 +333,12 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 */
 		@Override
 		public int hashCode() {
-			int hash;
-			if (min.length == 1) {
-				hash = 31 * (31 + min[0]) + max[0];
-			} else {
-				hash = 1;
-				for (int v : min) {
-					hash = 31 * hash + v;
-				}
-				for (int v : max) {
-					hash = 31 * hash + v;
-				}
+			int hash = 1;
+			for (int v : min) {
+				hash = 31 * hash + v;
+			}
+			for (int v : max) {
+				hash = 31 * hash + v;
 			}
 			int L = length();
 			for (int i = 0; i < L; i++) {

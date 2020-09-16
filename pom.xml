@@ -151,167 +151,147 @@
 		<developerConnection>scm:git:ssh://github.com:cicirello/Chips-n-Salsa.git</developerConnection>
 		<url>http://github.com/cicirello/Chips-n-Salsa/tree/master</url>
 	</scm>
-
-
   
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13</version>
-      <type>jar</type>
-      <scope>test</scope>
-      <optional>true</optional>
-    </dependency>
-	<dependency>
-	  <groupId>org.cicirello</groupId>
-	  <artifactId>jpt</artifactId>
-	  <version>2.1.2</version>
-	</dependency>
-  </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13</version>
+			<type>jar</type>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.cicirello</groupId>
+			<artifactId>jpt</artifactId>
+			<version>2.1.2</version>
+		</dependency>
+	</dependencies>
   
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
   
-  <build>
-    <directory>${project.basedir}/dist</directory>
-    <outputDirectory>${project.basedir}/bin</outputDirectory>
-    <finalName>${project.artifactId}-${project.version}</finalName>
-    <testOutputDirectory>${project.basedir}/testbin</testOutputDirectory>
-    <sourceDirectory>${project.basedir}/src</sourceDirectory>
-    <scriptSourceDirectory>${project.basedir}/src/scripts</scriptSourceDirectory>
-    <testSourceDirectory>${project.basedir}/tests</testSourceDirectory>
-    <resources>
-      <resource>
-        <directory>${project.basedir}/src/resources</directory>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>${project.basedir}/tests/resources</directory>
-      </testResource>
-    </testResources>
-	<plugins>
-		<plugin>
-		  <groupId>org.apache.maven.plugins</groupId>
-		  <artifactId>maven-source-plugin</artifactId>
-		  <version>3.2.1</version>
-		  <executions>
-			<execution>
-			  <id>attach-sources</id>
-			  <goals>
-				<goal>jar</goal>
-			  </goals>
-			</execution>
-		  </executions>
-		</plugin>
-		
-		<plugin>
-		  <groupId>org.apache.maven.plugins</groupId>
-		  <artifactId>maven-javadoc-plugin</artifactId>
-		  <version>3.2.0</version>
-		  <executions>
-			<execution>
-			  <id>attach-javadocs</id>
-			  <goals>
-				<goal>jar</goal>
-			  </goals>
-			</execution>
-		  </executions>
-		  <configuration>
-			  <windowtitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</windowtitle>
-			  <doctitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</doctitle>
-			  <author>false</author>
-			  <version>false</version>
-			  <overview>${project.build.sourceDirectory}/overview.html</overview>
-			  <notimestamp>true</notimestamp>
-			  <links>
-				  <link>https://docs.oracle.com/javase/8/docs/api</link>
-				  <link>https://jpt.cicirello.org/api</link>
-			  </links>
-			  <bottom><![CDATA[Copyright &copy; 2002-2020 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
-		   </configuration>
-		</plugin>
-		
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<version>3.0.0-M5</version>
-			<configuration>
-			  <includes>
-				<include>**/*TestCases.java</include>
-				<include>**/*Tests.java</include>
-				<include>**/*TestCase.java</include>
-				<include>**/*Test.java</include>
-				<include>**/Test*.java</include>
-			  </includes>
-			</configuration>
-		</plugin>
-		
-		<plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.3.0</version>
-            <configuration>
-                <descriptorRefs>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs>
-            </configuration>
-            <executions>
-                <execution>
-                    <id>assemble-all</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>single</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-	</plugins>
-  </build>
+	<build>
+		<directory>${project.basedir}/dist</directory>
+		<outputDirectory>${project.basedir}/bin</outputDirectory>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<testOutputDirectory>${project.basedir}/testbin</testOutputDirectory>
+		<sourceDirectory>${project.basedir}/src</sourceDirectory>
+		<scriptSourceDirectory>${project.basedir}/src/scripts</scriptSourceDirectory>
+		<testSourceDirectory>${project.basedir}/tests</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/resources</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>${project.basedir}/tests/resources</directory>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<windowtitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</windowtitle>
+					<doctitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</doctitle>
+					<author>false</author>
+					<version>false</version>
+					<overview>${project.build.sourceDirectory}/overview.html</overview>
+					<notimestamp>true</notimestamp>
+					<links>
+						<link>https://docs.oracle.com/javase/8/docs/api</link>
+						<link>https://jpt.cicirello.org/api</link>
+					</links>
+					<bottom><![CDATA[Copyright &copy; 2002-2020 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M5</version>
+				<configuration>
+				<includes>
+					<include>**/*TestCases.java</include>
+					<include>**/*Tests.java</include>
+					<include>**/*TestCase.java</include>
+					<include>**/*Test.java</include>
+					<include>**/Test*.java</include>
+				</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>assemble-all</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				</plugin>
+			</plugins>
+	</build>
   
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
-        <configuration>
-          <reportOutputDirectory>${project.basedir}/docs/api</reportOutputDirectory>
-		  <destDir>api</destDir>
-		  <outputDirectory>${project.basedir}/docs/api</outputDirectory>
-		  <windowtitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</windowtitle>
-			  <doctitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</doctitle>
-			  <author>false</author>
-			  <version>false</version>
-			  <overview>${project.build.sourceDirectory}/overview.html</overview>
-			  <notimestamp>true</notimestamp>
-			  <links>
-				  <link>https://docs.oracle.com/javase/8/docs/api</link>
-				  <link>https://jpt.cicirello.org/api</link>
-			  </links>
-			  <bottom><![CDATA[Copyright &copy; 2002-2020 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
-        </configuration>
-      </plugin>
-    </plugins>
-  </reporting>
-  
-   
-	<repositories>
-		<repository>
-          <id>github</id>
-          <name>GitHub cicirello Apache Maven Packages</name>
-          <url>https://maven.pkg.github.com/cicirello/JavaPermutationTools</url>
-		  <releases><enabled>true</enabled></releases>
-		  <snapshots><enabled>true</enabled></snapshots>
-        </repository>
-	</repositories>
-   
-   
-	
-	
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<reportOutputDirectory>${project.basedir}/docs/api</reportOutputDirectory>
+					<destDir>api</destDir>
+					<outputDirectory>${project.basedir}/docs/api</outputDirectory>
+					<windowtitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</windowtitle>
+					<doctitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</doctitle>
+					<author>false</author>
+					<version>false</version>
+					<overview>${project.build.sourceDirectory}/overview.html</overview>
+					<notimestamp>true</notimestamp>
+					<links>
+						<link>https://docs.oracle.com/javase/8/docs/api</link>
+						<link>https://jpt.cicirello.org/api</link>
+					</links>
+					<bottom><![CDATA[Copyright &copy; 2002-2020 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 </project>

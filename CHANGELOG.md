@@ -6,10 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2020-09-16
 
-The next release will be a new major release, 2.0.0, due to incompatible interface changes within the
-org.cicirello.search.ss package.  Code that doesn't depend upon any of the stochastic sampling search
-algorithm implementations should be unaffected by these changes, and in those cases should be safe to
-simply upgrade to this new version without need to change anything in dependent code.
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+
+
+## [2.0.0] - 2020-09-16
+
+First release available through Maven Central. New major release, 2.0.0, due 
+to incompatible interface changes within the org.cicirello.search.ss package. Code 
+that doesn't depend upon any of the stochastic sampling search algorithm 
+implementations should be unaffected by these changes, and in those cases should 
+be safe to simply upgrade to this new version without need to change anything in 
+dependent code.
 
 ### Added
 * An interface Partial to enable generalizing the various stochastic sampling search algorithms from optimizing the space of permutations to more general types.
@@ -25,13 +41,6 @@ simply upgrade to this new version without need to change anything in dependent 
 * Renamed ConstructiveHeuristic.completePermutationLength to ConstructiveHeuristic.completeLength to be more general.
 * Minor edits to the example program SchedulingWithVBSS related to other changes (added missing type parameter to construction of the ValueBiasedStochasticSampling instance to avoid compiler warning).
 * Workflows and pom.xml to enable publishing to both Maven Central as well as Github Packages
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
 
 
 ## [1.4.0] - 2020-08-18

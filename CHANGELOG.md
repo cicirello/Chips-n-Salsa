@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-09-9
+## [Unreleased] - 2020-09-16
 
 The next release will be a new major release, 2.0.0, due to incompatible interface changes within the
 org.cicirello.search.ss package.  Code that doesn't depend upon any of the stochastic sampling search
@@ -24,6 +24,7 @@ simply upgrade to this new version without need to change anything in dependent 
 * All of the scheduling heuristics were modified based on interface changes.
 * Renamed ConstructiveHeuristic.completePermutationLength to ConstructiveHeuristic.completeLength to be more general.
 * Minor edits to the example program SchedulingWithVBSS related to other changes (added missing type parameter to construction of the ValueBiasedStochasticSampling instance to avoid compiler warning).
+* Workflows and pom.xml to enable publishing to both Maven Central as well as Github Packages
 
 ### Deprecated
 

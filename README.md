@@ -76,23 +76,32 @@ will be in the exbin directory.  See [examples/README.md](examples/README.md) fo
 
 ## Versioning Scheme
 
-Chips-n-Salsa uses [Semantic Versioning](https://semver.org/) with version numbers of the form: MAJOR.MINOR.PATCH,
-where differences in MAJOR correspond to incompatible API changes, differences in MINOR correspond to introduction
-of backwards compatible new functionality, and PATCH corresponds to backwards compatible bug fixes. 
+Chips-n-Salsa uses [Semantic Versioning](https://semver.org/) with 
+version numbers of the form: MAJOR.MINOR.PATCH, where differences 
+in MAJOR correspond to incompatible API changes, differences in MINOR 
+correspond to introduction of backwards compatible new functionality, 
+and PATCH corresponds to backwards compatible bug fixes. 
 
-## Importing the Library Into a Project Using Maven
+## Importing the Library from Maven Central
 
-__Step 1__: Add this to the dependencies section of your pom.xml, replacing the version number with the version you want to use.
+Add this to the dependencies section of your pom.xml, replacing 
+the version number with the version that you want to use (note that the 
+library has been available in Maven Central since version 2.0.0).
 
 ```XML
 <dependency>
   <groupId>org.cicirello</groupId>
   <artifactId>chips-n-salsa</artifactId>
-  <version>1.1.0</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
-__Step 2__: Add this to the repositories section of your pom.xml.
+## Importing the Library from GitHub Packages
+
+If you'd prefer to import from GitHub Packages, rather than Maven Central, or
+if you need a version that is unavailable in Maven Central (versions prior to 2.0.0),
+then: (1) add the dependency as indicated in previous section above, and (2) add 
+the following to the repositories section of your pom.xml:
 
 ```XML
 <repository>
@@ -104,16 +113,13 @@ __Step 2__: Add this to the repositories section of your pom.xml.
 </repository>
 ```
 
-__Step 3__: Run this via the command line.
-
-```
-$ mvn install
-```
-
 ## License
 
 The Chips-n-Salsa library is licensed under the [GNU General Public License 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
 ## Contribute
 
-If you would like to contribute to Chips-n-Salsa in any way, such as reporting bugs, suggesting new functionality, or code contributions such as bug fixes or implementations of new functionality, then start by reading the [contribution guidelines](CONTRIBUTING.md).
+If you would like to contribute to Chips-n-Salsa in any way, such 
+as reporting bugs, suggesting new functionality, or code contributions 
+such as bug fixes or implementations of new functionality, then start 
+by reading the [contribution guidelines](CONTRIBUTING.md).

@@ -23,6 +23,10 @@ package org.cicirello.search.problems.scheduling;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 import java.util.SplittableRandom;
+import java.util.Scanner;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 /**
  * <p>This class provides a representation of, and means of generating,
@@ -106,7 +110,7 @@ import java.util.SplittableRandom;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.14.2020
+ * @version 9.17.2020
  */
 public final class WeightedStaticSchedulingWithSetups implements SingleMachineSchedulingProblemData {
 	
@@ -197,6 +201,34 @@ public final class WeightedStaticSchedulingWithSetups implements SingleMachineSc
 		this(n, tau, r, eta, new SplittableRandom());
 	}
 	
+	/**
+	 * <p>Constructs a single machine scheduling problem instance by parsing
+	 * an instance data file that follows the format specified in the following
+	 * paper, with instances available at the following link:</p>
+	 * <ul>
+	 * <li>Vincent A. Cicirello. 
+	 * <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted 
+	 * Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
+	 * Technical Report, Intelligent Coordination and Logistics Laboratory, Robotics 
+	 * Institute, Carnegie Mellon University, Pittsburgh, PA, February 2003.</li>
+	 * <li>Vincent A. Cicirello.
+	 * <a href="http://dx.doi.org/10.7910/DVN/VHA0VQ">Weighted 
+	 * Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
+	 * Harvard Dataverse, doi:10.7910/DVN/VHA0VQ, June 2016.</li>
+	 * </ul>
+	 * <p>Note that the paper above describes a weighted tardiness scheduling
+	 * problem, but the instance data (process and setup times, weights, duedates)
+	 * can also be used with other scheduling objective functions</p>
+	 *
+	 * @param filename The name of the data instance file, with path.
+	 * @throws FileNotFoundException if the named file does not exist, is a 
+	 * directory rather than a regular file, or for some other reason cannot 
+	 * be opened for reading
+	 */
+	public WeightedStaticSchedulingWithSetups(String filename) throws FileNotFoundException {
+		this(new FileReader(filename));
+	}
+	
 	private WeightedStaticSchedulingWithSetups(int n, double tau, double r, double eta, SplittableRandom rand) {
 		if (n <= 0) throw new IllegalArgumentException("n must be positive");
 		if (tau < 0.0 || tau > 1.0) throw new IllegalArgumentException("tau must be in [0.0, 1.0]");
@@ -243,6 +275,49 @@ public final class WeightedStaticSchedulingWithSetups implements SingleMachineSc
 				}
 			} 
 		}
+	}
+	
+	/*
+	 * Parser for benchmark scheduling instance data files that is described in:
+	 * Vincent A. Cicirello (2003). "Weighted Tardiness Scheduling with 
+	 * Sequence-Dependent Setups: A Benchmark Library". Technical Report, 
+	 * Intelligent Coordination and Logistics Laboratory, Robotics Institute, 
+	 * Carnegie Mellon University, Pittsburgh, PA, February 2003.
+	 *
+	 * Some instance files can be found at: https://www.cicirello.org/datasets/wtsds/
+	 * And also at: http://dx.doi.org/10.7910/DVN/VHA0VQ
+	 *
+	 * package-private to ease unit testing
+	 */
+	WeightedStaticSchedulingWithSetups(Readable file) {
+		Scanner in = new Scanner(file);
+		while (!in.next().equals("Size:"));
+		final int n = in.nextInt();
+		duedates = new int[n];
+		weights = new int[n];
+		process = new int[n];
+		setups = new int[n][n];
+		while (!in.nextLine().equals("Process Times:"));
+		for (int i = 0; i < n; i++) {
+			process[i] = in.nextInt();
+		}
+		while (!in.hasNextInt()) in.next();
+		for (int i = 0; i < n; i++) {
+			weights[i] = in.nextInt();
+		}
+		while (!in.hasNextInt()) in.next();
+		for (int i = 0; i < n; i++) {
+			duedates[i] = in.nextInt();
+		}
+		while (!in.hasNextInt()) in.next();
+		while (in.hasNextInt()) {
+			int i = in.nextInt();
+			int j = in.nextInt();
+			int setup = in.nextInt();
+			if (i == -1) i = j;
+			setups[i][j] = setup;
+		}
+		in.close();
 	}
 	
 	@Override
@@ -305,5 +380,93 @@ public final class WeightedStaticSchedulingWithSetups implements SingleMachineSc
 	@Override
 	public boolean hasSetupTimes() {
 		return true;
+	}
+	
+	/**
+	 * <p>Outputs a description of the instance data in the format
+	 * based on that described in:</p>
+	 * <p>Vincent A. Cicirello. 
+	 * <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted 
+	 * Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
+	 * Technical Report, Intelligent Coordination and Logistics Laboratory, Robotics 
+	 * Institute, Carnegie Mellon University, Pittsburgh, PA, February 2003.</p>
+	 * <p>The data as output by this method varies from that format in that it
+	 * does not output the "Generator Parameters" section.  Instead, it has the
+	 * "Begin Generator Parameters" and the "End Generator Parameters" block markers,
+	 * but an empty block.  The constructor of this class that takes an instance data
+	 * file as input can correctly parse both the original and this modified format.</p>
+	 * <p>This method will output a -1 for the problem instance number. If you wish
+	 * to have meaningful problem instance numbers, use the version of the method that
+	 * includes a parameter for this.</p>
+	 *
+	 * @param filename The name of a file for the output.
+	 * @throws FileNotFoundException If the given string does not denote 
+	 * an existing, writable regular file and a new regular file of that name 
+	 * cannot be created, or if some other error occurs while opening or creating the file
+	 */
+	public void toFile(String filename) throws FileNotFoundException {
+		toFile(filename, -1);
+	}
+	
+	/**
+	 * <p>Outputs a description of the instance data in the format
+	 * based on that described in:</p>
+	 * <p>Vincent A. Cicirello. 
+	 * <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted 
+	 * Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
+	 * Technical Report, Intelligent Coordination and Logistics Laboratory, Robotics 
+	 * Institute, Carnegie Mellon University, Pittsburgh, PA, February 2003.</p>
+	 * <p>The data as output by this method varies from that format in that it
+	 * does not output the "Generator Parameters" section.  Instead, it has the
+	 * "Begin Generator Parameters" and the "End Generator Parameters" block markers,
+	 * but an empty block.  The constructor of this class that takes an instance data
+	 * file as input can correctly parse both the original and this modified format.</p>
+	 *
+	 * @param filename The name of a file for the output.
+	 * @param instanceNumber An id for the problem instance.
+	 * @throws FileNotFoundException If the given string does not denote 
+	 * an existing, writable regular file and a new regular file of that name 
+	 * cannot be created, or if some other error occurs while opening or creating the file
+	 */
+	public void toFile(String filename, int instanceNumber) throws FileNotFoundException {
+		PrintWriter out = new PrintWriter(filename);
+		toFile(out, instanceNumber);
+		out.close();
+	}
+	
+	/*
+	 * package-private to ease unit testing
+	 */
+	void toFile(PrintWriter out, int instanceNumber) {
+		out.print("Problem Instance: ");
+		out.println(instanceNumber);
+		out.print("Problem Size: ");
+		out.println(numberOfJobs());
+		out.println("Begin Generator Parameters");
+		out.println("End Generator Parameters");
+		out.println("Begin Problem Specification");
+		out.println("Process Times:");
+		for (int p : process) {
+			out.println(p);
+		}
+		out.println("Weights:");
+		for (int w : weights) {
+			out.println(w);
+		}
+		out.println("Duedates:");
+		for (int d : duedates) {
+			out.println(d);
+		}
+		out.println("Setup Times:");
+		for (int i = 0; i < setups.length; i++) {
+			for (int j = 0; j < setups[i].length; j++) {
+				if (i == j) {
+					out.printf("%d %d %d\n", -1, j, setups[i][j]);
+				} else {
+					out.printf("%d %d %d\n", i, j, setups[i][j]);
+				}				
+			}
+		}
+		out.println("End Problem Specification");
 	}
 }

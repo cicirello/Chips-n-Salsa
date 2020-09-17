@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -271,6 +271,13 @@ implements <a href="../../../../../org/cicirello/search/problems/scheduling/Sing
 <div class="block">Generates random single machine scheduling problem instances.</div>
 </td>
 </tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html#WeightedStaticSchedulingWithSetups-java.lang.String-">WeightedStaticSchedulingWithSetups</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;filename)</code>
+<div class="block">Constructs a single machine scheduling problem instance by parsing
+ an instance data file that follows the format specified in the following
+ paper, with instances available at the following link:</div>
+</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -352,6 +359,21 @@ implements <a href="../../../../../org/cicirello/search/problems/scheduling/Sing
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html#numberOfJobs--">numberOfJobs</a></span>()</code>
 <div class="block">Gets the number of jobs of this scheduling problem instance.</div>
+</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html#toFile-java.lang.String-">toFile</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;filename)</code>
+<div class="block">Outputs a description of the instance data in the format
+ based on that described in:</div>
+</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html#toFile-java.lang.String-int-">toFile</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;filename,
+      int&nbsp;instanceNumber)</code>
+<div class="block">Outputs a description of the instance data in the format
+ based on that described in:</div>
 </td>
 </tr>
 </table>
@@ -511,7 +533,7 @@ implements <a href="../../../../../org/cicirello/search/problems/scheduling/Sing
 <a name="WeightedStaticSchedulingWithSetups-int-double-double-double-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>WeightedStaticSchedulingWithSetups</h4>
 <pre>public&nbsp;WeightedStaticSchedulingWithSetups(int&nbsp;n,
@@ -533,6 +555,41 @@ implements <a href="../../../../../org/cicirello/search/problems/scheduling/Sing
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if n is not positive, or if any of tau, eta, or r are not in 
  the interval [0.0, 1.0].</dd>
+</dl>
+</li>
+</ul>
+<a name="WeightedStaticSchedulingWithSetups-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>WeightedStaticSchedulingWithSetups</h4>
+<pre>public&nbsp;WeightedStaticSchedulingWithSetups(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;filename)
+                                   throws <a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileNotFoundException.html?is-external=true" title="class or interface in java.io">FileNotFoundException</a></pre>
+<div class="block"><p>Constructs a single machine scheduling problem instance by parsing
+ an instance data file that follows the format specified in the following
+ paper, with instances available at the following link:</p>
+ <ul>
+ <li>Vincent A. Cicirello. 
+ <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted 
+ Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
+ Technical Report, Intelligent Coordination and Logistics Laboratory, Robotics 
+ Institute, Carnegie Mellon University, Pittsburgh, PA, February 2003.</li>
+ <li>Vincent A. Cicirello.
+ <a href="http://dx.doi.org/10.7910/DVN/VHA0VQ">Weighted 
+ Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
+ Harvard Dataverse, doi:10.7910/DVN/VHA0VQ, June 2016.</li>
+ </ul>
+ <p>Note that the paper above describes a weighted tardiness scheduling
+ problem, but the instance data (process and setup times, weights, duedates)
+ can also be used with other scheduling objective functions</p></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>filename</code> - The name of the data instance file, with path.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileNotFoundException.html?is-external=true" title="class or interface in java.io">FileNotFoundException</a></code> - if the named file does not exist, is a 
+ directory rather than a regular file, or for some other reason cannot 
+ be opened for reading</dd>
 </dl>
 </li>
 </ul>
@@ -751,7 +808,7 @@ implements <a href="../../../../../org/cicirello/search/problems/scheduling/Sing
 <a name="hasSetupTimes--">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>hasSetupTimes</h4>
 <pre>public&nbsp;boolean&nbsp;hasSetupTimes()</pre>
@@ -762,6 +819,71 @@ implements <a href="../../../../../org/cicirello/search/problems/scheduling/Sing
 <dd><code><a href="../../../../../org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#hasSetupTimes--">hasSetupTimes</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true iff setup times are present.</dd>
+</dl>
+</li>
+</ul>
+<a name="toFile-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toFile</h4>
+<pre>public&nbsp;void&nbsp;toFile(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;filename)
+            throws <a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileNotFoundException.html?is-external=true" title="class or interface in java.io">FileNotFoundException</a></pre>
+<div class="block"><p>Outputs a description of the instance data in the format
+ based on that described in:</p>
+ <p>Vincent A. Cicirello. 
+ <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted 
+ Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
+ Technical Report, Intelligent Coordination and Logistics Laboratory, Robotics 
+ Institute, Carnegie Mellon University, Pittsburgh, PA, February 2003.</p>
+ <p>The data as output by this method varies from that format in that it
+ does not output the "Generator Parameters" section.  Instead, it has the
+ "Begin Generator Parameters" and the "End Generator Parameters" block markers,
+ but an empty block.  The constructor of this class that takes an instance data
+ file as input can correctly parse both the original and this modified format.</p>
+ <p>This method will output a -1 for the problem instance number. If you wish
+ to have meaningful problem instance numbers, use the version of the method that
+ includes a parameter for this.</p></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>filename</code> - The name of a file for the output.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileNotFoundException.html?is-external=true" title="class or interface in java.io">FileNotFoundException</a></code> - If the given string does not denote 
+ an existing, writable regular file and a new regular file of that name 
+ cannot be created, or if some other error occurs while opening or creating the file</dd>
+</dl>
+</li>
+</ul>
+<a name="toFile-java.lang.String-int-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toFile</h4>
+<pre>public&nbsp;void&nbsp;toFile(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;filename,
+                   int&nbsp;instanceNumber)
+            throws <a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileNotFoundException.html?is-external=true" title="class or interface in java.io">FileNotFoundException</a></pre>
+<div class="block"><p>Outputs a description of the instance data in the format
+ based on that described in:</p>
+ <p>Vincent A. Cicirello. 
+ <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted 
+ Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
+ Technical Report, Intelligent Coordination and Logistics Laboratory, Robotics 
+ Institute, Carnegie Mellon University, Pittsburgh, PA, February 2003.</p>
+ <p>The data as output by this method varies from that format in that it
+ does not output the "Generator Parameters" section.  Instead, it has the
+ "Begin Generator Parameters" and the "End Generator Parameters" block markers,
+ but an empty block.  The constructor of this class that takes an instance data
+ file as input can correctly parse both the original and this modified format.</p></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>filename</code> - The name of a file for the output.</dd>
+<dd><code>instanceNumber</code> - An id for the problem instance.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/io/FileNotFoundException.html?is-external=true" title="class or interface in java.io">FileNotFoundException</a></code> - If the given string does not denote 
+ an existing, writable regular file and a new regular file of that name 
+ cannot be created, or if some other error occurs while opening or creating the file</dd>
 </dl>
 </li>
 </ul>

@@ -23,11 +23,74 @@ package org.cicirello.search.problems.scheduling;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.cicirello.permutations.Permutation;
+import java.io.StringWriter;
+import java.io.StringReader;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 /**
  * JUnit tests for the WeightedStaticSchedulingWithSetups class.
  */
 public class WeightedStaticSetupsTests {
+	
+	@Test
+	public void testReadWriteInstanceData() {
+		double[] tau = {0.0, 0.5, 1.0};
+		double[] r = {0.0, 0.5, 1.0};
+		double[] eta = {0.0, 0.5, 1.0};
+		int instance = 0;
+		for (int n = 1; n <= 5; n++) {
+			for (int i = 0; i < tau.length; i++) {
+				for (int j = 0; j < r.length; j++) {
+					for (int k = 0; k < eta.length; k++) {
+						WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
+						StringWriter sOut = new StringWriter();
+						PrintWriter out = new PrintWriter(sOut);
+						s.toFile(out, instance);
+						WeightedStaticSchedulingWithSetups s2 = new WeightedStaticSchedulingWithSetups(new StringReader(sOut.toString()));
+						assertEquals(s.numberOfJobs(), s2.numberOfJobs());
+						for (int job = 0; job < n; job++) {
+							assertEquals(s.getProcessingTime(job), s2.getProcessingTime(job));
+							assertEquals(s.getDueDate(job), s2.getDueDate(job));
+							assertEquals(s.getWeight(job), s2.getWeight(job));
+							assertEquals(s.getSetupTime(job), s2.getSetupTime(job));
+							for (int job2 = 0; job2 < n; job2++) {
+								assertEquals(s.getSetupTime(job, job2), s2.getSetupTime(job, job2));
+							}
+						}
+						Scanner scan = new Scanner(sOut.toString());
+						String line = scan.nextLine();
+						Scanner lineScanner = new Scanner(line);
+						assertEquals("Problem", lineScanner.next());
+						assertEquals("Instance:", lineScanner.next());
+						assertEquals("Instance number", instance, lineScanner.nextInt());
+						lineScanner.close();
+						line = scan.nextLine();
+						lineScanner = new Scanner(line);
+						assertEquals("Problem", lineScanner.next());
+						assertEquals("Size:", lineScanner.next());
+						assertEquals("Number of jobs", n, lineScanner.nextInt());
+						lineScanner.close();
+						assertEquals("Begin Generator Parameters", scan.nextLine());
+						assertEquals("End Generator Parameters", scan.nextLine());
+						assertEquals("Begin Problem Specification", scan.nextLine());
+						assertEquals("Process Times:", scan.nextLine());
+						for (int x = 0; x < n; x++) scan.nextLine();
+						assertEquals("Weights:", scan.nextLine());
+						for (int x = 0; x < n; x++) scan.nextLine();
+						assertEquals("Duedates:", scan.nextLine());
+						for (int x = 0; x < n; x++) scan.nextLine();
+						assertEquals("Setup Times:", scan.nextLine());
+						int n2 = n*n;
+						for (int x = 0; x < n2; x++) scan.nextLine();
+						assertEquals("End Problem Specification", scan.nextLine());
+						scan.close();
+						instance++;
+					}
+				}
+			}
+		}
+	}
 	
 	@Test
 	public void testCorrectNumJobs() {

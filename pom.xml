@@ -195,6 +195,15 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<version>3.2.1</version>
 				<executions>
@@ -219,6 +228,7 @@
 					</execution>
 				</executions>
 				<configuration>
+					<source>1.8</source>
 					<windowtitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</windowtitle>
 					<doctitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</doctitle>
 					<author>false</author>
@@ -275,6 +285,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.2.0</version>
 				<configuration>
+					<source>1.8</source>
 					<reportOutputDirectory>${project.basedir}/docs/api</reportOutputDirectory>
 					<destDir>api</destDir>
 					<outputDirectory>${project.basedir}/docs/api</outputDirectory>

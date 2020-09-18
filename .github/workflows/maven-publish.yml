@@ -19,10 +19,10 @@ jobs:
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
 
-    - name: Set up JDK 1.8 for deploy to OSSRH
+    - name: Set up JDK 11 for deploy to OSSRH
       uses: actions/setup-java@v1
       with:
-        java-version: 1.8
+        java-version: 1.11
         server-id: ossrh 
         server-username: MAVEN_USERNAME
         server-password: MAVEN_CENTRAL_TOKEN
@@ -42,10 +42,10 @@ jobs:
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}		
 
-    - name: Set up JDK 1.8 for deploy to github packages
+    - name: Set up JDK 11 for deploy to github packages
       uses: actions/setup-java@v1
       with:
-        java-version: 1.8
+        java-version: 1.11
         server-id: github 
 
     - name: Publish to GitHub Packages Apache Maven

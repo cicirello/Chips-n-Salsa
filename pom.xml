@@ -222,7 +222,7 @@
 					<source>8</source>
 					<additionalJOptions>
 						<additionalJOption>--no-module-directories</additionalJOption>
-						<additionalJOption>-source=8</additionalJOption>
+						<additionalJOption>--release=8</additionalJOption>
 					</additionalJOptions>
 					<windowtitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</windowtitle>
 					<doctitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</doctitle>
@@ -283,7 +283,7 @@
 					<source>8</source>
 					<additionalJOptions>
 						<additionalJOption>--no-module-directories</additionalJOption>
-						<additionalJOption>-source=8</additionalJOption>
+						<additionalJOption>--release=8</additionalJOption>
 					</additionalJOptions>
 					<reportOutputDirectory>${project.basedir}/docs/api</reportOutputDirectory>
 					<destDir>api</destDir>

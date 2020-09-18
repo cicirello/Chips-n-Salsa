@@ -121,7 +121,7 @@
 			overview="src/overview.html"
 			author="false"
 			version="false"
-			additionalparam="-notimestamp"
+			additionalparam="-notimestamp --no-module-directories"
 			source="${JDKVERSION}">
 		<classpath>
 			<pathelement path="${lib}/jpt2.jar"/>

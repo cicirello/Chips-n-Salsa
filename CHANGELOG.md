@@ -4,7 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-09-17
+## [Unreleased] - 2020-09-18
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+
+## [2.1.0] - 2020-09-18
 
 ### Added
 * Parser for benchmark scheduling instance data files for single machine scheduling problems with weights, duedates, and sequence-dependent setup times.
@@ -12,12 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Revised README to include instructions for importing from Maven Central
 * API documentation website (https://chips-n-salsa.cicirello.org) updated to html5
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 
 

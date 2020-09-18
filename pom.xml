@@ -135,7 +135,7 @@
 				<repository>
 					<id>github</id>
 					<name>GitHub cicirello Apache Maven Packages</name>
-					<url>https://maven.pkg.github.com/cicirello/Chips-n-Salsa</url>
+					<url>https://maven.pkg.github.com/cicirello</url>
 				</repository>
 			</distributionManagement>
 		</profile>

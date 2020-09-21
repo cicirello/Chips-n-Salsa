@@ -9,7 +9,7 @@
 
 	<target name="init">
 		<!-- Create the time stamp -->
-		<tstamp/>
+		<!-- tstamp -->
 		<!-- Create the test directory structure-->
 		<mkdir dir="${docdir}"/>
 	</target>
@@ -41,7 +41,7 @@
   
 	<target name="clean" description="clean up">
 		<delete includeEmptyDirs="true">
-			<fileset dir="${docdir}" includes="**/*" defaultexcludes="no" />
+			<fileset dir="${docdir}" includes="**/*" />
 		</delete>
 	</target>
   

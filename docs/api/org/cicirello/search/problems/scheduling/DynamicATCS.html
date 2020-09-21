@@ -61,30 +61,6 @@ loadScripts(document, 'script');</script>
 </ul>
 </div>
 <div class="subNav">
-<ul class="navList" id="allclasses_navbar_top">
-<li><a href="../../../../../allclasses.html">All&nbsp;Classes</a></li>
-</ul>
-<ul class="navListSearch">
-<li><label for="search">SEARCH:</label>
-<input type="text" id="search" value="search" disabled="disabled">
-<input type="reset" id="reset" value="reset" disabled="disabled">
-</li>
-</ul>
-<div>
-<script type="text/javascript"><!--
-  allClassesLink = document.getElementById("allclasses_navbar_top");
-  if(window==top) {
-    allClassesLink.style.display = "block";
-  }
-  else {
-    allClassesLink.style.display = "none";
-  }
-  //-->
-</script>
-<noscript>
-<div>JavaScript is disabled on your browser.</div>
-</noscript>
-</div>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
@@ -100,9 +76,16 @@ loadScripts(document, 'script');</script>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
+<ul class="navListSearch">
+<li><label for="search">SEARCH:</label>
+<input type="text" id="search" value="search" disabled="disabled">
+<input type="reset" id="reset" value="reset" disabled="disabled">
+</li>
+</ul>
+</div>
 <a id="skip.navbar.top">
 <!--   -->
-</a></div>
+</a>
 <!-- ========= END OF TOP NAVBAR ========= -->
 </div>
 <div class="navPadding">&nbsp;</div>
@@ -178,13 +161,15 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
 <!--   -->
 </a>
 <h3>Field Summary</h3>
-<table class="memberSummary">
+<div class="memberSummary">
+<table>
 <caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Field</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
+<tbody>
 <tr class="altColor">
 <td class="colFirst"><code>static double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#MIN_H">MIN_H</a></span></code></th>
@@ -192,7 +177,9 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
 <div class="block">The minimum heuristic value.</div>
 </td>
 </tr>
+</tbody>
 </table>
+</div>
 </li>
 </ul>
 </section>
@@ -203,12 +190,14 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
 <!--   -->
 </a>
 <h3>Constructor Summary</h3>
-<table class="memberSummary">
+<div class="memberSummary">
+<table>
 <caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Constructor</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
+<tbody>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblem)">DynamicATCS</a></span>&#8203;(<a href="SingleMachineSchedulingProblem.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblem</a>&nbsp;problem)</code></th>
 <td class="colLast">
@@ -223,7 +212,9 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
 <div class="block">Constructs an DynamicATCS heuristic.</div>
 </td>
 </tr>
+</tbody>
 </table>
+</div>
 </li>
 </ul>
 </section>
@@ -234,14 +225,17 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
 <!--   -->
 </a>
 <h3>Method Summary</h3>
-<table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<div class="memberSummary">
+<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="tableTab" onclick="show(8);">Concrete Methods</button></div>
+<div id="memberSummary_tabpanel" role="tabpanel">
+<table aria-labelledby="t0">
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
-<tr id="i0" class="altColor">
+<tbody>
+<tr class="altColor" id="i0">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#completeLength()">completeLength</a></span>()</code></th>
 <td class="colLast">
@@ -250,7 +244,7 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
  is configured.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr class="rowColor" id="i1">
 <td class="colFirst"><code><a href="../../ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations" class="externalLink">Permutation</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createIncrementalEvaluation()">createIncrementalEvaluation</a></span>()</code></th>
 <td class="colLast">
@@ -259,7 +253,7 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
  to the problem for which this heuristic is designed.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr class="altColor" id="i2">
 <td class="colFirst"><code><a href="../../ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations" class="externalLink">Permutation</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createPartial(int)">createPartial</a></span>&#8203;(int&nbsp;n)</code></th>
 <td class="colLast">
@@ -267,7 +261,7 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
  transformed into a complete solution of a specified length.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code><a href="../Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations" class="externalLink">Permutation</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getProblem()">getProblem</a></span>()</code></th>
 <td class="colLast">
@@ -275,7 +269,7 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
  that is the subject of this heuristic.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)">h</a></span>&#8203;(<a href="../../ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations" class="externalLink">Permutation</a>&gt;&nbsp;p,
  int&nbsp;element,
@@ -285,7 +279,10 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
  end of a Partial.</div>
 </td>
 </tr>
+</tbody>
 </table>
+</div>
+</div>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
@@ -543,24 +540,6 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
 </ul>
 </div>
 <div class="subNav">
-<ul class="navList" id="allclasses_navbar_bottom">
-<li><a href="../../../../../allclasses.html">All&nbsp;Classes</a></li>
-</ul>
-<div>
-<script type="text/javascript"><!--
-  allClassesLink = document.getElementById("allclasses_navbar_bottom");
-  if(window==top) {
-    allClassesLink.style.display = "block";
-  }
-  else {
-    allClassesLink.style.display = "none";
-  }
-  //-->
-</script>
-<noscript>
-<div>JavaScript is disabled on your browser.</div>
-</noscript>
-</div>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
@@ -576,9 +555,10 @@ extends <a href="WeightedShortestProcessingTime.html" title="class in org.cicire
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
+</div>
 <a id="skip.navbar.bottom">
 <!--   -->
-</a></div>
+</a>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 </nav>
 <p class="legalCopy"><small>Copyright &copy; 2002-2020 Vincent A. Cicirello. <a href=\"https://www.cicirello.org/\" target=_top>https://www.cicirello.org/</a></small></p>

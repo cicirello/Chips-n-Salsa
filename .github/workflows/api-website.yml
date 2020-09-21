@@ -2,29 +2,49 @@ name: Generate API sitemap
 
 on:
   push:
-    branches:
-      - development
+    branches: [ development ]
 
 jobs:
-  sitemap_job:
+  docs:
     runs-on: ubuntu-latest
-    name: Generate a sitemap
     steps:
     - name: Checkout the repo
       uses: actions/checkout@v2
       with:
         fetch-depth: 0 
+    
+    - name: Set up JDK 1.11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.11
+    
+    - name: Clean the docs
+      run: ant -noinput -buildfile build/builddocs.xml clean
+    
+    - name: Build with Ant
+      run: ant -noinput -buildfile build/builddocs.xml
+    
+    - name: Commit the changes
+      run: |
+        git config --global user.name 'Vincent A Cicirello'
+        git config --global user.email 'cicirello@users.noreply.github.com'
+        git add -A
+        git commit -am "Automated API doc updates"
+        git push
+        
     - name: Generate the sitemap
       id: sitemap
       uses: cicirello/generate-sitemap@v1.5.0
       with:
         base-url-path: https://chips-n-salsa.cicirello.org/
         path-to-root: docs
+    
     - name: Output stats
       run: |
         echo "sitemap-path = ${{ steps.sitemap.outputs.sitemap-path }}"
         echo "url-count = ${{ steps.sitemap.outputs.url-count }}"
         echo "excluded-count = ${{ steps.sitemap.outputs.excluded-count }}"
+    
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3.4.0
       with:

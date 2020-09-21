@@ -15,7 +15,6 @@
   <property name="lib" location="lib"/>
   <property name="examples" location="examples"/>
   <property name="examplebin" location="exbin"/>
-  <property name="docdir" location="docs/api"/>
   
   <path id="master-classpath">
 	<pathelement path="${bin}"/>
@@ -46,8 +45,6 @@
     <mkdir dir="${bin}"/>
 	<!-- Create the test directory structure-->
 	<mkdir dir="${testbin}"/>
-	<!-- Create the test directory structure-->
-	<mkdir dir="${docdir}"/>
   </target>
   
   <target name="compile" depends="init"
@@ -111,45 +108,18 @@
 	<classpath refid="master-classpath"/>
 	</javac>
   </target>
-  
-  <target name="docs" depends="compile,test" 
-		description="generates documentation via javadoc">
-	<javadoc destdir="${docdir}"
-			sourcepath="${src}"
-			windowtitle="Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms"
-			doctitle="Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms"
-			overview="src/overview.html"
-			author="false"
-			version="false"
-			additionalparam="-notimestamp --no-module-directories"
-			source="${JDKVERSION}">
-		<classpath>
-			<pathelement path="${lib}/jpt2.jar"/>
-		</classpath>
-		<link href="https://jpt.cicirello.org/api/" packagelistLoc="build/jpt-package-list" offline="true" />
-		<link href="https://docs.oracle.com/javase/8/docs/api/" packagelistLoc="build/java-package-list" offline="true" />
-		<bottom><![CDATA[Copyright &copy; 2002-2020 Vincent A. Cicirello. <a href=\"https://www.cicirello.org/\" target=_top>https://www.cicirello.org/</a>]]></bottom>
-	</javadoc>
+    
+  <target name="all" depends="dist,examples" description="compile everything including example programs and generates library jars">
   </target>
   
-  <target name="all" depends="dist,examples,docs" description="compile everything including example programs and generates library jars">
+  <target name="dev" depends="compile,test" description="compile, and test (no jars or examples)">
   </target>
   
-  <target name="dev" depends="compile,test,docs" description="compile, test, and generate docs (no jars or examples)">
-  </target>
-  
-  <target name="clean" depends="cleandocs"
+  <target name="clean"
         description="clean up">
     <delete dir="${bin}"/>
 	<delete dir="${testbin}"/>
 	<delete dir="${examplebin}"/>
   </target>
   
-	<target name="cleandocs" 
-        description="clean up including docs">
-		<delete includeEmptyDirs="true">
-			<fileset dir="${docdir}" includes="**/*" defaultexcludes="no" />
-		</delete>
-	</target>
-
 </project>

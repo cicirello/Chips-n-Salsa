@@ -33,8 +33,6 @@ import org.cicirello.search.problems.Problem;
  *
  * @param <T> The type of object under optimization.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 6.15.2020

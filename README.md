@@ -9,7 +9,7 @@ Website: https://chips-n-salsa.cicirello.org/
 | __Publications About the Library__ | [![DOI](https://joss.theoj.org/papers/10.21105/joss.02448/status.svg)](https://doi.org/10.21105/joss.02448) |
 | :--- | :--- |
 | __Packages and Releases__ | [![Maven Central](https://img.shields.io/maven-central/v/org.cicirello/chips-n-salsa.svg?label=Maven%20Central)](https://search.maven.org/artifact/org.cicirello/chips-n-salsa) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/Chips-n-Salsa?logo=GitHub)](https://github.com/cicirello/Chips-n-Salsa/releases) [![DOI](https://zenodo.org/badge/273074441.svg)](https://zenodo.org/badge/latestdoi/273074441) |
-| __Source and Build Info__ | [![build](https://github.com/cicirello/Chips-n-Salsa/workflows/build/badge.svg)](https://github.com/cicirello/Chips-n-Salsa/actions?query=workflow%3Abuild) ![docs](https://github.com/cicirello/Chips-n-Salsa/workflows/docs/badge.svg)  [![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE) |
+| __Source and Build Info__ | [![build](https://github.com/cicirello/Chips-n-Salsa/workflows/build/badge.svg)](https://github.com/cicirello/Chips-n-Salsa/actions?query=workflow%3Abuild) [![docs](https://github.com/cicirello/Chips-n-Salsa/workflows/docs/badge.svg)](https://github.com/cicirello/Chips-n-Salsa/actions?query=workflow%3Adocs) [![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE) |
 
 ## How to Cite
 

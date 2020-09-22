@@ -27,7 +27,7 @@ jobs:
     
     - name: Commit documentation changes
       run: |
-        if [ $(git status | grep -c "*.html" || true) == "0" ]; then
+        if [ $(git status | grep -c "**/*.html") == "0" ]; then
           git checkout .
         else
           git config --global user.name 'Vincent A Cicirello'

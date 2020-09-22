@@ -3,7 +3,7 @@ name: docs sitemap
 on:
   push:
     branches: [ development ]
-    paths: [ '**.html' ]
+    paths: [ '**.DISABLED' ]
 
 jobs:
   sitemap: 

@@ -31,7 +31,6 @@ import org.cicirello.util.Copyable;
  * All other methods are non-blocking.
  *
  * @param <T> The type of object the search is optimizing.
- * @since 1.0
  *
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 

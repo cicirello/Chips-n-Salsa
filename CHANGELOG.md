@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 * Upgraded to JPT 2.2.0.
+* Modifications to API documentation website to improve browsing on mobile web browsers.
 
 ### Deprecated
 

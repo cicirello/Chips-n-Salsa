@@ -3,7 +3,7 @@ name: docs sitemap
 on:
   push:
     branches: [ development ]
-    paths: [ '**.html' ]
+    paths: [ '**.DISABLED' ]
 
 jobs:
   sitemap: 
@@ -16,7 +16,7 @@ jobs:
         
     - name: Generate the sitemap
       id: sitemap
-      uses: cicirello/generate-sitemap@v1.5.0
+      uses: cicirello/generate-sitemap@v1.6.0
       with:
         base-url-path: https://chips-n-salsa.cicirello.org/
         path-to-root: docs

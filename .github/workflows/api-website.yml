@@ -25,6 +25,17 @@ jobs:
     - name: Build docs with Ant
       run: ant -noinput -buildfile build/builddocs.xml
     
+    - name: Tidy up the javadocs
+      id: tidy
+      uses: cicirello/javadoc-cleanup@master
+      with:
+        base-url-path: https://chips-n-salsa.cicirello.org/
+        path-to-root: docs
+    
+    - name: Log javadoc-cleanup output
+      run: |
+        echo "modified-count = ${{ steps.tidy.outputs.modified-count }}"
+    
     - name: Commit documentation changes
       run: |
         if [ $(git status | grep -c "**/*.html") == "0" ]; then

@@ -18,9 +18,6 @@ jobs:
       with:
         java-version: 1.11
     
-    - name: Clean the docs
-      run: ant -noinput -buildfile build/builddocs.xml clean
-    
     - name: Build with Ant
       run: ant -noinput -buildfile build/builddocs.xml
     

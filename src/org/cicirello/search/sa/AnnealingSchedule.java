@@ -28,8 +28,6 @@ import org.cicirello.search.concurrent.Splittable;
  * managing simulated annealing's temperature parameter.  Adaptive annealing schedules
  * may have additional state data to maintain.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 10.4.2019

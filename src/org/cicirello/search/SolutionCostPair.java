@@ -26,8 +26,6 @@ import org.cicirello.util.Copyable;
  * An object of this class encapsulates a solution with its corresponding cost value.
  *
  * @param <T> The type of object the search is optimizing.
- * @since 1.0
- *
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

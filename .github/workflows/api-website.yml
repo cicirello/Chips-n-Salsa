@@ -25,7 +25,7 @@ jobs:
     - name: Build docs with Ant
       run: ant -noinput -buildfile build/builddocs.xml
     
-    -name: Commit documentation changes
+    - name: Commit documentation changes
       run: |
         if [ $(git status | grep -c "*.html" || true) == "0" ]; then
           git checkout .

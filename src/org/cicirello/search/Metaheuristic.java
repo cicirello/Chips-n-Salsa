@@ -57,3 +57,4 @@ public interface Metaheuristic<T extends Copyable<T>> extends TrackableSearch<T>
 	@Override
 	Metaheuristic<T> split();
 }
+

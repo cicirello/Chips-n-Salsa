@@ -108,15 +108,15 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
 	 * @param n The number of jobs in the instance, must be positive.
 	 * @param rdd The relative range of duedates. See the links in the
 	 * class comments for an explanation of this parameter.  Must be in the 
-	 * interval [0.0, 1.0].
+	 * interval (0.0, 1.0].
 	 * @param tf The tardiness factor.  See the links in the
 	 * class comments for an explanation of this parameter.  Must be in the 
 	 * interval [0.0, 1.0].
 	 * @param seed A seed for the random number generator, to enable easily generating the same
 	 * problem instance.  If all parameters, including the seed are the same, then the same instance
 	 * will be generated.
-	 * @throws IllegalArgumentException if n is not positive, or if either of rdd or tf are not in 
-	 * the interval [0.0, 1.0].
+	 * @throws IllegalArgumentException if n is not positive, or rdd &le; 0 or rdd &gt; 1 or
+	 * tf &lt; 0 or tf &gt; 0. 
 	 */
 	public WeightedStaticScheduling(int n, double rdd, double tf, long seed) {
 		this(n, rdd, tf, new SplittableRandom(seed));
@@ -127,12 +127,12 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
 	 * @param n The number of jobs in the instance, must be positive.
 	 * @param rdd The relative range of duedates. See the links in the
 	 * class comments for an explanation of this parameter.  Must be in the 
-	 * interval [0.0, 1.0].
+	 * interval (0.0, 1.0].
 	 * @param tf The tardiness factor.  See the links in the
 	 * class comments for an explanation of this parameter.  Must be in the 
 	 * interval [0.0, 1.0].
-	 * @throws IllegalArgumentException if n is not positive, or if either of rdd or tf are not in 
-	 * the interval [0.0, 1.0].
+	 * @throws IllegalArgumentException if n is not positive, or rdd &le; 0 or rdd &gt; 1 or
+	 * tf &lt; 0 or tf &gt; 0. 
 	 */
 	public WeightedStaticScheduling(int n, double rdd, double tf) {
 		this(n, rdd, tf, new SplittableRandom());
@@ -171,7 +171,7 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
 	
 	private WeightedStaticScheduling(int n, double rdd, double tf, SplittableRandom rand) {
 		if (n <= 0) throw new IllegalArgumentException("n must be positive");
-		if (rdd < 0.0 || rdd > 1.0) throw new IllegalArgumentException("rdd must be in [0.0, 1.0]");
+		if (rdd <= 0.0 || rdd > 1.0) throw new IllegalArgumentException("rdd must be in (0.0, 1.0]");
 		if (tf < 0.0 || tf > 1.0) throw new IllegalArgumentException("tf must be in [0.0, 1.0]");
 		
 		process = new int[n];

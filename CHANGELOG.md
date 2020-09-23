@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2020-09-18
 
 ### Added
+* Instance generator for static scheduling with weights and duedates.
 
 ### Changed
 * Upgraded to JPT 2.2.0.

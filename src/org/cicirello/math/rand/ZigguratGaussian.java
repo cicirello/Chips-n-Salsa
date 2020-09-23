@@ -98,7 +98,6 @@ import java.util.concurrent.ThreadLocalRandom;
  * Generating Gaussian Random Numbers</a>. GSL: GNU Scientific Library. 2005.</li>
  * </ul>
  *
- * 
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 8.16.2019

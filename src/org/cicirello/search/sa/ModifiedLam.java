@@ -53,15 +53,17 @@ import java.util.concurrent.ThreadLocalRandom;
  * while our Java implementation will instead perform only 2 exponentiations and n/2
  * multiplications total across all updates of the target rate.</p>
  *
+ * <p>For a version of the Modified Lam schedule that is the result of a direct
+ * implementation of Swartz's and Boyan's description of the annealing schedule,
+ * see the {@link ModifiedLamOriginal} class.</p>
+ *
  * <p>The {@link #accept} methods of this class use the classic, and most common,
  * Boltzmann distribution for determining whether to accept a neighbor.</p>
  *
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.23.2019
+ * @version 9.24.2020
  */
 public final class ModifiedLam implements AnnealingSchedule {
 	

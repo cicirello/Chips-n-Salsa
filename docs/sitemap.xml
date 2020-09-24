@@ -9,7 +9,7 @@
 <lastmod>2020-09-22T18:34:30+00:00</lastmod>
 </url>
 <url>
-<loc>https://chips-n-salsa.cicirello.org/api/allclasses-</loc>
+<loc>https://chips-n-salsa.cicirello.org/api/allclasses-index.html</loc>
 <lastmod>2020-09-23T19:22:29+00:00</lastmod>
 </url>
 <url>
@@ -17,7 +17,7 @@
 <lastmod>2020-09-23T19:22:29+00:00</lastmod>
 </url>
 <url>
-<loc>https://chips-n-salsa.cicirello.org/api/allpackages-</loc>
+<loc>https://chips-n-salsa.cicirello.org/api/allpackages-index.html</loc>
 <lastmod>2020-09-22T18:34:30+00:00</lastmod>
 </url>
 <url>
@@ -102,7 +102,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/ParallelMultistarter.html</loc>
-<lastmod>2020-09-22T18:34:30+00:00</lastmod>
+<lastmod>2020-09-24T14:35:27+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/ParallelReoptimizableMultistarter.html</loc>
@@ -698,7 +698,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html</loc>
-<lastmod></lastmod>
+<lastmod>2020-09-23T19:22:30+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html</loc>

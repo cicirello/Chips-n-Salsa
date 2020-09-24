@@ -43,12 +43,13 @@ jobs:
         else
           git config --global user.name 'Vincent A Cicirello'
           git config --global user.email 'cicirello@users.noreply.github.com'
-          git commit -am "Automated API website updates."
+          git add -A
+          git commit -m "Automated API website updates."
         fi
 
     - name: Generate the sitemap
       id: sitemap
-      uses: cicirello/generate-sitemap@v1.6.0
+      uses: cicirello/generate-sitemap@v1.6.1
       with:
         base-url-path: https://chips-n-salsa.cicirello.org/
         path-to-root: docs

@@ -4,20 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-09-18
+## [Unreleased] - 2020-09-24
 
 ### Added
-* Instance generator for static scheduling with weights and duedates.
 
 ### Changed
-* Upgraded to JPT 2.2.0.
-* Modifications to API documentation website to improve browsing on mobile web browsers.
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+
+## [2.2.0] - 2020-09-24
+
+### Added
+* ModifiedLamOriginal: This class is a direct implementation of the Modified Lam annealing schedule as originally described by Swartz and Boyan. Introduced to the library to enable comparing with the optimized version already included in the library in the class ModifiedLam.
+* Instance generator for static scheduling with weights and duedates.
+
+### Changed
+* Upgraded dependency to JPT 2.2.0.
+* Modifications to API documentation website to improve browsing on mobile web browsers.
 
 
 ## [2.1.0] - 2020-09-18
@@ -28,7 +36,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Revised README to include instructions for importing from Maven Central
 * API documentation website (https://chips-n-salsa.cicirello.org) updated to html5
-
 
 
 ## [2.0.0] - 2020-09-16

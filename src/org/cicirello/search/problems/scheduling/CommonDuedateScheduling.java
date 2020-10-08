@@ -270,16 +270,6 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
 		in.close();
 	}
 	
-	private void skipInstance(Scanner in) {
-		String line = in.nextLine();
-		Scanner lineScanner = new Scanner(line);
-		int numJobs = lineScanner.nextInt();
-		lineScanner.close();
-		for (int i = 0; i < numJobs; i++) {
-			in.nextLine();
-		}
-	}
-	
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -384,5 +374,15 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
 	@Override
 	public boolean hasEarlyWeights() {
 		return true;
+	}
+	
+	private void skipInstance(Scanner in) {
+		String line = in.nextLine();
+		Scanner lineScanner = new Scanner(line);
+		int numJobs = lineScanner.nextInt();
+		lineScanner.close();
+		for (int i = 0; i < numJobs; i++) {
+			in.nextLine();
+		}
 	}
 }

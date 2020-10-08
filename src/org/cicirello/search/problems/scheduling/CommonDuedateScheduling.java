@@ -23,6 +23,9 @@ package org.cicirello.search.problems.scheduling;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 import java.util.SplittableRandom;
+import java.util.Scanner;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
 
 /**
  * <p>This class represents and generates instances of a common duedate
@@ -118,7 +121,9 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
 	 * where SumOfP is the sum of the processing times of the jobs.
 	 *
 	 * @param n The number of jobs for the instance, n &ge; 0.
-	 * @param h Controls the common duedate for the instance, 0.0 &le; h &le; 1.0.
+	 * @param h Controls the tightness of the 
+	 * common duedate for the instance, as a percentage of the sum of process times,
+	 * 0.0 &le; h &le; 1.0.
 	 *
 	 * @throws IllegalArgumentException if n &lt; 0 or h &lt; 0 or h &gt; 1 
 	 */
@@ -137,7 +142,9 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
 	 * where SumOfP is the sum of the processing times of the jobs.
 	 *
 	 * @param n The number of jobs for the instance, n &ge; 0.
-	 * @param h Controls the common duedate for the instance, 0.0 &le; h &le; 1.0.
+	 * @param h Controls the tightness of the 
+	 * common duedate for the instance, as a percentage of the sum of process times,
+	 * 0.0 &le; h &le; 1.0.
 	 * @param seed The seed for the random number generator.  Specifying a seed enables
 	 * generating the same instance (e.g., same combination of n, h, and seed will lead
 	 * to the same problem instance).
@@ -148,6 +155,51 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
 		this(n, h, new SplittableRandom(seed));
 	}
 	
+	/**
+	 * <p>Constructs a common duedate scheduling problem instance by parsing
+	 * an instance data file that follows the format specified in the
+	 * <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/schinfo.html>OR-Library 
+	 * of J.E. Beasley</a>.
+	 * The <a href=https://github.com/cicirello/scheduling-benchmarks/tree/master/common-due-date>description</a>, 
+	 * along with a set of benchmark instances, is mirrored
+	 * in the following GitHub repository: 
+	 * <a href=https://github.com/cicirello/scheduling-benchmarks>https://github.com/cicirello/scheduling-benchmarks</a></p>
+	 *
+	 * <p>The first line of the file has the number of instances in the file.
+	 * This is then followed by the data for each instance in the following form.
+	 * Number of jobs, n, for the instance on a line by itself. This is then
+	 * followed by n lines, one for each job, where the line consists of 3 integers:
+	 * process time, earliness weight, and tardiness weight.  These are separated by
+	 * whitespace.  Don't assume any specific number of whitespace characters.
+	 * This seems to vary.  Lines may also begin with whitespace.</p>
+	 *
+	 * <p>The h parameter (see documentation of constructors that generate instances)
+	 * is not specified in the file, and each instance in a file can be used to 
+	 * specify multiple benchmark instances with varying degrees of duedate tightness.
+	 * The instances in the OR-Library assume values of h equal to 0.2, 0.4, 0.6, and 0.8
+	 * the OR-Library provides bounds on optimal solutions for those values of h), but
+	 * you can potentially define additional instances using additional values of h.
+	 * The only constraint on h is: 0.0 &le; h &le; 1.0.  It is used to define the
+	 * common duedate for the instance as a percentage of the sum of process times.</p>
+	 *
+	 * @param filename The name of the file containing the instances, with path.
+	 * @param instanceNumber The number of the instance to parse, where the first instance
+	 * is instance 0. The instanceNumber must be less than the number of instances indicated
+	 * by the first line of the file.
+	 * @param h Controls the tightness of the 
+	 * common duedate for the instance, as a percentage of the sum of process times,
+	 * 0.0 &le; h &le; 1.0.
+	 * @throws FileNotFoundException if the named file does not exist, is a 
+	 * directory rather than a regular file, or for some other reason cannot 
+	 * be opened for reading.
+	 * @throws IllegalArgumentException if instanceNumber is negative or greater than or equal to the number
+	 * of instances in the file.
+	 * @throws IllegalArgumentException if h &lt; 0 or h &gt; 1 
+	 */
+	public CommonDuedateScheduling(String filename, int instanceNumber, double h) throws FileNotFoundException {
+		this(new FileReader(filename), instanceNumber, h);
+	}
+		
 	/*
 	 * Generates a random instance of common duedate scheduling according to
 	 * the description of the the instance generator used to generate the instances
@@ -170,6 +222,62 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
 			weights[i] = MIN_TARDINESS_WEIGHT + RandomIndexer.nextInt(T_RANGE, generator);
 		}
 		duedate = (int)(totalP * h);
+	}
+	
+	/*
+	 * Parser for benchmark common duedate scheduling instances from the OR-Library.
+	 *
+	 * package-private to ease unit testing.
+	 *
+	 */
+	CommonDuedateScheduling(Readable file, int instanceNumber, double h) {
+		if (instanceNumber < 0) throw new IllegalArgumentException("instanceNumber must be nonnegative");
+		if (h < 0 || h > 1) throw new IllegalArgumentException("h must be in [0.0, 1.0]");
+		Scanner in = new Scanner(file);
+		
+		String line = in.nextLine();
+		Scanner lineScanner = new Scanner(line);
+		int numInstances = lineScanner.nextInt();
+		lineScanner.close();
+		if (instanceNumber >= numInstances) {
+			in.close();
+			throw new IllegalArgumentException("instanceNumber is too high.");
+		}
+		
+		for (int i = 0; i < instanceNumber; i++) {
+			skipInstance(in);
+		}
+		
+		line = in.nextLine();
+		lineScanner = new Scanner(line);
+		int numJobs = lineScanner.nextInt();
+		lineScanner.close();
+		
+		process = new int[numJobs];
+		earlyWeights = new int[numJobs];
+		weights = new int[numJobs];
+		int totalP = 0;
+		for (int i = 0; i < numJobs; i++) {
+			lineScanner = new Scanner(in.nextLine());
+			process[i] = lineScanner.nextInt();
+			totalP += process[i];
+			earlyWeights[i] = lineScanner.nextInt();
+			weights[i] = lineScanner.nextInt();
+			lineScanner.close();
+		}
+		duedate = (int)(totalP * h);
+		
+		in.close();
+	}
+	
+	private void skipInstance(Scanner in) {
+		String line = in.nextLine();
+		Scanner lineScanner = new Scanner(line);
+		int numJobs = lineScanner.nextInt();
+		lineScanner.close();
+		for (int i = 0; i < numJobs; i++) {
+			in.nextLine();
+		}
 	}
 	
 	/**

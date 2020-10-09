@@ -311,23 +311,24 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
 		
 		int delay = 0;
 		
-		while (lastEarly >= 0 && earlyTotal > tardyTotal) {
-			int next = lastEarly + 1;
-			if (next < firstTardy) {
-				int additional = weights[schedule.get(next)];
-				int sum = tardyTotal + additional;
-				if (earlyTotal < sum) {
-					break;
-				}
-				tardyTotal = sum;
-				firstTardy = next;
-			}
-			int which = schedule.get(lastEarly);
-			earlyTotal -= earlyWeights[which];
-			delay = duedate - c[which];
+		if (lastEarly == c.length-1 || (lastEarly == firstTardy - 1 && earlyTotal > tardyTotal)) {
+			int j = schedule.get(lastEarly);
+			earlyTotal -= earlyWeights[j];
 			lastEarly--;
-		}
+			delay = duedate - c[j];
+		} 
 		
+		if (firstTardy - lastEarly > 1 || (lastEarly == c.length - 2 && firstTardy < 0)) {
+			int notEarlyTotalOfTardy = tardyTotal + weights[schedule.get(lastEarly+1)];
+			while (lastEarly >= 0 && earlyTotal >= notEarlyTotalOfTardy) {
+				int j = schedule.get(lastEarly);
+				earlyTotal -= earlyWeights[j];
+				notEarlyTotalOfTardy += weights[j];
+				lastEarly--;
+				delay = duedate - c[j];
+			}
+		}
+				
 		if (delay > 0) {
 			for (int i = 0; i < c.length; i++) {
 				c[i] += delay;

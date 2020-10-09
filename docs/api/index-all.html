@@ -352,6 +352,31 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Initiates an orderly shutdown of the thread pool used by this TimedParallelReoptimizableMultistarter.</div>
 </dd>
+<dt><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling"><span class="typeNameLink">CommonDuedateScheduling</span></a> - Class in <a href="org/cicirello/search/problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a></dt>
+<dd>
+<div class="block">This class represents and generates instances of a common duedate
+ scheduling problem, in which all jobs have both an earliness weight
+ and a tardiness weight, and share a common duedate.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#%3Cinit%3E(int,double)">CommonDuedateScheduling(int, double)</a></span> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>
+<div class="block">Constructs a random instance of common duedate scheduling
+ using an implementation of a process based on that approach
+ used to generate the instances from the OR-Library.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#%3Cinit%3E(int,double,long)">CommonDuedateScheduling(int, double, long)</a></span> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>
+<div class="block">Constructs a random instance of common duedate scheduling
+ using an implementation of a process based on that approach
+ used to generate the instances from the OR-Library.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#%3Cinit%3E(java.lang.String,int,double)">CommonDuedateScheduling(String, int, double)</a></span> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>
+<div class="block">Constructs a common duedate scheduling problem instance by parsing
+ an instance data file that follows the format specified in the
+ <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/schinfo.html>OR-Library 
+ of J.E.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/SolutionCostPair.html#compareTo(org.cicirello.search.SolutionCostPair)">compareTo(SolutionCostPair&lt;T&gt;)</a></span> - Method in class org.cicirello.search.<a href="org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a></dt>
 <dd>
 <div class="block">Compares this SolutionCostPair with the specified SolutionCostPair for order.</div>
@@ -913,6 +938,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets the value of the bit at a designated index.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#getCompletionTimes(org.cicirello.permutations.Permutation)">getCompletionTimes(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>
+<div class="block">Computes the completion times of all of the jobs if they were scheduled in
+ the order defined by the specified Permutation.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#getCompletionTimes(org.cicirello.permutations.Permutation)">getCompletionTimes(Permutation)</a></span> - Method in interface org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></dt>
 <dd>
 <div class="block">Computes the completion times of all of the jobs if they were scheduled in
@@ -938,6 +968,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets the cost contained in this solution cost pair as a double.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#getDueDate(int)">getDueDate(int)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#getDueDate(int)">getDueDate(int)</a></span> - Method in interface org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></dt>
 <dd>
 <div class="block">Gets the due date of a job, for scheduling problems that have due dates.</div>
@@ -945,6 +977,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html#getDueDate(int)">getDueDate(int)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticScheduling</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html#getDueDate(int)">getDueDate(int)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticSchedulingWithSetups</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#getEarlyWeight(int)">getEarlyWeight(int)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#getEarlyWeight(int)">getEarlyWeight(int)</a></span> - Method in interface org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></dt>
 <dd>
@@ -1018,6 +1052,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets a reference to the problem that this search is solving.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#getProcessingTime(int)">getProcessingTime(int)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#getProcessingTime(int)">getProcessingTime(int)</a></span> - Method in interface org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></dt>
 <dd>
 <div class="block">Gets the processing time of a job, which is the amount of
@@ -1146,6 +1182,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets the total run length of the metaheuristic.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#getWeight(int)">getWeight(int)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#getWeight(int)">getWeight(int)</a></span> - Method in interface org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></dt>
 <dd>
 <div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's
@@ -1207,6 +1245,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Heuristically evaluates the possible addition of an element to the
  end of a Partial.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#hasDueDates()">hasDueDates()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#hasDueDates()">hasDueDates()</a></span> - Method in interface org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></dt>
 <dd>
 <div class="block">Checks whether this single machine scheduling instance has due dates.</div>
@@ -1214,6 +1254,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html#hasDueDates()">hasDueDates()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticScheduling</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html#hasDueDates()">hasDueDates()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticSchedulingWithSetups</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#hasEarlyWeights()">hasEarlyWeights()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#hasEarlyWeights()">hasEarlyWeights()</a></span> - Method in interface org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></dt>
 <dd>
@@ -1285,6 +1327,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Checks whether this single machine scheduling instance has setup times.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html#hasSetupTimes()">hasSetupTimes()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticSchedulingWithSetups</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#hasWeights()">hasWeights()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#hasWeights()">hasWeights()</a></span> - Method in interface org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></dt>
 <dd>
@@ -1744,6 +1788,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">M</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#MAX_EARLINESS_WEIGHT">MAX_EARLINESS_WEIGHT</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>
+<div class="block">Defines the maximum earliness weight.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#MAX_PROCESS_TIME">MAX_PROCESS_TIME</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>
+<div class="block">Defines the maximum process times.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html#MAX_PROCESS_TIME">MAX_PROCESS_TIME</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticScheduling</a></dt>
 <dd>
 <div class="block">Defines the maximum process times.</div>
@@ -1751,6 +1803,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html#MAX_PROCESS_TIME">MAX_PROCESS_TIME</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticSchedulingWithSetups</a></dt>
 <dd>
 <div class="block">Defines the maximum process times.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#MAX_TARDINESS_WEIGHT">MAX_TARDINESS_WEIGHT</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>
+<div class="block">Defines the maximum tardiness weight.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html#MAX_WEIGHT">MAX_WEIGHT</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticScheduling</a></dt>
 <dd>
@@ -1766,6 +1822,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  of metaheuristics, in particular metaheuristics for which the maximum run length
  can be specified.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#MIN_EARLINESS_WEIGHT">MIN_EARLINESS_WEIGHT</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>
+<div class="block">Defines the minimum earliness weight.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#MIN_PROCESS_TIME">MIN_PROCESS_TIME</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>
+<div class="block">Defines the minimum process times.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html#MIN_PROCESS_TIME">MIN_PROCESS_TIME</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticScheduling</a></dt>
 <dd>
 <div class="block">Defines the minimum process times.</div>
@@ -1773,6 +1837,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html#MIN_PROCESS_TIME">MIN_PROCESS_TIME</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticSchedulingWithSetups</a></dt>
 <dd>
 <div class="block">Defines the minimum process times.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#MIN_TARDINESS_WEIGHT">MIN_TARDINESS_WEIGHT</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>
+<div class="block">Defines the minimum tardiness weight.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html#MIN_WEIGHT">MIN_WEIGHT</a></span> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticScheduling</a></dt>
 <dd>
@@ -2072,6 +2140,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Computes the bitwise complement of this BitVector.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#numberOfJobs()">numberOfJobs()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#numberOfJobs()">numberOfJobs()</a></span> - Method in interface org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></dt>
 <dd>
 <div class="block">Gets the number of jobs of this scheduling problem instance.</div>
@@ -3302,6 +3372,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/PartialPermutation.html#toComplete()">toComplete()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#toFile(java.lang.String)">toFile(String)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
+<dd>
+<div class="block">Outputs a description of the instance in the format
+ described by the 
+ <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/schinfo.html>OR-Library 
+ of J.E.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html#toFile(java.lang.String)">toFile(String)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedStaticScheduling.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticScheduling</a></dt>
 <dd>
 <div class="block">Outputs a description of the instance data in the format

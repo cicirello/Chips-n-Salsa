@@ -99,4 +99,296 @@ public class CDDTests {
 		}
 	}
 	
+	@Test
+	public void testCompletionTimeCalculationWithH0() {
+		double h = 0.0;
+		for (int n = 1; n <= 10; n++) {
+			CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
+			int[] perm1 = new int[n];
+			int[] perm2 = new int[n];
+			for (int i = 0; i < n; i++) {
+				perm1[i] = i;
+				perm2[n-1-i] = i;
+			}
+			Permutation p1 = new Permutation(perm1);
+			Permutation p2 = new Permutation(perm2);
+			int[] c1 = s.getCompletionTimes(p1);
+			int expected = 0;
+			for (int x = 0; x < n; x++) {
+				expected += s.getProcessingTime(p1.get(x));
+				assertEquals("forward", expected, c1[p1.get(x)]);
+			}
+			int[] c2 = s.getCompletionTimes(p2);
+			expected = 0;
+			for (int x = 0; x < n; x++) {
+				expected += s.getProcessingTime(p2.get(x));
+				assertEquals("backward", expected, c2[p2.get(x)]);
+			}
+		}
+	}
+	
+	@Test
+	public void testCompletionTimeCalculationWithH1() {
+		double h = 1.0;
+		for (int n = 1; n <= 10; n++) {
+			CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
+			int[] perm1 = new int[n];
+			int[] perm2 = new int[n];
+			for (int i = 0; i < n; i++) {
+				perm1[i] = i;
+				perm2[n-1-i] = i;
+			}
+			Permutation p1 = new Permutation(perm1);
+			Permutation p2 = new Permutation(perm2);
+			int[] c1 = s.getCompletionTimes(p1);
+			int duedate = s.getDueDate(0);
+			int earlySum = 0;
+			int tardySum = 0;
+			int onTimeJob = -1;
+			for (int x = 0; x < n; x++) {
+				if (c1[x] < duedate) earlySum += s.getEarlyWeight(x);
+				else if (c1[x] > duedate) tardySum += s.getWeight(x);
+				else onTimeJob = x;
+			}
+			String message = "Forward: earlySum,tardySum="+earlySum+","+tardySum;
+			int notEarlySumOfTardy = tardySum;
+			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
+			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			assertTrue(onTimeJob >= 0);
+			if (onTimeJob >= 0) {
+				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
+			} else {
+				assertEquals(0, c1[p1.get(0)] - s.getProcessingTime(p1.get(0)));
+				assertTrue(earlySum <= tardySum); 
+			}
+			int delay = c1[p1.get(0)] - s.getProcessingTime(p1.get(0));
+			int expected = delay;
+			for (int x = 0; x < n; x++) {
+				expected += s.getProcessingTime(p1.get(x));
+				assertEquals("forward", expected, c1[p1.get(x)]);
+			}
+			int[] c2 = s.getCompletionTimes(p2);
+			earlySum = 0;
+			tardySum = 0;
+			onTimeJob = -1;
+			for (int x = 0; x < n; x++) {
+				if (c2[x] < duedate) earlySum += s.getEarlyWeight(x);
+				else if (c2[x] > duedate) tardySum += s.getWeight(x);
+				else onTimeJob = x;
+			}
+			message = "Backward: earlySum,tardySum,n="+earlySum+","+tardySum+","+n;
+			notEarlySumOfTardy = tardySum;
+			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
+			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			assertTrue(onTimeJob >= 0);
+			if (onTimeJob >= 0) {
+				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
+			} else {
+				assertEquals(0, c2[p2.get(0)] - s.getProcessingTime(p2.get(0)));
+				assertTrue(earlySum <= tardySum);
+			}
+			delay = c2[p2.get(0)] - s.getProcessingTime(p2.get(0));
+			expected = delay;
+			for (int x = 0; x < n; x++) {
+				expected += s.getProcessingTime(p2.get(x));
+				assertEquals("backward", expected, c2[p2.get(x)]);
+			}
+		}
+	}
+	
+	@Test
+	public void testCompletionTimeCalculationWithH05() {
+		double h = 0.5;
+		for (int n = 1; n <= 10; n++) {
+			CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
+			int[] perm1 = new int[n];
+			int[] perm2 = new int[n];
+			for (int i = 0; i < n; i++) {
+				perm1[i] = i;
+				perm2[n-1-i] = i;
+			}
+			Permutation p1 = new Permutation(perm1);
+			Permutation p2 = new Permutation(perm2);
+			int[] c1 = s.getCompletionTimes(p1);
+			int duedate = s.getDueDate(0);
+			int earlySum = 0;
+			int tardySum = 0;
+			int onTimeJob = -1;
+			for (int x = 0; x < n; x++) {
+				if (c1[x] < duedate) earlySum += s.getEarlyWeight(x);
+				else if (c1[x] > duedate) tardySum += s.getWeight(x);
+				else onTimeJob = x;
+			}
+			String message = "Forward: earlySum,tardySum="+earlySum+","+tardySum;
+			int notEarlySumOfTardy = tardySum;
+			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
+			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			int delay = c1[p1.get(0)] - s.getProcessingTime(p1.get(0));
+			if (onTimeJob >= 0 && delay > 0) {
+				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
+			} else {
+				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+			}
+			int expected = delay;
+			for (int x = 0; x < n; x++) {
+				expected += s.getProcessingTime(p1.get(x));
+				assertEquals("forward", expected, c1[p1.get(x)]);
+			}
+			int[] c2 = s.getCompletionTimes(p2);
+			earlySum = 0;
+			tardySum = 0;
+			onTimeJob = -1;
+			for (int x = 0; x < n; x++) {
+				if (c2[x] < duedate) earlySum += s.getEarlyWeight(x);
+				else if (c2[x] > duedate) tardySum += s.getWeight(x);
+				else onTimeJob = x;
+			}
+			message = "Backward: earlySum,tardySum,n="+earlySum+","+tardySum+","+n;
+			notEarlySumOfTardy = tardySum;
+			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
+			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			delay = c2[p2.get(0)] - s.getProcessingTime(p2.get(0));
+			if (onTimeJob >= 0 && delay > 0) {
+				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
+			} else {
+				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+			}
+			expected = delay;
+			for (int x = 0; x < n; x++) {
+				expected += s.getProcessingTime(p2.get(x));
+				assertEquals("backward", expected, c2[p2.get(x)]);
+			}
+		}
+	}
+	
+	@Test
+	public void testCompletionTimeCalculationWithH025() {
+		double h = 0.25;
+		for (int n = 1; n <= 10; n++) {
+			CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
+			int[] perm1 = new int[n];
+			int[] perm2 = new int[n];
+			for (int i = 0; i < n; i++) {
+				perm1[i] = i;
+				perm2[n-1-i] = i;
+			}
+			Permutation p1 = new Permutation(perm1);
+			Permutation p2 = new Permutation(perm2);
+			int[] c1 = s.getCompletionTimes(p1);
+			int duedate = s.getDueDate(0);
+			int earlySum = 0;
+			int tardySum = 0;
+			int onTimeJob = -1;
+			for (int x = 0; x < n; x++) {
+				if (c1[x] < duedate) earlySum += s.getEarlyWeight(x);
+				else if (c1[x] > duedate) tardySum += s.getWeight(x);
+				else onTimeJob = x;
+			}
+			String message = "Forward: earlySum,tardySum="+earlySum+","+tardySum;
+			int notEarlySumOfTardy = tardySum;
+			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
+			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			int delay = c1[p1.get(0)] - s.getProcessingTime(p1.get(0));
+			if (onTimeJob >= 0 && delay > 0) {
+				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
+			} else {
+				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+			}
+			int expected = delay;
+			for (int x = 0; x < n; x++) {
+				expected += s.getProcessingTime(p1.get(x));
+				assertEquals("forward", expected, c1[p1.get(x)]);
+			}
+			int[] c2 = s.getCompletionTimes(p2);
+			earlySum = 0;
+			tardySum = 0;
+			onTimeJob = -1;
+			for (int x = 0; x < n; x++) {
+				if (c2[x] < duedate) earlySum += s.getEarlyWeight(x);
+				else if (c2[x] > duedate) tardySum += s.getWeight(x);
+				else onTimeJob = x;
+			}
+			message = "Backward: earlySum,tardySum,n="+earlySum+","+tardySum+","+n;
+			notEarlySumOfTardy = tardySum;
+			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
+			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			delay = c2[p2.get(0)] - s.getProcessingTime(p2.get(0));
+			if (onTimeJob >= 0 && delay > 0) {
+				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
+			} else {
+				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+			}
+			expected = delay;
+			for (int x = 0; x < n; x++) {
+				expected += s.getProcessingTime(p2.get(x));
+				assertEquals("backward", expected, c2[p2.get(x)]);
+			}
+		}
+	}
+	
+	@Test
+	public void testCompletionTimeCalculationWithH075() {
+		double h = 0.75;
+		for (int n = 1; n <= 10; n++) {
+			CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
+			int[] perm1 = new int[n];
+			int[] perm2 = new int[n];
+			for (int i = 0; i < n; i++) {
+				perm1[i] = i;
+				perm2[n-1-i] = i;
+			}
+			Permutation p1 = new Permutation(perm1);
+			Permutation p2 = new Permutation(perm2);
+			int[] c1 = s.getCompletionTimes(p1);
+			int duedate = s.getDueDate(0);
+			int earlySum = 0;
+			int tardySum = 0;
+			int onTimeJob = -1;
+			for (int x = 0; x < n; x++) {
+				if (c1[x] < duedate) earlySum += s.getEarlyWeight(x);
+				else if (c1[x] > duedate) tardySum += s.getWeight(x);
+				else onTimeJob = x;
+			}
+			String message = "Forward: earlySum,tardySum="+earlySum+","+tardySum;
+			int notEarlySumOfTardy = tardySum;
+			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
+			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			int delay = c1[p1.get(0)] - s.getProcessingTime(p1.get(0));
+			if (onTimeJob >= 0 && delay > 0) {
+				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
+			} else {
+				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+			}
+			int expected = delay;
+			for (int x = 0; x < n; x++) {
+				expected += s.getProcessingTime(p1.get(x));
+				assertEquals("forward", expected, c1[p1.get(x)]);
+			}
+			int[] c2 = s.getCompletionTimes(p2);
+			earlySum = 0;
+			tardySum = 0;
+			onTimeJob = -1;
+			for (int x = 0; x < n; x++) {
+				if (c2[x] < duedate) earlySum += s.getEarlyWeight(x);
+				else if (c2[x] > duedate) tardySum += s.getWeight(x);
+				else onTimeJob = x;
+			}
+			message = "Backward: earlySum,tardySum,n="+earlySum+","+tardySum+","+n;
+			notEarlySumOfTardy = tardySum;
+			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
+			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			delay = c2[p2.get(0)] - s.getProcessingTime(p2.get(0));
+			if (onTimeJob >= 0 && delay > 0) {
+				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
+			} else {
+				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+			}
+			expected = delay;
+			for (int x = 0; x < n; x++) {
+				expected += s.getProcessingTime(p2.get(x));
+				assertEquals("backward", expected, c2[p2.get(x)]);
+			}
+		}
+	}
+	
 }

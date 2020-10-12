@@ -45,7 +45,7 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 10.12.2020
  */
-public class WeightedLongestProcessingTime extends SchedulingHeuristic {
+public final class WeightedLongestProcessingTime extends SchedulingHeuristic {
 	
 	private final double[] h;
 	

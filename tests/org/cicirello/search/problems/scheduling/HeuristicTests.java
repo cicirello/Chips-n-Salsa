@@ -79,6 +79,26 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testWLPT() {
+		// int[] p, int[] we, int[] wt, int[] d
+		double e = WeightedLongestProcessingTime.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] p =    { 1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8};
+		int[] we =   { 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2, 2};
+		double[] expected = { 1+e, 1.5+e, 1.75+e, 1.875+e, 2+e, 2+e, 2+e, 2+e, e, 1+e, 1.5+e, 1.75+e };
+		// These two don't really matter for this heuristic.
+		// Meaningless different values to ensure don't affect results.
+		int[] wt =   { 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5};
+		int[] d =    { 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5};
+		
+		FakeEarlyTardyProblem problem = new FakeEarlyTardyProblem(p, we, wt, d);
+		WeightedLongestProcessingTime h = new WeightedLongestProcessingTime(problem);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals("j:"+j, expected[j], h.h(null, j, null), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testSmallestSetup() {
 		double e = SmallestSetup.MIN_H;
 		int highS = (int)Math.ceil(1 / e)*2;
@@ -1162,6 +1182,23 @@ public class HeuristicTests {
 		@Override public int value(Permutation p) { return 10; }
 	}
 	
+	private static class FakeEarlyTardyProblem implements SingleMachineSchedulingProblem {
+		
+		private FakeEarlyTardyProblemData data;
+		
+		public FakeEarlyTardyProblem(int[] p, int[] we, int[] wt, int[] d) {
+			data = new FakeEarlyTardyProblemData(p, we, wt, d);
+		}
+		
+		@Override
+		public SingleMachineSchedulingProblemData getInstanceData() {
+			return data;
+		}
+		
+		@Override public int cost(Permutation p) { return 10; }
+		@Override public int value(Permutation p) { return 10; }
+	}
+	
 	private static class FakeProblemDataSetups extends FakeProblemData {
 		private int[][] s;
 		public FakeProblemDataSetups(int[] w, int[] p, int d, int[][] s) {
@@ -1234,4 +1271,31 @@ public class HeuristicTests {
 		@Override public int getSetupTime(int i, int j) { return 2*i + j; }
 		@Override public boolean hasSetupTimes() { return s > 0; }
 	}	
+	
+	private static class FakeEarlyTardyProblemData implements SingleMachineSchedulingProblemData {
+
+		private int[] d;
+		private int[] we;
+		private int[] wt;
+		private int[] p;
+		private int n;
+		
+		public FakeEarlyTardyProblemData(int[] p, int[] we, int[] wt, int[] d) {
+			this.d = d.clone();
+			this.we = we.clone();
+			this.wt = wt.clone();
+			this.p = p.clone();
+			n = p.length;
+		}
+		
+		@Override public int numberOfJobs() { return n; }
+		@Override public int getProcessingTime(int j) { return p[j]; }
+		@Override public int[] getCompletionTimes(Permutation schedule) { return null; }
+		@Override public boolean hasDueDates() { return true; }
+		@Override public int getDueDate(int j) { return d[j]; }
+		@Override public boolean hasWeights() { return true; }
+		@Override public int getWeight(int j) { return wt[j]; }
+		@Override public boolean hasEarlyWeights() { return true; }
+		@Override public int getEarlyWeight(int j) { return we[j]; }
+	}
 }

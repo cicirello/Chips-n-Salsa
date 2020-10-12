@@ -169,6 +169,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
+<th class="colFirst" scope="row"><a href="CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></th>
+<td class="colLast">
+<div class="block">This class represents and generates instances of a common duedate
+ scheduling problem, in which all jobs have both an earliness weight
+ and a tardiness weight, and share a common duedate.</div>
+</td>
+</tr>
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="DynamicATCS.html" title="class in org.cicirello.search.problems.scheduling">DynamicATCS</a></th>
 <td class="colLast">
 <div class="block">DynamicATCS is an implementation of a variation of the ATCS 
@@ -176,10 +184,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  updates the average processing and setup times as it constructs the schedule.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="EarliestDueDate.html" title="class in org.cicirello.search.problems.scheduling">EarliestDueDate</a></th>
 <td class="colLast">
 <div class="block">This is an implementation of the earliest due date heuristic.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="LinearEarlyTardyHeuristic.html" title="class in org.cicirello.search.problems.scheduling">LinearEarlyTardyHeuristic</a></th>
+<td class="colLast">
+<div class="block">This class implements a constructive heuristic, known as LINET, for scheduling problems
+ involving minimizing the sum of weighted earliness plus weighted tardiness.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -308,13 +323,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
+<th class="colFirst" scope="row"><a href="WeightedLongestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedLongestProcessingTime</a></th>
+<td class="colLast">
+<div class="block">This is an implementation of the weighted longest process time
+ heuristic.</div>
+</td>
+</tr>
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="WeightedNumberTardyJobs.html" title="class in org.cicirello.search.problems.scheduling">WeightedNumberTardyJobs</a></th>
 <td class="colLast">
 <div class="block">Implements the scheduling cost function known as 
  weighted number of tardy jobs, which we want to minimize.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="WeightedShortestProcessingPlusSetupTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTime</a></th>
 <td class="colLast">
 <div class="block">This class implements a variation the weighted shortest process time
@@ -322,7 +344,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  sequence-dependent setups.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="WeightedShortestProcessingPlusSetupTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTimeLateOnly</a></th>
 <td class="colLast">
 <div class="block">This class implements a variation the weighted shortest process time
@@ -331,28 +353,28 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  sequence-dependent setups.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="WeightedShortestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTime</a></th>
 <td class="colLast">
 <div class="block">This is an implementation of the weighted shortest process time
  heuristic.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="WeightedShortestProcessingTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTimeLateOnly</a></th>
 <td class="colLast">
 <div class="block">This is an implementation of the weighted shortest process time
  heuristic.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="WeightedSquaredTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedSquaredTardiness</a></th>
 <td class="colLast">
 <div class="block">Implements the scheduling cost function known as 
  weighted squared tardiness.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="WeightedStaticScheduling.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticScheduling</a></th>
 <td class="colLast">
 <div class="block">This class provides a representation of, and means of generating,
@@ -362,7 +384,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  thus, the term "static" in the class name).</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="WeightedStaticSchedulingWithSetups.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticSchedulingWithSetups</a></th>
 <td class="colLast">
 <div class="block">This class provides a representation of, and means of generating,
@@ -372,7 +394,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  thus, the term "static" in the class name).</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="WeightedTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedTardiness</a></th>
 <td class="colLast">
 <div class="block">Implements the scheduling cost function known as 

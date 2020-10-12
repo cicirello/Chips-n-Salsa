@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * Problem instance generator for Common Duedate Scheduling, with support for parsing and generating the file format for commonly used benchmark instances.
 * WLPT heuristic, a constructive heuristic for common duedate scheduling problems.
+* LINET heuristic, a constructive heuristic for common duedate scheduling problems.
 
 ### Changed
 

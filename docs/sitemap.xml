@@ -10,11 +10,11 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/allclasses-index.html</loc>
-<lastmod>2020-10-09T20:16:01+00:00</lastmod>
+<lastmod>2020-10-12T20:46:35+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/allclasses.html</loc>
-<lastmod>2020-10-09T20:16:01+00:00</lastmod>
+<lastmod>2020-10-12T20:46:35+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/allpackages-index.html</loc>
@@ -22,7 +22,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/constant-values.html</loc>
-<lastmod>2020-10-09T20:16:01+00:00</lastmod>
+<lastmod>2020-10-12T20:46:35+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/deprecated-list.html</loc>
@@ -34,7 +34,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/index-all.html</loc>
-<lastmod>2020-10-09T20:16:01+00:00</lastmod>
+<lastmod>2020-10-12T20:46:35+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-summary.html</loc>
@@ -42,7 +42,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-tree.html</loc>
-<lastmod>2020-10-09T20:16:01+00:00</lastmod>
+<lastmod>2020-10-12T20:46:35+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/Metaheuristic.html</loc>
@@ -362,7 +362,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/ss/ConstructiveHeuristic.html</loc>
-<lastmod>2020-09-22T18:34:30+00:00</lastmod>
+<lastmod>2020-10-12T20:46:35+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/ss/HeuristicBiasedStochasticSampling.BiasFunction.html</loc>
@@ -601,6 +601,10 @@
 <lastmod>2020-09-22T18:34:30+00:00</lastmod>
 </url>
 <url>
+<loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/LinearEarlyTardyHeuristic.html</loc>
+<lastmod>2020-10-12T20:46:35+00:00</lastmod>
+</url>
+<url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/MinimizeMakespan.html</loc>
 <lastmod>2020-09-22T18:34:30+00:00</lastmod>
 </url>
@@ -681,6 +685,10 @@
 <lastmod>2020-09-22T18:34:30+00:00</lastmod>
 </url>
 <url>
+<loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/WeightedLongestProcessingTime.html</loc>
+<lastmod>2020-10-12T20:46:35+00:00</lastmod>
+</url>
+<url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/WeightedNumberTardyJobs.html</loc>
 <lastmod>2020-09-22T18:34:30+00:00</lastmod>
 </url>
@@ -718,10 +726,10 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/package-summary.html</loc>
-<lastmod>2020-10-09T20:16:01+00:00</lastmod>
+<lastmod>2020-10-12T20:46:35+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/package-tree.html</loc>
-<lastmod>2020-10-09T20:16:01+00:00</lastmod>
+<lastmod>2020-10-12T20:46:35+00:00</lastmod>
 </url>
 </urlset>

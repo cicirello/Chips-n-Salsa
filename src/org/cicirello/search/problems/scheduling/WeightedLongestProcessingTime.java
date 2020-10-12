@@ -43,7 +43,7 @@ import org.cicirello.search.ss.IncrementalEvaluation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.9.2020
+ * @version 10.12.2020
  */
 public class WeightedLongestProcessingTime extends SchedulingHeuristic {
 	
@@ -60,7 +60,7 @@ public class WeightedLongestProcessingTime extends SchedulingHeuristic {
 		h = new double[data.numberOfJobs()];
 		double minimum = 0;
 		for (int i = 0; i < h.length; i++) {
-			h[i] = -data.getEarlyWeight(i) / data.getProcessingTime(i);
+			h[i] = -data.getEarlyWeight(i) / (double)data.getProcessingTime(i);
 			if (h[i] < minimum) minimum = h[i];
 		}
 		double shift = MIN_H - minimum;

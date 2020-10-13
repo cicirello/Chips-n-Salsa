@@ -230,6 +230,27 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends 
 	}
 	
 	/**
+	 * <p>Creates an exponential bias function of the form: exp(scale * value).
+	 * If you want to use exponential bias with VBSS, carefully set the scale
+	 * parameter based on the scale of the cost function you are optimizing.
+	 * There is no good general purpose default that can be provided here since
+	 * the scale of cost function values can vary greatly from one problem to
+	 * another.  As you consider how to set the scale parameter, consider that
+	 * if not set well, the bias functions can easily exceed the range of doubles
+	 * for some cost functions.</p>
+	 *
+	 * <p>The intended usage of this method is to provide a convenient way
+	 * of constructing exponential bias functions that can be passed to one
+	 * of the constructors of the class that take a BiasFunction as parameter.</p>
+	 *
+	 * @param scale A parameter to scale the heuristic values.
+	 * @return A BiasFunction object representing the function: exp(scale * value)
+	 */
+	public static BiasFunction createExponentialBias(double scale) {
+		return value -> Math.exp(scale * value);
+	}
+	
+	/**
 	 * <p>Implement this interface to implement the bias function
 	 * used by VBSS. Specifically, when making a randomized
 	 * decision among possible permutation elements to add to

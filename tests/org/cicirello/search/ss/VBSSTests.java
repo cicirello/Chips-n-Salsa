@@ -36,6 +36,16 @@ import org.cicirello.search.ProgressTracker;
 public class VBSSTests {
 	
 	@Test
+	public void testExponentialBiasFunction() {
+		ValueBiasedStochasticSampling.BiasFunction bias = 
+			ValueBiasedStochasticSampling.createExponentialBias(0.25);
+		double[] expected = { 1, Math.exp(1), Math.exp(2), Math.exp(3)};
+		for (int v = 0, i = 0; v <= 12; v += 4, i++) {
+			assertEquals(expected[i], bias.bias(v), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testWithIntCosts() {
 		for (int n = 0; n < 10; n++) {
 			IntProblem problem = new IntProblem();

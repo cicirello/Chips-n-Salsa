@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 ### Removed
+* The example programs have been removed from the Chips-n-Salsa repository, and now reside in their own repository: https://github.com/cicirello/chips-n-salsa-examples
 
 ### Fixed
 

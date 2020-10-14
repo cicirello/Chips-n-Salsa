@@ -26,53 +26,27 @@ Chips-n-Salsa is customizable, making extensive use of Java's generic types, ena
 ## Repository Organization
 
 The GitHub repository is organized as follows:
-* The [/build](build) directory contains an ant build file, and other resources related to building the library.
-* The [/dist](dist) directory contains the compiled jar files of the library, one consisting of just the Chips-n-Salsa library, and a second jar file that contains Chips-n-Salsa as well as all dependencies.  The file name makes it clear which is which.
-* The [/docs](docs) directory contains the javadoc documentation in a sub-directory /docs/api. The /docs directory is also the location of the website for the project hosted via GitHub pages at https://chips-n-salsa.cicirello.org/.
-* The [/lib](lib) directory contains jar files of all dependencies.  At the present time, the only dependency is a library [JavaPermutationTools (JPT)](https://jpt.cicirello.org/) which is used for its representation of a Permutation, as well as for some of its random number generation capabilities.
 * The [/src](src) directory contains all of the source code for Chips-n-Salsa.
 * The [/tests](tests) directory contains JUnit test cases for all functionality of the library.
+* The [/docs](docs) directory contains the javadoc documentation in a sub-directory /docs/api. The /docs directory is also the location of the website for the project hosted via GitHub pages at https://chips-n-salsa.cicirello.org/.
+* The [/build](build) directory will be removed after fully migrating from ant to maven. Nothing in here is needed to build the library. What remains is used strictly for building the API documentation website. 
+* The [/lib](lib) directory will be removed after fully migrating from ant to maven, and contains jar files of all dependencies, but is only used by the API website build, and not the library build itself.
 
 ## Java 8
 
 The library supports Java 8 or higher, including both Oracle JDK 8 and OpenJDK 8.
 
-## Building the Library (Quickstart)
+## Building the Library (with Maven)
 
-The root of the repository contains a makefile that 
-can be used to execute the build process. The build process 
-uses an ant build file, so the build will fail if
-you don't have ant installed on your system.  Assuming 
-that you have ant, you can build the library and examples
-by executing either `make` or `make build` from the 
-root of the repository. The following sections contain more detail on
-building the library.
-
-## Building the Library (with ant)
-
-The /build directory contains an ant build file.  The build 
-file also executes the JUnit tests, and the build
-directory contains the relevant jar files for the JUnit 
-libraries. If you prefer, you can replace these
-with the latest versions available 
-from https://junit.org/junit4/ (just be sure to edit the property
-fields in the build.xml to point to the locations of the JUnit jar files).
-
-To execute the build process do one of the following. If 
-your working directory is the build directory,
-then simply execute `ant` from the command line. If your 
-working directory is the parent of build,
-then execute: `ant -f build/build.xml`
-
-The default of the provided ant build file, compiles 
-all source files and all JUnit tests, executes all
-test cases, generates two jar files of the 
-library (one that includes all dependencies. The build 
-process will terminate on any test case failures.
-
-The build generates the following directories: bin 
-(for the compiled Java classes), and testbin (for the
-compiled JUnit tests).
+The Chips-n-Salsa library is built using Maven. The root of the
+repository contains a Maven `pom.xml`.  To build the library, 
+execute `mvn package` at the root of the repository, which
+will compile all classes, run all tests, run javadoc, and generate 
+jar files of the library, the sources, and the javadocs.  In addition
+to the jar of the library itself, this will also generate a
+jar of the library that includes all dependencies.  The file names
+make this distinction explicit.  All build outputs will then
+be found in the directory `target`.
 
 ## Example Programs
 

@@ -52,6 +52,8 @@ public final class IterativeSampling<T extends Copyable<T>> extends AbstractStoc
 	
 	private final Initializer<T> initializer;
 	
+	public static final int ABC = 0;
+	
 	/**
 	 * Constructs an iterative sampling search for a real-valued optimization problem.
 	 * @param problem An instance of an optimization problem to solve.

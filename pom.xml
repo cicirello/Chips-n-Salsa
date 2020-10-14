@@ -6,7 +6,7 @@
  
 	<groupId>org.cicirello</groupId>
 	<artifactId>chips-n-salsa</artifactId>
-	<version>2.0.0</version>
+	<version>2.3.0</version>
 	<packaging>jar</packaging>
   
 	<name>Chips-n-Salsa</name>
@@ -186,10 +186,6 @@
 	</properties>
   
 	<build>
-		<directory>${project.basedir}/dist</directory>
-		<outputDirectory>${project.basedir}/bin</outputDirectory>
-		<finalName>${project.artifactId}-${project.version}</finalName>
-		<testOutputDirectory>${project.basedir}/testbin</testOutputDirectory>
 		<sourceDirectory>${project.basedir}/src</sourceDirectory>
 		<scriptSourceDirectory>${project.basedir}/src/scripts</scriptSourceDirectory>
 		<testSourceDirectory>${project.basedir}/tests</testSourceDirectory>

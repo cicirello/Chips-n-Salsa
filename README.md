@@ -96,6 +96,12 @@ the following to the repositories section of your pom.xml:
 </repository>
 ```
 
+## Downloading Jar Files
+
+If you don't use a dependency manager that supports importing from Maven Central,
+or if you simply prefer to download manually, prebuilt jars are also attached to 
+each [GitHub Release](https://github.com/cicirello/Chips-n-Salsa/releases).
+
 ## License
 
 The Chips-n-Salsa library is licensed under the [GNU General Public License 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).

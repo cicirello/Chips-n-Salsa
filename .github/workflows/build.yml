@@ -20,5 +20,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
-    - name: Build with Ant
-      run: ant -noinput -buildfile build/build.xml
+
+    - name: Build with Maven
+      run: mvn -B package

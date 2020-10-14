@@ -41,6 +41,15 @@ jobs:
         if [ $(git status | grep -c "**/*.html") == "0" ]; then
           git checkout .
         else
+          if [ $(git status | grep -c "**/member-search-index.*") == "1" ]; then
+            git checkout -- docs/api/member-search-index.zip
+          fi
+          if [ $(git status | grep -c "**/package-search-index.*") == "1" ]; then
+            git checkout -- docs/api/package-search-index.zip
+          fi
+          if [ $(git status | grep -c "**/type-search-index.*") == "1" ]; then
+            git checkout -- docs/api/type-search-index.zip
+          fi
           git config --global user.name 'Vincent A Cicirello'
           git config --global user.email 'cicirello@users.noreply.github.com'
           git add -A

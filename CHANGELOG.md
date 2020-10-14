@@ -4,16 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-10-13
+## [Unreleased] - 2020-10-14
 
 ### Added
 * VBSS support for exponential bias functions.
 
 ### Changed
+* Build process migrated from Ant to Maven.
 
 ### Deprecated
 
 ### Removed
+* The example programs have been removed from the Chips-n-Salsa repository, and now reside in their own repository: https://github.com/cicirello/chips-n-salsa-examples
+* Distribution jar files removed from repository.  Still provided via GitHub Releases, GitHub Packages, and Maven Central.
 
 ### Fixed
 

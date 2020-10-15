@@ -236,6 +236,8 @@
 				</executions>
 				<configuration>
 					<source>1.8</source>
+					<failOnWarnings>true</failOnWarnings>
+					<failOnError>true</failOnError>
 					<additionalJOptions>
 						<additionalJOption>--no-module-directories</additionalJOption>
 					</additionalJOptions>

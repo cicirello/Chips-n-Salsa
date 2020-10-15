@@ -288,34 +288,4 @@
 			</plugins>
 	</build>
   
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.2.0</version>
-				<configuration>
-					<source>1.8</source>
-					<additionalJOptions>
-						<additionalJOption>--no-module-directories</additionalJOption>
-					</additionalJOptions>
-					<reportOutputDirectory>${project.basedir}/docs/api</reportOutputDirectory>
-					<destDir>api</destDir>
-					<outputDirectory>${project.basedir}/docs/api</outputDirectory>
-					<windowtitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</windowtitle>
-					<doctitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</doctitle>
-					<author>false</author>
-					<version>false</version>
-					<overview>${project.build.sourceDirectory}/overview.html</overview>
-					<notimestamp>true</notimestamp>
-					<links>
-						<link>https://docs.oracle.com/javase/8/docs/api</link>
-						<link>https://jpt.cicirello.org/api</link>
-					</links>
-					<bottom><![CDATA[Copyright &copy; 2002-2020 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
-
 </project>

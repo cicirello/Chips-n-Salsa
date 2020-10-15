@@ -24,7 +24,7 @@ jobs:
 
     - name: Copy to Documentation Website Location
       run: |
-        rm -rf docs/api/.
+        rm -rf docs/api
         cp -rf target/site/apidocs/. docs/api	
 
     - name: Tidy up the javadocs

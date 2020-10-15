@@ -4,7 +4,6 @@ on:
   push:
     branches: [ development ]
     paths: [ '**.java' ]
-  workflow_dispatch:
 
 jobs:
   api-website:

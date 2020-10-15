@@ -18,24 +18,26 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
-    
-    - name: Clean docs
-      run: ant -noinput -buildfile build/builddocs.xml clean
 
-    - name: Build docs with Ant
-      run: ant -noinput -buildfile build/builddocs.xml
-    
+    - name: Build docs with Maven
+      run: mvn javadoc:javadoc
+
+    - name: Copy to Documentation Website Location
+      run: |
+        rm -rf docs/api
+        cp -rf target/site/apidocs/. docs/api	
+
     - name: Tidy up the javadocs
       id: tidy
       uses: cicirello/javadoc-cleanup@v1.1.0
       with:
         base-url-path: https://chips-n-salsa.cicirello.org/
         path-to-root: docs
-    
+
     - name: Log javadoc-cleanup output
       run: |
         echo "modified-count = ${{ steps.tidy.outputs.modified-count }}"
-    
+
     - name: Commit documentation changes
       run: |
         if [ $(git status | grep -c "**/*.html") == "0" ]; then
@@ -62,13 +64,13 @@ jobs:
       with:
         base-url-path: https://chips-n-salsa.cicirello.org/
         path-to-root: docs
-    
+
     - name: Output stats
       run: |
         echo "sitemap-path = ${{ steps.sitemap.outputs.sitemap-path }}"
         echo "url-count = ${{ steps.sitemap.outputs.url-count }}"
         echo "excluded-count = ${{ steps.sitemap.outputs.excluded-count }}"
-    
+
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3.4.1
       with:

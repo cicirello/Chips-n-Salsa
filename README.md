@@ -29,8 +29,6 @@ The GitHub repository is organized as follows:
 * The [/src](src) directory contains all of the source code for Chips-n-Salsa.
 * The [/tests](tests) directory contains JUnit test cases for all functionality of the library.
 * The [/docs](docs) directory contains the javadoc documentation in a sub-directory /docs/api. The /docs directory is also the location of the website for the project hosted via GitHub pages at https://chips-n-salsa.cicirello.org/.
-* The [/build](build) directory will be removed after fully migrating from ant to maven. Nothing in here is needed to build the library. What remains is used strictly for building the API documentation website. 
-* The [/lib](lib) directory will be removed after fully migrating from ant to maven, and contains jar files of all dependencies, but is only used by the API website build, and not the library build itself.
 
 ## Java 8
 

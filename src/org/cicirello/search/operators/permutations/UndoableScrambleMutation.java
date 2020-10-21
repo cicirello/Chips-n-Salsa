@@ -75,7 +75,7 @@ public class UndoableScrambleMutation extends Permutation.Mechanic implements Un
 	public final void undo(Permutation c) {
 		// Verify that c was the most recently mutated permutation.
 		// If so, undo the mutation.
-		if (previous == c && c.length() >= 2) {
+		if (previous == c) {
 			int i, j;
 			if (indexes[0] < indexes[1]) {
 				i = indexes[0];

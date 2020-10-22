@@ -17,8 +17,7 @@
 <!--[if IE]>
 <script type="text/javascript" src="../../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../../jquery/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="../../../../jquery/jquery-migrate-3.0.1.js"></script>
+<script type="text/javascript" src="../../../../jquery/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="../../../../jquery/jquery-ui.js"></script>
 </head>
 <body>
@@ -483,6 +482,8 @@ implements <a href="../Metaheuristic.html" title="interface in org.cicirello.sea
 <dd><code>search</code> - The metaheuristic to restart multiple times in parallel.</dd>
 <dd><code>schedules</code> - The schedules of run lengths, one for each thread.  The number of threads will 
  be equal to the number of restart schedules.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if schedules.size() is less than 1.</dd>
 </dl>
 </li>
 </ul>

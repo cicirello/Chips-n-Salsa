@@ -35,7 +35,7 @@ public class ZigguratGaussianTests {
 	
 	// Test cases use chi square goodness of fit.  This constant 
 	// can be used to adjust the number of samples used for this test.
-	private static final int EXPECTED_SAMPLES_PER_BUCKET = 30;
+	private static final int EXPECTED_SAMPLES_PER_BUCKET = 60;
 	
 	// Change to true to see extra statistical output not otherwise used
 	// by automated tests (e.g., to see the specific chi square statistic value).  

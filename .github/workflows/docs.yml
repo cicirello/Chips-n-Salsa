@@ -2,7 +2,10 @@ name: docs
 
 on:
   push:
-    branches: [ development ]
+    branches: [ master ]
+    paths: [ '**.java' ]
+  pull_request:
+    branches: [ master ]
     paths: [ '**.java' ]
 
 jobs:
@@ -72,6 +75,7 @@ jobs:
         echo "excluded-count = ${{ steps.sitemap.outputs.excluded-count }}"
 
     - name: Create Pull Request
+      if: ${{ github.event_name == 'push' }}
       uses: peter-evans/create-pull-request@v3.4.1
       with:
         title: "Automated API website updates."
@@ -85,4 +89,5 @@ jobs:
         commit-message: "Automated API documentation website updates."
         author: Vincent A Cicirello <cicirello@users.noreply.github.com>
         committer: Vincent A Cicirello <cicirello@users.noreply.github.com>
+        branch: create-pull-request/docs
         delete-branch: true

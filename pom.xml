@@ -10,8 +10,8 @@
 	<packaging>jar</packaging>
   
 	<name>Chips-n-Salsa</name>
-	<description><![CDATA[
-	<p>Chips-n-Salsa is a Java library of customizable, 
+	
+	<description>Chips-n-Salsa is a Java library of customizable, 
 	hybridizable, iterative, parallel, stochastic, and self-adaptive 
 	local search algorithms. The library includes implementations of 
 	several stochastic local search algorithms, including simulated 
@@ -28,9 +28,9 @@
 	permutation optimization problems, including implementations of many 
 	different mutation operators for permutations, and utilizing the 
 	efficiently implemented Permutation class of the JavaPermutationTools 
-	(JPT) library.</p>
+	(JPT) library.
 
-	<p>Chips-n-Salsa is customizable, making extensive use of Java's generic 
+	Chips-n-Salsa is customizable, making extensive use of Java's generic 
 	types, enabling using the library to optimize other types of representations 
 	beyond what is provided in the library. It is hybridizable, providing 
 	support for integrating multiple forms of local search (e.g., using a hill 
@@ -47,8 +47,7 @@
 	implementations of adaptive annealing schedules for simulated annealing, 
 	such as the Modified Lam schedule, implementations of the simpler annealing 
 	schedules but which self-tune the initial temperature and other parameters, 
-	and restart schedules that adapt to run length.</p>
-	]]>
+	and restart schedules that adapt to run length.
 	</description>
 
 	<url>https://chips-n-salsa.cicirello.org/</url>
@@ -153,6 +152,32 @@
 					<url>https://maven.pkg.github.com/cicirello/Chips-n-Salsa</url>
 				</repository>
 			</distributionManagement>
+		</profile>
+		<profile>
+			<id>coverage</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>0.8.6</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>generate-code-coverage-report</id>
+								<phase>test</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 

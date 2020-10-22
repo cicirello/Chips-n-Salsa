@@ -4,6 +4,9 @@ on:
   push:
     branches: [ master ]
     paths: [ '**.java' ]
+  pull_request:
+    branches: [ master ]
+    paths: [ '**.java' ]
 
 jobs:
   api-website:

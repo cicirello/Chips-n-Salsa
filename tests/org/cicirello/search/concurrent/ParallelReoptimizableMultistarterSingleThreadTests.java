@@ -53,6 +53,40 @@ public class ParallelReoptimizableMultistarterSingleThreadTests {
 	}
 	
 	@Test
+	public void testConstantLength_Split() {
+		for (int r = 1; r <= 1000; r *= 10) {
+			for (int re = 1; re <= 5; re++) {
+				TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+				ParallelReoptimizableMultistarter<TestObject> restarter1 = new ParallelReoptimizableMultistarter<TestObject>(heur, r, 1);
+				ParallelReoptimizableMultistarter<TestObject> restarter = restarter1.split();
+				verifyConstantLengthSplit(restarter, heur, r, re);
+				restarter1.close();
+				restarter.close();
+				assertTrue(restarter != restarter1);
+			}
+		}
+	}
+	
+	@Test
+	public void testSetProgressTracker() {
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+		ParallelReoptimizableMultistarter<TestObject> restarter = new ParallelReoptimizableMultistarter<TestObject>(heur, 1, 1);
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		restarter.setProgressTracker(tracker);
+		restarter.close();
+		assertTrue(tracker == restarter.getProgressTracker());
+		assertTrue(tracker == heur.getProgressTracker());
+	}
+	
+	@Test
+	public void testGetProblem() {
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+		ParallelReoptimizableMultistarter<TestObject> restarter = new ParallelReoptimizableMultistarter<TestObject>(heur, 1, 1);
+		restarter.close();
+		assertTrue(heur.getProblem() == restarter.getProblem());
+	}
+	
+	@Test
 	public void testConstantLength_Constructor2() {
 		for (int r = 1; r <= 1000; r *= 10) {
 			for (int re = 1; re <= 5; re++) {
@@ -701,6 +735,20 @@ public class ParallelReoptimizableMultistarterSingleThreadTests {
 		assertEquals(re*r, restarter.getTotalRunLength());
 		assertEquals(re, heur.optCounter);
 		assertEquals(0, heur.reoptCounter);
+		assertFalse(tracker.didFindBest());
+		assertFalse(tracker.isStopped());
+	}
+	
+	private void verifyConstantLengthSplit(ParallelReoptimizableMultistarter<TestObject> restarter, TestRestartedMetaheuristic heur, int r, int re) {
+		ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
+		assertNotNull(tracker);
+		assertEquals(0, restarter.getTotalRunLength());
+		assertFalse(tracker.didFindBest());
+		assertFalse(tracker.isStopped());
+		SolutionCostPair<TestObject> pair = restarter.optimize(re);
+		assertNotNull(pair);
+		assertTrue(pair.getCost()>1);
+		assertEquals(re*r, restarter.getTotalRunLength());
 		assertFalse(tracker.didFindBest());
 		assertFalse(tracker.isStopped());
 	}

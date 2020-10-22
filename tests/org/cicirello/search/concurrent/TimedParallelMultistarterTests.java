@@ -29,8 +29,13 @@ import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.util.Copyable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collection;
 import java.util.SplittableRandom;
+import org.cicirello.search.restarts.ParallelVariableAnnealingLength;
+import org.cicirello.search.restarts.ConstantRestartSchedule;
+import org.cicirello.search.restarts.Multistarter;
+import org.cicirello.search.restarts.ReoptimizableMultistarter;
 
 
 /**
@@ -110,6 +115,7 @@ public class TimedParallelMultistarterTests {
 	@Test
 	public void testTimedParallelMultistarterThree() {
 		int numThreads = 3;
+		final int NUM_TIME_CYCLES = 10;
 		ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(numThreads);
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestProblem problem = new TestProblem();
@@ -125,7 +131,7 @@ public class TimedParallelMultistarterTests {
 		assertEquals(0, tpm.getTotalRunLength());
 		assertNull(tpm.getSearchHistory());
 		long time1 = System.nanoTime();
-		SolutionCostPair<TestObject> solution = tpm.optimize(8);
+		SolutionCostPair<TestObject> solution = tpm.optimize(NUM_TIME_CYCLES);
 		long time2 = System.nanoTime();
 		int combinedRun = 0;
 		for (TestRestartedMetaheuristic search : searches) {
@@ -137,7 +143,7 @@ public class TimedParallelMultistarterTests {
 		}
 		assertEquals(combinedRun, tpm.getTotalRunLength());
 		ArrayList<SolutionCostPair<TestObject>> history = tpm.getSearchHistory();
-		assertEquals(8, history.size());
+		assertEquals(NUM_TIME_CYCLES, history.size());
 		for (int i = 1; i < history.size(); i++) {
 			assertTrue(history.get(i).getCostDouble() <= history.get(i-1).getCostDouble());
 			assertTrue(history.get(i).getCostDouble() >= tracker.getCostDouble());
@@ -174,6 +180,108 @@ public class TimedParallelMultistarterTests {
 		
 		// Close the parallel multistarter
 		tpm.close();
+	}
+	
+	@Test
+	public void testTimedParallelMultistarterVariousConstructors() {
+		final int T = 3;
+		ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(T);
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		for (int i = 1; i <= T; i++) {
+			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
+		}
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T);
+		TimedParallelMultistarter<TestObject> tpm = new TimedParallelMultistarter<TestObject>(searches, schedules);
+		tpm.close();
+		tpm = new TimedParallelMultistarter<TestObject>(searches.get(0), 1000, T);
+		tpm.close();
+		tpm = new TimedParallelMultistarter<TestObject>(searches.get(0), new ConstantRestartSchedule(1000), T);
+		tpm.close();
+		tpm = new TimedParallelMultistarter<TestObject>(searches.get(0), schedules);
+		tpm.close();
+		tpm = new TimedParallelMultistarter<TestObject>(new Multistarter<TestObject>(searches.get(0), 1000), T);
+		tpm.close();
+		ArrayList<Multistarter<TestObject>> starters = new ArrayList<Multistarter<TestObject>>(T);
+		for (int i = 0; i < T; i++) {
+			starters.add(new Multistarter<TestObject>(searches.get(0), 1000));
+		}
+		tpm = new TimedParallelMultistarter<TestObject>(starters);
+		tpm.close();
+		TimedParallelMultistarter<TestObject> split = tpm.split();
+		assertTrue(split != tpm);
+		split.close();
+	}
+	
+	@Test
+	public void testTimedParallelMultistarterSetProgressTracker() {
+		final int T = 3;
+		ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(T);
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		for (int i = 1; i <= T; i++) {
+			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
+		}
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T);
+		TimedParallelMultistarter<TestObject> tpm = new TimedParallelMultistarter<TestObject>(searches, schedules);
+		ProgressTracker<TestObject> tracker2 = new ProgressTracker<TestObject>();
+		tpm.setProgressTracker(tracker2);
+		tpm.close();
+		assertTrue(tracker2 == tpm.getProgressTracker());
+		for (TestRestartedMetaheuristic s : searches) {
+			assertTrue(tracker2 == s.getProgressTracker());
+		}
+	}
+	
+	@Test
+	public void testTimedParallelReoptimizableMultistarterVariousConstructors() {
+		final int T = 3;
+		ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(T);
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		for (int i = 1; i <= T; i++) {
+			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
+		}
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T);
+		TimedParallelReoptimizableMultistarter<TestObject> tpm = new TimedParallelReoptimizableMultistarter<TestObject>(searches, schedules);
+		tpm.close();
+		tpm = new TimedParallelReoptimizableMultistarter<TestObject>(searches.get(0), 1000, T);
+		tpm.close();
+		tpm = new TimedParallelReoptimizableMultistarter<TestObject>(searches.get(0), new ConstantRestartSchedule(1000), T);
+		tpm.close();
+		tpm = new TimedParallelReoptimizableMultistarter<TestObject>(searches.get(0), schedules);
+		tpm.close();
+		tpm = new TimedParallelReoptimizableMultistarter<TestObject>(new ReoptimizableMultistarter<TestObject>(searches.get(0), 1000), T);
+		tpm.close();
+		ArrayList<ReoptimizableMultistarter<TestObject>> starters = new ArrayList<ReoptimizableMultistarter<TestObject>>(T);
+		for (int i = 0; i < T; i++) {
+			starters.add(new ReoptimizableMultistarter<TestObject>(searches.get(0), 1000));
+		}
+		tpm = new TimedParallelReoptimizableMultistarter<TestObject>(starters);
+		tpm.close();
+		TimedParallelReoptimizableMultistarter<TestObject> split = tpm.split();
+		split.close();
+		assertTrue(split != tpm);
+	}
+	
+	@Test
+	public void testTimedParallelReoptimizableMultistarterSetProgressTracker() {
+		final int T = 3;
+		ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(T);
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		for (int i = 1; i <= T; i++) {
+			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
+		}
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T);
+		TimedParallelReoptimizableMultistarter<TestObject> tpm = new TimedParallelReoptimizableMultistarter<TestObject>(searches, schedules);
+		ProgressTracker<TestObject> tracker2 = new ProgressTracker<TestObject>();
+		tpm.setProgressTracker(tracker2);
+		tpm.close();
+		assertTrue(tracker2 == tpm.getProgressTracker());
+		for (TestRestartedMetaheuristic s : searches) {
+			assertTrue(tracker2 == s.getProgressTracker());
+		}
 	}
 	
 	@Test
@@ -248,6 +356,7 @@ public class TimedParallelMultistarterTests {
 	@Test
 	public void testTimedParallelReoptimizableMultistarterThree() {
 		int numThreads = 3;
+		final int NUM_TIME_CYCLES = 10;
 		ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(numThreads);
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestProblem problem = new TestProblem();
@@ -263,7 +372,7 @@ public class TimedParallelMultistarterTests {
 		assertEquals(0, tpm.getTotalRunLength());
 		assertNull(tpm.getSearchHistory());
 		long time1 = System.nanoTime();
-		SolutionCostPair<TestObject> solution = tpm.optimize(8);
+		SolutionCostPair<TestObject> solution = tpm.optimize(NUM_TIME_CYCLES);
 		long time2 = System.nanoTime();
 		int combinedRun = 0;
 		for (TestRestartedMetaheuristic search : searches) {
@@ -275,7 +384,7 @@ public class TimedParallelMultistarterTests {
 		}
 		assertEquals(combinedRun, tpm.getTotalRunLength());
 		ArrayList<SolutionCostPair<TestObject>> history = tpm.getSearchHistory();
-		assertEquals(8, history.size());
+		assertEquals(NUM_TIME_CYCLES, history.size());
 		for (int i = 1; i < history.size(); i++) {
 			assertTrue(history.get(i).getCostDouble() <= history.get(i-1).getCostDouble());
 			assertTrue(history.get(i).getCostDouble() >= tracker.getCostDouble());

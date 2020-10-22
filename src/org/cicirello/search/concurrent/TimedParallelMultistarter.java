@@ -141,8 +141,10 @@ public final class TimedParallelMultistarter<T extends Copyable<T>> implements M
 	 * @param search The metaheuristic to restart multiple times in parallel.
 	 * @param schedules The schedules of run lengths, one for each thread.  The number of threads will 
 	 * be equal to the number of restart schedules.
+	 * @throws IllegalArgumentException if schedules.size() is less than 1.
 	 */
 	public TimedParallelMultistarter(Metaheuristic<T> search, Collection<? extends RestartSchedule> schedules) {
+		if (schedules.size() < 1) throw new IllegalArgumentException("Must pass at least one schedule.");
 		multistarters = new ArrayList<Multistarter<T>>();
 		boolean addedFirst = false;
 		for (RestartSchedule r : schedules) {

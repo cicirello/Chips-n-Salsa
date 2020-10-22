@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-10-21
+## [Unreleased] - 2020-10-22
 
 ### Added
 * Code coverage reporting, via JaCoCo, added to build process.
@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Added missing parameter checks in constructors of parallel metaheuristic implementations.
+* Added test cases to improve coverage.
 
 
 ## [2.4.1] - 2020-10-15

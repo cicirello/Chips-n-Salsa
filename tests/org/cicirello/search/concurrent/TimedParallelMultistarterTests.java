@@ -115,7 +115,7 @@ public class TimedParallelMultistarterTests {
 	@Test
 	public void testTimedParallelMultistarterThree() {
 		int numThreads = 3;
-		final int NUM_TIME_CYCLES = 10;
+		final int NUM_TIME_CYCLES = 20;
 		ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(numThreads);
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestProblem problem = new TestProblem();
@@ -356,7 +356,7 @@ public class TimedParallelMultistarterTests {
 	@Test
 	public void testTimedParallelReoptimizableMultistarterThree() {
 		int numThreads = 3;
-		final int NUM_TIME_CYCLES = 10;
+		final int NUM_TIME_CYCLES = 20;
 		ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(numThreads);
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestProblem problem = new TestProblem();

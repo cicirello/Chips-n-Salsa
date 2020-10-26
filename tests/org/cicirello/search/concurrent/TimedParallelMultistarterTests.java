@@ -44,6 +44,61 @@ import org.cicirello.search.restarts.ReoptimizableMultistarter;
 public class TimedParallelMultistarterTests {
 	
 	@Test
+	public void testOptimizeExceptions() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
+		TimedParallelMultistarter<TestObject> restarter = new TimedParallelMultistarter<TestObject>(heur, 1, 1);
+		restarter.close();
+		IllegalStateException thrown = assertThrows( 
+			IllegalStateException.class,
+			() -> restarter.optimize(1)
+		);
+	}
+	
+	@Test
+	public void testSetProgressTrackerNull() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
+		TimedParallelMultistarter<TestObject> restarter = new TimedParallelMultistarter<TestObject>(heur, 1, 1);
+		restarter.setProgressTracker(null);
+		assertEquals(tracker, restarter.getProgressTracker());
+		restarter.close();
+	}
+	
+	@Test
+	public void testOptimizeStoppedFoundBest() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
+		TimedParallelMultistarter<TestObject> restarter = new TimedParallelMultistarter<TestObject>(heur, 1, 1);
+		long expected = restarter.getTotalRunLength();
+		restarter.getProgressTracker().setFoundBest();
+		restarter.optimize(1);
+		assertEquals(expected, restarter.getTotalRunLength());
+		restarter.close();
+	}
+	
+	@Test
+	public void testSetTimeUnitException() {
+		final int T = 1;
+		ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(T);
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		for (int i = 1; i <= T; i++) {
+			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
+		}
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T);
+		final TimedParallelMultistarter<TestObject> tpm = new TimedParallelMultistarter<TestObject>(searches, schedules);
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> tpm.setTimeUnit(0)
+		);
+		tpm.close();
+	}
+	
+	@Test
 	public void testTimedParallelMultistarterOne() {
 		int numThreads = 1;
 		ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(numThreads);
@@ -211,6 +266,97 @@ public class TimedParallelMultistarterTests {
 		TimedParallelMultistarter<TestObject> split = tpm.split();
 		assertTrue(split != tpm);
 		split.close();
+		tpm = new TimedParallelMultistarter<TestObject>(starters);
+		split = tpm.split();
+		tpm.close();
+		split.close();
+		assertTrue(split != tpm);
+	}
+	
+	@Test
+	public void testTimedParallelMultistarterVariousConstructorsExceptions() {
+		final int T = 3;
+		ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(T);
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		for (int i = 1; i <= T; i++) {
+			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
+		}
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T+1);
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TimedParallelMultistarter<TestObject>(searches, schedules)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TimedParallelMultistarter<TestObject>(searches, 0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> { 
+				searches.add(new TestRestartedMetaheuristic(T+1, new ProgressTracker<TestObject>(), problem));
+				new TimedParallelMultistarter<TestObject>(searches, schedules);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> { 
+				new TimedParallelMultistarter<TestObject>(searches, 1);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				ArrayList<Multistarter<TestObject>> starters = new ArrayList<Multistarter<TestObject>>(T);
+				for (int i = 0; i <= T; i++) {
+					starters.add(new Multistarter<TestObject>(searches.get(i), 1000));
+				}
+				new TimedParallelMultistarter<TestObject>(starters);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> { 
+				searches.set(T, new TestRestartedMetaheuristic(T+1, tracker, new TestProblem()));
+				new TimedParallelMultistarter<TestObject>(searches, schedules);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> { 
+				new TimedParallelMultistarter<TestObject>(searches, 1);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				ArrayList<Multistarter<TestObject>> starters = new ArrayList<Multistarter<TestObject>>(T);
+				for (int i = 0; i <= T; i++) {
+					starters.add(new Multistarter<TestObject>(searches.get(i), 1000));
+				}
+				new TimedParallelMultistarter<TestObject>(starters);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TimedParallelMultistarter<TestObject>(searches.get(0), 0, T)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TimedParallelMultistarter<TestObject>(searches.get(0), 1, 0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TimedParallelMultistarter<TestObject>(searches.get(0), new ConstantRestartSchedule(1000), 0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TimedParallelMultistarter<TestObject>(new Multistarter<TestObject>(searches.get(0), 1000), 0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TimedParallelMultistarter<TestObject>(searches.get(0), new ArrayList<ParallelVariableAnnealingLength>())
+		);
 	}
 	
 	@Test

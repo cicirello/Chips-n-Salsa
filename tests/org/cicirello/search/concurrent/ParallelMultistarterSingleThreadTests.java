@@ -75,6 +75,7 @@ public class ParallelMultistarterSingleThreadTests {
 		ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
 		restarter.setProgressTracker(null);
 		assertEquals(tracker, restarter.getProgressTracker());
+		restarter.close();
 	}
 	
 	@Test

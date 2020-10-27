@@ -35,6 +35,43 @@ import java.util.Scanner;
 public class CDDTests {
 	
 	@Test
+	public void testConstructorExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CommonDuedateScheduling(-1, 0.5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CommonDuedateScheduling(1, -0.00001)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CommonDuedateScheduling(1, 1.00001)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CommonDuedateScheduling(-1, 0.5, 42)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CommonDuedateScheduling(1, -0.00001, 42)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CommonDuedateScheduling(1, 1.00001, 42)
+		);
+		String contents = "2\n3\n1\t2\t3\n1\t2\t3\n1\t2\t3\n4\n1\t1\t1\n2\t2\t2\n3\t3\t3\n4\t4\t4\n";
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CommonDuedateScheduling(new StringReader(contents), 1, -0.000001)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CommonDuedateScheduling(new StringReader(contents), 1, 1.000001)
+		);
+	}
+	
+	@Test
 	public void testReadSkippingInstance() {
 		String contents = "2\n3\n1\t2\t3\n1\t2\t3\n1\t2\t3\n4\n1\t1\t1\n2\t2\t2\n3\t3\t3\n4\t4\t4\n";
 		CommonDuedateScheduling s = new CommonDuedateScheduling(new StringReader(contents), 1, 0.5);
@@ -46,6 +83,14 @@ public class CDDTests {
 			assertEquals(job+1, s.getWeight(job));
 			assertEquals(duedate, s.getDueDate(job));
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CommonDuedateScheduling(new StringReader(contents), -1, 0.5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CommonDuedateScheduling(new StringReader(contents), 2, 0.5)
+		);
 	}
 	
 	@Test
@@ -124,7 +169,7 @@ public class CDDTests {
 	public void testCompletionTimeCalculationWithH0() {
 		double h = 0.0;
 		for (int n = 1; n <= 10; n++) {
-			CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
+			final CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
 			int[] perm1 = new int[n];
 			int[] perm2 = new int[n];
 			for (int i = 0; i < n; i++) {
@@ -145,6 +190,11 @@ public class CDDTests {
 				expected += s.getProcessingTime(p2.get(x));
 				assertEquals("backward", expected, c2[p2.get(x)]);
 			}
+			final int nPlus = n + 1;
+			IllegalArgumentException thrown = assertThrows( 
+				IllegalArgumentException.class,
+				() -> s.getCompletionTimes(new Permutation(nPlus))
+			);
 		}
 	}
 	

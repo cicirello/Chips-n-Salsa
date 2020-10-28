@@ -26,11 +26,27 @@ import static org.junit.Assert.*;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ss.PartialPermutation;
 import org.cicirello.search.ss.IncrementalEvaluation;
+import org.cicirello.search.ss.Partial;
 
 /**
  * JUnit tests for scheduling heuristics.
  */
 public class HeuristicTests {
+	
+	@Test
+	public void testBaseClassMethods() {
+		int[] duedates = { 3, 0, 1, 7 };
+		FakeProblemDuedates problem = new FakeProblemDuedates(duedates);
+		EarliestDueDate h = new EarliestDueDate(problem);
+		assertEquals(problem, h.getProblem());
+		assertEquals(4, h.completeLength());
+		for (int i = 1; i < 4; i++) {
+			Partial<Permutation> partial = h.createPartial(i);
+			assertEquals(0, partial.size());
+			assertFalse(partial.isComplete());
+			assertEquals(i, partial.numExtensions());
+		}
+	}
 	
 	@Test
 	public void testEDD() {
@@ -280,6 +296,34 @@ public class HeuristicTests {
 		for (int j = 0; j < expected.length; j++) {
 			assertEquals(1.0, h.h(partial, j, null), 1E-10);
 		}
+		
+		
+		final int N = highS/2;
+		
+		class FakeProblemSmallestNormSetupData implements SingleMachineSchedulingProblemData {
+			public int getProcessingTime​(int j) { return 1; }
+			public int[] getCompletionTimes​(Permutation schedule) { return null; }
+			public int numberOfJobs() { return N; }
+			public boolean hasSetupTimes() { return true; }
+			public int getSetupTime(int j) { return 2; }
+			public int getSetupTime(int i, int j) { 
+				if (i==1 && j==2) return 0; 
+				else return 0;
+			}
+		}
+		
+		class FakeProblemSmallestNormSetup implements SingleMachineSchedulingProblem {
+			public int cost​(Permutation candidate) {return 0;}
+			public int value(Permutation candidate) {return 0;}
+			public SingleMachineSchedulingProblemData getInstanceData() {
+				return new FakeProblemSmallestNormSetupData();
+			}
+		}
+		
+		FakeProblemSmallestNormSetup pr = new FakeProblemSmallestNormSetup();
+		h = new SmallestNormalizedSetup(pr);
+		partial = new PartialPermutation(N);
+		assertEquals(e, h.h(partial, 2, null), 1E-10);
 	}
 	
 	@Test

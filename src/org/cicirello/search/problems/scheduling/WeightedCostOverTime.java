@@ -84,9 +84,7 @@ public final class WeightedCostOverTime extends WeightedShortestProcessingTime {
 		if (value > MIN_H) {
 			double s = ((IncrementalTimeCalculator)incEval).slack(element, p);
 			if (s > 0) {
-				double correction = 1.0 - s / (k * data.getProcessingTime(element));
-				if (correction <= 0.0) return MIN_H;
-				value *= correction;
+				value *= (1.0 - s / (k * data.getProcessingTime(element)));
 				return value <= MIN_H ? MIN_H : value;
 			}
 		}		

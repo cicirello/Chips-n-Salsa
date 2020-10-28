@@ -264,6 +264,15 @@ public class HeuristicTests {
 		for (int j = 0; j < expected.length; j++) {
 			assertEquals("j:"+j, expected[j], h.h(partial, j, null), 1E-10);
 		}
+		partial.extend(4);
+		double[] expected2 = { 0.5, 0.5, 0.6 };
+		for (int j = 0; j < expected2.length; j++) {
+			assertEquals(expected2[j], h.h(partial, j, null), 1E-10);
+		}
+		partial.extend(3);
+		partial.extend(2);
+		partial.extend(1);
+		assertEquals(0.5, h.h(partial, 0, null), 1E-10);
 		
 		FakeProblemWeightsPTime problemNoSetups = new FakeProblemWeightsPTime(w, p, 0);
 		h = new SmallestNormalizedSetup(problemNoSetups);
@@ -327,12 +336,22 @@ public class HeuristicTests {
 		for (int j = 0; j < expected.length; j++) {
 			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
 		}
+		partial.extend(p.length-1);
+		for (int j = 0; j < expected.length-1; j++) {
+			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
 		
 		int[] ps =    { 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP - 1};
 		problem = new FakeProblemWeightsPTime(w, ps, 0, 1);
 		h = new WeightedShortestProcessingPlusSetupTime(problem);
+		partial = new PartialPermutation(expected.length);
 		for (int j = 0; j < expected.length; j++) {
 			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
+		partial.extend(4);
+		double[] expected2 = {1.0/8, 1.0/10, 1.0/13, 1.0/18};
+		for (int j = 0; j < expected2.length; j++) {
+			assertEquals(expected2[j], h.h(partial, j, null), 1E-10);
 		}
 	}
 	
@@ -363,12 +382,22 @@ public class HeuristicTests {
 		for (int j = 0; j < expected.length; j++) {
 			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
 		}
+		partial.extend(p.length-1);
+		for (int j = 0; j < expected.length-1; j++) {
+			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
 		
 		int[] ps =    { 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP - 1};
 		problem = new FakeProblemWeightsPTime(w, ps, 0, 1);
 		h = new ShortestProcessingPlusSetupTime(problem);
+		partial = new PartialPermutation(expected.length);
 		for (int j = 0; j < expected.length; j++) {
 			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
+		partial.extend(4);
+		double[] expected2 = {1.0/8, 1.0/10, 1.0/13, 1.0/18};
+		for (int j = 0; j < expected2.length; j++) {
+			assertEquals(expected2[j], h.h(partial, j, null), 1E-10);
 		}
 	}
 	
@@ -397,6 +426,16 @@ public class HeuristicTests {
 		for (int j = 1; j < expected.length; j++) {
 			assertEquals(e, h.h(partial, j, inc), 1E-10);
 		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				int[] p2 = {1, 1};
+				int[] w2 = {1, 1};
+				FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
+				new WeightedShortestProcessingTimeLateOnly(pr);
+			}
+		);
 	}
 	
 	@Test
@@ -440,6 +479,16 @@ public class HeuristicTests {
 		for (int j = 1; j < expected.length; j++) {
 			assertEquals(e, h.h(partial, j, inc), 1E-10);
 		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				int[] p2 = {1, 1};
+				int[] w2 = {1, 1};
+				FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
+				new WeightedShortestProcessingPlusSetupTimeLateOnly(pr);
+			}
+		);
 	}
 	
 	@Test
@@ -471,6 +520,23 @@ public class HeuristicTests {
 			if (slack[j] <= 0) expected = e;
 			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
 		}
+		// MIN_H case
+		problem = new FakeProblemWeightsPTime(new int[] {1, 1}, new int[] {1, 1}, (int)Math.ceil(2/e));
+		h = new WeightedCriticalRatio(problem);
+		partial = new PartialPermutation(2);
+		inc = h.createIncrementalEvaluation();
+		assertEquals(e, h.h(partial, 0, inc), 1E-10);
+		assertEquals(e, h.h(partial, 1, inc), 1E-10);
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				int[] p2 = {1, 1};
+				int[] w2 = {1, 1};
+				FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
+				new WeightedCriticalRatio(pr);
+			}
+		);
 	}
 	
 	@Test
@@ -520,6 +586,28 @@ public class HeuristicTests {
 			if (slack[j] <= 0) expected = e;
 			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
 		}
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 2);
+		partial.extend(2);
+		assertEquals(1.0/18, h.h(partial, 1, inc), 1E-10);
+		
+		// MIN_H case
+		problem = new FakeProblemWeightsPTime(new int[] {1, 1}, new int[] {1, 1}, (int)Math.ceil(2/e), 1);
+		h = new WeightedCriticalRatioSetupAdjusted(problem);
+		partial = new PartialPermutation(2);
+		inc = h.createIncrementalEvaluation();
+		assertEquals(e, h.h(partial, 0, inc), 1E-10);
+		assertEquals(e, h.h(partial, 1, inc), 1E-10);
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				int[] p2 = {1, 1};
+				int[] w2 = {1, 1};
+				FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
+				new WeightedCriticalRatioSetupAdjusted(pr);
+			}
+		);
 	}
 	
 	@Test
@@ -559,6 +647,16 @@ public class HeuristicTests {
 			double expected = expected0[j]*correction;
 			assertEquals("d=pSum, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
 		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				int[] p2 = {1, 1};
+				int[] w2 = {1, 1};
+				FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
+				new Montagne(pr);
+			}
+		);
 	}
 	
 	@Test
@@ -605,6 +703,20 @@ public class HeuristicTests {
 			double expected = expected0[j] * correction;
 			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
 		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				int[] p2 = {1, 1};
+				int[] w2 = {1, 1};
+				FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
+				new WeightedCostOverTime(pr);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedCostOverTime(new FakeProblemWeightsPTime(w, p, 0), 0)
+		);
 	}
 	
 	@Test
@@ -651,6 +763,16 @@ public class HeuristicTests {
 			double expected = expected0[j] * correction;
 			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
 		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				int[] p2 = {1, 1};
+				int[] w2 = {1, 1};
+				FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
+				new WeightedCostOverTimeSetupAdjusted(pr);
+			}
+		);
 	}
 	
 	@Test

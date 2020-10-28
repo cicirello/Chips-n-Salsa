@@ -773,6 +773,10 @@ public class HeuristicTests {
 				new WeightedCostOverTimeSetupAdjusted(pr);
 			}
 		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedCostOverTimeSetupAdjusted(new FakeProblemWeightsPTime(w, p, 0), 0)
+		);
 	}
 	
 	@Test
@@ -819,6 +823,12 @@ public class HeuristicTests {
 			double expected = expected0[j] * correction;
 			assertEquals("positiveSlack, j:"+j, expected < e ? e : expected, h.h(partial, j, inc), 1E-10);
 		}
+		
+		inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 2);
+		partial.extend(2);
+		assertEquals(0.07, h.h(partial, 1, inc), 1E-10);
+		
 	}
 	
 	@Test

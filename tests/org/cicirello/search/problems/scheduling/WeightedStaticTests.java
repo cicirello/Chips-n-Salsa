@@ -32,6 +32,43 @@ import java.util.Scanner;
  * JUnit tests for the WeightedStaticScheduling class.
  */
 public class WeightedStaticTests {
+	
+	@Test
+	public void testConstructorExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticScheduling(0, 0.5, 0.5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticScheduling(1, 0.0, 0.5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticScheduling(1, 1.0000001, 0.5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticScheduling(1, 0.5, -0.00000001)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticScheduling(1, 0.5, 1.00000001)
+		);
+	}
+	
+	@Test
+	public void testReadSkippingInstance() {
+		int n = 3;
+		String contents = "1 1 1\n2 2 2\n3 3 3\n9 8 7\n6 5 4\n3 2 1\n";
+		WeightedStaticScheduling s = new WeightedStaticScheduling(new StringReader(contents), n, 1);
+		assertEquals(n, s.numberOfJobs());
+		for (int job = 0; job < n; job++) {
+			assertEquals(9-job, s.getProcessingTime(job));
+			assertEquals(6-job, s.getWeight(job));
+			assertEquals(3-job, s.getDueDate(job));
+		}
+	}
 
 	@Test
 	public void testReadWriteInstanceData() {
@@ -60,10 +97,17 @@ public class WeightedStaticTests {
 	public void testCorrectNumJobs() {
 		double[] rdd = {0.25, 0.5, 0.75, 1.0};
 		double[] tf = {0.0, 0.25, 0.5, 0.75, 1.0};
-		for (int n = 1; n < 5; n++) {
+		for (int n = 1; n < 4; n++) {
 			for (int r = 0; r < rdd.length; r++) {
 				for (int t = 0; t < tf.length; t++) {
 					WeightedStaticScheduling s = new WeightedStaticScheduling(n, rdd[r], tf[t], 42);
+					assertEquals(n, s.numberOfJobs());
+					assertTrue(s.hasDueDates());
+					assertTrue(s.hasWeights());
+					assertFalse(s.hasSetupTimes());
+					assertFalse(s.hasEarlyWeights());
+					assertFalse(s.hasReleaseDates());
+					s = new WeightedStaticScheduling(n, rdd[r], tf[t]);
 					assertEquals(n, s.numberOfJobs());
 					assertTrue(s.hasDueDates());
 					assertTrue(s.hasWeights());
@@ -97,6 +141,11 @@ public class WeightedStaticTests {
 					expected += s.getProcessingTime(x);
 					assertEquals(expected, c2[x]);
 				}
+				final int nPlus = n + 1;
+				IllegalArgumentException thrown = assertThrows( 
+					IllegalArgumentException.class,
+					() -> s.getCompletionTimes(new Permutation(nPlus))
+				);
 			}
 		}
 	}

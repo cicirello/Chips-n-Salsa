@@ -66,9 +66,17 @@ public class BoundMaxTests {
 					IntegerVector x = new IntegerVector(v);
 					assertEquals(count, b.value(x));
 					assertEquals(n-count, b.cost(x));
+					assertEquals(0, b.value(null));
 				}
 			}
 		}
+		int n = 7;
+		int bound = 4;
+		BoundMax b = new BoundMax(n, bound);
+		int[] vShort = { 4, 3, 4, 4, 3, 4 };
+		IntegerVector x = new IntegerVector(vShort);
+		assertEquals(4, b.value(x));
+		assertEquals(3, b.cost(x));	
 	}
 	
 	@Test

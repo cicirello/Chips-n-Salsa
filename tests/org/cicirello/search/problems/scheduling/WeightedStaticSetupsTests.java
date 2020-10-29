@@ -34,6 +34,38 @@ import java.util.Scanner;
 public class WeightedStaticSetupsTests {
 	
 	@Test
+	public void testConstructorExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticSchedulingWithSetups(0, 0.5, 0.5, 0.5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticSchedulingWithSetups(1, -0.0000001, 0.5, 0.5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticSchedulingWithSetups(1, 1.0000001, 0.5, 0.5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticSchedulingWithSetups(1, 0.5, -0.0000001, 0.5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticSchedulingWithSetups(1, 0.5, 1.0000001, 0.5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticSchedulingWithSetups(1, 0.5, 0.5, -0.0000001)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedStaticSchedulingWithSetups(1, 0.5, 0.5, 1.0000001)
+		);
+	}
+	
+	@Test
 	public void testReadWriteInstanceData() {
 		double[] tau = {0.0, 0.5, 1.0};
 		double[] r = {0.0, 0.5, 1.0};
@@ -97,11 +129,18 @@ public class WeightedStaticSetupsTests {
 		double[] tau = {0.0, 0.25, 0.5, 0.75, 1.0};
 		double[] r = {0.0, 0.25, 0.5, 0.75, 1.0};
 		double[] eta = {0.0, 0.25, 0.5, 0.75, 1.0};
-		for (int n = 1; n <= 5; n++) {
+		for (int n = 1; n <= 3; n++) {
 			for (int i = 0; i < tau.length; i++) {
 				for (int j = 0; j < r.length; j++) {
 					for (int k = 0; k < eta.length; k++) {
 						WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
+						assertEquals(n, s.numberOfJobs());
+						assertTrue(s.hasDueDates());
+						assertTrue(s.hasWeights());
+						assertTrue(s.hasSetupTimes());
+						assertFalse(s.hasEarlyWeights());
+						assertFalse(s.hasReleaseDates());
+						s = new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k]);
 						assertEquals(n, s.numberOfJobs());
 						assertTrue(s.hasDueDates());
 						assertTrue(s.hasWeights());
@@ -145,6 +184,14 @@ public class WeightedStaticSetupsTests {
 				}
 			}
 		}
+		final int nPlus = 5;
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(4, 0.5, 0.5, 0.5);
+				s.getCompletionTimes(new Permutation(nPlus));
+			}
+		);
 	}
 	
 	@Test

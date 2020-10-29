@@ -82,6 +82,78 @@ public class SimulatedAnnealingHCTests {
 	}
 	
 	@Test
+	public void testConstructorExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new SimulatedAnnealing<TestObject>(pd_unknown, new TestDoNothingMutation(), new TestInitializer(), new SteepestDescentHillClimber<TestObject>(pd_known, new TestDoNothingMutation(), new TestInitializer()))
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new SimulatedAnnealing<TestObject>(pi_unknown, new TestDoNothingMutation(), new TestInitializer(), new SteepestDescentHillClimber<TestObject>(pi_known, new TestDoNothingMutation(), new TestInitializer()))
+		);
+	}
+	
+	@Test
+	public void testConstructors() {
+		TestMutation mutation = new TestMutation();
+		ModifiedLam anneal = new ModifiedLam();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestInitializer init = new TestInitializer();
+		
+		NoHillClimber hc = new NoHillClimber(pi_known);
+		SimulatedAnnealing<TestObject> sa = new SimulatedAnnealing<TestObject>(pi_known, mutation, init, tracker, hc);
+		sa.optimize(1);
+		assertEquals(tracker, sa.getProgressTracker());
+		assertEquals(1, sa.getTotalRunLength());
+		assertEquals(pi_known, sa.getProblem());
+		assertTrue(tracker.containsIntCost());
+		
+		tracker = new ProgressTracker<TestObject>();
+		hc = new NoHillClimber(pd_known);
+		sa = new SimulatedAnnealing<TestObject>(pd_known, mutation, init, tracker, hc);
+		sa.optimize(1);
+		assertEquals(tracker, sa.getProgressTracker());
+		assertEquals(1, sa.getTotalRunLength());
+		assertEquals(pd_known, sa.getProblem());
+		assertFalse(tracker.containsIntCost());
+		
+		hc = new NoHillClimber(pi_known);
+		sa = new SimulatedAnnealing<TestObject>(pi_known, mutation, init, anneal, hc);
+		tracker = sa.getProgressTracker();
+		sa.optimize(1);
+		assertEquals(tracker, sa.getProgressTracker());
+		assertEquals(1, sa.getTotalRunLength());
+		assertEquals(pi_known, sa.getProblem());
+		assertTrue(tracker.containsIntCost());
+		
+		hc = new NoHillClimber(pd_known);
+		sa = new SimulatedAnnealing<TestObject>(pd_known, mutation, init, anneal, hc);
+		tracker = sa.getProgressTracker();
+		sa.optimize(1);
+		assertEquals(tracker, sa.getProgressTracker());
+		assertEquals(1, sa.getTotalRunLength());
+		assertEquals(pd_known, sa.getProblem());
+		assertFalse(tracker.containsIntCost());
+	}
+	
+	@Test
+	public void testSameTracker() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>(); 
+		SteepestDescentHillClimber<TestObject> hc = new SteepestDescentHillClimber<TestObject>(pi_known, new TestDoNothingMutation(), new TestInitializer());
+		hc.setProgressTracker(tracker);
+		SimulatedAnnealing<TestObject> sa = new SimulatedAnnealing<TestObject>(pi_known, new TestDoNothingMutation(), new TestInitializer(), new ModifiedLam(), tracker, hc);
+		assertEquals(tracker, hc.getProgressTracker());
+		assertEquals(tracker, sa.getProgressTracker());
+		
+		tracker = new ProgressTracker<TestObject>();
+		hc = new SteepestDescentHillClimber<TestObject>(pd_known, new TestDoNothingMutation(), new TestInitializer());
+		hc.setProgressTracker(tracker);
+		sa = new SimulatedAnnealing<TestObject>(pd_known, new TestDoNothingMutation(), new TestInitializer(), new ModifiedLam(), tracker, hc);
+		assertEquals(tracker, hc.getProgressTracker());
+		assertEquals(tracker, sa.getProgressTracker());
+	}
+	
+	@Test
 	public void testReoptimizeNoHC() {
 		// Test with unknown min solution: double costs
 		int elapsed = 0;

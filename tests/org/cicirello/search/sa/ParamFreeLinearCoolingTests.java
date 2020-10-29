@@ -32,6 +32,27 @@ public class ParamFreeLinearCoolingTests {
 	private static final double EPSILON = 1e-10;
 	
 	@Test
+	public void testSplit() {
+		double logP = Math.log(0.95);
+		ParameterFreeLinearCooling cOriginal = new ParameterFreeLinearCooling();
+		cOriginal.init(500);
+		for (int i = 0; i < 10; i++) cOriginal.accept(3, 2);
+		ParameterFreeLinearCooling c = cOriginal.split();
+		c.init(101);
+		for (int j = 0; j < 10; j++) {
+			assertEquals("temperature shouldn't be set yet", 0.0, c.getTemperature(), EPSILON);
+			assertEquals("deltaT shouldn't be set yet", 0.0, c.getDeltaT(), EPSILON);
+			assertEquals("steps shouldn't be set yet", 0, c.getSteps());
+			assertTrue("Should accept all if params not set yet", c.accept(2, 1));
+		}
+		double expectedT = -1/logP;
+		double expectedDeltaT = (expectedT - 0.001) / 90;
+		assertEquals("Checking initial temperature", expectedT, c.getTemperature(), EPSILON);
+		assertEquals("Checking initial deltaT", expectedDeltaT, c.getDeltaT(), EPSILON);
+		assertEquals("Checking initial steps", 1, c.getSteps());	
+	}
+	
+	@Test
 	public void testInitialParamEstimates() {
 		double logP = Math.log(0.95);
 		
@@ -64,6 +85,40 @@ public class ParamFreeLinearCoolingTests {
 			assertEquals("Checking initial deltaT", expectedDeltaT, c.getDeltaT(), EPSILON);
 			assertEquals("Checking initial steps", 1, c.getSteps());
 		}
+		// Make sure same cost leads to extra estimation iteration
+		for (int i = 1; i <= 4; i *= 2) {
+			c.init(101);
+			c.accept(5, 5);
+			for (int j = 0; j < 10; j++) {
+				assertEquals("temperature shouldn't be set yet", 0.0, c.getTemperature(), EPSILON);
+				assertEquals("deltaT shouldn't be set yet", 0.0, c.getDeltaT(), EPSILON);
+				assertEquals("steps shouldn't be set yet", 0, c.getSteps());
+				assertTrue("Should accept all if params not set yet", c.accept(i+1, 1));
+			}
+			double expectedT = -i/logP;
+			double expectedDeltaT = (expectedT - 0.001) / 89;
+			assertEquals("Checking initial temperature", expectedT, c.getTemperature(), EPSILON);
+			assertEquals("Checking initial deltaT", expectedDeltaT, c.getDeltaT(), EPSILON);
+			assertEquals("Checking initial steps", 1, c.getSteps());
+		}
+		// Force initial t to be small
+		{
+			c.init(101);
+			double diff = -0.02 * Math.log(0.95) / 20.0;
+			for (int j = 0; j < 10; j++) {
+				assertEquals("temperature shouldn't be set yet", 0.0, c.getTemperature(), EPSILON);
+				assertEquals("deltaT shouldn't be set yet", 0.0, c.getDeltaT(), EPSILON);
+				assertEquals("steps shouldn't be set yet", 0, c.getSteps());
+				assertTrue("Should accept all if params not set yet", c.accept(diff+1, 1));
+			}
+			double expectedT = 0.002;
+			double expectedDeltaT = (expectedT - 0.001) / 90;
+			assertEquals("Checking initial temperature", expectedT, c.getTemperature(), EPSILON);
+			assertEquals("Checking initial deltaT", expectedDeltaT, c.getDeltaT(), EPSILON);
+			assertEquals("Checking initial steps", 1, c.getSteps());
+		}
+		
+		
 		c.init(10011);
 		for (int j = 0; j < 10; j++) {
 			assertEquals("temperature shouldn't be set yet", 0.0, c.getTemperature(), EPSILON);

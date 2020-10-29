@@ -32,6 +32,26 @@ public class ModifiedLamTests {
 	private static final double EPSILON = 1e-10;
 	
 	@Test
+	public void testSplit() {
+		ModifiedLam mOriginal = new ModifiedLam();
+		mOriginal.init(500);
+		for (int i = 0; i < 10; i++) mOriginal.accept(3, 2);
+		ModifiedLam m = mOriginal.split();
+		m.init(100);
+		assertEquals("target rate at start of run", 1.0, m.getTargetRate(), EPSILON);
+		for (int i = 0; i < 15; i++) m.accept(3, 2);
+		assertEquals("target rate end of phase 1", 0.441, m.getTargetRate(), EPSILON);
+		m.accept(3, 2);
+		assertEquals("target rate start of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		for (int i = 16; i < 65; i++) m.accept(3, 2);
+		assertEquals("target rate end of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		m.accept(3, 2);
+		assertEquals("target rate start of phase 3", 0.44*Math.pow(440, -1.0/35.0), m.getTargetRate(), EPSILON);
+		for (int i = 66; i < 100; i++) m.accept(3, 2);
+		assertEquals("target rate end of phase 3", 0.001, m.getTargetRate(), EPSILON);
+	}
+	
+	@Test
 	public void testTargetRate() {
 		ModifiedLam m = new ModifiedLam();
 		m.init(100);

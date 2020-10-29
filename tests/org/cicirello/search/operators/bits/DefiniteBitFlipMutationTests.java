@@ -32,6 +32,13 @@ import org.cicirello.search.operators.MutationIterator;
  */
 public class DefiniteBitFlipMutationTests {
 	
+	@Test
+	public void testExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new DefiniteBitFlipMutation(0)
+		);
+	}
 	
 	@Test
 	public void testMutateChange() {
@@ -75,6 +82,11 @@ public class DefiniteBitFlipMutationTests {
 				assertEquals(v1, v2);
 			}		
 		}
+		DefiniteBitFlipMutation mutation = new DefiniteBitFlipMutation(5);
+		BitVector v1 = new BitVector(100, true);
+		BitVector v2 = v1.copy();
+		mutation.undo(v2);
+		assertEquals(v1, v2);
 	}
 	
 	@Test

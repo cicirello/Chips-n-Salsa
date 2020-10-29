@@ -30,6 +30,17 @@ import org.cicirello.search.representations.BitVector;
  */
 public class BitFlipMutationTests {
 	
+	@Test
+	public void testExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BitFlipMutation(0.0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BitFlipMutation(1.0)
+		);
+	}
 	
 	@Test
 	public void testMutateChange() {
@@ -89,13 +100,18 @@ public class BitFlipMutationTests {
 	@Test
 	public void testUndo() {
 		BitFlipMutation mutation = new BitFlipMutation(0.1);
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 10; i++) {
 			BitVector v1 = new BitVector(100, true);
 			BitVector v2 = v1.copy();
 			mutation.mutate(v2);
 			mutation.undo(v2);
 			assertEquals(v1, v2);
 		}
+		mutation = new BitFlipMutation(0.1);
+		BitVector v1 = new BitVector(100, true);
+		BitVector v2 = v1.copy();
+		mutation.undo(v2);
+		assertEquals(v1, v2);
 	}
 	
 	@Test

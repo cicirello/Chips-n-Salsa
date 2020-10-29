@@ -311,7 +311,12 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
 		
 		int delay = 0;
 		
-		if (lastEarly == c.length-1 || (lastEarly == firstTardy - 1 && earlyTotal > tardyTotal)) {
+		// This was original condition. Code review revealed that first term impossible
+		// as long as the common duedate is always computed based on h.  i.e., impossible
+		// for all jobs to be early, even with h=1, which in that case will have exactly one
+		// job precisely on time.
+		// if (lastEarly == c.length-1 || (lastEarly == firstTardy - 1 && earlyTotal > tardyTotal)) {
+		if (lastEarly == firstTardy - 1 && earlyTotal > tardyTotal) {
 			int j = schedule.get(lastEarly);
 			earlyTotal -= earlyWeights[j];
 			lastEarly--;

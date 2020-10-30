@@ -29,12 +29,91 @@ import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.util.Copyable;
 import org.cicirello.search.SolutionCostPair;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutionException;
+
 
 
 /**
  * JUnit tests for the IterativeSampling class.
  */
 public class IterativeSamplingTests {
+	
+	@Test
+	public void testConstructorExceptions() {
+		TestProblem problem = new TestProblem();
+		TestProblemInt problemInt = new TestProblemInt();		
+		TestInitializer init = new TestInitializer(); 
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		
+		NullPointerException thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new IterativeSampling<TestObject>((TestProblem)null, init, tracker)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new IterativeSampling<TestObject>(problem, null, tracker)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new IterativeSampling<TestObject>(problem, init, null)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new IterativeSampling<TestObject>((TestProblemInt)null, init, tracker)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new IterativeSampling<TestObject>(problemInt, null, tracker)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new IterativeSampling<TestObject>(problemInt, init, null)
+		);
+	}
+	
+	@Test
+	public void testSetProgressTracker() {
+		TestProblem problem = new TestProblem();
+		TestInitializer init = new TestInitializer(); 
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		IterativeSampling<TestObject> is = new IterativeSampling<TestObject>(problem, init);
+		is.setProgressTracker(tracker);
+		assertEquals(tracker, is.getProgressTracker());
+		is.setProgressTracker(null);
+		assertEquals(tracker, is.getProgressTracker());
+	}
+	
+	@Test
+	public void testStoppedByAnotherThread() {
+		TestProblem problem = new TestProblem();
+		TestInitializer init = new TestInitializer(); 
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		IterativeSampling<TestObject> is = new IterativeSampling<TestObject>(problem, init, tracker);
+		
+		tracker.stop();
+		SolutionCostPair<TestObject> solution = is.optimize();
+		assertNull(solution);
+		solution = is.optimize(1);
+		assertNull(solution);
+	}
+	
+	@Test
+	public void testTrackerContainsBest() {
+		TestProblem problem = new TestProblem();
+		TestInitializer init = new TestInitializer(); 
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		IterativeSampling<TestObject> is = new IterativeSampling<TestObject>(problem, init, tracker);
+		
+		tracker.setFoundBest();
+		SolutionCostPair<TestObject> solution = is.optimize();
+		assertNull(solution);
+		solution = is.optimize(1);
+		assertNull(solution);
+	}
 	
 	@Test
 	public void test1() {
@@ -70,6 +149,66 @@ public class IterativeSamplingTests {
 	public void testSplitInt() {
 		verifySplitInt("constructor 1", new IterativeSampling<TestObject>(new TestProblemInt(), new TestInitializer(), new ProgressTracker<TestObject>()));
 		verifySplitInt("constructor 2", new IterativeSampling<TestObject>(new TestProblemInt(), new TestInitializer()));
+	}
+	
+	@Test
+	public void testQuitsUponFindingBest() {
+		TestProblemFindsMin problem = new TestProblemFindsMin();
+		TestProblemFindsMinInt problemInt = new TestProblemFindsMinInt();
+		TestInitializer init = new TestInitializer(); 
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		IterativeSampling<TestObject> is = new IterativeSampling<TestObject>(problem, init, tracker);
+		
+		SolutionCostPair<TestObject> solution = is.optimize(10);
+		assertNotNull(solution);
+		assertTrue(is.getProgressTracker().didFindBest());
+		
+		tracker = new ProgressTracker<TestObject>();
+		init = new TestInitializer();
+		is = new IterativeSampling<TestObject>(problemInt, init, tracker);
+		solution = is.optimize(10);
+		assertNotNull(solution);
+		assertTrue(is.getProgressTracker().didFindBest());
+	}
+	
+	@Test
+	public void testStopFromAnotherThread() {
+		class LongRunCallable implements Callable<SolutionCostPair<TestObject>> {
+        
+            IterativeSampling<TestObject> is;
+			//volatile boolean started;
+            
+            LongRunCallable(IterativeSampling<TestObject> is) {
+                this.is = is;
+				//started = false;
+            }
+            
+            @Override
+            public SolutionCostPair<TestObject> call() {
+				//started = true;
+                return is.optimize(1000000);
+            }
+        }
+		
+		TestProblem problem = new TestProblem();
+		TestInitializer init = new TestInitializer(); 
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		IterativeSampling<TestObject> is = new IterativeSampling<TestObject>(problem, init, tracker);
+		
+		ExecutorService threadPool = Executors.newFixedThreadPool(1);
+		LongRunCallable thread = new LongRunCallable(is);
+		Future<SolutionCostPair<TestObject>> future = threadPool.submit(thread);
+		SolutionCostPair<TestObject> solution = null;
+		try {
+			do {
+				Thread.sleep(10);
+			} while (init.next == 100);
+			tracker.stop();		
+			solution = future.get();
+			assertNotNull(solution);
+		}
+		catch (InterruptedException ex) { }
+		catch (ExecutionException ex) { }
 	}
 	
 	@SuppressWarnings (value="unchecked")
@@ -204,7 +343,7 @@ public class IterativeSamplingTests {
 	
 	private static class TestInitializer implements Initializer<TestObject> {
 		
-		private int next;
+		private volatile int next;
 		private boolean decrease;
 		
 		public TestInitializer() { next = 100; decrease = false; }
@@ -238,5 +377,15 @@ public class IterativeSamplingTests {
 		public int minCost() { return -99999999; }
 		public boolean isMinCost(int cost) { return false; }
 		public int value(TestObject candidate) { return cost(candidate); }
+	}
+	
+	private static class TestProblemFindsMin extends TestProblem {
+		public double minCost() { return 100; }
+		public boolean isMinCost(double cost) { return cost <= minCost(); }
+	}
+	
+	private static class TestProblemFindsMinInt extends TestProblemInt {
+		public int minCost() { return 100; }
+		public boolean isMinCost(int cost) { return cost <= minCost(); }
 	}
 }

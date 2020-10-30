@@ -184,8 +184,16 @@ public class DefiniteBitFlipMutationTests {
 					}
 					iter.rollback();
 					assertEquals(saved, v1);
+					assertFalse(iter.hasNext());
 					assertEquals("n,b="+n+","+b, numIters, set.size());
 					assertEquals("expected="+expectedCount[b-1]+"; n,b="+n+","+b, expectedCount[b-1], numIters);
+					// an extra rollback should do nothing
+					iter.rollback();
+					assertEquals(saved, v1);
+					IllegalStateException thrown = assertThrows( 
+						IllegalStateException.class,
+						() -> iter.nextMutant()
+					);
 				}
 			}
 		}
@@ -225,6 +233,11 @@ public class DefiniteBitFlipMutationTests {
 					}
 					iter.rollback();
 					assertEquals(saved, v1);
+					assertFalse(iter.hasNext());
+					IllegalStateException thrown = assertThrows( 
+						IllegalStateException.class,
+						() -> iter.nextMutant()
+					);
 				}
 			}
 		}

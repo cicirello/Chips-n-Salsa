@@ -53,7 +53,7 @@ import org.cicirello.search.ProgressTracker;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.6.2020
+ * @version 10.31.2020
  */
 public final class HeuristicPermutationGenerator extends HeuristicSolutionGenerator<Permutation> {
 	
@@ -65,7 +65,7 @@ public final class HeuristicPermutationGenerator extends HeuristicSolutionGenera
 	 * @throws NullPointerException if heuristic is null
 	 */
 	public HeuristicPermutationGenerator(ConstructiveHeuristic<Permutation> heuristic) {
-		super(heuristic, new ProgressTracker<Permutation>());
+		super(heuristic);
 	}
 	
 	/**

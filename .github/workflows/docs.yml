@@ -9,7 +9,7 @@ on:
     paths: [ '**.java' ]
 
 jobs:
-  api-website:
+  docs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout the repo

@@ -215,12 +215,6 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
 		}
 		
 		/**
-		 * Gets the total setup time of unscheduled jobs.
-		 * @return total setup time of unscheduled jobs
-		 */
-		public int totalSetupTime() { return totalS; }
-		
-		/**
 		 * Gets the average setup time of unscheduled jobs.
 		 * @return average setup time of unscheduled jobs
 		 */

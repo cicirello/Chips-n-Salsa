@@ -66,6 +66,9 @@ public final class SmallestNormalizedSetup extends SchedulingHeuristic {
 			aveS /= n;
 			double denominator = 1.0 + s / aveS;
 			double h = 1.0 / denominator; 
+			// Case when h <= MIN_H is especially degenerate: would require number of
+			// jobs n to be at least 1/MIN_H, al but one of which to have setup of 0.
+			// Check here probably unnecessary.
 			return h <= MIN_H ? MIN_H : h;
 		} else {
 			return 1;

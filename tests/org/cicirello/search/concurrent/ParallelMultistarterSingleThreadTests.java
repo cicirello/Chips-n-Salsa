@@ -40,6 +40,45 @@ import java.util.SplittableRandom;
 public class ParallelMultistarterSingleThreadTests {
 	
 	@Test
+	public void testOptimizeExceptions() {
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+		ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heur, 1, 1);
+		restarter.close();
+		IllegalStateException thrown = assertThrows( 
+			IllegalStateException.class,
+			() -> restarter.optimize(1)
+		);
+	}
+	
+	@Test
+	public void testOptimizeStoppedFoundBest() {
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+		ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heur, 1, 1);
+		long expected = restarter.getTotalRunLength();
+		restarter.getProgressTracker().stop();
+		restarter.optimize(1);
+		assertEquals(expected, restarter.getTotalRunLength());
+		restarter.close();
+		heur = new TestRestartedMetaheuristic();
+		restarter = new ParallelMultistarter<TestObject>(heur, 1, 1);
+		expected = restarter.getTotalRunLength();
+		restarter.getProgressTracker().setFoundBest();
+		restarter.optimize(1);
+		assertEquals(expected, restarter.getTotalRunLength());
+		restarter.close();
+	}
+	
+	@Test
+	public void testSetProgressTrackerNull() {
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+		ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heur, 1, 1);
+		ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
+		restarter.setProgressTracker(null);
+		assertEquals(tracker, restarter.getProgressTracker());
+		restarter.close();
+	}
+	
+	@Test
 	public void testConstantLength_Constructor1() {
 		for (int r = 1; r <= 1000; r *= 10) {
 			for (int re = 1; re <= 5; re++) {
@@ -49,6 +88,15 @@ public class ParallelMultistarterSingleThreadTests {
 				restarter.close();
 			}
 		}
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new ParallelMultistarter<TestObject>(heur, 0, 1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new ParallelMultistarter<TestObject>(heur, 1, 0)
+		);
 	}
 	
 	@Test
@@ -64,6 +112,15 @@ public class ParallelMultistarterSingleThreadTests {
 				assertTrue(restarter != restarter1);
 			}
 		}
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+		ParallelMultistarter<TestObject> restarter1 = new ParallelMultistarter<TestObject>(heur, 1, 1);
+		restarter1.close();
+		ParallelMultistarter<TestObject> restarter = restarter1.split();
+		IllegalStateException thrown = assertThrows( 
+			IllegalStateException.class,
+			() -> restarter.optimize(1)
+		);
+		restarter.close();
 	}
 	
 	@Test
@@ -95,6 +152,11 @@ public class ParallelMultistarterSingleThreadTests {
 				restarter.close();
 			}
 		}
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new ParallelMultistarter<TestObject>(heur, new ConstantRestartSchedule(1), 0)
+		);
 	}
 	
 	@Test
@@ -124,6 +186,44 @@ public class ParallelMultistarterSingleThreadTests {
 				restarter.close();
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				ArrayList<Metaheuristic<TestObject>> heurs = new ArrayList<Metaheuristic<TestObject>>();
+				heurs.add(new TestRestartedMetaheuristic());
+				ArrayList<RestartSchedule> schedules = new ArrayList<RestartSchedule>();
+				schedules.add(new ConstantRestartSchedule(100));
+				schedules.add(new ConstantRestartSchedule(200));
+				ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs, schedules);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				TestProblem problem = new TestProblem();
+				TestRestartedMetaheuristic h = new TestRestartedMetaheuristic(problem);
+				h.setProgressTracker(new ProgressTracker<TestObject>());
+				ArrayList<Metaheuristic<TestObject>> heurs = new ArrayList<Metaheuristic<TestObject>>();
+				heurs.add(new TestRestartedMetaheuristic(problem));
+				heurs.add(h);
+				ArrayList<RestartSchedule> schedules = new ArrayList<RestartSchedule>();
+				schedules.add(new ConstantRestartSchedule(100));
+				schedules.add(new ConstantRestartSchedule(200));
+				ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs, schedules);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				ArrayList<Metaheuristic<TestObject>> heurs = new ArrayList<Metaheuristic<TestObject>>();
+				heurs.add(new TestRestartedMetaheuristic());
+				heurs.add(new TestRestartedMetaheuristic(new TestProblem()));
+				ArrayList<RestartSchedule> schedules = new ArrayList<RestartSchedule>();
+				schedules.add(new ConstantRestartSchedule(100));
+				schedules.add(new ConstantRestartSchedule(200));
+				ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs, schedules);
+			}
+		);
 	}
 	
 	@Test
@@ -137,6 +237,35 @@ public class ParallelMultistarterSingleThreadTests {
 				restarter.close();
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				ArrayList<Metaheuristic<TestObject>> heurs = new ArrayList<Metaheuristic<TestObject>>();
+				heurs.add(new TestRestartedMetaheuristic());
+				ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs, 0);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				TestProblem problem = new TestProblem();
+				TestRestartedMetaheuristic h = new TestRestartedMetaheuristic(problem);
+				h.setProgressTracker(new ProgressTracker<TestObject>());
+				ArrayList<Metaheuristic<TestObject>> heurs = new ArrayList<Metaheuristic<TestObject>>();
+				heurs.add(new TestRestartedMetaheuristic(problem));
+				heurs.add(h);
+				ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs, 1);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				ArrayList<Metaheuristic<TestObject>> heurs = new ArrayList<Metaheuristic<TestObject>>();
+				heurs.add(new TestRestartedMetaheuristic());
+				heurs.add(new TestRestartedMetaheuristic(new TestProblem()));
+				ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs, 1);
+			}
+		);
 	}
 	
 	@Test
@@ -150,6 +279,14 @@ public class ParallelMultistarterSingleThreadTests {
 				restarter.close();
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+				Multistarter<TestObject> multiStarter = new Multistarter<TestObject>(heur, 1);
+				ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(multiStarter, 0);
+			}
+		);
 	}
 	
 	@Test
@@ -164,6 +301,28 @@ public class ParallelMultistarterSingleThreadTests {
 				restarter.close();
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				ArrayList<Multistarter<TestObject>> heurs = new ArrayList<Multistarter<TestObject>>();
+				TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+				heurs.add(new Multistarter<TestObject>(heur, 1));
+				heurs.add(new Multistarter<TestObject>(new TestRestartedMetaheuristic(new TestProblem()), 1));
+				ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs);
+			}
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				ArrayList<Multistarter<TestObject>> heurs = new ArrayList<Multistarter<TestObject>>();
+				TestProblem p = new TestProblem();
+				TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(p);
+				heur.setProgressTracker(new ProgressTracker<TestObject>());
+				heurs.add(new Multistarter<TestObject>(heur, 1));
+				heurs.add(new Multistarter<TestObject>(new TestRestartedMetaheuristic(p), 1));
+				ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs);
+			}
+		);
 	}
 	
 	@Test
@@ -477,7 +636,7 @@ public class ParallelMultistarterSingleThreadTests {
 		int optCounter;
 		int reoptCounter;
 		private final SplittableRandom rand;
-		private static OptimizationProblem<TestObject> problem = new TestProblem();
+		private final OptimizationProblem<TestObject> problem;
 		
 		public TestRestartedMetaheuristic() {
 			tracker = new ProgressTracker<TestObject>();
@@ -485,6 +644,16 @@ public class ParallelMultistarterSingleThreadTests {
 			stopAtEval = findBestAtEval = Integer.MAX_VALUE;
 			which = 0;
 			rand = new SplittableRandom(42);
+			problem = new TestProblem();
+		}
+		
+		public TestRestartedMetaheuristic(TestProblem p) {
+			tracker = new ProgressTracker<TestObject>();
+			elapsed = 0;
+			stopAtEval = findBestAtEval = Integer.MAX_VALUE;
+			which = 0;
+			rand = new SplittableRandom(42);
+			problem = p;
 		}
 		
 		public TestRestartedMetaheuristic(int stopAtEval, int findBestAtEval) {
@@ -500,6 +669,7 @@ public class ParallelMultistarterSingleThreadTests {
 			else if (stopAtEval > findBestAtEval) which = 2;
 			else which = 0;
 			this.rand = rand;
+			problem = new TestProblem();
 		}
 		
 		@Override

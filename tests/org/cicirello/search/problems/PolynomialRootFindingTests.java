@@ -31,6 +31,18 @@ import org.cicirello.search.representations.RealValued;
 public class PolynomialRootFindingTests {
 	
 	@Test
+	public void testConstructorExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new PolynomialRootFinding(new double[1], 0.001)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new PolynomialRootFinding(new double[0], 0.001)
+		);
+	}
+	
+	@Test
 	public void testCostQuadratic() {
 		SingleReal x = new SingleReal(5);
 		

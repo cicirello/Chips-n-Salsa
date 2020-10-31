@@ -63,7 +63,8 @@ public final class LogarithmicCooling implements AnnealingSchedule {
 	
 	/**
 	 * Constructs a logarithmic cooling schedule with a specified initial temperature.
-	 * @param t0 The initial temperature
+	 * @param t0 The initial temperature, which must be positive
+	 * @throws IllegalArgumentException if t0 &le; 0.0
 	 */
 	public LogarithmicCooling(double t0) {
 		if (t0 <= 0) throw new IllegalArgumentException("initial temperature must be positive");

@@ -36,6 +36,33 @@ import org.cicirello.search.ProgressTracker;
 public class AcceptanceBandTests {
 	
 	@Test
+	public void testConstructorExceptions() {
+		IntProblem problem = new IntProblem();
+		IntHeuristic h = new IntHeuristic(problem, 5);
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new AcceptanceBandSampling<Permutation>(h, -0.000001)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new AcceptanceBandSampling<Permutation>(h, 1.000001)
+		);
+		NullPointerException thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new AcceptanceBandSampling<Permutation>(null, 0.5)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new AcceptanceBandSampling<Permutation>(h, 0.5, null)
+		);
+		IntHeuristic hNullProblem = new IntHeuristic(null, 5);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new AcceptanceBandSampling<Permutation>(hNullProblem, 0.5, null)
+		);
+	}
+	
+	@Test
 	public void testWithIntCosts() {
 		for (int n = 0; n < 10; n++) {
 			IntProblem problem = new IntProblem();

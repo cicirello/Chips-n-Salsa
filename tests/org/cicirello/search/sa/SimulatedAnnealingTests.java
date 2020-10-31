@@ -29,6 +29,11 @@ import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.util.Copyable;
 import org.cicirello.search.SolutionCostPair;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutionException;
 
 /**
  * JUnit test cases for the SimulatedAnnealing class.
@@ -56,6 +61,213 @@ public class SimulatedAnnealingTests {
 		d_known = new SimulatedAnnealing<TestObject>(pd_known, new TestMutation(), new TestInitializer());
 		i_unknown = new SimulatedAnnealing<TestObject>(pi_unknown, new TestMutation(), new TestInitializer());
 		i_known = new SimulatedAnnealing<TestObject>(pi_known, new TestMutation(), new TestInitializer());
+	}
+	
+	@Test
+	public void testConstructorExceptions() {
+		NullPointerException thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new SimulatedAnnealing<TestObject>((OptimizationProblem<TestObject>)null, new TestMutation(), new TestInitializer(), new ModifiedLam(), new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new SimulatedAnnealing<TestObject>(pd_known, null, new TestInitializer(), new ModifiedLam(), new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new SimulatedAnnealing<TestObject>(pd_known, new TestMutation(), null, new ModifiedLam(), new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new SimulatedAnnealing<TestObject>(pd_known, new TestMutation(), new TestInitializer(), null, new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new SimulatedAnnealing<TestObject>(pd_known, new TestMutation(), new TestInitializer(), new ModifiedLam(), (ProgressTracker<TestObject>)null)
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new SimulatedAnnealing<TestObject>((IntegerCostOptimizationProblem<TestObject>)null, new TestMutation(), new TestInitializer(), new ModifiedLam(), new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new SimulatedAnnealing<TestObject>(pi_known, null, new TestInitializer(), new ModifiedLam(), new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new SimulatedAnnealing<TestObject>(pi_known, new TestMutation(), null, new ModifiedLam(), new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new SimulatedAnnealing<TestObject>(pi_known, new TestMutation(), new TestInitializer(), null, new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new SimulatedAnnealing<TestObject>(pi_known, new TestMutation(), new TestInitializer(), new ModifiedLam(), (ProgressTracker<TestObject>)null)
+		);
+	}
+	
+	@Test
+	public void testConstructors() {
+		TestMutation mutation = new TestMutation();
+		ModifiedLam anneal = new ModifiedLam();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestInitializer init = new TestInitializer();
+		
+		SimulatedAnnealing<TestObject> sa = new SimulatedAnnealing<TestObject>(pi_known, mutation, init, anneal, tracker);
+		sa.optimize(1);
+		assertEquals(tracker, sa.getProgressTracker());
+		assertEquals(1, sa.getTotalRunLength());
+		assertEquals(pi_known, sa.getProblem());
+		assertTrue(tracker.containsIntCost());
+		
+		tracker = new ProgressTracker<TestObject>();
+		sa = new SimulatedAnnealing<TestObject>(pd_known, mutation, init, anneal, tracker);
+		sa.optimize(1);
+		assertEquals(tracker, sa.getProgressTracker());
+		assertEquals(1, sa.getTotalRunLength());
+		assertEquals(pd_known, sa.getProblem());
+		assertFalse(tracker.containsIntCost());
+		
+		tracker = new ProgressTracker<TestObject>();
+		sa = new SimulatedAnnealing<TestObject>(pi_known, mutation, init, tracker);
+		sa.optimize(1);
+		assertEquals(tracker, sa.getProgressTracker());
+		assertEquals(1, sa.getTotalRunLength());
+		assertEquals(pi_known, sa.getProblem());
+		assertTrue(tracker.containsIntCost());
+		
+		tracker = new ProgressTracker<TestObject>();
+		sa = new SimulatedAnnealing<TestObject>(pd_known, mutation, init, tracker);
+		sa.optimize(1);
+		assertEquals(tracker, sa.getProgressTracker());
+		assertEquals(1, sa.getTotalRunLength());
+		assertEquals(pd_known, sa.getProblem());
+		assertFalse(tracker.containsIntCost());
+		
+		sa = new SimulatedAnnealing<TestObject>(pi_known, mutation, init, anneal);
+		tracker = sa.getProgressTracker();
+		sa.optimize(1);
+		assertEquals(tracker, sa.getProgressTracker());
+		assertEquals(1, sa.getTotalRunLength());
+		assertEquals(pi_known, sa.getProblem());
+		assertTrue(tracker.containsIntCost());
+		
+		sa = new SimulatedAnnealing<TestObject>(pd_known, mutation, init, anneal);
+		tracker = sa.getProgressTracker();
+		sa.optimize(1);
+		assertEquals(tracker, sa.getProgressTracker());
+		assertEquals(1, sa.getTotalRunLength());
+		assertEquals(pd_known, sa.getProblem());
+		assertFalse(tracker.containsIntCost());
+	}
+	
+	@Test
+	public void testStartsWithOptimal() {
+		TestMutation mutation = new TestMutation();
+		ModifiedLam anneal = new ModifiedLam();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestInitializer init = new TestInitializer();
+		
+		SimulatedAnnealing<TestObject> sa = new SimulatedAnnealing<TestObject>(pi_known, mutation, init, anneal, tracker);
+		TestObject optimal = new TestObject(600);
+		SolutionCostPair<TestObject> solution = sa.optimize(1, optimal);
+		assertTrue(tracker.didFindBest());
+		assertEquals(optimal, tracker.getSolution());
+		assertEquals(optimal, solution.getSolution());
+		
+		tracker = new ProgressTracker<TestObject>();
+		sa = new SimulatedAnnealing<TestObject>(pd_known, mutation, init, anneal, tracker);
+		solution = sa.optimize(1, optimal);
+		assertTrue(tracker.didFindBest());
+		assertEquals(optimal, tracker.getSolution());
+		assertEquals(optimal, solution.getSolution());
+	}
+	
+	@Test
+	public void testStopFromAnotherThread() {
+		class LongRunCallable implements Callable<SolutionCostPair<TestObject>> {
+        
+            SimulatedAnnealing<TestObject> sa;
+			volatile boolean started;
+            
+            LongRunCallable(SimulatedAnnealing<TestObject> sa) {
+                this.sa = sa;
+				started = false;
+            }
+            
+            @Override
+            public SolutionCostPair<TestObject> call() {
+				started = true;
+                return sa.optimize(1000000);
+            }
+        }
+		
+		TestMutation mutation = new TestMutation();
+		ModifiedLam anneal = new ModifiedLam();
+		TestInitializer init = new TestInitializer();
+		
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		SimulatedAnnealing<TestObject> sa = new SimulatedAnnealing<TestObject>(pi_unknown, mutation, init, anneal, tracker);
+		
+		ExecutorService threadPool = Executors.newFixedThreadPool(1);
+		LongRunCallable thread = new LongRunCallable(sa);
+		Future<SolutionCostPair<TestObject>> future = threadPool.submit(thread);
+		try {
+			do {
+				Thread.sleep(10);
+			} while (!thread.started);
+			tracker.stop();		
+			SolutionCostPair<TestObject> pair = future.get();
+		}
+		catch (InterruptedException ex) { }
+		catch (ExecutionException ex) { }
+		
+		tracker = new ProgressTracker<TestObject>();
+		sa = new SimulatedAnnealing<TestObject>(pd_unknown, mutation, init, anneal, tracker);
+		
+		thread = new LongRunCallable(sa);
+		future = threadPool.submit(thread);
+		try {
+			do {
+				Thread.sleep(10);
+			} while (!thread.started);
+			tracker.stop();		
+			SolutionCostPair<TestObject> pair = future.get();
+		}
+		catch (InterruptedException ex) { }
+		catch (ExecutionException ex) { }
+	}
+	
+	@Test
+	public void testGetProblem() {
+		assertEquals(pd_unknown, d_unknown.getProblem());
+		assertEquals(pd_known, d_known.getProblem());
+		assertEquals(pi_unknown, i_unknown.getProblem());
+		assertEquals(pi_known, i_known.getProblem());
+	}
+	
+	@Test
+	public void testSetProgressTracker() {
+		ProgressTracker<TestObject> tracker = i_known.getProgressTracker();
+		i_known.setProgressTracker(null);
+		assertEquals(tracker, i_known.getProgressTracker());
+		ProgressTracker<TestObject> tracker2 = new ProgressTracker<TestObject>(); 
+		i_known.setProgressTracker(tracker2);
+		assertEquals(tracker2, i_known.getProgressTracker());
+	}
+	
+	@Test
+	public void testFoundBest() {
+		TestObject t = new TestObject(100);
+		i_known.getProgressTracker().setFoundBest();
+		assertNull(i_known.optimize(10));
+		assertNull(i_known.optimize(10, t));
+		assertNull(i_known.reoptimize(10));
+		d_known.getProgressTracker().stop();
+		assertNull(d_known.optimize(10));
+		assertNull(d_known.optimize(10, t));
+		assertNull(d_known.reoptimize(10));
 	}
 	
 	@Test
@@ -278,6 +490,34 @@ public class SimulatedAnnealingTests {
 		assertEquals(400, pi_known.cost(t.getSolution()));
 		elapsed += 600;
 		assertEquals(elapsed, i_known.getTotalRunLength());
+		// Test with known min solution: double costs
+		elapsed = 0;
+		t = d_known.getProgressTracker();
+		assertNull("Initial best solution should be null", t.getSolution());
+		assertEquals(elapsed, d_known.getTotalRunLength());
+		result = null;
+		for (int i = 1; i <= 15; i++) {
+			if (i==3) {
+				SimulatedAnnealing<TestObject> split = d_known.split();
+				assertEquals(t, split.getProgressTracker());
+				assertNotNull(result = split.optimize(100));
+				assertEquals(100, result.getSolution().bar);
+				assertNotNull(result = split.optimize(100));
+				assertEquals(100, result.getSolution().bar);
+			}
+			assertNotNull(result = d_known.optimize(100));
+			assertEquals(100, result.getSolution().bar);
+			assertEquals(900.0, t.getCostDouble(), EPSILON);
+			assertEquals(900.0, pd_known.cost(t.getSolution()), EPSILON);
+			elapsed += 100;
+			assertEquals(elapsed, d_known.getTotalRunLength());
+		}
+		assertNotNull(result = d_known.optimize(1000));
+		assertEquals(600, result.getSolution().bar);
+		assertEquals(400.0, t.getCostDouble(), EPSILON);
+		assertEquals(400.0, pd_known.cost(t.getSolution()), EPSILON);
+		elapsed += 600;
+		assertEquals(elapsed, d_known.getTotalRunLength());
 	}
 	
 	@Test
@@ -437,5 +677,8 @@ public class SimulatedAnnealingTests {
 			this.bar = bar;
 		}
 		@Override public TestObject copy() { return new TestObject(bar); }
+		@Override public boolean equals(Object other) {
+			return ((TestObject)other).bar == bar;
+		}
 	}	
 }

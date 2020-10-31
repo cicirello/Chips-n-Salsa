@@ -87,12 +87,10 @@ public final class ApparentTardinessCost extends WeightedShortestProcessingTime 
 		if (value > MIN_H) {
 			double s = ((IncrementalAverageProcessingCalculator)incEval).slack(element, p);
 			if (s > 0) {
-				double correction = Math.exp(-s / 
+				value *= (Math.exp(-s / 
 					(k * 
 					  ((IncrementalAverageProcessingCalculator)incEval).averageProcessingTime())
-				);
-				if (correction <= 0.0) return MIN_H;
-				value *= correction;
+				));
 				return value <= MIN_H ? MIN_H : value;
 			}
 		}		

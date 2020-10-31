@@ -31,11 +31,28 @@ import org.cicirello.search.representations.BitVector;
  */
 public class BitVectorInitializerTests {
 	
+	@Test
+	public void testExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BitVectorInitializer(-1)
+		);
+	}
 	
 	@Test
 	public void testCreateCorrectLength() {
 		for (int n = 0; n <= 33; n++) {
 			BitVectorInitializer fact = new BitVectorInitializer(n);
+			BitVector v = fact.createCandidateSolution();
+			assertEquals(n, v.length());
+		}
+	}
+	
+	@Test
+	public void testSplit() {
+		for (int n = 0; n <= 33; n++) {
+			BitVectorInitializer orig = new BitVectorInitializer(n);
+			BitVectorInitializer fact = orig.split();
 			BitVector v = fact.createCandidateSolution();
 			assertEquals(n, v.length());
 		}

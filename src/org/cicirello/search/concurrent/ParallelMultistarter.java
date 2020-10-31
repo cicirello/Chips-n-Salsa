@@ -157,13 +157,11 @@ public final class ParallelMultistarter<T extends Copyable<T>> implements Metahe
 		for (Metaheuristic<T> s : searches) {
 			if (problem == null) {
 				problem = s.getProblem();
-				if (problem == null) throw new IllegalArgumentException("Metaheuristic has no problem to solve.");
 			} else if(s.getProblem() != problem) {
 				throw new IllegalArgumentException("All Metaheuristics in searches must solve the same problem.");
 			}
 			if (t==null) {
 				t = s.getProgressTracker();
-				if (t == null) throw new IllegalArgumentException("All Metaheuristics in searches must share a single ProgressTracker.");
 			} else if (s.getProgressTracker() != t) {
 				throw new IllegalArgumentException("All Metaheuristics in searches must share a single ProgressTracker.");
 			}
@@ -195,13 +193,11 @@ public final class ParallelMultistarter<T extends Copyable<T>> implements Metahe
 		for (Metaheuristic<T> s : searches) {
 			if (problem == null) {
 				problem = s.getProblem();
-				if (problem == null) throw new IllegalArgumentException("Metaheuristic has no problem to solve.");
 			} else if(s.getProblem() != problem) {
 				throw new IllegalArgumentException("All Metaheuristics in searches must solve the same problem.");
 			}
 			if (t==null) {
 				t = s.getProgressTracker();
-				if (t == null) throw new IllegalArgumentException("All Metaheuristics in searches must share a single ProgressTracker.");
 			} else if (s.getProgressTracker() != t) {
 				throw new IllegalArgumentException("All Metaheuristics in searches must share a single ProgressTracker.");
 			}
@@ -250,13 +246,11 @@ public final class ParallelMultistarter<T extends Copyable<T>> implements Metahe
 		for (Multistarter<T> m : multistarters) {
 			if (problem == null) {
 				problem = m.getProblem();
-				if (problem == null) throw new IllegalArgumentException("Multistarter has no problem to solve.");
 			} else if(m.getProblem() != problem) {
 				throw new IllegalArgumentException("All Multistarters in searches must solve the same problem.");
 			}
 			if (t==null) {
 				t = m.getProgressTracker();
-				if (t == null) throw new IllegalArgumentException("All Multistarters must share a single ProgressTracker.");
 			} else if (m.getProgressTracker() != t) {
 				throw new IllegalArgumentException("All Multistarters must share a single ProgressTracker.");
 			}

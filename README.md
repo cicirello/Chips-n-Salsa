@@ -46,6 +46,10 @@ jar of the library that includes all dependencies.  The file names
 make this distinction explicit.  All build outputs will then
 be found in the directory `target`.
 
+To include generation of a code coverage report during the build,
+execute `mvn package -Pcoverage` at the root of the repository to 
+enable a Maven profile that executes JaCoCo during the test phase.
+
 ## Example Programs
 
 There are several example programs available in a separate repository:

@@ -32,6 +32,13 @@ import org.cicirello.search.operators.MutationIterator;
  */
 public class DefiniteBitFlipMutationTests {
 	
+	@Test
+	public void testExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new DefiniteBitFlipMutation(0)
+		);
+	}
 	
 	@Test
 	public void testMutateChange() {
@@ -75,6 +82,11 @@ public class DefiniteBitFlipMutationTests {
 				assertEquals(v1, v2);
 			}		
 		}
+		DefiniteBitFlipMutation mutation = new DefiniteBitFlipMutation(5);
+		BitVector v1 = new BitVector(100, true);
+		BitVector v2 = v1.copy();
+		mutation.undo(v2);
+		assertEquals(v1, v2);
 	}
 	
 	@Test
@@ -172,8 +184,16 @@ public class DefiniteBitFlipMutationTests {
 					}
 					iter.rollback();
 					assertEquals(saved, v1);
+					assertFalse(iter.hasNext());
 					assertEquals("n,b="+n+","+b, numIters, set.size());
 					assertEquals("expected="+expectedCount[b-1]+"; n,b="+n+","+b, expectedCount[b-1], numIters);
+					// an extra rollback should do nothing
+					iter.rollback();
+					assertEquals(saved, v1);
+					IllegalStateException thrown = assertThrows( 
+						IllegalStateException.class,
+						() -> iter.nextMutant()
+					);
 				}
 			}
 		}
@@ -213,6 +233,11 @@ public class DefiniteBitFlipMutationTests {
 					}
 					iter.rollback();
 					assertEquals(saved, v1);
+					assertFalse(iter.hasNext());
+					IllegalStateException thrown = assertThrows( 
+						IllegalStateException.class,
+						() -> iter.nextMutant()
+					);
 				}
 			}
 		}

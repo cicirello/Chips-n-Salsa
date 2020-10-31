@@ -95,9 +95,7 @@ public final class WeightedCostOverTimeSetupAdjusted extends WeightedShortestPro
 					ps += (p.size()==0 ? data.getSetupTime(element) 
 									: data.getSetupTime(p.getLast(), element));
 				}
-				double correction = 1.0 - s / (k * ps);
-				if (correction <= 0.0) return MIN_H;
-				value *= correction;
+				value *= (1.0 - s / (k * ps));
 				return value <= MIN_H ? MIN_H : value;
 			}
 		}		

@@ -91,12 +91,12 @@ public final class ExponentialEarlyTardyHeuristic extends SchedulingHeuristic {
 	 * @param problem The instance of a scheduling problem that is
 	 * the target of the heuristic.
 	 * @param k A parameter of the heuristic (see class documentation).
-	 * Must be positive.
-	 * @throws IllegalArgumentException if k &le; 0.
+	 * Must be at least 1.
+	 * @throws IllegalArgumentException if k &lt; 1.
 	 */
 	public ExponentialEarlyTardyHeuristic(SingleMachineSchedulingProblem problem, double k) {
 		super(problem);
-		if (k <= 0) throw new IllegalArgumentException("k must be positive");
+		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
 		// pre-compute WLPT and WSPT, and cache results.
 		wlpt = new double[data.numberOfJobs()];
 		wspt = new double[data.numberOfJobs()];

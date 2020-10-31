@@ -249,7 +249,7 @@ public class HeuristicTests {
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new ExponentialEarlyTardyHeuristic(
-				new FakeEarlyTardyProblem(new int[1], new int[1], new int[1], new int[1]), 0)
+				new FakeEarlyTardyProblem(new int[1], new int[1], new int[1], new int[1]), 0.9999)
 		);
 	}
 	
@@ -258,7 +258,7 @@ public class HeuristicTests {
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new LinearEarlyTardyHeuristic(
-				new FakeEarlyTardyProblem(new int[1], new int[1], new int[1], new int[1]), 0)
+				new FakeEarlyTardyProblem(new int[1], new int[1], new int[1], new int[1]), 0.9999)
 		);
 	}
 	

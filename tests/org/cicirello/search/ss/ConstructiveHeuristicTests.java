@@ -36,9 +36,106 @@ import org.cicirello.search.ProgressTracker;
  */
 public class ConstructiveHeuristicTests {
 	
+	// Base class, HeuristicSolutionGenerator, specific tests.
+	
+	@Test
+	public void testConstructorExceptions() {
+		IntProblem problem = new IntProblem();
+		IntHeuristic h = new IntHeuristic(problem, 3);
+		NullPointerException thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new HeuristicSolutionGenerator<Permutation>(h, null)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new HeuristicSolutionGenerator<Permutation>(null, new ProgressTracker<Permutation>())
+		);
+	}
+	
+	@Test
+	public void testBaseClassSplit() {
+		for (int n = 0; n < 3; n++) {
+			IntProblem problem = new IntProblem();
+			IntHeuristic h = new IntHeuristic(problem, n);
+			HeuristicSolutionGenerator<Permutation> chOriginal = new HeuristicSolutionGenerator<Permutation>(h);
+			HeuristicSolutionGenerator<Permutation> ch = chOriginal.split();
+			assertEquals(0, ch.getTotalRunLength());
+			assertTrue(problem == ch.getProblem());
+			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
+			SolutionCostPair<Permutation> solution = ch.optimize();
+			assertEquals(1, ch.getTotalRunLength());
+			assertEquals((n+1)*n/2, solution.getCost());
+			assertEquals((n+1)*n/2, tracker.getCost());
+			Permutation p = solution.getSolution();
+			assertEquals(n, p.length());
+			int evenStart = (n%2==0) ? n-2 : n-1;
+			int oddStart = (n%2==0) ? n-1 : n-2;
+			int i = 0;
+			for (int expected = evenStart; expected >= 0 && i < n; expected -= 2, i++) {
+				assertEquals(expected, p.get(i));
+			}
+			for (int expected = oddStart; expected > 0 && i < n; expected -= 2, i++) {
+				assertEquals(expected, p.get(i));
+			}
+			tracker = new ProgressTracker<Permutation>();
+			ch.setProgressTracker(tracker);
+			assertTrue(tracker == ch.getProgressTracker());
+		}
+	}
+	
+	@Test
+	public void testTrackerStoppedBeforeOptimize() {
+		IntProblem problem = new IntProblem();
+		IntHeuristic h = new IntHeuristic(problem, 3);
+		HeuristicSolutionGenerator<Permutation> ch = new HeuristicSolutionGenerator<Permutation>(h);
+		ProgressTracker<Permutation> tracker = ch.getProgressTracker();
+		tracker.stop();
+		assertNull(ch.optimize());
+		assertEquals(0, ch.getTotalRunLength());
+	}
+	
+	@Test
+	public void testTrackerFoundBestBeforeOptimize() {
+		IntProblem problem = new IntProblem();
+		IntHeuristic h = new IntHeuristic(problem, 3);
+		HeuristicSolutionGenerator<Permutation> ch = new HeuristicSolutionGenerator<Permutation>(h);
+		ProgressTracker<Permutation> tracker = ch.getProgressTracker();
+		tracker.setFoundBest();
+		assertNull(ch.optimize());
+		assertEquals(0, ch.getTotalRunLength());
+	}
+	
+	@Test
+	public void testOptimizeFindsOptimalInt() {
+		IntProblemOptimal problem = new IntProblemOptimal();
+		IntHeuristic h = new IntHeuristic(problem, 1);
+		HeuristicSolutionGenerator<Permutation> ch = new HeuristicSolutionGenerator<Permutation>(h);
+		ProgressTracker<Permutation> tracker = ch.getProgressTracker();
+		SolutionCostPair<Permutation> solution = ch.optimize();
+		assertEquals(solution.getSolution(), tracker.getSolution());
+		assertTrue(tracker.containsIntCost());
+		assertTrue(tracker.didFindBest());
+		assertEquals(solution.getCost(), tracker.getCost());
+	}
+	
+	@Test
+	public void testOptimizeFindsOptimalDouble() {
+		DoubleProblemOptimal problem = new DoubleProblemOptimal();
+		DoubleHeuristic h = new DoubleHeuristic(problem, 1);
+		HeuristicSolutionGenerator<Permutation> ch = new HeuristicSolutionGenerator<Permutation>(h);
+		ProgressTracker<Permutation> tracker = ch.getProgressTracker();
+		SolutionCostPair<Permutation> solution = ch.optimize();
+		assertEquals(solution.getSolution(), tracker.getSolution());
+		assertFalse(tracker.containsIntCost());
+		assertTrue(tracker.didFindBest());
+		assertEquals(solution.getCostDouble(), tracker.getCostDouble(), 1E-10);
+	}
+	
+	// HeuristicPermutationGenerator tests start here
+	
 	@Test
 	public void testWithIntCosts() {
-		for (int n = 0; n < 10; n++) {
+		for (int n = 0; n < 5; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
 			HeuristicPermutationGenerator ch = new HeuristicPermutationGenerator(h);
@@ -66,13 +163,15 @@ public class ConstructiveHeuristicTests {
 			assertEquals((n+1)*n/2, tracker.getCost());
 			tracker = new ProgressTracker<Permutation>();
 			ch.setProgressTracker(tracker);
-			assertTrue(tracker == ch.getProgressTracker());
+			assertEquals(tracker, ch.getProgressTracker());
+			ch.setProgressTracker(null);
+			assertEquals(tracker, ch.getProgressTracker());
 		}
 	}
 	
 	@Test
 	public void testWithDoubleCosts() {
-		for (int n = 0; n < 10; n++) {
+		for (int n = 0; n < 5; n++) {
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
 			HeuristicPermutationGenerator ch = new HeuristicPermutationGenerator(h);
@@ -106,7 +205,7 @@ public class ConstructiveHeuristicTests {
 	
 	@Test
 	public void testWithIntCostsWithProgressTracker() {
-		for (int n = 0; n < 10; n++) {
+		for (int n = 0; n < 5; n++) {
 			ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
@@ -138,7 +237,7 @@ public class ConstructiveHeuristicTests {
 	
 	@Test
 	public void testWithDoubleCostsWithProgressTracker() {
-		for (int n = 0; n < 10; n++) {
+		for (int n = 0; n < 5; n++) {
 			ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
@@ -170,7 +269,7 @@ public class ConstructiveHeuristicTests {
 	
 	@Test
 	public void testWithIntCostsSplit() {
-		for (int n = 0; n < 10; n++) {
+		for (int n = 0; n < 5; n++) {
 			IntProblem problem = new IntProblem();
 			IntHeuristic h = new IntHeuristic(problem, n);
 			HeuristicPermutationGenerator chOriginal = new HeuristicPermutationGenerator(h);
@@ -201,7 +300,7 @@ public class ConstructiveHeuristicTests {
 	
 	@Test
 	public void testWithDoubleCostsSplit() {
-		for (int n = 0; n < 10; n++) {
+		for (int n = 0; n < 5; n++) {
 			DoubleProblem problem = new DoubleProblem();
 			DoubleHeuristic h = new DoubleHeuristic(problem, n);
 			HeuristicPermutationGenerator chOriginal = new HeuristicPermutationGenerator(h);
@@ -325,6 +424,16 @@ public class ConstructiveHeuristicTests {
 			return sum + candidate.length(); 
 		}
 		@Override public double value(Permutation candidate) { return cost(candidate); }
+	}
+	
+	private static class IntProblemOptimal extends IntProblem {
+		// minCost will occur with a Permutation of length 1 (for testing)
+		@Override public int minCost() { return 1; }
+	}
+	
+	private static class DoubleProblemOptimal extends DoubleProblem {
+		// minCost will occur with a Permutation of length 1 (for testing)
+		@Override public double minCost() { return 1; }
 	}
 	
 }

@@ -32,8 +32,8 @@ public class PartialPermutationTests {
 	
 	@Test
 	public void testConstructor() {
-		for (int n = 0; n < 5; n++) {
-			PartialPermutation partial = new PartialPermutation(n);
+		for (int n = 0; n < 3; n++) {
+			final PartialPermutation partial = new PartialPermutation(n);
 			if (n > 0) assertFalse(partial.isComplete());
 			else assertTrue(partial.isComplete());
 			assertEquals(0, partial.size());
@@ -41,7 +41,16 @@ public class PartialPermutationTests {
 			for (int i = 0; i < n; i++) {
 				assertEquals(i, partial.getExtension(i));
 			}
+			final int m = n;
+			ArrayIndexOutOfBoundsException thrown = assertThrows( 
+				ArrayIndexOutOfBoundsException.class,
+				() -> partial.getExtension(m)
+			);
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new PartialPermutation(-1)
+		);
 	}
 	
 	@Test
@@ -74,7 +83,7 @@ public class PartialPermutationTests {
 	@Test
 	public void testExtend() {
 		for (int n = 1; n < 5; n++) {
-			PartialPermutation partial = new PartialPermutation(n);
+			final PartialPermutation partial = new PartialPermutation(n);
 			for (int i = 0; i < n; i++) {
 				assertFalse(partial.isComplete());
 				assertEquals(n-i, partial.numExtensions());
@@ -82,9 +91,19 @@ public class PartialPermutationTests {
 					assertEquals(j, partial.getExtension(j));
 				}
 				assertEquals(i, partial.size());
+				final int m = n - i;
+				ArrayIndexOutOfBoundsException thrown = assertThrows( 
+					ArrayIndexOutOfBoundsException.class,
+					() -> partial.getExtension(m)
+				);
 				for (int j = 0; j < i; j++) {
 					assertEquals(n-1-j, partial.get(j));
 				}
+				final int k = i;
+				thrown = assertThrows( 
+					ArrayIndexOutOfBoundsException.class,
+					() -> partial.get(k)
+				);
 				partial.extend(n-1-i);
 			}
 			assertTrue(partial.isComplete());
@@ -113,6 +132,11 @@ public class PartialPermutationTests {
 						assertEquals(j, partial.getExtension(j));
 					}
 				}
+				final int m = n-i-1;
+				ArrayIndexOutOfBoundsException thrown = assertThrows( 
+					ArrayIndexOutOfBoundsException.class,
+					() -> partial.extend(m)
+				);
 			}
 			assertTrue(partial.isComplete());
 			assertEquals(0, partial.numExtensions());

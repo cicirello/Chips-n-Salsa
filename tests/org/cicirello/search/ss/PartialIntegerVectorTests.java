@@ -33,7 +33,7 @@ public class PartialIntegerVectorTests {
 	
 	@Test
 	public void testConstructor1() {
-		for (int n = 0; n < 5; n++) {
+		for (int n = 0; n < 4; n++) {
 			for (int width = 1; width <= 3; width++) {
 				int min = 3;
 				int max = min + width - 1;
@@ -53,11 +53,19 @@ public class PartialIntegerVectorTests {
 				}
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new PartialIntegerVector(-1, 2, 2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new PartialIntegerVector(1, 3, 2)
+		);
 	}
 	
 	@Test
 	public void testConstructor2true() {
-		for (int n = 0; n < 5; n++) {
+		for (int n = 0; n < 4; n++) {
 			for (int width = 1; width <= 3; width++) {
 				int min = 3;
 				int max = min + width - 1;
@@ -77,11 +85,19 @@ public class PartialIntegerVectorTests {
 				}
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new PartialIntegerVector(-1, 2, 2, true)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new PartialIntegerVector(1, 3, 2, true)
+		);
 	}
 	
 	@Test
 	public void testConstructor2false() {
-		for (int n = 0; n < 5; n++) {
+		for (int n = 0; n < 4; n++) {
 			for (int width = 1; width <= 3; width++) {
 				int min = 3;
 				int max = min + width - 1;
@@ -101,6 +117,14 @@ public class PartialIntegerVectorTests {
 				}
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new PartialIntegerVector(-1, 2, 2, false)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new PartialIntegerVector(1, 3, 2, false)
+		);
 	}
 	
 	@Test
@@ -109,7 +133,7 @@ public class PartialIntegerVectorTests {
 			for (int width = 1; width <= 3; width++) {
 				int min = 3;
 				int max = min + width - 1;
-				PartialIntegerVector v = new PartialIntegerVector(n, min, max);
+				final PartialIntegerVector v = new PartialIntegerVector(n, min, max);
 				for (int i = 0; i < n; i++) {
 					assertFalse(v.isComplete());
 					assertEquals(i, v.size());
@@ -117,11 +141,24 @@ public class PartialIntegerVectorTests {
 					for (int j = 0; j < v.numExtensions(); j++) {
 						assertEquals(min + j, v.getExtension(j));
 					}
+					ArrayIndexOutOfBoundsException thrown = assertThrows( 
+						ArrayIndexOutOfBoundsException.class,
+						() -> v.getExtension(v.numExtensions())
+					);
+					thrown = assertThrows( 
+						ArrayIndexOutOfBoundsException.class,
+						() -> v.extend(v.numExtensions())
+					);
 					v.extend(i % width);
 					assertEquals(i+1, v.size());
 					for (int j = 0; j <= i; j++) {
 						assertEquals(min + j % width, v.get(j));
 					}
+					assertEquals(v.get(v.size()-1), v.getLast());
+					thrown = assertThrows( 
+						ArrayIndexOutOfBoundsException.class,
+						() -> v.get(v.size())
+					);
 				}
 				assertTrue(v.isComplete());
 			}

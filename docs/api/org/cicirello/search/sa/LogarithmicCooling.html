@@ -270,7 +270,9 @@ implements <a href="AnnealingSchedule.html" title="interface in org.cicirello.se
 <div class="block">Constructs a logarithmic cooling schedule with a specified initial temperature.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>t0</code> - The initial temperature</dd>
+<dd><code>t0</code> - The initial temperature, which must be positive</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if t0 &le; 0.0</dd>
 </dl>
 </li>
 </ul>

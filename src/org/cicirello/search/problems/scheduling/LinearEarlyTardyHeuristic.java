@@ -80,10 +80,13 @@ public final class LinearEarlyTardyHeuristic extends SchedulingHeuristic {
 	 * Constructs a LinearEarlyTardyHeuristic heuristic.
 	 * @param problem The instance of a scheduling problem that is
 	 * the target of the heuristic.
-	 * @param k A parameter of the heuristic (see class documentation).
+	 * @param k A parameter of the heuristic (see class documentation). 
+	 * Must be positive.
+	 * @throws IllegalArgumentException if k &le; 0.
 	 */
 	public LinearEarlyTardyHeuristic(SingleMachineSchedulingProblem problem, double k) {
 		super(problem);
+		if (k <= 0) throw new IllegalArgumentException("k must be positive");
 		// pre-compute WLPT and WSPT, and cache results.
 		wlpt = new double[data.numberOfJobs()];
 		wspt = new double[data.numberOfJobs()];

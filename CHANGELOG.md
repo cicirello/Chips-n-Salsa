@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2020-10-31
 
 ### Added
+* EXPET heuristic, a constructive heuristic for common duedate scheduling problems.
 
 ### Changed
 * Minor optimizations in scheduling problem classes (heuristics and cost functions).
@@ -17,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 * Added missing parameter checks in constructors of parallel metaheuristic implementations.
+* Added missing parameter bounds check in LINET scheduling heuristic implementation.
 * Added test cases to improve coverage.
 
 ### CI/CD

@@ -341,6 +341,7 @@ public class HillClimberTests {
 		catch (InterruptedException ex) { }
 		catch (ExecutionException ex) { }
 		
+		threadPool.shutdown();
 		assertEquals(start, tracker.getSolution());
 		assertTrue(tracker.getCost() < solution.getCost());
 	}

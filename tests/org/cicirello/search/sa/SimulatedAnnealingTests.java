@@ -237,6 +237,7 @@ public class SimulatedAnnealingTests {
 		}
 		catch (InterruptedException ex) { }
 		catch (ExecutionException ex) { }
+		threadPool.shutdown();
 	}
 	
 	@Test

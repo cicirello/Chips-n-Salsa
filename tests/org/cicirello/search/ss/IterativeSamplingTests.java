@@ -209,6 +209,7 @@ public class IterativeSamplingTests {
 		}
 		catch (InterruptedException ex) { }
 		catch (ExecutionException ex) { }
+		threadPool.shutdown();
 	}
 	
 	@SuppressWarnings (value="unchecked")

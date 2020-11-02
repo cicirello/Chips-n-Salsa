@@ -44,6 +44,129 @@ import org.cicirello.search.restarts.ReoptimizableMultistarter;
 public class TimedParallelMultistarterTests {
 	
 	@Test
+	public void testParallelOptimizeSomeThreadFindsBest() {
+		class ParallelSearch implements Runnable {
+        
+            TimedParallelMultistarter<TestObject> restarter;
+			ArrayList<TestInterrupted> metaheuristics;
+            ProgressTracker<TestObject> tracker;
+			
+            ParallelSearch() {
+                tracker = new ProgressTracker<TestObject>();
+				TestProblem problem = new TestProblem();
+				
+				metaheuristics = new ArrayList<TestInterrupted>();
+				metaheuristics.add(new TestInterrupted(1, problem, tracker));
+				restarter = new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
+            }
+            
+            @Override
+            public void run() {
+				restarter.setTimeUnit(10);
+                restarter.optimize(1000);
+            }
+		}
+			
+		ParallelSearch search = new ParallelSearch();
+		Thread t = new Thread(search);
+		t.start();
+		while (search.metaheuristics.get(0).count < 1) {
+			try {
+				Thread.sleep(10);
+			}
+			catch (InterruptedException ex) {break;}
+		}
+		search.tracker.setFoundBest();
+		try {
+			t.join(1000);
+		}
+		catch (InterruptedException ex) {}
+		assertFalse(t.isAlive());
+	}
+	
+	@Test
+	public void testParallelOptimizeSomeThreadFindsBest_Reopt() {
+		class ParallelSearch implements Runnable {
+        
+            TimedParallelReoptimizableMultistarter<TestObject> restarter;
+			ArrayList<TestInterrupted> metaheuristics;
+            ProgressTracker<TestObject> tracker;
+			
+            ParallelSearch() {
+                tracker = new ProgressTracker<TestObject>();
+				TestProblem problem = new TestProblem();
+				
+				metaheuristics = new ArrayList<TestInterrupted>();
+				metaheuristics.add(new TestInterrupted(1, problem, tracker));
+				restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
+            }
+            
+            @Override
+            public void run() {
+				restarter.setTimeUnit(10);
+                restarter.optimize(1000);
+            }
+		}
+			
+		ParallelSearch search = new ParallelSearch();
+		Thread t = new Thread(search);
+		t.start();
+		while (search.metaheuristics.get(0).count < 1) {
+			try {
+				Thread.sleep(10);
+			}
+			catch (InterruptedException ex) {break;}
+		}
+		search.tracker.setFoundBest();
+		try {
+			t.join(1000);
+		}
+		catch (InterruptedException ex) {}
+		assertFalse(t.isAlive());
+	}
+	
+	@Test
+	public void testParallelReoptimizeSomeThreadFindsBest_Reopt() {
+		class ParallelSearch implements Runnable {
+        
+            TimedParallelReoptimizableMultistarter<TestObject> restarter;
+			ArrayList<TestInterrupted> metaheuristics;
+            ProgressTracker<TestObject> tracker;
+			
+            ParallelSearch() {
+                tracker = new ProgressTracker<TestObject>();
+				TestProblem problem = new TestProblem();
+				
+				metaheuristics = new ArrayList<TestInterrupted>();
+				metaheuristics.add(new TestInterrupted(1, problem, tracker));
+				restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
+            }
+            
+            @Override
+            public void run() {
+				restarter.setTimeUnit(10);
+                restarter.reoptimize(1000);
+            }
+		}
+			
+		ParallelSearch search = new ParallelSearch();
+		Thread t = new Thread(search);
+		t.start();
+		while (search.metaheuristics.get(0).count < 1) {
+			try {
+				Thread.sleep(10);
+			}
+			catch (InterruptedException ex) {break;}
+		}
+		search.tracker.setFoundBest();
+		try {
+			t.join(1000);
+		}
+		catch (InterruptedException ex) {}
+		assertFalse(t.isAlive());
+	}
+	
+	@Test
 	public void testInterruptParallelOptimize() {
 		class ParallelSearch implements Runnable {
         

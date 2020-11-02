@@ -53,8 +53,7 @@ abstract class AbstractHillClimber<T extends Copyable<T>> implements Metaheurist
 	final IterableMutationOperator<T> mutation;
 	private final OneClimb<T> climber;
 	
-	// volatile related to test cases with multiple threads
-	volatile long neighborCount;
+	long neighborCount;
 	
 	/**
 	 * Constructs a first descent hill climber object for real-valued optimization problem.

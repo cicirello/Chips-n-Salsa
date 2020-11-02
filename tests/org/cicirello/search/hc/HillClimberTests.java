@@ -334,7 +334,7 @@ public class HillClimberTests {
 		try {
 			do {
 				Thread.sleep(10);
-			} while (!thread.started && hc.neighborCount < 1);
+			} while (!thread.started && problem.countEvals <= 1);
 			tracker.stop();		
 			solution = future.get();
 		}
@@ -658,7 +658,11 @@ public class HillClimberTests {
 	
 	
 	private static class TestOptInt implements IntegerCostOptimizationProblem<TestObject> {
+		
+		volatile int countEvals;
+		
 		@Override public int cost(TestObject c) {
+			countEvals++;
 			return 2*c.a;
 		}
 		

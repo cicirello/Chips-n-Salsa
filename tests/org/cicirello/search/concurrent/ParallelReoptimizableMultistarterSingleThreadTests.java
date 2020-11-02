@@ -39,6 +39,88 @@ import java.util.SplittableRandom;
 public class ParallelReoptimizableMultistarterSingleThreadTests {
 	
 	@Test
+	public void testInterruptParallelOptimize() {
+		class ParallelSearch implements Runnable {
+        
+            ParallelReoptimizableMultistarter<TestObject> restarter;
+			ArrayList<TestInterrupted> metaheuristics;
+            
+            ParallelSearch() {
+                ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+				TestProblem problem = new TestProblem();
+				
+				metaheuristics = new ArrayList<TestInterrupted>();
+				metaheuristics.add(new TestInterrupted(1, problem, tracker));
+				metaheuristics.add(new TestInterrupted(2, problem, tracker));
+				metaheuristics.add(new TestInterrupted(3, problem, tracker));
+				restarter = new ParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
+            }
+            
+            @Override
+            public void run() {
+                restarter.optimize(10000);
+            }
+		}
+			
+		ParallelSearch search = new ParallelSearch();
+		Thread t = new Thread(search);
+		t.start();
+		while (search.metaheuristics.get(0).count < 1) {
+			try {
+				Thread.sleep(10);
+			}
+			catch (InterruptedException ex) {break;}
+		}
+		t.interrupt();
+		try {
+			t.join(1000);
+		}
+		catch (InterruptedException ex) {}
+		assertFalse(t.isAlive());
+	}
+	
+	@Test
+	public void testInterruptParallelReoptimize() {
+		class ParallelSearch implements Runnable {
+        
+            ParallelReoptimizableMultistarter<TestObject> restarter;
+			ArrayList<TestInterrupted> metaheuristics;
+            
+            ParallelSearch() {
+                ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+				TestProblem problem = new TestProblem();
+				
+				metaheuristics = new ArrayList<TestInterrupted>();
+				metaheuristics.add(new TestInterrupted(1, problem, tracker));
+				metaheuristics.add(new TestInterrupted(2, problem, tracker));
+				metaheuristics.add(new TestInterrupted(3, problem, tracker));
+				restarter = new ParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
+            }
+            
+            @Override
+            public void run() {
+                restarter.reoptimize(10000);
+            }
+		}
+			
+		ParallelSearch search = new ParallelSearch();
+		Thread t = new Thread(search);
+		t.start();
+		while (search.metaheuristics.get(0).count < 1) {
+			try {
+				Thread.sleep(10);
+			}
+			catch (InterruptedException ex) {break;}
+		}
+		t.interrupt();
+		try {
+			t.join(1000);
+		}
+		catch (InterruptedException ex) {}
+		assertFalse(t.isAlive());
+	}
+	
+	@Test
 	public void testOptimizeExceptions() {
 		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
 		ParallelReoptimizableMultistarter<TestObject> restarter = new ParallelReoptimizableMultistarter<TestObject>(heur, 1, 1);
@@ -1229,5 +1311,45 @@ public class ParallelReoptimizableMultistarterSingleThreadTests {
 		public boolean isMinCost(double c) { return false; }
 		public double minCost() { return -10000; }
 		public double value(TestObject o) { return 5; }
+	}
+	
+	private static class TestInterrupted extends TestRestartedMetaheuristic {
+		
+		public volatile int count;
+		
+		public TestInterrupted(int id, TestProblem problem, ProgressTracker<TestObject> tracker) {
+			super(problem);
+			setProgressTracker(tracker);
+		}
+		
+		@Override
+		public SolutionCostPair<TestObject> optimize(int runLength) {
+			count++;
+			for (int i = 0; i < runLength; i++) {
+				try {
+					Thread.sleep(10);
+				}
+				catch(InterruptedException ex) {
+					TestObject obj = new TestObject();
+					return new SolutionCostPair<TestObject>(obj, problem.cost(obj)); 
+				}
+			}
+			return null;
+		}
+		
+		@Override
+		public SolutionCostPair<TestObject> reoptimize(int runLength)  {
+			count++;
+			for (int i = 0; i < runLength; i++) {
+				try {
+					Thread.sleep(10);
+				}
+				catch(InterruptedException ex) {
+					TestObject obj = new TestObject();
+					return new SolutionCostPair<TestObject>(obj, problem.cost(obj)); 
+				}
+			}
+			return null;
+		}
 	}
 }

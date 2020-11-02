@@ -4,17 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-10-31
+## [Unreleased] - 2020-11-2
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.5.0] - 2020-11-2
 
 ### Added
 * EXPET heuristic, a constructive heuristic for common duedate scheduling problems.
 
 ### Changed
 * Minor optimizations in scheduling problem classes (heuristics and cost functions).
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 * Fixed bug in parallel searches involving handling exceptions thrown by component searches.

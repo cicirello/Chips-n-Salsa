@@ -31,7 +31,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutionException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -421,8 +420,15 @@ public final class TimedParallelMultistarter<T extends Copyable<T>> implements M
 						bestRestart = pair;
 					}
 				} 
-				catch (InterruptedException ex) { }
-				catch (ExecutionException ex) { }
+				catch (Exception ex) {
+					// There are two possible exception types that will get us in here:
+					// 1) InterruptedException: Ignore temporarily while waiting
+					//        for the threads to respond to our tracker.stop() above.
+					// 2) ExecutionException: Future.get() throws this if the thread
+					//        throws any exception. We'll ignore this too, skipping
+					//        the problematic thread and collecting results of other
+					//        threads.
+				}
 			}
 		}
 		return bestRestart; 

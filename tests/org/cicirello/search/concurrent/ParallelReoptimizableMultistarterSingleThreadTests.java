@@ -50,6 +50,34 @@ public class ParallelReoptimizableMultistarterSingleThreadTests {
 	}
 	
 	@Test
+	public void testOptimizeMetaheuristicThrowsException() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		
+		ArrayList<TestOptThrowsExceptions> metaheuristics = new ArrayList<TestOptThrowsExceptions>();
+		metaheuristics.add(new TestOptThrowsExceptions(1, problem, tracker));
+		metaheuristics.add(new TestOptThrowsExceptions(2, problem, tracker));
+		metaheuristics.add(new TestOptThrowsExceptions(3, problem, tracker));
+		ParallelReoptimizableMultistarter<TestObject> restarter = new ParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
+		SolutionCostPair<TestObject> solution = restarter.optimize(1);
+		assertEquals(5, solution.getCost());
+	}
+	
+	@Test
+	public void testReoptimizeMetaheuristicThrowsException() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		
+		ArrayList<TestOptThrowsExceptions> metaheuristics = new ArrayList<TestOptThrowsExceptions>();
+		metaheuristics.add(new TestOptThrowsExceptions(1, problem, tracker));
+		metaheuristics.add(new TestOptThrowsExceptions(2, problem, tracker));
+		metaheuristics.add(new TestOptThrowsExceptions(3, problem, tracker));
+		ParallelReoptimizableMultistarter<TestObject> restarter = new ParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
+		SolutionCostPair<TestObject> solution = restarter.reoptimize(1);
+		assertEquals(5, solution.getCost());
+	}
+	
+	@Test
 	public void testReoptimizeExceptions() {
 		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
 		ParallelReoptimizableMultistarter<TestObject> restarter = new ParallelReoptimizableMultistarter<TestObject>(heur, 1, 1);
@@ -1032,6 +1060,44 @@ public class ParallelReoptimizableMultistarterSingleThreadTests {
 		assertFalse(tracker.isStopped());	
 	}
 	
+	private static class TestOptThrowsExceptions extends TestRestartedMetaheuristic {
+		
+		boolean throwException;
+		boolean returnsNull;
+		
+		public TestOptThrowsExceptions(int id, TestProblem problem, ProgressTracker<TestObject> tracker) {
+			super(problem);
+			setProgressTracker(tracker);
+			throwException = id==2;
+			returnsNull = id==3;
+		}
+		
+		@Override
+		public SolutionCostPair<TestObject> optimize(int runLength) {
+			if (throwException) {	
+				throw new RuntimeException("Testing exception handling");
+			} else if (returnsNull) {
+				return null;
+			} else {
+				TestObject obj = new TestObject();
+				return new SolutionCostPair<TestObject>(obj, problem.cost(obj));
+			}
+		}
+		
+		@Override
+		public SolutionCostPair<TestObject> reoptimize(int runLength) {
+			if (throwException) {	
+				throw new RuntimeException("Testing exception handling");
+			} else if (returnsNull) {
+				return null;
+			} else {
+				TestObject obj = new TestObject();
+				return new SolutionCostPair<TestObject>(obj, problem.cost(obj));
+			}
+		}
+	}
+
+	
 	private static class TestRestartedMetaheuristic implements ReoptimizableMetaheuristic<TestObject> {
 		
 		private ProgressTracker<TestObject> tracker;
@@ -1042,7 +1108,7 @@ public class ParallelReoptimizableMultistarterSingleThreadTests {
 		int optCounter;
 		int reoptCounter;
 		private final SplittableRandom rand;
-		private final OptimizationProblem<TestObject> problem;
+		public final OptimizationProblem<TestObject> problem;
 		
 		public TestRestartedMetaheuristic() {
 			tracker = new ProgressTracker<TestObject>();

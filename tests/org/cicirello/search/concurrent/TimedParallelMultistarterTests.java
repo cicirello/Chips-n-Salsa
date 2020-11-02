@@ -57,6 +57,51 @@ public class TimedParallelMultistarterTests {
 	}
 	
 	@Test
+	public void testOptimizeMetaheuristicThrowsException() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		
+		ArrayList<TestOptThrowsExceptions> metaheuristics = new ArrayList<TestOptThrowsExceptions>();
+		metaheuristics.add(new TestOptThrowsExceptions(1, tracker, problem));
+		metaheuristics.add(new TestOptThrowsExceptions(2, tracker, problem));
+		metaheuristics.add(new TestOptThrowsExceptions(3, tracker, problem));
+		TimedParallelMultistarter<TestObject> restarter = new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
+		restarter.setTimeUnit(10);
+		SolutionCostPair<TestObject> solution = restarter.optimize(1);
+		assertEquals(0, solution.getCost());
+	}
+	
+	@Test
+	public void testOptimizeMetaheuristicThrowsException_Reopt() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		
+		ArrayList<TestOptThrowsExceptions> metaheuristics = new ArrayList<TestOptThrowsExceptions>();
+		metaheuristics.add(new TestOptThrowsExceptions(1, tracker, problem));
+		metaheuristics.add(new TestOptThrowsExceptions(2, tracker, problem));
+		metaheuristics.add(new TestOptThrowsExceptions(3, tracker, problem));
+		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
+		restarter.setTimeUnit(10);
+		SolutionCostPair<TestObject> solution = restarter.optimize(1);
+		assertEquals(0, solution.getCost());
+	}
+	
+	@Test
+	public void testReoptimizeMetaheuristicThrowsException_Reopt() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		
+		ArrayList<TestOptThrowsExceptions> metaheuristics = new ArrayList<TestOptThrowsExceptions>();
+		metaheuristics.add(new TestOptThrowsExceptions(1, tracker, problem));
+		metaheuristics.add(new TestOptThrowsExceptions(2, tracker, problem));
+		metaheuristics.add(new TestOptThrowsExceptions(3, tracker, problem));
+		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
+		restarter.setTimeUnit(10);
+		SolutionCostPair<TestObject> solution = restarter.reoptimize(1);
+		assertEquals(0, solution.getCost());
+	}
+	
+	@Test
 	public void testOptimizeExceptions_Reopt() {
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestProblem problem = new TestProblem();
@@ -863,6 +908,44 @@ public class TimedParallelMultistarterTests {
 		tpm.close();
 	}
 	
+	private static class TestOptThrowsExceptions extends TestRestartedMetaheuristic {
+		
+		boolean throwException;
+		boolean returnsNull;
+		
+		public TestOptThrowsExceptions(int id, ProgressTracker<TestObject> tracker, TestProblem problem) {
+			super(id, tracker, problem);
+			throwException = id==2;
+			returnsNull = id==3;
+		}
+		
+		@Override
+		public SolutionCostPair<TestObject> optimize(int runLength) {
+			optimizeCalled++;
+			if (throwException) {	
+				throw new RuntimeException("Testing exception handling");
+			} else if (returnsNull) {
+				return null;
+			} else {
+				TestObject obj = new TestObject(0);
+				return new SolutionCostPair<TestObject>(obj, problem.cost(obj));
+			}
+		}
+		
+		@Override
+		public SolutionCostPair<TestObject> reoptimize(int runLength) {
+			reoptimizeCalled++;
+			if (throwException) {	
+				throw new RuntimeException("Testing exception handling");
+			} else if (returnsNull) {
+				return null;
+			} else {
+				TestObject obj = new TestObject(0);
+				return new SolutionCostPair<TestObject>(obj, problem.cost(obj));
+			}
+		}
+	}
+	
 	private static class TestRestartedMetaheuristic implements ReoptimizableMetaheuristic<TestObject> {
 		
 		private ProgressTracker<TestObject> tracker;
@@ -870,7 +953,7 @@ public class TimedParallelMultistarterTests {
 		public volatile int optimizeCalled;
 		public volatile int reoptimizeCalled;
 		private SplittableRandom r;
-		private TestProblem problem;
+		public TestProblem problem;
 		public volatile int totalRunLength;
 		
 		public TestRestartedMetaheuristic(int id, ProgressTracker<TestObject> tracker, TestProblem problem) {

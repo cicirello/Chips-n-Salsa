@@ -30,9 +30,9 @@ The GitHub repository is organized as follows:
 * The [/tests](tests) directory contains JUnit test cases for all functionality of the library.
 * The [/docs](docs) directory contains the javadoc documentation in a sub-directory /docs/api. The /docs directory is also the location of the website for the project hosted via GitHub pages at https://chips-n-salsa.cicirello.org/.
 
-## Java 8
+## Java 8+
 
-The library supports Java 8 or higher, including both Oracle JDK 8 and OpenJDK 8.
+The library supports Java 8 or higher.  Our build process currently builds the library using OpenJDK 11, but with a Java 8 target.
 
 ## Building the Library (with Maven)
 

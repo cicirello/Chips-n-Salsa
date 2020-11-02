@@ -320,8 +320,20 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> impl
 						bestRestart = pair;
 					}
 				} 
-				catch (InterruptedException ex) { }
-				catch (ExecutionException ex) { }
+				catch (InterruptedException ex) { 
+					// Future.get() throws this if the current
+					// thread is interrupted.
+					//  1) Cancel this task.
+					//  2) Preserve interrupt status to cancel remaining.
+					f.cancel(true);
+					Thread.currentThread().interrupt();
+				}
+				catch (ExecutionException ex) { 
+					// Future.get() throws this if the thread the pool is executing
+					// throws any exception. We'll ignore this, skipping
+					// the problematic thread and collecting results of other
+					// threads.
+				}
 			}
 		}
 		return bestRestart; 
@@ -387,8 +399,20 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> impl
 						bestRestart = pair;
 					}
 				} 
-				catch (InterruptedException ex) { }
-				catch (ExecutionException ex) { }
+				catch (InterruptedException ex) { 
+					// Future.get() throws this if the current
+					// thread is interrupted.
+					//  1) Cancel this task.
+					//  2) Preserve interrupt status to cancel remaining.
+					f.cancel(true);
+					Thread.currentThread().interrupt();
+				}
+				catch (ExecutionException ex) { 
+					// Future.get() throws this if the thread the pool is executing
+					// throws any exception. We'll ignore this, skipping
+					// the problematic thread and collecting results of other
+					// threads.
+				}
 			}
 		}
 		return bestRestart;

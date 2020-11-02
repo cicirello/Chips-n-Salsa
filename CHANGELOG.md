@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Fixed bug in parallel searches involving handling exceptions thrown by component searches.
 * Added missing parameter checks in constructors of parallel metaheuristic implementations.
 * Added missing parameter bounds check in LINET scheduling heuristic implementation.
 * Added test cases to improve coverage.

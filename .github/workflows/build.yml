@@ -22,7 +22,7 @@ jobs:
         java-version: 1.11
 
     - name: Build with Maven
-      run: mvn -B test -Pcoverage
+      run: mvn -B package -Pcoverage
 
     - name: Generate Jacoco Badge
       id: jacoco

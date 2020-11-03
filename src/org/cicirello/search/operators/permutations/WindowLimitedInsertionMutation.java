@@ -103,6 +103,10 @@ public final class WindowLimitedInsertionMutation extends InsertionMutation {
 	
 	@Override
 	final void generateIndexes(int n, int[] indexes) {
-		RandomIndexer.nextWindowedIntPair(n, limit, indexes);
+		if (limit >= n) {
+			super.generateIndexes(n, indexes);
+		} else {
+			RandomIndexer.nextWindowedIntPair(n, limit, indexes);
+		}
 	}
 }

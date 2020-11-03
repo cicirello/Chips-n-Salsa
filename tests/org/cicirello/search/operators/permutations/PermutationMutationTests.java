@@ -356,6 +356,47 @@ public class PermutationMutationTests {
 	}
 	
 	@Test
+	public void testWindowUNlimitedInsertion() {
+		WindowLimitedInsertionMutation m = new WindowLimitedInsertionMutation();
+		undoTester(m, 3);
+		mutateTester(m, 3);
+		// Check distribution of random indexes
+		for (int n = 2; n <= 4; n++) {
+			boolean[][] indexPairs = new boolean[n][n];
+			int numSamples = n*(n-1)*40;
+			int[] indexes = new int[2];
+			for (int i = 0; i < numSamples; i++) {
+				m.generateIndexes(n, indexes);
+				indexPairs[indexes[0]][indexes[1]] = true;
+			}
+			checkIndexPairs(indexPairs);
+		}
+		// Verify mutations are insertions
+		for (int n = 2; n <= 4; n++) {
+			Permutation p = new Permutation(n);
+			for (int t = 0; t < NUM_RAND_TESTS; t++) {
+				Permutation mutant = new Permutation(p);
+				m.mutate(mutant);
+				int a, b;
+				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
+				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
+				assertTrue("verify elements changed", a <= b);
+				if (mutant.get(b) == p.get(a)) {
+					for (int i = a; i < b; i++) {
+						assertEquals("Verify insertion case: element moved later", p.get(i+1), mutant.get(i));
+					}
+				} else if (mutant.get(a) == p.get(b)) {
+					for (int i = a+1; i <= b; i++) {
+						assertEquals("Verify insertion case: element moved earlier", p.get(i-1), mutant.get(i));
+					}
+				} else {
+					fail("Not an insertion.");
+				}
+			}
+		}
+	}
+	
+	@Test
 	public void testWindowLimitedReversal() {
 		for (int window = 1; window <= 6; window++) {
 			WindowLimitedReversalMutation m = new WindowLimitedReversalMutation(window);
@@ -395,6 +436,41 @@ public class PermutationMutationTests {
 	}
 	
 	@Test
+	public void testWindowUNlimitedReversal() {
+		WindowLimitedReversalMutation m = new WindowLimitedReversalMutation();
+		undoTester(m, 3);
+		mutateTester(m, 3);
+		// Check distribution of random indexes
+		for (int n = 2; n <= 4; n++) {
+			boolean[][] indexPairs = new boolean[n][n];
+			int numSamples = n*(n-1)*40;
+			int[] indexes = new int[2];
+			for (int i = 0; i < numSamples; i++) {
+				m.generateIndexes(n, indexes);
+				indexPairs[indexes[0]][indexes[1]] = true;
+			}
+			checkIndexPairs(indexPairs);
+		}
+		// Verify mutations are reversals
+		for (int n = 2; n <= 4; n++) {
+			Permutation p = new Permutation(n);
+			for (int t = 0; t < NUM_RAND_TESTS; t++) {
+				Permutation mutant = new Permutation(p);
+				m.mutate(mutant);
+				int a, b;
+				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
+				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
+				assertTrue("verify elements changed", a <= b);
+				while (a <= b) {
+					assertEquals("Verify mutation is a reversal", p.get(a), mutant.get(b));
+					a++;
+					b--;
+				}
+			}
+		}
+	}
+	
+	@Test
 	public void testWindowLimitedSwap() {
 		for (int window = 1; window <= 6; window++) {
 			WindowLimitedSwapMutation m = new WindowLimitedSwapMutation(window);
@@ -428,6 +504,41 @@ public class PermutationMutationTests {
 					for (int i = a+1; i < b; i++) {
 						assertEquals("Verify interior elements not changed", p.get(i), mutant.get(i));
 					}
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void testWindowUNlimitedSwap() {
+		WindowLimitedSwapMutation m = new WindowLimitedSwapMutation();
+		undoTester(m, 4);
+		mutateTester(m, 4);
+		// Check distribution of random indexes
+		for (int n = 2; n <= 4; n++) {
+			boolean[][] indexPairs = new boolean[n][n];
+			int numSamples = n*(n-1)*40;
+			int[] indexes = new int[2];
+			for (int i = 0; i < numSamples; i++) {
+				m.generateIndexes(n, indexes);
+				indexPairs[indexes[0]][indexes[1]] = true;
+			}
+			checkIndexPairs(indexPairs);
+		}
+		// Verify mutations are swaps
+		for (int n = 2; n <= 4; n++) {
+			Permutation p = new Permutation(n);
+			for (int t = 0; t < NUM_RAND_TESTS; t++) {
+				Permutation mutant = new Permutation(p);
+				m.mutate(mutant);
+				int a, b;
+				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
+				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
+				assertTrue("verify elements changed", a <= b);
+				assertEquals("Verify elements swapped", p.get(a), mutant.get(b));
+				assertEquals("Verify elements swapped", p.get(b), mutant.get(a));
+				for (int i = a+1; i < b; i++) {
+					assertEquals("Verify interior elements not changed", p.get(i), mutant.get(i));
 				}
 			}
 		}
@@ -479,6 +590,47 @@ public class PermutationMutationTests {
 	}
 	
 	@Test
+	public void testWindowUNlimitedBlockMove() {
+		WindowLimitedBlockMoveMutation m = new WindowLimitedBlockMoveMutation();
+		undoTester(m, 3);
+		mutateTester(m, 3);
+		// Check distribution of random indexes
+		for (int n = 2; n <= 6; n++) {
+			boolean[][][] indexTriples = new boolean[n][n][n];
+			int numSamples = n*(n-1)*(n+1)*40/6;
+			int[] indexes = new int[3];
+			for (int i = 0; i < numSamples; i++) {
+				m.generateIndexes(n, indexes);
+				indexTriples[indexes[0]][indexes[1]][indexes[2]] = true;
+			}
+			checkIndexTriples(indexTriples);
+		}
+		// Verify mutations are block moves
+		for (int n = 2; n <= 6; n++) {
+			Permutation p = new Permutation(n);
+			for (int t = 0; t < NUM_RAND_TESTS; t++) {
+				Permutation mutant = new Permutation(p);
+				m.mutate(mutant);
+				int a, b;
+				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
+				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
+				assertTrue("verify elements changed", a <= b);
+				int c;
+				for (c = a+1; c <= b && p.get(a) != mutant.get(c); c++);
+				// block of p from index a to index (a+b-c) should be same as mutant index c to index b
+				int e = a;
+				for (int d = c; d <= b; d++, e++) {
+					assertEquals(p.get(e), mutant.get(d));
+				}
+				// block of p from index (a+b-c+1) to index b should be same as mutant index a to index c-1
+				for (int d = a; e <= b; d++, e++) {
+					assertEquals(p.get(e), mutant.get(d));
+				}
+			}
+		}
+	}
+	
+	@Test
 	public void testWindowLimitedScramble() {
 		for (int window = 1; window <= 6; window++) {
 			WindowLimitedScrambleMutation m = new WindowLimitedScrambleMutation(window);
@@ -508,6 +660,23 @@ public class PermutationMutationTests {
 					assertTrue("window violation", b-a <= window);
 				}
 			}
+		}
+	}
+	
+	@Test
+	public void testWindowUNlimitedScramble() {
+		WindowLimitedScrambleMutation m = new WindowLimitedScrambleMutation();
+		mutateTester(m, 3);
+		// Check distribution of random indexes
+		for (int n = 2; n <= 4; n++) {
+			boolean[][] indexPairs = new boolean[n][n];
+			int numSamples = n*(n-1)*40;
+			int[] indexes = new int[2];
+			for (int i = 0; i < numSamples; i++) {
+				m.generateIndexes(n, indexes);
+				indexPairs[indexes[0]][indexes[1]] = true;
+			}
+			checkIndexPairs(indexPairs);
 		}
 	}
 	
@@ -545,10 +714,32 @@ public class PermutationMutationTests {
 		}
 	}
 	
+	@Test
+	public void testWindowUNlimitedUndoableScramble() {
+		WindowLimitedUndoableScrambleMutation m = new WindowLimitedUndoableScrambleMutation();
+		undoTester(m, 3);
+		mutateTester(m, 3);
+		// Check distribution of random indexes
+		for (int n = 2; n <= 4; n++) {
+			boolean[][] indexPairs = new boolean[n][n];
+			int numSamples = n*(n-1)*40;
+			int[] indexes = new int[2];
+			for (int i = 0; i < numSamples; i++) {
+				m.generateIndexes(n, indexes);
+				indexPairs[indexes[0]][indexes[1]] = true;
+			}
+			checkIndexPairs(indexPairs);
+		}
+	}
+	
 	
 	private void undoTester(UndoableMutationOperator<Permutation> m) {
+		undoTester(m, 0);
+	}
+	
+	private void undoTester(UndoableMutationOperator<Permutation> m, int minPermLength) {
 		// iterate over different length permutations beginning with 0 length
-		for (int i = 0; i <= 6; i++) {
+		for (int i = minPermLength; i <= 6; i++) {
 			Permutation p = new Permutation(i);
 			for (int t = 0; t < NUM_RAND_TESTS; t++) {
 				Permutation mutant = new Permutation(p);
@@ -560,7 +751,11 @@ public class PermutationMutationTests {
 	}
 	
 	private void mutateTester(MutationOperator<Permutation> m) {
-		for (int i = 0; i <= 6; i++) {
+		mutateTester(m, 0);
+	}
+	
+	private void mutateTester(MutationOperator<Permutation> m, int minPermLength) {
+		for (int i = minPermLength; i <= 6; i++) {
 			Permutation p = new Permutation(i);
 			for (int t = 0; t < NUM_RAND_TESTS; t++) {
 				Permutation mutant = new Permutation(p);

@@ -84,6 +84,10 @@ public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
 	
 	@Override
 	final void generateIndexes(int n, int[] indexes) {
+		if (limit >= n) {
+			super.generateIndexes(n, indexes);
+			return;
+		}
 		// Note 1: The nextWindowedIntTriple method returns 3 all different indexes,
 		// but a removed block of length 1 would require 2 identical indexes.
 		// To handle this, add 1 to n and also add 1 to limit, 

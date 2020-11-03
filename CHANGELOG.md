@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Fixed bug in window limited permutation mutation operators in handling of limit greater than or equal to permutation length.
 * Fixed missing parameter bounds check in LubyRestarts constructor.
 
 ### CI/CD

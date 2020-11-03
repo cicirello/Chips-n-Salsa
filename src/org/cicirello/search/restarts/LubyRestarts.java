@@ -65,9 +65,13 @@ public final class LubyRestarts implements RestartSchedule {
 	/**
 	 * Constructs a restart schedule, such that the run lengths are equal to a*L, where
 	 * L follows the Luby sequence.
-	 * @param a A multiplier.  Each run length is equal to a*L where L follows the Luby sequence.
+	 * @param a A multiplier, which must be positive.  Each run 
+	 * length is equal to a*L where 
+	 * L follows the Luby sequence.
+	 * @throws IllegalArgumentException if a &lt; 1
 	 */
 	public LubyRestarts(int a) {
+		if (a < 1) throw new IllegalArgumentException("a must be positive");
 		this.a = a;
 		u = v = 1;
 	}

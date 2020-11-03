@@ -44,8 +44,6 @@ import org.cicirello.permutations.Permutation;
  * in Proceedings of the 8th International Conference on Bioinspired Information and 
  * Communications Technologies, pages 28–35, December 2014.</p> 
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 10.9.2019
@@ -59,8 +57,7 @@ public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
 	 * a default window limit of Integer.MAX_VALUE.
 	 */
 	public WindowLimitedBlockMoveMutation() {
-		super();
-		limit = Integer.MAX_VALUE;
+		this(Integer.MAX_VALUE);
 	}
 	
 	/**
@@ -87,6 +84,10 @@ public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
 	
 	@Override
 	final void generateIndexes(int n, int[] indexes) {
+		if (limit >= n) {
+			super.generateIndexes(n, indexes);
+			return;
+		}
 		// Note 1: The nextWindowedIntTriple method returns 3 all different indexes,
 		// but a removed block of length 1 would require 2 identical indexes.
 		// To handle this, add 1 to n and also add 1 to limit, 

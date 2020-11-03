@@ -27,8 +27,6 @@ import org.cicirello.permutations.Permutation;
  * Internal (package-private) class implementing an iterator over
  * all window limited block moves.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 10.9.2019 

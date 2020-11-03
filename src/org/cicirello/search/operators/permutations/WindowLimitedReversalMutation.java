@@ -58,8 +58,7 @@ public final class WindowLimitedReversalMutation extends ReversalMutation {
 	 * a default window limit of Integer.MAX_VALUE.
 	 */
 	public WindowLimitedReversalMutation() {
-		super();
-		limit = Integer.MAX_VALUE;
+		this(Integer.MAX_VALUE);
 	}
 	
 	/**
@@ -104,7 +103,11 @@ public final class WindowLimitedReversalMutation extends ReversalMutation {
 	
 	@Override
 	final void generateIndexes(int n, int[] indexes) {
-		RandomIndexer.nextWindowedIntPair(n, limit, indexes);
+		if (limit >= n) {
+			super.generateIndexes(n, indexes);
+		} else {
+			RandomIndexer.nextWindowedIntPair(n, limit, indexes);
+		}
 	}
 	
 }

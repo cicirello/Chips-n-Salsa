@@ -57,8 +57,7 @@ public final class WindowLimitedScrambleMutation extends ScrambleMutation {
 	 * a default window limit of Integer.MAX_VALUE.
 	 */
 	public WindowLimitedScrambleMutation() {
-		super();
-		limit = Integer.MAX_VALUE;
+		this(Integer.MAX_VALUE);
 	}
 	
 	/**
@@ -79,7 +78,11 @@ public final class WindowLimitedScrambleMutation extends ScrambleMutation {
 	
 	@Override
 	final void generateIndexes(int n, int[] indexes) {
-		RandomIndexer.nextWindowedIntPair(n, limit, indexes);
+		if (limit >= n) {
+			super.generateIndexes(n, indexes);
+		} else {
+			RandomIndexer.nextWindowedIntPair(n, limit, indexes);
+		}
 	}
 
 }

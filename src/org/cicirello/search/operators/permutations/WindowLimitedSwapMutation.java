@@ -56,8 +56,7 @@ public final class WindowLimitedSwapMutation extends SwapMutation {
 	 * a default window limit of Integer.MAX_VALUE.
 	 */
 	public WindowLimitedSwapMutation() {
-		super();
-		limit = Integer.MAX_VALUE;
+		this(Integer.MAX_VALUE);
 	}
 	
 	/**
@@ -83,6 +82,10 @@ public final class WindowLimitedSwapMutation extends SwapMutation {
 	
 	@Override
 	final void generateIndexes(int n, int[] indexes) {
-		RandomIndexer.nextWindowedIntPair(n, limit, indexes);
+		if (limit >= n) {
+			super.generateIndexes(n, indexes);
+		} else {
+			RandomIndexer.nextWindowedIntPair(n, limit, indexes);
+		}
 	}
 }

@@ -43,6 +43,53 @@ public class HybridMutationTests {
 	private static final boolean DISABLE_STATISTICAL_TESTS = true;
 	
 	@Test
+	public void testConstructorExceptions() {
+		final ArrayList<TestMutation> mutators = new ArrayList<TestMutation>();
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new HybridMutation<TestObject>(mutators)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new HybridUndoableMutation<TestObject>(mutators)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridMutation<TestObject>(mutators, new int[0])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridUndoableMutation<TestObject>(mutators, new int[0])
+		);
+		mutators.add(new TestMutation());
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridMutation<TestObject>(mutators, new int[] {1, 2})
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridUndoableMutation<TestObject>(mutators, new int[] {1, 2})
+		);
+		mutators.add(new TestMutation());		
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridMutation<TestObject>(mutators, new int[] {0, 2})
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridMutation<TestObject>(mutators, new int[] {1, 0})
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridUndoableMutation<TestObject>(mutators, new int[] {0, 2})
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridUndoableMutation<TestObject>(mutators, new int[] {1, 0})
+		);
+	}
+	
+	@Test
 	public void testHybridMutation() {
 		int n = 6000;
 		// used for chi-square tests: tested at 95% level
@@ -104,6 +151,9 @@ public class HybridMutationTests {
 			}
 			HybridUndoableMutation<TestObject> m = new HybridUndoableMutation<TestObject>(mutators); 
 			TestObject t = new TestObject();
+			// undo should do nothing if mutate not yet called
+			// in this case, if it does something an assertion will fail within the undo
+			m.undo(t);
 			for (int i = 0; i < n; i++) {
 				m.mutate(t);
 			}
@@ -281,6 +331,9 @@ public class HybridMutationTests {
 				}
 				WeightedHybridUndoableMutation<TestObject> m = new WeightedHybridUndoableMutation<TestObject>(mutators, weights); 
 				TestObject t = new TestObject();
+				// undo should do nothing if mutate not yet called
+				// in this case, if it does something an assertion will fail within the undo
+				m.undo(t);
 				for (int i = 0; i < n; i++) {
 					m.mutate(t);
 				}

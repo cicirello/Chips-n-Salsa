@@ -9,14 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-* Refactored ParallelVariableAnnealingLength to eliminate redundant code
-* Refactored constructors of window limited permutation mutation operators to eliminate redundant code
+* Refactored ParallelVariableAnnealingLength to eliminate redundant code.
+* Refactored constructors of window limited permutation mutation operators to eliminate redundant code.
+* Refactored BlockMoveIterator, WindowLimitedBlockMoveIterator, and BlockInterchangeIterator to remove unnecessary conditions.
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+* Fixed bug in WeightedHybridMutation's and WeightedHybridUndoableMutation's constructors in the check for non-positive weights.
 * Fixed bug in window limited permutation mutation operators in handling of limit greater than or equal to permutation length.
 * Fixed missing parameter bounds check in LubyRestarts constructor.
 

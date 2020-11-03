@@ -64,11 +64,11 @@ public final class WeightedHybridUndoableMutation<T> implements UndoableMutation
 		if (mutationOps.size() == 0) throw new IllegalArgumentException("Must pass at least 1 UndoableMutationOperator.");
 		if (mutationOps.size() != weights.length) throw new IllegalArgumentException("Number of weights must be same as number of mutation operators.");
 		choice = weights.clone();
+		if (choice[0] <= 0) throw new IllegalArgumentException("The weights must be positive.");
 		for (int i = 1; i < choice.length; i++) {
-			if (choice[i-1] <= 0) throw new IllegalArgumentException("The weights must be positive.");
+			if (choice[i] <= 0) throw new IllegalArgumentException("The weights must be positive.");
 			choice[i] = choice[i-1] + choice[i];
 		}
-		if (choice[choice.length-1] <= 0) throw new IllegalArgumentException("The weights must be positive.");
 		this.mutationOps = new ArrayList<UndoableMutationOperator<T>>(mutationOps.size());
 		for (UndoableMutationOperator<T> op : mutationOps) {
 			this.mutationOps.add(op);

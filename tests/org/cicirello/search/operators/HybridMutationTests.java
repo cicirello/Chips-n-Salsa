@@ -57,10 +57,18 @@ public class HybridMutationTests {
 			IllegalArgumentException.class,
 			() -> new WeightedHybridMutation<TestObject>(mutators, new int[0])
 		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridUndoableMutation<TestObject>(mutators, new int[0])
+		);
 		mutators.add(new TestMutation());
 		thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new WeightedHybridMutation<TestObject>(mutators, new int[] {1, 2})
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridUndoableMutation<TestObject>(mutators, new int[] {1, 2})
 		);
 		mutators.add(new TestMutation());		
 		thrown = assertThrows( 
@@ -70,6 +78,14 @@ public class HybridMutationTests {
 		thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new WeightedHybridMutation<TestObject>(mutators, new int[] {1, 0})
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridUndoableMutation<TestObject>(mutators, new int[] {0, 2})
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridUndoableMutation<TestObject>(mutators, new int[] {1, 0})
 		);
 	}
 	
@@ -315,6 +331,9 @@ public class HybridMutationTests {
 				}
 				WeightedHybridUndoableMutation<TestObject> m = new WeightedHybridUndoableMutation<TestObject>(mutators, weights); 
 				TestObject t = new TestObject();
+				// undo should do nothing if mutate not yet called
+				// in this case, if it does something an assertion will fail within the undo
+				m.undo(t);
 				for (int i = 0; i < n; i++) {
 					m.mutate(t);
 				}

@@ -284,7 +284,11 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
  L follows the Luby sequence.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>a</code> - A multiplier.  Each run length is equal to a*L where L follows the Luby sequence.</dd>
+<dd><code>a</code> - A multiplier, which must be positive.  Each run 
+ length is equal to a*L where 
+ L follows the Luby sequence.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if a &lt; 1</dd>
 </dl>
 </li>
 </ul>

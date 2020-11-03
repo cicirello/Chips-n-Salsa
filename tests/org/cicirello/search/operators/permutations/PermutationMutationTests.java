@@ -732,6 +732,34 @@ public class PermutationMutationTests {
 		}
 	}
 	
+	@Test
+	public void testWindowLimitedMutationConstructorExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WindowLimitedUndoableScrambleMutation(0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WindowLimitedScrambleMutation(0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WindowLimitedBlockMoveMutation(0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WindowLimitedSwapMutation(0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WindowLimitedReversalMutation(0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WindowLimitedInsertionMutation(0)
+		);
+	}
+	
 	
 	private void undoTester(UndoableMutationOperator<Permutation> m) {
 		undoTester(m, 0);

@@ -51,6 +51,10 @@ public class PermutationInitializerTests {
 			assertEquals("Testing length of generated permutations.", n, p.length());
 			validatePermutation(p);
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new PermutationInitializer(-1)
+		);
 	}
 	
 	private void validatePermutation(Permutation p) {

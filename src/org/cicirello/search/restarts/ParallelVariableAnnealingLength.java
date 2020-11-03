@@ -177,18 +177,7 @@ public final class ParallelVariableAnnealingLength implements RestartSchedule {
 	 * @throws IllegalArgumentException if numThreads &le; 0.
 	 */
 	public static List<ParallelVariableAnnealingLength> createRestartSchedules(int numThreads) {
-		if (numThreads <= 0) throw new IllegalArgumentException("Must have at least 1 thread.");
-		ArrayList<ParallelVariableAnnealingLength> schedules = new ArrayList<ParallelVariableAnnealingLength>(numThreads);
-		int shift = numThreads < 4 ? numThreads : 4;
-		int r0 = 1000;
-		for (int i = 0; i < shift; i++) {
-			schedules.add(new ParallelVariableAnnealingLength(shift, r0));
-			r0 = r0 << 1;
-		}
-		for (int i = shift; i < numThreads; i++) {
-			schedules.add(new ParallelVariableAnnealingLength(schedules.get(i-4)));
-		}
-		return schedules;
+		return createRestartSchedules(numThreads, 1000);
 	}
 	
 	/**

@@ -36,6 +36,20 @@ import java.util.Random;
 public class MultistartSearchTests {
 	
 	@Test
+	public void testSetProgressTracker() {
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+		Multistarter<TestObject> restarter = new Multistarter<TestObject>(heur, 5);
+		ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
+		ProgressTracker<TestObject> expected = new ProgressTracker<TestObject>();
+		restarter.setProgressTracker(expected);
+		assertEquals(expected, restarter.getProgressTracker());
+		assertEquals(expected, heur.getProgressTracker());
+		restarter.setProgressTracker(null);
+		assertEquals(expected, restarter.getProgressTracker());
+		assertEquals(expected, heur.getProgressTracker());
+	}
+	
+	@Test
 	public void testMultistarterConstantLength() {
 		for (int r = 1; r <= 1000; r *= 10) {
 			for (int re = 1; re <= 10; re++) {

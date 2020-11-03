@@ -33,10 +33,18 @@ public class RestartSchedulesTests {
 	public void testConstantRestartSchedule() {
 		for (int i = 1; i <= 128; i *= 2) {
 			ConstantRestartSchedule r = new ConstantRestartSchedule(i);
-			for (int j = 0; j < 5; j++) {
+			for (int j = 0; j < 3; j++) {
+				assertEquals(i, r.nextRunLength());
+			}
+			r.reset();
+			for (int j = 0; j < 3; j++) {
 				assertEquals(i, r.nextRunLength());
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new ConstantRestartSchedule(0)
+		);
 	}
 	
 	@Test
@@ -87,6 +95,10 @@ public class RestartSchedulesTests {
 		for (int i = 0; i < expected1.length; i++) {
 			assertEquals(expected1[i], r.nextRunLength());
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new VariableAnnealingLength(0)
+		);
 	}
 	
 	@Test
@@ -191,6 +203,14 @@ public class RestartSchedulesTests {
 				assertTrue("verify not same object references", r.get(i) != r.get(i-4));
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> ParallelVariableAnnealingLength.createRestartSchedules(0, 1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> ParallelVariableAnnealingLength.createRestartSchedules(1, 0)
+		);
 	}
 	
 	
@@ -261,6 +281,33 @@ public class RestartSchedulesTests {
 		}
 	}
 	
+	@Test
+	public void testResetPVAL() {
+		int[] expected = {
+			1000, 2000, 4000, 8000, 16000, 32000, 64000, 128000, 256000, 512000, 1024000,
+			2048000, 4096000, 8192000, 16384000, 32768000, 65536000, 131072000, 262144000,
+			524288000, 1048576000, 2097152000, 0x7fffffff, 0x7fffffff, 0x7fffffff 
+		};
+		for (int t = 1; t < 5; t++) {
+			List<ParallelVariableAnnealingLength> r = ParallelVariableAnnealingLength.createRestartSchedules(t);
+			for (ParallelVariableAnnealingLength schedule : r) {
+				for (int i = 0; i < 2; i++) {
+					schedule.nextRunLength();
+				}
+				schedule.reset();
+			}
+			int groupSize = t < 4 ? t : 4;
+			for (int i = 0; i < expected.length; i++) {
+				int j = i % groupSize;
+				for (int k = j; k < r.size(); k += 4) {
+					assertEquals(expected[i], r.get(k).nextRunLength());
+				}
+			}
+			for (int i = 4; i < r.size(); i++) {
+				assertTrue("verify not same object references", r.get(i) != r.get(i-4));
+			}
+		}
+	}
 	
 	
 	@Test
@@ -287,6 +334,10 @@ public class RestartSchedulesTests {
 		for (int i = 0; i < expected.length; i++) {
 			assertEquals(1000*expected[i], r.nextRunLength());
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LubyRestarts(0)
+		);
 	}
 	
 	

@@ -58,8 +58,7 @@ public final class WindowLimitedReversalMutation extends ReversalMutation {
 	 * a default window limit of Integer.MAX_VALUE.
 	 */
 	public WindowLimitedReversalMutation() {
-		super();
-		limit = Integer.MAX_VALUE;
+		this(Integer.MAX_VALUE);
 	}
 	
 	/**

@@ -58,8 +58,7 @@ public final class WindowLimitedInsertionMutation extends InsertionMutation {
 	 * a default window limit of Integer.MAX_VALUE.
 	 */
 	public WindowLimitedInsertionMutation() {
-		super();
-		limit = Integer.MAX_VALUE;
+		this(Integer.MAX_VALUE);
 	}
 	
 	/**

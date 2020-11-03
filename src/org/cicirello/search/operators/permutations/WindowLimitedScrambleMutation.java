@@ -57,8 +57,7 @@ public final class WindowLimitedScrambleMutation extends ScrambleMutation {
 	 * a default window limit of Integer.MAX_VALUE.
 	 */
 	public WindowLimitedScrambleMutation() {
-		super();
-		limit = Integer.MAX_VALUE;
+		this(Integer.MAX_VALUE);
 	}
 	
 	/**

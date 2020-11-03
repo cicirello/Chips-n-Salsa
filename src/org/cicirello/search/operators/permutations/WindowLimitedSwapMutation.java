@@ -56,8 +56,7 @@ public final class WindowLimitedSwapMutation extends SwapMutation {
 	 * a default window limit of Integer.MAX_VALUE.
 	 */
 	public WindowLimitedSwapMutation() {
-		super();
-		limit = Integer.MAX_VALUE;
+		this(Integer.MAX_VALUE);
 	}
 	
 	/**

@@ -55,6 +55,10 @@ public class InitializeByHCTests {
 		assertEquals(2*TestObject.OPT, ts.getCost());
 		assertEquals(TestObject.OPT, ts.getSolution().getA());
 		assertTrue(tracker.didFindBest());
+		
+		InitializeBySimpleMetaheuristic<TestObject> s = init.split();
+		assertNotEquals(init, s);
+		assertNotNull(s);
 	}
 	
 	@Test

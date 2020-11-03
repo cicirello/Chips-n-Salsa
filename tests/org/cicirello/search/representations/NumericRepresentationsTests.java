@@ -47,6 +47,12 @@ public class NumericRepresentationsTests {
 		assertTrue("Returned array should be same array object", array1 == array3);
 		assertEquals("Test toArray non-null param", 5, array3[0], EPSILON);
 		
+		double[] wrongLength = new double[2];
+		double[] array4 = f5.toArray(wrongLength);
+		assertTrue(array4 != wrongLength);
+		assertEquals(1, array4.length);
+		assertEquals(5.0, array4[0], EPSILON);
+		
 		SingleReal copy = new SingleReal(f5);
 		assertEquals("Copy Constructor", 5.0, copy.get(), EPSILON);
 		SingleReal copy2 = f5.copy();
@@ -65,6 +71,9 @@ public class NumericRepresentationsTests {
 		
 		assertEquals("Length of the input to a univariate function is always 1", 1, f0.length());
 		assertEquals("Length of the input to a univariate function is always 1", 1, f5.length());
+		
+		assertFalse("Testing equals method: null", f5.equals(null));
+		assertFalse("Testing equals method: different type", f5.equals("hello"));
 	}
 	
 	@Test
@@ -83,6 +92,12 @@ public class NumericRepresentationsTests {
 		assertTrue("Returned array should be same array object", array1 == array3);
 		assertEquals("Test toArray non-null param", 5, array3[0]);
 		
+		int[] wrongLength = new int[2];
+		int[] array4 = f5.toArray(wrongLength);
+		assertTrue(array4 != wrongLength);
+		assertEquals(1, array4.length);
+		assertEquals(5, array4[0]);
+
 		SingleInteger copy = new SingleInteger(f5);
 		assertEquals("Copy Constructor", 5, copy.get());
 		SingleInteger copy2 = f5.copy();
@@ -101,6 +116,9 @@ public class NumericRepresentationsTests {
 		
 		assertEquals("Length of the input to a univariate function is always 1", 1, f0.length());
 		assertEquals("Length of the input to a univariate function is always 1", 1, f5.length());
+		
+		assertFalse("Testing equals method: null", f5.equals(null));
+		assertFalse("Testing equals method: different type", f5.equals("hello"));
 	}
 	
 	@Test
@@ -148,6 +166,9 @@ public class NumericRepresentationsTests {
 			assertTrue("Testing copy method produces new object", f2 != copy2);
 			assertEquals("hashCodes of equal objects should be equal", f2.hashCode(), copy.hashCode());
 			assertEquals("hashCodes of equal objects should be equal", f2.hashCode(), copy2.hashCode());
+			
+			assertFalse("Testing equals method: null", f2.equals(null));
+			assertFalse("Testing equals method: different type", f2.equals("hello"));
 		}
 	}
 	
@@ -196,6 +217,9 @@ public class NumericRepresentationsTests {
 			assertTrue("Testing copy method produces new object", f2 != copy2);
 			assertEquals("hashCodes of equal objects should be equal", f2.hashCode(), copy.hashCode());
 			assertEquals("hashCodes of equal objects should be equal", f2.hashCode(), copy2.hashCode());
+			
+			assertFalse("Testing equals method: null", f2.equals(null));
+			assertFalse("Testing equals method: different type", f2.equals("hello"));
 		}
 	}
 	
@@ -255,6 +279,16 @@ public class NumericRepresentationsTests {
 				assertEquals(5, f.get(i));
 			}
 		}
+		int[] values = { 3, 4, 3, 4 };
+		BoundedIntegerVector f1 = new BoundedIntegerVector(values, 1, 10);
+		BoundedIntegerVector f2 = new BoundedIntegerVector(values, 2, 10);
+		BoundedIntegerVector f3 = new BoundedIntegerVector(values, 1, 9);
+		assertNotEquals(f1, f2);
+		assertNotEquals(f1, f3);
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BoundedIntegerVector(values, 2, 1)
+		);		
 	}
 	
 	@Test
@@ -313,6 +347,16 @@ public class NumericRepresentationsTests {
 				assertEquals(5, f.get(i), 0.0);
 			}
 		}
+		final double[] values = { 3, 4, 3, 4 };
+		BoundedRealVector f1 = new BoundedRealVector(values, 1, 10);
+		BoundedRealVector f2 = new BoundedRealVector(values, 2, 10);
+		BoundedRealVector f3 = new BoundedRealVector(values, 1, 9);
+		assertNotEquals(f1, f2);
+		assertNotEquals(f1, f3);
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BoundedRealVector(values, 1.0001, 1)
+		);
 	}
 	
 }

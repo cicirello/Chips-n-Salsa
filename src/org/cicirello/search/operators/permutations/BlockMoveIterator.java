@@ -147,7 +147,7 @@ final class BlockMoveIterator implements MutationIterator {
 	
 	private void nextBlockInsertion() {
 		if (s != nextS) {
-			if (i!=j) p.removeAndInsert(i,s,j);
+			p.removeAndInsert(i,s,j);
 			j = p.length() - nextS;
 			i = j - nextS;
 			s = nextS;
@@ -163,7 +163,6 @@ final class BlockMoveIterator implements MutationIterator {
 					j--;
 					i = j - s;
 					p.removeAndInsert(j,s,i);
-					if (i == 0 && p.length() <= s + s) hasMore = false;
 				} else {
 					p.removeAndInsert(i,s,j);
 					j = 0;
@@ -181,8 +180,7 @@ final class BlockMoveIterator implements MutationIterator {
 					i = j + s + 1;
 					p.removeAndInsert(j, s, i);
 					if (i == p.length()-s) {
-						if (s==MAX_S) hasMore = false;
-						else nextS++;
+						nextS++;
 					}
 				}
 			}

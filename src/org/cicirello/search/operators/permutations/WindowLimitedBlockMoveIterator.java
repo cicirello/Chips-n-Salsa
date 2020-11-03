@@ -149,7 +149,7 @@ final class WindowLimitedBlockMoveIterator implements MutationIterator {
 	
 	private void nextBlockInsertion() {
 		if (s != nextS) {
-			if (i!=j) p.removeAndInsert(i,s,j);
+			p.removeAndInsert(i,s,j);
 			j = p.length() - nextS;
 			i = j - nextS;
 			s = nextS;
@@ -165,7 +165,7 @@ final class WindowLimitedBlockMoveIterator implements MutationIterator {
 					j--;
 					i = j - s;
 					p.removeAndInsert(j,s,i);
-					if (i == 0 && (p.length() <= s + s || s+s>w)) hasMore = false;
+					if (i == 0 && s+s>w) hasMore = false;
 				} else {
 					p.removeAndInsert(i,s,j);
 					j = 0;

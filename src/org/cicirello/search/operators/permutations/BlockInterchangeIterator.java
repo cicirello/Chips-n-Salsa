@@ -120,10 +120,9 @@ final class BlockInterchangeIterator implements MutationIterator {
 				case 3:
 					p.removeAndInsert(i, k-j+1, j);
 					break;
-				case 4:
+				default: // case 4:
 					p.swapBlocks(h, h+k-j, k-i+h, k);
 					break;
-				
 			}
 			switch (savePhase) {
 				case 1: 
@@ -206,7 +205,7 @@ final class BlockInterchangeIterator implements MutationIterator {
 				hasMore = hasMoreBlocksSwaps;
 			}
 		} else if (s != nextS) {
-			if (i!=j) p.removeAndInsert(i,s,j);
+			p.removeAndInsert(i,s,j);
 			j = p.length() - nextS;
 			i = j - nextS;
 			s = nextS;
@@ -227,10 +226,6 @@ final class BlockInterchangeIterator implements MutationIterator {
 					k--;
 					i = j - s;
 					p.removeAndInsert(j,s,i);
-					if (i == 0 && p.length() <= s + s) {
-						hasMoreBlocksInserts = false;
-						hasMore = hasMoreBlocksSwaps;
-					}
 				} else {
 					p.removeAndInsert(i,s,j);
 					j = 0;
@@ -253,10 +248,7 @@ final class BlockInterchangeIterator implements MutationIterator {
 					i = j + s + 1;
 					p.removeAndInsert(j, s, i);
 					if (i == p.length()-s) {
-						if (s==MAX_S) {
-							hasMoreBlocksInserts = false;
-							hasMore = hasMoreBlocksSwaps;
-						} else nextS++;
+						nextS++;
 					}
 				}
 			}
@@ -266,7 +258,7 @@ final class BlockInterchangeIterator implements MutationIterator {
 	private void nextBlockSwap() {
 		if (phase == 3) {
 			phase = 4;
-			if (i!=j) p.removeAndInsert(i, k-j+1, j);
+			p.removeAndInsert(i, k-j+1, j);
 			h = 0;
 			i = 0;
 			j = 2;

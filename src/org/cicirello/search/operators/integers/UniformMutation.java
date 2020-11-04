@@ -82,7 +82,7 @@ public class UniformMutation<T extends IntegerValued> implements MutationOperato
 	 * @return A Uniform mutation operator.
 	 */
 	public static <T extends IntegerValued> UniformMutation<T> createUniformMutation(int radius) {
-		return new UniformMutation<T>(radius);
+		return new UniformMutation<T>(Math.abs(radius));
 	}
 	
 	/**
@@ -94,9 +94,11 @@ public class UniformMutation<T extends IntegerValued> implements MutationOperato
 	 * If there are less than k input variables, then all are mutated.
 	 * @param <T> The specific IntegerValued type.
 	 * @return A Uniform mutation operator
+	 * @throws IllegalArgumentException if k &lt; 1
 	 */
 	public static <T extends IntegerValued> UniformMutation<T> createUniformMutation(int radius, int k) {
-		return new PartialUniformMutation<T>(radius, k);
+		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
+		return new PartialUniformMutation<T>(Math.abs(radius), k);
 	}
 	
 	/**
@@ -104,15 +106,19 @@ public class UniformMutation<T extends IntegerValued> implements MutationOperato
 	 * @param radius The radius parameter of the Uniform mutation.
 	 * @param p The probability that the {@link #mutate} 
 	 * method changes an input variable.
-	 * If there are n input variables, then n*p input variables will be mutated on average during
-	 * a single call to the {@link #mutate} method.
+	 * If there are n input variables, then n*p input 
+	 * variables will be mutated on average during
+	 * a single call to the {@link #mutate} method. A value of
+	 * p &gt; 1 is treated as p = 1.
 	 * @param <T> The specific IntegerValued type.
 	 * @return A Uniform mutation operator
+	 * @throws IllegalArgumentException if p &le; 0
 	 */
 	public static <T extends IntegerValued> UniformMutation<T> createUniformMutation(int radius, double p) {
+		if (p <= 0) throw new IllegalArgumentException("p must be positive");
 		return p >= 1
-			? new UniformMutation<T>(radius)
-			: new PartialUniformMutation<T>(radius, p);
+			? new UniformMutation<T>(Math.abs(radius))
+			: new PartialUniformMutation<T>(Math.abs(radius), p);
 	}
 	
 	@Override
@@ -187,7 +193,7 @@ public class UniformMutation<T extends IntegerValued> implements MutationOperato
 	 */
 	@Override
 	public final int[] toArray(int[] values) {
-		if (values.length != 1) values = new int[1];
+		if (values==null || values.length != 1) values = new int[1];
 		values[0] = radius;
 		return values;
 	}
@@ -232,13 +238,13 @@ public class UniformMutation<T extends IntegerValued> implements MutationOperato
 		
 		PartialUniformMutation(int radius, int k) {
 			super(radius);
-			this.k = k < 0 ? 0 : k;
+			this.k = k;
 			p = -1;
 		}
 		
 		PartialUniformMutation(int radius, double p) {
 			super(radius);
-			this.p = p < 0 ? 0 : (p > 1 ? 1 : p);
+			this.p = p;
 			k = 0;
 		}
 		

@@ -81,7 +81,7 @@ public class UndoableUniformMutation<T extends IntegerValued> extends UniformMut
 	 * @return A Uniform mutation operator.
 	 */
 	public static <T extends IntegerValued> UndoableUniformMutation<T> createUniformMutation(int radius) {
-		return new UndoableUniformMutation<T>(radius);
+		return new UndoableUniformMutation<T>(Math.abs(radius));
 	}
 	
 	/**
@@ -93,9 +93,11 @@ public class UndoableUniformMutation<T extends IntegerValued> extends UniformMut
 	 * If there are less than k input variables, then all are mutated.
 	 * @param <T> The specific IntegerValued type.
 	 * @return A Uniform mutation operator
+	 * @throws IllegalArgumentException if k &lt; 1
 	 */
 	public static <T extends IntegerValued> UndoableUniformMutation<T> createUniformMutation(int radius, int k) {
-		return new UndoablePartialUniformMutation<T>(radius, k);
+		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
+		return new UndoablePartialUniformMutation<T>(Math.abs(radius), k);
 	}
 	
 	/**
@@ -107,11 +109,13 @@ public class UndoableUniformMutation<T extends IntegerValued> extends UniformMut
 	 * a single call to the {@link #mutate} method.
 	 * @param <T> The specific IntegerValued type.
 	 * @return A Uniform mutation operator
+	 * @throws IllegalArgumentException if p &le; 0
 	 */
 	public static <T extends IntegerValued> UndoableUniformMutation<T> createUniformMutation(int radius, double p) {
+		if (p <= 0) throw new IllegalArgumentException("p must be positive");
 		return p >= 1
-			? new UndoableUniformMutation<T>(radius)
-			: new UndoablePartialUniformMutation<T>(radius, p);
+			? new UndoableUniformMutation<T>(Math.abs(radius))
+			: new UndoablePartialUniformMutation<T>(Math.abs(radius), p);
 	}
 	
 	
@@ -156,13 +160,13 @@ public class UndoableUniformMutation<T extends IntegerValued> extends UniformMut
 		
 		UndoablePartialUniformMutation(int radius, int k) {
 			super(radius);
-			this.k = k < 0 ? 0 : k;
+			this.k = k;
 			p = -1;
 		}
 		
 		UndoablePartialUniformMutation(int radius, double p) {
 			super(radius);
-			this.p = p < 0 ? 0 : (p > 1 ? 1 : p);
+			this.p = p;
 			k = 0;
 		}
 		

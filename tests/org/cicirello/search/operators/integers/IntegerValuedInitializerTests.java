@@ -34,6 +34,19 @@ public class IntegerValuedInitializerTests {
 	// For tests involving randomness, number of test samples.
 	private final int NUM_SAMPLES = 100;
 	
+	@Test
+	public void testBoundedIntegerEquals() {
+		IntegerValueInitializer f = new IntegerValueInitializer(2, 3, 2, 2);
+		SingleInteger g1 = f.createCandidateSolution();
+		SingleInteger g2 = f.createCandidateSolution();
+		SingleInteger h = new SingleInteger(2);
+		assertNotEquals(g1, h);
+		assertEquals(g1, g2);
+		assertEquals(g1.hashCode(), g2.hashCode());
+		IntegerValueInitializer f2 = new IntegerValueInitializer(2, 3, 2, 2);
+		SingleInteger g3 = f2.createCandidateSolution();
+		assertNotEquals(g1, g3);
+	}
 	
 	@Test
 	public void testIntegerUnivariate() {
@@ -41,6 +54,8 @@ public class IntegerValuedInitializerTests {
 		int a = 3;
 		int b = 11;
 		IntegerValueInitializer f = new IntegerValueInitializer(a, b);
+		IntegerValueInitializer fs = f.split();
+		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			SingleInteger g = f.createCandidateSolution();
 			assertTrue("positive interval", g.get() < b && g.get() >= a);
@@ -78,6 +93,18 @@ public class IntegerValuedInitializerTests {
 			assertEquals("copy should be identical to original", g, copy);
 			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerValueInitializer(5, 5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerValueInitializer(5, 5, 2, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerValueInitializer(5, 6, 7, 6)
+		);
 	}
 	
 	@Test
@@ -113,7 +140,7 @@ public class IntegerValuedInitializerTests {
 			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
 		}
 		min = a + 1;
-		max = b - 1;
+		max = b - 2;
 		f = new IntegerValueInitializer(a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			SingleInteger g = f.createCandidateSolution();

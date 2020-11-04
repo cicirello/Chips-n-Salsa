@@ -160,6 +160,8 @@ public class IntegerValuedInitializerTests {
 		int b = 11;
 		int n = 1;
 		IntegerVectorInitializer f = new IntegerVectorInitializer(n, a, b);
+		IntegerVectorInitializer fs = f.split();
+		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
 			assertTrue("positive interval, one var", g.get(0) < b && g.get(0) >= a);
@@ -264,6 +266,66 @@ public class IntegerValuedInitializerTests {
 				assertEquals("verify unbounded set", right[j]+1, g.get(j));
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(1, 5, 5)
+		);
+		final int[] a1 = { 1 };
+		final int[] a2 = { 2, 1 };
+		final int[] b2 = { 2, 3 };
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a1, b2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(1, 5, 5, 2, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(1, 4, 5, 7, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a1, b2, 2, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2, 7, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2, 2, 6)
+		);
+		final int[] min1 = { 1 };
+		final int[] min2 = { 1, 1 };
+		final int[] max2 = { 2, 2 };
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a1, b2, min2, max2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2, min1, max2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2, min2, max2)
+		);
+		a2[0] = 1;
+		min2[0] = 3;
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2, min2, max2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a1, b2, min2, max2)
+		);
 	}
 	
 	
@@ -304,7 +366,7 @@ public class IntegerValuedInitializerTests {
 			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
 		}
 		min = a + 1;
-		max = b - 1;
+		max = b - 2;
 		f = new IntegerVectorInitializer(n, a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();

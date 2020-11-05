@@ -4,9 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-11-3
+## [Unreleased] - 2020-11-5
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.5.1] - 2020-11-5
 
 ### Changed
 * Refactored ParallelVariableAnnealingLength to eliminate redundant code.
@@ -14,19 +27,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored BlockMoveIterator, WindowLimitedBlockMoveIterator, and BlockInterchangeIterator to remove unnecessary conditions.
 * Refactored internal methods of IntegerVectorInitializer to remove unnecessary checks.
 
-### Deprecated
-
-### Removed
-
 ### Fixed
-* Fixed bug in WeightedHybridMutation's and WeightedHybridUndoableMutation's constructors in the check for non-positive weights.
-* Fixed bug in window limited permutation mutation operators in handling of limit greater than or equal to permutation length.
-* Fixed missing parameter bounds check in LubyRestarts constructor.
-* Fixed bugs in factory methods of the uniform mutation operator for integer-valued representations related to checking for invalid parameters.
-* Fixed bugs in equals methods for bounded integer-valued representations in case when vectors contain same elements, but constrained by different bounds.
-* Fixed bug in IntegerVectorInitializer.split().
-
-### CI/CD
+* Various minor bug fixes:
+    * Fixed bug in WeightedHybridMutation's and WeightedHybridUndoableMutation's constructors in the check for non-positive weights.
+    * Fixed bug in window limited permutation mutation operators in handling of limit greater than or equal to permutation length.
+    * Fixed missing parameter bounds check in LubyRestarts constructor.
+    * Fixed bugs in factory methods of the uniform mutation operator for integer-valued representations related to checking for invalid parameters.
+    * Fixed bugs in equals methods for bounded integer-valued representations in case when vectors contain same elements, but constrained by different bounds.
+    * Fixed bug in IntegerVectorInitializer.split().
 
 
 ## [2.5.0] - 2020-11-2

@@ -17,7 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 * Various minor bug fixes:
     * Fixed bugs in factory methods of the uniform mutation operator, the Cauchy mutation operator, and the Gaussian mutation operator for real-valued representations related to checking for invalid parameters.
-	* Fixed bug in toArray method of uniform mutation operator, the Cauchy mutation operator, and the Gaussian mutation operator in case when null passed to method.
+    * Fixed bug in toArray method of uniform mutation operator, the Cauchy mutation operator, and the Gaussian mutation operator in case when null passed to method.
+    * Fixed bug in IntegerVectorInitializer.split().
 
 ### CI/CD
 

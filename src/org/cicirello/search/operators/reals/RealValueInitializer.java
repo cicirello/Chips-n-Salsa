@@ -110,6 +110,18 @@ public class RealValueInitializer implements Initializer<SingleReal> {
 		return this;
 	}
 	
+	@Override
+	public boolean equals(Object other) {
+		if (other == null || !getClass().equals(other.getClass())) return false;
+		RealValueInitializer i = (RealValueInitializer)other;
+		return a == i.a && b == i.b && min == i.min && max == i.max;
+	}
+	
+	@Override
+	public int hashCode() {
+		return 31*(31*(31*(31 + Double.hashCode(a))+Double.hashCode(b))+Double.hashCode(min))+Double.hashCode(max);
+	}
+	
 	/**
 	 * Internal class for representing the input to a univariate function, where the
 	 * input is bounded between a specified minimum and maximum value.  If an 
@@ -179,7 +191,7 @@ public class RealValueInitializer implements Initializer<SingleReal> {
 		public boolean equals(Object other) {
 			if (!super.equals(other)) return false;
 			BoundedReal a = (BoundedReal)other;
-			return RealValueInitializer.this == a.getOuterThis();
+			return getOuterThis().equals(a.getOuterThis());
 		}
 		
 		/**

@@ -116,6 +116,11 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
 		return a == i.a && b == i.b && min == i.min && max == i.max && bounded == i.bounded;
 	}
 	
+	@Override
+	public int hashCode() {
+		return 31*(31*(31*(31*(31 + a)+b)+min)+max)+(bounded?1:0);
+	}
+	
 	/**
 	 * Internal class for representing the input to a univariate function, such that
 	 * the input is an integer, and where the

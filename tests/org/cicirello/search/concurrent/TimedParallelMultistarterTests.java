@@ -360,7 +360,7 @@ public class TimedParallelMultistarterTests {
 		metaheuristics.add(new TestOptThrowsExceptions(2, tracker, problem));
 		metaheuristics.add(new TestOptThrowsExceptions(3, tracker, problem));
 		TimedParallelMultistarter<TestObject> restarter = new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
-		restarter.setTimeUnit(10);
+		restarter.setTimeUnit(100);
 		SolutionCostPair<TestObject> solution = restarter.optimize(1);
 		assertTrue(solution==null || 0 == solution.getCost());
 	}
@@ -375,7 +375,7 @@ public class TimedParallelMultistarterTests {
 		metaheuristics.add(new TestOptThrowsExceptions(2, tracker, problem));
 		metaheuristics.add(new TestOptThrowsExceptions(3, tracker, problem));
 		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
-		restarter.setTimeUnit(10);
+		restarter.setTimeUnit(100);
 		SolutionCostPair<TestObject> solution = restarter.optimize(1);
 		assertTrue(solution==null || 0 == solution.getCost());
 	}
@@ -390,7 +390,7 @@ public class TimedParallelMultistarterTests {
 		metaheuristics.add(new TestOptThrowsExceptions(2, tracker, problem));
 		metaheuristics.add(new TestOptThrowsExceptions(3, tracker, problem));
 		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
-		restarter.setTimeUnit(10);
+		restarter.setTimeUnit(100);
 		SolutionCostPair<TestObject> solution = restarter.reoptimize(1);
 		assertTrue(solution==null || 0 == solution.getCost());
 	}

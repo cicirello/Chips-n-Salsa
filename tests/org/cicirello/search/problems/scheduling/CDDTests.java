@@ -27,12 +27,21 @@ import java.io.StringWriter;
 import java.io.StringReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
-
+import java.io.FileNotFoundException;
+import java.io.File;
 
 /**
  * JUnit tests for CommoDuedateScheduling.
  */
 public class CDDTests {
+	
+	@BeforeClass 
+	public static void createOutputDirectory() {
+		File directory = new File("target/testcasedata");
+		if (!directory.exists()){
+			directory.mkdir();
+		}
+    }
 	
 	@Test
 	public void testConstructorExceptions() {
@@ -113,6 +122,28 @@ public class CDDTests {
 					assertEquals(duedate, s2.getDueDate(job));
 				}
 			}
+		}
+	}
+	
+	@Test
+	public void testReadWriteToFile() {
+		String contents = "1\n3\n1\t2\t3\n4\t5\t6\n7\t8\t9\n";
+		CommonDuedateScheduling original = new CommonDuedateScheduling(new StringReader(contents), 0, 0.5);
+		try {
+			String file = "target/testcasedata/cdd.testcase.data";
+			original.toFile(file);
+			CommonDuedateScheduling s = new CommonDuedateScheduling(file, 0, 0.5);
+			assertEquals(3, s.numberOfJobs());
+			int duedate = s.getDueDate(0);
+			assertEquals(6, duedate);
+			for (int job = 0; job < 3; job++) {
+				assertEquals(3*job+1, s.getProcessingTime(job));
+				assertEquals(3*job+2, s.getEarlyWeight(job));
+				assertEquals(3*job+3, s.getWeight(job));
+				assertEquals(duedate, s.getDueDate(job));
+			}
+		} catch(FileNotFoundException ex) {
+			fail("File reading/writing caused exception: " + ex);
 		}
 	}
 	

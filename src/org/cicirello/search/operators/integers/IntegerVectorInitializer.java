@@ -24,6 +24,7 @@ import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.IntegerVector;
 import org.cicirello.search.representations.BoundedIntegerVector;
 import org.cicirello.math.rand.RandomIndexer;
+import java.util.Arrays;
 
 /**
  * Generating random {@link IntegerVector} objects for use in generating random initial solutions
@@ -214,6 +215,14 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		this.max = max.clone();
 	}
 	
+	private IntegerVectorInitializer(IntegerVectorInitializer other) {
+		min = other.min == null ? null : other.min.clone();
+		max = other.max == null ? null : other.max.clone();
+		a = other.a.clone();
+		b = other.b.clone();
+		x = new int[a.length];
+	}
+	
 	
 	@Override
 	public final IntegerVector createCandidateSolution() {
@@ -237,10 +246,17 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 	
 	@Override
 	public IntegerVectorInitializer split() {
-		//thread-safe so can simply return this.
-		return this;
+		return new IntegerVectorInitializer(this);
 	}
 	
+	@Override
+	public boolean equals(Object other) {
+		if (other == null || !getClass().equals(other.getClass())) return false;
+		IntegerVectorInitializer i = (IntegerVectorInitializer)other;
+		return (min == null && i.min == null ||
+			  Arrays.equals(min, i.min) && Arrays.equals(max, i.max))
+			  && Arrays.equals(a, i.a) && Arrays.equals(b, i.b);
+	}
 	
 	/**
 	 * Internal class for representing the input to a multivariate function, where the
@@ -293,11 +309,17 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 			else super.set(i, value);
 		}
 		
+		/*
+		 * Only used internally by constructor,
+		 * and constructor only used by createCandidateSolution of
+		 * surrounding class,
+		 * and surrounding class constructors set a, b, min, and max
+		 * such that elements of x must already be within min, max.
+		 * Thus, safe to just set values without checking min, max.
+		 */
 		private void setAll(int[] x) {
 			for (int i = 0; i < x.length; i++) {
-				if (x[i] < min[i]) super.set(i, min[i]);
-				else if (x[i] > max[i]) super.set(i, max[i]);
-				else super.set(i, x[i]);
+				super.set(i, x[i]);
 			}
 		}
 		
@@ -324,7 +346,8 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		public boolean equals(Object other) {
 			if (!super.equals(other)) return false;
 			MultiBoundedIntegerVector b = (MultiBoundedIntegerVector)other;
-			return IntegerVectorInitializer.this == b.getOuterThis();
+			return Arrays.equals(IntegerVectorInitializer.this.min, b.getOuterThis().min) &&
+				Arrays.equals(IntegerVectorInitializer.this.max, b.getOuterThis().max);
 		}
 		
 		/**

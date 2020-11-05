@@ -109,6 +109,13 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
 		return this;
 	}
 	
+	@Override
+	public boolean equals(Object other) {
+		if (other == null || !getClass().equals(other.getClass())) return false;
+		IntegerValueInitializer i = (IntegerValueInitializer)other;
+		return a == i.a && b == i.b && min == i.min && max == i.max && bounded == i.bounded;
+	}
+	
 	/**
 	 * Internal class for representing the input to a univariate function, such that
 	 * the input is an integer, and where the
@@ -181,7 +188,8 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
 		public boolean equals(Object other) {
 			if (!super.equals(other)) return false;
 			BoundedInteger a = (BoundedInteger)other;
-			return IntegerValueInitializer.this == a.getOuterThis();
+			return IntegerValueInitializer.this.min == a.getOuterThis().min &&
+				IntegerValueInitializer.this.max == a.getOuterThis().max;
 		}
 		
 		/**

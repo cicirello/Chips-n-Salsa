@@ -43,6 +43,50 @@ public class UniformMutationTests {
 	private static final int MAX_TRIALS = 100;
 	
 	@Test
+	public void testEquals() {
+		UniformMutation<IntegerValued> g1 = UniformMutation.createUniformMutation(1);
+		UniformMutation<IntegerValued> g2 = UniformMutation.createUniformMutation(1);
+		UniformMutation<IntegerValued> g3 = UniformMutation.createUniformMutation(2);
+		assertEquals(g1, g2);
+		assertNotEquals(g1, g3);
+		assertFalse(g1.equals(null));
+		assertFalse(g1.equals("hello"));
+		UniformMutation<IntegerValued> p1 = UniformMutation.createUniformMutation(1, 1);
+		UniformMutation<IntegerValued> p2 = UniformMutation.createUniformMutation(2, 1);
+		UniformMutation<IntegerValued> p3 = UniformMutation.createUniformMutation(1, 2);
+		UniformMutation<IntegerValued> p4 = UniformMutation.createUniformMutation(1, 0.5);
+		UniformMutation<IntegerValued> p5 = UniformMutation.createUniformMutation(1, 0.25);
+		assertNotEquals(p1, p2);
+		assertNotEquals(p1, p3);
+		assertNotEquals(p4, p5);
+		p1 = UndoableUniformMutation.createUniformMutation(1, 1);
+		p2 = UndoableUniformMutation.createUniformMutation(2, 1);
+		p3 = UndoableUniformMutation.createUniformMutation(1, 2);
+		p4 = UndoableUniformMutation.createUniformMutation(1, 0.5);
+		p5 = UndoableUniformMutation.createUniformMutation(1, 0.25);
+		assertNotEquals(p1, p2);
+		assertNotEquals(p1, p3);
+		assertNotEquals(p4, p5);
+	}
+	
+	@Test
+	public void testToArray() {
+		UniformMutation<IntegerValued> u = UniformMutation.createUniformMutation(2);
+		int[] a = u.toArray(null);
+		assertEquals(1, a.length);
+		assertEquals(2, a[0]);
+		a = u.toArray(new int[2]);
+		assertEquals(1, a.length);
+		assertEquals(2, a[0]);
+		a[0] = 5;
+		int[] b = a;
+		a = u.toArray(a);
+		assertEquals(1, a.length);
+		assertEquals(2, a[0]);
+		assertTrue(a==b);
+	}
+	
+	@Test
 	public void testUniformMutation1() {
 		UniformMutation<IntegerValued> g1 = UniformMutation.createUniformMutation(1);
 		assertEquals("default radius = 1", 1, g1.get(0));
@@ -212,6 +256,22 @@ public class UniformMutationTests {
 			verifyUndo(g3);
 			verifySplitUndo(g3);
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> UniformMutation.createUniformMutation(1, 0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> UniformMutation.createUniformMutation(1, 0.0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> UndoableUniformMutation.createUniformMutation(1, 0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> UndoableUniformMutation.createUniformMutation(1, 0.0)
+		);
 	}
 	
 	

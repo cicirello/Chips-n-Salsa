@@ -33,6 +33,43 @@ import org.cicirello.search.representations.IntegerValued;
 public class RandomChangeTests {
 	
 	@Test
+	public void testEquals() {
+		RandomValueChangeMutation<IntegerValued> r1 = new RandomValueChangeMutation<IntegerValued>(1, 4);
+		RandomValueChangeMutation<IntegerValued> r2 = new RandomValueChangeMutation<IntegerValued>(0, 4);
+		RandomValueChangeMutation<IntegerValued> r3 = new RandomValueChangeMutation<IntegerValued>(1, 5);
+		RandomValueChangeMutation<IntegerValued> r4 = r1.split();
+		RandomValueChangeMutation<IntegerValued> r5 = new RandomValueChangeMutation<IntegerValued>(1, 4, 0.0, 1);
+		RandomValueChangeMutation<IntegerValued> r6 = new RandomValueChangeMutation<IntegerValued>(1, 4, 0.2, 1);
+		RandomValueChangeMutation<IntegerValued> r7 = new RandomValueChangeMutation<IntegerValued>(1, 4, 0.0, 2);
+		assertEquals(r1, r4);
+		assertEquals(r1.hashCode(), r4.hashCode());
+		assertEquals(r1, r5);
+		assertEquals(r1.hashCode(), r5.hashCode());
+		assertNotEquals(r1, r2);
+		assertNotEquals(r1, r3);
+		assertNotEquals(r1, r6);
+		assertNotEquals(r1, r7);
+		assertFalse(r1.equals(null));
+		UndoableRandomValueChangeMutation<IntegerValued> u1 = new UndoableRandomValueChangeMutation<IntegerValued>(1, 4);
+		UndoableRandomValueChangeMutation<IntegerValued> u2 = new UndoableRandomValueChangeMutation<IntegerValued>(0, 4);
+		UndoableRandomValueChangeMutation<IntegerValued> u3 = new UndoableRandomValueChangeMutation<IntegerValued>(1, 5);
+		UndoableRandomValueChangeMutation<IntegerValued> u4 = u1.split();
+		UndoableRandomValueChangeMutation<IntegerValued> u5 = new UndoableRandomValueChangeMutation<IntegerValued>(1, 4, 0.0, 1);
+		UndoableRandomValueChangeMutation<IntegerValued> u6 = new UndoableRandomValueChangeMutation<IntegerValued>(1, 4, 0.2, 1);
+		UndoableRandomValueChangeMutation<IntegerValued> u7 = new UndoableRandomValueChangeMutation<IntegerValued>(1, 4, 0.0, 2);
+		assertFalse(r1.equals(u1));
+		assertEquals(u1, u4);
+		assertEquals(u1.hashCode(), u4.hashCode());
+		assertEquals(u1, u5);
+		assertEquals(u1.hashCode(), u5.hashCode());
+		assertNotEquals(u1, u2);
+		assertNotEquals(u1, u3);
+		assertFalse(u1.equals(null));
+		assertNotEquals(u1, u6);
+		assertNotEquals(u1, u7);
+	}
+	
+	@Test
 	public void testRandomValueChangeMutation() {
 		for (int a = 0; a <= 2; a++) {
 			for (int b = a+1; b <= a+3; b++) {
@@ -44,6 +81,16 @@ public class RandomChangeTests {
 				}
 			}
 		}
+		RandomValueChangeMutation<IntegerValued> original = new RandomValueChangeMutation<IntegerValued>(1, 4);
+		testRandomValueChangeMutation(1, 4, 0.0, 1, original);
+		testRandomValueChangeMutation(1, 4, 0.5, 0, new RandomValueChangeMutation<IntegerValued>(1, 4, 0.5));
+		RandomValueChangeMutation<IntegerValued> s = original.split();
+		assertTrue(original != s);
+		testRandomValueChangeMutation(1, 4, 0.0, 1, s);
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomValueChangeMutation<IntegerValued>(5, 4)
+		);
 	}
 	
 	@Test
@@ -60,11 +107,20 @@ public class RandomChangeTests {
 				}
 			}
 		}
+		testUndoableRandomValueChangeMutation(1, 4, 0.0, 1, new UndoableRandomValueChangeMutation<IntegerValued>(1, 4));
+		testUndoableRandomValueChangeMutation(1, 4, 0.5, 0, new UndoableRandomValueChangeMutation<IntegerValued>(1, 4, 0.5));
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new UndoableRandomValueChangeMutation<IntegerValued>(5, 4)
+		);
 	}
 	
 	
 	private void testRandomValueChangeMutation(int a, int b, double p, int k) {
-		RandomValueChangeMutation<IntegerValued> m = new RandomValueChangeMutation<IntegerValued>(a, b, p, k);
+		testRandomValueChangeMutation(a, b, p, k, new RandomValueChangeMutation<IntegerValued>(a, b, p, k));
+	}
+	
+	private void testRandomValueChangeMutation(int a, int b, double p, int k, RandomValueChangeMutation<IntegerValued> m) {
 		SingleInteger v1 = new SingleInteger((a+b)/2);
 		SingleInteger v = v1.copy();
 		m.mutate(v1);
@@ -99,7 +155,10 @@ public class RandomChangeTests {
 	}
 	
 	private void testUndoableRandomValueChangeMutation(int a, int b, double p, int k) {
-		UndoableRandomValueChangeMutation<IntegerValued> m = new UndoableRandomValueChangeMutation<IntegerValued>(a, b, p, k);
+		testUndoableRandomValueChangeMutation(a, b, p, k, new UndoableRandomValueChangeMutation<IntegerValued>(a, b, p, k));
+	}
+	
+	private void testUndoableRandomValueChangeMutation(int a, int b, double p, int k, UndoableRandomValueChangeMutation<IntegerValued> m) {
 		SingleInteger v1 = new SingleInteger((a+b)/2);
 		SingleInteger v = v1.copy();
 		m.mutate(v1);
@@ -152,4 +211,6 @@ public class RandomChangeTests {
 			assertEquals(v1, v3);
 		}
 	}
+	
+	
 }

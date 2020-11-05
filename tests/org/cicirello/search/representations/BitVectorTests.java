@@ -334,7 +334,7 @@ public class BitVectorTests {
 				BitVector b = new BitVector(n, array);
 				int k = i+1;
 				// initialize with block size other than k to confirm default can be overridden
-				BitVector.BitIterator iter = b.bitIterator( k!=32 ? 32 : 30);
+				final BitVector.BitIterator iter = b.bitIterator( k!=32 ? 32 : 30);
 				int counter = 0;
 				int leftOver = n;
 				int numCalls = 0;
@@ -352,6 +352,10 @@ public class BitVectorTests {
 					counter++;
 					counter %= modulus;
 				}
+				IllegalStateException thrown = assertThrows( 
+					IllegalStateException.class,
+					() -> iter.nextBitBlock(k)
+				);
 				int expectedCalls = n / k;
 				if (n % k != 0) expectedCalls++;
 				assertEquals("verify number of calls", expectedCalls, numCalls);
@@ -439,7 +443,7 @@ public class BitVectorTests {
 		for (int n = 1; n <= 64; n++) {
 			int[] array = (n > 32) ? bits[0] : bits[1];
 			BitVector b = new BitVector(n, array);
-			BitVector.BitIterator iter = b.bitIterator(); 
+			final BitVector.BitIterator iter = b.bitIterator(); 
 			int counter = 0;
 			int leftOver = n;
 			while (iter.hasNext()) {
@@ -449,6 +453,14 @@ public class BitVectorTests {
 				counter++;
 			}
 			assertEquals("verify number of calls", n, counter);
+			IllegalStateException thrown = assertThrows( 
+				IllegalStateException.class,
+				() -> iter.nextBitBlock()
+			);
+			thrown = assertThrows( 
+				IllegalStateException.class,
+				() -> iter.nextBit()
+			);
 		}
 	}
 	
@@ -666,6 +678,9 @@ public class BitVectorTests {
 				assertEquals(0, shifted.getBit(i));
 			}
 		}
+		BitVector original = new BitVector(0);
+		original.shiftLeft(1);
+		assertEquals(0, original.length());
 	}
 	
 	@Test
@@ -691,6 +706,18 @@ public class BitVectorTests {
 				assertEquals(0, shifted.getBit(i));
 			}
 		}
+		BitVector original = new BitVector(0);
+		original.shiftRight(1);
+		assertEquals(0, original.length());
+	}
+	
+	@Test
+	public void testNotEquals() {
+		BitVector b1 = new BitVector(1);
+		BitVector b2 = new BitVector(2);
+		assertFalse(b1.equals("hello"));
+		assertFalse(b1.equals(null));
+		assertNotEquals(b1, b2);
 	}
 	
 	@Test
@@ -737,6 +764,98 @@ public class BitVectorTests {
 				assertEquals(expected, b.toString());
 			}
 		}
+	}
+	
+	@Test
+	public void testExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BitVector(-1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BitVector(-1, new int[1])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BitVector(32, new int[2])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BitVector(33, new int[1])
+		);
+		final BitVector b = new BitVector(32);
+		final BitVector b2 = new BitVector(31);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> b.and(b2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> b.or(b2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> b.xor(b2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> b.bitIterator(0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> b.bitIterator(33)
+		);
+		final BitVector.BitIterator iter = b.bitIterator();
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> iter.nextBitBlock(0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> iter.nextBitBlock(33)
+		);
+		
+		IndexOutOfBoundsException thrownBounds = assertThrows( 
+			IndexOutOfBoundsException.class,
+			() -> b.getBit(-1)
+		);
+		thrownBounds = assertThrows( 
+			IndexOutOfBoundsException.class,
+			() -> b.getBit(32)
+		);
+		thrownBounds = assertThrows( 
+			IndexOutOfBoundsException.class,
+			() -> b.setBit(-1, 1)
+		);
+		thrownBounds = assertThrows( 
+			IndexOutOfBoundsException.class,
+			() -> b.setBit(32, 1)
+		);
+		thrownBounds = assertThrows( 
+			IndexOutOfBoundsException.class,
+			() -> b.flip(-1)
+		);
+		thrownBounds = assertThrows( 
+			IndexOutOfBoundsException.class,
+			() -> b.flip(32)
+		);
+		thrownBounds = assertThrows( 
+			IndexOutOfBoundsException.class,
+			() -> b.get32(-1)
+		);
+		thrownBounds = assertThrows( 
+			IndexOutOfBoundsException.class,
+			() -> b.get32(1)
+		);
+		thrownBounds = assertThrows( 
+			IndexOutOfBoundsException.class,
+			() -> b.set32(-1, 0)
+		);
+		thrownBounds = assertThrows( 
+			IndexOutOfBoundsException.class,
+			() -> b.set32(1, 0)
+		);
 	}
 	
 }

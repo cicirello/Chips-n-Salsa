@@ -34,6 +34,87 @@ public class IntegerValuedInitializerTests {
 	// For tests involving randomness, number of test samples.
 	private final int NUM_SAMPLES = 100;
 	
+	@Test
+	public void testIntegerValueInitializerEquals() {
+		IntegerValueInitializer f = new IntegerValueInitializer(2, 3, 0, 5);
+		IntegerValueInitializer g = new IntegerValueInitializer(2, 3, 0, 5);
+		IntegerValueInitializer f1 = new IntegerValueInitializer(1, 3, 0, 5);
+		IntegerValueInitializer f2 = new IntegerValueInitializer(2, 4, 0, 5);
+		IntegerValueInitializer f3 = new IntegerValueInitializer(2, 3, -1, 5);
+		IntegerValueInitializer f4 = new IntegerValueInitializer(2, 3, 0, 6);
+		assertEquals(f, g);
+		assertNotEquals(f, f1);
+		assertNotEquals(f, f2);
+		assertNotEquals(f, f3);
+		assertNotEquals(f, f4);
+		assertNotEquals(f, null);
+		assertNotEquals(new IntegerValueInitializer(0, 1, 0, 0), new IntegerValueInitializer(0, 1));
+		assertNotEquals(f, "hello");
+	}
+	
+	@Test
+	public void testIntegerVectorInitializerEquals() {
+		IntegerVectorInitializer f = new IntegerVectorInitializer(2, 2, 4, 0, 8);
+		IntegerVectorInitializer g = new IntegerVectorInitializer(2, 2, 4, 0, 8);
+		IntegerVectorInitializer f1 = new IntegerVectorInitializer(2, 1, 4, 0, 8);
+		IntegerVectorInitializer f2 = new IntegerVectorInitializer(2, 2, 5, 0, 8);
+		IntegerVectorInitializer f3 = new IntegerVectorInitializer(2, 2, 4, 1, 8);
+		IntegerVectorInitializer f4 = new IntegerVectorInitializer(2, 2, 4, 0, 9);
+		assertEquals(f, g);
+		assertNotEquals(f, f1);
+		assertNotEquals(f, f2);
+		assertNotEquals(f, f3);
+		assertNotEquals(f, f4);
+		assertNotEquals(f, null);
+		assertNotEquals(f, "hello");
+		f = new IntegerVectorInitializer(2, 2, 4);
+		g = new IntegerVectorInitializer(2, 2, 4);
+		f1 = new IntegerVectorInitializer(2, 1, 4);
+		f2 = new IntegerVectorInitializer(2, 2, 5);
+		f3 = new IntegerVectorInitializer(2, 2, 4, 0, 8);
+		assertEquals(f, g);
+		assertNotEquals(f, f1);
+		assertNotEquals(f, f2);
+		assertNotEquals(f, f3);
+	}
+	
+	@Test
+	public void testBoundedIntegerEquals() {
+		IntegerValueInitializer f = new IntegerValueInitializer(2, 3, 2, 2);
+		SingleInteger g1 = f.createCandidateSolution();
+		SingleInteger g2 = f.createCandidateSolution();
+		SingleInteger h = new SingleInteger(2);
+		assertNotEquals(g1, h);
+		assertEquals(g1, g2);
+		assertEquals(g1.hashCode(), g2.hashCode());
+		IntegerValueInitializer f2 = new IntegerValueInitializer(2, 3, 2, 2);
+		SingleInteger g3 = f2.createCandidateSolution();
+		assertEquals(g1, g3);
+		assertEquals(g1.hashCode(), g3.hashCode());
+		f2 = new IntegerValueInitializer(2, 3, 2, 3);
+		assertNotEquals(g1, f2.createCandidateSolution());
+		f2 = new IntegerValueInitializer(2, 3, 0, 2);
+		assertNotEquals(g1, f2.createCandidateSolution());
+	}
+	
+	@Test
+	public void testBoundedIntegerVectorEquals() {
+		IntegerVectorInitializer f = new IntegerVectorInitializer(new int[] {2, 2}, new int[] {3, 3}, new int[] {2, 2}, new int[] {2, 2});
+		IntegerVector g1 = f.createCandidateSolution();
+		IntegerVector g2 = f.createCandidateSolution();
+		IntegerVector h = new IntegerVector(new int[] {2});
+		assertNotEquals(g1, h);
+		assertEquals(g1, g2);
+		assertEquals(g1.hashCode(), g2.hashCode());
+		IntegerVectorInitializer f2 = new IntegerVectorInitializer(new int[] {2, 2}, new int[] {3, 3}, new int[] {2, 2}, new int[] {2, 2});
+		IntegerVector g3 = f2.createCandidateSolution();
+		assertEquals(g1, g3);
+		assertEquals(g1.hashCode(), g3.hashCode());
+		f2 = new IntegerVectorInitializer(new int[] {2, 2}, new int[] {3, 3}, new int[] {2, 2}, new int[] {3, 3});
+		assertNotEquals(g1, f2.createCandidateSolution());
+		f2 = new IntegerVectorInitializer(new int[] {2, 2}, new int[] {3, 3}, new int[] {0, 0}, new int[] {2, 2});
+		assertNotEquals(g1, f2.createCandidateSolution());
+	}
 	
 	@Test
 	public void testIntegerUnivariate() {
@@ -41,6 +122,8 @@ public class IntegerValuedInitializerTests {
 		int a = 3;
 		int b = 11;
 		IntegerValueInitializer f = new IntegerValueInitializer(a, b);
+		IntegerValueInitializer fs = f.split();
+		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			SingleInteger g = f.createCandidateSolution();
 			assertTrue("positive interval", g.get() < b && g.get() >= a);
@@ -78,6 +161,18 @@ public class IntegerValuedInitializerTests {
 			assertEquals("copy should be identical to original", g, copy);
 			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerValueInitializer(5, 5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerValueInitializer(5, 5, 2, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerValueInitializer(5, 6, 7, 6)
+		);
 	}
 	
 	@Test
@@ -113,7 +208,7 @@ public class IntegerValuedInitializerTests {
 			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
 		}
 		min = a + 1;
-		max = b - 1;
+		max = b - 2;
 		f = new IntegerValueInitializer(a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			SingleInteger g = f.createCandidateSolution();
@@ -133,6 +228,8 @@ public class IntegerValuedInitializerTests {
 		int b = 11;
 		int n = 1;
 		IntegerVectorInitializer f = new IntegerVectorInitializer(n, a, b);
+		IntegerVectorInitializer fs = f.split();
+		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
 			assertTrue("positive interval, one var", g.get(0) < b && g.get(0) >= a);
@@ -237,6 +334,66 @@ public class IntegerValuedInitializerTests {
 				assertEquals("verify unbounded set", right[j]+1, g.get(j));
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(1, 5, 5)
+		);
+		final int[] a1 = { 1 };
+		final int[] a2 = { 2, 1 };
+		final int[] b2 = { 2, 3 };
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a1, b2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(1, 5, 5, 2, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(1, 4, 5, 7, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a1, b2, 2, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2, 7, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2, 2, 6)
+		);
+		final int[] min1 = { 1 };
+		final int[] min2 = { 1, 1 };
+		final int[] max2 = { 2, 2 };
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a1, b2, min2, max2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2, min1, max2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2, min2, max2)
+		);
+		a2[0] = 1;
+		min2[0] = 3;
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2, min2, max2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerVectorInitializer(a2, b2, new int[] {1}, new int[] {5})
+		);
 	}
 	
 	
@@ -249,6 +406,8 @@ public class IntegerValuedInitializerTests {
 		int min = 2;
 		int max = 20;
 		IntegerVectorInitializer f = new IntegerVectorInitializer(n, a, b, min, max);
+		IntegerVectorInitializer fs = f.split();
+		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
 			assertEquals("verify length", n, g.length());
@@ -277,7 +436,7 @@ public class IntegerValuedInitializerTests {
 			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
 		}
 		min = a + 1;
-		max = b - 1;
+		max = b - 2;
 		f = new IntegerVectorInitializer(n, a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();

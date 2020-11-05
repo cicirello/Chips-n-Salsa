@@ -45,6 +45,71 @@ public class CauchyMutationTests {
 	private static final int MAX_TRIALS = 100;
 	
 	@Test
+	public void testEquals() {
+		CauchyMutation<RealValued> g1 = CauchyMutation.createCauchyMutation(1);
+		CauchyMutation<RealValued> g2 = CauchyMutation.createCauchyMutation(1);
+		CauchyMutation<RealValued> g3 = CauchyMutation.createCauchyMutation(2);
+		assertEquals(g1, g2);
+		assertEquals(g1.hashCode(), g2.hashCode());
+		assertNotEquals(g1, g3);
+		assertFalse(g1.equals(null));
+		assertFalse(g1.equals("hello"));
+		CauchyMutation<RealValued> p1 = CauchyMutation.createCauchyMutation(1, 1);
+		CauchyMutation<RealValued> p2 = CauchyMutation.createCauchyMutation(2, 1);
+		CauchyMutation<RealValued> p3 = CauchyMutation.createCauchyMutation(1, 2);
+		CauchyMutation<RealValued> p4 = CauchyMutation.createCauchyMutation(1, 0.5);
+		CauchyMutation<RealValued> p5 = CauchyMutation.createCauchyMutation(1, 0.25);
+		assertNotEquals(p1, p2);
+		assertNotEquals(p1, p3);
+		assertNotEquals(p4, p5);
+		p1 = UndoableCauchyMutation.createCauchyMutation(1, 1);
+		p2 = UndoableCauchyMutation.createCauchyMutation(2, 1);
+		p3 = UndoableCauchyMutation.createCauchyMutation(1, 2);
+		p4 = UndoableCauchyMutation.createCauchyMutation(1, 0.5);
+		p5 = UndoableCauchyMutation.createCauchyMutation(1, 0.25);
+		assertNotEquals(p1, p2);
+		assertNotEquals(p1, p3);
+		assertNotEquals(p4, p5);
+	}
+	
+	@Test
+	public void testToArray() {
+		CauchyMutation<RealValued> u = CauchyMutation.createCauchyMutation(2);
+		double[] a = u.toArray(null);
+		assertEquals(1, a.length);
+		assertEquals(2.0, a[0], EPSILON);
+		a = u.toArray(new double[2]);
+		assertEquals(1, a.length);
+		assertEquals(2.0, a[0], EPSILON);
+		a[0] = 5;
+		double[] b = a;
+		a = u.toArray(a);
+		assertEquals(1, a.length);
+		assertEquals(2.0, a[0], EPSILON);
+		assertTrue(a==b);
+	}
+	
+	@Test
+	public void testExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> CauchyMutation.createCauchyMutation(1.0, 0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> CauchyMutation.createCauchyMutation(1.0, 0.0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> UndoableCauchyMutation.createCauchyMutation(1.0, 0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> UndoableCauchyMutation.createCauchyMutation(1.0, 0.0)
+		);
+	}
+	
+	@Test
 	public void testCauchyMutation1() {
 		CauchyMutation<RealValued> g1 = CauchyMutation.createCauchyMutation();
 		assertEquals("default scale = 1.0", 1.0, g1.get(0), EPSILON);

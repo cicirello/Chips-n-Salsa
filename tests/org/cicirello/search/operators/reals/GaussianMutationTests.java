@@ -45,6 +45,71 @@ public class GaussianMutationTests {
 	private static final int MAX_TRIALS = 100;
 	
 	@Test
+	public void testEquals() {
+		GaussianMutation<RealValued> g1 = GaussianMutation.createGaussianMutation(1);
+		GaussianMutation<RealValued> g2 = GaussianMutation.createGaussianMutation(1);
+		GaussianMutation<RealValued> g3 = GaussianMutation.createGaussianMutation(2);
+		assertEquals(g1, g2);
+		assertEquals(g1.hashCode(), g2.hashCode());
+		assertNotEquals(g1, g3);
+		assertFalse(g1.equals(null));
+		assertFalse(g1.equals("hello"));
+		GaussianMutation<RealValued> p1 = GaussianMutation.createGaussianMutation(1, 1);
+		GaussianMutation<RealValued> p2 = GaussianMutation.createGaussianMutation(2, 1);
+		GaussianMutation<RealValued> p3 = GaussianMutation.createGaussianMutation(1, 2);
+		GaussianMutation<RealValued> p4 = GaussianMutation.createGaussianMutation(1, 0.5);
+		GaussianMutation<RealValued> p5 = GaussianMutation.createGaussianMutation(1, 0.25);
+		assertNotEquals(p1, p2);
+		assertNotEquals(p1, p3);
+		assertNotEquals(p4, p5);
+		p1 = UndoableGaussianMutation.createGaussianMutation(1, 1);
+		p2 = UndoableGaussianMutation.createGaussianMutation(2, 1);
+		p3 = UndoableGaussianMutation.createGaussianMutation(1, 2);
+		p4 = UndoableGaussianMutation.createGaussianMutation(1, 0.5);
+		p5 = UndoableGaussianMutation.createGaussianMutation(1, 0.25);
+		assertNotEquals(p1, p2);
+		assertNotEquals(p1, p3);
+		assertNotEquals(p4, p5);
+	}
+	
+	@Test
+	public void testToArray() {
+		GaussianMutation<RealValued> u = GaussianMutation.createGaussianMutation(2);
+		double[] a = u.toArray(null);
+		assertEquals(1, a.length);
+		assertEquals(2.0, a[0], EPSILON);
+		a = u.toArray(new double[2]);
+		assertEquals(1, a.length);
+		assertEquals(2.0, a[0], EPSILON);
+		a[0] = 5;
+		double[] b = a;
+		a = u.toArray(a);
+		assertEquals(1, a.length);
+		assertEquals(2.0, a[0], EPSILON);
+		assertTrue(a==b);
+	}
+	
+	@Test
+	public void testExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> GaussianMutation.createGaussianMutation(1.0, 0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> GaussianMutation.createGaussianMutation(1.0, 0.0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> UndoableGaussianMutation.createGaussianMutation(1.0, 0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> UndoableGaussianMutation.createGaussianMutation(1.0, 0.0)
+		);
+	}
+	
+	@Test
 	public void testGaussianMutation1() {
 		GaussianMutation<RealValued> g1 = GaussianMutation.createGaussianMutation();
 		assertEquals("default sigma = 1.0", 1.0, g1.get(0), EPSILON);

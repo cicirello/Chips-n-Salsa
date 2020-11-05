@@ -109,8 +109,10 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	 * If there are less than k input variables, then all are mutated.
 	 * @param <T> The specific RealValued type.
 	 * @return A Gaussian mutation operator
+	 * @throws IllegalArgumentException if k &lt; 1
 	 */
 	public static <T extends RealValued> GaussianMutation<T> createGaussianMutation(double sigma, int k) {
+		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
 		return new PartialGaussianMutation<T>(sigma, k);
 	}
 	
@@ -123,8 +125,10 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	 * a single call to the {@link #mutate} method.
 	 * @param <T> The specific RealValued type.
 	 * @return A Gaussian mutation operator
+	 * @throws IllegalArgumentException if p &le; 0
 	 */
 	public static <T extends RealValued> GaussianMutation<T> createGaussianMutation(double sigma, double p) {
+		if (p <= 0) throw new IllegalArgumentException("p must be positive");
 		return p >= 1
 			? new GaussianMutation<T>(sigma)
 			: new PartialGaussianMutation<T>(sigma, p);
@@ -202,7 +206,7 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	 */
 	@Override
 	public final double[] toArray(double[] values) {
-		if (values.length != 1) values = new double[1];
+		if (values == null || values.length != 1) values = new double[1];
 		values[0] = sigma;
 		return values;
 	}
@@ -247,13 +251,13 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 		
 		PartialGaussianMutation(double sigma, int k) {
 			super(sigma);
-			this.k = k < 0 ? 0 : k;
+			this.k = k;
 			p = -1;
 		}
 		
 		PartialGaussianMutation(double sigma, double p) {
 			super(sigma);
-			this.p = p < 0 ? 0 : (p > 1 ? 1 : p);
+			this.p = p;
 			k = 0;
 		}
 		

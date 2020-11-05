@@ -103,8 +103,10 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 	 * If there are less than k input variables, then all are mutated.
 	 * @param <T> The specific RealValued type.
 	 * @return A Uniform mutation operator
+	 * @throws IllegalArgumentException if k &lt; 1
 	 */
 	public static <T extends RealValued> UndoableUniformMutation<T> createUniformMutation(double radius, int k) {
+		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
 		return new UndoablePartialUniformMutation<T>(radius, k);
 	}
 	
@@ -117,15 +119,14 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 	 * a single call to the {@link #mutate} method.
 	 * @param <T> The specific RealValued type.
 	 * @return A Uniform mutation operator
+	 * @throws IllegalArgumentException if p &le; 0
 	 */
 	public static <T extends RealValued> UndoableUniformMutation<T> createUniformMutation(double radius, double p) {
+		if (p <= 0) throw new IllegalArgumentException("p must be positive");
 		return p >= 1
 			? new UndoableUniformMutation<T>(radius)
 			: new UndoablePartialUniformMutation<T>(radius, p);
 	}
-	
-	
-	
 	
 	@Override
 	public void mutate(T c) {
@@ -166,13 +167,13 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 		
 		UndoablePartialUniformMutation(double radius, int k) {
 			super(radius);
-			this.k = k < 0 ? 0 : k;
+			this.k = k;
 			p = -1;
 		}
 		
 		UndoablePartialUniformMutation(double radius, double p) {
 			super(radius);
-			this.p = p < 0 ? 0 : (p > 1 ? 1 : p);
+			this.p = p;
 			k = 0;
 		}
 		

@@ -108,8 +108,10 @@ public class UndoableGaussianMutation<T extends RealValued> extends GaussianMuta
 	 * If there are less than k input variables, then all are mutated.
 	 * @param <T> The specific RealValued type.
 	 * @return A Gaussian mutation operator
+	 * @throws IllegalArgumentException if k &lt; 1
 	 */
 	public static <T extends RealValued> UndoableGaussianMutation<T> createGaussianMutation(double sigma, int k) {
+		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
 		return new UndoablePartialGaussianMutation<T>(sigma, k);
 	}
 	
@@ -122,8 +124,10 @@ public class UndoableGaussianMutation<T extends RealValued> extends GaussianMuta
 	 * a single call to the {@link #mutate} method.
 	 * @param <T> The specific RealValued type.
 	 * @return A Gaussian mutation operator
+	 * @throws IllegalArgumentException if p &le; 0
 	 */
 	public static <T extends RealValued> UndoableGaussianMutation<T> createGaussianMutation(double sigma, double p) {
+		if (p <= 0) throw new IllegalArgumentException("p must be positive");
 		return p >= 1
 			? new UndoableGaussianMutation<T>(sigma)
 			: new UndoablePartialGaussianMutation<T>(sigma, p);
@@ -171,13 +175,13 @@ public class UndoableGaussianMutation<T extends RealValued> extends GaussianMuta
 		
 		UndoablePartialGaussianMutation(double sigma, int k) {
 			super(sigma);
-			this.k = k < 0 ? 0 : k;
+			this.k = k;
 			p = -1;
 		}
 		
 		UndoablePartialGaussianMutation(double sigma, double p) {
 			super(sigma);
-			this.p = p < 0 ? 0 : (p > 1 ? 1 : p);
+			this.p = p;
 			k = 0;
 		}
 		

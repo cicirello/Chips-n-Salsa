@@ -112,8 +112,10 @@ public class UndoableCauchyMutation<T extends RealValued> extends CauchyMutation
 	 * If there are less than k input variables, then all are mutated.
 	 * @param <T> The specific RealValued type.
 	 * @return A Cauchy mutation operator
+	 * @throws IllegalArgumentException if k &lt; 1
 	 */
 	public static <T extends RealValued> UndoableCauchyMutation<T> createCauchyMutation(double scale, int k) {
+		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
 		return new UndoablePartialCauchyMutation<T>(scale, k);
 	}
 	
@@ -126,8 +128,10 @@ public class UndoableCauchyMutation<T extends RealValued> extends CauchyMutation
 	 * a single call to the {@link #mutate} method.
 	 * @param <T> The specific RealValued type.
 	 * @return A Cauchy mutation operator
+	 * @throws IllegalArgumentException if p &le; 0
 	 */
 	public static <T extends RealValued> UndoableCauchyMutation<T> createCauchyMutation(double scale, double p) {
+		if (p <= 0) throw new IllegalArgumentException("p must be positive");
 		return p >= 1
 			? new UndoableCauchyMutation<T>(scale)
 			: new UndoablePartialCauchyMutation<T>(scale, p);
@@ -175,13 +179,13 @@ public class UndoableCauchyMutation<T extends RealValued> extends CauchyMutation
 		
 		UndoablePartialCauchyMutation(double scale, int k) {
 			super(scale);
-			this.k = k < 0 ? 0 : k;
+			this.k = k;
 			p = -1;
 		}
 		
 		UndoablePartialCauchyMutation(double scale, double p) {
 			super(scale);
-			this.p = p < 0 ? 0 : (p > 1 ? 1 : p);
+			this.p = p;
 			k = 0;
 		}
 		

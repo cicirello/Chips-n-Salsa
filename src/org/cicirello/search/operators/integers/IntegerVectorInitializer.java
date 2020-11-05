@@ -24,6 +24,7 @@ import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.IntegerVector;
 import org.cicirello.search.representations.BoundedIntegerVector;
 import org.cicirello.math.rand.RandomIndexer;
+import java.util.Arrays;
 
 /**
  * Generating random {@link IntegerVector} objects for use in generating random initial solutions
@@ -324,7 +325,8 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		public boolean equals(Object other) {
 			if (!super.equals(other)) return false;
 			MultiBoundedIntegerVector b = (MultiBoundedIntegerVector)other;
-			return IntegerVectorInitializer.this == b.getOuterThis();
+			return Arrays.equals(IntegerVectorInitializer.this.min, b.getOuterThis().min) &&
+				Arrays.equals(IntegerVectorInitializer.this.max, b.getOuterThis().max);
 		}
 		
 		/**

@@ -45,7 +45,31 @@ public class IntegerValuedInitializerTests {
 		assertEquals(g1.hashCode(), g2.hashCode());
 		IntegerValueInitializer f2 = new IntegerValueInitializer(2, 3, 2, 2);
 		SingleInteger g3 = f2.createCandidateSolution();
-		assertNotEquals(g1, g3);
+		assertEquals(g1, g3);
+		assertEquals(g1.hashCode(), g3.hashCode());
+		f2 = new IntegerValueInitializer(2, 3, 2, 3);
+		assertNotEquals(g1, f2.createCandidateSolution());
+		f2 = new IntegerValueInitializer(2, 3, 0, 2);
+		assertNotEquals(g1, f2.createCandidateSolution());
+	}
+	
+	@Test
+	public void testBoundedIntegerVectorEquals() {
+		IntegerVectorInitializer f = new IntegerVectorInitializer(new int[] {2, 2}, new int[] {3, 3}, new int[] {2, 2}, new int[] {2, 2});
+		IntegerVector g1 = f.createCandidateSolution();
+		IntegerVector g2 = f.createCandidateSolution();
+		IntegerVector h = new IntegerVector(new int[] {2});
+		assertNotEquals(g1, h);
+		assertEquals(g1, g2);
+		assertEquals(g1.hashCode(), g2.hashCode());
+		IntegerVectorInitializer f2 = new IntegerVectorInitializer(new int[] {2, 2}, new int[] {3, 3}, new int[] {2, 2}, new int[] {2, 2});
+		IntegerVector g3 = f2.createCandidateSolution();
+		assertEquals(g1, g3);
+		assertEquals(g1.hashCode(), g3.hashCode());
+		f2 = new IntegerVectorInitializer(new int[] {2, 2}, new int[] {3, 3}, new int[] {2, 2}, new int[] {3, 3});
+		assertNotEquals(g1, f2.createCandidateSolution());
+		f2 = new IntegerVectorInitializer(new int[] {2, 2}, new int[] {3, 3}, new int[] {0, 0}, new int[] {2, 2});
+		assertNotEquals(g1, f2.createCandidateSolution());
 	}
 	
 	@Test
@@ -324,7 +348,7 @@ public class IntegerValuedInitializerTests {
 		);
 		thrown = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new IntegerVectorInitializer(a1, b2, min2, max2)
+			() -> new IntegerVectorInitializer(a2, b2, new int[] {1}, new int[] {5})
 		);
 	}
 	

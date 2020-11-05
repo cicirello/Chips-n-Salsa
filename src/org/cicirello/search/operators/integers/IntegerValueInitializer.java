@@ -181,7 +181,8 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
 		public boolean equals(Object other) {
 			if (!super.equals(other)) return false;
 			BoundedInteger a = (BoundedInteger)other;
-			return IntegerValueInitializer.this == a.getOuterThis();
+			return IntegerValueInitializer.this.min == a.getOuterThis().min &&
+				IntegerValueInitializer.this.max == a.getOuterThis().max;
 		}
 		
 		/**

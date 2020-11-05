@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fixed bug in window limited permutation mutation operators in handling of limit greater than or equal to permutation length.
 * Fixed missing parameter bounds check in LubyRestarts constructor.
 * Fixed bugs in factory methods of the uniform mutation operator for integer-valued representations related to checking for invalid parameters.
+* Fixed bugs in equals methods for bounded integer-valued representations in case when vectors contain same elements, but constrained by different bounds. 
 
 ### CI/CD
 

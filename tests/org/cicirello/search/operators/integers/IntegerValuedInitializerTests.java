@@ -43,6 +43,7 @@ public class IntegerValuedInitializerTests {
 		IntegerValueInitializer f3 = new IntegerValueInitializer(2, 3, -1, 5);
 		IntegerValueInitializer f4 = new IntegerValueInitializer(2, 3, 0, 6);
 		assertEquals(f, g);
+		assertEquals(f.hashCode(), g.hashCode());
 		assertNotEquals(f, f1);
 		assertNotEquals(f, f2);
 		assertNotEquals(f, f3);
@@ -50,6 +51,9 @@ public class IntegerValuedInitializerTests {
 		assertNotEquals(f, null);
 		assertNotEquals(new IntegerValueInitializer(0, 1, 0, 0), new IntegerValueInitializer(0, 1));
 		assertNotEquals(f, "hello");
+		f = new IntegerValueInitializer(0, 1, 0, 0);
+		g = new IntegerValueInitializer(0, 1);
+		assertNotEquals(f.hashCode(), g.hashCode());
 	}
 	
 	@Test
@@ -61,6 +65,7 @@ public class IntegerValuedInitializerTests {
 		IntegerVectorInitializer f3 = new IntegerVectorInitializer(2, 2, 4, 1, 8);
 		IntegerVectorInitializer f4 = new IntegerVectorInitializer(2, 2, 4, 0, 9);
 		assertEquals(f, g);
+		assertEquals(f.hashCode(), g.hashCode());
 		assertNotEquals(f, f1);
 		assertNotEquals(f, f2);
 		assertNotEquals(f, f3);
@@ -73,6 +78,7 @@ public class IntegerValuedInitializerTests {
 		f2 = new IntegerVectorInitializer(2, 2, 5);
 		f3 = new IntegerVectorInitializer(2, 2, 4, 0, 8);
 		assertEquals(f, g);
+		assertEquals(f.hashCode(), g.hashCode());
 		assertNotEquals(f, f1);
 		assertNotEquals(f, f2);
 		assertNotEquals(f, f3);

@@ -24,6 +24,7 @@ import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.RealVector;
 import org.cicirello.search.representations.BoundedRealVector;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.Arrays;
 
 /**
  * Generates random {@link RealVector} objects for use in generating random initial solutions
@@ -213,6 +214,14 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		this.max = max.clone();
 	}
 	
+	private RealVectorInitializer(RealVectorInitializer other) {
+		min = other.min == null ? null : other.min.clone();
+		max = other.max == null ? null : other.max.clone();
+		a = other.a.clone();
+		b = other.b.clone();
+		x = new double[a.length];
+	}
+	
 	
 	@Override
 	public final RealVector createCandidateSolution() {
@@ -236,8 +245,25 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 	
 	@Override
 	public RealVectorInitializer split() {
-		//thread-safe so can simply return this.
-		return this;
+		return new RealVectorInitializer(this);
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other == null || !getClass().equals(other.getClass())) return false;
+		RealVectorInitializer i = (RealVectorInitializer)other;
+		return (min == null && i.min == null ||
+			  Arrays.equals(min, i.min) && Arrays.equals(max, i.max))
+			  && Arrays.equals(a, i.a) && Arrays.equals(b, i.b);
+	}
+	
+	@Override
+	public int hashCode() {
+		int h = 31 * Arrays.hashCode(a) + Arrays.hashCode(b);
+		if (min != null) {
+			h = 31 * (31 * h + Arrays.hashCode(min)) + Arrays.hashCode(max);
+		}
+		return h;
 	}
 	
 	/**
@@ -293,11 +319,17 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 			else super.set(i, value);
 		}
 		
+		/*
+		 * Only used internally by constructor,
+		 * and constructor only used by createCandidateSolution of
+		 * surrounding class,
+		 * and surrounding class constructors set a, b, min, and max
+		 * such that elements of x must already be within min, max.
+		 * Thus, safe to just set values without checking min, max.
+		 */
 		private void setAll(double[] x) {
 			for (int i = 0; i < x.length; i++) {
-				if (x[i] < min[i]) super.set(i, min[i]);
-				else if (x[i] > max[i]) super.set(i, max[i]);
-				else super.set(i, x[i]);
+				super.set(i, x[i]);
 			}
 		}
 		
@@ -325,7 +357,7 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 		public boolean equals(Object other) {
 			if (!super.equals(other)) return false;
 			MultiBoundedRealVector b = (MultiBoundedRealVector)other;
-			return RealVectorInitializer.this == b.getOuterThis();
+			return getOuterThis().equals(b.getOuterThis());
 		}
 		
 		/**

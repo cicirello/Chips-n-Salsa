@@ -50,11 +50,9 @@ import org.cicirello.util.Copyable;
  *
  * @param <T> The specific RealValued type.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.10.2020
+ * @version 11.5.2020
  */
 public class UniformMutation<T extends RealValued> implements MutationOperator<T>, RealValued, Copyable<UniformMutation<T>> {
 	
@@ -104,8 +102,10 @@ public class UniformMutation<T extends RealValued> implements MutationOperator<T
 	 * If there are less than k input variables, then all are mutated.
 	 * @param <T> The specific RealValued type.
 	 * @return A Uniform mutation operator
+	 * @throws IllegalArgumentException if k &lt; 1
 	 */
 	public static <T extends RealValued> UniformMutation<T> createUniformMutation(double radius, int k) {
+		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
 		return new PartialUniformMutation<T>(radius, k);
 	}
 	
@@ -118,8 +118,10 @@ public class UniformMutation<T extends RealValued> implements MutationOperator<T
 	 * a single call to the {@link #mutate} method.
 	 * @param <T> The specific RealValued type.
 	 * @return A Uniform mutation operator
+	 * @throws IllegalArgumentException if p &le; 0
 	 */
 	public static <T extends RealValued> UniformMutation<T> createUniformMutation(double radius, double p) {
+		if (p <= 0) throw new IllegalArgumentException("p must be positive");
 		return p >= 1
 			? new UniformMutation<T>(radius)
 			: new PartialUniformMutation<T>(radius, p);
@@ -197,7 +199,7 @@ public class UniformMutation<T extends RealValued> implements MutationOperator<T
 	 */
 	@Override
 	public final double[] toArray(double[] values) {
-		if (values.length != 1) values = new double[1];
+		if (values == null || values.length != 1) values = new double[1];
 		values[0] = radius;
 		return values;
 	}
@@ -242,13 +244,13 @@ public class UniformMutation<T extends RealValued> implements MutationOperator<T
 		
 		PartialUniformMutation(double radius, int k) {
 			super(radius);
-			this.k = k < 0 ? 0 : k;
+			this.k = k;
 			p = -1;
 		}
 		
 		PartialUniformMutation(double radius, double p) {
 			super(radius);
-			this.p = p < 0 ? 0 : (p > 1 ? 1 : p);
+			this.p = p;
 			k = 0;
 		}
 		

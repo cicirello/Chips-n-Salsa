@@ -258,6 +258,15 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 			  && Arrays.equals(a, i.a) && Arrays.equals(b, i.b);
 	}
 	
+	@Override
+	public int hashCode() {
+		int h = 31 * Arrays.hashCode(a) + Arrays.hashCode(b);
+		if (min != null) {
+			h = 31 * (31 * h + Arrays.hashCode(min)) + Arrays.hashCode(max);
+		}
+		return h;
+	}
+	
 	/**
 	 * Internal class for representing the input to a multivariate function, where the
 	 * input parameters are integers and 

@@ -39,11 +39,97 @@ public class RealValuedInitializerTests {
 	private final double EPSILON = 1e-10;
 	
 	@Test
+	public void testRealValueInitializerEquals() {
+		RealValueInitializer f = new RealValueInitializer(2, 3, 0, 5);
+		RealValueInitializer g = new RealValueInitializer(2, 3, 0, 5);
+		RealValueInitializer f1 = new RealValueInitializer(1, 3, 0, 5);
+		RealValueInitializer f2 = new RealValueInitializer(2, 4, 0, 5);
+		RealValueInitializer f3 = new RealValueInitializer(2, 3, -1, 5);
+		RealValueInitializer f4 = new RealValueInitializer(2, 3, 0, 6);
+		assertEquals(f, g);
+		assertEquals(f.hashCode(), g.hashCode());
+		assertNotEquals(f, f1);
+		assertNotEquals(f, f2);
+		assertNotEquals(f, f3);
+		assertNotEquals(f, f4);
+		assertNotEquals(f, null);
+		assertNotEquals(f, "hello");
+	}
+	
+	@Test
+	public void testRealVectorInitializerEquals() {
+		RealVectorInitializer f = new RealVectorInitializer(2, 2, 4, 0, 8);
+		RealVectorInitializer g = new RealVectorInitializer(2, 2, 4, 0, 8);
+		RealVectorInitializer f1 = new RealVectorInitializer(2, 1, 4, 0, 8);
+		RealVectorInitializer f2 = new RealVectorInitializer(2, 2, 5, 0, 8);
+		RealVectorInitializer f3 = new RealVectorInitializer(2, 2, 4, 1, 8);
+		RealVectorInitializer f4 = new RealVectorInitializer(2, 2, 4, 0, 9);
+		assertEquals(f, g);
+		assertEquals(f.hashCode(), g.hashCode());
+		assertNotEquals(f, f1);
+		assertNotEquals(f, f2);
+		assertNotEquals(f, f3);
+		assertNotEquals(f, f4);
+		assertNotEquals(f, null);
+		assertNotEquals(f, "hello");
+		f = new RealVectorInitializer(2, 2, 4);
+		g = new RealVectorInitializer(2, 2, 4);
+		f1 = new RealVectorInitializer(2, 1, 4);
+		f2 = new RealVectorInitializer(2, 2, 5);
+		f3 = new RealVectorInitializer(2, 2, 4, 0, 8);
+		assertEquals(f, g);
+		assertEquals(f.hashCode(), g.hashCode());
+		assertNotEquals(f, f1);
+		assertNotEquals(f, f2);
+		assertNotEquals(f, f3);
+	}
+	
+	@Test
+	public void testBoundedRealEquals() {
+		RealValueInitializer f = new RealValueInitializer(2, 2 + Math.ulp(2), 2, 2);
+		SingleReal g1 = f.createCandidateSolution();
+		SingleReal g2 = f.createCandidateSolution();
+		SingleReal h = new SingleReal(2);
+		assertNotEquals(g1, h);
+		assertEquals(g1, g2);
+		assertEquals(g1.hashCode(), g2.hashCode());
+		RealValueInitializer f2 = new RealValueInitializer(2, 2 + Math.ulp(2), 2, 2);
+		SingleReal g3 = f2.createCandidateSolution();
+		assertEquals(g1, g3);
+		assertEquals(g1.hashCode(), g3.hashCode());
+		f2 = new RealValueInitializer(2, 2 + Math.ulp(2), 2, 3);
+		assertNotEquals(g1, f2.createCandidateSolution());
+		f2 = new RealValueInitializer(2, 2 + Math.ulp(2), 0, 2);
+		assertNotEquals(g1, f2.createCandidateSolution());
+	}
+	
+	@Test
+	public void testBoundedRealVectorEquals() {
+		RealVectorInitializer f = new RealVectorInitializer(new double[] {2, 2}, new double[] {2 + Math.ulp(2), 2 + Math.ulp(2)}, new double[] {2, 2}, new double[] {2, 2});
+		RealVector g1 = f.createCandidateSolution();
+		RealVector g2 = f.createCandidateSolution();
+		RealVector h = new RealVector(new double[] {2});
+		assertNotEquals(g1, h);
+		assertEquals(g1, g2);
+		assertEquals(g1.hashCode(), g2.hashCode());
+		RealVectorInitializer f2 = new RealVectorInitializer(new double[] {2, 2}, new double[] {2 + Math.ulp(2), 2 + Math.ulp(2)}, new double[] {2, 2}, new double[] {2, 2});
+		RealVector g3 = f2.createCandidateSolution();
+		assertEquals(g1, g3);
+		assertEquals(g1.hashCode(), g3.hashCode());
+		f2 = new RealVectorInitializer(new double[] {2, 2}, new double[] {2 + Math.ulp(2), 2 + Math.ulp(2)}, new double[] {2, 2}, new double[] {3, 3});
+		assertNotEquals(g1, f2.createCandidateSolution());
+		f2 = new RealVectorInitializer(new double[] {2, 2}, new double[] {2 + Math.ulp(2), 2 + Math.ulp(2)}, new double[] {0, 0}, new double[] {2, 2});
+		assertNotEquals(g1, f2.createCandidateSolution());
+	}
+	
+	@Test
 	public void testUnivariate() {
 		SingleReal theClass = new SingleReal();
 		double a = 3.0;
 		double b = 11.0;
 		RealValueInitializer f = new RealValueInitializer(a, b);
+		RealValueInitializer fs = f.split();
+		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			SingleReal g = f.createCandidateSolution();
 			assertTrue("positive interval", g.get(0) < b && g.get(0) >= a);
@@ -81,6 +167,18 @@ public class RealValuedInitializerTests {
 			assertEquals("copy should be identical to original", g, copy);
 			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealValueInitializer(5, 5)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealValueInitializer(5, 5, 2, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealValueInitializer(5, 6, 7, 6)
+		);
 	}
 	
 	@Test
@@ -135,6 +233,8 @@ public class RealValuedInitializerTests {
 		double b = 11;
 		int n = 1;
 		RealVectorInitializer f = new RealVectorInitializer(n, a, b);
+		RealVectorInitializer fs = f.split();
+		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			RealVector g = f.createCandidateSolution();
 			assertTrue("positive interval, one var", g.get(0) < b && g.get(0) >= a);
@@ -242,6 +342,70 @@ public class RealValuedInitializerTests {
 	}
 	
 	@Test
+	public void testExceptions() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(1, 5, 5)
+		);
+		final double[] a1 = { 1 };
+		final double[] a2 = { 2, 1 };
+		final double[] b2 = { 2, 3 };
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(a1, b2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(a2, b2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(1, 5, 5, 2, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(1, 4, 5, 7, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(a1, b2, 2, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(a2, b2, 7, 6)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(a2, b2, 2, 6)
+		);
+		final double[] min1 = { 1 };
+		final double[] min2 = { 1, 1 };
+		final double[] max2 = { 2, 2 };
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(a1, b2, min2, max2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(a2, b2, min1, max2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(a2, b2, min2, max2)
+		);
+		a2[0] = 1;
+		min2[0] = 3;
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(a2, b2, min2, max2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RealVectorInitializer(a2, b2, new double[] {1}, new double[] {5})
+		);
+	}
+	
+	@Test
 	public void testBoundedMultivariate() {
 		double a = 4;
 		double b = 10;
@@ -249,6 +413,8 @@ public class RealValuedInitializerTests {
 		double min = 2;
 		double max = 20;
 		RealVectorInitializer f = new RealVectorInitializer(n, a, b, min, max);
+		RealVectorInitializer fs = f.split();
+		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			RealVector g = f.createCandidateSolution();
 			assertEquals("verify length", n, g.length());

@@ -112,8 +112,10 @@ public class CauchyMutation<T extends RealValued> implements MutationOperator<T>
 	 * If there are less than k input variables, then all are mutated.
 	 * @param <T> The specific RealValued type.
 	 * @return A Cauchy mutation operator
+	 * @throws IllegalArgumentException if k &lt; 1
 	 */
 	public static <T extends RealValued> CauchyMutation<T> createCauchyMutation(double scale, int k) {
+		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
 		return new PartialCauchyMutation<T>(scale, k);
 	}
 	
@@ -126,8 +128,10 @@ public class CauchyMutation<T extends RealValued> implements MutationOperator<T>
 	 * a single call to the {@link #mutate} method.
 	 * @param <T> The specific RealValued type.
 	 * @return A Cauchy mutation operator
+	 * @throws IllegalArgumentException if p &le; 0
 	 */
 	public static <T extends RealValued> CauchyMutation<T> createCauchyMutation(double scale, double p) {
+		if (p <= 0) throw new IllegalArgumentException("p must be positive");
 		return p >= 1
 			? new CauchyMutation<T>(scale)
 			: new PartialCauchyMutation<T>(scale, p);
@@ -205,7 +209,7 @@ public class CauchyMutation<T extends RealValued> implements MutationOperator<T>
 	 */
 	@Override
 	public final double[] toArray(double[] values) {
-		if (values.length != 1) values = new double[1];
+		if (values == null || values.length != 1) values = new double[1];
 		values[0] = scale;
 		return values;
 	}
@@ -250,13 +254,13 @@ public class CauchyMutation<T extends RealValued> implements MutationOperator<T>
 		
 		PartialCauchyMutation(double scale, int k) {
 			super(scale);
-			this.k = k < 0 ? 0 : k;
+			this.k = k;
 			p = -1;
 		}
 		
 		PartialCauchyMutation(double scale, double p) {
 			super(scale);
-			this.p = p < 0 ? 0 : (p > 1 ? 1 : p);
+			this.p = p;
 			k = 0;
 		}
 		

@@ -48,6 +48,7 @@ public class UniformMutationTests {
 		UniformMutation<IntegerValued> g2 = UniformMutation.createUniformMutation(1);
 		UniformMutation<IntegerValued> g3 = UniformMutation.createUniformMutation(2);
 		assertEquals(g1, g2);
+		assertEquals(g1.hashCode(), g2.hashCode());
 		assertNotEquals(g1, g3);
 		assertFalse(g1.equals(null));
 		assertFalse(g1.equals("hello"));

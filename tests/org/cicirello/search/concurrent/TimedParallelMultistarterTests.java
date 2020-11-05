@@ -171,10 +171,10 @@ public class TimedParallelMultistarterTests {
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestProblem problem = new TestProblem();
 		
-		ArrayList<TestInterrupted> metaheuristics = new ArrayList<TestInterrupted>();
-		metaheuristics.add(new TestInterrupted(1000, problem, tracker));
-		metaheuristics.add(new TestInterrupted(1001, problem, tracker));
-		metaheuristics.add(new TestInterrupted(1002, problem, tracker));
+		ArrayList<TestImprovementMade> metaheuristics = new ArrayList<TestImprovementMade>();
+		metaheuristics.add(new TestImprovementMade(1000, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
 		TimedParallelMultistarter<TestObject> restarter = new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
 		restarter.setTimeUnit(10);
         assertNotNull(restarter.optimize(1));
@@ -185,10 +185,10 @@ public class TimedParallelMultistarterTests {
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestProblem problem = new TestProblem();
 		
-		ArrayList<TestInterrupted> metaheuristics = new ArrayList<TestInterrupted>();
-		metaheuristics.add(new TestInterrupted(1000, problem, tracker));
-		metaheuristics.add(new TestInterrupted(1001, problem, tracker));
-		metaheuristics.add(new TestInterrupted(1002, problem, tracker));
+		ArrayList<TestImprovementMade> metaheuristics = new ArrayList<TestImprovementMade>();
+		metaheuristics.add(new TestImprovementMade(1000, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
 		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
 		restarter.setTimeUnit(10);
         assertNotNull(restarter.optimize(1));
@@ -199,10 +199,10 @@ public class TimedParallelMultistarterTests {
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestProblem problem = new TestProblem();
 		
-		ArrayList<TestInterrupted> metaheuristics = new ArrayList<TestInterrupted>();
-		metaheuristics.add(new TestInterrupted(1000, problem, tracker));
-		metaheuristics.add(new TestInterrupted(1001, problem, tracker));
-		metaheuristics.add(new TestInterrupted(1002, problem, tracker));
+		ArrayList<TestImprovementMade> metaheuristics = new ArrayList<TestImprovementMade>();
+		metaheuristics.add(new TestImprovementMade(1000, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
 		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
 		restarter.setTimeUnit(10);
         assertNotNull(restarter.reoptimize(1));
@@ -1339,27 +1339,47 @@ public class TimedParallelMultistarterTests {
 		@Override
 		public SolutionCostPair<TestObject> optimize(int runLength) {
 			count++;
-			if (id < 1000) {
-				for (int i = 0; i < runLength; i++) {
+			for (int i = 0; i < runLength; i++) {
+				try {
+					Thread.sleep(10);
+				}
+				catch(InterruptedException ex) {
+					TestObject obj = new TestObject(0);
+					return new SolutionCostPair<TestObject>(obj, problem.cost(obj)); 
+				}
+			}
+			return null;
+		}
+		
+		@Override
+		public SolutionCostPair<TestObject> reoptimize(int runLength)  {
+			return optimize(runLength);
+		}
+	}
+	
+	private static class TestImprovementMade extends TestRestartedMetaheuristic {
+		
+		public volatile int count;
+		
+		public TestImprovementMade(int id, TestProblem problem, ProgressTracker<TestObject> tracker) {
+			super(id, tracker, problem);
+		}
+		
+		@Override
+		public SolutionCostPair<TestObject> optimize(int runLength) {
+			count++;
+			if (id == 1000) {
+				TestObject sol = new TestObject(10);
+				getProgressTracker().update(10, sol);
+				return new SolutionCostPair<TestObject>(sol, 10);
+			} else {
+				while (!getProgressTracker().containsIntCost()) {
 					try {
 						Thread.sleep(10);
 					}
-					catch(InterruptedException ex) {
-						TestObject obj = new TestObject(0);
-						return new SolutionCostPair<TestObject>(obj, problem.cost(obj)); 
-					}
-				}
-				return null;
-			} else {
-				if (id == 1000) {
-					return new SolutionCostPair<TestObject>(new TestObject(10), 10);
-				} else {
-					try {
-						Thread.sleep(100);
-					}
 					catch(InterruptedException ex) {}
-					return new SolutionCostPair<TestObject>(new TestObject(id-1000), id-1000);
 				}
+				return new SolutionCostPair<TestObject>(new TestObject(id-1000), id-1000);
 			}
 		}
 		

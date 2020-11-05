@@ -35,6 +35,50 @@ public class IntegerValuedInitializerTests {
 	private final int NUM_SAMPLES = 100;
 	
 	@Test
+	public void testIntegerValueInitializerEquals() {
+		IntegerValueInitializer f = new IntegerValueInitializer(2, 3, 0, 5);
+		IntegerValueInitializer g = new IntegerValueInitializer(2, 3, 0, 5);
+		IntegerValueInitializer f1 = new IntegerValueInitializer(1, 3, 0, 5);
+		IntegerValueInitializer f2 = new IntegerValueInitializer(2, 4, 0, 5);
+		IntegerValueInitializer f3 = new IntegerValueInitializer(2, 3, -1, 5);
+		IntegerValueInitializer f4 = new IntegerValueInitializer(2, 3, 0, 6);
+		assertEquals(f, g);
+		assertNotEquals(f, f1);
+		assertNotEquals(f, f2);
+		assertNotEquals(f, f3);
+		assertNotEquals(f, f4);
+		assertNotEquals(f, null);
+		assertNotEquals(new IntegerValueInitializer(0, 1, 0, 0), new IntegerValueInitializer(0, 1));
+		assertNotEquals(f, "hello");
+	}
+	
+	@Test
+	public void testIntegerVectorInitializerEquals() {
+		IntegerVectorInitializer f = new IntegerVectorInitializer(2, 2, 4, 0, 8);
+		IntegerVectorInitializer g = new IntegerVectorInitializer(2, 2, 4, 0, 8);
+		IntegerVectorInitializer f1 = new IntegerVectorInitializer(2, 1, 4, 0, 8);
+		IntegerVectorInitializer f2 = new IntegerVectorInitializer(2, 2, 5, 0, 8);
+		IntegerVectorInitializer f3 = new IntegerVectorInitializer(2, 2, 4, 1, 8);
+		IntegerVectorInitializer f4 = new IntegerVectorInitializer(2, 2, 4, 0, 9);
+		assertEquals(f, g);
+		assertNotEquals(f, f1);
+		assertNotEquals(f, f2);
+		assertNotEquals(f, f3);
+		assertNotEquals(f, f4);
+		assertNotEquals(f, null);
+		assertNotEquals(f, "hello");
+		f = new IntegerVectorInitializer(2, 2, 4);
+		g = new IntegerVectorInitializer(2, 2, 4);
+		f1 = new IntegerVectorInitializer(2, 1, 4);
+		f2 = new IntegerVectorInitializer(2, 2, 5);
+		f3 = new IntegerVectorInitializer(2, 2, 4, 0, 8);
+		assertEquals(f, g);
+		assertNotEquals(f, f1);
+		assertNotEquals(f, f2);
+		assertNotEquals(f, f3);
+	}
+	
+	@Test
 	public void testBoundedIntegerEquals() {
 		IntegerValueInitializer f = new IntegerValueInitializer(2, 3, 2, 2);
 		SingleInteger g1 = f.createCandidateSolution();
@@ -362,6 +406,8 @@ public class IntegerValuedInitializerTests {
 		int min = 2;
 		int max = 20;
 		IntegerVectorInitializer f = new IntegerVectorInitializer(n, a, b, min, max);
+		IntegerVectorInitializer fs = f.split();
+		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
 			assertEquals("verify length", n, g.length());

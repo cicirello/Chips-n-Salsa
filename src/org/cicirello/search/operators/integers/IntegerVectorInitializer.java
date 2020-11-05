@@ -215,6 +215,14 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		this.max = max.clone();
 	}
 	
+	private IntegerVectorInitializer(IntegerVectorInitializer other) {
+		min = other.min == null ? null : other.min.clone();
+		max = other.max == null ? null : other.max.clone();
+		a = other.a.clone();
+		b = other.b.clone();
+		x = new int[a.length];
+	}
+	
 	
 	@Override
 	public final IntegerVector createCandidateSolution() {
@@ -238,10 +246,17 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 	
 	@Override
 	public IntegerVectorInitializer split() {
-		//thread-safe so can simply return this.
-		return this;
+		return new IntegerVectorInitializer(this);
 	}
 	
+	@Override
+	public boolean equals(Object other) {
+		if (other == null || !getClass().equals(other.getClass())) return false;
+		IntegerVectorInitializer i = (IntegerVectorInitializer)other;
+		return (min == null && i.min == null ||
+			  Arrays.equals(min, i.min) && Arrays.equals(max, i.max))
+			  && Arrays.equals(a, i.a) && Arrays.equals(b, i.b);
+	}
 	
 	/**
 	 * Internal class for representing the input to a multivariate function, where the

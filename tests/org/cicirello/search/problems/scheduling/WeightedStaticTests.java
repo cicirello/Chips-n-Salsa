@@ -27,11 +27,21 @@ import java.io.StringWriter;
 import java.io.StringReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.File;
 
 /**
  * JUnit tests for the WeightedStaticScheduling class.
  */
 public class WeightedStaticTests {
+	
+	@BeforeClass 
+	public static void createOutputDirectory() {
+		File directory = new File("target/testcasedata");
+		if (!directory.exists()){
+			directory.mkdir();
+		}
+    }
 	
 	@Test
 	public void testConstructorExceptions() {
@@ -90,6 +100,25 @@ public class WeightedStaticTests {
 					}
 				}
 			}
+		}
+	}
+	
+	@Test
+	public void testReadWriteToFile() {
+		String contents = "1 2 3\n4 5 6\n7 8 9\n";
+		WeightedStaticScheduling original = new WeightedStaticScheduling(new StringReader(contents), 3, 0);
+		try {
+			String file = "target/testcasedata/ws.testcase.data";
+			original.toFile(file);
+			WeightedStaticScheduling s = new WeightedStaticScheduling(file, 3, 0);
+			assertEquals(3, s.numberOfJobs());
+			for (int job = 0; job < 3; job++) {
+				assertEquals(job+1, s.getProcessingTime(job));
+				assertEquals(job+4, s.getWeight(job));
+				assertEquals(job+7, s.getDueDate(job));
+			}
+		} catch(FileNotFoundException ex) {
+			fail("File reading/writing caused exception: " + ex);
 		}
 	}
 	

@@ -27,11 +27,21 @@ import java.io.StringWriter;
 import java.io.StringReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.File;
 
 /**
  * JUnit tests for the WeightedStaticSchedulingWithSetups class.
  */
 public class WeightedStaticSetupsTests {
+	
+	@BeforeClass 
+	public static void createOutputDirectory() {
+		File directory = new File("target/testcasedata");
+		if (!directory.exists()){
+			directory.mkdir();
+		}
+    }
 	
 	@Test
 	public void testConstructorExceptions() {
@@ -123,6 +133,47 @@ public class WeightedStaticSetupsTests {
 			}
 		}
 	}
+	
+	@Test
+	public void testReadWriteToFile() {
+		String contents = "Problem Instance: -1\nProblem Size: 3\n";
+		contents += "Begin Generator Parameters\nEnd Generator Parameters\n";
+		contents += "Begin Problem Specification\n";
+		contents += "Process Times:\n1\n2\n3\n";
+		contents += "Weights:\n4\n5\n6\n";
+		contents += "Duedates:\n7\n8\n9\n";
+		contents += "Setup Times:\n";
+		contents += "-1 0 10\n";
+		contents += "-1 1 11\n";
+		contents += "-1 2 12\n";
+		contents += "0 1 14\n";
+		contents += "0 2 15\n";
+		contents += "1 0 16\n";
+		contents += "1 2 18\n";
+		contents += "2 0 19\n";
+		contents += "2 1 20\n";
+		WeightedStaticSchedulingWithSetups original = new WeightedStaticSchedulingWithSetups(new StringReader(contents));
+		try {
+			String file = "target/testcasedata/wss.testcase.data";
+			original.toFile(file);
+			WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(file);
+			assertEquals(3, s.numberOfJobs());
+			for (int job = 0; job < 3; job++) {
+				assertEquals(job+1, s.getProcessingTime(job));
+				assertEquals(job+4, s.getWeight(job));
+				assertEquals(job+7, s.getDueDate(job));
+				assertEquals(job+10, s.getSetupTime(job));
+				for (int from = 0; from < 3; from++) {
+					if (from!=job) {
+						assertEquals(3*from+job+13, s.getSetupTime(from, job));
+					}
+				}
+			}
+		} catch(FileNotFoundException ex) {
+			fail("File reading/writing caused exception: " + ex);
+		}
+	}
+	
 	
 	@Test
 	public void testCorrectNumJobs() {

@@ -309,11 +309,17 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 			else super.set(i, value);
 		}
 		
+		/*
+		 * Only used internally by constructor,
+		 * and constructor only used by createCandidateSolution of
+		 * surrounding class,
+		 * and surrounding class constructors set a, b, min, and max
+		 * such that elements of x must already be within min, max.
+		 * Thus, safe to just set values without checking min, max.
+		 */
 		private void setAll(int[] x) {
 			for (int i = 0; i < x.length; i++) {
-				if (x[i] < min[i]) super.set(i, min[i]);
-				else if (x[i] > max[i]) super.set(i, max[i]);
-				else super.set(i, x[i]);
+				super.set(i, x[i]);
 			}
 		}
 		

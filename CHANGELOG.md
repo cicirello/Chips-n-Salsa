@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored ParallelVariableAnnealingLength to eliminate redundant code.
 * Refactored constructors of window limited permutation mutation operators to eliminate redundant code.
 * Refactored BlockMoveIterator, WindowLimitedBlockMoveIterator, and BlockInterchangeIterator to remove unnecessary conditions.
+* Refactored internal methods of IntegerVectorInitializer to remove unnecessary checks.
 
 ### Deprecated
 

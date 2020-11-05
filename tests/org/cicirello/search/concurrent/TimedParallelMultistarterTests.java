@@ -167,6 +167,51 @@ public class TimedParallelMultistarterTests {
 	}
 	
 	@Test
+	public void testParallelOptimizeImprovementMade() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		
+		ArrayList<TestImprovementMade> metaheuristics = new ArrayList<TestImprovementMade>();
+		metaheuristics.add(new TestImprovementMade(1000, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
+		TimedParallelMultistarter<TestObject> restarter = new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
+		restarter.setTimeUnit(10);
+        assertNotNull(restarter.optimize(1));
+	}
+	
+	@Test
+	public void testParallelOptimizeImprovementMade_Reopt() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		
+		ArrayList<TestImprovementMade> metaheuristics = new ArrayList<TestImprovementMade>();
+		metaheuristics.add(new TestImprovementMade(1000, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
+		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
+		restarter.setTimeUnit(10);
+        assertNotNull(restarter.optimize(1));
+	}
+	
+	@Test
+	public void testParallelReoptimizeImprovementMade_Reopt() {
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestProblem problem = new TestProblem();
+		
+		ArrayList<TestImprovementMade> metaheuristics = new ArrayList<TestImprovementMade>();
+		metaheuristics.add(new TestImprovementMade(1000, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
+		metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
+		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
+		restarter.setTimeUnit(10);
+        assertNotNull(restarter.reoptimize(1));
+	}
+	
+	
+	
+	
+	@Test
 	public void testInterruptParallelOptimize() {
 		class ParallelSearch implements Runnable {
         
@@ -1198,7 +1243,7 @@ public class TimedParallelMultistarterTests {
 	private static class TestRestartedMetaheuristic implements ReoptimizableMetaheuristic<TestObject> {
 		
 		private ProgressTracker<TestObject> tracker;
-		private int id;
+		int id;
 		public volatile int optimizeCalled;
 		public volatile int reoptimizeCalled;
 		private SplittableRandom r;
@@ -1308,17 +1353,39 @@ public class TimedParallelMultistarterTests {
 		
 		@Override
 		public SolutionCostPair<TestObject> reoptimize(int runLength)  {
+			return optimize(runLength);
+		}
+	}
+	
+	private static class TestImprovementMade extends TestRestartedMetaheuristic {
+		
+		public volatile int count;
+		
+		public TestImprovementMade(int id, TestProblem problem, ProgressTracker<TestObject> tracker) {
+			super(id, tracker, problem);
+		}
+		
+		@Override
+		public SolutionCostPair<TestObject> optimize(int runLength) {
 			count++;
-			for (int i = 0; i < runLength; i++) {
-				try {
-					Thread.sleep(10);
+			if (id == 1000) {
+				TestObject sol = new TestObject(10);
+				getProgressTracker().update(10, sol);
+				return new SolutionCostPair<TestObject>(sol, 10);
+			} else {
+				while (!getProgressTracker().containsIntCost()) {
+					try {
+						Thread.sleep(10);
+					}
+					catch(InterruptedException ex) {}
 				}
-				catch(InterruptedException ex) {
-					TestObject obj = new TestObject(0);
-					return new SolutionCostPair<TestObject>(obj, problem.cost(obj)); 
-				}
+				return new SolutionCostPair<TestObject>(new TestObject(id-1000), id-1000);
 			}
-			return null;
+		}
+		
+		@Override
+		public SolutionCostPair<TestObject> reoptimize(int runLength)  {
+			return optimize(runLength);
 		}
 	}
 	

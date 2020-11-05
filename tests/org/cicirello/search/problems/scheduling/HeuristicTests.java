@@ -1499,6 +1499,35 @@ public class HeuristicTests {
 	}
 	
 	@Test
+	public void testATCSSetupsAll2NonEmptyPartial() {
+		double e = ATCS.MIN_H;
+		int highP = (int)Math.ceil(1 / e)*2;
+		int[] w =    { 0, 1, 1, 1, 1};
+		int[] p =    { 0, 1, 2, 4, 8};
+		int[] d =    { 0, 7, 5, 20, 13};
+		int[][] s = new int[d.length][d.length];
+		for (int i = 0; i < s.length; i++) {
+			for (int j = 0; j < s.length; j++) {
+				s[i][j] = 2;
+			}
+		}
+		s[0][0] = 0;
+		s[4][4] = 0;
+		double sbar = (s.length * s.length - 2) * 2.0 / (s.length * s.length);
+		double[] expected0 = { 999, Math.exp(-1), 0.5*Math.exp(-0.5), 0.25*Math.exp(-8.0/3), 0.125*Math.exp(-5.0/6)};
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, d, s);
+		ATCS h = new ATCS(problem, 2.0, 3.0);
+		PartialPermutation partial = new PartialPermutation(expected0.length);
+		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
+		inc.extend(partial, 0);
+		partial.extend(0);
+		for (int j = 1; j < expected0.length-1; j++) {
+			double expect = j < 4 ? expected0[j]*Math.exp(-2.0/(3*sbar)) : expected0[j];
+			assertEquals("j:"+j, expect, h.h(partial, j, inc), 1E-10);
+		}
+	}
+	
+	@Test
 	public void testDynamicATCS0() {
 		double e = DynamicATCS.MIN_H;
 		int highP = (int)Math.ceil(1 / e)*2;
@@ -1791,6 +1820,7 @@ public class HeuristicTests {
 				s[i][j] = 2;
 			}
 		}
+		s[0][1] = 0;
 		double[] expected0 = { 999, Math.exp(-1), 0.5*Math.exp(-0.5), 0.25*Math.exp(-8.0/3), 0.125*Math.exp(-5.0/6)};
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, d, s);
 		DynamicATCS h = new DynamicATCS(problem, 2.0, 3.0);
@@ -1798,9 +1828,11 @@ public class HeuristicTests {
 		IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
 		inc.extend(partial, 0);
 		partial.extend(0);
-		double sbar = 2;
+		double sbar = 2.0*((w.length-1)*(w.length-1)-1.0)/((w.length-1)*(w.length-1));
 		for (int j = 1; j < expected0.length; j++) {
-			double expect = expected0[j]*Math.exp(-2.0/(3*sbar));
+			double expect = j != 1 
+				? expected0[j]*Math.exp(-2.0/(3*sbar))
+				: expected0[j];
 			assertEquals("j:"+j, expect, h.h(partial, j, inc), 1E-10);
 		}
 	}

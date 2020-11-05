@@ -340,6 +340,8 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
  If there are less than k input variables, then all are mutated.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A Uniform mutation operator</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if k &lt; 1</dd>
 </dl>
 </li>
 </ul>
@@ -359,10 +361,14 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <dd><code>radius</code> - The radius parameter of the Uniform mutation.</dd>
 <dd><code>p</code> - The probability that the <a href="#mutate(T)"><code>mutate(T)</code></a> 
  method changes an input variable.
- If there are n input variables, then n*p input variables will be mutated on average during
- a single call to the <a href="#mutate(T)"><code>mutate(T)</code></a> method.</dd>
+ If there are n input variables, then n*p input 
+ variables will be mutated on average during
+ a single call to the <a href="#mutate(T)"><code>mutate(T)</code></a> method. A value of
+ p &gt; 1 is treated as p = 1.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A Uniform mutation operator</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if p &le; 0</dd>
 </dl>
 </li>
 </ul>

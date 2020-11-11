@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-11-5
+## [Unreleased] - 2020-11-11
 
 ### Added
 
@@ -15,12 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+
+### CI/CD
+
+
+## [2.5.2] - 2020-11-11
+
+### Fixed
 * Various minor bug fixes:
     * Fixed bugs in factory methods of the uniform mutation operator, the Cauchy mutation operator, and the Gaussian mutation operator for real-valued representations related to checking for invalid parameters.
     * Fixed bug in toArray method of uniform mutation operator, the Cauchy mutation operator, and the Gaussian mutation operator in case when null passed to method.
     * Fixed bug in IntegerVectorInitializer.split().
-
-### CI/CD
 
 
 ## [2.5.1] - 2020-11-5

@@ -30,7 +30,6 @@ import org.cicirello.search.problems.Problem;
  * progress across multiple runs, whether multiple sequential runs,
  * or multiple concurrent runs.
  *
- *
  * @param <T> The type of object under optimization.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 

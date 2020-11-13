@@ -47,6 +47,7 @@ jobs:
         git config --global user.email 'cicirello@users.noreply.github.com'
         git add -A
         git commit -m "Automated API website updates."
+        echo "Committed javadoc changes, if any (echo to ensure exit code 0 if nothing to commit)"
 
     - name: Generate the sitemap
       id: sitemap

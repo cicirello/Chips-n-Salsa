@@ -28,7 +28,7 @@ import org.cicirello.search.problems.Problem;
  * This interface defines the required functionality of
  * search algorithm implementations that support tracking search
  * progress across multiple runs, whether multiple sequential runs,
- * or multiple concurrent runs.
+ * or multiple concurrent runs in the case of a parallel metaheuristic.
  *
  * @param <T> The type of object under optimization.
  *

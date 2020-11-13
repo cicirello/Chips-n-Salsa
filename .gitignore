@@ -2,3 +2,6 @@ bin/
 exbin/
 testbin/
 target/
+member-search-index.zip
+type-search-index.zip
+package-search-index.zip

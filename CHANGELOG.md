@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-11-11
+## [Unreleased] - 2020-11-13
 
 ### Added
 
@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 ### Removed
+* Javadoc's zipped versions of the api doc search index (and added to gitignore). The search feature on the API website will still be functional as it uses the unzipped versions as a fallback. The web server should compress these anyway. From Java 15 onward, they eliminated the generation of the zipped versions all together. We're removing them here since the api website is hosted from GitHub Pages, and git detects these as changed every time javadoc runs even if the index has not actually changed, and binary files are not efficiently stored in git.
 
 ### Fixed
 

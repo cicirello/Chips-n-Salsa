@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -57,7 +57,8 @@ import org.cicirello.search.SimpleLocalMetaheuristic;
  * that implements the {@link AnnealingSchedule} interface, and the library provides all
  * of the common annealing schedules, such as exponential cooling, and linear cooling,
  * as well as a few less common, such as parameter-free versions of those schedules, as well as
- * an adaptive schedule known as the Modified Lam annealing schedule.  See the {@link AnnealingSchedule}
+ * multiple variations of an adaptive schedule known as the Modified Lam annealing schedule.  
+ * See the {@link AnnealingSchedule}
  * documentation for a list of the classes that implement this interface.  You may also implement
  * your own annealing schedule by implementing the {@link AnnealingSchedule} interface.</p>
  *
@@ -83,11 +84,9 @@ import org.cicirello.search.SimpleLocalMetaheuristic;
  *
  * @param <T> The type of object under optimization.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.13.2020
+ * @version 1.21.2021
  */
 public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolutionMetaheuristic<T> {
 	
@@ -215,7 +214,8 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}.
+	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
+	 * Modified Lam of Cicirello (2020).
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
 	 * @param initializer The source of random initial states for simulated annealing.
@@ -229,7 +229,8 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}.
+	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
+	 * Modified Lam of Cicirello (2020).
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
 	 * @param initializer The source of random initial states for simulated annealing.
@@ -243,8 +244,9 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}
-	 * that runs a hill climber as a post-processing step.
+	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
+	 * Modified Lam of Cicirello (2020), and which
+	 * runs a hill climber as a post-processing step.
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
 	 * @param initializer The source of random initial states for simulated annealing.
@@ -265,8 +267,9 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}
-	 * that runs a hill climber as a post-processing step.
+	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
+	 * Modified Lam of Cicirello (2020), and which
+	 * runs a hill climber as a post-processing step.
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
 	 * @param initializer The source of random initial states for simulated annealing.
@@ -355,7 +358,8 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}.  
+	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
+	 * Modified Lam of Cicirello (2020).  
 	 * A {@link ProgressTracker} is created for you.
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
@@ -368,7 +372,8 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}.  
+	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
+	 * Modified Lam of Cicirello (2020).  
 	 * A {@link ProgressTracker} is created for you.
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
@@ -381,8 +386,9 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}
-	 * that runs a hill climber as a post-processing step.  
+	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
+	 * Modified Lam of Cicirello (2020), and which
+	 * runs a hill climber as a post-processing step.  
 	 * A {@link ProgressTracker} is created for you.
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
@@ -402,8 +408,9 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}
-	 * that runs a hill climber as a post-processing step.  
+	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
+	 * Modified Lam of Cicirello (2020), and which
+	 * runs a hill climber as a post-processing step.
 	 * A {@link ProgressTracker} is created for you.
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.

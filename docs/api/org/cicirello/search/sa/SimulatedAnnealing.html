@@ -171,7 +171,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
  that implements the <a href="AnnealingSchedule.html" title="interface in org.cicirello.search.sa"><code>AnnealingSchedule</code></a> interface, and the library provides all
  of the common annealing schedules, such as exponential cooling, and linear cooling,
  as well as a few less common, such as parameter-free versions of those schedules, as well as
- an adaptive schedule known as the Modified Lam annealing schedule.  See the <a href="AnnealingSchedule.html" title="interface in org.cicirello.search.sa"><code>AnnealingSchedule</code></a>
+ multiple variations of an adaptive schedule known as the Modified Lam annealing schedule.  
+ See the <a href="AnnealingSchedule.html" title="interface in org.cicirello.search.sa"><code>AnnealingSchedule</code></a>
  documentation for a list of the classes that implement this interface.  You may also implement
  your own annealing schedule by implementing the <a href="AnnealingSchedule.html" title="interface in org.cicirello.search.sa"><code>AnnealingSchedule</code></a> interface.</p>
 
@@ -218,7 +219,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                   <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer)</code></th>
 <td class="colLast">
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -228,7 +230,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                   <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</code></th>
 <td class="colLast">
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -239,8 +242,9 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                   <a href="../SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code></th>
 <td class="colLast">
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -292,8 +296,9 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                   <a href="../SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code></th>
 <td class="colLast">
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -302,7 +307,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                   <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer)</code></th>
 <td class="colLast">
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -312,7 +318,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                   <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</code></th>
 <td class="colLast">
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -323,8 +330,9 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                   <a href="../SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code></th>
 <td class="colLast">
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -376,8 +384,9 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                   <a href="../SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</code></th>
 <td class="colLast">
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.</div>
 </td>
 </tr>
 </table>
@@ -613,7 +622,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                           <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
                           <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</pre>
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
@@ -637,7 +647,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                           <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
                           <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker)</pre>
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
@@ -662,8 +673,9 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                           <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker,
                           <a href="../SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
@@ -695,8 +707,9 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                           <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;tracker,
                           <a href="../SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
@@ -836,7 +849,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                           <a href="../operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
                           <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer)</pre>
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.  
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).  
  A <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -858,7 +872,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                           <a href="../operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;mutation,
                           <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer)</pre>
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.  
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).  
  A <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -881,8 +896,9 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                           <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
                           <a href="../SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.  
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.  
  A <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -912,8 +928,9 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
                           <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;initializer,
                           <a href="../SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;<a href="SimulatedAnnealing.html" title="type parameter in SimulatedAnnealing">T</a>&gt;&nbsp;hc)</pre>
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.  
+ with a default annealing schedule of <a href="ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.
  A <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -1220,7 +1237,7 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 </nav>
-<p class="legalCopy"><small>Copyright &copy; 2002-2020 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
+<p class="legalCopy"><small>Copyright &copy; 2002-2021 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
 </footer>
 </body>
 </html>

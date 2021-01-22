@@ -73,7 +73,7 @@ import java.util.Iterator;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 1.21.2021
  */
-public final class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
+public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
 	
 	/** The default unit of time in milliseconds. This default is 1000 ms (or 1 second).  
 	 * @see #setTimeUnit
@@ -302,7 +302,7 @@ public final class TimedParallelMultistarter<T extends Copyable<T>> implements M
 	 * @see #getTimeUnit
 	 * @throws IllegalArgumentException if timeUnit is less than 1.
 	 */
-	public void setTimeUnit(int timeUnit) {
+	public final void setTimeUnit(int timeUnit) {
 		if (timeUnit < 1) throw new IllegalArgumentException("The unit of time must be at least 1 millisecond.");
 		this.timeUnit = timeUnit;
 	}
@@ -316,7 +316,7 @@ public final class TimedParallelMultistarter<T extends Copyable<T>> implements M
 	 * @see #TIME_UNIT_MS
 	 * @see #setTimeUnit
 	 */
-	public int getTimeUnit() {
+	public final int getTimeUnit() {
 		return timeUnit;
 	}
 	
@@ -335,7 +335,7 @@ public final class TimedParallelMultistarter<T extends Copyable<T>> implements M
 	 * interval during the most recent call to the {@link #optimize} method, or null if 
 	 * {@link #optimize} has not been called.
 	 */
-	public ArrayList<SolutionCostPair<T>> getSearchHistory() {
+	public final ArrayList<SolutionCostPair<T>> getSearchHistory() {
 		return history;
 	}
 	
@@ -372,24 +372,89 @@ public final class TimedParallelMultistarter<T extends Copyable<T>> implements M
 	 * @throws IllegalStateException if the {@link #close} method was previously called.
 	 */
 	@Override
-	public SolutionCostPair<T> optimize(int time) {
+	public final SolutionCostPair<T> optimize(int time) {
+		return threadedOptimize(time,
+			(Multistarter<T> multistartSearch) -> {
+				return () -> multistartSearch.optimize(Integer.MAX_VALUE);
+			}); 
+	}
+	
+	/**
+	 * <p>Initiates an orderly shutdown of the thread pool used by this TimedParallelMultistarter.
+	 * The TimedParallelMultistarter utilizes a fixed thread pool so that multiple calls to
+	 * the {@link #optimize} method can reuse threads to minimize the expensive task of
+	 * thread creation.  When you no longer need the TimedParallelMultistarter, you should call
+	 * the close method to ensure that unneeded threads do not persist.
+	 * Once close is called, all subsequent calls to {@link #optimize} will throw an exception.</p>
+	 * <p>This method is invoked automatically on objects managed by the try-with-resources statement.</p>
+	 */
+	@Override
+	public final void close() {
+		threadPool.shutdown();
+	}
+	
+	@Override
+	public TimedParallelMultistarter<T> split() {
+		ArrayList<Multistarter<T>> splits = new ArrayList<Multistarter<T>>();
+		for (Multistarter<T> m : multistarters) {
+			splits.add(m.split());
+		}
+		TimedParallelMultistarter<T> pm = new TimedParallelMultistarter<T>(splits);
+		pm.setTimeUnit(timeUnit);
+		if (threadPool.isShutdown()) pm.close();
+		return pm;
+	}
+	
+	@Override
+	public final ProgressTracker<T> getProgressTracker() {
+		return multistarters.get(0).getProgressTracker();
+	}
+	
+	@Override
+	public final void setProgressTracker(ProgressTracker<T> tracker) {
+		if (tracker != null) {
+			for (Multistarter<T> m : multistarters) {
+				m.setProgressTracker(tracker);
+			}
+		}
+	}
+	
+	@Override
+	public final Problem<T> getProblem() {
+		return multistarters.get(0).getProblem();
+	}
+	
+	/**
+	 * <p>Gets the total run length of all restarts of all parallel instances of 
+	 * the underlying metaheuristics combined.
+	 * This may differ from what may be expected based on run lengths passed to 
+	 * the optimize and reoptimize methods of the underlying metaheuristics.  
+	 * For example, the optimize method terminates 
+	 * if it finds the theoretical best solution, and also immediately returns if
+	 * a prior call found the theoretical best.  In such cases, the total run length may
+	 * be less than the requested run length.</p>
+	 *
+	 * <p>The meaning of run length may vary based on what metaheuristic is being restarted.</p>
+	 * @return the total run length of all restarts of the underlying metaheuristic, which includes
+	 * across multiple calls to the restart mechanism and across all parallel instances.
+	 */
+	@Override
+	public final long getTotalRunLength() {
+		long total = 0;
+		for (Multistarter<T> m : multistarters) {
+			total = total + m.getTotalRunLength();
+		}
+		return total;
+	}
+	
+	private static interface InfiniteCallableFactory<U extends Copyable<U>> {
+		Callable<SolutionCostPair<U>> create(Multistarter<U> multistartSearch);
+	}
+	
+	private SolutionCostPair<T> threadedOptimize(int time, InfiniteCallableFactory<T> icf) {
 		
 		if (threadPool.isShutdown()) {
-			throw new IllegalStateException("This TimedParallelMultistarter was previously closed.");
-		}
-		
-		class MultistartCallable implements Callable<SolutionCostPair<T>> {
-		
-			Multistarter<T> multistartSearch;
-			
-			MultistartCallable(Multistarter<T> multistartSearch) {
-				this.multistartSearch = multistartSearch;
-			}
-			
-			@Override
-			public SolutionCostPair<T> call() {
-				return multistartSearch.optimize(Integer.MAX_VALUE);
-			}
+			throw new IllegalStateException("Previously closed.");
 		}
 		
 		SolutionCostPair<T> bestRestart = null;
@@ -399,7 +464,7 @@ public final class TimedParallelMultistarter<T extends Copyable<T>> implements M
 		if (!tracker.didFindBest()) {
 			ArrayList<Future<SolutionCostPair<T>>> futures = new ArrayList<Future<SolutionCostPair<T>>>(); 
 			for (Multistarter<T> m : multistarters) {
-				futures.add(threadPool.submit(new MultistartCallable(m)));
+				futures.add(threadPool.submit(icf.create(m)));
 			}
 			for (int i = 0; i < time && !tracker.didFindBest(); i++) {
 				try {
@@ -429,74 +494,6 @@ public final class TimedParallelMultistarter<T extends Copyable<T>> implements M
 			}
 		}
 		return bestRestart; 
-	}
-	
-	/**
-	 * <p>Initiates an orderly shutdown of the thread pool used by this TimedParallelMultistarter.
-	 * The TimedParallelMultistarter utilizes a fixed thread pool so that multiple calls to
-	 * the {@link #optimize} method can reuse threads to minimize the expensive task of
-	 * thread creation.  When you no longer need the TimedParallelMultistarter, you should call
-	 * the close method to ensure that unneeded threads do not persist.
-	 * Once close is called, all subsequent calls to {@link #optimize} will throw an exception.</p>
-	 * <p>This method is invoked automatically on objects managed by the try-with-resources statement.</p>
-	 */
-	@Override
-	public void close() {
-		threadPool.shutdown();
-	}
-	
-	@Override
-	public TimedParallelMultistarter<T> split() {
-		ArrayList<Multistarter<T>> splits = new ArrayList<Multistarter<T>>();
-		for (Multistarter<T> m : multistarters) {
-			splits.add(m.split());
-		}
-		TimedParallelMultistarter<T> pm = new TimedParallelMultistarter<T>(splits);
-		pm.setTimeUnit(timeUnit);
-		if (threadPool.isShutdown()) pm.close();
-		return pm;
-	}
-	
-	@Override
-	public ProgressTracker<T> getProgressTracker() {
-		return multistarters.get(0).getProgressTracker();
-	}
-	
-	@Override
-	public void setProgressTracker(ProgressTracker<T> tracker) {
-		if (tracker != null) {
-			for (Multistarter<T> m : multistarters) {
-				m.setProgressTracker(tracker);
-			}
-		}
-	}
-	
-	@Override
-	public final Problem<T> getProblem() {
-		return multistarters.get(0).getProblem();
-	}
-	
-	/**
-	 * <p>Gets the total run length of all restarts of all parallel instances of 
-	 * the underlying metaheuristics combined.
-	 * This may differ from what may be expected based on run lengths passed to 
-	 * the optimize and reoptimize methods of the underlying metaheuristics.  
-	 * For example, the optimize method terminates 
-	 * if it finds the theoretical best solution, and also immediately returns if
-	 * a prior call found the theoretical best.  In such cases, the total run length may
-	 * be less than the requested run length.</p>
-	 *
-	 * <p>The meaning of run length may vary based on what metaheuristic is being restarted.</p>
-	 * @return the total run length of all restarts of the underlying metaheuristic, which includes
-	 * across multiple calls to the restart mechanism and across all parallel instances.
-	 */
-	@Override
-	public long getTotalRunLength() {
-		long total = 0;
-		for (Multistarter<T> m : multistarters) {
-			total = total + m.getTotalRunLength();
-		}
-		return total;
 	}
 	
 }

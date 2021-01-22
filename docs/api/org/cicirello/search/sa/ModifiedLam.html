@@ -142,15 +142,40 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public final class <span class="typeNameLabel">ModifiedLam</span>
 extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a>
 implements <a href="AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a></pre>
-<div class="block"><p>This class implements the Modified Lam annealing schedule, which dynamically
+<div class="block"><p>This class implements an optimized variant of the Modified Lam annealing schedule. 
+ The Modified Lam annealing schedule dynamically
  adjusts simulated annealing's temperature parameter up and down to either decrease
  or increase the neighbor acceptance rate as necessary to attempt to match 
  a theoretically determined ideal.  The Modified Lam annealing schedule is
  a practical realization of Lam and Delosme's (1988) schedule, 
  refined first by Swartz (1993) and
- then further by Boyan (1998). For complete details of the Modified Lam schedule, along
- with its origins and rationale, see the following references:</p>
+ then further by Boyan (1998).</p> 
 
+ <p>This optimized version of the Modified Lam is described in the following
+ article:<br>
+ Vincent A. Cicirello. 2020. 
+ <a href=https://www.cicirello.org/publications/eai.16-12-2020.167653.pdf>Optimizing 
+ the Modified Lam Annealing Schedule</a>.
+ <i>Industrial Networks and Intelligent Systems</i>, 7(25): 1-11, Article e1 (December 2020).
+ doi:<a href=https://doi.org/10.4108/eai.16-12-2020.167653>10.4108/eai.16-12-2020.167653</a>.
+ </p>
+
+ <p>This optimized Java implementation is significantly faster than the 
+ implementation that would result from a direct implementation as described
+ originally by Boyan (1998). Specifically, in the original Boyan's Modified Lam,
+ the update of the target rate of acceptance involves an
+ exponentiation. This update occurs once for each iteration of simulated annealing.
+ However, in the Optimized Modified Lam of Cicirello (2020), the target rate is 
+ instead computed incrementally from the prior
+ rate. If the simulated annealing run is n evaluations in length, then the
+ direct implementation of Boyan's Modified Lam schedule performs
+ n/2 exponentiations in total across all updates of the target rate; 
+ while the Optimized Modified Lam instead perform only 2 exponentiations and n/2
+ multiplications total across all updates of the target rate. The schedule of target
+ acceptance rates is otherwise the same.</p>
+
+ <p>For details of the original Modified Lam schedule, such as 
+ its origins and rationale, see the following references:</p>
  <ul>
  <li>Lam, J., and Delosme, J. 1988. Performance of a new annealing schedule. 
  In Proc. 25th ACM/IEEE DAC, 306–311.</li>
@@ -160,21 +185,10 @@ implements <a href="AnnealingSchedule.html" title="interface in org.cicirello.se
  Ph.D. Dissertation, Carnegie Mellon University, Pittsburgh, PA.</li>
  </ul>
 
- <p>This Java implementation is significantly faster than the 
- implementation that would result from a direct implementation as described
- in the above references of Swartz and Boyan above.  Specifically, as described
- in those references, the update of the target rate of acceptance involves an
- exponentiation.  This update occurs once for each iteration of simulated annealing.
- However, the target rate can actually be computed incrementally from the prior
- rate.  If the simulated annealing run is n evaluations in length, then the
- direct implementation of the Boyan/Swartz Modified Lam schedule performs
- n/2 exponentiations in total across all updates of the target rate; 
- while our Java implementation will instead perform only 2 exponentiations and n/2
- multiplications total across all updates of the target rate.</p>
-
- <p>For a version of the Modified Lam schedule that is the result of a direct
- implementation of Swartz's and Boyan's description of the annealing schedule,
- see the <a href="ModifiedLamOriginal.html" title="class in org.cicirello.search.sa"><code>ModifiedLamOriginal</code></a> class.</p>
+ <p>The Chips-n-Salsa library also includes an implementation of the original
+ Modified Lam schedule that is the result of a direct
+ implementation of Boyan's description of the annealing schedule,
+ see the <a href="ModifiedLamOriginal.html" title="class in org.cicirello.search.sa"><code>ModifiedLamOriginal</code></a> class for that version.</p>
 
  <p>The <a href="#accept(double,double)"><code>accept(double, double)</code></a> methods of this class use the classic, and most common,
  Boltzmann distribution for determining whether to accept a neighbor.</p></div>
@@ -446,7 +460,7 @@ implements <a href="AnnealingSchedule.html" title="interface in org.cicirello.se
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 </nav>
-<p class="legalCopy"><small>Copyright &copy; 2002-2020 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
+<p class="legalCopy"><small>Copyright &copy; 2002-2021 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
 </footer>
 </body>
 </html>

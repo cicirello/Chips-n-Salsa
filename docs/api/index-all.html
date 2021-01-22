@@ -1992,10 +1992,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><span class="typeNameLink">ModifiedLam</span></a> - Class in <a href="org/cicirello/search/sa/package-summary.html">org.cicirello.search.sa</a></dt>
 <dd>
-<div class="block">This class implements the Modified Lam annealing schedule, which dynamically
- adjusts simulated annealing's temperature parameter up and down to either decrease
- or increase the neighbor acceptance rate as necessary to attempt to match 
- a theoretically determined ideal.</div>
+<div class="block">This class implements an optimized variant of the Modified Lam annealing schedule.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/ModifiedLam.html#%3Cinit%3E()">ModifiedLam()</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa">ModifiedLam</a></dt>
 <dd>
@@ -2936,18 +2933,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer)">SimulatedAnnealing(IntegerCostOptimizationProblem&lt;T&gt;, UndoableMutationOperator&lt;T&gt;, Initializer&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+ with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.ProgressTracker)">SimulatedAnnealing(IntegerCostOptimizationProblem&lt;T&gt;, UndoableMutationOperator&lt;T&gt;, Initializer&lt;T&gt;, ProgressTracker&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+ with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.ProgressTracker,org.cicirello.search.SimpleLocalMetaheuristic)">SimulatedAnnealing(IntegerCostOptimizationProblem&lt;T&gt;, UndoableMutationOperator&lt;T&gt;, Initializer&lt;T&gt;, ProgressTracker&lt;T&gt;, SimpleLocalMetaheuristic&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
+ with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.sa.AnnealingSchedule)">SimulatedAnnealing(IntegerCostOptimizationProblem&lt;T&gt;, UndoableMutationOperator&lt;T&gt;, Initializer&lt;T&gt;, AnnealingSchedule)</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>
@@ -2970,24 +2970,28 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.SimpleLocalMetaheuristic)">SimulatedAnnealing(IntegerCostOptimizationProblem&lt;T&gt;, UndoableMutationOperator&lt;T&gt;, Initializer&lt;T&gt;, SimpleLocalMetaheuristic&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>
 <div class="block">Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
- with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
+ with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer)">SimulatedAnnealing(OptimizationProblem&lt;T&gt;, UndoableMutationOperator&lt;T&gt;, Initializer&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+ with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.ProgressTracker)">SimulatedAnnealing(OptimizationProblem&lt;T&gt;, UndoableMutationOperator&lt;T&gt;, Initializer&lt;T&gt;, ProgressTracker&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>.</div>
+ with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020).</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.ProgressTracker,org.cicirello.search.SimpleLocalMetaheuristic)">SimulatedAnnealing(OptimizationProblem&lt;T&gt;, UndoableMutationOperator&lt;T&gt;, Initializer&lt;T&gt;, ProgressTracker&lt;T&gt;, SimpleLocalMetaheuristic&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
+ with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.sa.AnnealingSchedule)">SimulatedAnnealing(OptimizationProblem&lt;T&gt;, UndoableMutationOperator&lt;T&gt;, Initializer&lt;T&gt;, AnnealingSchedule)</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>
@@ -3010,8 +3014,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.SimpleLocalMetaheuristic)">SimulatedAnnealing(OptimizationProblem&lt;T&gt;, UndoableMutationOperator&lt;T&gt;, Initializer&lt;T&gt;, SimpleLocalMetaheuristic&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>
 <div class="block">Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
- with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>
- that runs a hill climber as a post-processing step.</div>
+ with a default annealing schedule of <a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><code>ModifiedLam</code></a>, which is the Optimized
+ Modified Lam of Cicirello (2020), and which
+ runs a hill climber as a post-processing step.</div>
 </dd>
 <dt><a href="org/cicirello/search/representations/SingleInteger.html" title="class in org.cicirello.search.representations"><span class="typeNameLink">SingleInteger</span></a> - Class in <a href="org/cicirello/search/representations/package-summary.html">org.cicirello.search.representations</a></dt>
 <dd>
@@ -4053,7 +4058,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 </nav>
-<p class="legalCopy"><small>Copyright &copy; 2002-2020 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
+<p class="legalCopy"><small>Copyright &copy; 2002-2021 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
 </footer>
 </body>
 </html>

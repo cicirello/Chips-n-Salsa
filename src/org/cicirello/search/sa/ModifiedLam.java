@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -23,15 +23,40 @@ package org.cicirello.search.sa;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>This class implements the Modified Lam annealing schedule, which dynamically
+ * <p>This class implements an optimized variant of the Modified Lam annealing schedule. 
+ * The Modified Lam annealing schedule dynamically
  * adjusts simulated annealing's temperature parameter up and down to either decrease
  * or increase the neighbor acceptance rate as necessary to attempt to match 
  * a theoretically determined ideal.  The Modified Lam annealing schedule is
  * a practical realization of Lam and Delosme's (1988) schedule, 
  * refined first by Swartz (1993) and
- * then further by Boyan (1998). For complete details of the Modified Lam schedule, along
- * with its origins and rationale, see the following references:</p>
+ * then further by Boyan (1998).</p> 
  *
+ * <p>This optimized version of the Modified Lam is described in the following
+ * article:<br>
+ * Vincent A. Cicirello. 2020. 
+ * <a href=https://www.cicirello.org/publications/eai.16-12-2020.167653.pdf>Optimizing 
+ * the Modified Lam Annealing Schedule</a>.
+ * <i>Industrial Networks and Intelligent Systems</i>, 7(25): 1-11, Article e1 (December 2020).
+ * doi:<a href=https://doi.org/10.4108/eai.16-12-2020.167653>10.4108/eai.16-12-2020.167653</a>.
+ * </p>
+ *
+ * <p>This optimized Java implementation is significantly faster than the 
+ * implementation that would result from a direct implementation as described
+ * originally by Boyan (1998). Specifically, in the original Boyan's Modified Lam,
+ * the update of the target rate of acceptance involves an
+ * exponentiation. This update occurs once for each iteration of simulated annealing.
+ * However, in the Optimized Modified Lam of Cicirello (2020), the target rate is 
+ * instead computed incrementally from the prior
+ * rate. If the simulated annealing run is n evaluations in length, then the
+ * direct implementation of Boyan's Modified Lam schedule performs
+ * n/2 exponentiations in total across all updates of the target rate; 
+ * while the Optimized Modified Lam instead perform only 2 exponentiations and n/2
+ * multiplications total across all updates of the target rate. The schedule of target
+ * acceptance rates is otherwise the same.</p>
+ *
+ * <p>For details of the original Modified Lam schedule, such as 
+ * its origins and rationale, see the following references:</p>
  * <ul>
  * <li>Lam, J., and Delosme, J. 1988. Performance of a new annealing schedule. 
  * In Proc. 25th ACM/IEEE DAC, 306–311.</li>
@@ -41,21 +66,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * Ph.D. Dissertation, Carnegie Mellon University, Pittsburgh, PA.</li>
  * </ul>
  *
- * <p>This Java implementation is significantly faster than the 
- * implementation that would result from a direct implementation as described
- * in the above references of Swartz and Boyan above.  Specifically, as described
- * in those references, the update of the target rate of acceptance involves an
- * exponentiation.  This update occurs once for each iteration of simulated annealing.
- * However, the target rate can actually be computed incrementally from the prior
- * rate.  If the simulated annealing run is n evaluations in length, then the
- * direct implementation of the Boyan/Swartz Modified Lam schedule performs
- * n/2 exponentiations in total across all updates of the target rate; 
- * while our Java implementation will instead perform only 2 exponentiations and n/2
- * multiplications total across all updates of the target rate.</p>
- *
- * <p>For a version of the Modified Lam schedule that is the result of a direct
- * implementation of Swartz's and Boyan's description of the annealing schedule,
- * see the {@link ModifiedLamOriginal} class.</p>
+ * <p>The Chips-n-Salsa library also includes an implementation of the original
+ * Modified Lam schedule that is the result of a direct
+ * implementation of Boyan's description of the annealing schedule,
+ * see the {@link ModifiedLamOriginal} class for that version.</p>
  *
  * <p>The {@link #accept} methods of this class use the classic, and most common,
  * Boltzmann distribution for determining whether to accept a neighbor.</p>
@@ -63,7 +77,7 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.24.2020
+ * @version 1.22.2021
  */
 public final class ModifiedLam implements AnnealingSchedule {
 	

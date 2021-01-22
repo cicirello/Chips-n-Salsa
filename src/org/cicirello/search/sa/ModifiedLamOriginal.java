@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -42,8 +42,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * </ul>
  *
  * <p>This class, ModifiedLamOriginal, is a direct implementation of the Modified
- * Lam schedule as described
- * in the above references of Swartz and Boyan. In most cases, if you want
+ * Lam schedule as described in the reference to Boyan above. In most cases, if you want
  * to use the Modified Lam schedule, you should prefer the {@link ModifiedLam}
  * class, which includes a variety of optimizations to speed up the updating of
  * schedule parameters.  This ModifiedLamOriginal class is included in the library
@@ -56,7 +55,7 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.24.2020
+ * @version 1.22.2021
  */
 public final class ModifiedLamOriginal implements AnnealingSchedule {
 	

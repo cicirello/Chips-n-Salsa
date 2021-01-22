@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -69,11 +69,9 @@ import java.util.Iterator;
  *
  * @param <T> The type of object being optimized.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.15.2020
+ * @version 1.21.2021
  */
 public final class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
 	
@@ -407,7 +405,6 @@ public final class TimedParallelMultistarter<T extends Copyable<T>> implements M
 				try {
 					Thread.sleep(timeUnit);
 				} catch (InterruptedException e) {
-					System.err.println("TimedParallelMultistarter was interrupted: " + e);
 					break;
 				}
 				history.add(tracker.getSolutionCostPair());

@@ -26,6 +26,7 @@ import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.restarts.Multistarter;
 import org.cicirello.search.restarts.RestartSchedule;
+import org.cicirello.search.restarts.ConstantRestartSchedule;
 import org.cicirello.util.Copyable;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -71,7 +72,7 @@ import java.util.Iterator;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 1.21.2021
+ * @version 1.23.2021
  */
 public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
 	
@@ -81,7 +82,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 	 */
 	public static final int TIME_UNIT_MS = 1000;
 	
-	private final ArrayList<Multistarter<T>> multistarters;
+	final ArrayList<Multistarter<T>> multistarters;
 	private final ExecutorService threadPool;
 	private int timeUnit;
 	private ArrayList<SolutionCostPair<T>> history;
@@ -97,16 +98,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 	 * @throws IllegalArgumentException if nunLength is less than 1.
 	 */
 	public TimedParallelMultistarter(Metaheuristic<T> search, int runLength, int numThreads) {
-		if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
-		if (runLength < 1) throw new IllegalArgumentException("runLength must be at least 1");
-		multistarters = new ArrayList<Multistarter<T>>();
-		multistarters.add(new Multistarter<T>(search, runLength));
-		for (int i = 1; i < numThreads; i++) {
-			multistarters.add(new Multistarter<T>(search.split(), runLength));
-		}
-		threadPool = Executors.newFixedThreadPool(numThreads);
-		timeUnit = TIME_UNIT_MS;
-		history = null;
+		this(search, new ConstantRestartSchedule(runLength), numThreads);
 	}
 	
 	/**
@@ -213,26 +205,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 	 * s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in searches).
 	 */
 	public TimedParallelMultistarter(Collection<? extends Metaheuristic<T>> searches, int runLength) {
-		if (runLength < 1) throw new IllegalArgumentException("runLength must be at least 1");
-		multistarters = new ArrayList<Multistarter<T>>();
-		ProgressTracker<T> t = null;
-		Problem<T> problem = null;
-		for (Metaheuristic<T> s : searches) {
-			if (problem == null) {
-				problem = s.getProblem();
-			} else if(s.getProblem() != problem) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must solve the same problem.");
-			}
-			if (t==null) {
-				t = s.getProgressTracker();
-			} else if (s.getProgressTracker() != t) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must share a single ProgressTracker.");
-			}
-			multistarters.add(new Multistarter<T>(s, runLength));
-		}
-		threadPool = Executors.newFixedThreadPool(multistarters.size());
-		timeUnit = TIME_UNIT_MS;
-		history = null;
+		this(searches, ConstantRestartSchedule.createRestartSchedules(searches.size(), runLength));
 	}
 	
 	/**
@@ -271,20 +244,31 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 	 * s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in multistarters).
 	 */
 	public TimedParallelMultistarter(Collection<? extends Multistarter<T>> multistarters) {
+		this(multistarters, true);
+	}
+	
+	/*
+	 * package private for use by subclasses in same package.
+	 */
+	TimedParallelMultistarter(Collection<? extends Multistarter<T>> multistarters, boolean verifyState) {
+		if (verifyState) {
+			ProgressTracker<T> t = null;
+			Problem<T> problem = null;
+			for (Multistarter<T> m : multistarters) {
+				if (problem == null) {
+					problem = m.getProblem();
+				} else if(m.getProblem() != problem) {
+					throw new IllegalArgumentException("All Multistarters in searches must solve the same problem.");
+				}
+				if (t==null) {
+					t = m.getProgressTracker();
+				} else if (m.getProgressTracker() != t) {
+					throw new IllegalArgumentException("All Multistarters must share a single ProgressTracker.");
+				}
+			}
+		}
 		this.multistarters = new ArrayList<Multistarter<T>>();
-		ProgressTracker<T> t = null;
-		Problem<T> problem = null;
 		for (Multistarter<T> m : multistarters) {
-			if (problem == null) {
-				problem = m.getProblem();
-			} else if(m.getProblem() != problem) {
-				throw new IllegalArgumentException("All Multistarters in searches must solve the same problem.");
-			}
-			if (t==null) {
-				t = m.getProgressTracker();
-			} else if (m.getProgressTracker() != t) {
-				throw new IllegalArgumentException("All Multistarters must share a single ProgressTracker.");
-			}
 			this.multistarters.add(m);
 		}
 		threadPool = Executors.newFixedThreadPool(multistarters.size());
@@ -393,13 +377,21 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 		threadPool.shutdown();
 	}
 	
+	/**
+	 * Checks whether the thread pool has been shutdown.
+	 * @return true if and only if the {@link #close} method has been called previously.
+	 */
+	public boolean isClosed() {
+		return threadPool.isShutdown();
+	}
+	
 	@Override
 	public TimedParallelMultistarter<T> split() {
 		ArrayList<Multistarter<T>> splits = new ArrayList<Multistarter<T>>();
 		for (Multistarter<T> m : multistarters) {
 			splits.add(m.split());
 		}
-		TimedParallelMultistarter<T> pm = new TimedParallelMultistarter<T>(splits);
+		TimedParallelMultistarter<T> pm = new TimedParallelMultistarter<T>(splits, false);
 		pm.setTimeUnit(timeUnit);
 		if (threadPool.isShutdown()) pm.close();
 		return pm;
@@ -447,11 +439,11 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 		return total;
 	}
 	
-	private static interface InfiniteCallableFactory<U extends Copyable<U>> {
+	static interface InfiniteCallableFactory<U extends Copyable<U>> {
 		Callable<SolutionCostPair<U>> create(Multistarter<U> multistartSearch);
 	}
 	
-	private SolutionCostPair<T> threadedOptimize(int time, InfiniteCallableFactory<T> icf) {
+	SolutionCostPair<T> threadedOptimize(int time, InfiniteCallableFactory<T> icf) {
 		
 		if (threadPool.isShutdown()) {
 			throw new IllegalStateException("Previously closed.");

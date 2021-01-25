@@ -34,7 +34,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/index-all.html</loc>
-<lastmod>2021-01-25T19:08:04+00:00</lastmod>
+<lastmod>2021-01-25T20:58:30+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-summary.html</loc>
@@ -42,7 +42,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-tree.html</loc>
-<lastmod>2021-01-25T17:27:32+00:00</lastmod>
+<lastmod>2021-01-25T20:58:30+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/Metaheuristic.html</loc>
@@ -114,7 +114,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/class-use/ProgressTracker.html</loc>
-<lastmod>2021-01-25T17:27:32+00:00</lastmod>
+<lastmod>2021-01-25T20:58:30+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/class-use/ReoptimizableMetaheuristic.html</loc>
@@ -134,7 +134,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/class-use/SolutionCostPair.html</loc>
-<lastmod>2021-01-25T17:27:32+00:00</lastmod>
+<lastmod>2021-01-25T20:58:30+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/class-use/TrackableSearch.html</loc>
@@ -142,11 +142,11 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/ParallelMultistarter.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T20:58:30+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/ParallelReoptimizableMultistarter.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T20:58:30+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/Splittable.html</loc>
@@ -154,7 +154,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/TimedParallelMultistarter.html</loc>
-<lastmod>2021-01-25T17:27:32+00:00</lastmod>
+<lastmod>2021-01-25T20:58:30+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html</loc>
@@ -166,7 +166,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/package-tree.html</loc>
-<lastmod>2021-01-25T17:27:32+00:00</lastmod>
+<lastmod>2021-01-25T20:58:30+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/package-use.html</loc>
@@ -498,7 +498,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/class-use/ParallelMultistarter.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T20:58:30+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/class-use/ParallelReoptimizableMultistarter.html</loc>
@@ -766,7 +766,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/class-use/Problem.html</loc>
-<lastmod>2021-01-25T17:27:32+00:00</lastmod>
+<lastmod>2021-01-25T20:58:30+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/ATCS.html</loc>

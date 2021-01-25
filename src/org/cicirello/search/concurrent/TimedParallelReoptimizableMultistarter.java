@@ -188,13 +188,6 @@ public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>>
 	}
 	
 	/*
-	 * package private for use by subclasses in same package.
-	 */
-	TimedParallelReoptimizableMultistarter(Collection<? extends ReoptimizableMultistarter<T>> multistarters, boolean verifyState) {
-		super(multistarters, verifyState);
-	}
-	
-	/*
 	 * private copy constructor to support split() method.
 	 */
 	private TimedParallelReoptimizableMultistarter(TimedParallelReoptimizableMultistarter<T> other) {

@@ -34,7 +34,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/index-all.html</loc>
-<lastmod>2021-01-25T17:27:32+00:00</lastmod>
+<lastmod>2021-01-25T19:08:04+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-summary.html</loc>
@@ -342,7 +342,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/restarts/LubyRestarts.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T19:08:04+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/restarts/Multistarter.html</loc>
@@ -362,7 +362,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/restarts/VariableAnnealingLength.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T19:08:04+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/restarts/package-summary.html</loc>
@@ -978,7 +978,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/restarts/class-use/LubyRestarts.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T19:08:04+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/restarts/class-use/Multistarter.html</loc>
@@ -998,7 +998,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/restarts/class-use/VariableAnnealingLength.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T19:08:04+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/sa/class-use/AnnealingSchedule.html</loc>

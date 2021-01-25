@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -312,6 +312,10 @@ public class ParallelReoptimizableMultistarterSingleThreadTests {
 				restarter.close();
 			}
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new ParallelReoptimizableMultistarter<TestObject>(new TestRestartedMetaheuristic(), new ArrayList<RestartSchedule>())
+		);
 	}
 	
 	@Test

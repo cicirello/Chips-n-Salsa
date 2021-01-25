@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,15 +20,16 @@
  
 package org.cicirello.search.restarts;
 
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  * This is the basic constant run length restart schedule, such that every restart
  * of the multistart metaheuristic is the same in length.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.8.2020
+ * @version 1.23.2021
  */
 public final class ConstantRestartSchedule implements RestartSchedule {
 	
@@ -42,6 +43,27 @@ public final class ConstantRestartSchedule implements RestartSchedule {
 	public ConstantRestartSchedule(int runLength) {
 		if (runLength < 1) throw new IllegalArgumentException("runLength must be positive");
 		r = runLength;
+	}
+	
+	/**
+	 * A convenience method for generating several ConstantRestartSchedule
+	 * objects, such as when needed for a parallel search (e.g., if each instance
+	 * needs its own restart schedule).
+	 *
+	 * @param numThreads The number of restart schedules to generate.
+	 * @param runLength The length of the run for all restarts. The runLength must be positive.
+	 * @return a list of constant restart schedules
+	 * @throws IllegalArgumentException if numThreads &le; 0 or if runLength &lt; 1
+	 */
+	public static List<ConstantRestartSchedule> createRestartSchedules(int numThreads, int runLength) {
+		if (runLength < 1) throw new IllegalArgumentException("runLength must be positive");
+		if (numThreads <= 0) throw new IllegalArgumentException("Must have at least 1 thread.");
+		ArrayList<ConstantRestartSchedule> schedules = new ArrayList<ConstantRestartSchedule>(numThreads);
+		schedules.add(new ConstantRestartSchedule(runLength));
+		for (int i = 1; i < numThreads; i++) {
+			schedules.add(schedules.get(0).split());
+		}
+		return schedules;
 	}
 	
 	@Override

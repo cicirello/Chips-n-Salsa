@@ -52,6 +52,7 @@ public final class ConstantRestartSchedule implements RestartSchedule {
 	 *
 	 * @param numThreads The number of restart schedules to generate.
 	 * @param runLength The length of the run for all restarts. The runLength must be positive.
+	 * @return a list of constant restart schedules
 	 * @throws IllegalArgumentException if numThreads &le; 0 or if runLength &lt; 1
 	 */
 	public static List<ConstantRestartSchedule> createRestartSchedules(int numThreads, int runLength) {

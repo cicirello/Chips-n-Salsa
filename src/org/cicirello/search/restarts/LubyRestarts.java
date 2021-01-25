@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -19,6 +19,9 @@
  */
  
 package org.cicirello.search.restarts;
+
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * <p>The Luby restart schedule originated with constraint satisfaction search, and
@@ -42,11 +45,9 @@ package org.cicirello.search.restarts;
  * The default constructor supports this original Luby schedule.  An additional
  * constructor provides the ability to multiply the Luby schedule by a constant.</p>
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.8.2020
+ * @version 1.25.2021
  */
 public final class LubyRestarts implements RestartSchedule {
 	
@@ -96,5 +97,40 @@ public final class LubyRestarts implements RestartSchedule {
 	@Override
 	public LubyRestarts split() {
 		return new LubyRestarts(a);
+	}
+	
+	/**
+	 * A convenience method for generating several identical and independent LubyRestarts
+	 * objects, such as when needed for a parallel search (e.g., if each instance
+	 * needs its own restart schedule).
+	 *
+	 * @param numThreads The number of restart schedules to generate.
+	 * @return a list of Luby restart schedules
+	 * @throws IllegalArgumentException if numThreads &le; 0
+	 */
+	public static List<LubyRestarts> createRestartSchedules(int numThreads) {
+		return createRestartSchedules(numThreads, 1);
+	}
+	
+	/**
+	 * A convenience method for generating several identical and independent LubyRestarts
+	 * objects, such as when needed for a parallel search (e.g., if each instance
+	 * needs its own restart schedule).
+	 *
+	 * @param numThreads The number of restart schedules to generate.
+	 * @param a A multiplier, which must be positive.  Each run 
+	 * length is equal to a*L where 
+	 * L follows the Luby sequence.
+	 * @return a list of Luby restart schedules
+	 * @throws IllegalArgumentException if numThreads &le; 0 or if a &lt; 1
+	 */
+	public static List<LubyRestarts> createRestartSchedules(int numThreads, int a) {
+		if (numThreads <= 0) throw new IllegalArgumentException("Must have at least 1 thread.");
+		if (a <= 0) throw new IllegalArgumentException("a must be greater than 0");
+		ArrayList<LubyRestarts> schedules = new ArrayList<LubyRestarts>(numThreads);
+		for (int i = 0; i < numThreads; i++) {
+			schedules.add(new LubyRestarts(a));
+		}
+		return schedules;
 	}
 }

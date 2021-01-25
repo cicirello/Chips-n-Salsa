@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -19,6 +19,9 @@
  */
  
 package org.cicirello.search.restarts;
+
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * <p>The Variable Annealing Length (VAL) restart schedule originated,
@@ -57,11 +60,9 @@ package org.cicirello.search.restarts;
  * this implementation converges to a constant restart length of Integer.MAX_VALUE if the next run length
  * of the schedule would otherwise exceed the maximum positive 32-bit integer value.</p>
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.8.2020
+ * @version 1.25.2021
  */
 public final class VariableAnnealingLength implements RestartSchedule {
 	
@@ -109,5 +110,52 @@ public final class VariableAnnealingLength implements RestartSchedule {
 	@Override
 	public VariableAnnealingLength split() {
 		return new VariableAnnealingLength(r0);
+	}
+	
+	/**
+	 * <p>This is a convenience method for use in generating several identical VAL
+	 * annealing schedules, such as if needed for a parallel search. All of the
+	 * annealing schedules in the returned list are identical, but are 
+	 * independent (no shared state). This does NOT give you the P-VAL
+	 * schedule (see {@link ParallelVariableAnnealingLength} for the P-VAL
+	 * schedule).</p>
+	 *
+	 * <p>The list that is returned is of the size of the requested number of threads.
+	 * This should correspond to the number of parallel instances of the search you
+	 * intend to execute.</p>
+	 *
+	 * @param numThreads The number of parallel instances of the search.
+	 * @return A list of numThreads identical VAL restart schedules.
+	 * @throws IllegalArgumentException if numThreads &le; 0.
+	 */
+	public static List<VariableAnnealingLength> createRestartSchedules(int numThreads) {
+		return createRestartSchedules(numThreads, 1000);
+	}
+	
+	/**
+	 * <p>This is a convenience method for use in generating several identical VAL
+	 * annealing schedules, such as if needed for a parallel search. All of the
+	 * annealing schedules in the returned list are identical, but are 
+	 * independent (no shared state). This does NOT give you the P-VAL
+	 * schedule (see {@link ParallelVariableAnnealingLength} for the P-VAL
+	 * schedule).</p>
+	 *
+	 * <p>The list that is returned is of the size of the requested number of threads.
+	 * This should correspond to the number of parallel instances of the search you
+	 * intend to execute.</p>
+	 *
+	 * @param numThreads The number of parallel instances of the search.
+	 * @param r0 The initial run length for the first run.
+	 * @return A list of numThreads identical VAL restart schedules.
+	 * @throws IllegalArgumentException if numThreads &le; 0.
+	 */
+	public static List<VariableAnnealingLength> createRestartSchedules(int numThreads, int r0) {
+		if (numThreads <= 0) throw new IllegalArgumentException("Must have at least 1 thread.");
+		if (r0 <= 0) throw new IllegalArgumentException("r0 must be greater than 0");
+		ArrayList<VariableAnnealingLength> schedules = new ArrayList<VariableAnnealingLength>(numThreads);
+		for (int i = 0; i < numThreads; i++) {
+			schedules.add(new VariableAnnealingLength(r0));
+		}
+		return schedules;
 	}
 }

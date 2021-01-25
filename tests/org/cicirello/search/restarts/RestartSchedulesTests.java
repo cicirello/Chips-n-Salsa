@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -52,6 +52,7 @@ public class RestartSchedulesTests {
 		for (int n = 1; n <= 3; n++) {
 			for (int i = 1; i <= 4; i *= 2) {
 				List<ConstantRestartSchedule> schedules = ConstantRestartSchedule.createRestartSchedules(n, i);
+				assertEquals(n, schedules.size());
 				for (ConstantRestartSchedule r : schedules) {
 					for (int j = 0; j < 3; j++) {
 						assertEquals(i, r.nextRunLength());
@@ -124,6 +125,53 @@ public class RestartSchedulesTests {
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new VariableAnnealingLength(0)
+		);
+	}
+	
+	@Test
+	public void testVALcreateSchedules() {
+		for (int n = 1; n <= 3; n++) {
+			int[] expected = {
+				1000, 2000, 4000, 8000, 16000, 32000, 64000, 128000, 256000, 512000, 1024000,
+				2048000, 4096000, 8192000, 16384000, 32768000, 65536000, 131072000, 262144000,
+				524288000, 1048576000, 2097152000, 0x7fffffff, 0x7fffffff, 0x7fffffff 
+			};
+			List<VariableAnnealingLength> schedules = VariableAnnealingLength.createRestartSchedules(n);
+			assertEquals(n, schedules.size());
+			for (VariableAnnealingLength r : schedules) {
+				for (int i = 0; i < expected.length; i++) {
+					assertEquals(expected[i], r.nextRunLength());
+				}
+				r.reset();
+				for (int i = 0; i < expected.length; i++) {
+					assertEquals(expected[i], r.nextRunLength());
+				}
+			}
+			int[] expected1 = {
+				1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 
+				65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, 16777216,
+				33554432, 67108864, 134217728, 268435456, 536870912, 1073741824, 
+				0x7fffffff, 0x7fffffff, 0x7fffffff
+			};
+			schedules = VariableAnnealingLength.createRestartSchedules(n, 1);
+			assertEquals(n, schedules.size());
+			for (VariableAnnealingLength r : schedules) {
+				for (int i = 0; i < expected1.length; i++) {
+					assertEquals(expected1[i], r.nextRunLength());
+				}
+				r.reset();
+				for (int i = 0; i < expected1.length; i++) {
+					assertEquals(expected1[i], r.nextRunLength());
+				}
+			}
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> VariableAnnealingLength.createRestartSchedules(0, 1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> VariableAnnealingLength.createRestartSchedules(1, 0)
 		);
 	}
 	
@@ -363,6 +411,48 @@ public class RestartSchedulesTests {
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new LubyRestarts(0)
+		);
+	}
+	
+	@Test
+	public void testLubyCreateSchedules() {
+		for (int n = 1; n <= 3; n++) {
+			int[] expected = {
+				1, 1, 2, 1, 1, 2, 4, 1, 1, 2, 1, 1, 2, 4, 8,
+				1, 1, 2, 1, 1, 2, 4, 1, 1, 2, 1, 1, 2, 4, 8, 16,
+				1, 1, 2, 1, 1, 2, 4, 1, 1, 2, 1, 1, 2, 4, 8,
+				1, 1, 2, 1, 1, 2, 4, 1, 1, 2, 1, 1, 2, 4, 8, 16, 32
+			};
+			List<LubyRestarts> schedules = LubyRestarts.createRestartSchedules(n);
+			assertEquals(n, schedules.size());
+			for (LubyRestarts r : schedules) {
+				for (int i = 0; i < expected.length; i++) {
+					assertEquals(expected[i], r.nextRunLength());
+				}
+				r.reset();
+				for (int i = 0; i < expected.length; i++) {
+					assertEquals(expected[i], r.nextRunLength());
+				}
+			}
+			schedules = LubyRestarts.createRestartSchedules(n, 1000);
+			assertEquals(n, schedules.size());
+			for (LubyRestarts r : schedules) {
+				for (int i = 0; i < expected.length; i++) {
+					assertEquals(1000*expected[i], r.nextRunLength());
+				}
+				r.reset();
+				for (int i = 0; i < expected.length; i++) {
+					assertEquals(1000*expected[i], r.nextRunLength());
+				}
+			}
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LubyRestarts.createRestartSchedules(0, 1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LubyRestarts.createRestartSchedules(1, 0)
 		);
 	}
 	

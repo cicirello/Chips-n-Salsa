@@ -219,9 +219,12 @@ public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>>
 	 * and the run lengths for the additional restarts will continue where the schedules left off.</p>
 	 *
 	 * @param time The approximate length of time for the search.  The unit of time is
-	 * as indicated by the constant {@link #TIME_UNIT_MS} unless changed by a call to the
-	 * {@link #setTimeUnit} method.  For example, assuming {@link #setTimeUnit} has not been called,
-	 * then the search will run for approximately: time * {@link #TIME_UNIT_MS} milliseconds.
+	 * as indicated by the constant {@link TimedParallelMultistarter#TIME_UNIT_MS} 
+	 * unless changed by a call to the
+	 * {@link TimedParallelMultistarter#setTimeUnit} method.  For example, 
+	 * assuming {@link TimedParallelMultistarter#setTimeUnit} has not been called,
+	 * then the search will run for 
+	 * approximately: time * {@link TimedParallelMultistarter#TIME_UNIT_MS} milliseconds.
 	 *
 	 * @return The best end of run solution (and its cost) of this set of parallel runs, 
 	 * which may or may not be the same as the solution contained
@@ -229,10 +232,10 @@ public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>>
 	 * Returns null if the run did not execute, such as if the ProgressTracker already contains
 	 * the theoretical best solution.
 	 *
-	 * @see #setTimeUnit
-	 * @see #getTimeUnit
+	 * @see TimedParallelMultistarter#setTimeUnit
+	 * @see TimedParallelMultistarter#getTimeUnit
 	 *
-	 * @throws IllegalStateException if the {@link #close} method was previously called.
+	 * @throws IllegalStateException if the {@link TimedParallelMultistarter#close} method was previously called.
 	 */
 	@Override
 	public SolutionCostPair<T> reoptimize(int time) {

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -411,6 +411,48 @@ public class RestartSchedulesTests {
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new LubyRestarts(0)
+		);
+	}
+	
+	@Test
+	public void testLubyCreateSchedules() {
+		for (int n = 1; n <= 3; n++) {
+			int[] expected = {
+				1, 1, 2, 1, 1, 2, 4, 1, 1, 2, 1, 1, 2, 4, 8,
+				1, 1, 2, 1, 1, 2, 4, 1, 1, 2, 1, 1, 2, 4, 8, 16,
+				1, 1, 2, 1, 1, 2, 4, 1, 1, 2, 1, 1, 2, 4, 8,
+				1, 1, 2, 1, 1, 2, 4, 1, 1, 2, 1, 1, 2, 4, 8, 16, 32
+			};
+			List<LubyRestarts> schedules = LubyRestarts.createRestartSchedules(n);
+			assertEquals(n, schedules.size());
+			for (LubyRestarts r : schedules) {
+				for (int i = 0; i < expected.length; i++) {
+					assertEquals(expected[i], r.nextRunLength());
+				}
+				r.reset();
+				for (int i = 0; i < expected.length; i++) {
+					assertEquals(expected[i], r.nextRunLength());
+				}
+			}
+			schedules = LubyRestarts.createRestartSchedules(n, 1000);
+			assertEquals(n, schedules.size());
+			for (LubyRestarts r : schedules) {
+				for (int i = 0; i < expected.length; i++) {
+					assertEquals(1000*expected[i], r.nextRunLength());
+				}
+				r.reset();
+				for (int i = 0; i < expected.length; i++) {
+					assertEquals(1000*expected[i], r.nextRunLength());
+				}
+			}
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LubyRestarts.createRestartSchedules(0, 1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LubyRestarts.createRestartSchedules(1, 0)
 		);
 	}
 	

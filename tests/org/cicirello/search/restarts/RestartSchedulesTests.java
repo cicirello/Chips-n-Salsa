@@ -48,6 +48,32 @@ public class RestartSchedulesTests {
 	}
 	
 	@Test
+	public void testConstantRestartScheduleCreateSchedules() {
+		for (int n = 1; n <= 3; n++) {
+			for (int i = 1; i <= 4; i *= 2) {
+				List<ConstantRestartSchedule> schedules = ConstantRestartSchedule.createRestartSchedules(n, i);
+				for (ConstantRestartSchedule r : schedules) {
+					for (int j = 0; j < 3; j++) {
+						assertEquals(i, r.nextRunLength());
+					}
+					r.reset();
+					for (int j = 0; j < 3; j++) {
+						assertEquals(i, r.nextRunLength());
+					}
+				}
+			}
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> ConstantRestartSchedule.createRestartSchedules(0, 1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> ConstantRestartSchedule.createRestartSchedules(1, 0)
+		);
+	}
+	
+	@Test
 	public void testConstantRestartScheduleSplit() {
 		for (int i = 1; i <= 128; i *= 2) {
 			for (int s = 0; s < 5; s++) {

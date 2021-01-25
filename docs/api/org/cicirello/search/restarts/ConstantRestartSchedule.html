@@ -30,8 +30,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":9,"i1":10,"i2":10,"i3":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -181,13 +181,23 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util" class="externalLink">List</a>&lt;<a href="ConstantRestartSchedule.html" title="class in org.cicirello.search.restarts">ConstantRestartSchedule</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createRestartSchedules(int,int)">createRestartSchedules</a></span>&#8203;(int&nbsp;numThreads,
+                      int&nbsp;runLength)</code></th>
+<td class="colLast">
+<div class="block">A convenience method for generating several ConstantRestartSchedule
+ objects, such as when needed for a parallel search (e.g., if each instance
+ needs its own restart schedule).</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#nextRunLength()">nextRunLength</a></span>()</code></th>
 <td class="colLast">
@@ -195,7 +205,7 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
  run lengths.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reset()">reset</a></span>()</code></th>
 <td class="colLast">
@@ -204,7 +214,7 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
  run length of the schedule.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="ConstantRestartSchedule.html" title="class in org.cicirello.search.restarts">ConstantRestartSchedule</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#split()">split</a></span>()</code></th>
 <td class="colLast">
@@ -262,6 +272,28 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="createRestartSchedules(int,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createRestartSchedules</h4>
+<pre class="methodSignature">public static&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util" class="externalLink">List</a>&lt;<a href="ConstantRestartSchedule.html" title="class in org.cicirello.search.restarts">ConstantRestartSchedule</a>&gt;&nbsp;createRestartSchedules&#8203;(int&nbsp;numThreads,
+                                                                   int&nbsp;runLength)</pre>
+<div class="block">A convenience method for generating several ConstantRestartSchedule
+ objects, such as when needed for a parallel search (e.g., if each instance
+ needs its own restart schedule).</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>numThreads</code> - The number of restart schedules to generate.</dd>
+<dd><code>runLength</code> - The length of the run for all restarts. The runLength must be positive.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a list of constant restart schedules</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if numThreads &le; 0 or if runLength &lt; 1</dd>
+</dl>
+</li>
+</ul>
 <a id="nextRunLength()">
 <!--   -->
 </a>

@@ -349,10 +349,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Initiates an orderly shutdown of the thread pool used by this TimedParallelMultistarter.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#close()">close()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
-<dd>
-<div class="block">Initiates an orderly shutdown of the thread pool used by this TimedParallelReoptimizableMultistarter.</div>
-</dd>
 <dt><a href="org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling"><span class="typeNameLink">CommonDuedateScheduling</span></a> - Class in <a href="org/cicirello/search/problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a></dt>
 <dd>
 <div class="block">This class represents and generates instances of a common duedate
@@ -647,6 +643,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Creates a list of restart schedules that together follow the Parallel Variable Annealing 
  Length (P-VAL) schedule of: Vincent A.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/restarts/ConstantRestartSchedule.html#createRestartSchedules(int,int)">createRestartSchedules(int, int)</a></span> - Static method in class org.cicirello.search.restarts.<a href="org/cicirello/search/restarts/ConstantRestartSchedule.html" title="class in org.cicirello.search.restarts">ConstantRestartSchedule</a></dt>
+<dd>
+<div class="block">A convenience method for generating several ConstantRestartSchedule
+ objects, such as when needed for a parallel search (e.g., if each instance
+ needs its own restart schedule).</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/restarts/ParallelVariableAnnealingLength.html#createRestartSchedules(int,int)">createRestartSchedules(int, int)</a></span> - Static method in class org.cicirello.search.restarts.<a href="org/cicirello/search/restarts/ParallelVariableAnnealingLength.html" title="class in org.cicirello.search.restarts">ParallelVariableAnnealingLength</a></dt>
 <dd>
@@ -1065,8 +1067,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/restarts/Multistarter.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.restarts.<a href="org/cicirello/search/restarts/Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
@@ -1099,8 +1099,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html#getProgressTracker()">getProgressTracker()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#getProgressTracker()">getProgressTracker()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/restarts/Multistarter.html#getProgressTracker()">getProgressTracker()</a></span> - Method in class org.cicirello.search.restarts.<a href="org/cicirello/search/restarts/Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#getProgressTracker()">getProgressTracker()</a></span> - Method in class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
@@ -1121,13 +1119,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Gets a list of the best solution stored in this search's <a href="org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>
  at each time interval of the most recent call to the <a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html#optimize(int)"><code>TimedParallelMultistarter.optimize(int)</code></a> 
  method, or null if <a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html#optimize(int)"><code>TimedParallelMultistarter.optimize(int)</code></a> has not been called.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#getSearchHistory()">getSearchHistory()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
-<dd>
-<div class="block">Gets a list of the best solution stored in this search's <a href="org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>
- at each time interval of the most recent call to the <a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#optimize(int)"><code>TimedParallelReoptimizableMultistarter.optimize(int)</code></a> 
- or <a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#reoptimize(int)"><code>TimedParallelReoptimizableMultistarter.reoptimize(int)</code></a> methods, or null if neither <a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#optimize(int)"><code>TimedParallelReoptimizableMultistarter.optimize(int)</code></a> nor <a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#reoptimize(int)"><code>TimedParallelReoptimizableMultistarter.reoptimize(int)</code></a>
- has not been called.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#getSetupTime(int)">getSetupTime(int)</a></span> - Method in interface org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></dt>
 <dd>
@@ -1172,10 +1163,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets the unit of time used by the <a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html#optimize(int)"><code>TimedParallelMultistarter.optimize(int)</code></a> method.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#getTimeUnit()">getTimeUnit()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
-<dd>
-<div class="block">Gets the unit of time used by the <a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#optimize(int)"><code>TimedParallelReoptimizableMultistarter.optimize(int)</code></a> and <a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#reoptimize(int)"><code>TimedParallelReoptimizableMultistarter.reoptimize(int)</code></a> methods.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/ParallelMultistarter.html#getTotalRunLength()">getTotalRunLength()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/ParallelMultistarter.html" title="class in org.cicirello.search.concurrent">ParallelMultistarter</a></dt>
 <dd>
 <div class="block">Gets the total run length of all restarts of all parallel instances of 
@@ -1187,11 +1174,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  the underlying metaheuristics combined.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html#getTotalRunLength()">getTotalRunLength()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
-<dd>
-<div class="block">Gets the total run length of all restarts of all parallel instances of 
- the underlying metaheuristics combined.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#getTotalRunLength()">getTotalRunLength()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
 <dd>
 <div class="block">Gets the total run length of all restarts of all parallel instances of 
  the underlying metaheuristics combined.</div>
@@ -1625,6 +1607,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  random solutions such that the values of all n variables are chosen
  uniformly in the interval [a, b), subject to
  bounds [min, max].</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html#isClosed()">isClosed()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
+<dd>
+<div class="block">Checks whether the thread pool has been shutdown.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/Partial.html#isComplete()">isComplete()</a></span> - Method in interface org.cicirello.search.ss.<a href="org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a></dt>
 <dd>
@@ -2256,10 +2242,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Executes a parallel multistart search.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#optimize(int)">optimize(int)</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
-<dd>
-<div class="block">Executes a parallel multistart search.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/Metaheuristic.html#optimize(int)">optimize(int)</a></span> - Method in interface org.cicirello.search.<a href="org/cicirello/search/Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a></dt>
 <dd>
 <div class="block">Executes a run of the metaheuristic beginning at a randomly generated solution.</div>
@@ -2858,8 +2840,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker(ProgressTracker&lt;T&gt;)</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker(ProgressTracker&lt;T&gt;)</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/restarts/Multistarter.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker(ProgressTracker&lt;T&gt;)</a></span> - Method in class org.cicirello.search.restarts.<a href="org/cicirello/search/restarts/Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/SimulatedAnnealing.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker(ProgressTracker&lt;T&gt;)</a></span> - Method in class org.cicirello.search.sa.<a href="org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
@@ -2880,10 +2860,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html#setTimeUnit(int)">setTimeUnit(int)</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
 <dd>
 <div class="block">Changes the unit of time used by the <a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html#optimize(int)"><code>TimedParallelMultistarter.optimize(int)</code></a> method.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#setTimeUnit(int)">setTimeUnit(int)</a></span> - Method in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
-<dd>
-<div class="block">Changes the unit of time used by the <a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#optimize(int)"><code>TimedParallelReoptimizableMultistarter.optimize(int)</code></a> and <a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#reoptimize(int)"><code>TimedParallelReoptimizableMultistarter.reoptimize(int)</code></a> methods.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.html#shiftLeft(int)">shiftLeft(int)</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
@@ -3308,10 +3284,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h2 class="title">T</h2>
 <dl>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html#TIME_UNIT_MS">TIME_UNIT_MS</a></span> - Static variable in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
-<dd>
-<div class="block">The default unit of time in milliseconds.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#TIME_UNIT_MS">TIME_UNIT_MS</a></span> - Static variable in class org.cicirello.search.concurrent.<a href="org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
 <dd>
 <div class="block">The default unit of time in milliseconds.</div>
 </dd>

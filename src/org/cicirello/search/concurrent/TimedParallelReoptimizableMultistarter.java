@@ -36,6 +36,7 @@ import java.util.concurrent.Executors;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.Function;
 
 /**
  * <p>This class is used for implementing parallel multistart metaheuristics.  It can be used to
@@ -239,11 +240,13 @@ public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>>
 	 */
 	@Override
 	public SolutionCostPair<T> reoptimize(int time) {
-		return threadedOptimize(time,
-			(Multistarter<T> multistartSearch) -> {
-				return () -> ((ReoptimizableMultistarter<T>)multistartSearch).reoptimize(Integer.MAX_VALUE);
-			}); 
+		return threadedOptimize(time, createReoptimizerCallable); 
 	}
+	
+	private final Function<Multistarter<T>, Callable<SolutionCostPair<T>>> 
+		createReoptimizerCallable = (multistartSearch) -> (
+			() -> ((ReoptimizableMultistarter<T>)multistartSearch).reoptimize(Integer.MAX_VALUE)
+		);
 	
 	@Override
 	public TimedParallelReoptimizableMultistarter<T> split() {

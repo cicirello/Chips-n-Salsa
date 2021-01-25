@@ -185,7 +185,7 @@ public class TimedParallelMultistarterTests {
 		metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
 		metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
 		TimedParallelMultistarter<TestObject> restarter = new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
-		restarter.setTimeUnit(10);
+		restarter.setTimeUnit(50);
         assertNotNull(restarter.optimize(1));
 		restarter.close();
 		
@@ -201,7 +201,7 @@ public class TimedParallelMultistarterTests {
 		metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
 		metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
 		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
-		restarter.setTimeUnit(20);
+		restarter.setTimeUnit(50);
         assertNotNull(restarter.optimize(1));
 		restarter.close();
 		
@@ -217,7 +217,7 @@ public class TimedParallelMultistarterTests {
 		metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
 		metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
 		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
-		restarter.setTimeUnit(20);
+		restarter.setTimeUnit(50);
         assertNotNull(restarter.reoptimize(1));
 		restarter.close();
 	}

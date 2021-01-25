@@ -35,6 +35,7 @@ import java.util.concurrent.Executors;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.Function;
 
 /**
  * <p>This class is used for implementing parallel multistart metaheuristics.  It can be used to
@@ -378,11 +379,13 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 	 */
 	@Override
 	public final SolutionCostPair<T> optimize(int time) {
-		return threadedOptimize(time,
-			(Multistarter<T> multistartSearch) -> {
-				return () -> multistartSearch.optimize(Integer.MAX_VALUE);
-			}); 
+		return threadedOptimize(time, createOptimizerCallable);
 	}
+	
+	private final Function<Multistarter<T>, Callable<SolutionCostPair<T>>> 
+		createOptimizerCallable = (multistartSearch) -> (
+			() -> multistartSearch.optimize(Integer.MAX_VALUE)
+		);
 	
 	/**
 	 * <p>Initiates an orderly shutdown of the thread pool used by this TimedParallelMultistarter.
@@ -453,11 +456,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 		return total;
 	}
 	
-	static interface InfiniteCallableFactory<U extends Copyable<U>> {
-		Callable<SolutionCostPair<U>> create(Multistarter<U> multistartSearch);
-	}
-	
-	SolutionCostPair<T> threadedOptimize(int time, InfiniteCallableFactory<T> icf) {
+	SolutionCostPair<T> threadedOptimize(int time, Function<Multistarter<T>, Callable<SolutionCostPair<T>>> icf) {
 		
 		if (threadPool.isShutdown()) {
 			throw new IllegalStateException("Previously closed.");
@@ -470,7 +469,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 		if (!tracker.didFindBest()) {
 			ArrayList<Future<SolutionCostPair<T>>> futures = new ArrayList<Future<SolutionCostPair<T>>>(); 
 			for (Multistarter<T> m : multistarters) {
-				futures.add(threadPool.submit(icf.create(m)));
+				futures.add(threadPool.submit(icf.apply(m)));
 			}
 			for (int i = 0; i < time && !tracker.didFindBest(); i++) {
 				try {

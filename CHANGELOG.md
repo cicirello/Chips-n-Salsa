@@ -12,8 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Factory methods, LubyRestarts.createRestartSchedules, for creating multiple restart schedules.
 
 ### Changed
-* Refactored TimedParallelMultistarter and TimedParallelReoptimizableMultistarter to remove redundancy in common with these two classes.
-* Refactored ParallelMultistarter and ParallelReoptimizableMultistarter to remove redundancy in common with these two classes.
+* Refactored TimedParallelMultistarter and TimedParallelReoptimizableMultistarter to eliminate redundancy in common with these two classes.
+* Refactored ParallelMultistarter and ParallelReoptimizableMultistarter to eliminate redundancy in common with these two classes.
+* Eliminated code redundancy between ParallelReoptimizableMultistarter and TimedParallelReoptimizableMultistarter.
 
 ### Deprecated
 

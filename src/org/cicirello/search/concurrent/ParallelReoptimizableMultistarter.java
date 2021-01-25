@@ -104,7 +104,7 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> exte
 	 * @throws IllegalArgumentException if schedules.size() is less than 1.
 	 */
 	public ParallelReoptimizableMultistarter(ReoptimizableMetaheuristic<T> search, Collection<? extends RestartSchedule> schedules) {
-		super(toReoptimizableMultistarters(search, schedules), false);
+		super(ParallelMultistarterUtil.toReoptimizableMultistarters(search, schedules), false);
 	}
 	
 	/**
@@ -123,7 +123,7 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> exte
 	 * s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in searches).
 	 */
 	public ParallelReoptimizableMultistarter(Collection<? extends ReoptimizableMetaheuristic<T>> searches, Collection<? extends RestartSchedule> schedules) {
-		super(toReoptimizableMultistarters(searches, schedules), false);
+		super(ParallelMultistarterUtil.toReoptimizableMultistarters(searches, schedules), false);
 	}
 	
 	/**
@@ -219,43 +219,5 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> exte
 	@Override
 	public ParallelReoptimizableMultistarter<T> split() {
 		return new ParallelReoptimizableMultistarter<T>(this);
-	}
-	
-	private static <U extends Copyable<U>> Collection<ReoptimizableMultistarter<U>> toReoptimizableMultistarters(ReoptimizableMetaheuristic<U> search, Collection<? extends RestartSchedule> schedules) {
-		if (schedules.size() < 1) throw new IllegalArgumentException("Must pass at least one schedule.");
-		ArrayList<ReoptimizableMultistarter<U>> restarters = new ArrayList<ReoptimizableMultistarter<U>>(schedules.size());
-		boolean addedFirst = false;
-		for (RestartSchedule r : schedules) {
-			if (addedFirst) restarters.add(new ReoptimizableMultistarter<U>(search.split(), r));
-			else {
-				restarters.add(new ReoptimizableMultistarter<U>(search, r));
-				addedFirst = true;
-			}
-		}
-		return restarters;
-	}
-	
-	private static <U extends Copyable<U>> Collection<ReoptimizableMultistarter<U>> toReoptimizableMultistarters(Collection<? extends ReoptimizableMetaheuristic<U>> searches, Collection<? extends RestartSchedule> schedules) {
-		if (searches.size() != schedules.size()) {
-			throw new IllegalArgumentException("number of searches and number of schedules must be the same");
-		}
-		ArrayList<ReoptimizableMultistarter<U>> restarters = new ArrayList<ReoptimizableMultistarter<U>>(searches.size());
-		Iterator<? extends RestartSchedule> rs = schedules.iterator();
-		ProgressTracker<U> t = null; 
-		Problem<U> problem = null;
-		for (ReoptimizableMetaheuristic<U> s : searches) {
-			if (problem == null) {
-				problem = s.getProblem();
-			} else if(s.getProblem() != problem) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must solve the same problem.");
-			}
-			if (t==null) {
-				t = s.getProgressTracker();
-			} else if (s.getProgressTracker() != t) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must share a single ProgressTracker.");
-			}
-			restarters.add(new ReoptimizableMultistarter<U>(s, rs.next()));
-		}
-		return restarters;
 	}
 }

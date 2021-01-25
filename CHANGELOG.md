@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-1-25
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.6.0] - 2021-1-25
+
+### Added
 * A factory method, ConstantRestartSchedule.createRestartSchedules, for creating multiple restart schedules.
 * Factory methods, VariableAnnealingLength.createRestartSchedules, for creating multiple restart schedules.
 * Factory methods, LubyRestarts.createRestartSchedules, for creating multiple restart schedules.
@@ -16,15 +31,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored ParallelMultistarter and ParallelReoptimizableMultistarter to eliminate redundancy in common with these two classes.
 * Eliminated code redundancy between ParallelReoptimizableMultistarter and TimedParallelReoptimizableMultistarter.
 
-### Deprecated
-
 ### Removed
 * Javadoc's zipped versions of the api doc search index (and added to gitignore). The search feature on the API website will still be functional as it uses the unzipped versions as a fallback. The web server should compress these anyway. From Java 15 onward, they eliminated the generation of the zipped versions all together. We're removing them here since the api website is hosted from GitHub Pages, and git detects these as changed every time javadoc runs even if the index has not actually changed, and binary files are not efficiently stored in git.
 
 ### Fixed
 * Minor documentation edits to clarify details of annealing schedules (ModifiedLam, OriginalModifiedLam, and SimulatedAnnealing classes).
-
-### CI/CD
 
 
 ## [2.5.2] - 2020-11-11

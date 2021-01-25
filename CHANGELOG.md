@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * A factory method, ConstantRestartSchedule.createRestartSchedules, for creating multiple restart schedules.
+* A factory methods, VariableAnnealingLength.createRestartSchedules, for creating multiple restart schedules.
 
 ### Changed
 * Refactored TimedParallelMultistarter and TimedParallelReoptimizableMultistarter to remove redundancy.

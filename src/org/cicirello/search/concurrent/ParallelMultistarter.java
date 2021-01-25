@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -26,6 +26,7 @@ import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.restarts.Multistarter;
 import org.cicirello.search.restarts.RestartSchedule;
+import org.cicirello.search.restarts.ConstantRestartSchedule;
 import org.cicirello.util.Copyable;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -35,6 +36,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.Function;
 
 /**
  * <p>This class is used for implementing parallel multistart metaheuristics.  It can be used to
@@ -59,12 +61,11 @@ import java.util.Iterator;
  *
  * @param <T> The type of object being optimized.
  *
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.15.2020
+ * @version 1.25.2021
  */
-public final class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
+public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
 	
 	private final ArrayList<Multistarter<T>> multistarters;
 	private final ExecutorService threadPool;
@@ -80,14 +81,7 @@ public final class ParallelMultistarter<T extends Copyable<T>> implements Metahe
 	 * @throws IllegalArgumentException if nunLength is less than 1.
 	 */
 	public ParallelMultistarter(Metaheuristic<T> search, int runLength, int numThreads) {
-		if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
-		if (runLength < 1) throw new IllegalArgumentException("runLength must be at least 1");
-		multistarters = new ArrayList<Multistarter<T>>();
-		multistarters.add(new Multistarter<T>(search, runLength));
-		for (int i = 1; i < numThreads; i++) {
-			multistarters.add(new Multistarter<T>(search.split(), runLength));
-		}
-		threadPool = Executors.newFixedThreadPool(numThreads);
+		this(search, new ConstantRestartSchedule(runLength), numThreads);
 	}
 	
 	/**
@@ -186,24 +180,7 @@ public final class ParallelMultistarter<T extends Copyable<T>> implements Metahe
 	 * s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in searches).
 	 */
 	public ParallelMultistarter(Collection<? extends Metaheuristic<T>> searches, int runLength) {
-		if (runLength < 1) throw new IllegalArgumentException("runLength must be at least 1");
-		multistarters = new ArrayList<Multistarter<T>>();
-		ProgressTracker<T> t = null;
-		Problem<T> problem = null;
-		for (Metaheuristic<T> s : searches) {
-			if (problem == null) {
-				problem = s.getProblem();
-			} else if(s.getProblem() != problem) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must solve the same problem.");
-			}
-			if (t==null) {
-				t = s.getProgressTracker();
-			} else if (s.getProgressTracker() != t) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must share a single ProgressTracker.");
-			}
-			multistarters.add(new Multistarter<T>(s, runLength));
-		}
-		threadPool = Executors.newFixedThreadPool(multistarters.size());
+		this(searches, ConstantRestartSchedule.createRestartSchedules(searches.size(), runLength));
 	}
 	
 	/**
@@ -257,6 +234,21 @@ public final class ParallelMultistarter<T extends Copyable<T>> implements Metahe
 			this.multistarters.add(m);
 		}
 		threadPool = Executors.newFixedThreadPool(multistarters.size());
+	}
+	
+	/*
+	 * package-private copy constructor to support split() method.
+	 */
+	ParallelMultistarter(ParallelMultistarter<T> other) {
+		// Must generate a list of multistarters, each one a split of each from the other.
+		multistarters = new ArrayList<Multistarter<T>>(other.multistarters.size());
+		for (Multistarter<T> m : other.multistarters) {
+			this.multistarters.add(m.split());
+		}
+		
+		// Needs its own thread pool
+		threadPool = Executors.newFixedThreadPool(multistarters.size());
+		if (other.isClosed()) close();		
 	}
 	
 	
@@ -352,15 +344,17 @@ public final class ParallelMultistarter<T extends Copyable<T>> implements Metahe
 		threadPool.shutdown();
 	}
 	
+	/**
+	 * Checks whether the thread pool has been shutdown.
+	 * @return true if and only if the {@link #close} method has been called previously.
+	 */
+	public boolean isClosed() {
+		return threadPool.isShutdown();
+	}
+	
 	@Override
 	public ParallelMultistarter<T> split() {
-		ArrayList<Multistarter<T>> splits = new ArrayList<Multistarter<T>>();
-		for (Multistarter<T> m : multistarters) {
-			splits.add(m.split());
-		}
-		ParallelMultistarter<T> pm = new ParallelMultistarter<T>(splits);
-		if (threadPool.isShutdown()) pm.close();
-		return pm;
+		return new ParallelMultistarter<T>(this);
 	}
 	
 	@Override

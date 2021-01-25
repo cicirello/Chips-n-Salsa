@@ -405,7 +405,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 	 * Checks whether the thread pool has been shutdown.
 	 * @return true if and only if the {@link #close} method has been called previously.
 	 */
-	public boolean isClosed() {
+	public final boolean isClosed() {
 		return threadPool.isShutdown();
 	}
 	
@@ -456,8 +456,12 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 		return total;
 	}
 	
-	SolutionCostPair<T> threadedOptimize(int time, Function<Multistarter<T>, Callable<SolutionCostPair<T>>> icf) {
-		
+	/*
+	 * package-private for use by subclasses in package only.
+	 *
+	 * optimize of this class, and reoptimize of subclass delegate work to this method.
+	 */
+	final SolutionCostPair<T> threadedOptimize(int time, Function<Multistarter<T>, Callable<SolutionCostPair<T>>> icf) {	
 		if (threadPool.isShutdown()) {
 			throw new IllegalStateException("Previously closed.");
 		}

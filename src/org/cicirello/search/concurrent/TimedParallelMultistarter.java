@@ -72,7 +72,7 @@ import java.util.Iterator;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 1.23.2021
+ * @version 1.25.2021
  */
 public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
 	
@@ -82,7 +82,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 	 */
 	public static final int TIME_UNIT_MS = 1000;
 	
-	final ArrayList<Multistarter<T>> multistarters;
+	private final ArrayList<Multistarter<T>> multistarters;
 	private final ExecutorService threadPool;
 	private int timeUnit;
 	private ArrayList<SolutionCostPair<T>> history;
@@ -276,6 +276,27 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 		history = null;
 	}
 	
+	/*
+	 * package-private copy constructor to support split() method.
+	 */
+	TimedParallelMultistarter(TimedParallelMultistarter<T> other) {
+		// Must generate a list of multistarters, each one a split of each from the other.
+		multistarters = new ArrayList<Multistarter<T>>(other.multistarters.size());
+		for (Multistarter<T> m : other.multistarters) {
+			this.multistarters.add(m.split());
+		}
+		
+		// Needs its own thread pool
+		threadPool = Executors.newFixedThreadPool(multistarters.size());
+		if (other.isClosed()) close();
+		
+		// safe to copy
+		timeUnit = other.timeUnit;
+		
+		// initialize as null
+		history = null;
+	}
+	
 	/**
 	 * Changes the unit of time used by the {@link #optimize} method.
 	 * @param timeUnit The unit of time to use with the {@link #optimize} method,
@@ -387,14 +408,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 	
 	@Override
 	public TimedParallelMultistarter<T> split() {
-		ArrayList<Multistarter<T>> splits = new ArrayList<Multistarter<T>>();
-		for (Multistarter<T> m : multistarters) {
-			splits.add(m.split());
-		}
-		TimedParallelMultistarter<T> pm = new TimedParallelMultistarter<T>(splits, false);
-		pm.setTimeUnit(timeUnit);
-		if (threadPool.isShutdown()) pm.close();
-		return pm;
+		return new TimedParallelMultistarter<T>(this);
 	}
 	
 	@Override

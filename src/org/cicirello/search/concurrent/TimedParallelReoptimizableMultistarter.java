@@ -72,7 +72,7 @@ import java.util.Iterator;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 1.23.2021
+ * @version 1.25.2021
  */
 public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>> extends TimedParallelMultistarter<T> implements ReoptimizableMetaheuristic<T> {
 	
@@ -193,6 +193,13 @@ public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>>
 		super(multistarters, verifyState);
 	}
 	
+	/*
+	 * private copy constructor to support split() method.
+	 */
+	private TimedParallelReoptimizableMultistarter(TimedParallelReoptimizableMultistarter<T> other) {
+		super(other);
+	}
+	
 	/**
 	 * <p>Executes a parallel multistart search.  The number of threads, the specific metaheuristic
 	 * executed by each thread, the restart schedules, etc are determined by how
@@ -237,14 +244,7 @@ public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>>
 	
 	@Override
 	public TimedParallelReoptimizableMultistarter<T> split() {
-		ArrayList<ReoptimizableMultistarter<T>> splits = new ArrayList<ReoptimizableMultistarter<T>>();
-		for (Multistarter<T> m : multistarters) {
-			splits.add(((ReoptimizableMultistarter<T>)m).split());
-		}
-		TimedParallelReoptimizableMultistarter<T> pm = new TimedParallelReoptimizableMultistarter<T>(splits, false);
-		pm.setTimeUnit(getTimeUnit());
-		if (isClosed()) pm.close();
-		return pm;
+		return new TimedParallelReoptimizableMultistarter<T>(this);
 	}
 	
 	private static <U extends Copyable<U>> Collection<ReoptimizableMultistarter<U>> toReoptimizableMultistarters(ReoptimizableMetaheuristic<U> search, Collection<? extends RestartSchedule> schedules) {

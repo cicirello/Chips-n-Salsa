@@ -22,7 +22,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/constant-values.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/deprecated-list.html</loc>
@@ -34,7 +34,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/index-all.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-summary.html</loc>
@@ -42,7 +42,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-tree.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/Metaheuristic.html</loc>
@@ -114,7 +114,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/class-use/ProgressTracker.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/class-use/ReoptimizableMetaheuristic.html</loc>
@@ -134,7 +134,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/class-use/SolutionCostPair.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/class-use/TrackableSearch.html</loc>
@@ -154,11 +154,11 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/TimedParallelMultistarter.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/package-summary.html</loc>
@@ -166,7 +166,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/package-tree.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/package-use.html</loc>
@@ -338,7 +338,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/restarts/ConstantRestartSchedule.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/restarts/LubyRestarts.html</loc>
@@ -410,7 +410,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/sa/SimulatedAnnealing.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/sa/package-summary.html</loc>
@@ -510,7 +510,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/class-use/TimedParallelMultistarter.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/concurrent/class-use/TimedParallelReoptimizableMultistarter.html</loc>
@@ -766,7 +766,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/class-use/Problem.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/ATCS.html</loc>
@@ -974,7 +974,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/restarts/class-use/ConstantRestartSchedule.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-01-25T17:27:32+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/restarts/class-use/LubyRestarts.html</loc>

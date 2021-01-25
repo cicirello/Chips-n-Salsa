@@ -277,57 +277,10 @@ public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristi
 	 * @throws IllegalStateException if the {@link #close} method was previously called.
 	 */
 	@Override
-	public SolutionCostPair<T> optimize(int numRestarts) {
-		
-		if (threadPool.isShutdown()) {
-			throw new IllegalStateException("This ParallelMultistarter was previously closed.");
-		}
-		
-		class MultistartCallable implements Callable<SolutionCostPair<T>> {
-		
-			Multistarter<T> multistartSearch;
-			
-			MultistartCallable(Multistarter<T> multistartSearch) {
-				this.multistartSearch = multistartSearch;
-			}
-			
-			@Override
-			public SolutionCostPair<T> call() {
-				return multistartSearch.optimize(numRestarts);
-			}
-		}
-		
-		SolutionCostPair<T> bestRestart = null;
-		ProgressTracker<T> tracker = multistarters.get(0).getProgressTracker();
-		if (!tracker.isStopped() && !tracker.didFindBest()) {
-			ArrayList<Future<SolutionCostPair<T>>> futures = new ArrayList<Future<SolutionCostPair<T>>>(); 
-			for (Multistarter<T> m : multistarters) {
-				futures.add(threadPool.submit(new MultistartCallable(m)));
-			}
-			for (Future<SolutionCostPair<T>> f : futures) {
-				try {
-					SolutionCostPair<T> pair = f.get();
-					if (bestRestart == null || pair != null && pair.compareTo(bestRestart) < 0) {
-						bestRestart = pair;
-					}
-				} 
-				catch (InterruptedException ex) { 
-					// Future.get() throws this if the current
-					// thread is interrupted.
-					//  1) Cancel this task.
-					//  2) Preserve interrupt status to cancel remaining.
-					f.cancel(true);
-					Thread.currentThread().interrupt();
-				}
-				catch (ExecutionException ex) { 
-					// Future.get() throws this if the thread the pool is executing
-					// throws any exception. We'll ignore this, skipping
-					// the problematic thread and collecting results of other
-					// threads.
-				}
-			}
-		}
-		return bestRestart; 
+	public final SolutionCostPair<T> optimize(int numRestarts) {
+		return threadedOptimize((multistartSearch) -> (
+			() -> multistartSearch.optimize(numRestarts)
+		));
 	}
 	
 	/**
@@ -340,7 +293,7 @@ public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristi
 	 * <p>This method is invoked automatically on objects managed by the try-with-resources statement.</p>
 	 */
 	@Override
-	public void close() {
+	public final void close() {
 		threadPool.shutdown();
 	}
 	
@@ -348,7 +301,7 @@ public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristi
 	 * Checks whether the thread pool has been shutdown.
 	 * @return true if and only if the {@link #close} method has been called previously.
 	 */
-	public boolean isClosed() {
+	public final boolean isClosed() {
 		return threadPool.isShutdown();
 	}
 	
@@ -358,12 +311,12 @@ public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristi
 	}
 	
 	@Override
-	public ProgressTracker<T> getProgressTracker() {
+	public final ProgressTracker<T> getProgressTracker() {
 		return multistarters.get(0).getProgressTracker();
 	}
 	
 	@Override
-	public void setProgressTracker(ProgressTracker<T> tracker) {
+	public final void setProgressTracker(ProgressTracker<T> tracker) {
 		if (tracker != null) {
 			for (Multistarter<T> m : multistarters) {
 				m.setProgressTracker(tracker);
@@ -391,7 +344,7 @@ public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristi
 	 * across multiple calls to the restart mechanism and across all parallel instances.
 	 */
 	@Override
-	public long getTotalRunLength() {
+	public final long getTotalRunLength() {
 		long total = 0;
 		for (Multistarter<T> m : multistarters) {
 			total = total + m.getTotalRunLength();
@@ -399,4 +352,46 @@ public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristi
 		return total;
 	}
 	
+	/*
+	 * package-private for use by subclasses in package only.
+	 *
+	 * optimize of this class, and reoptimize of subclass delegate work to this method.
+	 */
+	final SolutionCostPair<T> threadedOptimize(Function<Multistarter<T>, Callable<SolutionCostPair<T>>> icf) {
+		if (threadPool.isShutdown()) {
+			throw new IllegalStateException("This ParallelMultistarter was previously closed.");
+		}
+		
+		SolutionCostPair<T> bestRestart = null;
+		ProgressTracker<T> tracker = multistarters.get(0).getProgressTracker();
+		if (!tracker.isStopped() && !tracker.didFindBest()) {
+			ArrayList<Future<SolutionCostPair<T>>> futures = new ArrayList<Future<SolutionCostPair<T>>>(); 
+			for (Multistarter<T> m : multistarters) {
+				futures.add(threadPool.submit(icf.apply(m)));
+			}
+			for (Future<SolutionCostPair<T>> f : futures) {
+				try {
+					SolutionCostPair<T> pair = f.get();
+					if (bestRestart == null || pair != null && pair.compareTo(bestRestart) < 0) {
+						bestRestart = pair;
+					}
+				} 
+				catch (InterruptedException ex) { 
+					// Future.get() throws this if the current
+					// thread is interrupted.
+					//  1) Cancel this task.
+					//  2) Preserve interrupt status to cancel remaining.
+					f.cancel(true);
+					Thread.currentThread().interrupt();
+				}
+				catch (ExecutionException ex) { 
+					// Future.get() throws this if the thread the pool is executing
+					// throws any exception. We'll ignore this, skipping
+					// the problematic thread and collecting results of other
+					// threads.
+				}
+			}
+		}
+		return bestRestart;
+	}
 }

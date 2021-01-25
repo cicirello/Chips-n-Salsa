@@ -111,8 +111,10 @@ public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristi
 	 * @param search The metaheuristic to restart multiple times in parallel.
 	 * @param schedules The schedules of run lengths, one for each thread.  The number of threads will 
 	 * be equal to the number of restart schedules.
+	 * @throws IllegalArgumentException if schedules.size() is less than 1.
 	 */
 	public ParallelMultistarter(Metaheuristic<T> search, Collection<? extends RestartSchedule> schedules) {
+		if (schedules.size() < 1) throw new IllegalArgumentException("Must pass at least one schedule.");
 		multistarters = new ArrayList<Multistarter<T>>();
 		boolean addedFirst = false;
 		for (RestartSchedule r : schedules) {
@@ -217,20 +219,31 @@ public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristi
 	 * s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in multistarters).
 	 */
 	public ParallelMultistarter(Collection<? extends Multistarter<T>> multistarters) {
+		this(multistarters, true);
+	}
+	
+	/*
+	 * package private for use by subclasses in same package.
+	 */
+	ParallelMultistarter(Collection<? extends Multistarter<T>> multistarters, boolean verifyState) {
+		if (verifyState) {
+			ProgressTracker<T> t = null;
+			Problem<T> problem = null;
+			for (Multistarter<T> m : multistarters) {
+				if (problem == null) {
+					problem = m.getProblem();
+				} else if(m.getProblem() != problem) {
+					throw new IllegalArgumentException("All Multistarters in searches must solve the same problem.");
+				}
+				if (t==null) {
+					t = m.getProgressTracker();
+				} else if (m.getProgressTracker() != t) {
+					throw new IllegalArgumentException("All Multistarters must share a single ProgressTracker.");
+				}
+			}
+		}
 		this.multistarters = new ArrayList<Multistarter<T>>();
-		ProgressTracker<T> t = null;
-		Problem<T> problem = null;
 		for (Multistarter<T> m : multistarters) {
-			if (problem == null) {
-				problem = m.getProblem();
-			} else if(m.getProblem() != problem) {
-				throw new IllegalArgumentException("All Multistarters in searches must solve the same problem.");
-			}
-			if (t==null) {
-				t = m.getProgressTracker();
-			} else if (m.getProgressTracker() != t) {
-				throw new IllegalArgumentException("All Multistarters must share a single ProgressTracker.");
-			}
 			this.multistarters.add(m);
 		}
 		threadPool = Executors.newFixedThreadPool(multistarters.size());

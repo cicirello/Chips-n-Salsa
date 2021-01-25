@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -26,6 +26,7 @@ import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.restarts.ReoptimizableMultistarter;
 import org.cicirello.search.restarts.RestartSchedule;
+import org.cicirello.search.restarts.ConstantRestartSchedule;
 import org.cicirello.util.Copyable;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -35,6 +36,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.Function;
 
 /**
  * <p>This class is used for implementing parallel multistart metaheuristics.  It can be used to
@@ -56,19 +58,13 @@ import java.util.Iterator;
  * You can also initialize the search with a {@link ReoptimizableMultistarter} configured with your restart schedule,
  * along with the number of threads, or a Collection of {@link ReoptimizableMultistarter} objects.</p>
  * 
- *
  * @param <T> The type of object being optimized.
- *
- * @since 1.0
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.11.2020
+ * @version 1.25.2021
  */
-public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> implements ReoptimizableMetaheuristic<T>, AutoCloseable {
-	
-	private final ArrayList<ReoptimizableMultistarter<T>> multistarters;
-	private final ExecutorService threadPool;
+public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> extends ParallelMultistarter<T> implements ReoptimizableMetaheuristic<T> {
 	
 	/**
 	 * Constructs a parallel multistart metaheuristic that executes multiple runs of
@@ -81,14 +77,7 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> impl
 	 * @throws IllegalArgumentException if nunLength is less than 1.
 	 */
 	public ParallelReoptimizableMultistarter(ReoptimizableMetaheuristic<T> search, int runLength, int numThreads) {
-		if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
-		if (runLength < 1) throw new IllegalArgumentException("runLength must be at least 1");
-		multistarters = new ArrayList<ReoptimizableMultistarter<T>>();
-		multistarters.add(new ReoptimizableMultistarter<T>(search, runLength));
-		for (int i = 1; i < numThreads; i++) {
-			multistarters.add(new ReoptimizableMultistarter<T>(search.split(), runLength));
-		}
-		threadPool = Executors.newFixedThreadPool(numThreads);
+		this(search, new ConstantRestartSchedule(runLength), numThreads);
 	}
 	
 	/**
@@ -102,13 +91,7 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> impl
 	 * @throws IllegalArgumentException if numThreads is less than 1.
 	 */
 	public ParallelReoptimizableMultistarter(ReoptimizableMetaheuristic<T> search, RestartSchedule r, int numThreads) {
-		if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
-		multistarters = new ArrayList<ReoptimizableMultistarter<T>>();
-		multistarters.add(new ReoptimizableMultistarter<T>(search, r));
-		for (int i = 1; i < numThreads; i++) {
-			multistarters.add(new ReoptimizableMultistarter<T>(search.split(), r.split()));
-		}
-		threadPool = Executors.newFixedThreadPool(numThreads);
+		this(new ReoptimizableMultistarter<T>(search, r), numThreads);
 	}
 	
 	/**
@@ -118,18 +101,10 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> impl
 	 * @param search The metaheuristic to restart multiple times in parallel.
 	 * @param schedules The schedules of run lengths, one for each thread.  The number of threads will 
 	 * be equal to the number of restart schedules.
+	 * @throws IllegalArgumentException if schedules.size() is less than 1.
 	 */
 	public ParallelReoptimizableMultistarter(ReoptimizableMetaheuristic<T> search, Collection<? extends RestartSchedule> schedules) {
-		multistarters = new ArrayList<ReoptimizableMultistarter<T>>();
-		boolean addedFirst = false;
-		for (RestartSchedule r : schedules) {
-			if (addedFirst) multistarters.add(new ReoptimizableMultistarter<T>(search.split(), r));
-			else {
-				multistarters.add(new ReoptimizableMultistarter<T>(search, r));
-				addedFirst = true;
-			}
-		}
-		threadPool = Executors.newFixedThreadPool(multistarters.size());
+		super(toReoptimizableMultistarters(search, schedules), false);
 	}
 	
 	/**
@@ -148,27 +123,7 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> impl
 	 * s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in searches).
 	 */
 	public ParallelReoptimizableMultistarter(Collection<? extends ReoptimizableMetaheuristic<T>> searches, Collection<? extends RestartSchedule> schedules) {
-		if (searches.size() != schedules.size()) {
-			throw new IllegalArgumentException("number of searches and number of schedules must be the same");
-		}
-		multistarters = new ArrayList<ReoptimizableMultistarter<T>>();
-		Iterator<? extends RestartSchedule> rs = schedules.iterator();
-		ProgressTracker<T> t = null; 
-		Problem<T> problem = null;
-		for (ReoptimizableMetaheuristic<T> s : searches) {
-			if (problem == null) {
-				problem = s.getProblem();
-			} else if(s.getProblem() != problem) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must solve the same problem.");
-			}
-			if (t==null) {
-				t = s.getProgressTracker();
-			} else if (s.getProgressTracker() != t) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must share a single ProgressTracker.");
-			}
-			multistarters.add(new ReoptimizableMultistarter<T>(s, rs.next()));
-		}
-		threadPool = Executors.newFixedThreadPool(multistarters.size());
+		super(toReoptimizableMultistarters(searches, schedules), false);
 	}
 	
 	/**
@@ -187,24 +142,7 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> impl
 	 * s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in searches).
 	 */
 	public ParallelReoptimizableMultistarter(Collection<? extends ReoptimizableMetaheuristic<T>> searches, int runLength) {
-		if (runLength < 1) throw new IllegalArgumentException("runLength must be at least 1");
-		multistarters = new ArrayList<ReoptimizableMultistarter<T>>();
-		ProgressTracker<T> t = null;
-		Problem<T> problem = null;
-		for (ReoptimizableMetaheuristic<T> s : searches) {
-			if (problem == null) {
-				problem = s.getProblem();
-			} else if(s.getProblem() != problem) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must solve the same problem.");
-			}
-			if (t==null) {
-				t = s.getProgressTracker();
-			} else if (s.getProgressTracker() != t) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must share a single ProgressTracker.");
-			}
-			multistarters.add(new ReoptimizableMultistarter<T>(s, runLength));
-		}
-		threadPool = Executors.newFixedThreadPool(multistarters.size());
+		this(searches, ConstantRestartSchedule.createRestartSchedules(searches.size(), runLength));
 	}
 	
 	/**
@@ -217,13 +155,7 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> impl
 	 * @throws IllegalArgumentException if numThreads is less than 1.
 	 */
 	public ParallelReoptimizableMultistarter(ReoptimizableMultistarter<T> multistartSearch, int numThreads) {
-		if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
-		multistarters = new ArrayList<ReoptimizableMultistarter<T>>();
-		multistarters.add(multistartSearch);
-		for (int i = 1; i < numThreads; i++) {
-			multistarters.add(multistartSearch.split());
-		}
-		threadPool = Executors.newFixedThreadPool(numThreads);
+		super(multistartSearch, numThreads);
 	}
 	
 	/**
@@ -241,102 +173,14 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> impl
 	 * s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in multistarters).
 	 */
 	public ParallelReoptimizableMultistarter(Collection<ReoptimizableMultistarter<T>> multistarters) {
-		this.multistarters = new ArrayList<ReoptimizableMultistarter<T>>();
-		ProgressTracker<T> t = null;
-		Problem<T> problem = null;
-		for (ReoptimizableMultistarter<T> m : multistarters) {
-			if (problem == null) {
-				problem = m.getProblem();
-			} else if(m.getProblem() != problem) {
-				throw new IllegalArgumentException("All Multistarters in searches must solve the same problem.");
-			}
-			if (t==null) {
-				t = m.getProgressTracker();
-			} else if (m.getProgressTracker() != t) {
-				throw new IllegalArgumentException("All Multistarters must share a single ProgressTracker.");
-			}
-			this.multistarters.add(m);
-		}
-		threadPool = Executors.newFixedThreadPool(multistarters.size());
+		super(multistarters, true);
 	}
 	
-	
-	/**
-	 * <p>Executes a parallel multistart search.  The number of threads, the specific metaheuristic
-	 * executed by each thread, the restart schedules, etc are determined by how
-	 * the ParallelReoptimizableMultistarter was configured at the time of construction.  
-	 * The optimize method runs the optimize method of each of the parallel 
-	 * instances of the search the specified
-	 * number of times, keeping track of the best solution 
-	 * across the multiple parallel runs of the search.
-	 * Each restart of each parallel search begins at a new randomly generate initial state.</p>
-	 *
-	 * <p>If this method is called multiple times, the restart schedules of the parallel
-	 * metaheuristics are not reinitialized,
-	 * and the run lengths for the additional restarts will continue where the schedules left off.</p>
-	 *
-	 * @param numRestarts The number of times to restart each of the parallel metaheuristics.
-	 *
-	 * @return The best end of run solution (and its cost) of this set of parallel restarts, 
-	 * which may or may not be the same as the solution contained
-	 * in this metaheuristic's {@link ProgressTracker}, which contains the best of all runs.
-	 * Returns null if the run did not execute, such as if the ProgressTracker already contains
-	 * the theoretical best solution.
-	 *
-	 * @throws IllegalStateException if the {@link #close} method was previously called.
+	/*
+	 * private copy constructor to support split() method.
 	 */
-	@Override
-	public SolutionCostPair<T> optimize(int numRestarts) {
-		
-		if (threadPool.isShutdown()) {
-			throw new IllegalStateException("This ParallelReoptimizableMultistarter was previously closed.");
-		}
-		
-		class MultistartCallable implements Callable<SolutionCostPair<T>> {
-		
-			ReoptimizableMultistarter<T> multistartSearch;
-			
-			MultistartCallable(ReoptimizableMultistarter<T> multistartSearch) {
-				this.multistartSearch = multistartSearch;
-			}
-			
-			@Override
-			public SolutionCostPair<T> call() {
-				return multistartSearch.optimize(numRestarts);
-			}
-		}
-		
-		SolutionCostPair<T> bestRestart = null;
-		ProgressTracker<T> tracker = multistarters.get(0).getProgressTracker();
-		if (!tracker.isStopped() && !tracker.didFindBest()) {
-			ArrayList<Future<SolutionCostPair<T>>> futures = new ArrayList<Future<SolutionCostPair<T>>>(); 
-			for (ReoptimizableMultistarter<T> m : multistarters) {
-				futures.add(threadPool.submit(new MultistartCallable(m)));
-			}
-			for (Future<SolutionCostPair<T>> f : futures) {
-				try {
-					SolutionCostPair<T> pair = f.get();
-					if (bestRestart == null || pair != null && pair.compareTo(bestRestart) < 0) {
-						bestRestart = pair;
-					}
-				} 
-				catch (InterruptedException ex) { 
-					// Future.get() throws this if the current
-					// thread is interrupted.
-					//  1) Cancel this task.
-					//  2) Preserve interrupt status to cancel remaining.
-					f.cancel(true);
-					Thread.currentThread().interrupt();
-				}
-				catch (ExecutionException ex) { 
-					// Future.get() throws this if the thread the pool is executing
-					// throws any exception. We'll ignore this, skipping
-					// the problematic thread and collecting results of other
-					// threads.
-				}
-			}
-		}
-		return bestRestart; 
+	private ParallelReoptimizableMultistarter(ParallelReoptimizableMultistarter<T> other) {
+		super(other);
 	}
 	
 	/**
@@ -363,127 +207,55 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> impl
 	 * Returns null if the run did not execute, such as if the ProgressTracker already contains
 	 * the theoretical best solution.
 	 *
-	 * @throws IllegalStateException if the {@link #close} method was previously called.
+	 * @throws IllegalStateException if the {@link ParallelMultistarter#close} method was previously called.
 	 */
 	@Override
 	public SolutionCostPair<T> reoptimize(int numRestarts) {
-		if (threadPool.isShutdown()) {
-			throw new IllegalStateException("This ParallelReoptimizableMultistarter was previously closed.");
-		}
-		
-		class MultistartCallable implements Callable<SolutionCostPair<T>> {
-		
-			ReoptimizableMultistarter<T> multistartSearch;
-			
-			MultistartCallable(ReoptimizableMultistarter<T> multistartSearch) {
-				this.multistartSearch = multistartSearch;
-			}
-			
-			@Override
-			public SolutionCostPair<T> call() {
-				return multistartSearch.reoptimize(numRestarts);
-			}
-		}
-		
-		SolutionCostPair<T> bestRestart = null;
-		ProgressTracker<T> tracker = multistarters.get(0).getProgressTracker();
-		if (!tracker.isStopped() && !tracker.didFindBest()) {
-			ArrayList<Future<SolutionCostPair<T>>> futures = new ArrayList<Future<SolutionCostPair<T>>>(); 
-			for (ReoptimizableMultistarter<T> m : multistarters) {
-				futures.add(threadPool.submit(new MultistartCallable(m)));
-			}
-			for (Future<SolutionCostPair<T>> f : futures) {
-				try {
-					SolutionCostPair<T> pair = f.get();
-					if (bestRestart == null || pair != null && pair.compareTo(bestRestart) < 0) {
-						bestRestart = pair;
-					}
-				} 
-				catch (InterruptedException ex) { 
-					// Future.get() throws this if the current
-					// thread is interrupted.
-					//  1) Cancel this task.
-					//  2) Preserve interrupt status to cancel remaining.
-					f.cancel(true);
-					Thread.currentThread().interrupt();
-				}
-				catch (ExecutionException ex) { 
-					// Future.get() throws this if the thread the pool is executing
-					// throws any exception. We'll ignore this, skipping
-					// the problematic thread and collecting results of other
-					// threads.
-				}
-			}
-		}
-		return bestRestart;
-	}
-	
-	/**
-	 * <p>Initiates an orderly shutdown of the thread pool used by this ParallelReoptimizableMultistarter.
-	 * The ParallelReoptimizableMultistarter utilizes a fixed thread pool so that multiple calls to
-	 * the {@link #optimize} method can reuse threads to minimize the expensive task of
-	 * thread creation.  When you no longer need the ParallelReoptimizableMultistarter, you should call
-	 * the close method to ensure that unneeded threads do not persist.
-	 * Once close is called, all subsequent calls to {@link #optimize} and {@link #reoptimize} 
-	 * will throw an exception.</p>  
-	 * <p>This method is invoked automatically on objects managed by the try-with-resources statement.</p>
-	 */
-	@Override
-	public void close() {
-		threadPool.shutdown();
+		return threadedOptimize((multistartSearch) -> (
+			() -> ((ReoptimizableMultistarter<T>)multistartSearch).reoptimize(numRestarts)
+		));
 	}
 	
 	@Override
 	public ParallelReoptimizableMultistarter<T> split() {
-		ArrayList<ReoptimizableMultistarter<T>> splits = new ArrayList<ReoptimizableMultistarter<T>>();
-		for (ReoptimizableMultistarter<T> m : multistarters) {
-			splits.add(m.split());
-		}
-		ParallelReoptimizableMultistarter<T> pm = new ParallelReoptimizableMultistarter<T>(splits);
-		if (threadPool.isShutdown()) pm.close();
-		return pm;
+		return new ParallelReoptimizableMultistarter<T>(this);
 	}
 	
-	@Override
-	public ProgressTracker<T> getProgressTracker() {
-		return multistarters.get(0).getProgressTracker();
-	}
-	
-	@Override
-	public void setProgressTracker(ProgressTracker<T> tracker) {
-		if (tracker != null) {
-			for (ReoptimizableMultistarter<T> m : multistarters) {
-				m.setProgressTracker(tracker);
+	private static <U extends Copyable<U>> Collection<ReoptimizableMultistarter<U>> toReoptimizableMultistarters(ReoptimizableMetaheuristic<U> search, Collection<? extends RestartSchedule> schedules) {
+		if (schedules.size() < 1) throw new IllegalArgumentException("Must pass at least one schedule.");
+		ArrayList<ReoptimizableMultistarter<U>> restarters = new ArrayList<ReoptimizableMultistarter<U>>(schedules.size());
+		boolean addedFirst = false;
+		for (RestartSchedule r : schedules) {
+			if (addedFirst) restarters.add(new ReoptimizableMultistarter<U>(search.split(), r));
+			else {
+				restarters.add(new ReoptimizableMultistarter<U>(search, r));
+				addedFirst = true;
 			}
 		}
+		return restarters;
 	}
 	
-	@Override
-	public final Problem<T> getProblem() {
-		return multistarters.get(0).getProblem();
-	}
-	
-	/**
-	 * <p>Gets the total run length of all restarts of all parallel instances of 
-	 * the underlying metaheuristics combined.
-	 * This may differ from what may be expected based on run lengths passed to 
-	 * the optimize and reoptimize methods of the underlying metaheuristics.  
-	 * For example, the optimize method terminates 
-	 * if it finds the theoretical best solution, and also immediately returns if
-	 * a prior call found the theoretical best.  In such cases, the total run length may
-	 * be less than the requested run length.</p>
-	 *
-	 * <p>The meaning of run length may vary based on what metaheuristic is being restarted.</p>
-	 * @return the total run length of all restarts of the underlying metaheuristic, which includes
-	 * across multiple calls to the restart mechanism and across all parallel instances.
-	 */
-	@Override
-	public long getTotalRunLength() {
-		long total = 0;
-		for (ReoptimizableMultistarter<T> m : multistarters) {
-			total = total + m.getTotalRunLength();
+	private static <U extends Copyable<U>> Collection<ReoptimizableMultistarter<U>> toReoptimizableMultistarters(Collection<? extends ReoptimizableMetaheuristic<U>> searches, Collection<? extends RestartSchedule> schedules) {
+		if (searches.size() != schedules.size()) {
+			throw new IllegalArgumentException("number of searches and number of schedules must be the same");
 		}
-		return total;
+		ArrayList<ReoptimizableMultistarter<U>> restarters = new ArrayList<ReoptimizableMultistarter<U>>(searches.size());
+		Iterator<? extends RestartSchedule> rs = schedules.iterator();
+		ProgressTracker<U> t = null; 
+		Problem<U> problem = null;
+		for (ReoptimizableMetaheuristic<U> s : searches) {
+			if (problem == null) {
+				problem = s.getProblem();
+			} else if(s.getProblem() != problem) {
+				throw new IllegalArgumentException("All Metaheuristics in searches must solve the same problem.");
+			}
+			if (t==null) {
+				t = s.getProgressTracker();
+			} else if (s.getProgressTracker() != t) {
+				throw new IllegalArgumentException("All Metaheuristics in searches must share a single ProgressTracker.");
+			}
+			restarters.add(new ReoptimizableMultistarter<U>(s, rs.next()));
+		}
+		return restarters;
 	}
-	
 }

@@ -18,7 +18,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
  
- 
 /**
  * This package includes classes and interfaces related to implementing
  * metaheuristic search algorithms in general, rather than specific to a particular

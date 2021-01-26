@@ -18,7 +18,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
  
- 
 /**
  * This package includes classes and interfaces directly related to implementing
  * hill climbers.  

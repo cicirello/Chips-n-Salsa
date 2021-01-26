@@ -267,6 +267,7 @@
 					<source>1.8</source>
 					<failOnWarnings>true</failOnWarnings>
 					<failOnError>true</failOnError>
+					<splitindex>true</splitindex>
 					<additionalJOptions>
 						<additionalJOption>--no-module-directories</additionalJOption>
 					</additionalJOptions>

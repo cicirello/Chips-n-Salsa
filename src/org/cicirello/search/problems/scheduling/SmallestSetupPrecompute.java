@@ -23,6 +23,7 @@ package org.cicirello.search.problems.scheduling;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ss.IncrementalEvaluation;
 import org.cicirello.search.ss.Partial;
+import java.util.Arrays;
 
 /**
  * <p>This heuristic is the smallest setup first.
@@ -30,43 +31,53 @@ import org.cicirello.search.ss.Partial;
  * where s[i][j] is the setup time of job j if it
  * follows job i on the machine.</p>
  *
- * <p>The heuristic values are computed each time the
- * {@link #h} method is called. Therefore, for a many
- * iterations of stochastic sampling, the same 
- * heuristic values may be computed repeatedly. If your
- * problem instance is small enough to be able to afford
- * the extra memory, you might consider instead using
- * the {@link SmallestSetupPrecompute} class, which
- * implements the same heuristic, but it precomputes
- * a table of heuristic values upon constructing the
- * heuristic object.</p>
+ * <p>In this version, the heuristic is precomputed 
+ * for all pairs of jobs (e.g., for evaluating job
+ * j for each possible preceding job). This may 
+ * speed up stochastic sampling search when many iterations
+ * are executed (won't need to recompute the same heuristic
+ * values repeatedly). However, for large problems, the O(n<sup>2</sup>)
+ * space, where n is the number of jobs may be prohibitive.
+ * For a version that doesn't precompute the heuristic, see
+ * the {@link SmallestSetup} class, which requires only O(1) space.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 2.16.2021
  */
-public final class SmallestSetup extends SchedulingHeuristic {
+public final class SmallestSetupPrecompute extends SchedulingHeuristic {
+	
+	private final double[][] h;
 	
 	/**
-	 * Constructs an SmallestSetup heuristic.
+	 * Constructs an SmallestSetupPrecompute heuristic.
 	 * @param problem The instance of a scheduling problem that is
 	 * the target of the heuristic.
 	 */
-	public SmallestSetup(SingleMachineSchedulingProblem problem) {
+	public SmallestSetupPrecompute(SingleMachineSchedulingProblem problem) {
 		super(problem);
+		int n = data.numberOfJobs();
+		h = new double[n][n];
+		if (HAS_SETUPS) {
+			for (int i = 0; i < n; i++) {
+				h[i][i] = 1.0 / (1.0 + data.getSetupTime(i));
+				if (h[i][i] < MIN_H) h[i][i] = MIN_H;
+				for (int j = i+1; j < n; j++) {
+					h[i][j] = 1.0 / (1.0 + data.getSetupTime(i, j));
+					h[j][i] = 1.0 / (1.0 + data.getSetupTime(j, i));
+					if (h[i][j] < MIN_H) h[i][j] = MIN_H;
+					if (h[j][i] < MIN_H) h[j][i] = MIN_H;
+				}
+			}
+		} else {
+			for (int i = 0; i < n; i++) {
+				Arrays.fill(h[i], 1.0);
+			}
+		}
 	}
 	
 	@Override
 	public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
-		if (HAS_SETUPS) {
-			double s = 1.0 /
-				(1.0 +
-					(p.size()==0 ? data.getSetupTime(element) 
-					: data.getSetupTime(p.getLast(), element))
-				); 
-			return s <= MIN_H ? MIN_H : s;
-		} else {
-			return 1;
-		}
+		return p.size()==0 ? h[element][element] : h[p.getLast()][element];
 	}
 }

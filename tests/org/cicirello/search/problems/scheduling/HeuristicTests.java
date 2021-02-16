@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -27,6 +27,7 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ss.PartialPermutation;
 import org.cicirello.search.ss.IncrementalEvaluation;
 import org.cicirello.search.ss.Partial;
+import java.util.Arrays;
 
 /**
  * JUnit tests for scheduling heuristics.
@@ -380,6 +381,61 @@ public class HeuristicTests {
 		
 		FakeProblemWeightsPTime problemNoSetups = new FakeProblemWeightsPTime(w, p, 0);
 		h = new SmallestSetup(problemNoSetups);
+		partial = new PartialPermutation(expected.length);
+		for (int j = 0; j < p.length; j++) {
+			assertEquals(1.0, h.h(partial, j, null), 1E-10);
+		}
+	}
+	
+	@Test
+	public void testSmallestSetupPrecompute() {
+		double e = SmallestSetupPrecompute.MIN_H;
+		int highS = (int)Math.ceil(1 / e)*2;
+		int[][] s = {
+			{0, highS, highS, highS, highS},
+			{1, 1, 7, 3, 1},
+			{1, 1, 3, 1, 1},
+			{1, 1, 1, 7, 1},
+			{1, 1, 1, 1, 15}
+		};
+		int[] w =    { 7, 8, 2, 10, 4};
+		int[] p =    { 2, 5, 9, 2, 10};
+		double[] expected = { 1, 0.5, 0.25, 0.125, 0.0625 };
+		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, s);
+		SmallestSetupPrecompute h = new SmallestSetupPrecompute(problem);
+		PartialPermutation partial = new PartialPermutation(expected.length);
+		for (int j = 0; j < expected.length; j++) {
+			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+		}
+		partial.extend(0);
+		for (int j = 1; j < expected.length; j++) {
+			assertEquals(e, h.h(partial, j, null), 1E-10);
+		}
+		partial.extend(1);
+		double[] expected2 = { 999, 999, 0.125, 0.25, 0.5 };
+		for (int j = 2; j < expected.length; j++) {
+			assertEquals(expected2[j], h.h(partial, j, null), 1E-10);
+		}
+		
+		for (int i = 0; i < s.length; i++) {
+			Arrays.fill(s[i], highS);
+		}
+		problem = new FakeProblemWeightsPTime(w, p, 0, s);
+		h = new SmallestSetupPrecompute(problem);
+		for (int i = 0; i < s.length; i++) {
+			partial = new PartialPermutation(expected.length);
+			assertEquals(e, h.h(partial, i, null), 1E-10);
+			for (int j = 0; j < s.length; j++) {
+				if (i != j) {
+					partial = new PartialPermutation(expected.length);
+					partial.extend(j);
+					assertEquals(e, h.h(partial, j, null), 1E-10);
+				}
+			}
+		}
+		
+		FakeProblemWeightsPTime problemNoSetups = new FakeProblemWeightsPTime(w, p, 0);
+		h = new SmallestSetupPrecompute(problemNoSetups);
 		partial = new PartialPermutation(expected.length);
 		for (int j = 0; j < p.length; j++) {
 			assertEquals(1.0, h.h(partial, j, null), 1E-10);

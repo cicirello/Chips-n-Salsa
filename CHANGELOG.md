@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-2-16
 
 ### Added
+* A scheduling heuristic, SmallestSetupPrecompute, which is a version of SmallestSetup, but which precomputes a table of heuristic values to avoid recomputing the same heuristic values repeatedly across multiple iterations of a stochastic sampling search.
 
 ### Changed
 * Dependency updated to JPT v2.4.0.

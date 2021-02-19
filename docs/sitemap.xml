@@ -10,11 +10,11 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/allclasses-index.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/allclasses.html</loc>
-<lastmod>2020-10-31T22:56:28+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/allpackages-index.html</loc>
@@ -22,7 +22,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/constant-values.html</loc>
-<lastmod>2021-01-25T17:27:32+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/deprecated-list.html</loc>
@@ -34,7 +34,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/index-all.html</loc>
-<lastmod>2021-01-25T20:58:30+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-summary.html</loc>
@@ -42,7 +42,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-tree.html</loc>
-<lastmod>2021-01-25T20:58:30+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/Metaheuristic.html</loc>
@@ -430,7 +430,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/ss/ConstructiveHeuristic.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/ss/HeuristicBiasedStochasticSampling.BiasFunction.html</loc>
@@ -846,7 +846,11 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/SmallestSetup.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
+</url>
+<url>
+<loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/SmallestSetupPrecompute.html</loc>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/SmallestTwoJobSetup.html</loc>
@@ -922,11 +926,11 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/package-summary.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/package-tree.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/package-use.html</loc>
@@ -1042,7 +1046,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/ss/class-use/ConstructiveHeuristic.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/ss/class-use/HeuristicBiasedStochasticSampling.BiasFunction.html</loc>
@@ -1062,7 +1066,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/ss/class-use/IncrementalEvaluation.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/ss/class-use/IterativeSampling.html</loc>
@@ -1070,7 +1074,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/ss/class-use/Partial.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/ss/class-use/PartialIntegerVector.html</loc>
@@ -1282,7 +1286,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/class-use/SingleMachineSchedulingProblem.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/class-use/SingleMachineSchedulingProblemData.html</loc>
@@ -1295,6 +1299,10 @@
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/class-use/SmallestSetup.html</loc>
 <lastmod>2021-01-22T19:02:17+00:00</lastmod>
+</url>
+<url>
+<loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/class-use/SmallestSetupPrecompute.html</loc>
+<lastmod>2021-02-19T22:04:26+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/scheduling/class-use/SmallestTwoJobSetup.html</loc>

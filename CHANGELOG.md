@@ -4,12 +4,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-2-1
+## [Unreleased] - 2021-2-16
 
 ### Added
+* Added versions of a few constructive heuristics for 
+  scheduling problems that precompute heuristic values 
+  upon construction of the heuristic. Many of the scheduling 
+  heuristic implementations already do this, where it is 
+  possible to do so, provided the memory and time requirements 
+  for precomputing heuristic values is linear in the number 
+  of jobs. Some heuristics that consider setup times, however, 
+  need quadratic memory if the heuristic is precomputed prior 
+  to running the search. The existing implementations of these 
+  compute the heuristic as it is needed during the search, 
+  which means for a stochastic sampler with many iterations 
+  that the same heuristic values will be computed repeatedly. 
+  We've added versions of these that precompute the heuristic 
+  values so that if your problem is small enough to afford the 
+  quadratic memory, and if you will be running enough iterations 
+  of the stochastic sampler to afford the quadratic time of 
+  this precomputation step, then you can choose to use a 
+  precomputed version.
+    * A scheduling heuristic, SmallestSetupPrecompute, which is 
+      a version of SmallestSetup, but which precomputes a table 
+      of heuristic values to avoid recomputing the same heuristic 
+      values repeatedly across multiple iterations of a stochastic 
+      sampling search.
 
 ### Changed
-* Dependency updated to JPT v2.3.0.
+* Dependency updated to JPT v2.4.0.
 
 ### Deprecated
 

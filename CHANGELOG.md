@@ -30,6 +30,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       of heuristic values to avoid recomputing the same heuristic 
       values repeatedly across multiple iterations of a stochastic 
       sampling search.
+    * A scheduling heuristic, ShortestProcessingPlusSetupTimePrecompute, which is 
+      a version of ShortestProcessingPlusSetupTime, but which precomputes a table 
+      of heuristic values to avoid recomputing the same heuristic 
+      values repeatedly across multiple iterations of a stochastic 
+      sampling search.
 
 ### Changed
 * Dependency updated to JPT v2.4.0.

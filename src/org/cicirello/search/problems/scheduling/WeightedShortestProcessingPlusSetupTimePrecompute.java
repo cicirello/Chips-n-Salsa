@@ -46,31 +46,50 @@ import org.cicirello.search.ss.Partial;
  * schedule, this adjustment is unnecessary.  However, for stochastic sampling
  * algorithms it is important for the heuristic to return non-zero values.</p>
  *
- * <p>The heuristic values are computed each time the
- * {@link #h} method is called. Therefore, for many
- * iterations of stochastic sampling, the same 
- * heuristic values may be computed repeatedly. If your
- * problem instance is small enough to be able to afford
- * the extra memory, you might consider instead using
- * the {@link WeightedShortestProcessingPlusSetupTimePrecompute} class, which
- * implements the same heuristic, but it precomputes
- * a table of heuristic values upon constructing the
- * heuristic object.</p>
- 
+ * <p>In this version, the heuristic is precomputed 
+ * for all pairs of jobs (e.g., for evaluating job
+ * j for each possible preceding job). This may 
+ * speed up stochastic sampling search when many iterations
+ * are executed (won't need to recompute the same heuristic
+ * values repeatedly). However, for large problems, the O(n<sup>2</sup>)
+ * space, where n is the number of jobs may be prohibitive.
+ * For a version that doesn't precompute the heuristic, see
+ * the {@link WeightedShortestProcessingPlusSetupTime} class, 
+ * which requires only O(1) space.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 2.22.2021
  */
-public class WeightedShortestProcessingPlusSetupTime extends SchedulingHeuristic {
+public class WeightedShortestProcessingPlusSetupTimePrecompute extends SchedulingHeuristic {
+	
+	private final double[][] h;
 	
 	/**
-	 * Constructs an WeightedShortestProcessingPlusSetupTime heuristic.
+	 * Constructs an WeightedShortestProcessingPlusSetupTimePrecompute heuristic.
 	 * @param problem The instance of a scheduling problem that is
 	 * the target of the heuristic.
 	 */
-	public WeightedShortestProcessingPlusSetupTime(SingleMachineSchedulingProblem problem) {
+	public WeightedShortestProcessingPlusSetupTimePrecompute(SingleMachineSchedulingProblem problem) {
 		super(problem);
+		final int n = data.numberOfJobs();
+		h = new double[n][n];
+		if (HAS_SETUPS) {
+			for (int i = 0; i < n; i++) {
+				h[i][i] = Math.max(MIN_H, data.getWeight(i) / (data.getProcessingTime(i) + data.getSetupTime(i)));
+				for (int j = i+1; j < n; j++) {
+					h[i][j] = Math.max(MIN_H, data.getWeight(j) / (data.getProcessingTime(j) + data.getSetupTime(i, j)));
+					h[j][i] = Math.max(MIN_H, data.getWeight(i) / (data.getProcessingTime(i) + data.getSetupTime(j, i)));
+				}
+			}
+		} else {
+			for (int i = 0; i < n; i++) {
+				final double H = Math.max(MIN_H, data.getWeight(i) / (data.getProcessingTime(i)));
+				for (int j = 0; j < n; j++) {
+					h[j][i] = H;
+				}
+			}
+		}
 	}
 	
 	@Override

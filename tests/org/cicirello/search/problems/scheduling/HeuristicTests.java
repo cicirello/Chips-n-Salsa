@@ -592,7 +592,7 @@ public class HeuristicTests {
 		FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p);
 		WeightedShortestProcessingPlusSetupTimePrecompute h = new WeightedShortestProcessingPlusSetupTimePrecompute(problem);
 		for (int j = 0; j < expected.length; j++) {
-			assertEquals(expected[j], h.h(partial, j, null), 1E-10);
+			assertEquals("j:"+j, expected[j], h.h(partial, j, null), 1E-10);
 		}
 		partial.extend(p.length-1);
 		for (int j = 0; j < expected.length-1; j++) {

@@ -76,15 +76,15 @@ public class WeightedShortestProcessingPlusSetupTimePrecompute extends Schedulin
 		h = new double[n][n];
 		if (HAS_SETUPS) {
 			for (int i = 0; i < n; i++) {
-				h[i][i] = Math.max(MIN_H, data.getWeight(i) / (data.getProcessingTime(i) + data.getSetupTime(i)));
+				h[i][i] = Math.max(MIN_H, ((double)data.getWeight(i)) / (data.getProcessingTime(i) + data.getSetupTime(i)));
 				for (int j = i+1; j < n; j++) {
-					h[i][j] = Math.max(MIN_H, data.getWeight(j) / (data.getProcessingTime(j) + data.getSetupTime(i, j)));
-					h[j][i] = Math.max(MIN_H, data.getWeight(i) / (data.getProcessingTime(i) + data.getSetupTime(j, i)));
+					h[i][j] = Math.max(MIN_H, ((double)data.getWeight(j)) / (data.getProcessingTime(j) + data.getSetupTime(i, j)));
+					h[j][i] = Math.max(MIN_H, ((double)data.getWeight(i)) / (data.getProcessingTime(i) + data.getSetupTime(j, i)));
 				}
 			}
 		} else {
 			for (int i = 0; i < n; i++) {
-				final double H = Math.max(MIN_H, data.getWeight(i) / (data.getProcessingTime(i)));
+				final double H = Math.max(MIN_H, ((double)data.getWeight(i)) / (data.getProcessingTime(i)));
 				for (int j = 0; j < n; j++) {
 					h[j][i] = H;
 				}
@@ -94,14 +94,6 @@ public class WeightedShortestProcessingPlusSetupTimePrecompute extends Schedulin
 	
 	@Override
 	public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
-		double value = data.getWeight(element);
-		if (value < MIN_H) return MIN_H;
-		double denominator = data.getProcessingTime(element);
-		if (HAS_SETUPS) {
-			denominator += (p.size()==0 ? data.getSetupTime(element) 
-							: data.getSetupTime(p.getLast(), element));
-		}
-		value /= denominator;
-		return value <= MIN_H ? MIN_H : value;
+		return p.size()==0 ? h[element][element] : h[p.getLast()][element];
 	}
 }

@@ -43,7 +43,7 @@ import java.util.Arrays;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 2.16.2021
+ * @version 2.22.2021
  */
 public final class SmallestSetupPrecompute extends SchedulingHeuristic {
 	
@@ -60,13 +60,10 @@ public final class SmallestSetupPrecompute extends SchedulingHeuristic {
 		h = new double[n][n];
 		if (HAS_SETUPS) {
 			for (int i = 0; i < n; i++) {
-				h[i][i] = 1.0 / (1.0 + data.getSetupTime(i));
-				if (h[i][i] < MIN_H) h[i][i] = MIN_H;
+				h[i][i] = Math.max(MIN_H, 1.0 / (1.0 + data.getSetupTime(i)));
 				for (int j = i+1; j < n; j++) {
-					h[i][j] = 1.0 / (1.0 + data.getSetupTime(i, j));
-					h[j][i] = 1.0 / (1.0 + data.getSetupTime(j, i));
-					if (h[i][j] < MIN_H) h[i][j] = MIN_H;
-					if (h[j][i] < MIN_H) h[j][i] = MIN_H;
+					h[i][j] = Math.max(MIN_H, 1.0 / (1.0 + data.getSetupTime(i, j)));
+					h[j][i] = Math.max(MIN_H, 1.0 / (1.0 + data.getSetupTime(j, i)));
 				}
 			}
 		} else {

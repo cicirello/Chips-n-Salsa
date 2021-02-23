@@ -1082,6 +1082,7 @@ public class TimedParallelMultistarterTests {
 					actualRunTime >= 80000000);
 					
 		// verify can call optimize again
+		tpm.setTimeUnit(20);
 		solution = tpm.optimize(1);
 		assertTrue(solution.getCostDouble() >= tracker.getCostDouble());
 		combinedRun = 0;

@@ -45,12 +45,11 @@ import java.util.Collection;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 2.22.2021
+ * @version 2.23.2021
  */
 public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements ConstructiveHeuristic<T> {
 	
 	private final ArrayList<ConstructiveHeuristic<T>> heuristics;
-	private int which;
 	
 	/**
 	 * Constructs the HybridConstructiveHeuristic.
@@ -73,7 +72,6 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 			} 
 		}
 		this.heuristics = new ArrayList<ConstructiveHeuristic<T>>(heuristics);
-		// Deliberately using default: which=0
 	}
 	
 	/**
@@ -86,18 +84,23 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 	 * to be used for incrementally computing any data required by the {@link #h} method.
 	 */
 	public IncrementalEvaluation<T> createIncrementalEvaluation() {
-		which = RandomIndexer.nextBiasedInt(heuristics.size());
-		return heuristics.get(which).createIncrementalEvaluation();
+		int which = RandomIndexer.nextBiasedInt(heuristics.size());
+		IncrementalEvaluationWrapper<T> wrapped = new IncrementalEvaluationWrapper<T>(
+			heuristics.get(which).createIncrementalEvaluation(),
+			which
+		);
+		return wrapped;
 	}
 	
 	@Override
 	public double h(Partial<T> p, int element, IncrementalEvaluation<T> incEval) {
-		return heuristics.get(which).h(p, element, incEval);
+		IncrementalEvaluationWrapper<T> wrapped = (IncrementalEvaluationWrapper<T>)incEval;
+		return heuristics.get(wrapped.which).h(p, element, wrapped.incEval);
 	}
 	
 	@Override
 	public Partial<T> createPartial(int n) {
-		return heuristics.get(which).createPartial(n);
+		return heuristics.get(0).createPartial(n);
 	}
 	
 	@Override
@@ -108,5 +111,25 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 	@Override
 	public Problem<T> getProblem() {
 		return heuristics.get(0).getProblem();
+	}
+	
+	private static class IncrementalEvaluationWrapper<U extends Copyable<U>> implements IncrementalEvaluation<U> {
+		private final IncrementalEvaluation<U> incEval;
+		private final int which;
+		
+		/**
+		 * Constructs an IncrementalEvaluationWrapper.
+		 * @param incEval The IncrementalEvaluation to wrap.
+		 * @param which The heuristic index to which incEval corresponds.
+		 */
+		public IncrementalEvaluationWrapper(IncrementalEvaluation<U> incEval, int which) {
+			this.incEval = incEval;
+			this.which = which;
+		}
+		
+		@Override
+		public void extend​(Partial<U> p, int element) {
+			incEval.extend(p, element);
+		}
 	}
 }

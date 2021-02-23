@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-2-16
 
 ### Added
+* Added HybridConstructiveHeuristic, which provides the ability
+  to use multiple heuristics with a stochastic sampling search,
+  where a heuristic is chosen from a set of constructive heuristics
+  at the start of each iteration of the stochastic sampler and used
+  for all decisions made during that iteration. The class supports the
+  following strategies for selecting the next heuristic:
+    * Heuristic uniformly at random from among the available heuristics.
 * Added versions of a few constructive heuristics for 
   scheduling problems that precompute heuristic values 
   upon construction of the heuristic. Many of the scheduling 

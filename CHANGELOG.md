@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   for all decisions made during that iteration. The class supports the
   following strategies for selecting the next heuristic:
     * Heuristic uniformly at random from among the available heuristics.
+    * Heuristic chosen using a round robin strategy that systematically cycles
+      over the heuristics.
 * Added versions of a few constructive heuristics for 
   scheduling problems that precompute heuristic values 
   upon construction of the heuristic. Many of the scheduling 

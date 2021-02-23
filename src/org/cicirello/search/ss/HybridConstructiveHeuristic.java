@@ -25,18 +25,27 @@ import org.cicirello.util.Copyable;
 import org.cicirello.math.rand.RandomIndexer;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.IntSupplier;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * <p>A HybridConstructiveHeuristic maintains a set of 
  * {@link ConstructiveHeuristic} objects for a problem,
- * and chooses randomly from among them for each 
- * full iteration of a stochastic sampling search.
- * That is, all decisions made by the search to
- * construct one complete solution are made using the
- * same heuristic. But at the start of each iteration
- * a heuristic is chosen uniformly at random from among
- * the set of heuristics managed by the HybridConstructiveHeuristic
- * object.</p>
+ * for use in a multiheuristic stochastic sampling search,
+ * where each full iteration of the stochastic sampler
+ * uses a single heuristic for all decisions, but where 
+ * a different heuristic is chosen for each iteration.</p>
+ *
+ * <p>The HybridConstructiveHeuristic supports the following
+ * heuristic selection strategies</p>
+ * <ul>
+ * <li>Choose a heuristic uniformly at random at the start
+ * of the iteration.</li>
+ * <li>Use a round robin strategy that uses the heuristics
+ * in order as determined by the order they were passed to the
+ * constructor, cycling around to the start of the list when
+ * necessary.</li>
+ * </ul>
  *
  * @param <T> The type of Partial object for which this 
  * HybridConstructiveHeuristic guides construction, which is 
@@ -50,16 +59,62 @@ import java.util.Collection;
 public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements ConstructiveHeuristic<T> {
 	
 	private final ArrayList<ConstructiveHeuristic<T>> heuristics;
+	private final int NUM_H;
+	private final IntSupplier heuristicSelector;
 	
 	/**
-	 * Constructs the HybridConstructiveHeuristic.
+	 * Constructs the HybridConstructiveHeuristic, where the heuristic
+	 * is chosen uniformly at random at the start of each iteration of the
+	 * stochastic sampler (i.e., each time {@link #createIncrementalEvaluation}
+	 * is called).
 	 * @param heuristics A collection of ConstructiveHeuristic, all of which must
 	 * be configured to solve the same problem instance. The collection of heuristics
 	 * must be non-empty.
 	 * @throws IllegalArgumentException if not all of the heuristics are configured
 	 * for the same problem instance.
+	 * @throws IllegalArgumentException if heuristics.size() equals 0.
 	 */
 	public HybridConstructiveHeuristic(Collection<? extends ConstructiveHeuristic<T>> heuristics) {
+		this(heuristics, false);
+	}
+	
+	/**
+	 * Constructs the HybridConstructiveHeuristic, where the heuristic
+	 * is either chosen uniformly at random at the start of each iteration of the
+	 * stochastic sampler (i.e., each time {@link #createIncrementalEvaluation}
+	 * is called), or using the round robin strategy.
+	 * @param heuristics A collection of ConstructiveHeuristic, all of which must
+	 * be configured to solve the same problem instance. The collection of heuristics
+	 * must be non-empty.
+	 * @param roundRobin If true, then each time {@link #createIncrementalEvaluation}
+	 * is called, the HybridConstructiveHeuristic cycles to the next heuristic systematically.
+	 * Otherwise, if false, it chooses uniformly at random.
+	 * @throws IllegalArgumentException if not all of the heuristics are configured
+	 * for the same problem instance.
+	 * @throws IllegalArgumentException if heuristics.size() equals 0.
+	 */
+	public HybridConstructiveHeuristic(Collection<? extends ConstructiveHeuristic<T>> heuristics, boolean roundRobin) {
+		this.heuristics = initializeHeuristics(heuristics);
+		NUM_H = heuristics.size();
+		if (roundRobin) {
+			heuristicSelector = new IntSupplier() {
+				AtomicInteger lastHeuristic = new AtomicInteger(NUM_H-1);
+				public int getAsInt() {
+					return lastHeuristic.updateAndGet(
+						(h) -> {
+							h++;
+							if (h==NUM_H) h=0;
+							return h;
+						}
+					);
+				}
+			};
+		} else {
+			heuristicSelector = () -> RandomIndexer.nextBiasedInt(NUM_H);
+		}
+	}
+	
+	private ArrayList<ConstructiveHeuristic<T>> initializeHeuristics(Collection<? extends ConstructiveHeuristic<T>> heuristics) {
 		if (heuristics.size()==0) {
 			throw new IllegalArgumentException("Must pass at least one heuristic.");
 		}
@@ -71,7 +126,7 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 				throw new IllegalArgumentException("All heuristics must be configured for the same problem.");
 			} 
 		}
-		this.heuristics = new ArrayList<ConstructiveHeuristic<T>>(heuristics);
+		return new ArrayList<ConstructiveHeuristic<T>>(heuristics);
 	}
 	
 	/**
@@ -84,7 +139,7 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 	 * to be used for incrementally computing any data required by the {@link #h} method.
 	 */
 	public IncrementalEvaluation<T> createIncrementalEvaluation() {
-		int which = RandomIndexer.nextBiasedInt(heuristics.size());
+		int which = heuristicSelector.getAsInt();
 		IncrementalEvaluationWrapper<T> wrapped = new IncrementalEvaluationWrapper<T>(
 			heuristics.get(which).createIncrementalEvaluation(),
 			which

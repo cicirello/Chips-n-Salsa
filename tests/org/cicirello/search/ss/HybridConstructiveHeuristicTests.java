@@ -114,6 +114,83 @@ public class HybridConstructiveHeuristicTests {
 			() -> new HybridConstructiveHeuristic<TestObject>(heuristics)
 		);
 	}
+	
+	@Test
+	public void testHybridConstructiveHeuristicRoundRobin() {
+		ArrayList<TestHeuristic> heuristics = new ArrayList<TestHeuristic>();
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new HybridConstructiveHeuristic<TestObject>(heuristics, true)
+		);
+		
+		TestProblem problem = new TestProblem();
+		TestHeuristic h100 = new TestHeuristic(100, problem);
+		heuristics.add(h100);
+		
+		// One heuristic case
+		HybridConstructiveHeuristic<TestObject> hybrid = new HybridConstructiveHeuristic<TestObject>(heuristics, true);
+		IncrementalEvaluation<TestObject> inc = hybrid.createIncrementalEvaluation();
+		Partial<TestObject> partial = hybrid.createPartial(5);
+		assertNotNull(partial);
+		assertEquals(problem, hybrid.getProblem());
+		assertEquals(10, hybrid.completeLength());
+		// assert is in the call to the h method
+		hybrid.h(partial, 0, inc);
+		assertEquals(1, h100.hCallCount);
+		inc.extend(partial, 0);
+		assertEquals(TestHeuristic.lastHCalled, TestIncrementalEvaluation.lastExtendCalled);
+		hybrid.h(partial, 0, inc);
+		assertEquals(2, h100.hCallCount);
+		inc.extend(partial, 0);
+		assertEquals(TestHeuristic.lastHCalled, TestIncrementalEvaluation.lastExtendCalled);
+		inc = hybrid.createIncrementalEvaluation();
+		partial = hybrid.createPartial(5);
+		assertEquals(0, h100.hCallCount);
+		hybrid.h(partial, 0, inc);
+		assertEquals(1, h100.hCallCount);
+		inc.extend(partial, 0);
+		assertEquals(TestHeuristic.lastHCalled, TestIncrementalEvaluation.lastExtendCalled);
+		hybrid.h(partial, 0, inc);
+		assertEquals(2, h100.hCallCount);
+		assertEquals(2, h100.incCallCount);
+		inc.extend(partial, 0);
+		assertEquals(TestHeuristic.lastHCalled, TestIncrementalEvaluation.lastExtendCalled);
+		
+		// Three heuristics case
+		TestHeuristic h101 = new TestHeuristic(101, problem);
+		heuristics.add(h101);
+		TestHeuristic h102 = new TestHeuristic(102, problem);
+		heuristics.add(h102);
+		h100.incCallCount = 0;
+		hybrid = new HybridConstructiveHeuristic<TestObject>(heuristics, true);
+		for (int i = 0; i < 6; i++) {
+			inc = hybrid.createIncrementalEvaluation();
+			partial = hybrid.createPartial(5);
+			assertEquals((i+3)/3, h100.incCallCount);
+			assertEquals((i+2)/3, h101.incCallCount);
+			assertEquals((i+1)/3, h102.incCallCount);
+			TestHeuristic thisIteration = i%3==0? h100 : (i%3==1? h101 : h102);
+			assertEquals(0, thisIteration.hCallCount);
+			// assert is in the call to the h method
+			hybrid.h(partial, 0, inc);
+			assertEquals(1, thisIteration.hCallCount);
+			assertEquals(i%3+100, TestHeuristic.lastHCalled);
+			inc.extend(partial, 0);
+			assertEquals(i%3+100, TestIncrementalEvaluation.lastExtendCalled);
+			hybrid.h(partial, 0, inc);
+			assertEquals(2, thisIteration.hCallCount);
+			assertEquals(i%3+100, TestHeuristic.lastHCalled);
+			inc.extend(partial, 0);
+			assertEquals(i%3+100, TestIncrementalEvaluation.lastExtendCalled);
+		}
+		
+		// Wrong problem object case
+		heuristics.add(new TestHeuristic(999, new TestProblem()));
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new HybridConstructiveHeuristic<TestObject>(heuristics, true)
+		);
+	}
 
 
 	private static class TestHeuristic implements ConstructiveHeuristic<TestObject> {

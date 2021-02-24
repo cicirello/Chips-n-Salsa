@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-2-16
+## [Unreleased] - 2021-2-24
 
 ### Added
 * Added HybridConstructiveHeuristic, which provides the ability
@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * Heuristic uniformly at random from among the available heuristics.
     * Heuristic chosen using a round robin strategy that systematically cycles
       over the heuristics.
+    * Heuristic chosen via a weighted random selection process.
 * Added versions of a few constructive heuristics for 
   scheduling problems that precompute heuristic values 
   upon construction of the heuristic. Many of the scheduling 
@@ -49,7 +50,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       of heuristic values to avoid recomputing the same heuristic 
       values repeatedly across multiple iterations of a stochastic 
       sampling search.
-
 
 ### Changed
 * Dependency updated to JPT v2.4.0.

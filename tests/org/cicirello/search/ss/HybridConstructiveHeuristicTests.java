@@ -191,6 +191,109 @@ public class HybridConstructiveHeuristicTests {
 			() -> new HybridConstructiveHeuristic<TestObject>(heuristics, true)
 		);
 	}
+	
+	@Test
+	public void testHybridConstructiveHeuristicWeighted() {
+		ArrayList<TestHeuristic> heuristics = new ArrayList<TestHeuristic>();
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new HybridConstructiveHeuristic<TestObject>(heuristics, new int[0])
+		);
+		
+		TestProblem problem = new TestProblem();
+		TestHeuristic h100 = new TestHeuristic(100, problem);
+		heuristics.add(h100);
+		
+		// One heuristic case
+		int[] weights = { 1 };
+		HybridConstructiveHeuristic<TestObject> hybrid = new HybridConstructiveHeuristic<TestObject>(heuristics, weights);
+		IncrementalEvaluation<TestObject> inc = hybrid.createIncrementalEvaluation();
+		Partial<TestObject> partial = hybrid.createPartial(5);
+		assertNotNull(partial);
+		assertEquals(problem, hybrid.getProblem());
+		assertEquals(10, hybrid.completeLength());
+		// assert is in the call to the h method
+		hybrid.h(partial, 0, inc);
+		assertEquals(1, h100.hCallCount);
+		inc.extend(partial, 0);
+		assertEquals(TestHeuristic.lastHCalled, TestIncrementalEvaluation.lastExtendCalled);
+		hybrid.h(partial, 0, inc);
+		assertEquals(2, h100.hCallCount);
+		inc.extend(partial, 0);
+		assertEquals(TestHeuristic.lastHCalled, TestIncrementalEvaluation.lastExtendCalled);
+		inc = hybrid.createIncrementalEvaluation();
+		partial = hybrid.createPartial(5);
+		assertEquals(0, h100.hCallCount);
+		hybrid.h(partial, 0, inc);
+		assertEquals(1, h100.hCallCount);
+		inc.extend(partial, 0);
+		assertEquals(TestHeuristic.lastHCalled, TestIncrementalEvaluation.lastExtendCalled);
+		hybrid.h(partial, 0, inc);
+		assertEquals(2, h100.hCallCount);
+		assertEquals(2, h100.incCallCount);
+		inc.extend(partial, 0);
+		assertEquals(TestHeuristic.lastHCalled, TestIncrementalEvaluation.lastExtendCalled);
+		
+		
+		// Three heuristics case
+		weights = new int[3];
+		weights[0] = 4;
+		weights[1] = 1;
+		weights[2] = 2;
+		TestHeuristic h101 = new TestHeuristic(101, problem);
+		heuristics.add(h101);
+		TestHeuristic h102 = new TestHeuristic(102, problem);
+		heuristics.add(h102);
+		h100.incCallCount = 0;
+		hybrid = new HybridConstructiveHeuristic<TestObject>(heuristics, weights);
+		final int NUM_SAMPLES = 140;
+		for (int i = 0; i < NUM_SAMPLES; i++) {
+			inc = hybrid.createIncrementalEvaluation();
+			partial = hybrid.createPartial(5);
+			int totalHCallsPre = h100.hCallCount + h101.hCallCount + h102.hCallCount;
+			int totalIncCalls = h100.incCallCount + h101.incCallCount + h102.incCallCount;
+			assertEquals(i+1, totalIncCalls);
+			// assert is in the call to the h method
+			hybrid.h(partial, 0, inc);
+			int totalHCalls = h100.hCallCount + h101.hCallCount + h102.hCallCount;
+			assertEquals(totalHCallsPre+1, totalHCalls);
+			inc.extend(partial, 0);
+			assertEquals(TestHeuristic.lastHCalled, TestIncrementalEvaluation.lastExtendCalled);
+			assertEquals(i+1, totalIncCalls);
+		}
+		assertTrue(
+			h100.incCallCount > h102.incCallCount 
+			&& h102.incCallCount > h101.incCallCount
+			&& h101.incCallCount > 1
+		); 
+		
+		// 0 weight cases
+		final int[] w0 = {0, 1, 2};
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new HybridConstructiveHeuristic<TestObject>(heuristics, w0)
+		);
+		w0[0] = 4;
+		w0[1] = 0;
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new HybridConstructiveHeuristic<TestObject>(heuristics, w0)
+		);
+		
+		// Wrong number of weights case
+		final int[] w = {4, 1, 2, 1};
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new HybridConstructiveHeuristic<TestObject>(heuristics, w)
+		);
+		
+		// Wrong problem object case
+		heuristics.add(new TestHeuristic(999, new TestProblem()));
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new HybridConstructiveHeuristic<TestObject>(heuristics, w)
+		);
+	}
 
 
 	private static class TestHeuristic implements ConstructiveHeuristic<TestObject> {

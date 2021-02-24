@@ -23,13 +23,14 @@ package org.cicirello.search.ss;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.util.Copyable;
 import org.cicirello.math.rand.RandomIndexer;
+import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.function.IntSupplier;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * <p>A HybridConstructiveHeuristic maintains a set of 
+ * <p>A HybridConstructiveHeuristic maintains a list of 
  * {@link ConstructiveHeuristic} objects for a problem,
  * for use in a multiheuristic stochastic sampling search,
  * where each full iteration of the stochastic sampler
@@ -37,7 +38,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * a different heuristic is chosen for each iteration.</p>
  *
  * <p>The HybridConstructiveHeuristic supports the following
- * heuristic selection strategies</p>
+ * heuristic selection strategies:</p>
  * <ul>
  * <li>Choose a heuristic uniformly at random at the start
  * of the iteration.</li>
@@ -45,7 +46,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  * in order as determined by the order they were passed to the
  * constructor, cycling around to the start of the list when
  * necessary.</li>
+ * <li>Choose a heuristic using a weighted random decision, where
+ * each heuristic has an associated weight. For example, if the
+ * weight of heuristic 1 is 2 and the weight of heuristic 2 is 3,
+ * then on average you can expect 2 out of every 5 iterations
+ * to use heuristic 1, and 3 out of every 5 iterations to use 
+ * heuristic 2.</li>
  * </ul>
+ * <p>See the documentation of the various constructors to
+ * make your choice of which of these strategies to use.</p>
  *
  * @param <T> The type of Partial object for which this 
  * HybridConstructiveHeuristic guides construction, which is 
@@ -54,7 +63,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 2.23.2021
+ * @version 2.24.2021
  */
 public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements ConstructiveHeuristic<T> {
 	
@@ -67,14 +76,14 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 	 * is chosen uniformly at random at the start of each iteration of the
 	 * stochastic sampler (i.e., each time {@link #createIncrementalEvaluation}
 	 * is called).
-	 * @param heuristics A collection of ConstructiveHeuristic, all of which must
-	 * be configured to solve the same problem instance. The collection of heuristics
+	 * @param heuristics A list of ConstructiveHeuristic, all of which must
+	 * be configured to solve the same problem instance. The list of heuristics
 	 * must be non-empty.
 	 * @throws IllegalArgumentException if not all of the heuristics are configured
 	 * for the same problem instance.
 	 * @throws IllegalArgumentException if heuristics.size() equals 0.
 	 */
-	public HybridConstructiveHeuristic(Collection<? extends ConstructiveHeuristic<T>> heuristics) {
+	public HybridConstructiveHeuristic(List<? extends ConstructiveHeuristic<T>> heuristics) {
 		this(heuristics, false);
 	}
 	
@@ -83,8 +92,8 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 	 * is either chosen uniformly at random at the start of each iteration of the
 	 * stochastic sampler (i.e., each time {@link #createIncrementalEvaluation}
 	 * is called), or using the round robin strategy.
-	 * @param heuristics A collection of ConstructiveHeuristic, all of which must
-	 * be configured to solve the same problem instance. The collection of heuristics
+	 * @param heuristics A list of ConstructiveHeuristic, all of which must
+	 * be configured to solve the same problem instance. The list of heuristics
 	 * must be non-empty.
 	 * @param roundRobin If true, then each time {@link #createIncrementalEvaluation}
 	 * is called, the HybridConstructiveHeuristic cycles to the next heuristic systematically.
@@ -93,7 +102,7 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 	 * for the same problem instance.
 	 * @throws IllegalArgumentException if heuristics.size() equals 0.
 	 */
-	public HybridConstructiveHeuristic(Collection<? extends ConstructiveHeuristic<T>> heuristics, boolean roundRobin) {
+	public HybridConstructiveHeuristic(List<? extends ConstructiveHeuristic<T>> heuristics, boolean roundRobin) {
 		this.heuristics = initializeHeuristics(heuristics);
 		NUM_H = heuristics.size();
 		if (roundRobin) {
@@ -114,7 +123,52 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 		}
 	}
 	
-	private ArrayList<ConstructiveHeuristic<T>> initializeHeuristics(Collection<? extends ConstructiveHeuristic<T>> heuristics) {
+	/**
+	 * Constructs the HybridConstructiveHeuristic, where the heuristic
+	 * is chosen using a weighted random decision at the start of each iteration of the
+	 * stochastic sampler (i.e., each time {@link #createIncrementalEvaluation}
+	 * is called).  If this constructor is used, it will choose a heuristic using 
+	 * a weighted random decision, where
+	 * each heuristic has an associated weight. For example, if the
+	 * weight of heuristic 1 is 2 and the weight of heuristic 2 is 3,
+	 * then on average you can expect 2 out of every 5 iterations
+	 * to use heuristic 1, and 3 out of every 5 iterations to use 
+	 * heuristic 2.
+	 * @param heuristics A list of ConstructiveHeuristics, all of which must
+	 * be configured to solve the same problem instance. The list of heuristics
+	 * must be non-empty. 
+	 * @param weights An array of weights, which must be the same length as heuristics.
+	 * Each weight corresponds to the heuristic in the same position in the sequence.
+	 * All weights must be positive.
+	 * @throws IllegalArgumentException if not all of the heuristics are configured
+	 * for the same problem instance.
+	 * @throws IllegalArgumentException if heuristics.size() equals 0.
+	 * @throws IllegalArgumentException if heuristics.size() is not equal to weights.length.
+	 * @throws IllegalArgumentException if there exists an i, such that weights[i] &lt; 1.
+	 */
+	public HybridConstructiveHeuristic(List<? extends ConstructiveHeuristic<T>> heuristics, int[] weights) {
+		if (weights.length != heuristics.size()) {
+			throw new IllegalArgumentException("The number of weights must be the same as the number of heuristics.");
+		}
+		this.heuristics = initializeHeuristics(heuristics);
+		NUM_H = weights.length;
+		final int[] choice = weights.clone();
+		if (choice[0] <= 0) {
+			throw new IllegalArgumentException("All weights must be positive.");
+		}
+		for (int i = 1; i < NUM_H; i++) {
+			if (choice[i] <= 0) {
+				throw new IllegalArgumentException("All weights must be positive.");
+			}
+			choice[i] += choice[i-1];
+		}
+		heuristicSelector = () -> {
+			int which = Arrays.binarySearch(choice, RandomIndexer.nextInt(choice[NUM_H-1]));
+			return which < 0 ? -(which + 1) : which + 1;
+		};
+	}
+	
+	private ArrayList<ConstructiveHeuristic<T>> initializeHeuristics(List<? extends ConstructiveHeuristic<T>> heuristics) {
 		if (heuristics.size()==0) {
 			throw new IllegalArgumentException("Must pass at least one heuristic.");
 		}

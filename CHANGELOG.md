@@ -4,9 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-2-16
+## [Unreleased] - 2021-2-24
 
 ### Added
+* Added HybridConstructiveHeuristic, which provides the ability
+  to use multiple heuristics with a stochastic sampling search,
+  where a heuristic is chosen from a set of constructive heuristics
+  at the start of each iteration of the stochastic sampler and used
+  for all decisions made during that iteration. The class supports the
+  following strategies for selecting the next heuristic:
+    * Heuristic uniformly at random from among the available heuristics.
+    * Heuristic chosen using a round robin strategy that systematically cycles
+      over the heuristics.
+    * Heuristic chosen via a weighted random selection process.
 * Added versions of a few constructive heuristics for 
   scheduling problems that precompute heuristic values 
   upon construction of the heuristic. Many of the scheduling 
@@ -27,6 +37,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   precomputed version.
     * A scheduling heuristic, SmallestSetupPrecompute, which is 
       a version of SmallestSetup, but which precomputes a table 
+      of heuristic values to avoid recomputing the same heuristic 
+      values repeatedly across multiple iterations of a stochastic 
+      sampling search.
+    * A scheduling heuristic, ShortestProcessingPlusSetupTimePrecompute, which is 
+      a version of ShortestProcessingPlusSetupTime, but which precomputes a table 
+      of heuristic values to avoid recomputing the same heuristic 
+      values repeatedly across multiple iterations of a stochastic 
+      sampling search.
+    * A scheduling heuristic, WeightedShortestProcessingPlusSetupTimePrecompute, which is 
+      a version of WeightedShortestProcessingPlusSetupTime, but which precomputes a table 
       of heuristic values to avoid recomputing the same heuristic 
       values repeatedly across multiple iterations of a stochastic 
       sampling search.

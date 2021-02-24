@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -25,7 +25,7 @@ import org.cicirello.search.ss.IncrementalEvaluation;
 import org.cicirello.search.ss.Partial;
 
 /**
- * This is an implementation of the shortest process time
+ * <p>This is an implementation of the shortest process time
  * heuristic, adjusted to include setup time.  
  * This heuristic is defined as: h(j) = 1 / (p[j] + s[i][j]),
  * where p[j] is job j's processing time, and s[i][j] is job j's
@@ -34,13 +34,24 @@ import org.cicirello.search.ss.Partial;
  * where {@link #MIN_H} is a small non-zero value.  This adjustment is to handle
  * unusually long processing and setup times.  For deterministic construction of a 
  * schedule, this adjustment is unnecessary.  However, for stochastic sampling
- * algorithms it is important for the heuristic to return non-zero values.
+ * algorithms it is important for the heuristic to return non-zero values.</p>
+ *
+ * <p>The heuristic values are computed each time the
+ * {@link #h} method is called. Therefore, for many
+ * iterations of stochastic sampling, the same 
+ * heuristic values may be computed repeatedly. If your
+ * problem instance is small enough to be able to afford
+ * the extra memory, you might consider instead using
+ * the {@link ShortestProcessingPlusSetupTimePrecompute} class, which
+ * implements the same heuristic, but it precomputes
+ * a table of heuristic values upon constructing the
+ * heuristic object.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.4.2020
+ * @version 2.22.2021
  */
-public class ShortestProcessingPlusSetupTime extends SchedulingHeuristic {
+public final class ShortestProcessingPlusSetupTime extends SchedulingHeuristic {
 	
 	/**
 	 * Constructs an ShortestProcessingPlusSetupTime heuristic.

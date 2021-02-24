@@ -23,13 +23,28 @@ package org.cicirello.search.problems.scheduling;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ss.IncrementalEvaluation;
 import org.cicirello.search.ss.Partial;
-import java.util.Arrays;
 
 /**
- * <p>This heuristic is the smallest setup first.
- * We define it as: h(j) = 1 / (1 + s[i][j]),
- * where s[i][j] is the setup time of job j if it
- * follows job i on the machine.</p>
+ * <p>This class implements a variation the weighted shortest process time
+ * heuristic, but adjusted to incorporate setups times for problems with
+ * sequence-dependent setups.  
+ * The original version of the heuristic can be found in the
+ * {@link WeightedShortestProcessingTime} class, 
+ * and is defined as: h(j) = w[j] / p[j],
+ * where w[j] is the weight of job j, and p[j] is its processing time.</p>
+ *
+ * <p>We modify this to incorporate setup times by instead defining
+ * the heuristic as: h(j) = w[j] / (p[j] + s[i][j]), where
+ * s[i][j] is the setup time required by job j if it immediately follows
+ * job i on the machine, where job i is the preceding job.</p>
+ *
+ * <p>Furthermore, this implementation returns: max( {@link #MIN_H}, h(j)), 
+ * where {@link #MIN_H}
+ * is a small non-zero value.  This is to deal with the possibility of
+ * a job with weight w[j] = 0, or especially high processing and setup times
+ * relative to weight.  For deterministic construction of a 
+ * schedule, this adjustment is unnecessary.  However, for stochastic sampling
+ * algorithms it is important for the heuristic to return non-zero values.</p>
  *
  * <p>In this version, the heuristic is precomputed 
  * for all pairs of jobs (e.g., for evaluating job
@@ -39,36 +54,40 @@ import java.util.Arrays;
  * values repeatedly). However, for large problems, the O(n<sup>2</sup>)
  * space, where n is the number of jobs may be prohibitive.
  * For a version that doesn't precompute the heuristic, see
- * the {@link SmallestSetup} class, which requires only O(1) space.</p>
+ * the {@link WeightedShortestProcessingPlusSetupTime} class, 
+ * which requires only O(1) space.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 2.22.2021
  */
-public final class SmallestSetupPrecompute extends SchedulingHeuristic {
+public class WeightedShortestProcessingPlusSetupTimePrecompute extends SchedulingHeuristic {
 	
 	private final double[][] h;
 	
 	/**
-	 * Constructs an SmallestSetupPrecompute heuristic.
+	 * Constructs an WeightedShortestProcessingPlusSetupTimePrecompute heuristic.
 	 * @param problem The instance of a scheduling problem that is
 	 * the target of the heuristic.
 	 */
-	public SmallestSetupPrecompute(SingleMachineSchedulingProblem problem) {
+	public WeightedShortestProcessingPlusSetupTimePrecompute(SingleMachineSchedulingProblem problem) {
 		super(problem);
-		int n = data.numberOfJobs();
+		final int n = data.numberOfJobs();
 		h = new double[n][n];
 		if (HAS_SETUPS) {
 			for (int i = 0; i < n; i++) {
-				h[i][i] = Math.max(MIN_H, 1.0 / (1.0 + data.getSetupTime(i)));
+				h[i][i] = Math.max(MIN_H, ((double)data.getWeight(i)) / (data.getProcessingTime(i) + data.getSetupTime(i)));
 				for (int j = i+1; j < n; j++) {
-					h[i][j] = Math.max(MIN_H, 1.0 / (1.0 + data.getSetupTime(i, j)));
-					h[j][i] = Math.max(MIN_H, 1.0 / (1.0 + data.getSetupTime(j, i)));
+					h[i][j] = Math.max(MIN_H, ((double)data.getWeight(j)) / (data.getProcessingTime(j) + data.getSetupTime(i, j)));
+					h[j][i] = Math.max(MIN_H, ((double)data.getWeight(i)) / (data.getProcessingTime(i) + data.getSetupTime(j, i)));
 				}
 			}
 		} else {
 			for (int i = 0; i < n; i++) {
-				Arrays.fill(h[i], 1.0);
+				final double H = Math.max(MIN_H, ((double)data.getWeight(i)) / (data.getProcessingTime(i)));
+				for (int j = 0; j < n; j++) {
+					h[j][i] = H;
+				}
 			}
 		}
 	}

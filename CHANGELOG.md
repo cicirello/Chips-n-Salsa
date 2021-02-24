@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-2-24
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.7.0] - 2021-2-24
+
+### Added
 * Added HybridConstructiveHeuristic, which provides the ability
   to use multiple heuristics with a stochastic sampling search,
   where a heuristic is chosen from a set of constructive heuristics
@@ -53,14 +68,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 * Dependency updated to JPT v2.4.0.
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### CI/CD
 
 
 ## [2.6.0] - 2021-1-25

@@ -139,9 +139,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code><a href="../../ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations" class="externalLink">Permutation</a>&gt;</code></dd>
 </dl>
 <hr>
-<pre>public class <span class="typeNameLabel">ShortestProcessingPlusSetupTime</span>
+<pre>public final class <span class="typeNameLabel">ShortestProcessingPlusSetupTime</span>
 extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a></pre>
-<div class="block">This is an implementation of the shortest process time
+<div class="block"><p>This is an implementation of the shortest process time
  heuristic, adjusted to include setup time.  
  This heuristic is defined as: h(j) = 1 / (p[j] + s[i][j]),
  where p[j] is job j's processing time, and s[i][j] is job j's
@@ -150,7 +150,18 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
  where <a href="#MIN_H"><code>MIN_H</code></a> is a small non-zero value.  This adjustment is to handle
  unusually long processing and setup times.  For deterministic construction of a 
  schedule, this adjustment is unnecessary.  However, for stochastic sampling
- algorithms it is important for the heuristic to return non-zero values.</div>
+ algorithms it is important for the heuristic to return non-zero values.</p>
+
+ <p>The heuristic values are computed each time the
+ <a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)"><code>h(org.cicirello.search.ss.Partial&lt;org.cicirello.permutations.Permutation&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;org.cicirello.permutations.Permutation&gt;)</code></a> method is called. Therefore, for many
+ iterations of stochastic sampling, the same 
+ heuristic values may be computed repeatedly. If your
+ problem instance is small enough to be able to afford
+ the extra memory, you might consider instead using
+ the <a href="ShortestProcessingPlusSetupTimePrecompute.html" title="class in org.cicirello.search.problems.scheduling"><code>ShortestProcessingPlusSetupTimePrecompute</code></a> class, which
+ implements the same heuristic, but it precomputes
+ a table of heuristic values upon constructing the
+ heuristic object.</p></div>
 </li>
 </ul>
 </div>

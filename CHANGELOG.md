@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 
-## [2.7.0] - 2021-2-24
+## [2.7.0] - 2021-2-25
 
 ### Added
 * Added HybridConstructiveHeuristic, which provides the ability

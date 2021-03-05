@@ -101,6 +101,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">A</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/sa/AcceptanceTracker.html#accept(double,double)">accept(double, double)</a></span> - Method in class org.cicirello.search.sa.<a href="org/cicirello/search/sa/AcceptanceTracker.html" title="class in org.cicirello.search.sa">AcceptanceTracker</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/AnnealingSchedule.html#accept(double,double)">accept(double, double)</a></span> - Method in interface org.cicirello.search.sa.<a href="org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a></dt>
 <dd>
 <div class="block">Determine whether or not to accept a neighboring solution based on its
@@ -140,6 +142,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/AcceptanceBandSampling.html#%3Cinit%3E(org.cicirello.search.ss.ConstructiveHeuristic,org.cicirello.search.ProgressTracker)">AcceptanceBandSampling(ConstructiveHeuristic&lt;T&gt;, ProgressTracker&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.ss.<a href="org/cicirello/search/ss/AcceptanceBandSampling.html" title="class in org.cicirello.search.ss">AcceptanceBandSampling</a></dt>
 <dd>
 <div class="block">Constructs an AcceptanceBandSampling search object.</div>
+</dd>
+<dt><a href="org/cicirello/search/sa/AcceptanceTracker.html" title="class in org.cicirello.search.sa"><span class="typeNameLink">AcceptanceTracker</span></a> - Class in <a href="org/cicirello/search/sa/package-summary.html">org.cicirello.search.sa</a></dt>
+<dd>
+<div class="block">An AcceptanceTracker can be used to extract fine-grained information
+ about the behavior of an annealing schedule across several runs of
+ simulated annealing.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/sa/AcceptanceTracker.html#%3Cinit%3E(org.cicirello.search.sa.AnnealingSchedule)">AcceptanceTracker(AnnealingSchedule)</a></span> - Constructor for class org.cicirello.search.sa.<a href="org/cicirello/search/sa/AcceptanceTracker.html" title="class in org.cicirello.search.sa">AcceptanceTracker</a></dt>
+<dd>
+<div class="block">Constructs the AcceptanceTracker.</div>
 </dd>
 <dt><a href="org/cicirello/search/operators/permutations/AdjacentSwapMutation.html" title="class in org.cicirello.search.operators.permutations"><span class="typeNameLink">AdjacentSwapMutation</span></a> - Class in <a href="org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></dt>
 <dd>
@@ -496,6 +508,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/PolynomialRootFinding.html#cost(org.cicirello.search.representations.SingleReal)">cost(SingleReal)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/PolynomialRootFinding.html" title="class in org.cicirello.search.problems">PolynomialRootFinding</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/CostFunctionScaler.html#cost(T)">cost(T)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/CostFunctionScaler.html" title="class in org.cicirello.search.problems">CostFunctionScaler</a></dt>
+<dd>
+<div class="block">Computes the cost of a candidate solution to the problem instance.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html#cost(T)">cost(T)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html" title="class in org.cicirello.search.problems">IntegerCostFunctionScaler</a></dt>
+<dd>
+<div class="block">Computes the cost of a candidate solution to the problem instance.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/IntegerCostOptimizationProblem.html#cost(T)">cost(T)</a></span> - Method in interface org.cicirello.search.problems.<a href="org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a></dt>
 <dd>
 <div class="block">Computes the cost of a candidate solution to the problem instance.</div>
@@ -503,6 +523,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/OptimizationProblem.html#cost(T)">cost(T)</a></span> - Method in interface org.cicirello.search.problems.<a href="org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a></dt>
 <dd>
 <div class="block">Computes the cost of a candidate solution to the problem instance.</div>
+</dd>
+<dt><a href="org/cicirello/search/problems/CostFunctionScaler.html" title="class in org.cicirello.search.problems"><span class="typeNameLink">CostFunctionScaler</span></a>&lt;<a href="org/cicirello/search/problems/CostFunctionScaler.html" title="type parameter in CostFunctionScaler">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org/cicirello/search/problems/CostFunctionScaler.html" title="type parameter in CostFunctionScaler">T</a>&gt;&gt; - Class in <a href="org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></dt>
+<dd>
+<div class="block">This is a wrapper class for <a href="org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems"><code>OptimizationProblem</code></a>
+ objects that enables scaling all cost values by a positive constant.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/CostFunctionScaler.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,double)">CostFunctionScaler(OptimizationProblem&lt;T&gt;, double)</a></span> - Constructor for class org.cicirello.search.problems.<a href="org/cicirello/search/problems/CostFunctionScaler.html" title="class in org.cicirello.search.problems">CostFunctionScaler</a></dt>
+<dd>
+<div class="block">Constructs the CostFunctionScaler.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.html#countOnes()">countOnes()</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
@@ -993,6 +1022,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.html#get32(int)">get32(int)</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
 <div class="block">Gets a block of up to 32 bits.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/sa/AcceptanceTracker.html#getAcceptanceRate(int)">getAcceptanceRate(int)</a></span> - Method in class org.cicirello.search.sa.<a href="org/cicirello/search/sa/AcceptanceTracker.html" title="class in org.cicirello.search.sa">AcceptanceTracker</a></dt>
+<dd>
+<div class="block">Computes the acceptance rate for a specific iteration number
+ computed across all runs since either the last call to
+ <a href="org/cicirello/search/sa/AcceptanceTracker.html#reset(int)"><code>AcceptanceTracker.reset(int)</code></a> or since the last run of simulated annealing with
+ a different run length.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.html#getBit(int)">getBit(int)</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
@@ -1531,6 +1567,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  as the solution is heuristically assembled,
  to problem and/or heuristic data utilized by the heuristic.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/sa/AcceptanceTracker.html#init(int)">init(int)</a></span> - Method in class org.cicirello.search.sa.<a href="org/cicirello/search/sa/AcceptanceTracker.html" title="class in org.cicirello.search.sa">AcceptanceTracker</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/AnnealingSchedule.html#init(int)">init(int)</a></span> - Method in interface org.cicirello.search.sa.<a href="org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a></dt>
 <dd>
 <div class="block">Perform any initialization necessary for the annealing schedule 
@@ -1583,6 +1621,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/InsertionMutation.html#%3Cinit%3E()">InsertionMutation()</a></span> - Constructor for class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/InsertionMutation.html" title="class in org.cicirello.search.operators.permutations">InsertionMutation</a></dt>
 <dd>
 <div class="block">Constructs an InsertionMutation mutation operator.</div>
+</dd>
+<dt><a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html" title="class in org.cicirello.search.problems"><span class="typeNameLink">IntegerCostFunctionScaler</span></a>&lt;<a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html" title="type parameter in IntegerCostFunctionScaler">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html" title="type parameter in IntegerCostFunctionScaler">T</a>&gt;&gt; - Class in <a href="org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></dt>
+<dd>
+<div class="block">This is a wrapper class for <a href="org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems"><code>IntegerCostOptimizationProblem</code></a>
+ objects that enables scaling all cost values by a positive constant.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,int)">IntegerCostFunctionScaler(IntegerCostOptimizationProblem&lt;T&gt;, int)</a></span> - Constructor for class org.cicirello.search.problems.<a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html" title="class in org.cicirello.search.problems">IntegerCostFunctionScaler</a></dt>
+<dd>
+<div class="block">Constructs the IntegerCostFunctionScaler.</div>
 </dd>
 <dt><a href="org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems"><span class="typeNameLink">IntegerCostOptimizationProblem</span></a>&lt;<a href="org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="type parameter in IntegerCostOptimizationProblem">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="type parameter in IntegerCostOptimizationProblem">T</a>&gt;&gt; - Interface in <a href="org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></dt>
 <dd>
@@ -1958,6 +2005,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/BoundMax.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/BoundMax.html" title="class in org.cicirello.search.problems">BoundMax</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/CostFunctionScaler.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/CostFunctionScaler.html" title="class in org.cicirello.search.problems">CostFunctionScaler</a></dt>
+<dd>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
+ to the problem instance, where lower cost implies better solution.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html" title="class in org.cicirello.search.problems">IntegerCostFunctionScaler</a></dt>
+<dd>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
+ to the problem instance, where lower cost implies better solution.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/IntegerCostOptimizationProblem.html#minCost()">minCost()</a></span> - Method in interface org.cicirello.search.problems.<a href="org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a></dt>
 <dd>
 <div class="block">A lower bound on the minimum theoretical cost across all possible solutions
@@ -2791,6 +2848,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/restarts/VariableAnnealingLength.html#reset()">reset()</a></span> - Method in class org.cicirello.search.restarts.<a href="org/cicirello/search/restarts/VariableAnnealingLength.html" title="class in org.cicirello.search.restarts">VariableAnnealingLength</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/sa/AcceptanceTracker.html#reset(int)">reset(int)</a></span> - Method in class org.cicirello.search.sa.<a href="org/cicirello/search/sa/AcceptanceTracker.html" title="class in org.cicirello.search.sa">AcceptanceTracker</a></dt>
+<dd>
+<div class="block">Resets the AcceptanceTracker.</div>
+</dd>
 <dt><a href="org/cicirello/search/restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts"><span class="typeNameLink">RestartSchedule</span></a> - Interface in <a href="org/cicirello/search/restarts/package-summary.html">org.cicirello.search.restarts</a></dt>
 <dd>
 <div class="block">Multistart metaheuristics involve periodically restarting the metaheuristic
@@ -3275,6 +3336,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/restarts/VariableAnnealingLength.html#split()">split()</a></span> - Method in class org.cicirello.search.restarts.<a href="org/cicirello/search/restarts/VariableAnnealingLength.html" title="class in org.cicirello.search.restarts">VariableAnnealingLength</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/sa/AcceptanceTracker.html#split()">split()</a></span> - Method in class org.cicirello.search.sa.<a href="org/cicirello/search/sa/AcceptanceTracker.html" title="class in org.cicirello.search.sa">AcceptanceTracker</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/ExponentialCooling.html#split()">split()</a></span> - Method in class org.cicirello.search.sa.<a href="org/cicirello/search/sa/ExponentialCooling.html" title="class in org.cicirello.search.sa">ExponentialCooling</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/sa/LinearCooling.html#split()">split()</a></span> - Method in class org.cicirello.search.sa.<a href="org/cicirello/search/sa/LinearCooling.html" title="class in org.cicirello.search.sa">LinearCooling</a></dt>
@@ -3663,6 +3726,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/BoundMax.html#value(org.cicirello.search.representations.IntegerVector)">value(IntegerVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/BoundMax.html" title="class in org.cicirello.search.problems">BoundMax</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/PolynomialRootFinding.html#value(org.cicirello.search.representations.SingleReal)">value(SingleReal)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/PolynomialRootFinding.html" title="class in org.cicirello.search.problems">PolynomialRootFinding</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/CostFunctionScaler.html#value(T)">value(T)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/CostFunctionScaler.html" title="class in org.cicirello.search.problems">CostFunctionScaler</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html#value(T)">value(T)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html" title="class in org.cicirello.search.problems">IntegerCostFunctionScaler</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/IntegerCostOptimizationProblem.html#value(T)">value(T)</a></span> - Method in interface org.cicirello.search.problems.<a href="org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a></dt>
 <dd>

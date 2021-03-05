@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-3-5
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.8.0] - 2021-3-5
+
+### Added
 * Added AcceptanceTracker, which provides a mechanism for extracting 
   information about the behavior of an annealing schedule across a
   set of runs of simulated annealing.
@@ -19,16 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   explore the effects of the range of a cost function on a stochastic local
   search algorithm by scaling a cost function with a known range. This class
   is just like CostFunctionScaler but for problems with integer costs.
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### CI/CD
 
 
 ## [2.7.0] - 2021-2-25

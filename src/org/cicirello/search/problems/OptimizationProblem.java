@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -53,11 +53,10 @@ import org.cicirello.search.SolutionCostPair;
  * case where bounding the minimum cost may require too much time and where costs may be negative.</p>
  *
  * @param <T> The type of object used to represent candidate solutions to the problem.
- * @since 1.0
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.15.2020
+ * @version 3.5.2021
  */
 public interface OptimizationProblem<T extends Copyable<T>> extends Problem<T> {
 	

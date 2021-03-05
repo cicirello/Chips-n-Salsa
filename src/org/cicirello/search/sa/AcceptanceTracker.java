@@ -59,6 +59,10 @@ public final class AcceptanceTracker implements AnnealingSchedule {
 	 * be in the interval: 0 &le; iterationIndex &lt; maxEvals, where
 	 * maxEvals is the run length of simulation annealing.
 	 *
+	 * @return The acceptance rate across all runs since the last call
+	 * to reset or since the last change in run length, computed at
+	 * iteration iterationIndex.
+	 *
 	 * @throws ArrayIndexOutOfBoundsException if iterationIndex is negative
 	 * or too high.
 	 * @throws NullPointerException if reset has not been called and no runs

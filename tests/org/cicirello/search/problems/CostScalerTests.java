@@ -52,6 +52,27 @@ public class CostScalerTests {
 		);
 	}
 	
+	@Test
+	public void testIntegerCostScaler() {
+		TestProblemInt problem = new TestProblemInt();
+		IntegerCostFunctionScaler<TestObject> cfs = new IntegerCostFunctionScaler<TestObject>(problem, 10);
+		for (int i = 5; i <= 7; i++) {
+			assertEquals(10*i, cfs.cost(new TestObject(i)));
+			assertEquals(i, cfs.value(new TestObject(i)));
+		}
+		assertEquals(50, cfs.minCost());
+		assertTrue(cfs.isMinCost(50));
+		assertFalse(cfs.isMinCost(51));
+		assertFalse(cfs.isMinCost(5));
+		SolutionCostPair<TestObject> pair = cfs.getSolutionCostPair(new TestObject(6));
+		assertEquals(6, pair.getSolution().c);
+		assertEquals(60, pair.getCost());
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new IntegerCostFunctionScaler<TestObject>(problem, 0)
+		);
+	}
+	
 	private static class TestProblem implements OptimizationProblem<TestObject> {
 		
 		public double cost(TestObject candidate) {

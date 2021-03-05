@@ -80,3 +80,6 @@ jobs:
         committer: Vincent A Cicirello <cicirello@users.noreply.github.com>
         branch: create-pull-request/docs
         delete-branch: true
+        labels: |
+          documentation
+          automated

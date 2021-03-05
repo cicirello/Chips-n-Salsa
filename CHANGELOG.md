@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-2-24
 
 ### Added
+* Added CostFunctionScaler, which enables scaling the cost function of
+  an optimization problem by a positive constant, such as if you want to
+  explore the effects of the range of a cost function on a stochastic local
+  search algorithm by scaling a cost function with a known range.
+* Added IntegerCostFunctionScaler, which enables scaling the cost function of
+  an optimization problem by a positive constant, such as if you want to
+  explore the effects of the range of a cost function on a stochastic local
+  search algorithm by scaling a cost function with a known range. This class
+  is just like CostFunctionScaler but for problems with integer costs.
 
 ### Changed
 

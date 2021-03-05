@@ -4,9 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-2-24
+## [Unreleased] - 2021-3-5
 
 ### Added
+* Added AcceptanceTracker, which provides a mechanism for extracting 
+  information about the behavior of an annealing schedule across a
+  set of runs of simulated annealing.
 * Added CostFunctionScaler, which enables scaling the cost function of
   an optimization problem by a positive constant, such as if you want to
   explore the effects of the range of a cost function on a stochastic local

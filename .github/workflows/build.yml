@@ -50,6 +50,8 @@ jobs:
         committer: Vincent A Cicirello <cicirello@users.noreply.github.com>
         branch: create-pull-request/badge
         delete-branch: true
+        labels: |
+          automated
 
     - name: Upload Jacoco coverage report
       uses: actions/upload-artifact@v2

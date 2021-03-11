@@ -52,7 +52,7 @@ jobs:
 
     - name: Generate the sitemap
       id: sitemap
-      uses: cicirello/generate-sitemap@v1.6.1
+      uses: cicirello/generate-sitemap@v1.6.2
       with:
         base-url-path: https://chips-n-salsa.cicirello.org/
         path-to-root: docs

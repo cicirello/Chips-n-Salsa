@@ -37,10 +37,10 @@ import org.cicirello.search.representations.BitVector;
  * two basins of attraction, which meet where the vector has an equal number of
  * ones as zeros.</p>
  *
- * <p>The {@link #value} method implements the maximization
+ * <p>The {@link #value value} method implements the maximization
  * version as described above. The algorithms
  * of the Chips-n-Salsa library are defined for minimization, requiring
- * a cost function. The {@link #cost} method implements the equivalent
+ * a cost function. The {@link #cost cost} method implements the equivalent
  * as the following minimization problem: minimize
  * cost(x) = 10*n - |20*CountOfOneBits(x) - 10*n|.  The global optima
  * are still all 1-bits or all 0-bits, each of which has a cost 

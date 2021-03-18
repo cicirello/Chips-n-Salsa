@@ -37,10 +37,10 @@ import org.cicirello.search.representations.BitVector;
  * ends up at the local optima would have a very steep climb
  * to escape.</p>
  *
- * <p>The {@link #value} method implements the original maximization
+ * <p>The {@link #value value} method implements the original maximization
  * version of the TwoMax problem, as described above. The algorithms
  * of the Chips-n-Salsa library are defined for minimization, requiring
- * a cost function. The {@link #cost} method implements the equivalent
+ * a cost function. The {@link #cost cost} method implements the equivalent
  * as the following minimization problem: minimize
  * cost(x) = 10*n - |18*CountOfOneBits(x) - 8*n|.  The global optima
  * is still all 1-bits, which has a cost equal to 0.  The local optima

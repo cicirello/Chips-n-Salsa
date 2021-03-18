@@ -162,10 +162,10 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
  the bits equal to a one are within the attraction basin of the global
  optima.</p>
 
- <p>The <a href="#value(org.cicirello.search.representations.BitVector)"><code>value(org.cicirello.search.representations.BitVector)</code></a> method implements the original maximization
+ <p>The <a href="#value(org.cicirello.search.representations.BitVector)"><code>value</code></a> method implements the original maximization
  version of the Trap problem, as described above. The algorithms
  of the Chips-n-Salsa library are defined for minimization, requiring
- a cost function. The <a href="#cost(org.cicirello.search.representations.BitVector)"><code>cost(org.cicirello.search.representations.BitVector)</code></a> method implements the equivalent
+ a cost function. The <a href="#cost(org.cicirello.search.representations.BitVector)"><code>cost</code></a> method implements the equivalent
  as the following minimization problem: minimize
  cost(x) = 10*n - f(x), where f(x) is the Trap function as defined above.  
  The global optima

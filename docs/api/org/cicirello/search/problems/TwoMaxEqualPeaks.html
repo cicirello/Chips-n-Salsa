@@ -156,10 +156,10 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
  two basins of attraction, which meet where the vector has an equal number of
  ones as zeros.</p>
 
- <p>The <a href="#value(org.cicirello.search.representations.BitVector)"><code>value(org.cicirello.search.representations.BitVector)</code></a> method implements the maximization
+ <p>The <a href="#value(org.cicirello.search.representations.BitVector)"><code>value</code></a> method implements the maximization
  version as described above. The algorithms
  of the Chips-n-Salsa library are defined for minimization, requiring
- a cost function. The <a href="#cost(org.cicirello.search.representations.BitVector)"><code>cost(org.cicirello.search.representations.BitVector)</code></a> method implements the equivalent
+ a cost function. The <a href="#cost(org.cicirello.search.representations.BitVector)"><code>cost</code></a> method implements the equivalent
  as the following minimization problem: minimize
  cost(x) = 10*n - |20*CountOfOneBits(x) - 10*n|.  The global optima
  are still all 1-bits or all 0-bits, each of which has a cost 

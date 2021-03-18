@@ -4,9 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-3-5
+## [Unreleased] - 2021-3-18
 
 ### Added
+* Added an implementation of the TwoMax problem.
+* Added an implementation of a variation of the TwoMax problem, but
+  with two global optima, unlike the original version which has one 
+  global and one sub-optimal local optima.
+* Added an implementation of Ackley's Trap function, an artificial
+  search landscape with one global optima, and one sub-optimal local
+  optima, where most of the search space is within the attraction basin 
+  of the local optima.
 
 ### Changed
 

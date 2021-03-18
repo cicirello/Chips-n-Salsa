@@ -58,8 +58,7 @@ import org.cicirello.search.representations.BitVector;
  * different acceptance probabilities (for a specific temperature value).
  * If you want to use Ackley's original version, or any other scaling for that
  * matter, you can use 
- * the {@link org.cicirello.search.problems.IntegerCostFunctionScaler 
- * IntegerCostFunctionScaler} class for this purpose. You can do so by 
+ * the {@link IntegerCostFunctionScaler} class for this purpose. You can do so by 
  * defining your optimization problem with something like:
  * IntegerCostFunctionScaler&lt;BitVector&gt; problem = 
  * new IntegerCostFunctionScaler&lt;BitVector&gt;(new OneMax());</p>

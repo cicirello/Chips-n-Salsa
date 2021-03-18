@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added an implementation of a variation of the TwoMax problem, but
   with two global optima, unlike the original version which has one 
   global and one sub-optimal local optima.
+* Added an implementation of Ackley's Trap function, an artificial
+  search landscape with one global optima, and one sub-optimal local
+  optima, where most of the search space is within the attraction basin 
+  of the local optima.
 
 ### Changed
 

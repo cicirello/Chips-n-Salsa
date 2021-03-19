@@ -23,30 +23,22 @@ package org.cicirello.search.problems;
 import org.cicirello.search.representations.BitVector;
 
 /**
- * <p>This class implements the benchmarking problem known
- * as TwoMax. The TwoMax problem is to maximize the following
- * function: f(x) = |18*CountOfOneBits(x) - 8*n|, where x is
- * a vector of bits of length n. The global optimal solution is
- * when x is all ones, which has a maximal value of 10*n. This 
- * search landscape also has a local optima when x is all zeros,
- * which has a value of 8*n. Thus, this search landscape has
- * two basins of attraction. The attractions basin for the 
- * global optima is slightly larger. As long as x has more than
- * (4/9)n bits equal to a one, a strict hill climber will
- * be pulled into the global optima. However, a search that
- * ends up at the local optima would have a very steep climb
- * to escape.</p>
+ * <p>This class implements the Porcupine landscape (Ackley, 1985), which
+ * is a very rugged search landscape, with an exponential number of local 
+ * optima.  The Porcupine problem is a maximization problem to maximize
+ * the function: f(x) = 10 * CountOfOneBits(x) - 15 * (CountOfZeroBits(x) mod 2),
+ * where x is a vector of bits of length n. The global optimal solution is
+ * when x is all ones, which has a maximal value of 10*n.</p>
  *
  * <p>The {@link #value value} method implements the original maximization
- * version of the TwoMax problem, as described above. The algorithms
+ * version of the Porcupine problem, as described above. The algorithms
  * of the Chips-n-Salsa library are defined for minimization, requiring
  * a cost function. The {@link #cost cost} method implements the equivalent
  * as the following minimization problem: minimize
- * cost(x) = 10*n - |18*CountOfOneBits(x) - 8*n|.  The global optima
- * is still all 1-bits, which has a cost equal to 0.  The local optima
- * is still all 0-bits, which has a cost equal to 2*n.</p>
+ * cost(x) = 10*n - f(x).  The global optima
+ * is still all 1-bits, which has a cost equal to 0.</p>
  *
- * <p>The TwoMax problem
+ * <p>The Porcupine problem
  * was introduced by David Ackley in the following paper:<br>
  * David H. Ackley. A connectionist algorithm for genetic search. Proceedings of
  * the First International Conference on Genetic Algorithms and Their Applications,
@@ -56,17 +48,22 @@ import org.cicirello.search.representations.BitVector;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 3.18.2021
  */
-public final class TwoMax implements IntegerCostOptimizationProblem<BitVector> {
+public final class Porcupine implements IntegerCostOptimizationProblem<BitVector> {
 	
 	/**
-	 * Constructs a TwoMax object for use in evaluating candidate solutions to the
-	 * TwoMax problem.
+	 * Constructs a Porcupine object for use in evaluating candidate solutions to the
+	 * Porcupine problem.
 	 */
-	public TwoMax() { }
+	public Porcupine() { }
 	
 	@Override
 	public int cost(BitVector candidate) {
-		return 10*candidate.length() - Math.abs(18*candidate.countOnes()-8*candidate.length());
+		int z = candidate.countZeros();
+		int cost = 10*z;
+		if ((z & 1)==1) {
+			cost += 15;
+		}
+		return cost;
 	}
 	
 	@Override
@@ -76,7 +73,12 @@ public final class TwoMax implements IntegerCostOptimizationProblem<BitVector> {
 	
 	@Override
 	public int value(BitVector candidate) {
-		return Math.abs(18*candidate.countOnes()-8*candidate.length());
+		int c = candidate.countOnes();
+		int value = 10*c;
+		if (((candidate.length()-c) & 1)==1) {
+			value -= 15;
+		}
+		return value;
 	}
 	
 	@Override

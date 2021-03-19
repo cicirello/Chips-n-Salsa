@@ -45,10 +45,10 @@ import org.cicirello.search.representations.BitVector;
  * of bits not equal to 1, where the minimum cost is thus 0, corresponding
  * to the case of maximal number of 1-bits.</p>
  *
- * <p>The OneMax problem was introduced by Ackley (1987). His original
+ * <p>The OneMax problem was introduced by Ackley (1985). His original
  * definition of the problem was to maximize: f(x) = 10 * CountOfOneBits(x).
  * Thus, Ackley's original OneMax multiplied the number of 1-bits by 10.
- * Our implementation leaves out the 10. Doing so does not change the
+ * Our implementation does not multiply by 10. Doing so does not change the
  * optimal solution or the shape of the landscape. However, it may have
  * an effect on the behavior of some search algorithms. For example, 
  * simulated annealing decides whether or not to accept a worsening move
@@ -62,6 +62,13 @@ import org.cicirello.search.representations.BitVector;
  * defining your optimization problem with something like:
  * IntegerCostFunctionScaler&lt;BitVector&gt; problem = 
  * new IntegerCostFunctionScaler&lt;BitVector&gt;(new OneMax());</p>
+ *
+ * <p>Although commonly used by others without reference, the OneMax problem
+ * was introduced by David Ackley in the following paper:<br>
+ * David H. Ackley. A connectionist algorithm for genetic search. Proceedings of
+ * the First International Conference on Genetic Algorithms and Their Applications,
+ * pages 121-135, July 1985.</p>
+ * 
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

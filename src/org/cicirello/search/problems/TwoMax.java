@@ -46,6 +46,12 @@ import org.cicirello.search.representations.BitVector;
  * is still all 1-bits, which has a cost equal to 0.  The local optima
  * is still all 0-bits, which has a cost equal to 2*n.</p>
  *
+ * <p>The TwoMax problem
+ * was introduced by David Ackley in the following paper:<br>
+ * David H. Ackley. A connectionist algorithm for genetic search. Proceedings of
+ * the First International Conference on Genetic Algorithms and Their Applications,
+ * pages 121-135, July 1985.</p>
+ *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 3.18.2021

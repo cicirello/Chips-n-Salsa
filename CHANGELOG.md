@@ -4,7 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-3-19
+## [Unreleased] - 2021-3-20
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.9.0] - 2021-3-20
 
 ### Added
 * Added an implementation of the TwoMax problem.
@@ -18,16 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added an implementation of Ackley's Porcupine function, an artificial
   search landscape with one global optima, and an exponential number of
   local optima, a very rugged landscape.
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### CI/CD
 
 
 ## [2.8.0] - 2021-3-5

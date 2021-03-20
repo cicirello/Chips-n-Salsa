@@ -23,9 +23,10 @@ package org.cicirello.search.problems;
 import org.cicirello.search.representations.BitVector;
 
 /**
- * <p>The OneMax class is an implementation of 
+ * <p>The OneMaxAckley class is an implementation of 
  * the well-known OneMax problem, often used in benchmarking genetic 
- * algorithms and other metaheuristics.</p>
+ * algorithms and other metaheuristics.  Specifically, it implements
+ * Ackley's (1985) original version of the problem.</p>
  *
  * <p>In the OneMax problem, the metaheuristic is searching the space
  * of bit-strings of length n for the bit-string with the most bits equal
@@ -39,31 +40,17 @@ import org.cicirello.search.representations.BitVector;
  *
  * <p>It was originally posed as a maximization problem because 
  * it was originally defined as a fitness function for a genetic algorithm.
- * The {@link #value value} method simply counts the number
+ * The problem was originally stated to maximize f(x) = 10 * CountOfOneBits(x),
+ * where x is a vector of bits of length n.
+ * The {@link #value value} method returns 10 times the number
  * of bits in the BitVector equal to 1, which is to be maximized. Thus, as 
- * a cost function, the {@link #cost cost} method counts the number
+ * a cost function, the {@link #cost cost} method returns 10 times the number
  * of bits not equal to 1, where the minimum cost is thus 0, corresponding
  * to the case of maximal number of 1-bits.</p>
  *
- * <p>The OneMax problem was introduced by Ackley (1985). His original
- * definition of the problem was to maximize: f(x) = 10 * CountOfOneBits(x).
- * Thus, Ackley's original OneMax multiplied the number of 1-bits by 10.
- * Our implementation does not multiply by 10. Doing so does not change the
- * optimal solution or the shape of the landscape. However, it may have
- * an effect on the behavior of some search algorithms. For example, 
- * simulated annealing decides whether or not to accept a worsening move
- * with a probability that depends on the difference in cost between the current
- * solution and the random neighbor, as well as on its current temperature.
- * Keeping all else the same and scaling the cost values can lead to 
- * different acceptance probabilities (for a specific temperature value).
- * If you want to use Ackley's original version, or any other scaling for that
- * matter, you can use 
- * the {@link IntegerCostFunctionScaler} class for this purpose. You can do so by 
- * defining your optimization problem with something like:
- * IntegerCostFunctionScaler&lt;BitVector&gt; problem = 
- * new IntegerCostFunctionScaler&lt;BitVector&gt;(new OneMax());
- * Additionally, the {@link OneMaxAckley} class specifically implements
- * Ackley's version with the costs scaled by a factor of 10.</p>
+ * <p>The Chips-n-Salsa library also includes a version that is a simple
+ * count of the bits without the multiplication by 10 in the {@link OneMax}
+ * class.</p>
  *
  * <p>Although commonly used by others without reference, the OneMax problem
  * was introduced by David Ackley in the following paper:<br>
@@ -76,17 +63,17 @@ import org.cicirello.search.representations.BitVector;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 3.20.2021
  */
-public final class OneMax implements IntegerCostOptimizationProblem<BitVector> {
+public final class OneMaxAckley implements IntegerCostOptimizationProblem<BitVector> {
 	
 	/**
-	 * Constructs a OneMax object for use in evaluating candidate solutions to the
+	 * Constructs a OneMaxAckley object for use in evaluating candidate solutions to the
 	 * OneMax problem.
 	 */
-	public OneMax() { }
+	public OneMaxAckley() { }
 	
 	@Override
 	public int cost(BitVector candidate) {
-		return candidate.countZeros();
+		return 10*candidate.countZeros();
 	}
 	
 	@Override
@@ -96,7 +83,7 @@ public final class OneMax implements IntegerCostOptimizationProblem<BitVector> {
 	
 	@Override
 	public int value(BitVector candidate) {
-		return candidate.countOnes();
+		return 10*candidate.countOnes();
 	}
 	
 	@Override

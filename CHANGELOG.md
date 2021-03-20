@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-3-20
 
 ### Added
+* OneMaxAckley class implements the original version of the One Max
+  problem as described by Ackley (1985), whereas the existing OneMax 
+  class in the library implements a variation. Ackley defined the problem
+  as maximize 10 * number of one bits.
 
 ### Changed
 

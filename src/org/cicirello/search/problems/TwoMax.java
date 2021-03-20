@@ -31,7 +31,7 @@ import org.cicirello.search.representations.BitVector;
  * search landscape also has a local optima when x is all zeros,
  * which has a value of 8*n. Thus, this search landscape has
  * two basins of attraction. The attractions basin for the 
- * global optima is slightly larger. As long as x has more than
+ * global optima is larger. As long as x has more than
  * (4/9)n bits equal to a one, a strict hill climber will
  * be pulled into the global optima. However, a search that
  * ends up at the local optima would have a very steep climb

@@ -26,10 +26,12 @@ import org.cicirello.search.representations.BitVector;
  * <p>This class implements Ackley's Trap function, which defines
  * a fitness landscape with a single global optima, and a single
  * sub-optimal local optima, such that most of the search landscape
- * is within the attraction basin of the local optima.
+ * is within the attraction basin of the local optima. Thus, the local
+ * optima is a trap for a local search algorithm.
  * The Trap function is related to the {@link TwoMax} problem,
- * but in the TwoMax problem, slightly more than half of the search space
- * is within the attraction basin of the global optima.</p>
+ * but in the TwoMax problem, more of the search space
+ * is within the attraction basin of the global optima than within that
+ * of the local optima.</p>
  *
  * <p>The Trap problem is to maximize the following
  * fitness function, f(x), where x is a vector of n bits. 

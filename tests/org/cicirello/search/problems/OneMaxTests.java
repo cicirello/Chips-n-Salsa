@@ -64,7 +64,7 @@ public class OneMaxTests {
 	public void testOneMaxSingleOne() {
 		OneMax problem = new OneMax();
 		// single one
-		for (int n = 1; n < 35; n++) {
+		for (int n = 1; n <= 8; n++) {
 			for (int shift = 0; shift < n; shift++) {
 				BitVector v = new BitVector(n);
 				v.setBit(shift, 1);
@@ -78,7 +78,7 @@ public class OneMaxTests {
 	public void testOneMaxSingleZero() {
 		OneMax problem = new OneMax();
 		// single zero
-		for (int n = 1; n < 35; n++) {
+		for (int n = 1; n <= 8; n++) {
 			for (int shift = 0; shift < n; shift++) {
 				BitVector v = new BitVector(n);
 				v.setBit(shift, 1);
@@ -92,7 +92,7 @@ public class OneMaxTests {
 	@Test
 	public void testOneMaxHalfOnes() {
 		OneMax problem = new OneMax();
-		for (int n = 0; n < 35; n++) {
+		for (int n = 0; n < 17; n++) {
 			BitVector v = new BitVector(n);
 			for (int shift = 0; shift < n; shift+=2) {
 				v.setBit(shift, 1);

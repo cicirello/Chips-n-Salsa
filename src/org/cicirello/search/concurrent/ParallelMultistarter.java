@@ -63,7 +63,7 @@ import java.util.function.Function;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 1.25.2021
+ * @version 3.21.2021
  */
 public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
 	
@@ -95,13 +95,7 @@ public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristi
 	 * @throws IllegalArgumentException if numThreads is less than 1.
 	 */
 	public ParallelMultistarter(Metaheuristic<T> search, RestartSchedule r, int numThreads) {
-		if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
-		multistarters = new ArrayList<Multistarter<T>>();
-		multistarters.add(new Multistarter<T>(search, r));
-		for (int i = 1; i < numThreads; i++) {
-			multistarters.add(new Multistarter<T>(search.split(), r.split()));
-		}
-		threadPool = Executors.newFixedThreadPool(numThreads);
+		this(new Multistarter<T>(search, r), numThreads);
 	}
 	
 	/**

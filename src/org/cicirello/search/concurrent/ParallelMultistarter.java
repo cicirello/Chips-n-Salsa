@@ -127,27 +127,7 @@ public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristi
 	 * s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in searches).
 	 */
 	public ParallelMultistarter(Collection<? extends Metaheuristic<T>> searches, Collection<? extends RestartSchedule> schedules) {
-		if (searches.size() != schedules.size()) {
-			throw new IllegalArgumentException("number of searches and number of schedules must be the same");
-		}
-		multistarters = new ArrayList<Multistarter<T>>();
-		Iterator<? extends RestartSchedule> rs = schedules.iterator();
-		ProgressTracker<T> t = null; 
-		Problem<T> problem = null;
-		for (Metaheuristic<T> s : searches) {
-			if (problem == null) {
-				problem = s.getProblem();
-			} else if(s.getProblem() != problem) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must solve the same problem.");
-			}
-			if (t==null) {
-				t = s.getProgressTracker();
-			} else if (s.getProgressTracker() != t) {
-				throw new IllegalArgumentException("All Metaheuristics in searches must share a single ProgressTracker.");
-			}
-			multistarters.add(new Multistarter<T>(s, rs.next()));
-		}
-		threadPool = Executors.newFixedThreadPool(multistarters.size());
+		this(ParallelMultistarterUtil.toMultistarters(searches, schedules), false);
 	}
 	
 	/**

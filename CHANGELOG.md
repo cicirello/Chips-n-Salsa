@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   as maximize 10 * number of one bits.
 
 ### Changed
+* Refactored ParallelMultistarter class to reduce redundancy among its constructors.
 
 ### Deprecated
 

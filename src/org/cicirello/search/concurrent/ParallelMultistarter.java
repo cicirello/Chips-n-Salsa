@@ -108,17 +108,7 @@ public class ParallelMultistarter<T extends Copyable<T>> implements Metaheuristi
 	 * @throws IllegalArgumentException if schedules.size() is less than 1.
 	 */
 	public ParallelMultistarter(Metaheuristic<T> search, Collection<? extends RestartSchedule> schedules) {
-		if (schedules.size() < 1) throw new IllegalArgumentException("Must pass at least one schedule.");
-		multistarters = new ArrayList<Multistarter<T>>();
-		boolean addedFirst = false;
-		for (RestartSchedule r : schedules) {
-			if (addedFirst) multistarters.add(new Multistarter<T>(search.split(), r));
-			else {
-				multistarters.add(new Multistarter<T>(search, r));
-				addedFirst = true;
-			}
-		}
-		threadPool = Executors.newFixedThreadPool(multistarters.size());
+		this(ParallelMultistarterUtil.toMultistarters(search, schedules), false);
 	}
 	
 	/**

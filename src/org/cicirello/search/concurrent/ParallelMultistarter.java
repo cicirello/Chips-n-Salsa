@@ -47,6 +47,12 @@ import java.util.Collection;
  * You can also initialize the search with a {@link Multistarter} configured with your restart schedule,
  * along with the number of threads, or a Collection of {@link Multistarter} objects.</p>
  * 
+ * <p>When calling the {@link #optimize optimize} method, the runLength parameter corresponds
+ * to the number of restarts for each of the Multistarter instances, where those restarts
+ * will have run lengths determined by the restart schedule specified upon construction.
+ * If the {@link #optimize optimize} method is called multiple times, the restart 
+ * schedules of the parallel metaheuristics are not reinitialized,
+ * and the run lengths for the additional restarts will continue where the schedules left off.</p>	 
  *
  * @param <T> The type of object being optimized.
  *

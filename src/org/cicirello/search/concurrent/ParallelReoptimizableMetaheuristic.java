@@ -34,14 +34,17 @@ import java.util.Collection;
 import java.util.function.Function;
 
 /**
- * 
+ * <p>This class enables running multiple copies of a metaheuristic, or multiple metaheuristics, 
+ * in parallel with multiple threads. It specifically requires that all metaheuristics are
+ * solving the same problem, but otherwise they may be the same or different metaheuristics.</p>
+ *
  * @param <T> The type of object being optimized.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 3.22.2021
  */
-public final class ParallelReoptimizableMetaheuristic<T extends Copyable<T>> extends ParallelMetaheuristic<T> implements ReoptimizableMetaheuristic<T> {
+public class ParallelReoptimizableMetaheuristic<T extends Copyable<T>> extends ParallelMetaheuristic<T> implements ReoptimizableMetaheuristic<T> {
 	
 	/**
 	 * Constructs a parallel metaheuristic that executes multiple identical copies of a
@@ -71,10 +74,17 @@ public final class ParallelReoptimizableMetaheuristic<T extends Copyable<T>> ext
 	}
 	
 	/*
-	 * private copy constructor to support split() method.
+	 * package-private copy constructor to support split() method.
 	 */
-	private ParallelReoptimizableMetaheuristic(ParallelReoptimizableMetaheuristic<T> other) {
+	ParallelReoptimizableMetaheuristic(ParallelReoptimizableMetaheuristic<T> other) {
 		super(other);
+	}
+	
+	/*
+	 * package private for use by subclasses in same package.
+	 */
+	ParallelReoptimizableMetaheuristic(Collection<? extends ReoptimizableMetaheuristic<T>> searches, boolean verifyState) {
+		super(searches, verifyState);
 	}
 	
 	/**
@@ -99,7 +109,7 @@ public final class ParallelReoptimizableMetaheuristic<T extends Copyable<T>> ext
 	 * was previously called.
 	 */
 	@Override
-	public SolutionCostPair<T> reoptimize(int runLength) {
+	public final SolutionCostPair<T> reoptimize(int runLength) {
 		return threadedOptimize((search) -> (
 			() -> ((ReoptimizableMetaheuristic<T>)search).reoptimize(runLength)
 		));

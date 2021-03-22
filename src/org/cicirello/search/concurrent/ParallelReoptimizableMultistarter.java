@@ -21,22 +21,11 @@
 package org.cicirello.search.concurrent;
 
 import org.cicirello.search.ReoptimizableMetaheuristic;
-import org.cicirello.search.ProgressTracker;
-import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.problems.Problem;
 import org.cicirello.search.restarts.ReoptimizableMultistarter;
 import org.cicirello.search.restarts.RestartSchedule;
 import org.cicirello.search.restarts.ConstantRestartSchedule;
 import org.cicirello.util.Copyable;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutionException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.function.Function;
 
 /**
  * <p>This class is used for implementing parallel multistart metaheuristics.  It can be used to
@@ -57,14 +46,23 @@ import java.util.function.Function;
  * Collection of {@link RestartSchedule} objects (both Collections of the same size).
  * You can also initialize the search with a {@link ReoptimizableMultistarter} configured with your restart schedule,
  * along with the number of threads, or a Collection of {@link ReoptimizableMultistarter} objects.</p>
+ *
+ * <p>When calling the {@link #optimize optimize} or {@link #reoptimize reoptimize} methods, 
+ * the runLength parameter corresponds
+ * to the number of restarts for each of the multistarter instances, where those restarts
+ * will have run lengths determined by the restart schedule specified upon construction.
+ * If the {@link #optimize optimize} or {@link #reoptimize reoptimize} are called multiple times, 
+ * the restart 
+ * schedules of the parallel metaheuristics are not reinitialized,
+ * and the run lengths for the additional restarts will continue where the schedules left off.</p>	 
  * 
  * @param <T> The type of object being optimized.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 1.25.2021
+ * @version 3.22.2021
  */
-public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> extends ParallelMultistarter<T> implements ReoptimizableMetaheuristic<T> {
+public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> extends ParallelReoptimizableMetaheuristic<T> {
 	
 	/**
 	 * Constructs a parallel multistart metaheuristic that executes multiple runs of
@@ -91,7 +89,7 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> exte
 	 * @throws IllegalArgumentException if numThreads is less than 1.
 	 */
 	public ParallelReoptimizableMultistarter(ReoptimizableMetaheuristic<T> search, RestartSchedule r, int numThreads) {
-		this(new ReoptimizableMultistarter<T>(search, r), numThreads);
+		super(new ReoptimizableMultistarter<T>(search, r), numThreads);
 	}
 	
 	/**
@@ -181,39 +179,6 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> exte
 	 */
 	private ParallelReoptimizableMultistarter(ParallelReoptimizableMultistarter<T> other) {
 		super(other);
-	}
-	
-	/**
-	 * <p>Executes a parallel multistart search.  The number of threads, the specific metaheuristic
-	 * executed by each thread, the restart schedules, etc are determined by how
-	 * the ParallelReoptimizableMultistarter was configured at the time of construction.  
-	 * The optimize method runs the optimize method of each of the parallel 
-	 * instances of the search the specified
-	 * number of times, keeping track of the best solution 
-	 * across the multiple parallel runs of the search.
-	 * Each restart of each parallel search begins at the best solution found so far, 
-	 * but reinitializes any search
-	 * control parameters.</p>
-	 *
-	 * <p>If this method is called multiple times, the restart schedules of the parallel
-	 * metaheuristics are not reinitialized,
-	 * and the run lengths for the additional restarts will continue where the schedules left off.</p>
-	 *
-	 * @param numRestarts The number of times to restart each of the parallel metaheuristics.
-	 *
-	 * @return The best end of run solution (and its cost) of this set of parallel restarts, 
-	 * which may or may not be the same as the solution contained
-	 * in this metaheuristic's {@link ProgressTracker}, which contains the best of all runs.
-	 * Returns null if the run did not execute, such as if the ProgressTracker already contains
-	 * the theoretical best solution.
-	 *
-	 * @throws IllegalStateException if the {@link ParallelMultistarter#close} method was previously called.
-	 */
-	@Override
-	public SolutionCostPair<T> reoptimize(int numRestarts) {
-		return threadedOptimize((multistartSearch) -> (
-			() -> ((ReoptimizableMultistarter<T>)multistartSearch).reoptimize(numRestarts)
-		));
 	}
 	
 	@Override

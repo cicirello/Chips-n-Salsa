@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored ParallelMultistarter class to reduce redundancy among its constructors.
 * Refactored ParallelMultistarter class to utilize the new ParallelMetaheuristic as
   a base class.
+* Refactored ParallelReoptimizableMultistarter class to utilize the 
+  new ParallelReoptimizableMetaheuristic as its super class.
 
 ### Deprecated
 

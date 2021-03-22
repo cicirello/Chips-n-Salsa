@@ -30,7 +30,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+var data = {"i0":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -127,7 +127,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">java.lang.Object</a></li>
 <li>
 <ul class="inheritance">
+<li><a href="ParallelMetaheuristic.html" title="class in org.cicirello.search.concurrent">org.cicirello.search.concurrent.ParallelMetaheuristic</a>&lt;T&gt;</li>
+<li>
+<ul class="inheritance">
 <li>org.cicirello.search.concurrent.ParallelMultistarter&lt;T&gt;</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -142,14 +147,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt>All Implemented Interfaces:</dt>
 <dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang" class="externalLink">AutoCloseable</a></code>, <code><a href="Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T&gt;&gt;</code>, <code><a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;T&gt;</code>, <code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T&gt;</code></dd>
 </dl>
-<dl>
-<dt>Direct Known Subclasses:</dt>
-<dd><code><a href="ParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">ParallelReoptimizableMultistarter</a></code></dd>
-</dl>
 <hr>
-<pre>public class <span class="typeNameLabel">ParallelMultistarter&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</span>
-extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a>
-implements <a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;T&gt;, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang" class="externalLink">AutoCloseable</a></pre>
+<pre>public final class <span class="typeNameLabel">ParallelMultistarter&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</span>
+extends <a href="ParallelMetaheuristic.html" title="class in org.cicirello.search.concurrent">ParallelMetaheuristic</a>&lt;T&gt;</pre>
 <div class="block"><p>This class is used for implementing parallel multistart metaheuristics.  It can be used to
  restart any class that implements the <a href="../Metaheuristic.html" title="interface in org.cicirello.search"><code>Metaheuristic</code></a> interface.  
  A multistart metaheuristic returns the best result from among all of the restarts.
@@ -167,7 +167,14 @@ implements <a href="../Metaheuristic.html" title="interface in org.cicirello.sea
  Or you can initialize the search with a Collection of <a href="../Metaheuristic.html" title="interface in org.cicirello.search"><code>Metaheuristic</code></a> objects and a 
  Collection of <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts"><code>RestartSchedule</code></a> objects (both Collections of the same size).
  You can also initialize the search with a <a href="../restarts/Multistarter.html" title="class in org.cicirello.search.restarts"><code>Multistarter</code></a> configured with your restart schedule,
- along with the number of threads, or a Collection of <a href="../restarts/Multistarter.html" title="class in org.cicirello.search.restarts"><code>Multistarter</code></a> objects.</p></div>
+ along with the number of threads, or a Collection of <a href="../restarts/Multistarter.html" title="class in org.cicirello.search.restarts"><code>Multistarter</code></a> objects.</p>
+ 
+ <p>When calling the <a href="ParallelMetaheuristic.html#optimize(int)"><code>optimize</code></a> method, the runLength parameter corresponds
+ to the number of restarts for each of the Multistarter instances, where those restarts
+ will have run lengths determined by the restart schedule specified upon construction.
+ If the <a href="ParallelMetaheuristic.html#optimize(int)"><code>optimize</code></a> method is called multiple times, the restart 
+ schedules of the parallel metaheuristics are not reinitialized,
+ and the run lengths for the additional restarts will continue where the schedules left off.</p></div>
 </li>
 </ul>
 </div>
@@ -263,58 +270,6 @@ implements <a href="../Metaheuristic.html" title="interface in org.cicirello.sea
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#close()">close</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Initiates an orderly shutdown of the thread pool used by this ParallelMultistarter.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getProblem()">getProblem</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Gets a reference to the problem that this search is solving.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getProgressTracker()">getProgressTracker</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>long</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalRunLength()">getTotalRunLength</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Gets the total run length of all restarts of all parallel instances of 
- the underlying metaheuristics combined.</div>
-</td>
-</tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isClosed()">isClosed</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Checks whether the thread pool has been shutdown.</div>
-</td>
-</tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#optimize(int)">optimize</a></span>&#8203;(int&nbsp;numRestarts)</code></th>
-<td class="colLast">
-<div class="block">Executes a parallel multistart search.</div>
-</td>
-</tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker</a></span>&#8203;(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;tracker)</code></th>
-<td class="colLast">
-<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.</div>
-</td>
-</tr>
-<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="ParallelMultistarter.html" title="class in org.cicirello.search.concurrent">ParallelMultistarter</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#split()">split</a></span>()</code></th>
 <td class="colLast">
@@ -323,6 +278,13 @@ implements <a href="../Metaheuristic.html" title="interface in org.cicirello.sea
 </td>
 </tr>
 </table>
+<ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.org.cicirello.search.concurrent.ParallelMetaheuristic">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;org.cicirello.search.concurrent.<a href="ParallelMetaheuristic.html" title="class in org.cicirello.search.concurrent">ParallelMetaheuristic</a></h3>
+<code><a href="ParallelMetaheuristic.html#close()">close</a>, <a href="ParallelMetaheuristic.html#getProblem()">getProblem</a>, <a href="ParallelMetaheuristic.html#getProgressTracker()">getProgressTracker</a>, <a href="ParallelMetaheuristic.html#getTotalRunLength()">getTotalRunLength</a>, <a href="ParallelMetaheuristic.html#isClosed()">isClosed</a>, <a href="ParallelMetaheuristic.html#optimize(int)">optimize</a>, <a href="ParallelMetaheuristic.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker</a></code></li>
+</ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
@@ -523,79 +485,10 @@ implements <a href="../Metaheuristic.html" title="interface in org.cicirello.sea
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="optimize(int)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>optimize</h4>
-<pre class="methodSignature">public final&nbsp;<a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;optimize&#8203;(int&nbsp;numRestarts)</pre>
-<div class="block"><p>Executes a parallel multistart search.  The number of threads, the specific metaheuristic
- executed by each thread, the restart schedules, etc are determined by how
- the ParallelMultistarter was configured at the time of construction.  
- The optimize method runs the optimize method of each of the parallel 
- instances of the search the specified
- number of times, keeping track of the best solution 
- across the multiple parallel runs of the search.
- Each restart of each parallel search begins at a new randomly generate initial state.</p>
-
- <p>If this method is called multiple times, the restart schedules of the parallel
- metaheuristics are not reinitialized,
- and the run lengths for the additional restarts will continue where the schedules left off.</p></div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../Metaheuristic.html#optimize(int)">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;</code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>numRestarts</code> - The number of times to restart each of the parallel metaheuristics.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The best end of run solution (and its cost) of this set of parallel restarts, 
- which may or may not be the same as the solution contained
- in this metaheuristic's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs.
- Returns null if the run did not execute, such as if the ProgressTracker already contains
- the theoretical best solution.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalStateException</a></code> - if the <a href="#close()"><code>close()</code></a> method was previously called.</dd>
-</dl>
-</li>
-</ul>
-<a id="close()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>close</h4>
-<pre class="methodSignature">public final&nbsp;void&nbsp;close()</pre>
-<div class="block"><p>Initiates an orderly shutdown of the thread pool used by this ParallelMultistarter.
- The ParallelMultistarter utilizes a fixed thread pool so that multiple calls to
- the <a href="#optimize(int)"><code>optimize(int)</code></a> method can reuse threads to minimize the expensive task of
- thread creation.  When you no longer need the ParallelMultistarter, you should call
- the close method to ensure that unneeded threads do not persist.
- Once close is called, all subsequent calls to <a href="#optimize(int)"><code>optimize(int)</code></a> will throw an exception.</p>
- <p>This method is invoked automatically on objects managed by the try-with-resources statement.</p></div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html?is-external=true#close()" title="class or interface in java.lang" class="externalLink">close</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html?is-external=true" title="class or interface in java.lang" class="externalLink">AutoCloseable</a></code></dd>
-</dl>
-</li>
-</ul>
-<a id="isClosed()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isClosed</h4>
-<pre class="methodSignature">public final&nbsp;boolean&nbsp;isClosed()</pre>
-<div class="block">Checks whether the thread pool has been shutdown.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>true if and only if the <a href="#close()"><code>close()</code></a> method has been called previously.</dd>
-</dl>
-</li>
-</ul>
 <a id="split()">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>split</h4>
 <pre class="methodSignature">public&nbsp;<a href="ParallelMultistarter.html" title="class in org.cicirello.search.concurrent">ParallelMultistarter</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;split()</pre>
@@ -619,97 +512,12 @@ implements <a href="../Metaheuristic.html" title="interface in org.cicirello.sea
 <dd><code><a href="../Metaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;</code></dd>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="ParallelMetaheuristic.html#split()">split</a></code>&nbsp;in class&nbsp;<code><a href="ParallelMetaheuristic.html" title="class in org.cicirello.search.concurrent">ParallelMetaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A functionally identical copy of the object, or a reference to this if
  it is both safe and efficient for multiple threads to share a single instance of this
  Splittable object.</dd>
-</dl>
-</li>
-</ul>
-<a id="getProgressTracker()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getProgressTracker</h4>
-<pre class="methodSignature">public final&nbsp;<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;getProgressTracker()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#getProgressTracker()">TrackableSearch</a></code></span></div>
-<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.  The object returned by this method
- contains the best solution found during the search (including across
- multiple concurrent runs if the search is multithreaded, or across
- multiple restarts if the run methods were called 
- multiple times), as well as cost of that solution, among other information.
- See the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> documentation for more information about
- the search data tracked by this object.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../TrackableSearch.html#getProgressTracker()">getProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> in use by this metaheuristic.</dd>
-</dl>
-</li>
-</ul>
-<a id="setProgressTracker(org.cicirello.search.ProgressTracker)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setProgressTracker</h4>
-<pre class="methodSignature">public final&nbsp;void&nbsp;setProgressTracker&#8203;(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;tracker)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#setProgressTracker(org.cicirello.search.ProgressTracker)">TrackableSearch</a></code></span></div>
-<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.  Any previously set ProgressTracker is
- replaced by this one.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../TrackableSearch.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;</code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>tracker</code> - The new ProgressTracker to set.  The tracker must not be null.
- This method does nothing if tracker is null.</dd>
-</dl>
-</li>
-</ul>
-<a id="getProblem()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getProblem</h4>
-<pre class="methodSignature">public final&nbsp;<a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;getProblem()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#getProblem()">TrackableSearch</a></code></span></div>
-<div class="block">Gets a reference to the problem that this search is solving.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../TrackableSearch.html#getProblem()">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>a reference to the problem.</dd>
-</dl>
-</li>
-</ul>
-<a id="getTotalRunLength()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>getTotalRunLength</h4>
-<pre class="methodSignature">public final&nbsp;long&nbsp;getTotalRunLength()</pre>
-<div class="block"><p>Gets the total run length of all restarts of all parallel instances of 
- the underlying metaheuristics combined.
- This may differ from what may be expected based on run lengths passed to 
- the optimize and reoptimize methods of the underlying metaheuristics.  
- For example, the optimize method terminates 
- if it finds the theoretical best solution, and also immediately returns if
- a prior call found the theoretical best.  In such cases, the total run length may
- be less than the requested run length.</p>
-
- <p>The meaning of run length may vary based on what metaheuristic is being restarted.</p></div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../TrackableSearch.html#getTotalRunLength()">getTotalRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the total run length of all restarts of the underlying metaheuristic, which includes
- across multiple calls to the restart mechanism and across all parallel instances.</dd>
 </dl>
 </li>
 </ul>

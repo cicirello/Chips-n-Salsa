@@ -201,12 +201,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/ParallelReoptimizableMetaheuristic.html" title="class in org.cicirello.search.concurrent">ParallelReoptimizableMetaheuristic</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</span></code></th>
+<td class="colLast">
+<div class="block">This class enables running multiple copies of a metaheuristic, or multiple metaheuristics, 
+ in parallel with multiple threads.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/ParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">ParallelReoptimizableMultistarter</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</span></code></th>
 <td class="colLast">
 <div class="block">This class is used for implementing parallel multistart metaheuristics.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a>&lt;T extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</span></code></th>
 <td class="colLast">
@@ -223,6 +231,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/ParallelReoptimizableMetaheuristic.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,int)">ParallelReoptimizableMetaheuristic</a></span>&#8203;(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMetaheuristic.html" title="type parameter in ParallelReoptimizableMetaheuristic">T</a>&gt;&nbsp;search,
+                                  int&nbsp;numThreads)</code></th>
+<td class="colLast">
+<div class="block">Constructs a parallel metaheuristic that executes multiple identical copies of a
+ metaheuristic in parallel across multiple threads.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/ParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,int,int)">ParallelReoptimizableMultistarter</a></span>&#8203;(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMultistarter.html" title="type parameter in ParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
                                  int&nbsp;runLength,
                                  int&nbsp;numThreads)</code></th>
@@ -231,7 +247,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  a specified metaheuristic in parallel across multiple threads.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/ParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,java.util.Collection)">ParallelReoptimizableMultistarter</a></span>&#8203;(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMultistarter.html" title="type parameter in ParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
                                  <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util" class="externalLink">Collection</a>&lt;? extends <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;&nbsp;schedules)</code></th>
 <td class="colLast">
@@ -239,7 +255,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  a specified metaheuristic in parallel across multiple threads.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/ParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,org.cicirello.search.restarts.RestartSchedule,int)">ParallelReoptimizableMultistarter</a></span>&#8203;(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMultistarter.html" title="type parameter in ParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
                                  <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&nbsp;r,
                                  int&nbsp;numThreads)</code></th>
@@ -248,7 +264,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  a specified metaheuristic in parallel across multiple threads.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/TimedParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,int,int)">TimedParallelReoptimizableMultistarter</a></span>&#8203;(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/TimedParallelReoptimizableMultistarter.html" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
                                       int&nbsp;runLength,
                                       int&nbsp;numThreads)</code></th>
@@ -257,7 +273,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  a specified metaheuristic in parallel across multiple threads.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/TimedParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,java.util.Collection)">TimedParallelReoptimizableMultistarter</a></span>&#8203;(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/TimedParallelReoptimizableMultistarter.html" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
                                       <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util" class="externalLink">Collection</a>&lt;? extends <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;&nbsp;schedules)</code></th>
 <td class="colLast">
@@ -265,7 +281,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  a specified metaheuristic in parallel across multiple threads.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/TimedParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,org.cicirello.search.restarts.RestartSchedule,int)">TimedParallelReoptimizableMultistarter</a></span>&#8203;(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/TimedParallelReoptimizableMultistarter.html" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
                                       <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&nbsp;r,
                                       int&nbsp;numThreads)</code></th>
@@ -284,6 +300,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/ParallelReoptimizableMetaheuristic.html#%3Cinit%3E(java.util.Collection)">ParallelReoptimizableMetaheuristic</a></span>&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util" class="externalLink">Collection</a>&lt;? extends <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMetaheuristic.html" title="type parameter in ParallelReoptimizableMetaheuristic">T</a>&gt;&gt;&nbsp;searches)</code></th>
+<td class="colLast">
+<div class="block">Constructs a parallel metaheuristic that executes multiple 
+ metaheuristics in parallel across multiple threads.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/ParallelReoptimizableMultistarter.html#%3Cinit%3E(java.util.Collection,int)">ParallelReoptimizableMultistarter</a></span>&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util" class="externalLink">Collection</a>&lt;? extends <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMultistarter.html" title="type parameter in ParallelReoptimizableMultistarter">T</a>&gt;&gt;&nbsp;searches,
                                  int&nbsp;runLength)</code></th>
 <td class="colLast">
@@ -291,7 +314,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  specified metaheuristics in parallel across multiple threads.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/ParallelReoptimizableMultistarter.html#%3Cinit%3E(java.util.Collection,java.util.Collection)">ParallelReoptimizableMultistarter</a></span>&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util" class="externalLink">Collection</a>&lt;? extends <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMultistarter.html" title="type parameter in ParallelReoptimizableMultistarter">T</a>&gt;&gt;&nbsp;searches,
                                  <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util" class="externalLink">Collection</a>&lt;? extends <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;&nbsp;schedules)</code></th>
 <td class="colLast">
@@ -299,7 +322,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  specified metaheuristics in parallel across multiple threads.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/TimedParallelReoptimizableMultistarter.html#%3Cinit%3E(java.util.Collection,int)">TimedParallelReoptimizableMultistarter</a></span>&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util" class="externalLink">Collection</a>&lt;? extends <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/TimedParallelReoptimizableMultistarter.html" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;&gt;&nbsp;searches,
                                       int&nbsp;runLength)</code></th>
 <td class="colLast">
@@ -307,7 +330,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  specified metaheuristics in parallel across multiple threads.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/TimedParallelReoptimizableMultistarter.html#%3Cinit%3E(java.util.Collection,java.util.Collection)">TimedParallelReoptimizableMultistarter</a></span>&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util" class="externalLink">Collection</a>&lt;? extends <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/TimedParallelReoptimizableMultistarter.html" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;&gt;&nbsp;searches,
                                       <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util" class="externalLink">Collection</a>&lt;? extends <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;&nbsp;schedules)</code></th>
 <td class="colLast">

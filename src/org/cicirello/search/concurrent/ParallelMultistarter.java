@@ -60,7 +60,7 @@ import java.util.Collection;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 3.22.2021
  */
-public class ParallelMultistarter<T extends Copyable<T>> extends ParallelMetaheuristic<T> {
+public final class ParallelMultistarter<T extends Copyable<T>> extends ParallelMetaheuristic<T> {
 	
 	/**
 	 * Constructs a parallel multistart metaheuristic that executes multiple runs of
@@ -173,17 +173,9 @@ public class ParallelMultistarter<T extends Copyable<T>> extends ParallelMetaheu
 	}
 	
 	/*
-	 * package private for use by subclasses in same package.
+	 * private copy constructor to support split() method.
 	 */
-	ParallelMultistarter(Collection<? extends Multistarter<T>> multistarters, boolean verifyState) {
-		// MIGHT BE ABLE TO ELIMINATE THIS AFTER REOPT VERSION REFACTORED
-		super(multistarters, verifyState);
-	}
-	
-	/*
-	 * package-private copy constructor to support split() method.
-	 */
-	ParallelMultistarter(ParallelMultistarter<T> other) {
+	private ParallelMultistarter(ParallelMultistarter<T> other) {
 		super(other);		
 	}
 	

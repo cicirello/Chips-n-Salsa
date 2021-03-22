@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-3-21
 
 ### Added
-* ParallelMetaheuristic class which enables running multiple copies of a
+* ParallelMetaheuristic class, which enables running multiple copies of a
   metaheuristic, or multiple metaheuristics, in parallel using multiple threads.
+* ParallelReoptimizableMetaheuristic, which enables running multiple copies of a
+  metaheuristic that supports the reoptimize method, or multiple such metaheuristics, 
+  in parallel using multiple threads.
 * OneMaxAckley class implements the original version of the One Max
   problem as described by Ackley (1985), whereas the existing OneMax 
   class in the library implements a variation. Ackley defined the problem

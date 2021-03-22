@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 * Refactored ParallelMultistarter class to reduce redundancy among its constructors.
+* Refactored ParallelMultistarter class to utilize the new ParallelMetaheuristic as
+  a base class.
 
 ### Deprecated
 

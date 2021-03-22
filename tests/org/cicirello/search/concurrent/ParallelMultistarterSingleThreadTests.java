@@ -179,6 +179,32 @@ public class ParallelMultistarterSingleThreadTests {
 	}
 	
 	@Test
+	public void testParallelMetaheuristic_Split() {
+		for (int r = 1; r <= 100; r *= 10) {
+			for (int re = 1; re <= 5; re++) {
+				TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+				Multistarter<TestObject> multi = new Multistarter<TestObject>(heur, r); 
+				ParallelMetaheuristic<TestObject> restarter1 = new ParallelMetaheuristic<TestObject>(multi, 1);
+				ParallelMetaheuristic<TestObject> restarter = restarter1.split();
+				verifyConstantLengthSplitMetaheuristic(restarter, heur, r, re);
+				restarter1.close();
+				restarter.close();
+				assertTrue(restarter != restarter1);
+			}
+		}
+		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+		Multistarter<TestObject> multi = new Multistarter<TestObject>(heur, 1);
+		ParallelMetaheuristic<TestObject> restarter1 = new ParallelMetaheuristic<TestObject>(multi, 1);
+		restarter1.close();
+		ParallelMetaheuristic<TestObject> restarter = restarter1.split();
+		IllegalStateException thrown = assertThrows( 
+			IllegalStateException.class,
+			() -> restarter.optimize(1)
+		);
+		restarter.close();
+	}
+	
+	@Test
 	public void testSetProgressTracker() {
 		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
 		ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heur, 1, 1);
@@ -636,6 +662,20 @@ public class ParallelMultistarterSingleThreadTests {
 	}
 	
 	private void verifyConstantLengthSplit(ParallelMultistarter<TestObject> restarter, TestRestartedMetaheuristic heur, int r, int re) {
+		ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
+		assertNotNull(tracker);
+		assertEquals(0, restarter.getTotalRunLength());
+		assertFalse(tracker.didFindBest());
+		assertFalse(tracker.isStopped());
+		SolutionCostPair<TestObject> pair = restarter.optimize(re);
+		assertNotNull(pair);
+		assertTrue(pair.getCost()>1);
+		assertEquals(re*r, restarter.getTotalRunLength());
+		assertFalse(tracker.didFindBest());
+		assertFalse(tracker.isStopped());
+	}
+	
+	private void verifyConstantLengthSplitMetaheuristic(ParallelMetaheuristic<TestObject> restarter, TestRestartedMetaheuristic heur, int r, int re) {
 		ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
 		assertNotNull(tracker);
 		assertEquals(0, restarter.getTotalRunLength());

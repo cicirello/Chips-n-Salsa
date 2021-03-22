@@ -171,7 +171,7 @@ public final class ParallelReoptimizableMultistarter<T extends Copyable<T>> exte
 	 * s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in multistarters).
 	 */
 	public ParallelReoptimizableMultistarter(Collection<ReoptimizableMultistarter<T>> multistarters) {
-		super(multistarters, true);
+		super(multistarters);
 	}
 	
 	/*

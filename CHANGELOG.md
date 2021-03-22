@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * ParallelReoptimizableMetaheuristic, which enables running multiple copies of a
   metaheuristic that supports the reoptimize method, or multiple such metaheuristics, 
   in parallel using multiple threads.
+* RotationMutation, a mutation operator for Permutations.
 * OneMaxAckley class implements the original version of the One Max
   problem as described by Ackley (1985), whereas the existing OneMax 
   class in the library implements a variation. Ackley defined the problem

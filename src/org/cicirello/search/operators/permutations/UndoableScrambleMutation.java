@@ -76,16 +76,14 @@ public class UndoableScrambleMutation extends Permutation.Mechanic implements Un
 		// Verify that c was the most recently mutated permutation.
 		// If so, undo the mutation.
 		if (previous == c) {
-			int i, j;
 			if (indexes[0] < indexes[1]) {
-				i = indexes[0];
-				j = indexes[1];
+				for (int i = indexes[0]; i <= indexes[1]; i++) {
+					set(c, i, last[i]);
+				}
 			} else {
-				i = indexes[1];
-				j = indexes[0];
-			}
-			for ( ; i <= j; i++) {
-				set(c, i, last[i]);
+				for (int i = indexes[1]; i <= indexes[0]; i++) {
+					set(c, i, last[i]);
+				}
 			}			
 		} 
 	}

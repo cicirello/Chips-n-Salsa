@@ -4,11 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-3-20
+## [Unreleased] - 2021-3-22
 
 ### Added
+* ParallelMetaheuristic class, which enables running multiple copies of a
+  metaheuristic, or multiple metaheuristics, in parallel using multiple threads.
+* ParallelReoptimizableMetaheuristic, which enables running multiple copies of a
+  metaheuristic that supports the reoptimize method, or multiple such metaheuristics, 
+  in parallel using multiple threads.
+* OneMaxAckley class implements the original version of the One Max
+  problem as described by Ackley (1985), whereas the existing OneMax 
+  class in the library implements a variation. Ackley defined the problem
+  as maximize 10 * number of one bits.
 
 ### Changed
+* Refactored ParallelMultistarter class to reduce redundancy among its constructors.
+* Refactored ParallelMultistarter class to utilize the new ParallelMetaheuristic as
+  a base class.
+* Refactored ParallelReoptimizableMultistarter class to utilize the 
+  new ParallelReoptimizableMetaheuristic as its super class.
 
 ### Deprecated
 

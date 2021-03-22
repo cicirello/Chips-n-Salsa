@@ -29,6 +29,8 @@ import org.cicirello.search.representations.BitVector;
  */
 public class OneMaxTests {
 	
+	// OneMax class
+	
 	@Test
 	public void testOneMaxNoOnes() {
 		OneMax problem = new OneMax();
@@ -64,7 +66,7 @@ public class OneMaxTests {
 	public void testOneMaxSingleOne() {
 		OneMax problem = new OneMax();
 		// single one
-		for (int n = 1; n < 35; n++) {
+		for (int n = 1; n <= 8; n++) {
 			for (int shift = 0; shift < n; shift++) {
 				BitVector v = new BitVector(n);
 				v.setBit(shift, 1);
@@ -78,7 +80,7 @@ public class OneMaxTests {
 	public void testOneMaxSingleZero() {
 		OneMax problem = new OneMax();
 		// single zero
-		for (int n = 1; n < 35; n++) {
+		for (int n = 1; n <= 8; n++) {
 			for (int shift = 0; shift < n; shift++) {
 				BitVector v = new BitVector(n);
 				v.setBit(shift, 1);
@@ -92,7 +94,7 @@ public class OneMaxTests {
 	@Test
 	public void testOneMaxHalfOnes() {
 		OneMax problem = new OneMax();
-		for (int n = 0; n < 35; n++) {
+		for (int n = 0; n < 17; n++) {
 			BitVector v = new BitVector(n);
 			for (int shift = 0; shift < n; shift+=2) {
 				v.setBit(shift, 1);
@@ -105,6 +107,83 @@ public class OneMaxTests {
 		}
 	}
 	
+	// OneMaxAckley class
+	
+	@Test
+	public void testOneMaxAckleyNoOnes() {
+		OneMaxAckley problem = new OneMaxAckley();
+		assertEquals(0, problem.minCost());
+		int zero = 0;
+		assertTrue(problem.isMinCost(zero));
+		assertFalse(problem.isMinCost(zero-1));
+		assertFalse(problem.isMinCost(zero+1));
+		// 0 ones
+		for (int n = 0; n < 35; n++) {
+			BitVector v = new BitVector(n);
+			assertEquals(10*n, problem.cost(v));
+			assertEquals(0, problem.value(v));
+		}
+	}
+	
+	@Test
+	public void testOneMaxAckleyAllOnes() {
+		OneMaxAckley problem = new OneMaxAckley();
+		assertEquals(0, problem.minCost());
+		int zero = 0;
+		assertTrue(problem.isMinCost(zero));
+		// all ones
+		for (int n = 0; n < 35; n++) {
+			BitVector v = new BitVector(n);
+			v.not();
+			assertEquals(0, problem.cost(v));
+			assertEquals(10*n, problem.value(v));
+		}
+	}
+	
+	@Test
+	public void testOneMaxAckleySingleOne() {
+		OneMaxAckley problem = new OneMaxAckley();
+		// single one
+		for (int n = 1; n <= 8; n++) {
+			for (int shift = 0; shift < n; shift++) {
+				BitVector v = new BitVector(n);
+				v.setBit(shift, 1);
+				assertEquals(10*n-10, problem.cost(v));
+				assertEquals(10, problem.value(v));
+			}
+		}
+	}
+	
+	@Test
+	public void testOneMaxAckleySingleZero() {
+		OneMaxAckley problem = new OneMaxAckley();
+		// single zero
+		for (int n = 1; n <= 8; n++) {
+			for (int shift = 0; shift < n; shift++) {
+				BitVector v = new BitVector(n);
+				v.setBit(shift, 1);
+				v.not();
+				assertEquals(10, problem.cost(v));
+				assertEquals(10*n-10, problem.value(v));
+			}
+		}
+	}
+	
+	@Test
+	public void testOneMaxAckleyHalfOnes() {
+		OneMaxAckley problem = new OneMaxAckley();
+		for (int n = 0; n < 17; n++) {
+			BitVector v = new BitVector(n);
+			for (int shift = 0; shift < n; shift+=2) {
+				v.setBit(shift, 1);
+			}
+			assertEquals(10*(n/2), problem.cost(v));
+			assertEquals(10*((n+1)/2), problem.value(v));
+			v.shiftLeft(1);
+			assertEquals(10*((n+1)/2), problem.cost(v));
+			assertEquals(10*(n/2), problem.value(v));
+		}
+	}
 	
 }
 

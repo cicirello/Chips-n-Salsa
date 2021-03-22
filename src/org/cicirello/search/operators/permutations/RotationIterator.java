@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -19,31 +19,30 @@
  */
  
 package org.cicirello.search.operators.permutations;
-
+ 
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.permutations.Permutation;
-
+ 
 /**
  * Internal (package-private) class implementing an iterator over
- * all adjacent swaps.
+ * all rotations.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 3.22.2021 
  */
-final class AdjacentSwapIterator implements MutationIterator {
+final class RotationIterator implements MutationIterator {
 	
 	private boolean rolled;
 	private boolean hasMore;
 	private final Permutation p;
-	private int i;
+	private int r;
 	private int x;
 	
-	AdjacentSwapIterator(Permutation p) {
+	RotationIterator(Permutation p) {
 		this.p = p;
-		// default init: rolled = false;
-		hasMore = p.length() >= 2;
-		x = i = -1;
+		// default init: rolled = false; x = r = 0;
+		hasMore = p.length() > 1;
 	}
 	
 	@Override
@@ -55,28 +54,22 @@ final class AdjacentSwapIterator implements MutationIterator {
 	public void nextMutant() {
 		if (!hasMore) throw new IllegalStateException("no neighbors left");
 		if (rolled) throw new IllegalStateException("illegal to call nextMutant after calling rollback");
-		if (i >= 0) {
-			p.swap(i,i+1);
-		}
-		i++;
-		p.swap(i,i+1);
-		if (i == p.length()-2) hasMore = false;
+		p.rotate(1);
+		r++;
+		if (r == p.length()-1) hasMore = false;
 	}
 	
 	@Override
 	public void setSavepoint() {
-		x = i;
+		x = r;
 	}
 	
 	@Override
 	public void rollback() {
 		if (!rolled) {
 			rolled = true;
-			if (x < 0) {
-				if (i >= 0) p.swap(i,i+1);
-			} else if (i != x) {
-				p.swap(i,i+1);
-				p.swap(x,x+1);
+			if (x != r) {
+				p.rotate(p.length() - (r-x));
 			}
 		}
 	}

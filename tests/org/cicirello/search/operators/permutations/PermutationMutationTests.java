@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -24,7 +24,10 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.operators.MutationOperator;
+import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.operators.UndoableMutationOperator;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * JUnit 4 test cases for mutation operators on permutations.
@@ -309,6 +312,123 @@ public class PermutationMutationTests {
 			checkIndexPairs(indexPairs);
 		}
 	}
+	
+	@Test
+	public void testRotation() {
+		RotationMutation m = new RotationMutation();
+		undoTester(m);
+		mutateTester(m);
+		splitTester(m);
+		Permutation[] testcases = {
+			new Permutation(new int[] {0}),
+			new Permutation(new int[] {0, 1}), 
+			new Permutation(new int[] {0, 2, 1}), 
+			new Permutation(new int[] {2, 0, 3, 1})
+		};
+		Permutation[][] expectedRaw = {
+			{},
+			{ new Permutation(new int[] {1, 0}) },
+			{ new Permutation(new int[] {2, 1, 0}), new Permutation(new int[] {1, 0, 2}) },
+			{ new Permutation(new int[] {0, 3, 1, 2}), new Permutation(new int[] {3, 1, 2, 0}), new Permutation(new int[] {1, 2, 0, 3}) }
+		};
+		ArrayList<HashSet<Permutation>> expected = new ArrayList<HashSet<Permutation>>();
+		for (int i = 0; i < expectedRaw.length; i++) {
+			HashSet<Permutation> set = new HashSet<Permutation>();
+			for (int j = 0; j < expectedRaw[i].length; j++) {
+				set.add(expectedRaw[i][j]);
+			}
+			expected.add(set);
+		}
+		for (int i = 1; i < testcases.length; i++) {
+			for (int j = 0; j < 8; j++) {
+				Permutation mutant = new Permutation(testcases[i]);
+				m.mutate(mutant);
+				assertTrue(expected.get(i).contains(mutant));
+			}				
+		}
+		for (int i = 0; i < testcases.length; i++) {
+			Permutation p = new Permutation(testcases[i]);
+			final MutationIterator iter = m.iterator(p);
+			HashSet<Permutation> observed = new HashSet<Permutation>();
+			int count = 0;
+			while (iter.hasNext()) {
+				iter.nextMutant();
+				count++;
+				observed.add(p);
+			}
+			assertEquals(count, observed.size());
+			assertEquals(count, expected.get(i).size());
+			assertEquals(expected.get(i), observed);
+			iter.rollback();
+			assertEquals(testcases[i], p);
+		}
+		for (int i = 1; i < testcases.length; i++) {
+			for (int s = 1; s <= expectedRaw[i].length; s++) {
+				Permutation p = new Permutation(testcases[i]);
+				MutationIterator iter = m.iterator(p);
+				HashSet<Permutation> observed = new HashSet<Permutation>();
+				int count = 0;
+				Permutation pExp = null;
+				while (iter.hasNext()) {
+					iter.nextMutant();
+					count++;
+					observed.add(p);
+					if (s==count) {
+						iter.setSavepoint();
+						pExp = new Permutation(p);
+					}
+				}
+				iter.rollback();
+				assertEquals(pExp, p);
+				assertEquals(count, observed.size());
+				assertEquals(count, expected.get(i).size());
+				assertEquals(expected.get(i), observed);
+			}
+			for (int s = 1; s <= expectedRaw[i].length; s++) {
+				Permutation p = new Permutation(testcases[i]);
+				MutationIterator iter = m.iterator(p);
+				int count = 0;
+				Permutation pExp = null;
+				while (iter.hasNext()) {
+					iter.nextMutant();
+					count++;
+					if (s==count) {
+						iter.setSavepoint();
+						pExp = new Permutation(p);
+						break;
+					}
+				}
+				iter.rollback();
+				assertEquals(pExp, p);
+				IllegalStateException thrown = assertThrows( 
+					IllegalStateException.class,
+					() -> iter.nextMutant()
+				);
+			}
+			for (int s = 1; s <= expectedRaw[i].length; s++) {
+				Permutation p = new Permutation(testcases[i]);
+				MutationIterator iter = m.iterator(p);
+				int count = 0;
+				Permutation pExp = null;
+				while (iter.hasNext()) {
+					iter.nextMutant();
+					count++;
+					if (s==count) {
+						iter.setSavepoint();
+						pExp = new Permutation(p);
+					} else if (s==count-1) {
+						break;
+					}
+				}
+				iter.rollback();
+				assertEquals(pExp, p);
+				assertFalse(iter.hasNext());
+				iter.rollback();
+				assertEquals(pExp, p);
+			}
+		}
+	}
+	
 	
 	@Test
 	public void testWindowLimitedInsertion() {

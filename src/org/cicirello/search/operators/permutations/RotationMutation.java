@@ -27,49 +27,56 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 
 /**
- * This class implements an adjacent swap mutation on permutations, where one mutation
- * consists in randomly swapping a pair of adjacent elements.  The random choice
- * of elements is performed uniformly at random from among all adjacent pairs.  If the
- * length of the permutation is n, there are n-1 such adjacent pairs.  The runtime of both
- * the {@link #mutate(Permutation) mutate} and {@link #undo(Permutation) undo} methods is O(1).
+ * <p>This class implements a rotation mutation on permutations, where one mutation
+ * consists in a random circular rotation of the permutation.  The number of positions
+ * to rotate the permutation is uniformly at random from among the n-1 possible rotations,
+ * where the
+ * length of the permutation is n.  The runtime of both
+ * the {@link #mutate(Permutation) mutate} and {@link #undo(Permutation) undo} methods is O(n).</p>
+ *
+ * <p>Unlike the other mutation operators of the Chips-n-Salsa library, it is
+ * not possible to transform one permutation to <b>any</b> other simply via some
+ * sequence of mutations. Thus, RotationMutation is unlikely to be effective as the
+ * only mutation operator. The intention of the RotationMutation is for it to be used 
+ * in combination with other mutation operators.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 3.22.2021
  */
-public final class AdjacentSwapMutation implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
-
-	private int index;
+public final class RotationMutation implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
+	
+	private int r;
 	
 	/**
-	 * Constructs an AdjacentSwapMutation mutation operator.
+	 * Constructs an RotationMutation mutation operator.
 	 */
-	public AdjacentSwapMutation() {}
+	public RotationMutation() {}
 	
 	@Override
 	public void mutate(Permutation c) {
-        if (c.length() >= 2) c.swap(index = RandomIndexer.nextInt(c.length()-1), index+1);
+        if (c.length() > 1) c.rotate(r = 1 + RandomIndexer.nextInt(c.length()-1));
 	}
 	
 	@Override
 	public void undo(Permutation c) {
-		if (c.length() >= 2) c.swap(index, index+1);
+		if (c.length() > 1) c.rotate(c.length() - r);
 	}
 	
 	@Override
-	public AdjacentSwapMutation split() {
-		return new AdjacentSwapMutation();
+	public RotationMutation split() {
+		return new RotationMutation();
 	}
 	
 	/**
 	 * {@inheritDoc}
-	 * <p>The worst case runtime of the {@link MutationIterator#hasNext},
-	 * {@link MutationIterator#nextMutant}, {@link MutationIterator#setSavepoint}, and
-	 * {@link MutationIterator#rollback} methods of the {@link MutationIterator} created by this method
-	 * is O(1).</p>
+	 * <p>The worst case runtime of the {@link MutationIterator#nextMutant}
+	 * and {@link MutationIterator#rollback} methods of the {@link MutationIterator} 
+	 * created by this method is O(n). The runtime of the {@link MutationIterator#hasNext} and
+	 * {@link MutationIterator#setSavepoint} methods is O(1).</p>
 	 */
 	@Override
 	public MutationIterator iterator(Permutation p) {
-		return new AdjacentSwapIterator(p);
+		return new RotationIterator(p);
 	}
 }

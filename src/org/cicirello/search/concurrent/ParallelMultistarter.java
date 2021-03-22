@@ -169,7 +169,7 @@ public final class ParallelMultistarter<T extends Copyable<T>> extends ParallelM
 	 * s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in multistarters).
 	 */
 	public ParallelMultistarter(Collection<? extends Multistarter<T>> multistarters) {
-		super(multistarters, true);
+		super(multistarters);
 	}
 	
 	/*

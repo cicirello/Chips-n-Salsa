@@ -1840,6 +1840,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
  of a candidate solution, as one might do in a hill climber.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/RotationMutation.html#iterator(org.cicirello.permutations.Permutation)">iterator(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/RotationMutation.html" title="class in org.cicirello.search.operators.permutations">RotationMutation</a></dt>
+<dd>
+<div class="block">Creates and returns a <a href="org/cicirello/search/operators/MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
+ systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
+ of a candidate solution, as one might do in a hill climber.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/SwapMutation.html#iterator(org.cicirello.permutations.Permutation)">iterator(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/SwapMutation.html" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></dt>
 <dd>
 <div class="block">Creates and returns a <a href="org/cicirello/search/operators/MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
@@ -2177,6 +2183,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/InsertionMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/InsertionMutation.html" title="class in org.cicirello.search.operators.permutations">InsertionMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/ReversalMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/ReversalMutation.html" title="class in org.cicirello.search.operators.permutations">ReversalMutation</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/RotationMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/RotationMutation.html" title="class in org.cicirello.search.operators.permutations">RotationMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/ScrambleMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/ScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">ScrambleMutation</a></dt>
 <dd>&nbsp;</dd>
@@ -2954,6 +2962,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <a href="org/cicirello/search/operators/MutationIterator.html#setSavepoint()"><code>MutationIterator.setSavepoint()</code></a> method, or its original state if that method has
  not been called.</div>
 </dd>
+<dt><a href="org/cicirello/search/operators/permutations/RotationMutation.html" title="class in org.cicirello.search.operators.permutations"><span class="typeNameLink">RotationMutation</span></a> - Class in <a href="org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></dt>
+<dd>
+<div class="block">This class implements a rotation mutation on permutations, where one mutation
+ consists in a random circular rotation of the permutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/RotationMutation.html#%3Cinit%3E()">RotationMutation()</a></span> - Constructor for class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/RotationMutation.html" title="class in org.cicirello.search.operators.permutations">RotationMutation</a></dt>
+<dd>
+<div class="block">Constructs an RotationMutation mutation operator.</div>
+</dd>
 </dl>
 <a id="I:S">
 <!--   -->
@@ -3368,6 +3385,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/ReversalMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/ReversalMutation.html" title="class in org.cicirello.search.operators.permutations">ReversalMutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/RotationMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/RotationMutation.html" title="class in org.cicirello.search.operators.permutations">RotationMutation</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/ScrambleMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/ScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">ScrambleMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/SwapMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/SwapMutation.html" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></dt>
@@ -3711,6 +3730,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/InsertionMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/InsertionMutation.html" title="class in org.cicirello.search.operators.permutations">InsertionMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/ReversalMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/ReversalMutation.html" title="class in org.cicirello.search.operators.permutations">ReversalMutation</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/RotationMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/RotationMutation.html" title="class in org.cicirello.search.operators.permutations">RotationMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/SwapMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/SwapMutation.html" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></dt>
 <dd>&nbsp;</dd>

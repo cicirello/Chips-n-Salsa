@@ -98,7 +98,7 @@ public final class Trap implements OptimizationProblem<BitVector> {
 		} else if (c < z) {
 			return candidate.length()*(z-c)*8.0/z;
 		} else {
-			return 40*c - 30*candidate.length();
+			return candidate.length()*(c-z)*10.0/(n-z);
 		}
 	}
 	

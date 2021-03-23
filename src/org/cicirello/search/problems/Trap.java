@@ -55,9 +55,15 @@ import org.cicirello.search.representations.BitVector;
  * is still all 1-bits, which has a cost equal to 0.  The local optima
  * is still all 0-bits, which has a cost equal to 2*n.</p>
  *
+ * <p>The Trap problem
+ * was introduced by David Ackley in the following paper:<br>
+ * David H. Ackley. An empirical study of bit vector function optimization. Genetic
+ * Algorithms and Simulated Annealing,
+ * pages 170-204, 1987.</p>
+ *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.18.2021
+ * @version 3.23.2021
  */
 public final class Trap implements OptimizationProblem<BitVector> {
 	

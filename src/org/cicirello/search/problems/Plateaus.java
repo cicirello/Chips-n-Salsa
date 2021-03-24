@@ -109,7 +109,7 @@ public final class Plateaus implements OptimizationProblem<BitVector> {
 	private boolean isBlockAllOnes(BitVector.BitIterator iter, int stillNeed) {
 		while (stillNeed >= 32) {
 			stillNeed -= 32;
-			if ((0xffffffff & iter.nextBitBlock(32)) != 0xffffffff) {
+			if (iter.nextBitBlock(32) != 0xffffffff) {
 				while (stillNeed >= 32) {
 					iter.nextBitBlock(32);
 					stillNeed -= 32;
@@ -122,7 +122,7 @@ public final class Plateaus implements OptimizationProblem<BitVector> {
 		}
 		if (stillNeed > 0) {
 			int mask = (1 << stillNeed) - 1;
-			if ((mask & iter.nextBitBlock(stillNeed)) != mask) {
+			if (iter.nextBitBlock(stillNeed) != mask) {
 				return false;
 			}
 		}

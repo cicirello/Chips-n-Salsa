@@ -30,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Bug in definition of Ackley's Trap function (had been missing a 
+  floor due to an error in a secondary source of description of problem).
 
 ### CI/CD
 

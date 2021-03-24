@@ -42,8 +42,10 @@ public class TrapTests {
 		// 0 ones
 		for (int n = 0; n < 8; n++) {
 			BitVector v = new BitVector(n);
-			assertEquals(2.0*n, problem.cost(v), 0.0);
-			assertEquals(8.0*n, problem.value(v), 0.0);
+			double expectedCost = n <= 1 ? 10*n : 2*n;
+			double expectedValue = n <= 1 ? 0 : 8*n;
+			assertEquals(expectedCost, problem.cost(v), 0.0);
+			assertEquals(expectedValue, problem.value(v), 0.0);
 		}
 	}
 		

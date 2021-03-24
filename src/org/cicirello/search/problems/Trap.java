@@ -35,7 +35,7 @@ import org.cicirello.search.representations.BitVector;
  *
  * <p>The Trap problem is to maximize the following
  * fitness function, f(x), where x is a vector of n bits. 
- * Let z = 0.75n.  If CountOfOneBits(x) &le; z,
+ * Let z = floor((3/4)n).  If CountOfOneBits(x) &le; z,
  * then f(x) = (8n/z)(z-c). Otherwise, f(x) = (10n/(n-z))(c-z).</p>
  *
  * <p>The global optimal solution is
@@ -55,9 +55,15 @@ import org.cicirello.search.representations.BitVector;
  * is still all 1-bits, which has a cost equal to 0.  The local optima
  * is still all 0-bits, which has a cost equal to 2*n.</p>
  *
+ * <p>The Trap problem
+ * was introduced by David Ackley in the following paper:<br>
+ * David H. Ackley. An empirical study of bit vector function optimization. Genetic
+ * Algorithms and Simulated Annealing,
+ * pages 170-204, 1987.</p>
+ *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.18.2021
+ * @version 3.24.2021
  */
 public final class Trap implements OptimizationProblem<BitVector> {
 	
@@ -69,10 +75,15 @@ public final class Trap implements OptimizationProblem<BitVector> {
 	@Override
 	public double cost(BitVector candidate) {
 		int c = candidate.countOnes();
-		if (c <= 0.75*candidate.length()) {
-			return 2*candidate.length() + 10.666666666666666*c;
+		// Handle the floor(3n/4) using integer division by 4,
+		// optimized here with a right-shift by 2 bits.
+		int z = (3*candidate.length()) >> 2;
+		if (c == z) {
+			return 10 * candidate.length();
+		} else if (c < z) {
+			return candidate.length() * (2.0 + (c << 3) / ((double)z));
 		} else {
-			return 40 * (candidate.length() - c);
+			return 10*candidate.length() * (((double)(candidate.length() - c)) / (candidate.length() - z));
 		}
 	}
 	
@@ -84,10 +95,18 @@ public final class Trap implements OptimizationProblem<BitVector> {
 	@Override
 	public double value(BitVector candidate) {
 		int c = candidate.countOnes();
-		if (c <= 0.75*candidate.length()) {
-			return 8*candidate.length() - 10.666666666666666*c;
+		// Handle the floor(3n/4) using integer division by 4,
+		// optimized here with a right-shift by 2 bits.
+		int z = (3*candidate.length()) >> 2;
+		if (c == z) {
+			// Handle equality as a special case despite original
+			// description including it in next case, to avoid a
+			// potential division by 0.
+			return 0;
+		} else if (c < z) {
+			return (candidate.length() << 3)*(((double)(z-c))/z);
 		} else {
-			return 40*c - 30*candidate.length();
+			return 10*candidate.length()*(((double)(c-z))/(candidate.length()-z));
 		}
 	}
 	

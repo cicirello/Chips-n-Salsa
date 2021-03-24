@@ -154,7 +154,7 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 
  <p>The Trap problem is to maximize the following
  fitness function, f(x), where x is a vector of n bits. 
- Let z = 0.75n.  If CountOfOneBits(x) &le; z,
+ Let z = floor((3/4)n).  If CountOfOneBits(x) &le; z,
  then f(x) = (8n/z)(z-c). Otherwise, f(x) = (10n/(n-z))(c-z).</p>
 
  <p>The global optimal solution is
@@ -172,7 +172,13 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
  cost(x) = 10*n - f(x), where f(x) is the Trap function as defined above.  
  The global optima
  is still all 1-bits, which has a cost equal to 0.  The local optima
- is still all 0-bits, which has a cost equal to 2*n.</p></div>
+ is still all 0-bits, which has a cost equal to 2*n.</p>
+
+ <p>The Trap problem
+ was introduced by David Ackley in the following paper:<br>
+ David H. Ackley. An empirical study of bit vector function optimization. Genetic
+ Algorithms and Simulated Annealing,
+ pages 170-204, 1987.</p></div>
 </li>
 </ul>
 </div>

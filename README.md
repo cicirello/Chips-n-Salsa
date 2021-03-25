@@ -114,4 +114,7 @@ The Chips-n-Salsa library is licensed under the [GNU General Public License 3.0]
 If you would like to contribute to Chips-n-Salsa in any way, such 
 as reporting bugs, suggesting new functionality, or code contributions 
 such as bug fixes or implementations of new functionality, then start 
-by reading the [contribution guidelines](https://github.com/cicirello/.github/blob/main/CONTRIBUTING.md).
+by reading 
+the [contribution guidelines](https://github.com/cicirello/.github/blob/main/CONTRIBUTING.md).
+This project also follows 
+the [Contributors Covenant Code of Conduct](https://github.com/cicirello/.github/blob/main/CODE_OF_CONDUCT.md).

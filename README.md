@@ -116,5 +116,5 @@ as reporting bugs, suggesting new functionality, or code contributions
 such as bug fixes or implementations of new functionality, then start 
 by reading 
 the [contribution guidelines](https://github.com/cicirello/.github/blob/main/CONTRIBUTING.md).
-This project also follows 
-the [Contributors Covenant Code of Conduct](https://github.com/cicirello/.github/blob/main/CODE_OF_CONDUCT.md).
+This project has adopted 
+the [Contributor Covenant Code of Conduct](https://github.com/cicirello/.github/blob/main/CODE_OF_CONDUCT.md).

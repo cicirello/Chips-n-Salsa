@@ -84,6 +84,7 @@ public class PlateausTests {
 			32, 32,
 			128,
 			128,
+			132,
 			132
 		};
 		int[][] cases = {
@@ -91,13 +92,140 @@ public class PlateausTests {
 			{0xFEFEFEFE}, {0x7F7F7F7F},
 			{0xFFFFFFFE, 0xFFFFFFFE, 0xFFFFFFFE, 0xFFFFFFFE},
 			{0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF},
-			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFB, 0x7}
+			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFB, 0x7},
+			{0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFB, 0xFFFFFFF7, 0xF}
 		};
 		for (int i = 0; i < cases.length; i++) {
 			int n = length[i];
 			BitVector v = new BitVector(n, cases[i]);
 			assertEquals("i:"+i+" n:"+n, 0.0, problem.value(v), 0.0);
 			assertEquals("i:"+i+" n:"+n, 10.0*n, problem.cost(v), 0.0);
+		}
+	}
+	
+	@Test
+	public void testPlateausValue25() {
+		Plateaus problem = new Plateaus();
+		int[] length = {
+			4, 4, 4, 4,
+			8, 8, 8, 8, 8, 8, 8, 8,
+			32, 32, 32, 32, 32, 32, 32, 32,
+			128, 128, 128, 128,
+			128, 128, 128, 128,
+			132, 132, 132, 132,
+			132, 132, 132, 132
+		};
+		int[][] cases = {
+			{1}, {2}, {4}, {8}, 
+			{0xAB}, {0xBA}, {0xAE}, {0xEA}, {0xD5}, {0x5D}, {0x57}, {0x75}, 
+			{0xFFFEFEFE}, {0xFEFFFEFE}, {0xFEFEFFFE}, {0xFEFEFEFF}, 
+			{0xFF7F7F7F}, {0x7FFF7F7F}, {0x7F7FFF7F}, {0x7F7F7FFF},
+			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFE, 0xFFFFFFFE},
+			{0xFFFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF},
+			{0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFE},
+			{0x7FFFFFFF, 0xFFFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF},
+			{0xFFFFFFFE, 0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFE},
+			{0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, 0x7FFFFFFF},
+			{0xFFFFFFFE, 0xFFFFFFFE, 0xFFFFFFFE, 0xFFFFFFFF},
+			{0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFD, 0xFFFFFFFB, 0x7},
+			{0xFFFFFFFF, 0xFFFFFFFD, 0xFFFFFFFB, 0xFFFFFFF7, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFB, 0x7},
+			{0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFB, 0xFFFFFFF7, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFF, 0x7},
+			{0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFF, 0xFFFFFFF7, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFB, 0xF},
+			{0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFB, 0xFFFFFFFF, 0xF}
+		};
+		for (int i = 0; i < cases.length; i++) {
+			int n = length[i];
+			BitVector v = new BitVector(n, cases[i]);
+			assertEquals("i:"+i+" n:"+n, 2.5*n, problem.value(v), 0.0);
+			assertEquals("i:"+i+" n:"+n, 7.5*n, problem.cost(v), 0.0);
+		}
+	}
+	
+	@Test
+	public void testPlateausValue5() {
+		Plateaus problem = new Plateaus();
+		int[] length = {
+			4, 4, 4, 4, 4, 4,
+			8, 8, 8, 8, 8, 8, 8, 8,
+			32, 32, 32, 32, 32, 32, 32, 32,
+			128, 128, 128, 128,
+			128, 128, 128, 128,
+			132, 132, 132, 132,
+			132, 132, 132, 132
+		};
+		int[][] cases = {
+			{3}, {6}, {10}, {12}, {9}, {5},
+			{0xBB}, {0xFA}, {0xAF}, {0xEB}, {0xD7}, {0x7D}, {0x5F}, {0xF5}, 
+			{0xFFFFFEFE}, {0xFEFFFEFF}, {0xFEFEFFFF}, {0xFFFEFEFF}, 
+			{0xFF7F7FFF}, {0xFFFF7F7F}, {0x7FFFFF7F}, {0x7F7FFFFF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFE},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF},
+			{0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFE},
+			{0x7FFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x7FFFFFFF},
+			{0xFFFFFFFE, 0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF},
+			{0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
+			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFE, 0xFFFFFFFF},
+			{0xFFFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFB, 0x7},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFB, 0xFFFFFFF7, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0x7},
+			{0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFF7, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFF, 0xF},
+			{0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFF, 0xFFFFFFFF, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFD, 0xFFFFFFFB, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFD, 0xFFFFFFFB, 0xFFFFFFFF, 0xF}
+		};
+		for (int i = 0; i < cases.length; i++) {
+			int n = length[i];
+			BitVector v = new BitVector(n, cases[i]);
+			assertEquals("i:"+i+" n:"+n, 5.0*n, problem.value(v), 0.0);
+			assertEquals("i:"+i+" n:"+n, 5.0*n, problem.cost(v), 0.0);
+		}
+	}
+	
+	@Test
+	public void testPlateausValue75() {
+		Plateaus problem = new Plateaus();
+		int[] length = {
+			4, 4, 4, 4,
+			8, 8, 8, 8, 8, 8, 8, 8,
+			32, 32, 32, 32, 32, 32, 32, 32,
+			128, 128, 128, 128,
+			128, 128, 128, 128,
+			132, 132, 132, 132,
+			132, 132, 132, 132
+		};
+		int[][] cases = {
+			{7}, {11}, {13}, {14},
+			{0xFE}, {0xFD}, {0xFB}, {0xF7}, {0xEF}, {0xDF}, {0xBF}, {0x7F}, 
+			{0xFFFFFFFE}, {0xFFFFFEFF}, {0xFFFEFFFF}, {0xFEFFFFFF}, 
+			{0xFFFF7FFF}, {0xFFFFFF7F}, {0x7FFFFFFF}, {0xFF7FFFFF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFE},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x7FFFFFFF},
+			{0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
+			{0x7FFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
+			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF},
+			{0xFFFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0x7FFFFFFF, 0xFFFFFFFF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFB, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFF7, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x7},
+			{0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFD, 0xFFFFFFFF, 0xFFFFFFFF, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFD, 0xFFFFFFFF, 0xF},
+			{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFB, 0xFFFFFFFF, 0xF}
+		};
+		for (int i = 0; i < cases.length; i++) {
+			int n = length[i];
+			BitVector v = new BitVector(n, cases[i]);
+			assertEquals("i:"+i+" n:"+n, 7.5*n, problem.value(v), 0.0);
+			assertEquals("i:"+i+" n:"+n, 2.5*n, problem.cost(v), 0.0);
 		}
 	}
 	

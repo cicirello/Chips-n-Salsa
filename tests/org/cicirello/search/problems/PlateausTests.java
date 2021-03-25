@@ -76,4 +76,29 @@ public class PlateausTests {
 		}
 	}
 	
+	@Test
+	public void testPlateausValue0() {
+		Plateaus problem = new Plateaus();
+		int[] length = {
+			4, 8, 8, 8,
+			32, 32,
+			128,
+			128,
+			132
+		};
+		int[][] cases = {
+			{0}, {0}, {0xAA}, {0x55},
+			{0xFEFEFEFE}, {0x7F7F7F7F},
+			{0xFFFFFFFE, 0xFFFFFFFE, 0xFFFFFFFE, 0xFFFFFFFE},
+			{0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF, 0x7FFFFFFF},
+			{0xFFFFFFFF, 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFB, 0x7}
+		};
+		for (int i = 0; i < cases.length; i++) {
+			int n = length[i];
+			BitVector v = new BitVector(n, cases[i]);
+			assertEquals("i:"+i+" n:"+n, 0.0, problem.value(v), 0.0);
+			assertEquals("i:"+i+" n:"+n, 10.0*n, problem.cost(v), 0.0);
+		}
+	}
+	
 }

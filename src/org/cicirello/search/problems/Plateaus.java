@@ -84,7 +84,7 @@ public final class Plateaus implements OptimizationProblem<BitVector> {
 		// Num segments with an extra bit if n not divisible by 4
 		int r = candidate.length() & 3;
 		int blockCount = 0;
-		BitVector.BitIterator iter = candidate.bitIterator();
+		BitVector.BitIterator iter = candidate.bitIterator(32);
 		for (int i = r; i < 4; i++) {
 			if (isBlockAllOnes(iter, m)) {
 				blockCount++;
@@ -109,9 +109,9 @@ public final class Plateaus implements OptimizationProblem<BitVector> {
 	private boolean isBlockAllOnes(BitVector.BitIterator iter, int stillNeed) {
 		while (stillNeed >= 32) {
 			stillNeed -= 32;
-			if (iter.nextBitBlock(32) != 0xffffffff) {
+			if (iter.nextBitBlock() != 0xffffffff) {
 				while (stillNeed >= 32) {
-					iter.nextBitBlock(32);
+					iter.nextBitBlock();
 					stillNeed -= 32;
 				}
 				if (stillNeed > 0) {

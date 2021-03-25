@@ -269,6 +269,29 @@ public class BitVectorTests {
 	}
 	
 	@Test
+	public void testIteratorSkip() {
+		for (int s = 0; s <= 65; s++) {
+			BitVector b = new BitVector(s + 1);
+			b.flip(s);
+			final BitVector.BitIterator iter = b.bitIterator();
+			iter.skip(s);
+			assertEquals(1, iter.nextBit());
+			IllegalArgumentException thrown = assertThrows( 
+				IllegalArgumentException.class,
+				() -> iter.skip(1)
+			);
+		}
+		for (int s = 0; s <= 65; s++) {
+			BitVector b = new BitVector(s + 32);
+			b.flip(31+s);
+			BitVector.BitIterator iter = b.bitIterator();
+			iter.skip(31);
+			iter.skip(s);
+			assertEquals(1, iter.nextBit());
+		}
+	}
+	
+	@Test
 	public void testBitIteratorNextBitBlock() {
 		int[][] bits = {
 			{ 0xaaaaaaaa, 0xaaaaaaaa}, // use for k = 1

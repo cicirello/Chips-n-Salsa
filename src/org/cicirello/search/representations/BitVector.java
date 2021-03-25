@@ -678,6 +678,33 @@ public final class BitVector implements Copyable<BitVector> {
 		}
 		
 		/**
+		 * Skips this BitIterator past a segment of bits.
+		 * @param k The number of bits to skip.
+		 * @throws IllegalArgumentException if there are fewer than k bits remaining.
+		 */
+		public void skip(int k) {
+			if (count + k > bitLength) {
+				throw new IllegalArgumentException("requested more bits than remain");
+			}
+			int numBlocksOf32 = k >> 5;
+			if (numBlocksOf32 > 0) {
+				index += numBlocksOf32;
+				count += (numBlocksOf32 << 5);
+			}
+			k = k & 0x1F;
+			if (k > 0) {
+				if (remaining >= k) {
+					remaining -= k;
+					count += k;
+				} else {
+					remaining = 32 - (k - remaining);
+					index++;
+					count += k;
+				}
+			}
+		}
+		
+		/**
 		 * Gets the next bit from the BitVector.  Unlike the {@link #nextBitBlock()} method,
 		 * this method just gets 1 bit at a time, rather than a block of bits.
 		 * @return the next bit, which will be in the least significant place of the

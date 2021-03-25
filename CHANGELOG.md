@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   problem as described by Ackley (1985), whereas the existing OneMax 
   class in the library implements a variation. Ackley defined the problem
   as maximize 10 * number of one bits.
+* BitVector.BitIterator.skip() method.
 
 ### Changed
 * Refactored ParallelMultistarter class to reduce redundancy among its constructors.

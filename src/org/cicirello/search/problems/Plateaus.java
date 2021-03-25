@@ -58,7 +58,7 @@ import org.cicirello.search.representations.BitVector;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.24.2021
+ * @version 3.25.2021
  */
 public final class Plateaus implements OptimizationProblem<BitVector> {
 	
@@ -110,13 +110,7 @@ public final class Plateaus implements OptimizationProblem<BitVector> {
 		while (stillNeed >= 32) {
 			stillNeed -= 32;
 			if (iter.nextBitBlock() != 0xffffffff) {
-				while (stillNeed >= 32) {
-					iter.nextBitBlock();
-					stillNeed -= 32;
-				}
-				if (stillNeed > 0) {
-					iter.nextBitBlock(stillNeed);
-				}
+				iter.skip(stillNeed);
 				return false;
 			}
 		}

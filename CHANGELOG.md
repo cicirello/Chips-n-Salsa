@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   class in the library implements a variation. Ackley defined the problem
   as maximize 10 * number of one bits.
 * BitVector.BitIterator.skip() method.
+* Plateaus class implements the Plateaus problem, originally described by Ackley (1987),
+  and is an optimization problem over the space of bit strings, characterized by large
+  flat areas.
 
 ### Changed
 * Refactored ParallelMultistarter class to reduce redundancy among its constructors.

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -31,11 +31,9 @@ import java.util.Arrays;
  * iterating over the bits, either one bit at a time, or groups of bits.  Indexes into a BitVector
  * begin at 0, and index 0 refers to the least significant bit (&quot;right-most&quot; bit).
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.10.2020
+ * @version 3.25.2021
  */
 public final class BitVector implements Copyable<BitVector> {
 	
@@ -675,6 +673,33 @@ public final class BitVector implements Copyable<BitVector> {
 				}
 			}
 			return block;
+		}
+		
+		/**
+		 * Skips this BitIterator past a segment of bits.
+		 * @param k The number of bits to skip.
+		 * @throws IllegalArgumentException if there are fewer than k bits remaining.
+		 */
+		public void skip(int k) {
+			if (count + k > bitLength) {
+				throw new IllegalArgumentException("requested more bits than remain");
+			}
+			int numBlocksOf32 = k >> 5;
+			if (numBlocksOf32 > 0) {
+				index += numBlocksOf32;
+				count += (numBlocksOf32 << 5);
+			}
+			k = k & 0x1F;
+			if (k > 0) {
+				if (remaining >= k) {
+					remaining -= k;
+					count += k;
+				} else {
+					remaining = 32 - (k - remaining);
+					index++;
+					count += k;
+				}
+			}
 		}
 		
 		/**

@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-3-26
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.10.0] - 2021-3-26
+
+### Added
 * Enhanced support for parallel metaheuristics, including:
     * ParallelMetaheuristic class, which enables running multiple copies of a
       metaheuristic, or multiple metaheuristics, in parallel using multiple threads.
@@ -39,16 +54,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * Refactored ParallelReoptimizableMultistarter class to utilize the 
       new ParallelReoptimizableMetaheuristic as its super class.
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 * Bug in definition of Ackley's Trap function (had been missing a 
   floor due to an error in a secondary source of description of problem).
-
-### CI/CD
-
+  
 
 ## [2.9.0] - 2021-3-20
 

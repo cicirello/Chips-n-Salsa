@@ -33,7 +33,7 @@ import java.util.Arrays;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.25.2021
+ * @version 3.26.2021
  */
 public final class BitVector implements Copyable<BitVector> {
 	
@@ -100,6 +100,52 @@ public final class BitVector implements Copyable<BitVector> {
 		bits = other.bits.clone();
 		bitLength = other.bitLength;
 		lastIntMask = other.lastIntMask;
+	}
+	
+	/**
+	 * Check if the BitVector contains all 0-bits.
+	 * @return true If all of the bits are equal to 0, and false otherwise.
+	 * Note that if the length of the BitVector is 0, this method returns
+	 * true.
+	 */
+	public boolean allZeros() {
+		for (int i = 0; i < bits.length; i++) {
+			if (bits[i] != 0) return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Check if the BitVector contains all 1-bits.
+	 * @return true If all of the bits are equal to 1, and false otherwise.
+	 * Note that if the length of the BitVector is 0, this method returns
+	 * true.
+	 */
+	public boolean allOnes() {
+		for (int i = bits.length - 2; i >= 0; i--) {
+			if (bits[i] != 0xFFFFFFFF) return false;
+		}
+		return bits.length == 0 || bits[bits.length - 1] == lastIntMask;
+	}
+	
+	/**
+	 * Check if the BitVector contains any bits equal to a 1.
+	 * @return true If there is at least one 1-bit, and false otherwise.
+	 * Note that if the length of the BitVector is 0, this method returns
+	 * false.
+	 */
+	public boolean anyOnes() {
+		return !allZeros();
+	}
+	
+	/**
+	 * Check if the BitVector contains any bits equal to a 0.
+	 * @return true If there is at least one 0-bit, and false otherwise.
+	 * Note that if the length of the BitVector is 0, this method returns
+	 * false.
+	 */
+	public boolean anyZeros() {
+		return !allOnes();
 	}
 	
 	/**
@@ -556,7 +602,6 @@ public final class BitVector implements Copyable<BitVector> {
 	 * }
 	 * </code></pre>
 	 *
-	 * @since 1.0
 	 */
 	public final class BitIterator {
 		
@@ -599,6 +644,14 @@ public final class BitVector implements Copyable<BitVector> {
 		 */
 		public boolean hasNext() {
 			return count < bitLength;
+		}
+		
+		/**
+		 * Gets the number of bits remaining in the iterator.
+		 * @return the number of bits not yet iterated over.
+		 */
+		public int numRemainingBits() {
+			return count >= bitLength ? 0 : bitLength - count;
 		}
 		
 		/**
@@ -650,27 +703,37 @@ public final class BitVector implements Copyable<BitVector> {
 		public int nextBitBlock(int k) {
 			if (k <= 0 || k > 32) throw new IllegalArgumentException("k is outside the range [1,32]");
 			if (count >= bitLength) throw new IllegalStateException();
-			if (remaining == 0) {
-				index++;
-				remaining = 32; 
+			return internalNextBitBlock(k);
+		}
+		
+		/**
+		 * Gets the next block of bits from the BitVector. 
+		 * @param k The block size, which overrides the default block size
+		 * that was used when the BitIterator was initiated for this call
+		 * only. Unlike the {@link #nextBitBlock} methods, this method
+		 * is not limited in block size, other than by the number of
+		 * remaining bits.    
+		 *
+		 * @return the next block of bits, as an array of ints, with the
+		 * first 32 bits of the block filled from least significant to most
+		 * significant bit of a[0], where a is the array that is returned,
+		 * and the next 32 bits filled similarly into a[1], etc.
+		 * @throws IllegalArgumentException if there are fewer than k bits remaining.
+		 */
+		public int[] nextLargeBitBlock(int k) {
+			if (count + k > bitLength) {
+				throw new IllegalArgumentException("requested more bits than remain");
 			}
-			int block;
-			int mask = 0xffffffff >>> (32-k);
-			if (remaining >= k) {
-				block = (bits[index] >>> (32 - remaining)) & mask;
-				remaining -= k;
-				count += k;
-			} else {
-				block = (bits[index] >>> (32 - remaining));
-				index++;
-				if (index < bits.length) {
-					block |= (bits[index] << remaining) & mask;
-					remaining += 32 - k; 
-					count += k;
-				} else {
-					count += k;
-					remaining = 0;
-				}
+			int numBlocksOf32 = k >> 5;
+			int numExtraBits = k & 0x1F;
+			int n = numBlocksOf32;
+			if (numExtraBits > 0) n++;
+			int[] block = new int[n];
+			for (int i = 0; i < numBlocksOf32; i++) {
+				block[i] = internalNextBitBlock(32);
+			}
+			if (numExtraBits > 0) {
+				block[numBlocksOf32] = internalNextBitBlock(numExtraBits);
 			}
 			return block;
 		}
@@ -719,6 +782,32 @@ public final class BitVector implements Copyable<BitVector> {
 			remaining--;
 			count++; 
 			return bit;
+		}
+		
+		private int internalNextBitBlock(int k) {
+			if (remaining == 0) {
+				index++;
+				remaining = 32; 
+			}
+			int block;
+			int mask = 0xffffffff >>> (32-k);
+			if (remaining >= k) {
+				block = (bits[index] >>> (32 - remaining)) & mask;
+				remaining -= k;
+				count += k;
+			} else {
+				block = (bits[index] >>> (32 - remaining));
+				index++;
+				if (index < bits.length) {
+					block |= (bits[index] << remaining) & mask;
+					remaining += 32 - k; 
+					count += k;
+				} else {
+					count += k;
+					remaining = 0;
+				}
+			}
+			return block;
 		}
 	}
 }

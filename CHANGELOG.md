@@ -21,6 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * Plateaus class implements the Plateaus problem, originally described by Ackley (1987),
       and is an optimization problem over the space of bit strings, characterized by large
       flat areas.
+    * Mix class implements the Mix problem, originally described by Ackley (1987),
+      and is an optimization problem over the space of bit strings, that mixes the
+      characteristics of OneMax, TwoMax, Trap, Porcupine, and Plateau problems.
 * Added the following predicate methods to BitVector: allOnes, allZeros, anyOnes, anyZeros.
 * Enhancements to BitVector.BitIterator, including:
     * BitVector.BitIterator.skip() method enabling skipping over bits.

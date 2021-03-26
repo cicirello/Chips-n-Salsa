@@ -30,7 +30,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -230,13 +230,41 @@ implements <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.ht
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#allOnes()">allOnes</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Check if the BitVector contains all 1-bits.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#allZeros()">allZeros</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Check if the BitVector contains all 0-bits.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#and(org.cicirello.search.representations.BitVector)">and</a></span>&#8203;(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;other)</code></th>
 <td class="colLast">
 <div class="block">Computes the bitwise AND of this BitVector and another BitVector.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#anyOnes()">anyOnes</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Check if the BitVector contains any bits equal to a 1.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#anyZeros()">anyZeros</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Check if the BitVector contains any bits equal to a 0.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="BitVector.BitIterator.html" title="class in org.cicirello.search.representations">BitVector.BitIterator</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bitIterator()">bitIterator</a></span>()</code></th>
 <td class="colLast">
@@ -244,7 +272,7 @@ implements <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.ht
  this BitVector, one bit at a time.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="BitVector.BitIterator.html" title="class in org.cicirello.search.representations">BitVector.BitIterator</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bitIterator(int)">bitIterator</a></span>&#8203;(int&nbsp;k)</code></th>
 <td class="colLast">
@@ -252,35 +280,35 @@ implements <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.ht
  this BitVector.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#copy()">copy</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates an identical copy of this object.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#countOnes()">countOnes</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Counts the number of bits in the bit vector whose value is a 1.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#countZeros()">countZeros</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Counts the number of bits in the bit vector whose value is a 0.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a>&nbsp;other)</code></th>
 <td class="colLast">
 <div class="block">Indicates whether some other object is equal to this one.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#flip(int)">flip</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">
@@ -288,63 +316,63 @@ implements <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.ht
  change to a 1; if it is a 1, change to a 0).</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get32(int)">get32</a></span>&#8203;(int&nbsp;i)</code></th>
 <td class="colLast">
 <div class="block">Gets a block of up to 32 bits.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBit(int)">getBit</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">
 <div class="block">Gets the value of the bit at a designated index.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns a hash code value for the object.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isOne(int)">isOne</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">
 <div class="block">Checks if the bit at a designated index is equal to a 1.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isZero(int)">isZero</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">
 <div class="block">Checks if the bit at a designated index is equal to a 0.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#length()">length</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the length of the bit vector in number of bits.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#not()">not</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Computes the bitwise complement of this BitVector.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#or(org.cicirello.search.representations.BitVector)">or</a></span>&#8203;(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;other)</code></th>
 <td class="colLast">
 <div class="block">Computes the bitwise OR of this BitVector and another BitVector.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#set32(int,int)">set32</a></span>&#8203;(int&nbsp;i,
      int&nbsp;block)</code></th>
@@ -352,7 +380,7 @@ implements <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.ht
 <div class="block">Sets a block of up to 32 bits.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBit(int,int)">setBit</a></span>&#8203;(int&nbsp;index,
       int&nbsp;bitValue)</code></th>
@@ -360,7 +388,7 @@ implements <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.ht
 <div class="block">Sets the value of the bit at a designated index.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#shiftLeft(int)">shiftLeft</a></span>&#8203;(int&nbsp;numBits)</code></th>
 <td class="colLast">
@@ -368,7 +396,7 @@ implements <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.ht
  the right.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#shiftRight(int)">shiftRight</a></span>&#8203;(int&nbsp;numBits)</code></th>
 <td class="colLast">
@@ -376,12 +404,12 @@ implements <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.ht
  the left.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#xor(org.cicirello.search.representations.BitVector)">xor</a></span>&#8203;(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;other)</code></th>
 <td class="colLast">
@@ -477,6 +505,70 @@ implements <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.ht
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="allZeros()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>allZeros</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;allZeros()</pre>
+<div class="block">Check if the BitVector contains all 0-bits.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true If all of the bits are equal to 0, and false otherwise.
+ Note that if the length of the BitVector is 0, this method returns
+ true.</dd>
+</dl>
+</li>
+</ul>
+<a id="allOnes()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>allOnes</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;allOnes()</pre>
+<div class="block">Check if the BitVector contains all 1-bits.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true If all of the bits are equal to 1, and false otherwise.
+ Note that if the length of the BitVector is 0, this method returns
+ true.</dd>
+</dl>
+</li>
+</ul>
+<a id="anyOnes()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>anyOnes</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;anyOnes()</pre>
+<div class="block">Check if the BitVector contains any bits equal to a 1.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true If there is at least one 1-bit, and false otherwise.
+ Note that if the length of the BitVector is 0, this method returns
+ false.</dd>
+</dl>
+</li>
+</ul>
+<a id="anyZeros()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>anyZeros</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;anyZeros()</pre>
+<div class="block">Check if the BitVector contains any bits equal to a 0.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true If there is at least one 0-bit, and false otherwise.
+ Note that if the length of the BitVector is 0, this method returns
+ false.</dd>
+</dl>
+</li>
+</ul>
 <a id="length()">
 <!--   -->
 </a>

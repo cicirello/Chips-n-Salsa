@@ -162,6 +162,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs an AdjacentSwapMutation mutation operator.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.html#allOnes()">allOnes()</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
+<dd>
+<div class="block">Check if the BitVector contains all 1-bits.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.html#allZeros()">allZeros()</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
+<dd>
+<div class="block">Check if the BitVector contains all 0-bits.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.html#and(org.cicirello.search.representations.BitVector)">and(BitVector)</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
 <div class="block">Computes the bitwise AND of this BitVector and another BitVector.</div>
@@ -170,6 +178,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">This interface specifies the required functionality for implementations of
  annealing schedules.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.html#anyOnes()">anyOnes()</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
+<dd>
+<div class="block">Check if the BitVector contains any bits equal to a 1.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.html#anyZeros()">anyZeros()</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
+<dd>
+<div class="block">Check if the BitVector contains any bits equal to a 0.</div>
 </dd>
 <dt><a href="org/cicirello/search/problems/scheduling/ApparentTardinessCost.html" title="class in org.cicirello.search.problems.scheduling"><span class="typeNameLink">ApparentTardinessCost</span></a> - Class in <a href="org/cicirello/search/problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a></dt>
 <dd>
@@ -501,6 +517,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedSquaredTardiness.html#cost(org.cicirello.permutations.Permutation)">cost(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedSquaredTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedSquaredTardiness</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedTardiness.html#cost(org.cicirello.permutations.Permutation)">cost(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedTardiness</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Mix.html#cost(org.cicirello.search.representations.BitVector)">cost(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Mix.html" title="class in org.cicirello.search.problems">Mix</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/OneMax.html#cost(org.cicirello.search.representations.BitVector)">cost(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/OneMax.html" title="class in org.cicirello.search.problems">OneMax</a></dt>
 <dd>&nbsp;</dd>
@@ -1742,6 +1760,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/PartialPermutation.html#isComplete()">isComplete()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Mix.html#isMinCost(double)">isMinCost(double)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Mix.html" title="class in org.cicirello.search.problems">Mix</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/OptimizationProblem.html#isMinCost(double)">isMinCost(double)</a></span> - Method in interface org.cicirello.search.problems.<a href="org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a></dt>
 <dd>
 <div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
@@ -2050,6 +2070,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">A lower bound on the minimum theoretical cost across all possible solutions
  to the problem instance, where lower cost implies better solution.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Mix.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Mix.html" title="class in org.cicirello.search.problems">Mix</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/OneMax.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/OneMax.html" title="class in org.cicirello.search.problems">OneMax</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/OneMaxAckley.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/OneMaxAckley.html" title="class in org.cicirello.search.problems">OneMaxAckley</a></dt>
@@ -2137,6 +2159,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/MinimumSlackTime.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblem)">MinimumSlackTime(SingleMachineSchedulingProblem)</a></span> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/MinimumSlackTime.html" title="class in org.cicirello.search.problems.scheduling">MinimumSlackTime</a></dt>
 <dd>
 <div class="block">Constructs an MinimumSlackTime heuristic.</div>
+</dd>
+<dt><a href="org/cicirello/search/problems/Mix.html" title="class in org.cicirello.search.problems"><span class="typeNameLink">Mix</span></a> - Class in <a href="org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></dt>
+<dd>
+<div class="block">This class implements Ackley's Mix problem, an artificial landscape that
+ is a mix of the OneMax, TwoMax, Trap, and Plateau problems, which provides
+ for a landscape that combines all of the properties of these benchmarking
+ problems.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Mix.html#%3Cinit%3E()">Mix()</a></span> - Constructor for class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Mix.html" title="class in org.cicirello.search.problems">Mix</a></dt>
+<dd>
+<div class="block">Constructs an instance of Ackley's Mix problem.</div>
 </dd>
 <dt><a href="org/cicirello/search/sa/ModifiedLam.html" title="class in org.cicirello.search.sa"><span class="typeNameLink">ModifiedLam</span></a> - Class in <a href="org/cicirello/search/sa/package-summary.html">org.cicirello.search.sa</a></dt>
 <dd>
@@ -2323,6 +2356,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Generates a random number from a Gaussian distribution with
  mean 0 and standard deviation 1.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.BitIterator.html#nextLargeBitBlock(int)">nextLargeBitBlock(int)</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.BitIterator.html" title="class in org.cicirello.search.representations">BitVector.BitIterator</a></dt>
+<dd>
+<div class="block">Gets the next block of bits from the BitVector.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/MutationIterator.html#nextMutant()">nextMutant()</a></span> - Method in interface org.cicirello.search.operators.<a href="org/cicirello/search/operators/MutationIterator.html" title="interface in org.cicirello.search.operators">MutationIterator</a></dt>
 <dd>
 <div class="block">Mutates the candidate solution into its next neighbor.</div>
@@ -2362,6 +2399,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/PartialPermutation.html#numExtensions()">numExtensions()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/representations/BitVector.BitIterator.html#numRemainingBits()">numRemainingBits()</a></span> - Method in class org.cicirello.search.representations.<a href="org/cicirello/search/representations/BitVector.BitIterator.html" title="class in org.cicirello.search.representations">BitVector.BitIterator</a></dt>
+<dd>
+<div class="block">Gets the number of bits remaining in the iterator.</div>
+</dd>
 </dl>
 <a id="I:O">
 <!--   -->
@@ -3881,6 +3922,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedSquaredTardiness.html#value(org.cicirello.permutations.Permutation)">value(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedSquaredTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedSquaredTardiness</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedTardiness.html#value(org.cicirello.permutations.Permutation)">value(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedTardiness</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Mix.html#value(org.cicirello.search.representations.BitVector)">value(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Mix.html" title="class in org.cicirello.search.problems">Mix</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/OneMax.html#value(org.cicirello.search.representations.BitVector)">value(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/OneMax.html" title="class in org.cicirello.search.problems">OneMax</a></dt>
 <dd>&nbsp;</dd>

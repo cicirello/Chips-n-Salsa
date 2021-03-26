@@ -30,7 +30,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -267,6 +267,20 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>int[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#nextLargeBitBlock(int)">nextLargeBitBlock</a></span>&#8203;(int&nbsp;k)</code></th>
+<td class="colLast">
+<div class="block">Gets the next block of bits from the BitVector.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#numRemainingBits()">numRemainingBits</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gets the number of bits remaining in the iterator.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#skip(int)">skip</a></span>&#8203;(int&nbsp;k)</code></th>
 <td class="colLast">
@@ -312,6 +326,20 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </dl>
 </li>
 </ul>
+<a id="numRemainingBits()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>numRemainingBits</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;numRemainingBits()</pre>
+<div class="block">Gets the number of bits remaining in the iterator.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the number of bits not yet iterated over.</dd>
+</dl>
+</li>
+</ul>
 <a id="nextBitBlock()">
 <!--   -->
 </a>
@@ -351,6 +379,31 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if k &le; 0 or if k &gt; 32</dd>
 <dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalStateException</a></code> - if there are no more blocks to get</dd>
+</dl>
+</li>
+</ul>
+<a id="nextLargeBitBlock(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>nextLargeBitBlock</h4>
+<pre class="methodSignature">public&nbsp;int[]&nbsp;nextLargeBitBlock&#8203;(int&nbsp;k)</pre>
+<div class="block">Gets the next block of bits from the BitVector.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>k</code> - The block size, which overrides the default block size
+ that was used when the BitIterator was initiated for this call
+ only. Unlike the <a href="#nextBitBlock()"><code>nextBitBlock()</code></a> methods, this method
+ is not limited in block size, other than by the number of
+ remaining bits.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the next block of bits, as an array of ints, with the
+ first 32 bits of the block filled from least significant to most
+ significant bit of a[0], where a is the array that is returned,
+ and the next 32 bits filled similarly into a[1], etc.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if there are fewer than k bits remaining.</dd>
 </dl>
 </li>
 </ul>

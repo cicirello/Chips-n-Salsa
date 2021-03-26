@@ -353,6 +353,10 @@ public class BitVectorTests {
 			assertEquals(2, observed.length);
 			assertEquals(FIRST_32, observed[0]);
 			assertEquals(last4[i], observed[1]);
+			iter = b.bitIterator();
+			observed = iter.nextLargeBitBlock(32);
+			assertEquals(1, observed.length);
+			assertEquals(FIRST_32, observed[0]);
 		}
 		last4 = new int[] {0xA, 0x4, 0x6, 0x8, 0x9};
 		for (int i = 0; i < bits.length; i++) {
@@ -363,6 +367,11 @@ public class BitVectorTests {
 			assertEquals(FIRST_32, observed[0]);
 			assertEquals(bits[i][1], observed[1]);
 			assertEquals(last4[i], observed[2]);
+			iter = b.bitIterator();
+			observed = iter.nextLargeBitBlock(64);
+			assertEquals(2, observed.length);
+			assertEquals(FIRST_32, observed[0]);
+			assertEquals(bits[i][1], observed[1]);
 		}
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,

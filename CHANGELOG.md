@@ -7,27 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-3-25
 
 ### Added
-* ParallelMetaheuristic class, which enables running multiple copies of a
-  metaheuristic, or multiple metaheuristics, in parallel using multiple threads.
-* ParallelReoptimizableMetaheuristic, which enables running multiple copies of a
-  metaheuristic that supports the reoptimize method, or multiple such metaheuristics, 
-  in parallel using multiple threads.
+* Enhanced support for parallel metaheuristics, including:
+    * ParallelMetaheuristic class, which enables running multiple copies of a
+      metaheuristic, or multiple metaheuristics, in parallel using multiple threads.
+    * ParallelReoptimizableMetaheuristic, which enables running multiple copies of a
+      metaheuristic that supports the reoptimize method, or multiple such metaheuristics, 
+      in parallel using multiple threads.
+* Additional artificial search landscapes, including:
+    * OneMaxAckley class implements the original version of the One Max
+      problem as described by Ackley (1985), whereas the existing OneMax 
+      class in the library implements a variation. Ackley defined the problem
+      as maximize 10 * number of one bits.
+    * Plateaus class implements the Plateaus problem, originally described by Ackley (1987),
+      and is an optimization problem over the space of bit strings, characterized by large
+      flat areas.
 * RotationMutation, a mutation operator for Permutations.
-* OneMaxAckley class implements the original version of the One Max
-  problem as described by Ackley (1985), whereas the existing OneMax 
-  class in the library implements a variation. Ackley defined the problem
-  as maximize 10 * number of one bits.
 * BitVector.BitIterator.skip() method.
-* Plateaus class implements the Plateaus problem, originally described by Ackley (1987),
-  and is an optimization problem over the space of bit strings, characterized by large
-  flat areas.
 
 ### Changed
-* Refactored ParallelMultistarter class to reduce redundancy among its constructors.
-* Refactored ParallelMultistarter class to utilize the new ParallelMetaheuristic as
-  a base class.
-* Refactored ParallelReoptimizableMultistarter class to utilize the 
-  new ParallelReoptimizableMetaheuristic as its super class.
+* Enhanced support for parallel metaheuristics, including:
+    * Refactored ParallelMultistarter class to reduce redundancy among its constructors.
+    * Refactored ParallelMultistarter class to utilize the new ParallelMetaheuristic as
+      a base class.
+    * Refactored ParallelReoptimizableMultistarter class to utilize the 
+      new ParallelReoptimizableMetaheuristic as its super class.
 
 ### Deprecated
 

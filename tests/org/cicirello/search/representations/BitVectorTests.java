@@ -292,6 +292,89 @@ public class BitVectorTests {
 	}
 	
 	@Test
+	public void testBitIteratorNextLargeBitBlock() {
+		int[][] bits = {
+			{ 0xaaaaaaaa, 0xaaaaaaaa}, // use for k = 1
+			{ 0xe4e4e4e4, 0xe4e4e4e4}, // use for k = 2
+			{ 0x88fac688, 0xc688fac6}, // use for k = 3
+			{ 0x76543210, 0xfedcba98}, // use for k = 4
+			{ 0x8a418820, 0xc5a92839}  // use for k = 5
+		};
+		// small block cases
+		for (int n = 1; n <= 64; n++) {
+			int modulus = 2;
+			for (int i = 0; i < bits.length; i++) {
+				int[] array;
+				if (n > 32) array = bits[i];
+				else {
+					array = new int[1]; 
+					array[0] = bits[i][0];
+				}
+				BitVector b = new BitVector(n, array);
+				int k = i+1;
+				BitVector.BitIterator iter = b.bitIterator(k);
+				int counter = 0;
+				int leftOver = n;
+				int numCalls = 0;
+				while (iter.hasNext()) {
+					int[] x = iter.nextLargeBitBlock(Math.min(k,iter.numRemainingBits()));
+					assertEquals(1, x.length);
+					numCalls++;
+					if (iter.hasNext()) {
+						assertEquals("n,k="+n+","+k, counter, x[0]);
+					} else {
+						int mask = 0xffffffff >>> (32-leftOver);
+						assertEquals("n,k="+n+","+k, counter & mask, x[0]);
+					}
+					leftOver -= k;
+					counter++;
+					counter %= modulus;
+				}
+				int expectedCalls = n / k;
+				if (n % k != 0) expectedCalls++;
+				assertEquals("verify number of calls", expectedCalls, numCalls);
+				modulus *= 2;
+			}
+		}
+		// large block cases
+		final int FIRST_32 = 0xF8F4F2F1;
+		for (int i = 0; i < bits.length; i++) {
+			int[] temp = bits[i];
+			bits[i] = new int[3];
+			bits[i][0] = FIRST_32;
+			bits[i][1] = temp[0];
+			bits[i][2] = temp[1];
+		}
+		int[] last4 = {0xA, 0x4, 0x8, 0x0, 0x0};
+		for (int i = 0; i < bits.length; i++) {
+			BitVector b = new BitVector(96, bits[i]);
+			BitVector.BitIterator iter = b.bitIterator();
+			int[] observed = iter.nextLargeBitBlock(36);
+			assertEquals(2, observed.length);
+			assertEquals(FIRST_32, observed[0]);
+			assertEquals(last4[i], observed[1]);
+		}
+		last4 = new int[] {0xA, 0x4, 0x6, 0x8, 0x9};
+		for (int i = 0; i < bits.length; i++) {
+			BitVector b = new BitVector(96, bits[i]);
+			BitVector.BitIterator iter = b.bitIterator();
+			int[] observed = iter.nextLargeBitBlock(68);
+			assertEquals(3, observed.length);
+			assertEquals(FIRST_32, observed[0]);
+			assertEquals(bits[i][1], observed[1]);
+			assertEquals(last4[i], observed[2]);
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> {
+				BitVector b = new BitVector(35);
+				BitVector.BitIterator iter = b.bitIterator();
+				iter.nextLargeBitBlock(36);
+			}
+		);
+	}
+	
+	@Test
 	public void testBitIteratorNextBitBlock() {
 		int[][] bits = {
 			{ 0xaaaaaaaa, 0xaaaaaaaa}, // use for k = 1
@@ -448,12 +531,14 @@ public class BitVectorTests {
 			int counter = 0;
 			int leftOver = n;
 			while (iter.hasNext()) {
+				assertEquals(n-counter, iter.numRemainingBits());
 				int x = iter.nextBit();
 				assertEquals("n="+n, counter % 2, x);
 				leftOver--;
 				counter++;
 			}
 			assertEquals("verify number of calls", n, counter);
+			assertEquals(0, iter.numRemainingBits());
 		}
 	}
 	

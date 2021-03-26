@@ -28,7 +28,7 @@ import org.cicirello.search.representations.BitVector;
  * for a landscape that combines all of the properties of these benchmarking
  * problems. For details of the 5 component search landscapes, see the 
  * {@link OneMaxAckley}, {@link TwoMax}, {@link Trap}, {@link Porcupine},
- * and {@link Plateau} classes.</p>
+ * and {@link Plateaus} classes.</p>
  *
  * <p>The Mix problem is defined as the following maximization problem.
  * Maximize the fitness function, f(x), of bit string x, such that we

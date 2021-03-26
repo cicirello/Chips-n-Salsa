@@ -145,6 +145,54 @@ public class BitVectorTests {
 	}
 	
 	@Test
+	public void testPredicates() {
+		// 0-length
+		{
+			BitVector b = new BitVector(0);
+			assertTrue(b.allZeros());
+			assertFalse(b.anyZeros());
+			assertTrue(b.allOnes());
+			assertFalse(b.anyOnes());
+		}
+		for (int n = 1; n <= 66; n++) {
+			// All zeros
+			BitVector b = new BitVector(n);
+			assertTrue(b.allZeros());
+			assertTrue(b.anyZeros());
+			assertFalse(b.allOnes());
+			assertFalse(b.anyOnes());
+			// All ones
+			b.not();
+			assertFalse(b.allZeros());
+			assertFalse(b.anyZeros());
+			assertTrue(b.allOnes());
+			assertTrue(b.anyOnes());
+		}
+		{
+			// One 1-bit case, multiblocks in size
+			BitVector b = new BitVector(66);
+			for (int i = 0; i < 66; i++) {
+				b.setBit(i, 1);
+				assertFalse(b.allZeros());
+				assertTrue(b.anyZeros());
+				assertFalse(b.allOnes());
+				assertTrue(b.anyOnes());
+				b.setBit(i, 0);
+			}
+			// One 0-bit case, multiblocks in size
+			b.not();
+			for (int i = 0; i < 66; i++) {
+				b.setBit(i, 0);
+				assertFalse(b.allZeros());
+				assertTrue(b.anyZeros());
+				assertFalse(b.allOnes());
+				assertTrue(b.anyOnes());
+				b.setBit(i, 1);
+			}
+		}
+	}
+	
+	@Test
 	public void testConstructorAllZeros() {
 		for (int n = 0; n <= 64; n++) {
 			BitVector b = new BitVector(n);

@@ -103,6 +103,52 @@ public final class BitVector implements Copyable<BitVector> {
 	}
 	
 	/**
+	 * Check if the BitVector contains all 0-bits.
+	 * @return true If all of the bits are equal to 0, and false otherwise.
+	 * Note that if the length of the BitVector is 0, this method returns
+	 * true.
+	 */
+	public boolean allZeros() {
+		for (int i = 0; i < bits.length; i++) {
+			if (bits[i] != 0) return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Check if the BitVector contains all 1-bits.
+	 * @return true If all of the bits are equal to 1, and false otherwise.
+	 * Note that if the length of the BitVector is 0, this method returns
+	 * true.
+	 */
+	public boolean allOnes() {
+		for (int i = bits.length - 2; i >= 0; i--) {
+			if (bits[i] != 0xFFFFFFFF) return false;
+		}
+		return bits.length == 0 || bits[bits.length - 1] == lastIntMask;
+	}
+	
+	/**
+	 * Check if the BitVector contains any bits equal to a 1.
+	 * @return true If there is at least one 1-bit, and false otherwise.
+	 * Note that if the length of the BitVector is 0, this method returns
+	 * false.
+	 */
+	public boolean anyOnes() {
+		return !allZeros();
+	}
+	
+	/**
+	 * Check if the BitVector contains any bits equal to a 0.
+	 * @return true If there is at least one 0-bit, and false otherwise.
+	 * Note that if the length of the BitVector is 0, this method returns
+	 * false.
+	 */
+	public boolean anyZeros() {
+		return !allOnes();
+	}
+	
+	/**
 	 * Gets the length of the bit vector in number of bits.
 	 * @return The length of the bit vector in number of bits.
 	 */

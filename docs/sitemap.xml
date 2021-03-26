@@ -10,11 +10,11 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/allclasses-index.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/allclasses.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/allpackages-index.html</loc>
@@ -34,7 +34,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/index-all.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-summary.html</loc>
@@ -42,7 +42,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-tree.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/Metaheuristic.html</loc>
@@ -269,6 +269,10 @@
 <lastmod>2021-03-22T17:48:31+00:00</lastmod>
 </url>
 <url>
+<loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/Mix.html</loc>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
+</url>
+<url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/OneMax.html</loc>
 <lastmod>2021-03-22T17:48:31+00:00</lastmod>
 </url>
@@ -278,7 +282,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/OptimizationProblem.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/PermutationInAHaystack.html</loc>
@@ -298,7 +302,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/Problem.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/Trap.html</loc>
@@ -314,11 +318,11 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/package-summary.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/package-tree.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/package-use.html</loc>
@@ -326,11 +330,11 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/representations/BitVector.BitIterator.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/representations/BitVector.html</loc>
-<lastmod>2021-01-22T19:02:17+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/representations/BoundedIntegerVector.html</loc>
@@ -817,6 +821,10 @@
 <lastmod>2021-03-22T17:48:31+00:00</lastmod>
 </url>
 <url>
+<loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/class-use/Mix.html</loc>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
+</url>
+<url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/class-use/OneMax.html</loc>
 <lastmod>2021-01-22T19:02:17+00:00</lastmod>
 </url>
@@ -826,7 +834,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/class-use/OptimizationProblem.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/class-use/PermutationInAHaystack.html</loc>
@@ -846,7 +854,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/class-use/Problem.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/problems/class-use/Trap.html</loc>
@@ -1042,7 +1050,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/representations/class-use/BitVector.html</loc>
-<lastmod>2021-03-25T21:29:42+00:00</lastmod>
+<lastmod>2021-03-26T20:06:20+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org/cicirello/search/representations/class-use/BoundedIntegerVector.html</loc>

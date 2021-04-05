@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-* Updated dependency to JPT, v2.5.0.
+* Updated dependency to JPT, v2.6.0.
 
 ### Deprecated
 

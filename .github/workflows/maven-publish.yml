@@ -22,7 +22,8 @@ jobs:
     - name: Set up JDK 11 for deploy to OSSRH
       uses: actions/setup-java@v2
       with:
-        java-version: 1.11
+        distribution: 'adopt'
+        java-version: '11'
         server-id: ossrh 
         server-username: MAVEN_USERNAME
         server-password: MAVEN_CENTRAL_TOKEN
@@ -45,7 +46,8 @@ jobs:
     - name: Set up JDK 11 for deploy to github packages
       uses: actions/setup-java@v2
       with:
-        java-version: 1.11
+        distribution: 'adopt'
+        java-version: '11'
         server-id: github 
 
     - name: Publish to GitHub Packages Apache Maven

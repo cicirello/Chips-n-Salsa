@@ -295,6 +295,34 @@ public class PermutationMutationTests {
 	}
 	
 	@Test
+	public void testUniformScramble() {
+		UniformScrambleMutation m = new UniformScrambleMutation(0.0, true);
+		mutateTester(m);
+		splitTester(m);
+		m = new UniformScrambleMutation(1.0);
+		mutateTester(m);
+		splitTester(m);
+		m = new UniformScrambleMutation(0.5, true);
+		mutateTester(m);
+		splitTester(m);
+		m = new UniformScrambleMutation(0.0, false);
+		for (int n = 0; n <= 6; n++) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(p1);
+			m.mutate(p2);
+			assertEquals(p1, p2);
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new UniformScrambleMutation(-0.000001)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new UniformScrambleMutation(1.000001)
+		);
+	}
+	
+	@Test
 	public void testUndoableScramble() {
 		UndoableScrambleMutation m = new UndoableScrambleMutation();
 		undoTester(m);

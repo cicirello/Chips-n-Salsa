@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * New mutation operators for permutations:
     * UniformScrambleMutation: Like ScrambleMutation, but scrambled elements
       are not necessarily contiguous.
+    * UndoableUniformScrambleMutation: Exactly like UniformScrambleMutation (see above),
+      but with support for the undo method of the UndoableMutationOperator interface.
 
 ### Changed
 * Updated dependency to JPT, v2.6.0.

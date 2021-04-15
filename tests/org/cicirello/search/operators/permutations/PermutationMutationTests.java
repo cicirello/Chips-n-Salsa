@@ -199,6 +199,123 @@ public class PermutationMutationTests {
 	}
 	
 	@Test
+	public void testCycle2() {
+		CycleMutation m = new CycleMutation(2);
+		undoTester(m);
+		mutateTester(m);
+		splitTester(m);
+		// Verify mutations are 2-cycles (i.e., swaps)
+		for (int n = 2; n <= 6; n++) {
+			Permutation p = new Permutation(n);
+			for (int t = 0; t < NUM_RAND_TESTS; t++) {
+				Permutation mutant = new Permutation(p);
+				m.mutate(mutant);
+				int a, b;
+				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
+				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
+				assertTrue("verify elements changed", a <= b);
+				assertEquals("Verify elements swapped", p.get(a), mutant.get(b));
+				assertEquals("Verify elements swapped", p.get(b), mutant.get(a));
+				for (int i = a+1; i < b; i++) {
+					assertEquals("Verify interior elements not changed", p.get(i), mutant.get(i));
+				}
+			}
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CycleMutation(1)
+		);
+	}
+	
+	@Test
+	public void testCycle3() {
+		CycleMutation m = new CycleMutation(3);
+		undoTester(m);
+		mutateTester(m);
+		splitTester(m);
+		// Verify mutations are 2-cycles or 3-cycles
+		int[] indexes = new int[3];
+		boolean[] foundCycleLength = new boolean[4];
+		for (int n = 2; n <= 6; n++) {
+			Permutation p = new Permutation(n);
+			for (int t = 0; t < NUM_RAND_TESTS; t++) {
+				Permutation mutant = new Permutation(p);
+				m.mutate(mutant);
+				int size = 0;
+				for (int i = 0; i < p.length(); i++) {
+					if (p.get(i) != mutant.get(i)) {
+						if (size == indexes.length) {
+							fail("cycle is too large");
+						}
+						indexes[size] = i;
+						size++;
+					}
+				}
+				foundCycleLength[size] = true;
+				int[] inv = p.getInverse();
+				boolean[] cycleCheck = new boolean[n];
+				int j = indexes[0];
+				int next = p.get(j);
+				for (int i = 0; i < size; i++) {
+					assertFalse(cycleCheck[next]);
+					cycleCheck[next] = true;
+					next = mutant.get(j);
+					j = inv[next];
+					assertNotEquals(p.get(j), mutant.get(j));
+				}
+				assertTrue(cycleCheck[next]);
+			}
+		}
+		for (int i = 2; i < foundCycleLength.length; i++) {
+			assertTrue(foundCycleLength[i]);
+		}
+	}
+	
+	@Test
+	public void testCycle4() {
+		CycleMutation m = new CycleMutation(4);
+		undoTester(m);
+		mutateTester(m);
+		splitTester(m);
+		// Verify mutations are 2-cycles, 3-cycles, or 4-cycles
+		int[] indexes = new int[4];
+		boolean[] foundCycleLength = new boolean[5];
+		for (int n = 2; n <= 6; n++) {
+			Permutation p = new Permutation(n);
+			for (int t = 0; t < NUM_RAND_TESTS; t++) {
+				Permutation mutant = new Permutation(p);
+				m.mutate(mutant);
+				int size = 0;
+				for (int i = 0; i < p.length(); i++) {
+					if (p.get(i) != mutant.get(i)) {
+						if (size == indexes.length) {
+							fail("cycle is too large");
+						}
+						indexes[size] = i;
+						size++;
+					}
+				}
+				foundCycleLength[size] = true;
+				int[] inv = p.getInverse();
+				boolean[] cycleCheck = new boolean[n];
+				int j = indexes[0];
+				int next = p.get(j);
+				for (int i = 0; i < size; i++) {
+					assertFalse(cycleCheck[next]);
+					cycleCheck[next] = true;
+					next = mutant.get(j);
+					j = inv[next];
+					assertNotEquals(p.get(j), mutant.get(j));
+				}
+				assertTrue(cycleCheck[next]);
+			}
+		}
+		for (int i = 2; i < foundCycleLength.length; i++) {
+			assertTrue(foundCycleLength[i]);
+		}
+	}
+	
+	@Test
 	public void testSwap() {
 		SwapMutation m = new SwapMutation();
 		undoTester(m);

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -71,6 +71,39 @@ public class IterableMutationTests {
 			// (2) Verify that rollback() will rollback to original
 			// (3) Verify that setSavepoint and rollback work correctly in combination
 			validate(m, original, expectedNeighbors);
+		}
+	}
+	
+	@Test
+	public void testTwoChangeIterator() {
+		TwoChangeMutation m = new TwoChangeMutation();
+		// For n < 4, there are no two change neighbors to iterate over.
+		for (int n = 0; n < 4; n++) {
+			Permutation original = new Permutation(n);
+			HashSet<Permutation> expectedNeighbors = new HashSet<Permutation>();
+			// validate the MutationIterator:
+			// (1) Verify that it generates the correct set of neighbors
+			// (2) Verify that rollback() will rollback to original
+			// (3) Verify that setSavepoint and rollback work correctly in combination
+			validate(m, original, expectedNeighbors);
+		}
+		// Now test for n >= 4.
+		for (int n = 4; n <= 6; n++) {
+			Permutation original = new Permutation(n);
+			// generate the set of actual neigbors of a random permutation of length n
+			HashSet<Permutation> expectedNeighbors = new HashSet<Permutation>();
+			for (int i = 0; i < n; i++) {
+				for (int j = i+1; j < n - 1 && j-i<=n-3; j++) {
+					Permutation p = original.copy();
+					p.reverse(i, j);
+					expectedNeighbors.add(p);
+				}
+			}
+			// validate the MutationIterator:
+			// (1) Verify that it generates the correct set of neighbors
+			// (2) Verify that rollback() will rollback to original
+			// (3) Verify that setSavepoint and rollback work correctly in combination
+			assertEquals(n*(n-3)/2, validate(m, original, expectedNeighbors));
 		}
 	}
 	
@@ -272,7 +305,7 @@ public class IterableMutationTests {
 	
 	
 	
-	private void validate(IterableMutationOperator<Permutation> mutation, Permutation original, HashSet<Permutation> expectedNeighbors) {
+	private int validate(IterableMutationOperator<Permutation> mutation, Permutation original, HashSet<Permutation> expectedNeighbors) {
 		Permutation p = original.copy();
 		MutationIterator iter = mutation.iterator(p);
 		HashSet<Permutation> neighbors = new HashSet<Permutation>();
@@ -289,7 +322,7 @@ public class IterableMutationTests {
 			() -> iterNoMoreMutantsTest.nextMutant()
 		);
 		iter.rollback();
-		assertEquals("verify number of neighbors", expectedNeighbors.size(), neighbors.size());
+		assertEquals("verify number of neighbors, n="+p.length(), expectedNeighbors.size(), neighbors.size());
 		assertEquals("verify set of neighbors are as expected, original="+original, expectedNeighbors, neighbors);
 		assertEquals("verify rolled back to original", original, p);
 		assertEquals("verify number of neighbors", expectedNeighbors.size(), count);
@@ -352,5 +385,6 @@ public class IterableMutationTests {
 			iter.rollback();
 			assertEquals("rollback two steps after setSavepoint, verify rolled back to last savepoint, original="+original+" i="+i, saved, p);
 		}
+		return count;
 	}
 }

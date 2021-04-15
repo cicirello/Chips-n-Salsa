@@ -21,8 +21,8 @@
 package org.cicirello.search.operators.permutations;
 
 import org.cicirello.search.operators.UndoableMutationOperator;
-//import org.cicirello.search.operators.IterableMutationOperator;
-//import org.cicirello.search.operators.MutationIterator;
+import org.cicirello.search.operators.IterableMutationOperator;
+import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 
@@ -90,7 +90,7 @@ import org.cicirello.math.rand.RandomIndexer;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 4.15.2021
  */
-public final class TwoChangeMutation implements UndoableMutationOperator<Permutation> {
+public final class TwoChangeMutation implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 	
 	// needed to implement undo
 	private int a;
@@ -119,6 +119,21 @@ public final class TwoChangeMutation implements UndoableMutationOperator<Permuta
 	@Override
 	public TwoChangeMutation split() {
 		return new TwoChangeMutation();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * <p>The worst case runtime of the {@link MutationIterator#hasNext} and the 
+	 * {@link MutationIterator#setSavepoint} methods of the {@link MutationIterator} 
+	 * created by this method is O(1).  The amortized runtime of the 
+	 * {@link MutationIterator#nextMutant} method is O(1).
+	 * And the worst case runtime of the 
+	 * {@link MutationIterator#rollback} method 
+	 * is O(n), where n is the length of the Permutation.</p>
+	 */
+	@Override
+	public MutationIterator iterator(Permutation p) {
+		return new TwoChangeIterator(p);
 	}
 	
 	/*

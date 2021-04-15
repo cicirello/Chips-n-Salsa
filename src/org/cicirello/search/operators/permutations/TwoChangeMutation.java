@@ -83,7 +83,7 @@ import org.cicirello.math.rand.RandomIndexer;
  * we can't really say (at least not in a problem independent way) which might be better.</p>
  *
  * <p>For any given permutation of length n, there are n*(n-3)/2 possible two-change
- * neighbors. For permutations of length n &lt 4, the TwoChangeMutation operator
+ * neighbors. For permutations of length n &lt; 4, the TwoChangeMutation operator
  * makes no changes, as there are no two-change neighbors of permutations of that size.</p> 
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 

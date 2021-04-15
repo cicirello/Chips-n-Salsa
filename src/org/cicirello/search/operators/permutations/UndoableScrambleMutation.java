@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -42,11 +42,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * O(n) extra memory required to store the prior permutation state, as well as the time
  * associated with copying that state prior to mutation.</p>
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.8.2020
+ * @version 4.13.2021
  */
 public class UndoableScrambleMutation extends Permutation.Mechanic implements UndoableMutationOperator<Permutation> {
 
@@ -77,13 +75,9 @@ public class UndoableScrambleMutation extends Permutation.Mechanic implements Un
 		// If so, undo the mutation.
 		if (previous == c) {
 			if (indexes[0] < indexes[1]) {
-				for (int i = indexes[0]; i <= indexes[1]; i++) {
-					set(c, i, last[i]);
-				}
+				set(c, last, indexes[0], indexes[0], indexes[1]-indexes[0]+1);
 			} else {
-				for (int i = indexes[1]; i <= indexes[0]; i++) {
-					set(c, i, last[i]);
-				}
+				set(c, last, indexes[1], indexes[1], indexes[0]-indexes[1]+1);
 			}			
 		} 
 	}

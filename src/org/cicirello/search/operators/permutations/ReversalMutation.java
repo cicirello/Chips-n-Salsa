@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -39,11 +39,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * the two end points resulting in a complete reversal.  
  * On average, a reversal mutation moves approximately n/3 elements.</p>
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.4.2019
+ * @version 4.14.2021
  */
 public class ReversalMutation implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 	

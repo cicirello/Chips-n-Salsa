@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -37,11 +37,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * the {@link #mutate(Permutation) mutate} and {@link #undo(Permutation) undo} methods is O(1)
  * since only a constant number of assignments are necessary to execute a swap.</p>
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.7.2019
+ * @version 4.15.2021
  */
 public class SwapMutation implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 

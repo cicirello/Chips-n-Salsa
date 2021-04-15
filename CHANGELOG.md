@@ -4,12 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-3-30
+## [Unreleased] - 2021-4-15
 
 ### Added
+* New mutation operators for permutations:
+    * UniformScrambleMutation: Like ScrambleMutation, but scrambled elements
+      are not necessarily contiguous.
+    * UndoableUniformScrambleMutation: Exactly like UniformScrambleMutation (see above),
+      but with support for the undo method of the UndoableMutationOperator interface.
+    * TwoChangeMutation: Mutation operator on permutations that is the equivalent of
+      the classic two change operator, assuming that the permutation represents a cyclic
+      sequence of edges.
+    * CycleMutation: Generates a random permutation cycle.
 
 ### Changed
 * Updated dependency to JPT, v2.6.0.
+* Minor optimization to UndoableScrambleMutation, utilizing the JPT updates.
 
 ### Deprecated
 

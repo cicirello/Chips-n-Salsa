@@ -199,6 +199,123 @@ public class PermutationMutationTests {
 	}
 	
 	@Test
+	public void testCycle2() {
+		CycleMutation m = new CycleMutation(2);
+		undoTester(m);
+		mutateTester(m);
+		splitTester(m);
+		// Verify mutations are 2-cycles (i.e., swaps)
+		for (int n = 2; n <= 6; n++) {
+			Permutation p = new Permutation(n);
+			for (int t = 0; t < NUM_RAND_TESTS; t++) {
+				Permutation mutant = new Permutation(p);
+				m.mutate(mutant);
+				int a, b;
+				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
+				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
+				assertTrue("verify elements changed", a <= b);
+				assertEquals("Verify elements swapped", p.get(a), mutant.get(b));
+				assertEquals("Verify elements swapped", p.get(b), mutant.get(a));
+				for (int i = a+1; i < b; i++) {
+					assertEquals("Verify interior elements not changed", p.get(i), mutant.get(i));
+				}
+			}
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new CycleMutation(1)
+		);
+	}
+	
+	@Test
+	public void testCycle3() {
+		CycleMutation m = new CycleMutation(3);
+		undoTester(m);
+		mutateTester(m);
+		splitTester(m);
+		// Verify mutations are 2-cycles or 3-cycles
+		int[] indexes = new int[3];
+		boolean[] foundCycleLength = new boolean[4];
+		for (int n = 2; n <= 6; n++) {
+			Permutation p = new Permutation(n);
+			for (int t = 0; t < NUM_RAND_TESTS; t++) {
+				Permutation mutant = new Permutation(p);
+				m.mutate(mutant);
+				int size = 0;
+				for (int i = 0; i < p.length(); i++) {
+					if (p.get(i) != mutant.get(i)) {
+						if (size == indexes.length) {
+							fail("cycle is too large");
+						}
+						indexes[size] = i;
+						size++;
+					}
+				}
+				foundCycleLength[size] = true;
+				int[] inv = p.getInverse();
+				boolean[] cycleCheck = new boolean[n];
+				int j = indexes[0];
+				int next = p.get(j);
+				for (int i = 0; i < size; i++) {
+					assertFalse(cycleCheck[next]);
+					cycleCheck[next] = true;
+					next = mutant.get(j);
+					j = inv[next];
+					assertNotEquals(p.get(j), mutant.get(j));
+				}
+				assertTrue(cycleCheck[next]);
+			}
+		}
+		for (int i = 2; i < foundCycleLength.length; i++) {
+			assertTrue(foundCycleLength[i]);
+		}
+	}
+	
+	@Test
+	public void testCycle4() {
+		CycleMutation m = new CycleMutation(4);
+		undoTester(m);
+		mutateTester(m);
+		splitTester(m);
+		// Verify mutations are 2-cycles, 3-cycles, or 4-cycles
+		int[] indexes = new int[4];
+		boolean[] foundCycleLength = new boolean[5];
+		for (int n = 2; n <= 6; n++) {
+			Permutation p = new Permutation(n);
+			for (int t = 0; t < NUM_RAND_TESTS; t++) {
+				Permutation mutant = new Permutation(p);
+				m.mutate(mutant);
+				int size = 0;
+				for (int i = 0; i < p.length(); i++) {
+					if (p.get(i) != mutant.get(i)) {
+						if (size == indexes.length) {
+							fail("cycle is too large");
+						}
+						indexes[size] = i;
+						size++;
+					}
+				}
+				foundCycleLength[size] = true;
+				int[] inv = p.getInverse();
+				boolean[] cycleCheck = new boolean[n];
+				int j = indexes[0];
+				int next = p.get(j);
+				for (int i = 0; i < size; i++) {
+					assertFalse(cycleCheck[next]);
+					cycleCheck[next] = true;
+					next = mutant.get(j);
+					j = inv[next];
+					assertNotEquals(p.get(j), mutant.get(j));
+				}
+				assertTrue(cycleCheck[next]);
+			}
+		}
+		for (int i = 2; i < foundCycleLength.length; i++) {
+			assertTrue(foundCycleLength[i]);
+		}
+	}
+	
+	@Test
 	public void testSwap() {
 		SwapMutation m = new SwapMutation();
 		undoTester(m);
@@ -295,6 +412,65 @@ public class PermutationMutationTests {
 	}
 	
 	@Test
+	public void testUniformScramble() {
+		UniformScrambleMutation m = new UniformScrambleMutation(0.0, true);
+		mutateTester(m);
+		splitTester(m);
+		m = new UniformScrambleMutation(1.0);
+		mutateTester(m);
+		splitTester(m);
+		m = new UniformScrambleMutation(0.5, true);
+		mutateTester(m);
+		splitTester(m);
+		m = new UniformScrambleMutation(0.0, false);
+		for (int n = 0; n <= 6; n++) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(p1);
+			m.mutate(p2);
+			assertEquals(p1, p2);
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new UniformScrambleMutation(-0.000001)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new UniformScrambleMutation(1.000001)
+		);
+	}
+	
+	@Test
+	public void testUndoableUniformScramble() {
+		UndoableUniformScrambleMutation m = new UndoableUniformScrambleMutation(0.0, true);
+		undoTester(m);
+		mutateTester(m);
+		splitTester(m);
+		m = new UndoableUniformScrambleMutation(1.0);
+		undoTester(m);
+		mutateTester(m);
+		splitTester(m);
+		m = new UndoableUniformScrambleMutation(0.5, true);
+		undoTester(m);
+		mutateTester(m);
+		splitTester(m);
+		m = new UndoableUniformScrambleMutation(0.0, false);
+		for (int n = 0; n <= 6; n++) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(p1);
+			m.mutate(p2);
+			assertEquals(p1, p2);
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new UndoableUniformScrambleMutation(-0.000001)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new UndoableUniformScrambleMutation(1.000001)
+		);
+	}
+	
+	@Test
 	public void testUndoableScramble() {
 		UndoableScrambleMutation m = new UndoableScrambleMutation();
 		undoTester(m);
@@ -310,6 +486,141 @@ public class PermutationMutationTests {
 				indexPairs[indexes[0]][indexes[1]] = true;
 			}
 			checkIndexPairs(indexPairs);
+		}
+	}
+	
+	@Test
+	public void testTwoChange() {
+		TwoChangeMutation m = new TwoChangeMutation();
+		undoTester(m);
+		mutateTester(m, 4);
+		splitTester(m);
+		// For n < 4, this mutation operator should do nothing:
+		for (int n = 0; n < 4; n++) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(p1);
+			m.mutate(p2);
+			assertEquals(p1, p2);
+		}
+		// test internal mutate for n = 4
+		int[] perm = {0, 1, 2, 3};
+		Permutation[] expected = {
+			new Permutation(new int[] {1, 0, 2, 3}),
+			new Permutation(new int[] {0, 2, 1, 3}),
+			new Permutation(new int[] {0, 1, 3, 2}),
+			new Permutation(new int[] {0, 2, 1, 3})
+		};
+		for (int i = 0; i < expected.length; i++) {
+			Permutation p = new Permutation(perm);
+			m.internalMutate(p, i, 1);
+			assertEquals(expected[i], p);
+		}
+		// test internal mutate for n = 5
+		perm = new int[] {0, 1, 2, 3, 4};
+		Permutation[][] expected2 = {
+			{ 
+				new Permutation(new int[] {1, 0, 2, 3, 4}),
+				new Permutation(new int[] {0, 2, 1, 3, 4}),
+				new Permutation(new int[] {0, 1, 3, 2, 4}),
+				new Permutation(new int[] {0, 1, 2, 4, 3}),
+				new Permutation(new int[] {4, 1, 2, 3, 0})
+			},
+			{ 
+				new Permutation(new int[] {0, 1, 2, 4, 3}),
+				new Permutation(new int[] {4, 1, 2, 3, 0}),
+				new Permutation(new int[] {1, 0, 2, 3, 4}),
+				new Permutation(new int[] {0, 2, 1, 3, 4}),
+				new Permutation(new int[] {0, 1, 3, 2, 4})
+			}
+		};
+		for (int i = 0; i < expected2.length; i++) {
+			for (int j = 0; j < expected2[i].length; j++) {
+				Permutation p = new Permutation(perm);
+				m.internalMutate(p, j, i+1);
+				assertEquals(expected2[i][j], p);
+			}
+		}
+		// test internal mutate for n = 6
+		perm = new int[] {0, 1, 2, 3, 4, 5};
+		expected2 = new Permutation[][] {
+			{ 
+				new Permutation(new int[] {1, 0, 2, 3, 4, 5}),
+				new Permutation(new int[] {0, 2, 1, 3, 4, 5}),
+				new Permutation(new int[] {0, 1, 3, 2, 4, 5}),
+				new Permutation(new int[] {0, 1, 2, 4, 3, 5}),
+				new Permutation(new int[] {0, 1, 2, 3, 5, 4}),
+				new Permutation(new int[] {5, 1, 2, 3, 4, 0})
+			},
+			{ 
+				new Permutation(new int[] {2, 1, 0, 3, 4, 5}),
+				new Permutation(new int[] {0, 3, 2, 1, 4, 5}),
+				new Permutation(new int[] {0, 1, 4, 3, 2, 5}),
+				new Permutation(new int[] {0, 1, 2, 5, 4, 3}),
+				new Permutation(new int[] {0, 3, 2, 1, 4, 5}),
+				new Permutation(new int[] {0, 1, 4, 3, 2, 5})
+			},
+			{ 
+				new Permutation(new int[] {0, 1, 2, 3, 5, 4}),
+				new Permutation(new int[] {5, 1, 2, 3, 4, 0}),
+				new Permutation(new int[] {1, 0, 2, 3, 4, 5}),
+				new Permutation(new int[] {0, 2, 1, 3, 4, 5}),
+				new Permutation(new int[] {0, 1, 3, 2, 4, 5}),
+				new Permutation(new int[] {0, 1, 2, 4, 3, 5})
+			}
+		};
+		for (int i = 0; i < expected2.length; i++) {
+			for (int j = 0; j < expected2[i].length; j++) {
+				Permutation p = new Permutation(perm);
+				m.internalMutate(p, j, i+1);
+				assertEquals(expected2[i][j], p);
+			}
+		}
+		// test internal mutate for n = 7.
+		perm = new int[] {0, 1, 2, 3, 4, 5, 6};
+		expected2 = new Permutation[][] {
+			{ 
+				new Permutation(new int[] {1, 0, 2, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 2, 1, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 3, 2, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 4, 3, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 3, 5, 4, 6}),
+				new Permutation(new int[] {0, 1, 2, 3, 4, 6, 5}),
+				new Permutation(new int[] {6, 1, 2, 3, 4, 5, 0})
+			},
+			{ 
+				new Permutation(new int[] {2, 1, 0, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 3, 2, 1, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 4, 3, 2, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 5, 4, 3, 6}),
+				new Permutation(new int[] {0, 1, 2, 3, 6, 5, 4}),
+				new Permutation(new int[] {5, 1, 2, 3, 4, 0, 6}),
+				new Permutation(new int[] {0, 6, 2, 3, 4, 5, 1})
+			},
+			{ 
+				new Permutation(new int[] {0, 1, 2, 3, 6, 5, 4}),
+				new Permutation(new int[] {5, 1, 2, 3, 4, 0, 6}),
+				new Permutation(new int[] {0, 6, 2, 3, 4, 5, 1}),
+				new Permutation(new int[] {2, 1, 0, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 3, 2, 1, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 4, 3, 2, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 5, 4, 3, 6})
+			},
+			{ 
+				new Permutation(new int[] {0, 1, 2, 3, 4, 6, 5}),
+				new Permutation(new int[] {6, 1, 2, 3, 4, 5, 0}),
+				new Permutation(new int[] {1, 0, 2, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 2, 1, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 3, 2, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 4, 3, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 3, 5, 4, 6})
+			}
+		};
+		for (int i = 0; i < expected2.length; i++) {
+			for (int j = 0; j < expected2[i].length; j++) {
+				Permutation p = new Permutation(perm);
+				m.internalMutate(p, j, i+1);
+				assertEquals(expected2[i][j], p);
+			}
 		}
 	}
 	

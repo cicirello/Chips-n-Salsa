@@ -799,6 +799,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Create a Uniform mutation operator.</div>
 </dd>
+<dt><a href="org/cicirello/search/operators/permutations/CycleMutation.html" title="class in org.cicirello.search.operators.permutations"><span class="typeNameLink">CycleMutation</span></a> - Class in <a href="org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></dt>
+<dd>
+<div class="block">This class implements a cycle mutation on permutations, where one mutation
+ generates a random permutation cycle.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/CycleMutation.html#%3Cinit%3E(int)">CycleMutation(int)</a></span> - Constructor for class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/CycleMutation.html" title="class in org.cicirello.search.operators.permutations">CycleMutation</a></dt>
+<dd>
+<div class="block">Constructs an CycleMutation mutation operator.</div>
+</dd>
 </dl>
 <a id="I:D">
 <!--   -->
@@ -1876,6 +1885,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
  of a candidate solution, as one might do in a hill climber.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/TwoChangeMutation.html#iterator(org.cicirello.permutations.Permutation)">iterator(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/TwoChangeMutation.html" title="class in org.cicirello.search.operators.permutations">TwoChangeMutation</a></dt>
+<dd>
+<div class="block">Creates and returns a <a href="org/cicirello/search/operators/MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
+ systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
+ of a candidate solution, as one might do in a hill climber.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/WindowLimitedBlockMoveMutation.html#iterator(org.cicirello.permutations.Permutation)">iterator(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/WindowLimitedBlockMoveMutation.html" title="class in org.cicirello.search.operators.permutations">WindowLimitedBlockMoveMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/WindowLimitedInsertionMutation.html#iterator(org.cicirello.permutations.Permutation)">iterator(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/WindowLimitedInsertionMutation.html" title="class in org.cicirello.search.operators.permutations">WindowLimitedInsertionMutation</a></dt>
@@ -2219,6 +2234,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/BlockMoveMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/BlockMoveMutation.html" title="class in org.cicirello.search.operators.permutations">BlockMoveMutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/CycleMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/CycleMutation.html" title="class in org.cicirello.search.operators.permutations">CycleMutation</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/InsertionMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/InsertionMutation.html" title="class in org.cicirello.search.operators.permutations">InsertionMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/ReversalMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/ReversalMutation.html" title="class in org.cicirello.search.operators.permutations">ReversalMutation</a></dt>
@@ -2229,7 +2246,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/SwapMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/SwapMutation.html" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/TwoChangeMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/TwoChangeMutation.html" title="class in org.cicirello.search.operators.permutations">TwoChangeMutation</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UndoableScrambleMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UndoableScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableScrambleMutation</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UndoableUniformScrambleMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UndoableUniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableUniformScrambleMutation</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UniformScrambleMutation.html#mutate(org.cicirello.permutations.Permutation)">mutate(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UniformScrambleMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/bits/BitFlipMutation.html#mutate(org.cicirello.search.representations.BitVector)">mutate(BitVector)</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org/cicirello/search/operators/bits/BitFlipMutation.html" title="class in org.cicirello.search.operators.bits">BitFlipMutation</a></dt>
 <dd>&nbsp;</dd>
@@ -3440,6 +3463,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/BlockMoveMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/BlockMoveMutation.html" title="class in org.cicirello.search.operators.permutations">BlockMoveMutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/CycleMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/CycleMutation.html" title="class in org.cicirello.search.operators.permutations">CycleMutation</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/InsertionMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/InsertionMutation.html" title="class in org.cicirello.search.operators.permutations">InsertionMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/PermutationInitializer.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/PermutationInitializer.html" title="class in org.cicirello.search.operators.permutations">PermutationInitializer</a></dt>
@@ -3452,7 +3477,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/SwapMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/SwapMutation.html" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/TwoChangeMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/TwoChangeMutation.html" title="class in org.cicirello.search.operators.permutations">TwoChangeMutation</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UndoableScrambleMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UndoableScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableScrambleMutation</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UndoableUniformScrambleMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UndoableUniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableUniformScrambleMutation</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UniformScrambleMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UniformScrambleMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/WindowLimitedBlockMoveMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/WindowLimitedBlockMoveMutation.html" title="class in org.cicirello.search.operators.permutations">WindowLimitedBlockMoveMutation</a></dt>
 <dd>&nbsp;</dd>
@@ -3753,6 +3784,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs an instance of Ackley's Trap function.</div>
 </dd>
+<dt><a href="org/cicirello/search/operators/permutations/TwoChangeMutation.html" title="class in org.cicirello.search.operators.permutations"><span class="typeNameLink">TwoChangeMutation</span></a> - Class in <a href="org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></dt>
+<dd>
+<div class="block">This class implements the classic two-change operator as a mutation operator 
+ for permutations.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/TwoChangeMutation.html#%3Cinit%3E()">TwoChangeMutation()</a></span> - Constructor for class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/TwoChangeMutation.html" title="class in org.cicirello.search.operators.permutations">TwoChangeMutation</a></dt>
+<dd>
+<div class="block">Constructs an TwoChangeMutation mutation operator.</div>
+</dd>
 <dt><a href="org/cicirello/search/problems/TwoMax.html" title="class in org.cicirello.search.problems"><span class="typeNameLink">TwoMax</span></a> - Class in <a href="org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></dt>
 <dd>
 <div class="block">This class implements the benchmarking problem known
@@ -3788,6 +3828,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/BlockMoveMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/BlockMoveMutation.html" title="class in org.cicirello.search.operators.permutations">BlockMoveMutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/CycleMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/CycleMutation.html" title="class in org.cicirello.search.operators.permutations">CycleMutation</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/InsertionMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/InsertionMutation.html" title="class in org.cicirello.search.operators.permutations">InsertionMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/ReversalMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/ReversalMutation.html" title="class in org.cicirello.search.operators.permutations">ReversalMutation</a></dt>
@@ -3796,7 +3838,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/SwapMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/SwapMutation.html" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/TwoChangeMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/TwoChangeMutation.html" title="class in org.cicirello.search.operators.permutations">TwoChangeMutation</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UndoableScrambleMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UndoableScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableScrambleMutation</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UndoableUniformScrambleMutation.html#undo(org.cicirello.permutations.Permutation)">undo(Permutation)</a></span> - Method in class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UndoableUniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableUniformScrambleMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/operators/bits/BitFlipMutation.html#undo(org.cicirello.search.representations.BitVector)">undo(BitVector)</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org/cicirello/search/operators/bits/BitFlipMutation.html" title="class in org.cicirello.search.operators.bits">BitFlipMutation</a></dt>
 <dd>&nbsp;</dd>
@@ -3876,6 +3922,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">This class implements a uniform
  mutation with support for the <a href="org/cicirello/search/operators/reals/UndoableUniformMutation.html#undo(T)"><code>UndoableUniformMutation.undo(T)</code></a> method.</div>
 </dd>
+<dt><a href="org/cicirello/search/operators/permutations/UndoableUniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations"><span class="typeNameLink">UndoableUniformScrambleMutation</span></a> - Class in <a href="org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></dt>
+<dd>
+<div class="block">This class implements a scramble mutation on permutations, where one mutation
+ consists in randomizing the order of a non-contiguous subset of the permutation
+ elements.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UndoableUniformScrambleMutation.html#%3Cinit%3E(double)">UndoableUniformScrambleMutation(double)</a></span> - Constructor for class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UndoableUniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableUniformScrambleMutation</a></dt>
+<dd>
+<div class="block">Constructs a UndoableUniformScrambleMutation mutation operator.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UndoableUniformScrambleMutation.html#%3Cinit%3E(double,boolean)">UndoableUniformScrambleMutation(double, boolean)</a></span> - Constructor for class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UndoableUniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableUniformScrambleMutation</a></dt>
+<dd>
+<div class="block">Constructs a UndoableUniformScrambleMutation mutation operator.</div>
+</dd>
 <dt><a href="org/cicirello/search/operators/integers/UniformMutation.html" title="class in org.cicirello.search.operators.integers"><span class="typeNameLink">UniformMutation</span></a>&lt;<a href="org/cicirello/search/operators/integers/UniformMutation.html" title="type parameter in UniformMutation">T</a> extends <a href="org/cicirello/search/representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt; - Class in <a href="org/cicirello/search/operators/integers/package-summary.html">org.cicirello.search.operators.integers</a></dt>
 <dd>
 <div class="block">This class implements a uniform
@@ -3886,6 +3946,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">This class implements a uniform
  mutation.</div>
+</dd>
+<dt><a href="org/cicirello/search/operators/permutations/UniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations"><span class="typeNameLink">UniformScrambleMutation</span></a> - Class in <a href="org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></dt>
+<dd>
+<div class="block">This class implements a scramble mutation on permutations, where one mutation
+ consists in randomizing the order of a non-contiguous subset of the permutation
+ elements.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UniformScrambleMutation.html#%3Cinit%3E(double)">UniformScrambleMutation(double)</a></span> - Constructor for class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UniformScrambleMutation</a></dt>
+<dd>
+<div class="block">Constructs a UniformScrambleMutation mutation operator.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/operators/permutations/UniformScrambleMutation.html#%3Cinit%3E(double,boolean)">UniformScrambleMutation(double, boolean)</a></span> - Constructor for class org.cicirello.search.operators.permutations.<a href="org/cicirello/search/operators/permutations/UniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UniformScrambleMutation</a></dt>
+<dd>
+<div class="block">Constructs a UniformScrambleMutation mutation operator.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ProgressTracker.html#update(double,T)">update(double, T)</a></span> - Method in class org.cicirello.search.<a href="org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a></dt>
 <dd>

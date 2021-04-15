@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * TwoChangeMutation: Mutation operator on permutations that is the equivalent of
       the classic two change operator, assuming that the permutation represents a cyclic
       sequence of edges.
+    * CycleMutation: Generates a random permutation cycle.
 
 ### Changed
 * Updated dependency to JPT, v2.6.0.

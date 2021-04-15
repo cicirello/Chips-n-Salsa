@@ -88,7 +88,7 @@ public class IterableMutationTests {
 			validate(m, original, expectedNeighbors);
 		}
 		// Now test for n >= 4.
-		for (int n = 4; n <= 6; n++) {
+		for (int n = 4; n <= 7; n++) {
 			Permutation original = new Permutation(n);
 			// generate the set of actual neigbors of a random permutation of length n
 			HashSet<Permutation> expectedNeighbors = new HashSet<Permutation>();
@@ -367,7 +367,7 @@ public class IterableMutationTests {
 			);
 			assertFalse("verify no next if rolled back", iter.hasNext());
 		}
-		// test rollback two steps after setSavepoint
+		// test rollback one step after setSavepoint
 		for (int i = 0; i < count-1; i++) {
 			iter = mutation.iterator(p);
 			Permutation saved = p.copy();
@@ -378,6 +378,24 @@ public class IterableMutationTests {
 					iter.setSavepoint();
 					saved = p.copy();
 				} else if (j > i) {
+					break;
+				}
+				j++;
+			}
+			iter.rollback();
+			assertEquals("rollback one step after setSavepoint, verify rolled back to last savepoint, original="+original+" i="+i, saved, p);
+		}
+		// test rollback two steps after setSavepoint
+		for (int i = 0; i < count-1; i++) {
+			iter = mutation.iterator(p);
+			Permutation saved = p.copy();
+			int j = 0;
+			while (iter.hasNext()) {
+				iter.nextMutant();
+				if (j==i) {
+					iter.setSavepoint();
+					saved = p.copy();
+				} else if (j > i+1) {
 					break;
 				}
 				j++;

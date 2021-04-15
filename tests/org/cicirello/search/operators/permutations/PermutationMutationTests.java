@@ -458,6 +458,53 @@ public class PermutationMutationTests {
 				assertEquals(expected2[i][j], p);
 			}
 		}
+		// test internal mutate for n = 7.
+		perm = new int[] {0, 1, 2, 3, 4, 5, 6};
+		expected2 = new Permutation[][] {
+			{ 
+				new Permutation(new int[] {1, 0, 2, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 2, 1, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 3, 2, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 4, 3, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 3, 5, 4, 6}),
+				new Permutation(new int[] {0, 1, 2, 3, 4, 6, 5}),
+				new Permutation(new int[] {6, 1, 2, 3, 4, 5, 0})
+			},
+			{ 
+				new Permutation(new int[] {2, 1, 0, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 3, 2, 1, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 4, 3, 2, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 5, 4, 3, 6}),
+				new Permutation(new int[] {0, 1, 2, 3, 6, 5, 4}),
+				new Permutation(new int[] {5, 1, 2, 3, 4, 0, 6}),
+				new Permutation(new int[] {0, 6, 2, 3, 4, 5, 1})
+			},
+			{ 
+				new Permutation(new int[] {0, 1, 2, 3, 6, 5, 4}),
+				new Permutation(new int[] {5, 1, 2, 3, 4, 0, 6}),
+				new Permutation(new int[] {0, 6, 2, 3, 4, 5, 1}),
+				new Permutation(new int[] {2, 1, 0, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 3, 2, 1, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 4, 3, 2, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 5, 4, 3, 6})
+			},
+			{ 
+				new Permutation(new int[] {0, 1, 2, 3, 4, 6, 5}),
+				new Permutation(new int[] {6, 1, 2, 3, 4, 5, 0}),
+				new Permutation(new int[] {1, 0, 2, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 2, 1, 3, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 3, 2, 4, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 4, 3, 5, 6}),
+				new Permutation(new int[] {0, 1, 2, 3, 5, 4, 6})
+			}
+		};
+		for (int i = 0; i < expected2.length; i++) {
+			for (int j = 0; j < expected2[i].length; j++) {
+				Permutation p = new Permutation(perm);
+				m.internalMutate(p, j, i+1);
+				assertEquals(expected2[i][j], p);
+			}
+		}
 	}
 	
 	@Test

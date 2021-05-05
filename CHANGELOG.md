@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### CI/CD
 * Started using CodeQL code scanning on all push/pull-request events.
+* Upgraded coverage reporting to JaCoCo 0.8.7.
 
 
 ## [2.10.0] - 2021-3-27

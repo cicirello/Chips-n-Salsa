@@ -33,7 +33,7 @@ jobs:
 
     - name: Tidy up the javadocs
       id: tidy
-      uses: cicirello/javadoc-cleanup@v1.2.0
+      uses: cicirello/javadoc-cleanup@v1.2.1
       with:
         base-url-path: https://chips-n-salsa.cicirello.org/
         path-to-root: docs

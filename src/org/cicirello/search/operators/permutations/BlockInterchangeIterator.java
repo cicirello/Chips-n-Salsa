@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -27,11 +27,9 @@ import org.cicirello.permutations.Permutation;
  * Internal (package-private) class implementing an iterator over
  * all block interchanges.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.11.2019 
+ * @version 5.11.2021 
  */
 final class BlockInterchangeIterator implements MutationIterator {
 	
@@ -57,7 +55,6 @@ final class BlockInterchangeIterator implements MutationIterator {
 	
 	// used by phase 3
 	private int nextS;
-	private final int MAX_S;
 	
 	BlockInterchangeIterator(Permutation p) {
 		this.p = p;
@@ -73,7 +70,6 @@ final class BlockInterchangeIterator implements MutationIterator {
 		// has any more of any phase
 		hasMore = hasMoreInsertions;
 		phase = 1;
-		MAX_S = p.length() >> 1;
 	}
 	
 	@Override

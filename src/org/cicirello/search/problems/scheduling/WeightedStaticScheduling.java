@@ -203,35 +203,34 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
 	 * first instance, this should be 0.
 	 */
 	WeightedStaticScheduling(Readable file, int n, int instanceNumber) {
-		Scanner in = new Scanner(file);
-		// Format from the benchmark library is a bit weird:
-		// - It contains many instances.
-		// - No labeling info, so you need to know the number of jobs, n.
-		// - First instance: n process times, followed by n weights, followed
-		//   by n duedates.  This is then followed by second instance (n process times,
-		//   n weights, and then n duedates), etc.  No instance separators.
-		
-		// First, skip to the instance we need:
-		int skipCount = instanceNumber * n * 3;
-		for (int i = 0; i < skipCount; i++) in.nextInt();
-		
-		// Get process times:
-		process = new int[n];
-		for (int i = 0; i < n; i++) {
-			process[i] = in.nextInt();
+		try (Scanner in = new Scanner(file)) {
+			// Format from the benchmark library is a bit weird:
+			// - It contains many instances.
+			// - No labeling info, so you need to know the number of jobs, n.
+			// - First instance: n process times, followed by n weights, followed
+			//   by n duedates.  This is then followed by second instance (n process times,
+			//   n weights, and then n duedates), etc.  No instance separators.
+			
+			// First, skip to the instance we need:
+			int skipCount = instanceNumber * n * 3;
+			for (int i = 0; i < skipCount; i++) in.nextInt();
+			
+			// Get process times:
+			process = new int[n];
+			for (int i = 0; i < n; i++) {
+				process[i] = in.nextInt();
+			}
+			// Get weights times:
+			weights = new int[n];
+			for (int i = 0; i < n; i++) {
+				weights[i] = in.nextInt();
+			}
+			// Get duedates times:
+			duedates = new int[n];
+			for (int i = 0; i < n; i++) {
+				duedates[i] = in.nextInt();
+			}
 		}
-		// Get weights times:
-		weights = new int[n];
-		for (int i = 0; i < n; i++) {
-			weights[i] = in.nextInt();
-		}
-		// Get duedates times:
-		duedates = new int[n];
-		for (int i = 0; i < n; i++) {
-			duedates[i] = in.nextInt();
-		}
-		
-		in.close();
 	}
 	
 	@Override

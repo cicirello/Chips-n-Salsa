@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-4-15
+## [Unreleased] - 2021-5-11
 
 ### Added
 * New mutation operators for permutations:
@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * TwoChangeMutation: Mutation operator on permutations that is the equivalent of
       the classic two change operator, assuming that the permutation represents a cyclic
       sequence of edges.
+    * ThreeOptMutation: Mutation operator on permutations that is the equivalent of
+      the classic 3-Opt operator, which is a combination of two-changes and three-changes,
+      assuming that the permutation represents a cyclic sequence of edges.
     * CycleMutation: Generates a random permutation cycle.
 
 ### Changed
@@ -29,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### CI/CD
 * Started using CodeQL code scanning on all push/pull-request events.
+* Started using Muse.dev for static analysis.
 * Upgraded coverage reporting to JaCoCo 0.8.7.
 
 

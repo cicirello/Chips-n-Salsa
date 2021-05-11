@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-5-11
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.11.0] - 2021-5-11
+
+### Added
 * New mutation operators for permutations:
     * UniformScrambleMutation: Like ScrambleMutation, but scrambled elements
       are not necessarily contiguous.
@@ -23,12 +38,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Updated dependency to JPT, v2.6.0.
 * Minor optimization to UndoableScrambleMutation, utilizing the JPT updates.
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 ### CI/CD
 * Started using CodeQL code scanning on all push/pull-request events.

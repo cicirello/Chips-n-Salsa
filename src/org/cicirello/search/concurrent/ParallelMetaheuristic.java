@@ -151,9 +151,7 @@ public class ParallelMetaheuristic<T extends Copyable<T>> implements Metaheurist
 	 */
 	@Override
 	public final SolutionCostPair<T> optimize(int runLength) {
-		return threadedOptimize(search -> (
-			() -> search.optimize(runLength)
-		));
+		return threadedOptimize(search -> () -> search.optimize(runLength));
 	}
 	
 	/**

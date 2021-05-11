@@ -110,9 +110,9 @@ public class ParallelReoptimizableMetaheuristic<T extends Copyable<T>> extends P
 	 */
 	@Override
 	public final SolutionCostPair<T> reoptimize(int runLength) {
-		return threadedOptimize(search -> (
+		return threadedOptimize(search -> 
 			() -> ((ReoptimizableMetaheuristic<T>)search).reoptimize(runLength)
-		));
+		);
 	}
 	
 	@Override

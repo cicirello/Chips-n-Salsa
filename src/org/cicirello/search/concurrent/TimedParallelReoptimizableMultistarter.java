@@ -237,9 +237,8 @@ public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>>
 	}
 	
 	private final Function<Multistarter<T>, Callable<SolutionCostPair<T>>> 
-		createReoptimizerCallable = multistartSearch -> (
-			() -> ((ReoptimizableMultistarter<T>)multistartSearch).reoptimize(Integer.MAX_VALUE)
-		);
+		createReoptimizerCallable = multistartSearch -> 
+			() -> ((ReoptimizableMultistarter<T>)multistartSearch).reoptimize(Integer.MAX_VALUE);
 	
 	@Override
 	public TimedParallelReoptimizableMultistarter<T> split() {

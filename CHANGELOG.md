@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### CI/CD
 * Started using CodeQL code scanning on all push/pull-request events.
+* Started using Muse.dev for static analysis.
 * Upgraded coverage reporting to JaCoCo 0.8.7.
 
 

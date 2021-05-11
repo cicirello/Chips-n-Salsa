@@ -59,7 +59,7 @@ import org.cicirello.search.ss.Partial;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 2.22.2021
+ * @version 5.11.2021
  */
 public class WeightedShortestProcessingPlusSetupTimePrecompute extends SchedulingHeuristic {
 	
@@ -84,7 +84,7 @@ public class WeightedShortestProcessingPlusSetupTimePrecompute extends Schedulin
 			}
 		} else {
 			for (int i = 0; i < n; i++) {
-				final double H = Math.max(MIN_H, ((double)data.getWeight(i)) / (data.getProcessingTime(i)));
+				final double H = Math.max(MIN_H, ((double)data.getWeight(i)) / data.getProcessingTime(i));
 				for (int j = 0; j < n; j++) {
 					h[j][i] = H;
 				}

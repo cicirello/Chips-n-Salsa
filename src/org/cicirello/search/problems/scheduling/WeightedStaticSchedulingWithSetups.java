@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -110,7 +110,7 @@ import java.io.PrintWriter;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.17.2020
+ * @version 5.11.2021
  */
 public final class WeightedStaticSchedulingWithSetups implements SingleMachineSchedulingProblemData {
 	
@@ -260,7 +260,7 @@ public final class WeightedStaticSchedulingWithSetups implements SingleMachineSc
 		final double CMAX = totalProcessTime + BETA * sumSetupMatrix / (n+1.0);
 		final double AVERAGE_DUEDATE = CMAX * (1.0 - tau);
 		final double DUEDATE_RANGE = r * CMAX;
-		final int AVE_DUEDATE_INT = (int)(AVERAGE_DUEDATE);
+		final int AVE_DUEDATE_INT = (int)AVERAGE_DUEDATE;
 		final int MIN_DUEDATE = (int)(AVERAGE_DUEDATE - r * AVERAGE_DUEDATE);
 		final int MAX_DUEDATE = (int)(AVERAGE_DUEDATE - r * AVERAGE_DUEDATE + DUEDATE_RANGE);
 		final int D_SPAN_1 = AVE_DUEDATE_INT - MIN_DUEDATE + 1;

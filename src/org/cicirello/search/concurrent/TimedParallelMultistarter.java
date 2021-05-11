@@ -383,9 +383,8 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 	}
 	
 	private final Function<Multistarter<T>, Callable<SolutionCostPair<T>>> 
-		createOptimizerCallable = (multistartSearch) -> (
-			() -> multistartSearch.optimize(Integer.MAX_VALUE)
-		);
+		createOptimizerCallable = multistartSearch -> 
+			() -> multistartSearch.optimize(Integer.MAX_VALUE);
 	
 	/**
 	 * <p>Initiates an orderly shutdown of the thread pool used by this TimedParallelMultistarter.

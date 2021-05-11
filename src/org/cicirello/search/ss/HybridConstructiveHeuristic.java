@@ -63,7 +63,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 2.24.2021
+ * @version 5.11.2021
  */
 public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements ConstructiveHeuristic<T> {
 	
@@ -108,6 +108,7 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 		if (roundRobin) {
 			heuristicSelector = new IntSupplier() {
 				AtomicInteger lastHeuristic = new AtomicInteger(NUM_H-1);
+				@Override
 				public int getAsInt() {
 					return lastHeuristic.updateAndGet(
 						(h) -> {
@@ -192,6 +193,7 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 	 * @return An IncrementalEvaluation for an empty Partial 
 	 * to be used for incrementally computing any data required by the {@link #h} method.
 	 */
+	@Override
 	public IncrementalEvaluation<T> createIncrementalEvaluation() {
 		int which = heuristicSelector.getAsInt();
 		IncrementalEvaluationWrapper<T> wrapped = new IncrementalEvaluationWrapper<T>(

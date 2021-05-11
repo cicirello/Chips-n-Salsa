@@ -43,7 +43,7 @@ import java.util.function.Function;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.22.2021
+ * @version 5.11.2021
  */
 public class ParallelMetaheuristic<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
 	
@@ -151,7 +151,7 @@ public class ParallelMetaheuristic<T extends Copyable<T>> implements Metaheurist
 	 */
 	@Override
 	public final SolutionCostPair<T> optimize(int runLength) {
-		return threadedOptimize((search) -> (
+		return threadedOptimize(search -> (
 			() -> search.optimize(runLength)
 		));
 	}

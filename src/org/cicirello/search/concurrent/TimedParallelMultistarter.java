@@ -383,7 +383,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 	}
 	
 	private final Function<Multistarter<T>, Callable<SolutionCostPair<T>>> 
-		createOptimizerCallable = (multistartSearch) -> (
+		createOptimizerCallable = multistartSearch -> (
 			() -> multistartSearch.optimize(Integer.MAX_VALUE)
 		);
 	

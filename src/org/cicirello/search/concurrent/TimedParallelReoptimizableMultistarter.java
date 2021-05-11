@@ -73,7 +73,7 @@ import java.util.function.Function;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 1.25.2021
+ * @version 5.11.2021
  */
 public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>> extends TimedParallelMultistarter<T> implements ReoptimizableMetaheuristic<T> {
 	
@@ -237,7 +237,7 @@ public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>>
 	}
 	
 	private final Function<Multistarter<T>, Callable<SolutionCostPair<T>>> 
-		createReoptimizerCallable = (multistartSearch) -> (
+		createReoptimizerCallable = multistartSearch -> (
 			() -> ((ReoptimizableMultistarter<T>)multistartSearch).reoptimize(Integer.MAX_VALUE)
 		);
 	

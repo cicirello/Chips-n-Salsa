@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -26,7 +26,7 @@ package org.cicirello.search.representations;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.10.2020
+ * @version 5.12.2021
  */
 public final class BoundedIntegerVector extends IntegerVector {
 		
@@ -100,7 +100,9 @@ public final class BoundedIntegerVector extends IntegerVector {
 	 */
 	@Override
 	public boolean equals(Object other) {
-		if (!super.equals(other)) return false;
+		if (!super.equals(other) || !(other instanceof BoundedIntegerVector)) {
+			return false;
+		}
 		BoundedIntegerVector b = (BoundedIntegerVector)other;
 		return min == b.min && max == b.max;
 	}

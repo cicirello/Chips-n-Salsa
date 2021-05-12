@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -47,11 +47,9 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @param <T> The specific RealValued type.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.10.2020
+ * @version 5.12.2021
  */
 public class UndoableUniformMutation<T extends RealValued> extends UniformMutation<T> implements UndoableMutationOperator<T> {
 	
@@ -159,6 +157,11 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 		return new UndoableUniformMutation<T>(this);
 	}
 	
+	@Override
+	public boolean equals(Object other) {
+		return super.equals(other) && other instanceof UndoableUniformMutation;
+	}
+	
 	private static final class UndoablePartialUniformMutation<T extends RealValued> extends UndoableUniformMutation<T> {
 		
 		private final int k;
@@ -221,7 +224,9 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other)) return false;
+			if (!super.equals(other) || !(other instanceof UndoablePartialUniformMutation)) {
+				return false;
+			}
 			UndoablePartialUniformMutation g = (UndoablePartialUniformMutation)other;
 			return k==g.k && p==g.p;
 		}

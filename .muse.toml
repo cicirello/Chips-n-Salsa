@@ -2,6 +2,14 @@
 # in javadoc directories.
 disableTools = ["eslint"]
 
+# FindSecBugs identifies our use of ThreadLocalRandom as predictable.
+# We make extensive use of this class since local search require randomness.
+# Our use of randomness in this library is NOT at all security related,
+# and rather, we simply need a fast pseudorandom number generator since
+# we need to generate large numbers of random numbers. So ignore
+# predictable random warnings. 
+ignore = ["PREDICTABLE_RANDOM"]
+
 # Ignore results from these directories
 ignoreFiles = """
 docs/api/jquery/

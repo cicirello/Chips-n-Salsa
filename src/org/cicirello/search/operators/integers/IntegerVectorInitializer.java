@@ -354,7 +354,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other) || !(other instanceof MultiBoundedIntegerVector)) {
+			if (other==null || !(other instanceof MultiBoundedIntegerVector) || !super.equals(other)) {
 				return false;
 			}
 			MultiBoundedIntegerVector b = (MultiBoundedIntegerVector)other;

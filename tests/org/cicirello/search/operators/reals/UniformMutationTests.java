@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -62,6 +62,9 @@ public class UniformMutationTests {
 		assertNotEquals(p1, p2);
 		assertNotEquals(p1, p3);
 		assertNotEquals(p4, p5);
+		assertNotEquals(p1, g1);
+		assertNotEquals(p1, g3);
+		assertFalse(p1.equals(null));
 		p1 = UndoableUniformMutation.createUniformMutation(1, 1);
 		p2 = UndoableUniformMutation.createUniformMutation(2, 1);
 		p3 = UndoableUniformMutation.createUniformMutation(1, 2);
@@ -70,6 +73,9 @@ public class UniformMutationTests {
 		assertNotEquals(p1, p2);
 		assertNotEquals(p1, p3);
 		assertNotEquals(p4, p5);
+		assertNotEquals(p1, g1);
+		assertNotEquals(p1, g3);
+		assertFalse(p1.equals(null));
 	}
 	
 	@Test

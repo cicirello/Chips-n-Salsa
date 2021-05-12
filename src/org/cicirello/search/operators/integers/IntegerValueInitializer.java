@@ -191,7 +191,7 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other) || !(other instanceof BoundedInteger)) {
+			if (other==null || !(other instanceof BoundedInteger) || !super.equals(other)) {
 				return false;
 			}
 			BoundedInteger a = (BoundedInteger)other;

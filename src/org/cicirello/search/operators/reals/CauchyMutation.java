@@ -289,7 +289,7 @@ public class CauchyMutation<T extends RealValued> implements MutationOperator<T>
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other) || !(other instanceof PartialCauchyMutation)) {
+			if (other==null || !(other instanceof PartialCauchyMutation) || !super.equals(other)) {
 				return false;
 			}
 			PartialCauchyMutation g = (PartialCauchyMutation)other;

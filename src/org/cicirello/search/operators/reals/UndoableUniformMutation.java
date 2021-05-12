@@ -224,7 +224,10 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other) || !(other instanceof UndoablePartialUniformMutation)) {
+			if (other == null || !(other instanceof UndoablePartialUniformMutation)) {
+				return false;
+			}
+			if (!super.equals(other)) {
 				return false;
 			}
 			UndoablePartialUniformMutation g = (UndoablePartialUniformMutation)other;

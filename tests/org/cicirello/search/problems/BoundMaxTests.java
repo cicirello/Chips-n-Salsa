@@ -31,6 +31,19 @@ import org.cicirello.search.operators.integers.IntegerVectorInitializer;
 public class BoundMaxTests {
 	
 	@Test
+	public void testEquals() {
+		BoundMax b1 = new BoundMax(10, 3);
+		BoundMax b2 = new BoundMax(10, 3);
+		BoundMax b3 = new BoundMax(11, 3);
+		BoundMax b4 = new BoundMax(10, 4);
+		assertEquals(b1, b2);
+		assertNotEquals(b1, b3);
+		assertNotEquals(b1, b4);
+		assertFalse(b1.equals(null));
+		assertFalse(b1.equals("hello"));
+	}
+	
+	@Test
 	public void testInitializerMethods() {
 		for (int n = 0; n < 5; n++) {
 			for (int bound = 0; bound < 5; bound++) {

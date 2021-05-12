@@ -229,7 +229,10 @@ public class UndoableGaussianMutation<T extends RealValued> extends GaussianMuta
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other) || !(other instanceof UndoablePartialGaussianMutation)) {
+			if (other==null || !(other instanceof UndoablePartialGaussianMutation)) {
+				return false;
+			}
+			if (!super.equals(other)) {
 				return false;
 			}
 			UndoablePartialGaussianMutation g = (UndoablePartialGaussianMutation)other;

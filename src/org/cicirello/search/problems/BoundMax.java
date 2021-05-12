@@ -113,7 +113,7 @@ public final class BoundMax extends IntegerVectorInitializer implements IntegerC
 	
 	@Override
 	public boolean equals(Object other) {
-		if (!super.equals(other) || !(other instanceof BoundMax)) {
+		if (other == null || !(other instanceof BoundMax)) {
 			return false;
 		}
 		BoundMax o = (BoundMax)other;

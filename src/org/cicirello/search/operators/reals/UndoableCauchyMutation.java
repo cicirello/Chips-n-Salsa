@@ -233,7 +233,7 @@ public class UndoableCauchyMutation<T extends RealValued> extends CauchyMutation
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other) || !(other instanceof UndoablePartialCauchyMutation)) {
+			if (other==null || !(other instanceof UndoablePartialCauchyMutation) || !super.equals(other)) {
 				return false;
 			}
 			UndoablePartialCauchyMutation g = (UndoablePartialCauchyMutation)other;

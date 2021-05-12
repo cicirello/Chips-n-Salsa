@@ -38,7 +38,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 5.12.2021
  */
-public class RealValueInitializer implements Initializer<SingleReal> {
+public final class RealValueInitializer implements Initializer<SingleReal> {
 	
 	private final double a;
 	private final double b;
@@ -110,7 +110,7 @@ public class RealValueInitializer implements Initializer<SingleReal> {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || !getClass().equals(other.getClass())) return false;
+		if (other == null || !(other instanceof RealValueInitializer)) return false;
 		RealValueInitializer i = (RealValueInitializer)other;
 		return a == i.a && b == i.b && min == i.min && max == i.max;
 	}

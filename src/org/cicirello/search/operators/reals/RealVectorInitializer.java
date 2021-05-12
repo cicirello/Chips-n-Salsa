@@ -39,7 +39,7 @@ import java.util.Arrays;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 5.12.2021
  */
-public class RealVectorInitializer implements Initializer<RealVector> {
+public final class RealVectorInitializer implements Initializer<RealVector> {
 	
 	private final double[] x;
 	private final double[] a;
@@ -250,7 +250,7 @@ public class RealVectorInitializer implements Initializer<RealVector> {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || !getClass().equals(other.getClass())) return false;
+		if (other == null || !(other instanceof RealVectorInitializer)) return false;
 		RealVectorInitializer i = (RealVectorInitializer)other;
 		return ((min == null && i.min == null) ||
 				(Arrays.equals(min, i.min) && Arrays.equals(max, i.max)))

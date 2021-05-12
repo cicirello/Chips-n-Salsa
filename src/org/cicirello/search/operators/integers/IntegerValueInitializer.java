@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -33,11 +33,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * to {@link SingleInteger#set} such that the {@link SingleInteger#set} method will set the value to
  * the min if a value is passed less than min (and similarly for max). 
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.10.2020
+ * @version 5.12.2021
  */
 public class IntegerValueInitializer implements Initializer<SingleInteger> {
 	
@@ -111,7 +109,9 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || !getClass().equals(other.getClass())) return false;
+		if (other == null || !(other instanceof IntegerValueInitializer)) {
+			return false;
+		}
 		IntegerValueInitializer i = (IntegerValueInitializer)other;
 		return a == i.a && b == i.b && min == i.min && max == i.max && bounded == i.bounded;
 	}
@@ -191,7 +191,9 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other)) return false;
+			if (!super.equals(other) || !(other instanceof BoundedInteger)) {
+				return false;
+			}
 			BoundedInteger a = (BoundedInteger)other;
 			return IntegerValueInitializer.this.min == a.getOuterThis().min &&
 				IntegerValueInitializer.this.max == a.getOuterThis().max;

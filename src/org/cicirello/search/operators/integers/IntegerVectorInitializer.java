@@ -35,7 +35,6 @@ import java.util.Arrays;
  * to {@link IntegerVector#set} such that the {@link IntegerVector#set} method will set the value to
  * the min if a value is passed less than min (and similarly for max). 
  *
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 5.12.2021
@@ -251,7 +250,9 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || !getClass().equals(other.getClass())) return false;
+		if (other == null || !(other instanceof IntegerVectorInitializer)) {
+			return false;
+		}
 		IntegerVectorInitializer i = (IntegerVectorInitializer)other;
 		return ((min == null && i.min == null) ||
 				(Arrays.equals(min, i.min) && Arrays.equals(max, i.max)))
@@ -353,7 +354,9 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other)) return false;
+			if (!super.equals(other) || !(other instanceof MultiBoundedIntegerVector)) {
+				return false;
+			}
 			MultiBoundedIntegerVector b = (MultiBoundedIntegerVector)other;
 			return Arrays.equals(IntegerVectorInitializer.this.min, b.getOuterThis().min) &&
 				Arrays.equals(IntegerVectorInitializer.this.max, b.getOuterThis().max);

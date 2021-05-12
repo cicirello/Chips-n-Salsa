@@ -44,7 +44,7 @@ import org.cicirello.search.representations.IntegerValued;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2021
+ * @version 5.12.2021
  */
 public final class UndoableRandomValueChangeMutation<T extends IntegerValued> extends RandomValueChangeMutation<T> implements UndoableMutationOperator<T> {
 	
@@ -127,5 +127,10 @@ public final class UndoableRandomValueChangeMutation<T extends IntegerValued> ex
 	@Override
 	public UndoableRandomValueChangeMutation<T> split() {
 		return new UndoableRandomValueChangeMutation<T>(this);
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		return super.equals(other) && other instanceof UndoableRandomValueChangeMutation;
 	}
 }

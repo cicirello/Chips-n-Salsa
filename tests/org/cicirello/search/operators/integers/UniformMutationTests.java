@@ -60,6 +60,9 @@ public class UniformMutationTests {
 		assertNotEquals(p1, p2);
 		assertNotEquals(p1, p3);
 		assertNotEquals(p4, p5);
+		assertFalse(p1.equals(null));
+		assertFalse(p1.equals("hello"));
+		assertFalse(p1.equals(g1));
 		p1 = UndoableUniformMutation.createUniformMutation(1, 1);
 		p2 = UndoableUniformMutation.createUniformMutation(2, 1);
 		p3 = UndoableUniformMutation.createUniformMutation(1, 2);
@@ -68,6 +71,10 @@ public class UniformMutationTests {
 		assertNotEquals(p1, p2);
 		assertNotEquals(p1, p3);
 		assertNotEquals(p4, p5);
+		assertFalse(p1.equals(null));
+		assertFalse(p1.equals("hello"));
+		g1 = UndoableUniformMutation.createUniformMutation(1);
+		assertFalse(p1.equals(g1));
 	}
 	
 	@Test

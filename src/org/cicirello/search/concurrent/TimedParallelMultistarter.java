@@ -73,7 +73,7 @@ import java.util.function.Function;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 1.25.2021
+ * @version 5.12.2021
  */
 public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
 	
@@ -486,7 +486,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>> implements Metaheu
 			for (Future<SolutionCostPair<T>> f : futures) {
 				try {
 					SolutionCostPair<T> pair = f.get();
-					if (bestRestart == null || pair != null && pair.compareTo(bestRestart) < 0) {
+					if (bestRestart == null || (pair != null && pair.compareTo(bestRestart) < 0)) {
 						bestRestart = pair;
 					}
 				} 

@@ -29,7 +29,7 @@ import org.cicirello.permutations.Permutation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2021 
+ * @version 5.12.2021 
  */
 final class BlockInterchangeIterator implements MutationIterator {
 	
@@ -159,7 +159,7 @@ final class BlockInterchangeIterator implements MutationIterator {
 			}
 		}
 		p.swap(i,j);
-		if (p.length() <= 2 || j==0 && i==p.length()-1) {
+		if (p.length() <= 2 || (j==0 && i==p.length()-1)) {
 			hasMoreInsertions = false;
 			hasMore = hasMoreElementSwaps;
 		}
@@ -264,7 +264,7 @@ final class BlockInterchangeIterator implements MutationIterator {
 			k++;
 			if (k >= p.length()) {
 				j++;
-				if (j > p.length() - 1 || h==i && j == p.length() - 1) {
+				if (j > p.length() - 1 || (h==i && j == p.length() - 1)) {
 					i++;
 					if (i > p.length() - 3) {
 						h++;

@@ -43,7 +43,7 @@ import java.util.function.Function;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2021
+ * @version 5.12.2021
  */
 public class ParallelMetaheuristic<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
 	
@@ -243,7 +243,7 @@ public class ParallelMetaheuristic<T extends Copyable<T>> implements Metaheurist
 			for (Future<SolutionCostPair<T>> f : futures) {
 				try {
 					SolutionCostPair<T> pair = f.get();
-					if (bestParallelRun == null || pair != null && pair.compareTo(bestParallelRun) < 0) {
+					if (bestParallelRun == null || (pair != null && pair.compareTo(bestParallelRun) < 0)) {
 						bestParallelRun = pair;
 					}
 				} 

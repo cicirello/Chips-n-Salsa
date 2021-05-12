@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -27,11 +27,9 @@ import org.cicirello.permutations.Permutation;
  * Internal (package-private) class implementing an iterator over
  * all removal/reinsertions.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.9.2019 
+ * @version 5.12.2021 
  */
 final class InsertionIterator implements MutationIterator {
 	
@@ -81,7 +79,9 @@ final class InsertionIterator implements MutationIterator {
 			}
 		}
 		p.swap(i,j);
-		if (p.length() <= 2 || j==0 && i==p.length()-1) hasMore = false;
+		if (p.length() <= 2 || (j==0 && i==p.length()-1)) {
+			hasMore = false;
+		}
 	}
 	
 	@Override

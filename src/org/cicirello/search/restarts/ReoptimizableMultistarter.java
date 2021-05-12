@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -35,11 +35,9 @@ import org.cicirello.util.Copyable;
  *
  * @param <T> The type of object being optimized.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.11.2020
+ * @version 5.12.2021
  */
 public final class ReoptimizableMultistarter<T extends Copyable<T>> extends Multistarter<T> implements ReoptimizableMetaheuristic<T> {
 	
@@ -91,7 +89,7 @@ public final class ReoptimizableMultistarter<T extends Copyable<T>> extends Mult
 		SolutionCostPair<T> bestRestart = null;
 		for (int i = 0; i < numRestarts && !tracker.isStopped() && !tracker.didFindBest(); i++) {
 			SolutionCostPair<T> thisRestart = search.reoptimize(r.nextRunLength());
-			if (bestRestart == null || thisRestart != null && thisRestart.compareTo(bestRestart) < 0)
+			if (bestRestart == null || (thisRestart != null && thisRestart.compareTo(bestRestart) < 0))
 				bestRestart = thisRestart;
 		}
 		return bestRestart;

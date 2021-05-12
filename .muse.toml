@@ -1,5 +1,6 @@
 # don't run eslint... it is for js and will detect false positives 
 # in javadoc directories.
+
 disableTools = ["eslint"]
 
 # Ignore warnings not relevant to this specific project:
@@ -18,9 +19,11 @@ disableTools = ["eslint"]
 # randomly generated instances to a file (which also accepts filename as input). 
 # It is the responsibility of the application that uses the library to appropriately
 # obtain the relevant filenames.
+
 ignore = ["PREDICTABLE_RANDOM", "PATH_TRAVERSAL_IN"]
 
 # Ignore results from these directories
+
 ignoreFiles = """
 docs/api/jquery/
 tests/

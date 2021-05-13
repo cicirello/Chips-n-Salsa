@@ -19,8 +19,11 @@ disableTools = ["eslint"]
 # randomly generated instances to a file (which also accepts filename as input). 
 # It is the responsibility of the application that uses the library to appropriately
 # obtain the relevant filenames.
+#
+# 3) FindSecBugs generates PATH_TRAVERSAL_OUT for the same reason as above,
+# and we are ignoring them for the same reason.
 
-ignore = ["PREDICTABLE_RANDOM", "PATH_TRAVERSAL_IN"]
+ignore = ["PREDICTABLE_RANDOM", "PATH_TRAVERSAL_IN", "PATH_TRAVERSAL_OUT"]
 
 # Ignore results from these directories
 

@@ -52,7 +52,6 @@ public final class UndoableUniformScrambleMutation extends Permutation.Mechanic 
 	private final boolean guaranteeChange;
 	
 	private int[] last;
-	private Permutation previous;
 	private int[] indexes;
 	
 	/**
@@ -86,7 +85,6 @@ public final class UndoableUniformScrambleMutation extends Permutation.Mechanic 
 	@Override
 	public final void mutate(Permutation c) {
 		if (c.length() >= 2) {
-			previous = c;
 			last = c.toArray();
 			indexes = RandomIndexer.sample(c.length(), u);
 			if (guaranteeChange && indexes.length < 2) {

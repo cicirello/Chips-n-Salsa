@@ -49,7 +49,6 @@ import org.cicirello.math.rand.RandomIndexer;
 public class UndoableScrambleMutation extends Permutation.Mechanic implements UndoableMutationOperator<Permutation> {
 
 	private int[] last;
-	private Permutation previous;
 	private final int[] indexes;
 	
 	/**
@@ -62,7 +61,6 @@ public class UndoableScrambleMutation extends Permutation.Mechanic implements Un
 	@Override
 	public final void mutate(Permutation c) {
 		if (c.length() >= 2) {
-			previous = c;
 			last = c.toArray();
 			generateIndexes(c.length(), indexes);
 			c.scramble(indexes[0], indexes[1]);

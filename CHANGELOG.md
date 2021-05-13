@@ -9,18 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-* Code improvements based on report from initial run of MuseDev's 
-  static code analysis tool (non-functional changes to improve code).
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
-* Fixed null pointer bug in stochastic sampling implementations for the case when
-  the given heuristic doesn't use an incremental evaluation.
 
 ### CI/CD
+
+
+## [2.11.1] - 2021-5-13
+
+### Changed
+* Code improvements based on report from initial run of MuseDev's 
+  static code analysis tool (non-functional changes to improve code).
+
+### Fixed
+* Fixed null pointer bug in stochastic sampling implementations for the case when
+  the given heuristic doesn't use an incremental evaluation.
 
 
 ## [2.11.0] - 2021-5-11

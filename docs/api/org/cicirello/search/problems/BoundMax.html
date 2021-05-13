@@ -30,7 +30,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -236,13 +236,18 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a>&nbsp;other)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isMinCost(int)">isMinCost</a></span>&#8203;(int&nbsp;cost)</code></th>
 <td class="colLast">
 <div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
  to the problem instance, where lower cost implies better solution.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#minCost()">minCost</a></span>()</code></th>
 <td class="colLast">
@@ -250,7 +255,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
  to the problem instance, where lower cost implies better solution.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#value(org.cicirello.search.representations.IntegerVector)">value</a></span>&#8203;(<a href="../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">
@@ -264,7 +269,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;org.cicirello.search.operators.integers.<a href="../operators/integers/IntegerVectorInitializer.html" title="class in org.cicirello.search.operators.integers">IntegerVectorInitializer</a></h3>
-<code><a href="../operators/integers/IntegerVectorInitializer.html#createCandidateSolution()">createCandidateSolution</a>, <a href="../operators/integers/IntegerVectorInitializer.html#equals(java.lang.Object)">equals</a>, <a href="../operators/integers/IntegerVectorInitializer.html#hashCode()">hashCode</a>, <a href="../operators/integers/IntegerVectorInitializer.html#split()">split</a></code></li>
+<code><a href="../operators/integers/IntegerVectorInitializer.html#createCandidateSolution()">createCandidateSolution</a>, <a href="../operators/integers/IntegerVectorInitializer.html#hashCode()">hashCode</a>, <a href="../operators/integers/IntegerVectorInitializer.html#split()">split</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -387,7 +392,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <a id="isMinCost(int)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>isMinCost</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;isMinCost&#8203;(int&nbsp;cost)</pre>
@@ -401,6 +406,19 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <dd><code>cost</code> - The cost to check.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if cost is equal to the minimum theoretical cost,</dd>
+</dl>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a>&nbsp;other)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../operators/integers/IntegerVectorInitializer.html#equals(java.lang.Object)">equals</a></code>&nbsp;in class&nbsp;<code><a href="../operators/integers/IntegerVectorInitializer.html" title="class in org.cicirello.search.operators.integers">IntegerVectorInitializer</a></code></dd>
 </dl>
 </li>
 </ul>

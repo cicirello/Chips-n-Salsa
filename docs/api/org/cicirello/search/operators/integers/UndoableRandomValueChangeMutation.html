@@ -30,7 +30,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -229,13 +229,20 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a>&nbsp;other)</code></th>
+<td class="colLast">
+<div class="block">Indicates whether some other object is equal to this one.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#mutate(T)">mutate</a></span>&#8203;(<a href="UndoableRandomValueChangeMutation.html" title="type parameter in UndoableRandomValueChangeMutation">T</a>&nbsp;c)</code></th>
 <td class="colLast">
 <div class="block">Mutates a candidate solution to a problem, by randomly modifying its state.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="UndoableRandomValueChangeMutation.html" title="class in org.cicirello.search.operators.integers">UndoableRandomValueChangeMutation</a>&lt;<a href="UndoableRandomValueChangeMutation.html" title="type parameter in UndoableRandomValueChangeMutation">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#split()">split</a></span>()</code></th>
 <td class="colLast">
@@ -243,7 +250,7 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
  multithreaded implementations of search algorithms.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#undo(T)">undo</a></span>&#8203;(<a href="UndoableRandomValueChangeMutation.html" title="type parameter in UndoableRandomValueChangeMutation">T</a>&nbsp;c)</code></th>
 <td class="colLast">
@@ -257,7 +264,7 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;org.cicirello.search.operators.integers.<a href="RandomValueChangeMutation.html" title="class in org.cicirello.search.operators.integers">RandomValueChangeMutation</a></h3>
-<code><a href="RandomValueChangeMutation.html#equals(java.lang.Object)">equals</a>, <a href="RandomValueChangeMutation.html#hashCode()">hashCode</a></code></li>
+<code><a href="RandomValueChangeMutation.html#hashCode()">hashCode</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -425,7 +432,7 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <a id="split()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>split</h4>
 <pre class="methodSignature">public&nbsp;<a href="UndoableRandomValueChangeMutation.html" title="class in org.cicirello.search.operators.integers">UndoableRandomValueChangeMutation</a>&lt;<a href="UndoableRandomValueChangeMutation.html" title="type parameter in UndoableRandomValueChangeMutation">T</a>&gt;&nbsp;split()</pre>
@@ -455,6 +462,27 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <dd>A functionally identical copy of the object, or a reference to this if
  it is both safe and efficient for multiple threads to share a single instance of this
  Splittable object.</dd>
+</dl>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a>&nbsp;other)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="RandomValueChangeMutation.html#equals(java.lang.Object)">RandomValueChangeMutation</a></code></span></div>
+<div class="block">Indicates whether some other object is equal to this one.
+ The objects are equal if they are the same type of operator
+ with the same parameters.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="RandomValueChangeMutation.html#equals(java.lang.Object)">equals</a></code>&nbsp;in class&nbsp;<code><a href="RandomValueChangeMutation.html" title="class in org.cicirello.search.operators.integers">RandomValueChangeMutation</a>&lt;<a href="UndoableRandomValueChangeMutation.html" title="type parameter in UndoableRandomValueChangeMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>other</code> - the object with which to compare</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if and only if the objects are equal</dd>
 </dl>
 </li>
 </ul>

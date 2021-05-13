@@ -30,7 +30,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":9,"i2":9,"i3":9,"i4":9,"i5":10,"i6":10,"i7":10};
+var data = {"i0":10,"i1":9,"i2":9,"i3":9,"i4":9,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -238,13 +238,20 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a>&nbsp;other)</code></th>
+<td class="colLast">
+<div class="block">Indicates whether some other object is equal to this one.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#mutate(T)">mutate</a></span>&#8203;(<a href="UndoableCauchyMutation.html" title="type parameter in UndoableCauchyMutation">T</a>&nbsp;c)</code></th>
 <td class="colLast">
 <div class="block">Mutates a candidate solution to a problem, by randomly modifying its state.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="UndoableCauchyMutation.html" title="class in org.cicirello.search.operators.reals">UndoableCauchyMutation</a>&lt;<a href="UndoableCauchyMutation.html" title="type parameter in UndoableCauchyMutation">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#split()">split</a></span>()</code></th>
 <td class="colLast">
@@ -252,7 +259,7 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
  multithreaded implementations of search algorithms.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#undo(T)">undo</a></span>&#8203;(<a href="UndoableCauchyMutation.html" title="type parameter in UndoableCauchyMutation">T</a>&nbsp;c)</code></th>
 <td class="colLast">
@@ -266,7 +273,7 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;org.cicirello.search.operators.reals.<a href="CauchyMutation.html" title="class in org.cicirello.search.operators.reals">CauchyMutation</a></h3>
-<code><a href="CauchyMutation.html#equals(java.lang.Object)">equals</a>, <a href="CauchyMutation.html#get(int)">get</a>, <a href="CauchyMutation.html#hashCode()">hashCode</a>, <a href="CauchyMutation.html#length()">length</a>, <a href="CauchyMutation.html#set(int,double)">set</a>, <a href="CauchyMutation.html#toArray(double%5B%5D)">toArray</a></code></li>
+<code><a href="CauchyMutation.html#get(int)">get</a>, <a href="CauchyMutation.html#hashCode()">hashCode</a>, <a href="CauchyMutation.html#length()">length</a>, <a href="CauchyMutation.html#set(int,double)">set</a>, <a href="CauchyMutation.html#toArray(double%5B%5D)">toArray</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -467,7 +474,7 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <a id="copy()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>copy</h4>
 <pre class="methodSignature">public&nbsp;<a href="UndoableCauchyMutation.html" title="class in org.cicirello.search.operators.reals">UndoableCauchyMutation</a>&lt;<a href="UndoableCauchyMutation.html" title="type parameter in UndoableCauchyMutation">T</a>&gt;&nbsp;copy()</pre>
@@ -479,6 +486,27 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <dd><code><a href="CauchyMutation.html#copy()">copy</a></code>&nbsp;in class&nbsp;<code><a href="CauchyMutation.html" title="class in org.cicirello.search.operators.reals">CauchyMutation</a>&lt;<a href="UndoableCauchyMutation.html" title="type parameter in UndoableCauchyMutation">T</a> extends <a href="../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>an identical copy of this object</dd>
+</dl>
+</li>
+</ul>
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a>&nbsp;other)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="CauchyMutation.html#equals(java.lang.Object)">CauchyMutation</a></code></span></div>
+<div class="block">Indicates whether some other object is equal to this one.
+ The objects are equal if they are the same type of operator
+ with the same parameters.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="CauchyMutation.html#equals(java.lang.Object)">equals</a></code>&nbsp;in class&nbsp;<code><a href="CauchyMutation.html" title="class in org.cicirello.search.operators.reals">CauchyMutation</a>&lt;<a href="UndoableCauchyMutation.html" title="type parameter in UndoableCauchyMutation">T</a> extends <a href="../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>other</code> - the object with which to compare</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if and only if the objects are equal</dd>
 </dl>
 </li>
 </ul>

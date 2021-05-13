@@ -44,7 +44,7 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 4.13.2021
+ * @version 5.13.2021
  */
 public class UndoableScrambleMutation extends Permutation.Mechanic implements UndoableMutationOperator<Permutation> {
 
@@ -71,9 +71,7 @@ public class UndoableScrambleMutation extends Permutation.Mechanic implements Un
 	
 	@Override
 	public final void undo(Permutation c) {
-		// Verify that c was the most recently mutated permutation.
-		// If so, undo the mutation.
-		if (previous == c) {
+		if (c.length() >= 2) {
 			if (indexes[0] < indexes[1]) {
 				set(c, last, indexes[0], indexes[0], indexes[1]-indexes[0]+1);
 			} else {

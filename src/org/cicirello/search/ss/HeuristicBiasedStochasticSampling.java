@@ -149,7 +149,7 @@ import org.cicirello.util.Copyable;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2021
+ * @version 5.13.2021
  */
 public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> extends AbstractStochasticSampler<T> {
 	
@@ -379,7 +379,9 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> exte
 		while (!p.isComplete()) {
 			int k = p.numExtensions();
 			if (k==1) {
-				incEval.extend(p, p.getExtension(0));
+				if (incEval != null) {
+					incEval.extend(p, p.getExtension(0));
+				}
 				p.extend(0);
 			} else {
 				int chosenRank = 1 + select(biases, k, r.nextDouble(biases[k-1]));
@@ -388,7 +390,9 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> exte
 					extensions[i] = i;
 				}
 				int which = randomizedSelect(extensions, v, k, chosenRank);
-				incEval.extend(p, p.getExtension(which));
+				if (incEval != null) {
+					incEval.extend(p, p.getExtension(which));
+				}
 				p.extend(which);
 			}
 		}

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -34,6 +34,31 @@ import org.cicirello.search.ProgressTracker;
  * JUnit tests for HeuristicBiasedStochasticSampling.
  */
 public class HBSSTests {
+	
+	@Test
+	public void testHeuristicNullIncremental() {
+		for (int n = 0; n < 4; n++) {
+			IntProblem problem = new IntProblem();
+			IntHeuristicNullIncremental h = new IntHeuristicNullIncremental(problem, n);
+			HeuristicBiasedStochasticSampling<Permutation> ch = new HeuristicBiasedStochasticSampling<Permutation>(h);
+			assertEquals(0, ch.getTotalRunLength());
+			assertTrue(problem == ch.getProblem());
+			ProgressTracker<Permutation> tracker = ch.getProgressTracker();
+			SolutionCostPair<Permutation> solution = ch.optimize();
+			assertEquals(1, ch.getTotalRunLength());
+			assertEquals((n+1)*n/2, solution.getCost());
+			assertEquals((n+1)*n/2, tracker.getCost());
+			Permutation p = solution.getSolution();
+			assertEquals(n, p.length());
+			solution = ch.optimize();
+			assertEquals(2, ch.getTotalRunLength());
+			assertEquals((n+1)*n/2, solution.getCost());
+			assertEquals((n+1)*n/2, tracker.getCost());
+			tracker = new ProgressTracker<Permutation>();
+			ch.setProgressTracker(tracker);
+			assertTrue(tracker == ch.getProgressTracker());
+		}
+	}
 	
 	@Test
 	public void testWithIntCosts() {
@@ -478,9 +503,6 @@ public class HBSSTests {
 		}
 	}
 	
-	
-	
-	
 	@Test
 	public void testWithIntCostsBias() {
 		HeuristicBiasedStochasticSampling.BiasFunction bias = 
@@ -593,6 +615,19 @@ public class HBSSTests {
 		}
 	}
 	
+	/*
+	 * Fake heuristic designed for predictable test cases:
+	 * designed to prefer even permutation elements (largest to smallest), followed by odd
+	 * (largest to smallest).
+	 */
+	private static class IntHeuristicNullIncremental extends IntHeuristic {
+		public IntHeuristicNullIncremental(IntProblem problem, int n) {
+			super(problem, n);
+		}
+		@Override public IntIncEval createIncrementalEvaluation() {
+			return null;
+		}
+	}
 	
 	/*
 	 * Fake heuristic designed for predictable test cases:

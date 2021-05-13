@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -44,7 +44,7 @@ import org.cicirello.util.Copyable;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.6.2020
+ * @version 5.13.2021
  */
 public class HeuristicSolutionGenerator<T extends Copyable<T>> implements SimpleMetaheuristic<T> {
 	
@@ -169,7 +169,9 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
 		while (!p.isComplete()) {
 			int k = p.numExtensions();
 			if (k==1) {
-				incEval.extend(p, p.getExtension(0));
+				if (incEval != null) {
+					incEval.extend(p, p.getExtension(0));
+				}
 				p.extend(0);
 			} else {
 				double bestH = Double.NEGATIVE_INFINITY;
@@ -181,7 +183,9 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
 						which = i;
 					}
 				}
-				incEval.extend(p, p.getExtension(which));
+				if (incEval != null) {
+					incEval.extend(p, p.getExtension(which));
+				}
 				p.extend(which);
 			}
 		}

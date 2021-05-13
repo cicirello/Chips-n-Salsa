@@ -24,7 +24,11 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 import java.util.SplittableRandom;
 import java.util.Scanner;
-import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
@@ -110,7 +114,7 @@ import java.io.PrintWriter;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2021
+ * @version 5.13.2021
  */
 public final class WeightedStaticSchedulingWithSetups implements SingleMachineSchedulingProblemData {
 	
@@ -226,7 +230,7 @@ public final class WeightedStaticSchedulingWithSetups implements SingleMachineSc
 	 * be opened for reading
 	 */
 	public WeightedStaticSchedulingWithSetups(String filename) throws FileNotFoundException {
-		this(new FileReader(filename));
+		this(new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8));
 	}
 	
 	private WeightedStaticSchedulingWithSetups(int n, double tau, double r, double eta, SplittableRandom rand) {
@@ -429,7 +433,7 @@ public final class WeightedStaticSchedulingWithSetups implements SingleMachineSc
 	 * cannot be created, or if some other error occurs while opening or creating the file
 	 */
 	public void toFile(String filename, int instanceNumber) throws FileNotFoundException {
-		PrintWriter out = new PrintWriter(filename);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8), true);
 		toFile(out, instanceNumber);
 		out.close();
 	}

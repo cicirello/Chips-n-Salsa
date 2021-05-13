@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -134,10 +134,9 @@ import org.cicirello.util.Copyable;
  *
  * @param <T> The type of object under optimization.
  *
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.4.2020
+ * @version 5.13.2021
  */
 public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends AbstractStochasticSampler<T> {
 	
@@ -322,7 +321,9 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends 
 		while (!p.isComplete()) {
 			int k = p.numExtensions();
 			if (k==1) {
-				incEval.extend(p, p.getExtension(0));
+				if (incEval != null) {
+					incEval.extend(p, p.getExtension(0));
+				}
 				p.extend(0);
 			} else {
 				for (int i = 0; i < k; i++) {
@@ -330,7 +331,9 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends 
 				}
 				adjustForBias(b, k);
 				int which = select(b, k, r.nextDouble());
-				incEval.extend(p, p.getExtension(which));
+				if (incEval != null) {
+					incEval.extend(p, p.getExtension(which));
+				}
 				p.extend(which);
 			}
 		}

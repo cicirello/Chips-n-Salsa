@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -49,11 +49,9 @@ import org.cicirello.util.Copyable;
  *
  * @param <T> The specific IntegerValued type.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.10.2020
+ * @version 5.12.2021
  */
 public class UniformMutation<T extends IntegerValued> implements MutationOperator<T>, IntegerValued, Copyable<UniformMutation<T>> {
 	
@@ -152,7 +150,7 @@ public class UniformMutation<T extends IntegerValued> implements MutationOperato
 	 */
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || other.getClass() != getClass()) return false;
+		if (other == null || !(other instanceof UniformMutation)) return false;
 		UniformMutation g = (UniformMutation)other;
 		return radius==g.radius;
 	}
@@ -275,7 +273,9 @@ public class UniformMutation<T extends IntegerValued> implements MutationOperato
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other)) return false;
+			if (!super.equals(other) || !(other instanceof PartialUniformMutation)) {
+				return false;
+			}
 			PartialUniformMutation g = (PartialUniformMutation)other;
 			return k==g.k && p==g.p;
 		}

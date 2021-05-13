@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -35,10 +35,9 @@ import java.util.Arrays;
  * to {@link IntegerVector#set} such that the {@link IntegerVector#set} method will set the value to
  * the min if a value is passed less than min (and similarly for max). 
  *
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.10.2020
+ * @version 5.12.2021
  */
 public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 	
@@ -251,10 +250,12 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || !getClass().equals(other.getClass())) return false;
+		if (other == null || !(other instanceof IntegerVectorInitializer)) {
+			return false;
+		}
 		IntegerVectorInitializer i = (IntegerVectorInitializer)other;
-		return (min == null && i.min == null ||
-			  Arrays.equals(min, i.min) && Arrays.equals(max, i.max))
+		return ((min == null && i.min == null) ||
+				(Arrays.equals(min, i.min) && Arrays.equals(max, i.max)))
 			  && Arrays.equals(a, i.a) && Arrays.equals(b, i.b);
 	}
 	
@@ -353,7 +354,9 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other)) return false;
+			if (other==null || !(other instanceof MultiBoundedIntegerVector) || !super.equals(other)) {
+				return false;
+			}
 			MultiBoundedIntegerVector b = (MultiBoundedIntegerVector)other;
 			return Arrays.equals(IntegerVectorInitializer.this.min, b.getOuterThis().min) &&
 				Arrays.equals(IntegerVectorInitializer.this.max, b.getOuterThis().max);

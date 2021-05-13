@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -24,7 +24,11 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 import java.util.SplittableRandom;
 import java.util.Scanner;
-import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
@@ -60,7 +64,7 @@ import java.io.PrintWriter;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.8.2020
+ * @version 5.13.2021
  */
 public final class CommonDuedateScheduling implements SingleMachineSchedulingProblemData {
 	
@@ -198,7 +202,7 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
 	 * @throws IllegalArgumentException if h &lt; 0 or h &gt; 1 
 	 */
 	public CommonDuedateScheduling(String filename, int instanceNumber, double h) throws FileNotFoundException {
-		this(new FileReader(filename), instanceNumber, h);
+		this(new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8), instanceNumber, h);
 	}
 		
 	/*
@@ -408,7 +412,7 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
 	 * cannot be created, or if some other error occurs while opening or creating the file
 	 */
 	public void toFile(String filename) throws FileNotFoundException {
-		PrintWriter out = new PrintWriter(filename);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8), true);
 		toFile(out);
 		out.close();
 	}

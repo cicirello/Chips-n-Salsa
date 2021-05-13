@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -61,11 +61,9 @@ import org.cicirello.search.operators.integers.IntegerVectorInitializer;
  * which is a proper implementation
  * of an indexable vector of bits.</p>
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.11.2020
+ * @version 5.12.2021
  */
 public final class BoundMax extends IntegerVectorInitializer implements IntegerCostOptimizationProblem<IntegerVector> {
 	
@@ -111,5 +109,14 @@ public final class BoundMax extends IntegerVectorInitializer implements IntegerC
 	@Override
 	public boolean isMinCost(int cost) {
 		return cost == 0;
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other == null || !(other instanceof BoundMax)) {
+			return false;
+		}
+		BoundMax o = (BoundMax)other;
+		return b == o.b && n == o.n;
 	}
 }

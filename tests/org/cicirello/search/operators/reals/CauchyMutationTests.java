@@ -62,6 +62,9 @@ public class CauchyMutationTests {
 		assertNotEquals(p1, p2);
 		assertNotEquals(p1, p3);
 		assertNotEquals(p4, p5);
+		assertNotEquals(p1, g1);
+		assertNotEquals(p1, g3);
+		assertFalse(p1.equals(null));
 		p1 = UndoableCauchyMutation.createCauchyMutation(1, 1);
 		p2 = UndoableCauchyMutation.createCauchyMutation(2, 1);
 		p3 = UndoableCauchyMutation.createCauchyMutation(1, 2);
@@ -70,6 +73,9 @@ public class CauchyMutationTests {
 		assertNotEquals(p1, p2);
 		assertNotEquals(p1, p3);
 		assertNotEquals(p4, p5);
+		assertNotEquals(p1, g1);
+		assertNotEquals(p1, g3);
+		assertFalse(p1.equals(null));
 	}
 	
 	@Test

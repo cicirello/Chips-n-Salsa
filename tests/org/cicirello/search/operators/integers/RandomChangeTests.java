@@ -50,6 +50,7 @@ public class RandomChangeTests {
 		assertNotEquals(r1, r6);
 		assertNotEquals(r1, r7);
 		assertFalse(r1.equals(null));
+		assertFalse(r1.equals("hello"));
 		UndoableRandomValueChangeMutation<IntegerValued> u1 = new UndoableRandomValueChangeMutation<IntegerValued>(1, 4);
 		UndoableRandomValueChangeMutation<IntegerValued> u2 = new UndoableRandomValueChangeMutation<IntegerValued>(0, 4);
 		UndoableRandomValueChangeMutation<IntegerValued> u3 = new UndoableRandomValueChangeMutation<IntegerValued>(1, 5);
@@ -57,7 +58,7 @@ public class RandomChangeTests {
 		UndoableRandomValueChangeMutation<IntegerValued> u5 = new UndoableRandomValueChangeMutation<IntegerValued>(1, 4, 0.0, 1);
 		UndoableRandomValueChangeMutation<IntegerValued> u6 = new UndoableRandomValueChangeMutation<IntegerValued>(1, 4, 0.2, 1);
 		UndoableRandomValueChangeMutation<IntegerValued> u7 = new UndoableRandomValueChangeMutation<IntegerValued>(1, 4, 0.0, 2);
-		assertFalse(r1.equals(u1));
+		//assertFalse(r1.equals(u1));
 		assertEquals(u1, u4);
 		assertEquals(u1.hashCode(), u4.hashCode());
 		assertEquals(u1, u5);
@@ -67,6 +68,7 @@ public class RandomChangeTests {
 		assertFalse(u1.equals(null));
 		assertNotEquals(u1, u6);
 		assertNotEquals(u1, u7);
+		assertFalse(u1.equals(r1));
 	}
 	
 	@Test

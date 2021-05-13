@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -90,7 +90,7 @@ public class IntegerValuedInitializerTests {
 		SingleInteger g1 = f.createCandidateSolution();
 		SingleInteger g2 = f.createCandidateSolution();
 		SingleInteger h = new SingleInteger(2);
-		assertNotEquals(g1, h);
+		assertFalse(g1.equals(h));
 		assertEquals(g1, g2);
 		assertEquals(g1.hashCode(), g2.hashCode());
 		IntegerValueInitializer f2 = new IntegerValueInitializer(2, 3, 2, 2);
@@ -101,6 +101,9 @@ public class IntegerValuedInitializerTests {
 		assertNotEquals(g1, f2.createCandidateSolution());
 		f2 = new IntegerValueInitializer(2, 3, 0, 2);
 		assertNotEquals(g1, f2.createCandidateSolution());
+		assertFalse(g1.equals(null));
+		f2 = new IntegerValueInitializer(4, 5, 2, 4);
+		assertFalse(g1.equals(f2.createCandidateSolution()));
 	}
 	
 	@Test
@@ -120,6 +123,11 @@ public class IntegerValuedInitializerTests {
 		assertNotEquals(g1, f2.createCandidateSolution());
 		f2 = new IntegerVectorInitializer(new int[] {2, 2}, new int[] {3, 3}, new int[] {0, 0}, new int[] {2, 2});
 		assertNotEquals(g1, f2.createCandidateSolution());
+		assertFalse(g1.equals(null));
+		IntegerVectorInitializer nonMultiBound = new IntegerVectorInitializer(2, 2, 4, 0, 8);
+		assertFalse(g1.equals(nonMultiBound.createCandidateSolution()));
+		IntegerVectorInitializer f3 = new IntegerVectorInitializer(new int[] {4, 4}, new int[] {5, 5}, new int[] {4, 4}, new int[] {4, 4});
+		assertFalse(g1.equals(f3.createCandidateSolution()));
 	}
 	
 	@Test

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -24,7 +24,11 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 import java.util.SplittableRandom;
 import java.util.Scanner;
-import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
@@ -64,7 +68,7 @@ import java.io.PrintWriter;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.23.2020
+ * @version 5.13.2021
  */
 public final class WeightedStaticScheduling implements SingleMachineSchedulingProblemData {
 	
@@ -166,7 +170,7 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
 	 * be opened for reading
 	 */
 	public WeightedStaticScheduling(String filename, int n, int instanceNumber) throws FileNotFoundException {
-		this(new FileReader(filename), n, instanceNumber);
+		this(new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8), n, instanceNumber);
 	}
 	
 	private WeightedStaticScheduling(int n, double rdd, double tf, SplittableRandom rand) {
@@ -299,7 +303,7 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
 	 * cannot be created, or if some other error occurs while opening or creating the file
 	 */
 	public void toFile(String filename) throws FileNotFoundException {
-		PrintWriter out = new PrintWriter(filename);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8), true);
 		toFile(out);
 		out.close();
 	}

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -56,11 +56,9 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @param <T> The specific RealValued type.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.10.2020
+ * @version 5.12.2021
  */
 public class UndoableCauchyMutation<T extends RealValued> extends CauchyMutation<T> implements UndoableMutationOperator<T> {
 	
@@ -137,9 +135,6 @@ public class UndoableCauchyMutation<T extends RealValued> extends CauchyMutation
 			: new UndoablePartialCauchyMutation<T>(scale, p);
 	}
 	
-	
-	
-	
 	@Override
 	public void mutate(T c) {
 		if (c.length() > 1) internalMutate(c, previous = c.toArray(previous));
@@ -169,6 +164,11 @@ public class UndoableCauchyMutation<T extends RealValued> extends CauchyMutation
 	@Override
 	public UndoableCauchyMutation<T> copy() {
 		return new UndoableCauchyMutation<T>(this);
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		return super.equals(other) && other instanceof UndoableCauchyMutation;
 	}
 	
 	private static final class UndoablePartialCauchyMutation<T extends RealValued> extends UndoableCauchyMutation<T> {
@@ -233,7 +233,9 @@ public class UndoableCauchyMutation<T extends RealValued> extends CauchyMutation
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other)) return false;
+			if (other==null || !(other instanceof UndoablePartialCauchyMutation) || !super.equals(other)) {
+				return false;
+			}
 			UndoablePartialCauchyMutation g = (UndoablePartialCauchyMutation)other;
 			return k==g.k && p==g.p;
 		}

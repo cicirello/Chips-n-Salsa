@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -106,7 +106,7 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.4.2020
+ * @version 5.13.2021
  */
 public final class AcceptanceBandSampling<T extends Copyable<T>> extends AbstractStochasticSampler<T> {
 	
@@ -220,7 +220,9 @@ public final class AcceptanceBandSampling<T extends Copyable<T>> extends Abstrac
 		while (!p.isComplete()) {
 			int k = p.numExtensions();
 			if (k==1) {
-				incEval.extend(p, p.getExtension(0));
+				if (incEval != null) {
+					incEval.extend(p, p.getExtension(0));
+				}
 				p.extend(0);
 			} else {
 				double max = Double.NEGATIVE_INFINITY;
@@ -228,8 +230,10 @@ public final class AcceptanceBandSampling<T extends Copyable<T>> extends Abstrac
 					v[i] = heuristic.h(p, p.getExtension(i), incEval);
 					if (v[i] > max) max = v[i];
 				}
-				int which = choose(v, k, max, equivalents);		
-				incEval.extend(p, p.getExtension(which));
+				int which = choose(v, k, max, equivalents);
+				if (incEval != null) {
+					incEval.extend(p, p.getExtension(which));
+				}
 				p.extend(which);
 			}
 		}

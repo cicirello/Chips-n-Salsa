@@ -44,7 +44,7 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 4.13.2021
+ * @version 5.13.2021
  */
 public final class UndoableUniformScrambleMutation extends Permutation.Mechanic implements UndoableMutationOperator<Permutation> {
 	
@@ -52,7 +52,6 @@ public final class UndoableUniformScrambleMutation extends Permutation.Mechanic 
 	private final boolean guaranteeChange;
 	
 	private int[] last;
-	private Permutation previous;
 	private int[] indexes;
 	
 	/**
@@ -86,7 +85,6 @@ public final class UndoableUniformScrambleMutation extends Permutation.Mechanic 
 	@Override
 	public final void mutate(Permutation c) {
 		if (c.length() >= 2) {
-			previous = c;
 			last = c.toArray();
 			indexes = RandomIndexer.sample(c.length(), u);
 			if (guaranteeChange && indexes.length < 2) {
@@ -98,9 +96,7 @@ public final class UndoableUniformScrambleMutation extends Permutation.Mechanic 
 	
 	@Override
 	public final void undo(Permutation c) {
-		// Verify that c was the most recently mutated permutation.
-		// If so, undo the mutation.
-		if (previous == c) {
+		if (c.length() >= 2) {
 			for (int i = 0; i < indexes.length; i++) {
 				set(c, indexes[i], last[indexes[i]]);
 			}

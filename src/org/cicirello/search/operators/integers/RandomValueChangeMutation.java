@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -43,11 +43,9 @@ import org.cicirello.math.rand.RandomVariates;
  *
  * @param <T> The specific IntegerValued type.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.5.2020
+ * @version 5.12.2021
  */
 public class RandomValueChangeMutation<T extends IntegerValued> implements MutationOperator<T> {
 	
@@ -155,7 +153,9 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
 	 */
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || other.getClass() != getClass()) return false;
+		if (other == null || !(other instanceof RandomValueChangeMutation)) {
+			return false;
+		}
 		RandomValueChangeMutation m = (RandomValueChangeMutation)other;
 		return m.a==a && m.b==b && m.p==p && m.min_k==min_k;
 	}

@@ -285,6 +285,9 @@ public class NumericRepresentationsTests {
 		BoundedIntegerVector f3 = new BoundedIntegerVector(values, 1, 9);
 		assertNotEquals(f1, f2);
 		assertNotEquals(f1, f3);
+		assertFalse(f1.equals(null));
+		IntegerVector nonBounded = new IntegerVector(values);
+		assertFalse(f1.equals(nonBounded));
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new BoundedIntegerVector(values, 2, 1)
@@ -353,6 +356,9 @@ public class NumericRepresentationsTests {
 		BoundedRealVector f3 = new BoundedRealVector(values, 1, 9);
 		assertNotEquals(f1, f2);
 		assertNotEquals(f1, f3);
+		assertFalse(f1.equals(null));
+		RealVector nonBounded = new RealVector(values);
+		assertFalse(f1.equals(nonBounded));
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new BoundedRealVector(values, 1.0001, 1)

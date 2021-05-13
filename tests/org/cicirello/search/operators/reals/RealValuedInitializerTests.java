@@ -90,7 +90,9 @@ public class RealValuedInitializerTests {
 		SingleReal g1 = f.createCandidateSolution();
 		SingleReal g2 = f.createCandidateSolution();
 		SingleReal h = new SingleReal(2);
-		assertNotEquals(g1, h);
+		assertFalse(g1.equals(h));
+		assertFalse(g1.equals(null));
+		assertFalse(g1.equals("hello"));
 		assertEquals(g1, g2);
 		assertEquals(g1.hashCode(), g2.hashCode());
 		RealValueInitializer f2 = new RealValueInitializer(2, 2 + Math.ulp(2), 2, 2);

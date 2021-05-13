@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -34,13 +34,11 @@ import java.util.concurrent.ThreadLocalRandom;
  * to {@link SingleReal#set} such that the {@link SingleReal#set} method will set the value to
  * the min if a value is passed less than min (and similarly for max). 
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.10.2020
+ * @version 5.12.2021
  */
-public class RealValueInitializer implements Initializer<SingleReal> {
+public final class RealValueInitializer implements Initializer<SingleReal> {
 	
 	private final double a;
 	private final double b;
@@ -112,7 +110,7 @@ public class RealValueInitializer implements Initializer<SingleReal> {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || !getClass().equals(other.getClass())) return false;
+		if (other == null || !(other instanceof RealValueInitializer)) return false;
 		RealValueInitializer i = (RealValueInitializer)other;
 		return a == i.a && b == i.b && min == i.min && max == i.max;
 	}
@@ -189,7 +187,9 @@ public class RealValueInitializer implements Initializer<SingleReal> {
 		 */
 		@Override
 		public boolean equals(Object other) {
-			if (!super.equals(other)) return false;
+			if (other==null || !(other instanceof BoundedReal) || !super.equals(other)) {
+				return false;
+			}
 			BoundedReal a = (BoundedReal)other;
 			return getOuterThis().equals(a.getOuterThis());
 		}

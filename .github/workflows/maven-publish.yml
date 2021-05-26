@@ -54,54 +54,13 @@ jobs:
       run: mvn deploy -PgithubDeploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-        
-    - name: Get the upload URL for a release
-      id: get
-      uses: bruceadams/get-release@v1.2.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Upload Release Asset jar
-      id: upload-release-asset-jar 
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.get.outputs.upload_url }} 
-        asset_path: target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}.jar
-        asset_name: ${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}.jar
-        asset_content_type: application/java-archive
-        
-    - name: Upload Release Asset sources
-      id: upload-release-asset-src 
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.get.outputs.upload_url }} 
-        asset_path: target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-sources.jar
-        asset_name: ${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-sources.jar
-        asset_content_type: application/java-archive
-        
-    - name: Upload Release Asset docs
-      id: upload-release-asset-docs 
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.get.outputs.upload_url }} 
-        asset_path: target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-javadoc.jar
-        asset_name: ${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-javadoc.jar
-        asset_content_type: application/java-archive
 
-    - name: Upload Release Asset fat jar
-      id: upload-release-asset-fat 
-      uses: actions/upload-release-asset@v1.0.2
+    - name: Upload jar files to release as release assets
+      run: |
+        TAG=${GITHUB_REF/refs\/tags\//}
+        gh release upload ${TAG} target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}.jar
+        gh release upload ${TAG} target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-sources.jar
+        gh release upload ${TAG} target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-javadoc.jar
+        gh release upload ${TAG} target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-jar-with-dependencies.jar 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.get.outputs.upload_url }} 
-        asset_path: target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-jar-with-dependencies.jar
-        asset_name: ${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-jar-with-dependencies.jar
-        asset_content_type: application/java-archive
-

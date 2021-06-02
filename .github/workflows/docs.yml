@@ -3,10 +3,10 @@ name: docs
 on:
   push:
     branches: [ master ]
-    paths: [ '**.java' ]
+    paths: [ '**.java', '.github/workflows/docs.yml', 'docs/index.html' ]
   pull_request:
     branches: [ master ]
-    paths: [ '**.java' ]
+    paths: [ '**.java', '.github/workflows/docs.yml', 'docs/index.html' ]
 
 jobs:
   docs:

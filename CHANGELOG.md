@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-7-28
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.12.0] - 2021-7-28
+
+### Added
 * Implementations of various Royal Road problems (optimization problems on bit vectors).
   * RoyalRoad class which implements Mitchell et al's original two variations (with
     and without stepping stones) of the Royal Road problem, but generalized to BitVectors
@@ -18,14 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Completely redesigned the website for the library, including
   redesigning with AMP to accelerate mobile browsing.
 * Upgraded JPT dependency to JPT 2.6.1.
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### CI/CD
 
 
 ## [2.11.1] - 2021-5-13

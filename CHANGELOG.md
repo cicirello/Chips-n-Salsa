@@ -4,9 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-6-2
+## [Unreleased] - 2021-7-28
 
 ### Added
+* Implementations of various Royal Road problems (optimization problems on bit vectors).
+  * RoyalRoad class which implements Mitchell et al's original two variations (with
+    and without stepping stones) of the Royal Road problem, but generalized to BitVectors
+    of any length as well as other block sizes (Mitchell et al's original problem was on
+    bit vectors of length 64 with 8-bit blocks).
+  * HollandRoyalRoad class implements Holland's Royal Road function.
 
 ### Changed
 * Completely redesigned the website for the library, including

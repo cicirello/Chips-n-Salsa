@@ -23,8 +23,74 @@ package org.cicirello.search.problems;
 import org.cicirello.search.representations.BitVector;
 
 /**
+ * <p>Implementation of Holland's Royal Road problem, as described in the following
+ * paper:<br>
+ * Terry Jones. A Description of Holland's Royal Road Function. Evolutionary Computation
+ * 2(4): 409-415, 1995.<br>
+ * Originally described by Holland in:<br>
+ * J.H. Holland. Royal Road Functions. Internet Genetic Algorithms Digest, 7(22), 1993.</p>
  *
+ * <p>We suggest that the Jones (1995) paper be consulted for a detailed description and
+ * detailed example of Holland's Royal Road function.</p>
  *
+ * <p>Note that if you are looking for the original Royal Road problems of Mitchell, Forrest, and
+ * Holland, see the {@link RoyalRoad} class.</p>
+ *
+ * <p>The problem is defined with several parameters. Part of the fitness function
+ * is calculated over k+1 levels, where there are 2<sup>k</sup> regions in level 0, and
+ * each level i has 2<sup>k-i</sup> regions. Each region at level 0 begins with a
+ * block of b bits, which is followed by a gap of g bits. Thus each region at level 0
+ * contains b + g bits. Each region of level 1 is the concatenation of 2 consecutive regions
+ * from level 0. Likewise, each region of level 2 is the concatenation of 2 consecutive regions
+ * from level 1, and so forth, until level k which is simply the entire bit vector.</p>
+ *
+ * <p>Fitness evaluation includes two components. The first is referred to as the Part fitness,
+ * in which each level 0 region contributes to the fitness of the bit vector. The gap bits of
+ * each region are ignored and don't factor into fitness. If all of the bits in the b-bit
+ * block are all ones, then the region doesn't factor into the Part calculation (only the 
+ * Bonus calculation). Otherwise, if there are mStar or less one bits in the block, then each contributes
+ * v to the fitness, and otherwise if there are more than mStar bits in the block then the
+ * excess bits are each penalized in the fitness by b.  For example, suppose the block size b=8, 
+ * mStar=4, and v=0.02. If there is only a single one-bit, then the block contributes 0.02 to
+ * the fitness. If there are 2 one-bits, then the block contributes 0.04 to the fitness.
+ * If there are 3 one-bits, then the block contributes 0.06 to the fitness.
+ * If there are 4 one-bits, then the block contributes 0.08 to the fitness.
+ * However, if there are 5, 6, or 7 one-bits, then the block causes a reduction in fitness.
+ * For example, if there are 6 one-bits, then the 2 extra (above the mStar of 4) each incur
+ * a penalty of -0.02 (total penalty of 0.04). If all 8 bits are ones, no increase nor decrease
+ * in fitness occurs during the Part calculation.</p>
+ *
+ * <p>The second phase of fitness is called the Bonus calculation. The Bonus calculation is 
+ * computed over the k+1 levels. The first complete block (all one-bits) at level 0 contributes
+ * uStar to the fitness, and each additional complete block at level 0 contributes u to the fitness.
+ * For example, if there are 5 complete blocks at level 0, and if uStar is 1.0 and u is 0.3, then
+ * the level 0 bonus is 1.0 + 4 * 0.3 = 2.2.  Level 1 then consists of half as many regions,
+ * each region formed by the concatenation of two consecutive regions of level 0. Note that each
+ * each at level 1 will consist of b block bits, followed by g gap bits, followed by b block bits,
+ * followed by g gap bits. At level 1, a complete block is when the 2b bits in the 2 block segments
+ * are all ones. Just like level 0, the first complete block at level 1 contributes uStar to fitness, and then
+ * each additional complete block at level 1 contributes u to the fitness. This then proceeds through
+ * levels 2, 3, ..., k.</p>
+ *
+ * <p>Holland's Royal Road function is a fitness function, and thus must be maximized. Due to the penalty 
+ * terms in the Part calculation, it can evaluate to negative values. The {@link #value value} method
+ * computes the fitness function of this problem.  Since the metaheuristics of the
+ * Chips-n-Salsa library assume minimization problems, the {@link #cost cost} method transforms the
+ * problem to minimization. It does this by computing cost = MaxFitness - value. MaxFitness can be
+ * computed from the parameters of the problem, k, b, g, mStar, v, uStar, and u. So although
+ * the {@link #value value} method may return negative values, the {@link #cost cost} method
+ * is guaranteed to never return a negative, and the optimal solution to an instance has a cost of 0.
+ * Although note that each instance will have many optimal solutions due to the gap bits which do not
+ * affect fitness or cost.</p>
+ *
+ * <p>The {@link #value value} and {@link #cost cost} methods will throw exceptions if you attempt
+ * to evaluate a BitVector whose length is inconsistent with the parameters passed to the constructor.
+ * The {@link #supportedBitVectorLength supportedBitVectorLength} method returns the length of
+ * BitVector supported by an instance of the problem, which is 2<sup>k</sup>(b + g).</p>
+ *
+ * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+ * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ * @version 7.28.2021
  */
 public final class HollandRoyalRoad implements OptimizationProblem<BitVector> {
 	
@@ -39,6 +105,14 @@ public final class HollandRoyalRoad implements OptimizationProblem<BitVector> {
 	private final double u;
 	private final double maxFitness;
 	
+	/**
+	 * Constructs an instance of Holland's Royal Road fitness function,
+	 * with Holland's original set of default parameter values: k=4, b=8,
+	 * g=7, mStar=4, v=0.02, uStar=1.0, and u=0.3.
+	 */
+	public HollandRoyalRoad() {
+		this(4, 8, 7, 4, 0.02, 1.0, 0.3);
+	}
 	
 	/**
 	 * Constructs an instance of Holland's Royal Road fitness function.

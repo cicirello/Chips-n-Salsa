@@ -54,6 +54,30 @@ public class HollandRoyalRoadTests {
 	}
 	
 	@Test
+	public void testWithJonesExampleWithDefaultConstructor() {
+		HollandRoyalRoad problem = new HollandRoyalRoad();
+		assertEquals(0.0, problem.minCost(), 0.0);
+		assertTrue(problem.isMinCost(0.0));
+		assertTrue(problem.isMinCost(-1E-10));
+		assertFalse(problem.isMinCost(1E-10));
+		assertEquals(240, problem.supportedBitVectorLength());
+		BitVector v = new BitVector(240);
+		v.not();
+		assertEquals(12.8, problem.value(v), 1E-10);
+		assertEquals(0, problem.cost(v), 1E-10);
+		int bit = 0;
+		do {
+			bit += 8;
+			for (int i = 0; i < 7; i++) {
+				v.flip(bit);
+				bit++;
+			}
+		} while (bit < 240);
+		assertEquals(12.8, problem.value(v), 1E-10);
+		assertEquals(0, problem.cost(v), 1E-10);
+	}
+	
+	@Test
 	public void testWithAllZeros() {
 		HollandRoyalRoad problem = new HollandRoyalRoad(4, 8, 7, 4, 0.02, 1.0, 0.3);
 		BitVector v = new BitVector(240);

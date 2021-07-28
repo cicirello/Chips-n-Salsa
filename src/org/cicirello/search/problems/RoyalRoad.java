@@ -30,6 +30,9 @@ import org.cicirello.search.representations.BitVector;
  * Fitness Landscapes and GA Performance. In Proceedings of the First European
  * Conference on Artificial Life, 1992.</p>
  *
+ * <p>Note that if you are looking for Holland's Royal Road problem,
+ * see the {@link HollandRoyalRoad} class.</p>
+ *
  * <p>Mitchell et al. described two versions of the problem. The first is an optimization
  * problem over bit strings of length 64. The fitness function to optimize in the
  * problem breaks the bit string into 8 equal length blocks of length 8. Each

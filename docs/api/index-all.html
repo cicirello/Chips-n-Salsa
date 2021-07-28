@@ -523,6 +523,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedTardiness.html#cost(org.cicirello.permutations.Permutation)">cost(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedTardiness</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/HollandRoyalRoad.html#cost(org.cicirello.search.representations.BitVector)">cost(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/HollandRoyalRoad.html" title="class in org.cicirello.search.problems">HollandRoyalRoad</a></dt>
+<dd>
+<div class="block">Computes the cost of a candidate solution to the problem instance.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Mix.html#cost(org.cicirello.search.representations.BitVector)">cost(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Mix.html" title="class in org.cicirello.search.problems">Mix</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/OneMax.html#cost(org.cicirello.search.representations.BitVector)">cost(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/OneMax.html" title="class in org.cicirello.search.problems">OneMax</a></dt>
@@ -532,6 +536,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Plateaus.html#cost(org.cicirello.search.representations.BitVector)">cost(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Plateaus.html" title="class in org.cicirello.search.problems">Plateaus</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Porcupine.html#cost(org.cicirello.search.representations.BitVector)">cost(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Porcupine.html" title="class in org.cicirello.search.problems">Porcupine</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/RoyalRoad.html#cost(org.cicirello.search.representations.BitVector)">cost(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/RoyalRoad.html" title="class in org.cicirello.search.problems">RoyalRoad</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Trap.html#cost(org.cicirello.search.representations.BitVector)">cost(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Trap.html" title="class in org.cicirello.search.problems">Trap</a></dt>
 <dd>&nbsp;</dd>
@@ -1557,6 +1563,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Constructs an HeuristicSolutionGenerator for generating solutions
  to an optimization problem using a constructive heuristic.</div>
 </dd>
+<dt><a href="org/cicirello/search/problems/HollandRoyalRoad.html" title="class in org.cicirello.search.problems"><span class="typeNameLink">HollandRoyalRoad</span></a> - Class in <a href="org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></dt>
+<dd>
+<div class="block">Implementation of Holland's Royal Road problem, as described in the following
+ paper:<br>
+ Terry Jones.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/HollandRoyalRoad.html#%3Cinit%3E()">HollandRoyalRoad()</a></span> - Constructor for class org.cicirello.search.problems.<a href="org/cicirello/search/problems/HollandRoyalRoad.html" title="class in org.cicirello.search.problems">HollandRoyalRoad</a></dt>
+<dd>
+<div class="block">Constructs an instance of Holland's Royal Road fitness function,
+ with Holland's original set of default parameter values: k=4, b=8,
+ g=7, mStar=4, v=0.02, uStar=1.0, and u=0.3.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/HollandRoyalRoad.html#%3Cinit%3E(int,int,int,int,double,double,double)">HollandRoyalRoad(int, int, int, int, double, double, double)</a></span> - Constructor for class org.cicirello.search.problems.<a href="org/cicirello/search/problems/HollandRoyalRoad.html" title="class in org.cicirello.search.problems">HollandRoyalRoad</a></dt>
+<dd>
+<div class="block">Constructs an instance of Holland's Royal Road fitness function.</div>
+</dd>
 <dt><a href="org/cicirello/search/ss/HybridConstructiveHeuristic.html" title="class in org.cicirello.search.ss"><span class="typeNameLink">HybridConstructiveHeuristic</span></a>&lt;<a href="org/cicirello/search/ss/HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a> extends <a href="https://jpt.cicirello.org/api/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org/cicirello/search/ss/HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt; - Class in <a href="org/cicirello/search/ss/package-summary.html">org.cicirello.search.ss</a></dt>
 <dd>
 <div class="block">A HybridConstructiveHeuristic maintains a list of 
@@ -1786,6 +1808,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/ss/PartialPermutation.html#isComplete()">isComplete()</a></span> - Method in class org.cicirello.search.ss.<a href="org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/HollandRoyalRoad.html#isMinCost(double)">isMinCost(double)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/HollandRoyalRoad.html" title="class in org.cicirello.search.problems">HollandRoyalRoad</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Mix.html#isMinCost(double)">isMinCost(double)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Mix.html" title="class in org.cicirello.search.problems">Mix</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/OptimizationProblem.html#isMinCost(double)">isMinCost(double)</a></span> - Method in interface org.cicirello.search.problems.<a href="org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a></dt>
@@ -1816,6 +1840,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/PermutationInAHaystack.html#isMinCost(int)">isMinCost(int)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/PermutationInAHaystack.html" title="class in org.cicirello.search.problems">PermutationInAHaystack</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Porcupine.html#isMinCost(int)">isMinCost(int)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Porcupine.html" title="class in org.cicirello.search.problems">Porcupine</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/RoyalRoad.html#isMinCost(int)">isMinCost(int)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/RoyalRoad.html" title="class in org.cicirello.search.problems">RoyalRoad</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/TwoMax.html#isMinCost(int)">isMinCost(int)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/TwoMax.html" title="class in org.cicirello.search.problems">TwoMax</a></dt>
 <dd>&nbsp;</dd>
@@ -2092,6 +2118,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">A lower bound on the minimum theoretical cost across all possible solutions
  to the problem instance, where lower cost implies better solution.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/HollandRoyalRoad.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/HollandRoyalRoad.html" title="class in org.cicirello.search.problems">HollandRoyalRoad</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/IntegerCostFunctionScaler.html" title="class in org.cicirello.search.problems">IntegerCostFunctionScaler</a></dt>
 <dd>
 <div class="block">A lower bound on the minimum theoretical cost across all possible solutions
@@ -2120,6 +2148,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/PolynomialRootFinding.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/PolynomialRootFinding.html" title="class in org.cicirello.search.problems">PolynomialRootFinding</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Porcupine.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Porcupine.html" title="class in org.cicirello.search.problems">Porcupine</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/RoyalRoad.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/RoyalRoad.html" title="class in org.cicirello.search.problems">RoyalRoad</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/MinimizeMakespan.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/MinimizeMakespan.html" title="class in org.cicirello.search.problems.scheduling">MinimizeMakespan</a></dt>
 <dd>&nbsp;</dd>
@@ -3070,6 +3100,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs an RotationMutation mutation operator.</div>
 </dd>
+<dt><a href="org/cicirello/search/problems/RoyalRoad.html" title="class in org.cicirello.search.problems"><span class="typeNameLink">RoyalRoad</span></a> - Class in <a href="org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></dt>
+<dd>
+<div class="block">Implementation of the Royal Road problem of Mitchell, Forrest, and Holland,
+ both the variation with stepping stones and the one without.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/RoyalRoad.html#%3Cinit%3E(int,boolean)">RoyalRoad(int, boolean)</a></span> - Constructor for class org.cicirello.search.problems.<a href="org/cicirello/search/problems/RoyalRoad.html" title="class in org.cicirello.search.problems">RoyalRoad</a></dt>
+<dd>
+<div class="block">Constructs a RoyalRoad function.</div>
+</dd>
 </dl>
 <a id="I:S">
 <!--   -->
@@ -3623,6 +3662,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Set a flag that indicates that all searches sharing this ProgressTracker
  should stop their search when able to (e.g., such as at the end of the next iteration.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/HollandRoyalRoad.html#supportedBitVectorLength()">supportedBitVectorLength()</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/HollandRoyalRoad.html" title="class in org.cicirello.search.problems">HollandRoyalRoad</a></dt>
+<dd>
+<div class="block">The length of BitVectors supported by this instance of HollandRoyalRoad,
+ which is 2<sup>k</sup>(blockSize + gapSize).</div>
+</dd>
 <dt><a href="org/cicirello/search/operators/permutations/SwapMutation.html" title="class in org.cicirello.search.operators.permutations"><span class="typeNameLink">SwapMutation</span></a> - Class in <a href="org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></dt>
 <dd>
 <div class="block">This class implements a swap mutation on permutations, where one mutation
@@ -4029,6 +4073,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/scheduling/WeightedTardiness.html#value(org.cicirello.permutations.Permutation)">value(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org/cicirello/search/problems/scheduling/WeightedTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedTardiness</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/HollandRoyalRoad.html#value(org.cicirello.search.representations.BitVector)">value(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/HollandRoyalRoad.html" title="class in org.cicirello.search.problems">HollandRoyalRoad</a></dt>
+<dd>
+<div class="block">Computes the value of the candidate solution within the usual constraints and
+ interpretation of the problem.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Mix.html#value(org.cicirello.search.representations.BitVector)">value(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Mix.html" title="class in org.cicirello.search.problems">Mix</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/OneMax.html#value(org.cicirello.search.representations.BitVector)">value(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/OneMax.html" title="class in org.cicirello.search.problems">OneMax</a></dt>
@@ -4038,6 +4087,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Plateaus.html#value(org.cicirello.search.representations.BitVector)">value(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Plateaus.html" title="class in org.cicirello.search.problems">Plateaus</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Porcupine.html#value(org.cicirello.search.representations.BitVector)">value(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Porcupine.html" title="class in org.cicirello.search.problems">Porcupine</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/cicirello/search/problems/RoyalRoad.html#value(org.cicirello.search.representations.BitVector)">value(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/RoyalRoad.html" title="class in org.cicirello.search.problems">RoyalRoad</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/cicirello/search/problems/Trap.html#value(org.cicirello.search.representations.BitVector)">value(BitVector)</a></span> - Method in class org.cicirello.search.problems.<a href="org/cicirello/search/problems/Trap.html" title="class in org.cicirello.search.problems">Trap</a></dt>
 <dd>&nbsp;</dd>

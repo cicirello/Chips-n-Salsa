@@ -94,6 +94,29 @@ public class HollandRoyalRoadTests {
 	}
 	
 	@Test
+	public void testThreeInFourBlocksComplete() {
+		HollandRoyalRoad problem = new HollandRoyalRoad(4, 8, 7, 4, 0.02, 1.0, 0.3);
+		BitVector v = new BitVector(240);
+		v.not();
+		for (int i = 0; i < 240; i += 60) {
+			v.flip(i);
+		}
+		double expected = 6.2 - 0.24;
+		assertEquals(expected, problem.value(v), 1E-10);
+		assertEquals(12.8-expected, problem.cost(v), 1E-10);
+		int bit = 0;
+		do {
+			bit += 8;
+			for (int i = 0; i < 7; i++) {
+				v.flip(bit);
+				bit++;
+			}
+		} while (bit < 240);
+		assertEquals(expected, problem.value(v), 1E-10);
+		assertEquals(12.8-expected, problem.cost(v), 1E-10);
+	}
+	
+	@Test
 	public void testAlternatingBlocksComplete() {
 		HollandRoyalRoad problem = new HollandRoyalRoad(4, 8, 7, 4, 0.02, 1.0, 0.3);
 		BitVector v = new BitVector(240);
@@ -135,6 +158,69 @@ public class HollandRoyalRoadTests {
 	}
 	
 	@Test
+	public void testOptimalNotAllOnes() {
+		HollandRoyalRoad problem = new HollandRoyalRoad(4, 8, 7, 4, 0.4, 1.0, 0.3);
+		BitVector v = new BitVector(240);
+		v.not();
+		double optimal = 25.6;
+		assertEquals(12.8, problem.value(v), 1E-10);
+		assertEquals(optimal-12.8, problem.cost(v), 1E-10);
+		for (int i = 0; i < 240; i += 15) {
+			v.flip(i);
+			v.flip(i+2);
+			v.flip(i+4);
+			v.flip(i+6);
+		}
+		assertEquals(optimal, problem.value(v), 1E-10);
+		assertEquals(0.0, problem.cost(v), 1E-10);
+		int bit = 0;
+		do {
+			bit += 8;
+			for (int i = 0; i < 7; i++) {
+				v.flip(bit);
+				bit++;
+			}
+		} while (bit < 240);
+		assertEquals(optimal, problem.value(v), 1E-10);
+		assertEquals(0.0, problem.cost(v), 1E-10);
+		
+		problem = new HollandRoyalRoad(4, 8, 7, 8, 0.4, 1.0, 0.3);
+		v = new BitVector(240);
+		v.not();
+		for (int i = 0; i < 240; i += 15) {
+			v.flip(i);
+		}
+		optimal = 44.8;
+		assertEquals(optimal, problem.value(v), 1E-10);
+		assertEquals(0.0, problem.cost(v), 1E-10);
+		bit = 0;
+		do {
+			bit += 8;
+			for (int i = 0; i < 7; i++) {
+				v.flip(bit);
+				bit++;
+			}
+		} while (bit < 240);
+		assertEquals(optimal, problem.value(v), 1E-10);
+		assertEquals(0.0, problem.cost(v), 1E-10);
+		
+		v = new BitVector(240);
+		v.not();
+		assertEquals(12.8, problem.value(v), 1E-10);
+		assertEquals(32.0, problem.cost(v), 1E-10);
+		bit = 0;
+		do {
+			bit += 8;
+			for (int i = 0; i < 7; i++) {
+				v.flip(bit);
+				bit++;
+			}
+		} while (bit < 240);
+		assertEquals(12.8, problem.value(v), 1E-10);
+		assertEquals(32.0, problem.cost(v), 1E-10);
+	}
+	
+	@Test
 	public void testBlockSizeSameAsMstar() {
 		HollandRoyalRoad problem = new HollandRoyalRoad(4, 8, 7, 8, 0.02, 1.0, 0.3);
 		BitVector v = new BitVector(240);
@@ -165,6 +251,24 @@ public class HollandRoyalRoadTests {
 		} while (bit < 240);
 		assertEquals(0.0, problem.value(v), 1E-10);
 		assertEquals(12.8, problem.cost(v), 1E-10);
+		
+		v = new BitVector(240);
+		v.not();
+		for (int i = 0; i < 240; i += 15) {
+			v.flip(i);
+		}
+		assertEquals(0.14*16, problem.value(v), 1E-10);
+		assertEquals(12.8-0.14*16, problem.cost(v), 1E-10);
+		bit = 0;
+		do {
+			bit += 8;
+			for (int i = 0; i < 7; i++) {
+				v.flip(bit);
+				bit++;
+			}
+		} while (bit < 240);
+		assertEquals(0.14*16, problem.value(v), 1E-10);
+		assertEquals(12.8-0.14*16, problem.cost(v), 1E-10);
 	}
 	
 	@Test

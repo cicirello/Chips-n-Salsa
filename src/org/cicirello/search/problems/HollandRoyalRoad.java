@@ -22,7 +22,10 @@ package org.cicirello.search.problems;
 
 import org.cicirello.search.representations.BitVector;
 
-
+/**
+ *
+ *
+ */
 public final class HollandRoyalRoad implements OptimizationProblem<BitVector> {
 	
 	private final int blockSize;
@@ -183,7 +186,10 @@ public final class HollandRoyalRoad implements OptimizationProblem<BitVector> {
 	}
 	
 	private double maxPartFitness() {
-		if (mStar >= blockSize) return 0;
-		return mStar * v * numBlocks;
+		if (mStar >= blockSize) {
+			return (mStar - 1) * v * numBlocks;
+		} else {
+			return mStar * v * numBlocks;
+		}
 	}
 }

@@ -32,13 +32,13 @@ import java.util.Arrays;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.5.2021
+ * @version 7.30.2021
  */
 public final class AcceptanceTracker implements AnnealingSchedule {
 	
 	private final AnnealingSchedule schedule;
 	private int[] acceptanceCounts;
-	private int numRuns;
+	private int[] numRuns;
 	private int iteration;
 	
 	/**
@@ -69,7 +69,11 @@ public final class AcceptanceTracker implements AnnealingSchedule {
 	 * of simulated annealing have been performed.
 	 */
 	public double getAcceptanceRate(int iterationIndex) {
-		return acceptanceCounts[iterationIndex] / ((double)numRuns);
+		if (acceptanceCounts[iterationIndex] == 0) {
+			return 0;
+		} else {
+			return acceptanceCounts[iterationIndex] / ((double)numRuns[iterationIndex]);
+		}
 	}
 	
 	/**
@@ -81,10 +85,11 @@ public final class AcceptanceTracker implements AnnealingSchedule {
 		if (maxEvals <= 0) throw new IllegalArgumentException("maxEvals must be positive");
 		if (acceptanceCounts == null || acceptanceCounts.length != maxEvals) {
 			acceptanceCounts = new int[maxEvals];
+			numRuns = new int[maxEvals];
 		} else {
 			Arrays.fill(acceptanceCounts, 0);
+			Arrays.fill(numRuns, 0);
 		}
-		numRuns = 0;
 	}
 	
 	@Override
@@ -93,7 +98,6 @@ public final class AcceptanceTracker implements AnnealingSchedule {
 		if (acceptanceCounts == null || acceptanceCounts.length != maxEvals) {
 			reset(maxEvals);
 		}
-		numRuns++;
 		iteration = 0;
 	}
 	
@@ -104,6 +108,7 @@ public final class AcceptanceTracker implements AnnealingSchedule {
 			if (didAccept) {
 				acceptanceCounts[iteration]++;
 			}
+			numRuns[iteration]++;
 			iteration++;
 		}
 		return didAccept;

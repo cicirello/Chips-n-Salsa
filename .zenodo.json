@@ -1,4 +1,5 @@
 {
+    "title": "Chips-n-Salsa",
     "license": "GPL-3.0-or-later", 
     "upload_type": "software", 
     "creators": [
@@ -26,5 +27,13 @@
 		"self-adaptive",
 		"self-tuning",
 		"constructive heuristic"
-	]
+	],
+    "related_identifiers": [
+        {
+            "scheme": "doi",
+            "identifier": "10.21105/joss.02448",
+            "relation": "isDocumentedBy",
+            "resource_type": "publication"
+        }
+    ]
 }

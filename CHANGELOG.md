@@ -7,11 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-9-16
 
 ### Added
-* The Self-Tuning Lam annealing schedule (class SelfTuningLam), as described by the
-  paper: Vincent A. Cicirello. 2021. Self-Tuning Lam Annealing: Learning Hyperparameters 
-  While Problem Solving. Preprint, under review (September 2021).
-* Implementation of Forrester et al (2008) continuous function optimization problem.
-* Implementation of Gramacy and Lee (2012) continuous function optimization problem.
 
 ### Changed
 
@@ -22,6 +17,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### CI/CD
+
+### Other
+
+
+## [2.13.0] - 2021-09-16
+
+### Added
+* The Self-Tuning Lam annealing schedule (class SelfTuningLam), as described by the
+  paper: Vincent A. Cicirello. 2021. Self-Tuning Lam Annealing: Learning Hyperparameters 
+  While Problem Solving. Preprint, under review (September 2021).
+* Implementation of Forrester et al (2008) continuous function optimization problem.
+* Implementation of Gramacy and Lee (2012) continuous function optimization problem.
 
 ### Other
 * Added CITATION.cff file to configure GitHub's citation link.

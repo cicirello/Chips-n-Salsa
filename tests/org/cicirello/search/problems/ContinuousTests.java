@@ -73,4 +73,32 @@ public class ContinuousTests {
 			assertTrue(d >= 0.0 && d <= 1.0);
 		}
 	}
+	
+	@Test
+	public void testGramacyLee() {
+		GramacyLee2012 f = new GramacyLee2012();
+		SingleReal[] cases = { new SingleReal(11.0/20.0), new SingleReal(0.5), new SingleReal(2.5), new SingleReal(13.0/20.0) };
+		double[] expected = { -10.0/11.0 + 0.04100625, 0.0625, 5.0625, 10.0/13.0 + 0.01500625 };
+		for (int i = 0; i < cases.length; i++) {
+			assertEquals(expected[i], f.value(cases[i]), 1E-8);
+			assertEquals(expected[i], f.cost(cases[i]), 1E-8);
+		}
+		GramacyLee2012 f2 = f.split();
+		assertTrue(f!=f2);
+		for (int i = 0; i < cases.length; i++) {
+			assertEquals(expected[i], f2.value(cases[i]), 1E-8);
+			assertEquals(expected[i], f2.cost(cases[i]), 1E-8);
+		}
+	}
+	
+	@Test
+	public void testGramacyLee_createCandidateSolution() {
+		GramacyLee2012 f = new GramacyLee2012();
+		for (int i = 0; i < 10; i++) {
+			SingleReal r = f.createCandidateSolution();
+			double d = r.get();
+			assertTrue(d >= 0.5 && d <= 2.5);
+		}
+	}
+	
 }

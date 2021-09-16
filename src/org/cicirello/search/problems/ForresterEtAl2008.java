@@ -72,11 +72,11 @@ public final class ForresterEtAl2008 implements OptimizationProblem<SingleReal>,
 			B = 10;
 			C = -5;
 		}
-		init = new RealValueInitializer​(0.0, 1.0, 0.0, 1.0);
+		init = new RealValueInitializer(0.0, 1.0, 0.0, 1.0);
 	}
 	
 	@Override
-	public double cost​(SingleReal candidate) {
+	public double cost(SingleReal candidate) {
 		if (ORIGINAL) {
 			return original(candidate);
 		} else {
@@ -85,7 +85,7 @@ public final class ForresterEtAl2008 implements OptimizationProblem<SingleReal>,
 	}
 	
 	@Override
-	public double value​(SingleReal candidate) {
+	public double value(SingleReal candidate) {
 		return cost(candidate);
 	}
 	

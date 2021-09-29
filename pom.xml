@@ -6,7 +6,7 @@
  
 	<groupId>org.cicirello</groupId>
 	<artifactId>chips-n-salsa</artifactId>
-	<version>2.5.3</version>
+	<version>3.0.0</version>
 	<packaging>jar</packaging>
   
 	<name>Chips-n-Salsa</name>
@@ -215,19 +215,6 @@
 	</properties>
   
 	<build>
-		<sourceDirectory>${project.basedir}/src</sourceDirectory>
-		<scriptSourceDirectory>${project.basedir}/src/scripts</scriptSourceDirectory>
-		<testSourceDirectory>${project.basedir}/tests</testSourceDirectory>
-		<resources>
-			<resource>
-				<directory>${project.basedir}/src/resources</directory>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>${project.basedir}/tests/resources</directory>
-			</testResource>
-		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -279,7 +266,7 @@
 					<notimestamp>true</notimestamp>
 					<links>
 						<link>https://docs.oracle.com/javase/8/docs/api</link>
-						<link>https://jpt.cicirello.org/api</link>
+						<!--link>https://jpt.cicirello.org/api</link-->
 					</links>
 					<bottom><![CDATA[Copyright &copy; 2002-2021 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
 				</configuration>

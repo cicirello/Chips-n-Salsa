@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   contained in the package org.cicirello.math.rand has been moved to a new 
   library [&rho;&mu;](https://rho-mu.cicirello.org/), which is a transitive dependency (via 
   our dependency on [JPT](https://github.com/cicirello/JavaPermutationTools)).
+* Refactored GaussianMutation to improve maintainability by eliminating dependence upon a 
+  specific algorithm for generating Gaussian distributed random numbers.
 
 ### Deprecated
 

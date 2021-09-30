@@ -20,7 +20,7 @@
  
 package org.cicirello.search.operators.reals;
 
-import org.cicirello.math.rand.ZigguratGaussian;
+import org.cicirello.math.rand.RandomVariates;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.representations.RealValued;
 import org.cicirello.math.rand.RandomIndexer;
@@ -57,7 +57,6 @@ import org.cicirello.util.Copyable;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.12.2021
  */
 public class GaussianMutation<T extends RealValued> implements MutationOperator<T>, RealValued, Copyable<GaussianMutation<T>> {
 	
@@ -136,7 +135,7 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	public void mutate(T c) {
 		final int n = c.length();
 		for (int i = 0; i < n; i++) {
-			c.set(i, c.get(i) + ZigguratGaussian.nextGaussian(sigma));
+			c.set(i, c.get(i) + RandomVariates.nextGaussian(sigma));
 		}
 	}
 	
@@ -223,24 +222,24 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	
 	final void internalMutate(T c, double[] old) {
 		for (int i = 0; i < old.length; i++) {
-			c.set(i, old[i] + ZigguratGaussian.nextGaussian(sigma));
+			c.set(i, old[i] + RandomVariates.nextGaussian(sigma));
 		}
 	}
 	
 	final void internalMutate(T c, double old) {
-		c.set(0, old + ZigguratGaussian.nextGaussian(sigma));
+		c.set(0, old + RandomVariates.nextGaussian(sigma));
 	}
 	
 	final void internalPartialMutation(T c, int[] indexes) {
 		for (int j = 0; j < indexes.length; j++) {
 			int i = indexes[j];
-			c.set(i, c.get(i) + ZigguratGaussian.nextGaussian(sigma));
+			c.set(i, c.get(i) + RandomVariates.nextGaussian(sigma));
 		}
 	}
 	
 	final void internalPartialMutation(T c, int[] indexes, double[] old) {
 		for (int j = 0; j < indexes.length; j++) {
-			c.set(indexes[j], old[j] + ZigguratGaussian.nextGaussian(sigma));
+			c.set(indexes[j], old[j] + RandomVariates.nextGaussian(sigma));
 		}
 	}
 	

@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 * Beginning with release 3.0.0, the minimum supported Java version is now Java 11+.
+* The randomization utilities for generating Gaussian-distributed random numbers, previously 
+  contained in the package org.cicirello.math.rand has been moved to a new 
+  library [&rho;&mu;](https://rho-mu.cicirello.org/), which is a transitive dependency (via 
+  our dependency on [JPT](https://github.com/cicirello/JavaPermutationTools)).
 
 ### Deprecated
 

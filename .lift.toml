@@ -1,5 +1,7 @@
 build = "mvn"
 
+jdk11 = true
+
 # don't run eslint... it is for js and will detect false positives 
 # in javadoc directories.
 
@@ -31,6 +33,6 @@ ignore = ["PREDICTABLE_RANDOM", "PATH_TRAVERSAL_IN", "PATH_TRAVERSAL_OUT"]
 
 ignoreFiles = """
 docs/api/jquery/
-tests/
+src/test/
 *.js
 """

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-9-30
+## [Unreleased] - 2021-10-01
 
 ### Added
 
@@ -16,6 +16,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   our dependency on [JPT](https://github.com/cicirello/JavaPermutationTools)).
 * Refactored GaussianMutation to improve maintainability by eliminating dependence upon a 
   specific algorithm for generating Gaussian distributed random numbers.
+* The library now uses Java modules, providing the module `org.cicirello.chips_n_salsa`, which
+  includes the package `org.cicirello.search` and all of its very many subpackages.
+  * The required dependent module `org.cicirello.jpt` is declared with `requires transitive`
+    because the `Permutation` class from one of the packages of that module is a parameter
+	and/or returned by a variety of methods such as operators that manipulate permutations.
+	As a consequence, projects that include Chips-n-Salsa as a dependency will also include JPT
+	and its dependencies. User's dependency manager should handle this.
 
 ### Deprecated
 

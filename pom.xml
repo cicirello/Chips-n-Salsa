@@ -251,19 +251,17 @@
 				<configuration>
 					<failOnWarnings>true</failOnWarnings>
 					<failOnError>true</failOnError>
-					<additionalJOptions>
-						<additionalJOption>--no-module-directories</additionalJOption>
-					</additionalJOptions>
 					<windowtitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</windowtitle>
 					<doctitle>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms</doctitle>
 					<author>false</author>
 					<version>false</version>
 					<nosince>true</nosince>
-					<overview>${project.build.sourceDirectory}/overview.html</overview>
 					<notimestamp>true</notimestamp>
-					<!--links-->
-						<!--link>https://jpt.cicirello.org/api</link-->
-					<!--/links-->
+					<links>
+						<link>https://jpt.cicirello.org/api</link>
+						<link>https://rho-mu.cicirello.org/api</link>
+						<link>https://core.cicirello.org/api</link>
+					</links>
 					<bottom><![CDATA[Copyright &copy; 2002-2021 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
 				</configuration>
 			</plugin>
@@ -283,24 +281,48 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.3.0</version>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.4</version>
 				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
+					<shadedArtifactAttached>true</shadedArtifactAttached>
+					<shadedClassifierName>jar-with-dependencies</shadedClassifierName>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>module-info.class</exclude>
+							</excludes>
+						</filter>
+						<filter>
+							<artifact>org.cicirello:core</artifact>
+							<excludes>
+								<exclude>META-INF/MANIFEST.MF</exclude>
+							</excludes>
+						</filter>
+						<filter>
+							<artifact>org.cicirello:rho-mu</artifact>
+							<excludes>
+								<exclude>META-INF/MANIFEST.MF</exclude>
+							</excludes>
+						</filter>
+						<filter>
+							<artifact>org.cicirello:jpt</artifact>
+							<excludes>
+								<exclude>META-INF/MANIFEST.MF</exclude>
+							</excludes>
+						</filter>
+					</filters>
 				</configuration>
 				<executions>
 					<execution>
-						<id>assemble-all</id>
 						<phase>package</phase>
 						<goals>
-							<goal>single</goal>
+							<goal>shade</goal>
 						</goals>
 					</execution>
 				</executions>
-				</plugin>
-			</plugins>
+			</plugin>
+		</plugins>
 	</build>
   
 </project>

@@ -239,7 +239,7 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>> implements
 		}
 		
 		@Override
-		public void extend​(Partial<U> p, int element) {
+		public void extend(Partial<U> p, int element) {
 			incEval.extend(p, element);
 		}
 	}

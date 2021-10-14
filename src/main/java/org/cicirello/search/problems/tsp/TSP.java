@@ -21,77 +21,27 @@
 package org.cicirello.search.problems.tsp;
 
 import java.util.SplittableRandom;
+import org.cicirello.search.problems.OptimizationProblem;
+import org.cicirello.search.problems.IntegerCostOptimizationProblem;
+import org.cicirello.permutations.Permutation;
 
 /**
- *
- *
+ * This class and its nested classes implement the Traveling Salesperson Problem (TSP).
+ * It provides two inner classes, one for edge costs that are floating-point valued, and
+ * one for integer cost edges.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
 public abstract class TSP {
 	
-	private final double[] x;
-	private final double[] y;
-	private final TSPEdgeDistance d;
+	/* These are package-private to provide access to the static inner classes. */
+	final double[] x;
+	final double[] y;
+	final TSPEdgeDistance d;
 	
-	/**
-	 * Constructs a random TSP instance with cities randomly distributed within
-	 * a square region. The edge cost of a pair of cities is the Euclidean distance
-	 * between them.
-	 * @param n The number of cities.
-	 * @param w The width (and height) of a square region containing the cities.
-	 * @throws IllegalArgumentException if n &lt; 2.
-	 * @throws IllegalArgumentException if w &#x2264; 0.0.
-	 */
-	public TSP(int n, double w) {
-		this(n, w, new SplittableRandom());
-	}
-	
-	/**
-	 * Constructs a random TSP instance with cities randomly distributed within
-	 * a square region. 
-	 * @param n The number of cities.
-	 * @param w The width (and height) of a square region containing the cities.
-	 * @param distance The distance function to use for the edge costs.
-	 * @throws IllegalArgumentException if n &lt; 2.
-	 * @throws IllegalArgumentException if w &#x2264; 0.0.
-	 */
-	public TSP(int n, double w, TSPEdgeDistance distance) {
-		this(n, w, distance, new SplittableRandom());
-	}
-		
-	/**
-	 * Constructs a random TSP instance with cities randomly distributed within
-	 * a square region. The edge cost of a pair of cities is the Euclidean distance
-	 * between them.
-	 * @param n The number of cities.
-	 * @param w The width (and height) of a square region containing the cities.
-	 * @param seed The seed for the random number generator to enable reproducing the
-	 * same instance for experiment reproducibility.
-	 * @throws IllegalArgumentException if n &lt; 2.
-	 * @throws IllegalArgumentException if w &#x2264; 0.0.
-	 */
-	public TSP(int n, double w, long seed) {
-		this(n, w, new SplittableRandom(seed));
-	}
-	
-	/**
-	 * Constructs a random TSP instance with cities randomly distributed within
-	 * a square region. 
-	 * @param n The number of cities.
-	 * @param w The width (and height) of a square region containing the cities.
-	 * @param distance The distance function to use for the edge costs.
-	 * @param seed The seed for the random number generator to enable reproducing the
-	 * same instance for experiment reproducibility.
-	 * @throws IllegalArgumentException if n &lt; 2.
-	 * @throws IllegalArgumentException if w &#x2264; 0.0.
-	 */
-	public TSP(int n, double w, TSPEdgeDistance distance, long seed) {
-		this(n, w, distance, new SplittableRandom(seed));
-	}
-	
-	private TSP(int n, double w, SplittableRandom gen) {
+	/* package-private constructor */
+	TSP(int n, double w, SplittableRandom gen) {
 		this(
 			n,
 			w,
@@ -104,7 +54,8 @@ public abstract class TSP {
 		);
 	}
 	
-	private TSP(int n, double w, TSPEdgeDistance distance, SplittableRandom gen) {
+	/* package-private constructor */
+	TSP(int n, double w, TSPEdgeDistance distance, SplittableRandom gen) {
 		if (n < 2) {
 			throw new IllegalArgumentException("Must be at least 2 cities.");
 		}
@@ -119,35 +70,179 @@ public abstract class TSP {
 		}
 		d = distance;
 	}
-	
+		
 	/**
-	 * Computes the distance between two cities in the TSP.
-	 * @param i The id of the first city.
-	 * @param j The id of the second city.
-	 * @return The distance between the two cities.
-	 * @throws NullPointerException if i &lt; 0 or j &lt; 0 or i &ge; length() or j &ge; length().
+	 * Cost function for the Traveling Salesperson Problem (TSP), where edge costs 
+	 * are floating-point valued.
+	 *
+	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	public final double distance(int i, int j) {
-		return d.distance(x[i], y[i], x[j], y[j]);
+	public final static class Double extends TSP implements OptimizationProblem<Permutation> {
+		
+		/**
+		 * Constructs a random TSP instance with cities randomly distributed within
+		 * a square region. The edge cost of a pair of cities is the Euclidean distance
+		 * between them.
+		 * @param n The number of cities.
+		 * @param w The width (and height) of a square region containing the cities.
+		 * @throws IllegalArgumentException if n &lt; 2.
+		 * @throws IllegalArgumentException if w &#x2264; 0.0.
+		 */
+		public Double(int n, double w) {
+			super(n, w, new SplittableRandom());
+		}
+		
+		/**
+		 * Constructs a random TSP instance with cities randomly distributed within
+		 * a square region. 
+		 * @param n The number of cities.
+		 * @param w The width (and height) of a square region containing the cities.
+		 * @param distance The distance function to use for the edge costs.
+		 * @throws IllegalArgumentException if n &lt; 2.
+		 * @throws IllegalArgumentException if w &#x2264; 0.0.
+		 */
+		public Double(int n, double w, TSPEdgeDistance distance) {
+			super(n, w, distance, new SplittableRandom());
+		}
+			
+		/**
+		 * Constructs a random TSP instance with cities randomly distributed within
+		 * a square region. The edge cost of a pair of cities is the Euclidean distance
+		 * between them.
+		 * @param n The number of cities.
+		 * @param w The width (and height) of a square region containing the cities.
+		 * @param seed The seed for the random number generator to enable reproducing the
+		 * same instance for experiment reproducibility.
+		 * @throws IllegalArgumentException if n &lt; 2.
+		 * @throws IllegalArgumentException if w &#x2264; 0.0.
+		 */
+		public Double(int n, double w, long seed) {
+			super(n, w, new SplittableRandom(seed));
+		}
+		
+		/**
+		 * Constructs a random TSP instance with cities randomly distributed within
+		 * a square region. 
+		 * @param n The number of cities.
+		 * @param w The width (and height) of a square region containing the cities.
+		 * @param distance The distance function to use for the edge costs.
+		 * @param seed The seed for the random number generator to enable reproducing the
+		 * same instance for experiment reproducibility.
+		 * @throws IllegalArgumentException if n &lt; 2.
+		 * @throws IllegalArgumentException if w &#x2264; 0.0.
+		 */
+		public Double(int n, double w, TSPEdgeDistance distance, long seed) {
+			super(n, w, distance, new SplittableRandom(seed));
+		}
+		
+		@Override
+		public double cost(Permutation candidate) {
+			if (candidate.length() != x.length) {
+				throw new IllegalArgumentException("Permutation must be same length as number of cities.");
+			}
+			int i = candidate.get(0);
+			int j = candidate.get(candidate.length()-1);
+			double total = d.distance(x[i], y[i], x[j], y[j]);
+			for (int k = 1; k < candidate.length(); k++) {
+				i = candidate.get(k);
+				j = candidate.get(k-1);
+				total = total + d.distance(x[i], y[i], x[j], y[j]);
+			}
+			return total;
+		}
+		
+		@Override
+		public double value(Permutation candidate) {
+			return cost(candidate);
+		}
 	}
 	
 	/**
-	 * Computes the distance between two cities in the TSP.
-	 * @param i The id of the first city.
-	 * @param j The id of the second city.
-	 * @return The distance between the two cities as an integer.
-	 * @throws NullPointerException if i &lt; 0 or j &lt; 0 or i &ge; length() or j &ge; length().
+	 * Cost function for the Traveling Salesperson Problem (TSP), where edge costs 
+	 * are integer valued.
+	 *
+	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	public final double distanceAsInt(int i, int j) {
-		return d.distanceAsInt(x[i], y[i], x[j], y[j]);
-	}
-	
-	/**
-	 * Gets the number of cities in this instance of the TSP.
-	 * @return the number of cities in this TSP.
-	 */
-	public final int length() {
-		return x.length;
+	public final static class Integer extends TSP implements IntegerCostOptimizationProblem<Permutation> {
+		
+		/**
+		 * Constructs a random TSP instance with cities randomly distributed within
+		 * a square region. The edge cost of a pair of cities is the Euclidean distance
+		 * between them rounded to the nearest integer.
+		 * @param n The number of cities.
+		 * @param w The width (and height) of a square region containing the cities.
+		 * @throws IllegalArgumentException if n &lt; 2.
+		 * @throws IllegalArgumentException if w &#x2264; 0.0.
+		 */
+		public Integer(int n, double w) {
+			super(n, w, new SplittableRandom());
+		}
+		
+		/**
+		 * Constructs a random TSP instance with cities randomly distributed within
+		 * a square region. 
+		 * @param n The number of cities.
+		 * @param w The width (and height) of a square region containing the cities.
+		 * @param distance The distance function to use for the edge costs.
+		 * @throws IllegalArgumentException if n &lt; 2.
+		 * @throws IllegalArgumentException if w &#x2264; 0.0.
+		 */
+		public Integer(int n, double w, TSPEdgeDistance distance) {
+			super(n, w, distance, new SplittableRandom());
+		}
+			
+		/**
+		 * Constructs a random TSP instance with cities randomly distributed within
+		 * a square region. The edge cost of a pair of cities is the Euclidean distance
+		 * between them rounded to the nearest integer.
+		 * @param n The number of cities.
+		 * @param w The width (and height) of a square region containing the cities.
+		 * @param seed The seed for the random number generator to enable reproducing the
+		 * same instance for experiment reproducibility.
+		 * @throws IllegalArgumentException if n &lt; 2.
+		 * @throws IllegalArgumentException if w &#x2264; 0.0.
+		 */
+		public Integer(int n, double w, long seed) {
+			super(n, w, new SplittableRandom(seed));
+		}
+		
+		/**
+		 * Constructs a random TSP instance with cities randomly distributed within
+		 * a square region. 
+		 * @param n The number of cities.
+		 * @param w The width (and height) of a square region containing the cities.
+		 * @param distance The distance function to use for the edge costs.
+		 * @param seed The seed for the random number generator to enable reproducing the
+		 * same instance for experiment reproducibility.
+		 * @throws IllegalArgumentException if n &lt; 2.
+		 * @throws IllegalArgumentException if w &#x2264; 0.0.
+		 */
+		public Integer(int n, double w, TSPEdgeDistance distance, long seed) {
+			super(n, w, distance, new SplittableRandom(seed));
+		}
+		
+		@Override
+		public int cost(Permutation candidate) {
+			if (candidate.length() != x.length) {
+				throw new IllegalArgumentException("Permutation must be same length as number of cities.");
+			}
+			int i = candidate.get(0);
+			int j = candidate.get(candidate.length()-1);
+			int total = d.distanceAsInt(x[i], y[i], x[j], y[j]);
+			for (int k = 1; k < candidate.length(); k++) {
+				i = candidate.get(k);
+				j = candidate.get(k-1);
+				total = total + d.distanceAsInt(x[i], y[i], x[j], y[j]);
+			}
+			return total;
+		}
+		
+		@Override
+		public int value(Permutation candidate) {
+			return cost(candidate);
+		}
 	}
 	
 }

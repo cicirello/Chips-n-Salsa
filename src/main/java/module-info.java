@@ -90,6 +90,7 @@ module org.cicirello.chips_n_salsa {
 	exports org.cicirello.search.operators.reals;
 	exports org.cicirello.search.problems;
 	exports org.cicirello.search.problems.scheduling;
+	exports org.cicirello.search.problems.tsp;
 	exports org.cicirello.search.representations;
 	exports org.cicirello.search.restarts;
 	exports org.cicirello.search.sa;

@@ -201,7 +201,7 @@ public class TimedParallelMultistarterTests {
 		metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
 		metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
 		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
-		restarter.setTimeUnit(50);
+		restarter.setTimeUnit(100);
         assertNotNull(restarter.optimize(1));
 		restarter.close();
 		

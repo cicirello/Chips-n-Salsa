@@ -1,4 +1,4 @@
-build = "mvn"
+build = "mvn compile"
 
 jdk11 = true
 

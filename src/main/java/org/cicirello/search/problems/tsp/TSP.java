@@ -26,9 +26,10 @@ import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.permutations.Permutation;
 
 /**
- * This class and its nested classes implement the Traveling Salesperson Problem (TSP).
- * It provides two inner classes, one for edge costs that are floating-point valued, and
- * one for integer cost edges.
+ * <p>This class and its nested classes implement the Traveling Salesperson Problem (TSP).
+ * It provides two inner classes where edge weights are computed as needed, one for edge 
+ * costs that are floating-point valued (class {@link Double}), and
+ * one for integer cost edges (class {@link Integer}).</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
@@ -69,6 +70,34 @@ public abstract class TSP {
 			y[i] = gen.nextDouble(w);
 		}
 		d = distance;
+	}
+	
+	/**
+	 * Gets the number of cities in the TSP instance.
+	 * @return number of cities
+	 */
+	public final int length() {
+		return x.length;
+	}
+	
+	/**
+	 * Gets the x coordinate of a city.
+	 * @param i The city index.
+	 * @return the x coordinate of city i.
+	 * @throws NullPointerException if i &lt; 0 or i &ge; length().
+	 */
+	public final double getX(int i) {
+		return x[i];
+	}
+	
+	/**
+	 * Gets the y coordinate of a city.
+	 * @param i The city index.
+	 * @return the y coordinate of city i.
+	 * @throws NullPointerException if i &lt; 0 or i &ge; length().
+	 */
+	public final double getY(int i) {
+		return y[i];
 	}
 		
 	/**

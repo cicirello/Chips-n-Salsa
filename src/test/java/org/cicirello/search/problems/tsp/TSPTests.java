@@ -69,11 +69,14 @@ public class TSPTests {
 			public void validateCoordinates() {
 				assertEquals(LENGTH, x.length);
 				assertEquals(LENGTH, y.length);
+				assertEquals(LENGTH, length());
 				for (int i = 0; i < LENGTH; i++) {
 					assertTrue(x[i] >= 0);
 					assertTrue(y[i] >= 0);
 					assertTrue(x[i] < WIDTH);
 					assertTrue(y[i] < WIDTH);
+					assertEquals(x[i], getX(i), 0.0);
+					assertEquals(y[i], getY(i), 0.0);
 				}
 			}
 		}
@@ -132,11 +135,14 @@ public class TSPTests {
 			public void validateCoordinates() {
 				assertEquals(LENGTH, x.length);
 				assertEquals(LENGTH, y.length);
+				assertEquals(LENGTH, length());
 				for (int i = 0; i < LENGTH; i++) {
 					assertTrue(x[i] >= 0);
 					assertTrue(y[i] >= 0);
 					assertTrue(x[i] < WIDTH);
 					assertTrue(y[i] < WIDTH);
+					assertEquals(x[i], getX(i), 0.0);
+					assertEquals(y[i], getY(i), 0.0);
 				}
 			}
 		}

@@ -29,7 +29,16 @@ import org.cicirello.permutations.Permutation;
  * <p>This class and its nested classes implement the Traveling Salesperson Problem (TSP).
  * It provides two inner classes where edge weights are computed as needed, one for edge 
  * costs that are floating-point valued (class {@link Double}), and
- * one for integer cost edges (class {@link Integer}).</p>
+ * one for integer cost edges (class {@link Integer}). And it also provides two inner classes
+ * where the edge weights are precomputed, one for edge 
+ * costs that are floating-point valued (class {@link DoubleMatrix}), and
+ * one for integer cost edges (class {@link IntegerMatrix}). The nested classes with precomputed
+ * edge weights ({@link DoubleMatrix} and {@link IntegerMatrix}) may lead to faster runtimes 
+ * for most search algorithms, but uses quadratic memory
+ * which may be prohibitive for TSP instances with a very large number of cities. Whereas
+ * the other two classes that compute each edge weight each time it is needed ({@link Double} and
+ * {@link Integer}), may be slower (by a constant factor) but only use linear memory, and are thus
+ * applicable to much larger TSP instances.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

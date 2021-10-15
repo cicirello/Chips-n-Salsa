@@ -4,14 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-10-14
+## [Unreleased] - 2021-10-15
 
 ### Added
 * Implementation of the Traveling Salesperson Problem (class TSP), with the following features:
   * Generates random instances with cities distributed uniformly at random within a square.
   * Defaults to Euclidean distance, but also supports specifying a function for edge distance.
-  * Two variations: floating-point costs, and integer costs, where the integer cost version
-    by default rounds each edge cost to nearest int, but which can be customized.
+  * Two variations with a precomputed matrix of edge costs: floating-point costs, and integer costs, 
+    where the integer cost version by default rounds each edge cost to nearest int, but which can be 
+    customized. These use quadratic memory.
+  * Two variations where edge costs are computed as needed: floating-point costs, and integer costs, 
+    where the integer cost version by default rounds each edge cost to nearest int, but which can be 
+    customized. These use linear memory.
 
 ### Changed
 * Beginning with release 3.0.0, the minimum supported Java version is now Java 11+.

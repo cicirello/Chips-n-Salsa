@@ -49,8 +49,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * rate of neighbor acceptance, independent of run length and cost function scale:</p>
  * <ul>
  * <li>Vincent A. Cicirello. 2021. 
- * Self-Tuning Lam Annealing: Learning Hyperparameters While Problem Solving. 
- * Preprint, under review (September 2021).</li>
+ * <a href="https://www.cicirello.org/publications/applsci-11-09828.pdf">Self-Tuning Lam Annealing: Learning 
+ * Hyperparameters While Problem Solving</a>,
+ * <i>Applied Sciences</i>, 11(21), Article 9828 (November 2021). 
+ * doi:<a href="https://doi.org/10.3390/app11219828">10.3390/app11219828</a>.</li>
  * </ul>
  *
  * <p>For details of the original Modified Lam, as well as prior optimizations,

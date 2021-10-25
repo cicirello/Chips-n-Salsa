@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-10-25
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+### Other
+
+
+## [3.0.0] - 2021-10-25
+
+### Added
 * Implementation of the Traveling Salesperson Problem (class TSP), with the following features:
   * Generates random instances with cities distributed uniformly at random within a square.
   * Defaults to Euclidean distance, but also supports specifying a function for edge distance.
@@ -35,18 +52,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Changed the default annealing schedule in the SimulatedAnnealing class to the Self-Tuning Lam
   adaptive schedule of Cicirello (2021), which is implemented in class SelfTuningLam.
 
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### CI/CD
-
 ### Other
 * Reorganized directory hierarchy to the Maven default (we had been using a custom directory
   hierarchy for quite some time from before we switched to Maven).
-
+  
 
 ## [2.13.0] - 2021-09-16
 

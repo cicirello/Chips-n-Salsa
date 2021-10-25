@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-10-15
+## [Unreleased] - 2021-10-25
 
 ### Added
 * Implementation of the Traveling Salesperson Problem (class TSP), with the following features:
@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	and/or returned by a variety of methods such as operators that manipulate permutations.
 	As a consequence, projects that include Chips-n-Salsa as a dependency will also include JPT
 	and its dependencies. User's dependency manager should handle this.
+* Changed the default annealing schedule in the SimulatedAnnealing class to the Self-Tuning Lam
+  adaptive schedule of Cicirello (2021), which is implemented in class SelfTuningLam.
 
 ### Deprecated
 
@@ -51,7 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * The Self-Tuning Lam annealing schedule (class SelfTuningLam), as described by the
   paper: Vincent A. Cicirello. 2021. Self-Tuning Lam Annealing: Learning Hyperparameters 
-  While Problem Solving. Preprint, under review (September 2021).
+  While Problem Solving. Applied Sciences, 11(21), Article 9828 (November 2021). https://doi.org/10.3390/app11219828.
 * Implementation of Forrester et al (2008) continuous function optimization problem.
 * Implementation of Gramacy and Lee (2012) continuous function optimization problem.
 

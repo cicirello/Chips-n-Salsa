@@ -218,10 +218,29 @@ tool's documentation for the equivalent):</p>
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;org.cicirello&lt;/groupId&gt;
   &lt;artifactId&gt;chips-n-salsa&lt;/artifactId&gt;
-  &lt;version&gt;2.11.1&lt;/version&gt;
+  &lt;version&gt;3.0.0&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>
 <p>Just replace the version number with your desired version of the library.</p>
+</section>
+<section>
+<h3>Java Modules</h3>
+<p>The library provides a Java module, org.cicirello.chips_n_salsa. If your project uses Java modules,
+then add the following to your module-info.java:</p>
+<pre><code>
+module your.module.name.here {
+    requires org.cicirello.chips_n_salsa;
+}
+</code></pre>
+<p>Chips-n-Salsa transitively requires the org.cicirello.jpt module from its
+dependency on the <a href="https://jpt.cicirello.org/">JavaPermutationTools 
+(JPT)</a> library because the functionality for optimizing permutation problems
+accepts Permutation objects, defined in JPT, as parameters to methods and returns such objects
+from other methods. So if your project utilizes any functionality from JPT, you shouldn't
+need to explicitly require the org.cicirello.jpt module. JPT in turn transitively requires
+the modules provided by the <a href="https://rho-mu.cicirello.org/">&rho;&mu;</a>
+and <a href="https://core.cicirello.org/">org.cicirello.core</a> libraries. Your 
+dependency manager (see previous section) will handle downloading these for you.</p>
 </section>
 <section>
 <h3>Semantic Versioning</h3>
@@ -288,6 +307,13 @@ execution speed, such as utilizing more efficient random
 number generators than was used in
 some of these prior publications.</p>
 <ul>
+<li>Vincent A. Cicirello.
+<a href="https://www.cicirello.org/publications/cicirello2021applsci.html">Self-Tuning Lam Annealing: Learning 
+Hyperparameters While Problem Solving</a>. <i>Applied Sciences</i>, 11(21), Article 9828,
+November 2021.
+<a href="https://www.cicirello.org/publications/applsci-11-09828.pdf">[PDF]</a>
+<a href="https://www.cicirello.org/publications/cicirello2021applsci.bib">[BIB]</a>
+<a href="https://doi.org/10.3390/app11219828">[DOI]</a></li>
 <li>Vincent A. Cicirello.
 <a href="https://www.cicirello.org/publications/cicirello2020inis2.html">Optimizing the Modified Lam Annealing Schedule</a>.
 <i>Industrial Networks and Intelligent Systems</i>, 7(25), Article e1, December 2020.

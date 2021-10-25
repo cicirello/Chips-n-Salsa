@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"org.cicirello.chips_n_salsa"}]

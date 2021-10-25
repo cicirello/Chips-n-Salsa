@@ -36,7 +36,7 @@
     }
 //-->
 var pathtoroot = "./";
-var useModuleDirectories = false;
+var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -53,7 +53,7 @@ loadScripts(document, 'script');</script>
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="index.html">Overview</a></li>
+<li><a href="org.cicirello.chips_n_salsa/module-summary.html">Module</a></li>
 <li>Package</li>
 <li>Class</li>
 <li>Use</li>
@@ -115,35 +115,29 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/math/rand/package-summary.html">org.cicirello.math.rand</a></th>
-<td class="colLast">
-<div class="block">Classes related to random number generation.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/package-summary.html">org.cicirello.search</a></th>
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/package-summary.html">org.cicirello.search</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces related to implementing
  metaheuristic search algorithms in general, rather than specific to a particular
  metaheuristic.</div>
 </td>
 </tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/concurrent/package-summary.html">org.cicirello.search.concurrent</a></th>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/package-summary.html">org.cicirello.search.concurrent</a></th>
 <td class="colLast">
 <div class="block">This package includes multithreaded search implementations, as well as
  classes and interfaces related to implementing multithreaded metaheuristics.</div>
 </td>
 </tr>
-<tr class="rowColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/hc/package-summary.html">org.cicirello.search.hc</a></th>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/hc/package-summary.html">org.cicirello.search.hc</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
  hill climbers.</div>
 </td>
 </tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/operators/package-summary.html">org.cicirello.search.operators</a></th>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/package-summary.html">org.cicirello.search.operators</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces for defining various operators
  required by simulated annealing and other metaheuristics, such as 
@@ -151,29 +145,29 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  other related classes and interfaces.</div>
 </td>
 </tr>
-<tr class="rowColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/operators/bits/package-summary.html">org.cicirello.search.operators.bits</a></th>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/package-summary.html">org.cicirello.search.operators.bits</a></th>
 <td class="colLast">
 <div class="block">This package includes classes that implement operators that create, mutate, etc,
  BitVectors.</div>
 </td>
 </tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/operators/integers/package-summary.html">org.cicirello.search.operators.integers</a></th>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/package-summary.html">org.cicirello.search.operators.integers</a></th>
 <td class="colLast">
 <div class="block">This package includes classes that implement operators that create, mutate, etc,
  integer valued representations.</div>
 </td>
 </tr>
-<tr class="rowColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></th>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></th>
 <td class="colLast">
 <div class="block">This package includes classes that implement mutation operators for permutations, and other
  operators required by simulated annealing and other related metaheuristics.</div>
 </td>
 </tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/operators/reals/package-summary.html">org.cicirello.search.operators.reals</a></th>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/reals/package-summary.html">org.cicirello.search.operators.reals</a></th>
 <td class="colLast">
 <div class="block">This package includes classes that implement operators that create, mutate, etc, the
  the inputs to functions with real-valued input parameters (represented with type double), 
@@ -181,30 +175,36 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  problems using simulated annealing or other metaheuristics.</div>
 </td>
 </tr>
-<tr class="rowColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></th>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></th>
 <td class="colLast">
 <div class="block">Package of classes and interfaces related to representing
  computational problems, as well as classes implementing
  a variety of specific computational problems.</div>
 </td>
 </tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a></th>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a></th>
 <td class="colLast">
 <div class="block">Package of classes and interfaces related to representing
  and solving scheduling problems, which includes implementations
  of constructive heuristics for scheduling problems.</div>
 </td>
 </tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></th>
+<td class="colLast">
+<div class="block">Classes and interfaces related to the Traveling Salesperson Problem (TSP).</div>
+</td>
+</tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/representations/package-summary.html">org.cicirello.search.representations</a></th>
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/package-summary.html">org.cicirello.search.representations</a></th>
 <td class="colLast">
 <div class="block">This package includes classes related to representing solutions to optimization problems.</div>
 </td>
 </tr>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/restarts/package-summary.html">org.cicirello.search.restarts</a></th>
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/package-summary.html">org.cicirello.search.restarts</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces related to implementing multistart
  metaheuristics (i.e., metaheuristics that periodically restart, and return the best
@@ -212,14 +212,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/sa/package-summary.html">org.cicirello.search.sa</a></th>
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/package-summary.html">org.cicirello.search.sa</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
  simulated annealing.</div>
 </td>
 </tr>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="org/cicirello/search/ss/package-summary.html">org.cicirello.search.ss</a></th>
+<th class="colFirst" scope="row"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/package-summary.html">org.cicirello.search.ss</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
  stochastic sampling algorithms.</div>
@@ -242,7 +242,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="index.html">Overview</a></li>
+<li><a href="org.cicirello.chips_n_salsa/module-summary.html">Module</a></li>
 <li>Package</li>
 <li>Class</li>
 <li>Use</li>

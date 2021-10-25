@@ -57,9 +57,8 @@ import org.cicirello.search.SimpleLocalMetaheuristic;
  * that implements the {@link AnnealingSchedule} interface, and the library provides all
  * of the common annealing schedules, such as exponential cooling, and linear cooling,
  * as well as a few less common, such as parameter-free versions of those schedules, as well as
- * multiple variations of an adaptive schedule known as the Modified Lam annealing schedule.  
- * See the {@link AnnealingSchedule}
- * documentation for a list of the classes that implement this interface.  You may also implement
+ * multiple adaptive annealing schedules. See the {@link AnnealingSchedule}
+ * documentation for a list of the classes that implement this interface. You may also implement
  * your own annealing schedule by implementing the {@link AnnealingSchedule} interface.</p>
  *
  * <p>You must also provide the constructors of this class with a mutation operator for generating
@@ -214,8 +213,8 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
-	 * Modified Lam of Cicirello (2020).
+	 * with a default annealing schedule of {@link SelfTuningLam}, which is the 
+	 * Self-Tuning Lam annealing schedule of Cicirello (2021).
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
 	 * @param initializer The source of random initial states for simulated annealing.
@@ -224,13 +223,13 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
 	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker) {
-		this(problem, mutation, initializer, new ModifiedLam(), tracker, null);
+		this(problem, mutation, initializer, new SelfTuningLam(), tracker, null);
 	}
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
-	 * Modified Lam of Cicirello (2020).
+	 * with a default annealing schedule of {@link SelfTuningLam}, which is the 
+	 * Self-Tuning Lam annealing schedule of Cicirello (2021).
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
 	 * @param initializer The source of random initial states for simulated annealing.
@@ -239,13 +238,13 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
 	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker) {
-		this(problem, mutation, initializer, new ModifiedLam(), tracker, null);
+		this(problem, mutation, initializer, new SelfTuningLam(), tracker, null);
 	}
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
-	 * Modified Lam of Cicirello (2020), and which
+	 * with a default annealing schedule of {@link SelfTuningLam}, which is the 
+	 * Self-Tuning Lam annealing schedule of Cicirello (2021), and which
 	 * runs a hill climber as a post-processing step.
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
@@ -262,13 +261,13 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
 	 */
 	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-		this(problem, mutation, initializer, new ModifiedLam(), tracker, hc);
+		this(problem, mutation, initializer, new SelfTuningLam(), tracker, hc);
 	}
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
-	 * Modified Lam of Cicirello (2020), and which
+	 * with a default annealing schedule of {@link SelfTuningLam}, which is the 
+	 * Self-Tuning Lam annealing schedule of Cicirello (2021), and which
 	 * runs a hill climber as a post-processing step.
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
@@ -285,7 +284,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
 	 */
 	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, ProgressTracker<T> tracker, SimpleLocalMetaheuristic<T> hc) {
-		this(problem, mutation, initializer, new ModifiedLam(), tracker, hc);
+		this(problem, mutation, initializer, new SelfTuningLam(), tracker, hc);
 	}
 	
 	/**
@@ -358,8 +357,8 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
-	 * Modified Lam of Cicirello (2020).  
+	 * with a default annealing schedule of {@link SelfTuningLam}, which is the 
+	 * Self-Tuning Lam annealing schedule of Cicirello (2021).  
 	 * A {@link ProgressTracker} is created for you.
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
@@ -367,13 +366,13 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
 	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer) {
-		this(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), null);
+		this(problem, mutation, initializer, new SelfTuningLam(), new ProgressTracker<T>(), null);
 	}
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
-	 * Modified Lam of Cicirello (2020).  
+	 * with a default annealing schedule of {@link SelfTuningLam}, which is the 
+	 * Self-Tuning Lam annealing schedule of Cicirello (2021).  
 	 * A {@link ProgressTracker} is created for you.
 	 * @param problem An instance of an optimization problem to solve.
 	 * @param mutation A mutation operator supporting the undo operation.
@@ -381,13 +380,13 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws NullPointerException if any of the parameters are null.
 	 */
 	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer) {
-		this(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), null);
+		this(problem, mutation, initializer, new SelfTuningLam(), new ProgressTracker<T>(), null);
 	}
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for real-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
-	 * Modified Lam of Cicirello (2020), and which
+	 * with a default annealing schedule of {@link SelfTuningLam}, which is the 
+	 * Self-Tuning Lam annealing schedule of Cicirello (2021), and which
 	 * runs a hill climber as a post-processing step.  
 	 * A {@link ProgressTracker} is created for you.
 	 * @param problem An instance of an optimization problem to solve.
@@ -403,13 +402,13 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
 	 */
 	public SimulatedAnnealing(OptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, SimpleLocalMetaheuristic<T> hc) {
-		this(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), hc);
+		this(problem, mutation, initializer, new SelfTuningLam(), new ProgressTracker<T>(), hc);
 	}
 	
 	/**
 	 * Creates a SimulatedAnnealing search instance for integer-valued optimization problems, 
-	 * with a default annealing schedule of {@link ModifiedLam}, which is the Optimized
-	 * Modified Lam of Cicirello (2020), and which
+	 * with a default annealing schedule of {@link SelfTuningLam}, which is the 
+	 * Self-Tuning Lam annealing schedule of Cicirello (2021), and which
 	 * runs a hill climber as a post-processing step.
 	 * A {@link ProgressTracker} is created for you.
 	 * @param problem An instance of an optimization problem to solve.
@@ -425,7 +424,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 	 * @throws IllegalArgumentException if hc is not null and problem is not equal to hc.getProblem()
 	 */
 	public SimulatedAnnealing(IntegerCostOptimizationProblem<T> problem, UndoableMutationOperator<T> mutation, Initializer<T> initializer, SimpleLocalMetaheuristic<T> hc) {
-		this(problem, mutation, initializer, new ModifiedLam(), new ProgressTracker<T>(), hc);
+		this(problem, mutation, initializer, new SelfTuningLam(), new ProgressTracker<T>(), hc);
 	}
 	
 	/*

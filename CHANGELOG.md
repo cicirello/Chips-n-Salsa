@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 	and/or returned by a variety of methods such as operators that manipulate permutations.
 	As a consequence, projects that include Chips-n-Salsa as a dependency will also include JPT
 	and its dependencies. User's dependency manager should handle this.
+* Changed the default annealing schedule in the SimulatedAnnealing class to the Self-Tuning Lam
+  adaptive schedule of Cicirello (2021), which is implemented in class SelfTuningLam.
 
 ### Deprecated
 

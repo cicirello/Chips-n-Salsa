@@ -83,7 +83,7 @@ public class HybridConstructiveHeuristicTests {
 		heuristics.add(h102);
 		h100.incCallCount = 0;
 		hybrid = new HybridConstructiveHeuristic<TestObject>(heuristics);
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 60; i++) {
 			inc = hybrid.createIncrementalEvaluation();
 			partial = hybrid.createPartial(5);
 			int totalHCallsPre = h100.hCallCount + h101.hCallCount + h102.hCallCount;

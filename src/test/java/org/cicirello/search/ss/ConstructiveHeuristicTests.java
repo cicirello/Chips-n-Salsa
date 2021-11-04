@@ -100,7 +100,8 @@ public class ConstructiveHeuristicTests {
 		IntHeuristic h = new IntHeuristic(problem, 3);
 		HeuristicSolutionGenerator<Permutation> ch = new HeuristicSolutionGenerator<Permutation>(h);
 		ProgressTracker<Permutation> tracker = ch.getProgressTracker();
-		tracker.setFoundBest();
+		// replaced deprecated call to setFoundBest()
+		tracker.update(0, new Permutation(1), true);
 		assertNull(ch.optimize());
 		assertEquals(0, ch.getTotalRunLength());
 	}

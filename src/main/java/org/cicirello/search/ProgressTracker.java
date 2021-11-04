@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -35,7 +35,6 @@ import org.cicirello.util.Copyable;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.8.2020
  */
 public final class ProgressTracker<T extends Copyable<T>> {
 	
@@ -86,13 +85,66 @@ public final class ProgressTracker<T extends Copyable<T>> {
 	 * @return The cost of the best solution found.  This may or may not be equal
 	 * to the cost passed as a parameter.  If the returned value is less than cost, then
 	 * that means the best solution was previously updated by this or another thread.
+	 * @deprecated Use {@link #update(int, Copyable, boolean)} instead.
 	 */
+	@Deprecated
 	public int update(int cost, T solution) {
+		return update(cost, solution, false);
+	}
+	
+	/**
+	 * Updates the best solution contained in this progress tracker.
+	 * The update takes place only if the new solution has lower cost than
+	 * the current best cost solution stored in the progress tracker.  This method
+	 * is thread-safe.  However, it uses synchronization for thread-safety, so
+	 * it is strongly suggested that in multithreaded search implementations that
+	 * you reserve calls to this method for when the search believes it has likely found 
+	 * a better solution than all currently running threads.  Although in theory the 
+	 * functionality of this class is such that it can be used as the sole means of a
+	 * search algorithm keeping track of the best found solution.  If multiple
+	 * parallel runs attempt to share this object for that purpose, significant blocking
+	 * may occur.  You may consider using the nonblocking {@link #getCostDouble} method
+	 * first.
+	 * @param cost The cost of the solution.
+	 * @param solution The new solution.
+	 * @return The cost of the best solution found.  This may or may not be equal
+	 * to the cost passed as a parameter.  If the returned value is less than cost, then
+	 * that means the best solution was previously updated by this or another thread.
+	 * @deprecated Use {@link #update(double, Copyable, boolean)} instead.
+	 */
+	@Deprecated
+	public double update(double cost, T solution) {
+		return update(cost, solution, false);
+	}
+	
+	/**
+	 * Updates the best solution contained in this progress tracker.
+	 * The update takes place only if the new solution has lower cost than
+	 * the current best cost solution stored in the progress tracker.  This method
+	 * is thread-safe.  However, it uses synchronization for thread-safety, so
+	 * it is strongly suggested that in multithreaded search implementations that
+	 * you reserve calls to this method for when the search believes it has likely found 
+	 * a better solution than all currently running threads.  Although in theory the 
+	 * functionality of this class is such that it can be used as the sole means of a
+	 * search algorithm keeping track of the best found solution.  If multiple
+	 * parallel runs attempt to share this object for that purpose, significant blocking
+	 * may occur.  You may consider using the nonblocking {@link #getCost} method
+	 * first.
+	 * @param cost The cost of the solution.
+	 * @param solution The new solution.
+	 * @param isKnownOptimal Pass true if this solution is known to be the optimal such as if
+	 * it is equal to a lower bound for the problem, and otherwise pass false.
+	 * @return The cost of the best solution found.  This may or may not be equal
+	 * to the cost passed as a parameter.  If the returned value is less than cost, then
+	 * that means the best solution was previously updated by this or another thread.
+	 */
+	public int update(int cost, T solution, boolean isKnownOptimal) {
 		synchronized (lock) {
 			if (bestSolution == null || cost < bestCost) {
 				bestCostD = bestCost = cost;
 				bestSolution = solution.copy();
 				containsIntCost = true;
+				foundBest = isKnownOptimal;
 				when = System.nanoTime();
 			}
 			return bestCost;
@@ -114,16 +166,19 @@ public final class ProgressTracker<T extends Copyable<T>> {
 	 * first.
 	 * @param cost The cost of the solution.
 	 * @param solution The new solution.
+	 * @param isKnownOptimal Pass true if this solution is known to be the optimal such as if
+	 * it is equal to a lower bound for the problem, and otherwise pass false.
 	 * @return The cost of the best solution found.  This may or may not be equal
 	 * to the cost passed as a parameter.  If the returned value is less than cost, then
 	 * that means the best solution was previously updated by this or another thread.
 	 */
-	public double update(double cost, T solution) {
+	public double update(double cost, T solution, boolean isKnownOptimal) {
 		synchronized (lock) {
 			if (bestSolution == null || cost < bestCostD) {
 				bestCostD = cost;
 				bestSolution = solution.copy();
 				containsIntCost = false;
+				foundBest = isKnownOptimal;
 				when = System.nanoTime();
 			}
 			return bestCostD;
@@ -189,7 +244,11 @@ public final class ProgressTracker<T extends Copyable<T>> {
 	/**
 	 * Record that the best solution contained in the ProgressTracker is the
 	 * best possible solution to the problem.
+	 * @deprecated Use {@link #update(int, Copyable, boolean)} or
+	 * {@link #update(double, Copyable, boolean)} instead to set the 
+	 * foundBest flag when the solution is updated.
 	 */
+	@Deprecated
 	public void setFoundBest() {
 		foundBest = true;
 	}

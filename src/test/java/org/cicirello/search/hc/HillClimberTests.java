@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -323,7 +323,7 @@ public class HillClimberTests {
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		
 		TestObject start = new TestObject(TestObject.OPT-1);
-		tracker.update(2*TestObject.OPT-2, start);
+		tracker.update(2*TestObject.OPT-2, start, false);
 		
 		FirstDescentHillClimber<TestObject> hc = new FirstDescentHillClimber<TestObject>(problem, mutation, init, tracker);
 		
@@ -412,7 +412,7 @@ public class HillClimberTests {
 		TestObject init = new TestObject(1000);
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestObject start = new TestObject(TestObject.OPT-1);
-		tracker.update(2*TestObject.OPT-2, start);
+		tracker.update(2*TestObject.OPT-2, start, false);
 		FirstDescentHillClimber<TestObject> hc = new FirstDescentHillClimber<TestObject>(problem, mutation, init, tracker);
 		SolutionCostPair<TestObject> solution = hc.optimize();
 		assertEquals(start, tracker.getSolution());
@@ -420,7 +420,7 @@ public class HillClimberTests {
 		
 		tracker = new ProgressTracker<TestObject>();
 		start = new TestObject(TestObject.OPT-1);
-		tracker.update(2.0*TestObject.OPT-2, start);
+		tracker.update(2.0*TestObject.OPT-2, start, false);
 		hc = new FirstDescentHillClimber<TestObject>(problemDouble, mutation, init, tracker);
 		solution = hc.optimize();
 		assertEquals(start, tracker.getSolution());

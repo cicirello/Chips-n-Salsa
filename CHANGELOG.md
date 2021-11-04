@@ -4,13 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-10-25
+## [Unreleased] - 2021-11-04
 
 ### Added
 
 ### Changed
 
 ### Deprecated
+* `ProgressTracker.update(int, T)` in favor of using `ProgressTracker.update(int, T, boolean)`.
+* `ProgressTracker.update(double, T)` in favor of using `ProgressTracker.update(double, T, boolean)`.
+* ProgressTracker.setFoundBest() in favor of using either `ProgressTracker.update(int, T, boolean)` 
+  or `ProgressTracker.update(double, T, boolean)`.
 
 ### Removed
 

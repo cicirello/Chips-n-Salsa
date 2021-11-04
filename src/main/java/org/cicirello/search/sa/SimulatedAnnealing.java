@@ -85,7 +85,6 @@ import org.cicirello.search.SimpleLocalMetaheuristic;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 1.21.2021
  */
 public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolutionMetaheuristic<T> {
 	
@@ -568,10 +567,9 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 			// initialize best cost, etc
 			int bestCost = tracker.getCost();
 			if (currentCost < bestCost) {
-				bestCost = tracker.update(currentCost, current);
-				if (bestCost == pOptInt.minCost()) {
+				bestCost = tracker.update(currentCost, current, pOptInt.isMinCost(currentCost));
+				if (tracker.didFindBest()) {
 					// found theoretical best so no point in proceeding
-					tracker.setFoundBest();
 					return new SolutionCostPair<T>(current, currentCost);
 				}
 			}
@@ -592,10 +590,9 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 					// accepting the neighbor
 					currentCost = neighborCost;
 					if (currentCost < bestCost) {
-						bestCost = tracker.update(currentCost, current);
-						if (bestCost == pOptInt.minCost()) {
+						bestCost = tracker.update(currentCost, current, pOptInt.isMinCost(currentCost));
+						if (tracker.didFindBest()) {
 							// found theoretical best so no point in proceeding
-							tracker.setFoundBest();
 							elapsedEvals += i;
 							return new SolutionCostPair<T>(current, currentCost);
 						}
@@ -620,10 +617,9 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 			// initialize best cost, etc
 			double bestCost = tracker.getCostDouble();
 			if (currentCost < bestCost) {
-				bestCost = tracker.update(currentCost, current);
-				if (bestCost == pOpt.minCost()) {
+				bestCost = tracker.update(currentCost, current, pOpt.isMinCost(currentCost));
+				if (tracker.didFindBest()) {
 					// found theoretical best so no point in proceeding
-					tracker.setFoundBest();
 					return new SolutionCostPair<T>(current, currentCost);
 				}
 			}
@@ -644,10 +640,9 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 					// accepting the neighbor
 					currentCost = neighborCost;
 					if (currentCost < bestCost) {
-						bestCost = tracker.update(currentCost, current);
-						if (bestCost == pOpt.minCost()) {
+						bestCost = tracker.update(currentCost, current, pOpt.isMinCost(currentCost));
+						if (tracker.didFindBest()) {
 							// found theoretical best so no point in proceeding
-							tracker.setFoundBest();
 							elapsedEvals += i;
 							return new SolutionCostPair<T>(current, currentCost);
 						}

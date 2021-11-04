@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -33,11 +33,8 @@ import org.cicirello.util.Copyable;
  * <p>This class serves as an abstract base class for the stochastic
  * sampling search algorithms, implementing the common functionality.</p> 
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.12.2020
  */
 abstract class AbstractStochasticSampler<T extends Copyable<T>> implements SimpleMetaheuristic<T>, Metaheuristic<T> {
 	
@@ -142,20 +139,14 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>> implements Simpl
 			int cost = pOptInt.cost(complete);
 			// update tracker
 			if (cost < tracker.getCost()) {
-				tracker.update(cost, complete);
-				if (cost == pOptInt.minCost()) {
-					tracker.setFoundBest();
-				}
+				tracker.update(cost, complete, pOptInt.isMinCost(cost));
 			}
 			return new SolutionCostPair<T>(complete, cost);
 		} else {
 			double cost = pOpt.cost(complete);
 			// update tracker
 			if (cost < tracker.getCostDouble()) {
-				tracker.update(cost, complete);
-				if (cost == pOpt.minCost()) {
-					tracker.setFoundBest();
-				}
+				tracker.update(cost, complete, pOpt.isMinCost(cost));
 			}
 			return new SolutionCostPair<T>(complete, cost);
 		}

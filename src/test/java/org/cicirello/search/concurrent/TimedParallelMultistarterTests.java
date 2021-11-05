@@ -80,7 +80,8 @@ public class TimedParallelMultistarterTests {
 			}
 			catch (InterruptedException ex) {break;}
 		}
-		search.tracker.setFoundBest();
+		// replaced deprecated call to setFoundBest()
+		search.tracker.update(-10000.0, new TestObject(-10000), true);
 		try {
 			t.join(1000);
 		}
@@ -123,7 +124,8 @@ public class TimedParallelMultistarterTests {
 			}
 			catch (InterruptedException ex) {break;}
 		}
-		search.tracker.setFoundBest();
+		// replaced deprecated call to setFoundBest()
+		search.tracker.update(-10000.0, new TestObject(-10000), true);
 		try {
 			t.join(1000);
 		}
@@ -166,7 +168,8 @@ public class TimedParallelMultistarterTests {
 			}
 			catch (InterruptedException ex) {break;}
 		}
-		search.tracker.setFoundBest();
+		// replaced deprecated call to setFoundBest()
+		search.tracker.update(-10000.0, new TestObject(-10000), true);
 		try {
 			t.join(1000);
 		}
@@ -470,7 +473,8 @@ public class TimedParallelMultistarterTests {
 		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
 		TimedParallelMultistarter<TestObject> restarter = new TimedParallelMultistarter<TestObject>(heur, 1, 1);
 		long expected = restarter.getTotalRunLength();
-		restarter.getProgressTracker().setFoundBest();
+		// replaced call to deprecated setFoundBest()
+		restarter.getProgressTracker().update(0, new TestObject(0), true);
 		restarter.optimize(1);
 		assertEquals(expected, restarter.getTotalRunLength());
 		restarter.close();
@@ -484,7 +488,8 @@ public class TimedParallelMultistarterTests {
 		TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
 		TimedParallelReoptimizableMultistarter<TestObject> restarter = new TimedParallelReoptimizableMultistarter<TestObject>(heur, 1, 1);
 		long expected = restarter.getTotalRunLength();
-		restarter.getProgressTracker().setFoundBest();
+		// replaced call to deprecated setFoundBest()
+		restarter.getProgressTracker().update(0, new TestObject(0), true);
 		restarter.optimize(1);
 		assertEquals(expected, restarter.getTotalRunLength());
 		restarter.reoptimize(1);
@@ -1311,7 +1316,7 @@ public class TimedParallelMultistarterTests {
 			TestObject threadBest = new TestObject(r.nextInt(10000));
 			totalRunLength++;
 			double bestCost = problem.cost(threadBest);
-			tracker.update(bestCost, threadBest);
+			tracker.update(bestCost, threadBest, false);
 			while (!tracker.isStopped() && runLength > 0) {
 				runLength--;
 				TestObject candidate = new TestObject(r.nextInt(10000));
@@ -1320,7 +1325,7 @@ public class TimedParallelMultistarterTests {
 				if (cost < bestCost) {
 					threadBest = candidate;
 					bestCost = cost;					
-					tracker.update(bestCost, threadBest);
+					tracker.update(bestCost, threadBest, false);
 				}
 			}
 			return new SolutionCostPair<TestObject>(threadBest, problem.cost(threadBest));
@@ -1332,7 +1337,7 @@ public class TimedParallelMultistarterTests {
 			TestObject threadBest = new TestObject(r.nextInt(10000));
 			totalRunLength++;
 			double bestCost = problem.cost(threadBest);
-			tracker.update(bestCost, threadBest);
+			tracker.update(bestCost, threadBest, false);
 			while (!tracker.isStopped() && runLength > 0) {
 				runLength--;
 				TestObject candidate = new TestObject(r.nextInt(10000));
@@ -1341,7 +1346,7 @@ public class TimedParallelMultistarterTests {
 				if (cost < bestCost) {
 					threadBest = candidate;
 					bestCost = cost;					
-					tracker.update(bestCost, threadBest);
+					tracker.update(bestCost, threadBest, false);
 				}
 			}
 			return new SolutionCostPair<TestObject>(threadBest, problem.cost(threadBest));
@@ -1415,7 +1420,7 @@ public class TimedParallelMultistarterTests {
 			count++;
 			if (id == 1000) {
 				TestObject sol = new TestObject(10);
-				getProgressTracker().update(10, sol);
+				getProgressTracker().update(10, sol, false);
 				return new SolutionCostPair<TestObject>(sol, 10);
 			} else {
 				while (!getProgressTracker().containsIntCost()) {

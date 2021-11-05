@@ -182,7 +182,8 @@ public class ParallelReoptimizableMultistarterSingleThreadTests {
 		heur = new TestRestartedMetaheuristic();
 		restarter = new ParallelReoptimizableMultistarter<TestObject>(heur, 1, 1);
 		expected = restarter.getTotalRunLength();
-		restarter.getProgressTracker().setFoundBest();
+		// replaced call to deprecated setFoundBest()
+		restarter.getProgressTracker().update(0, new TestObject(), true);
 		restarter.optimize(1);
 		assertEquals(expected, restarter.getTotalRunLength());
 		restarter.close();
@@ -200,7 +201,8 @@ public class ParallelReoptimizableMultistarterSingleThreadTests {
 		heur = new TestRestartedMetaheuristic();
 		restarter = new ParallelReoptimizableMultistarter<TestObject>(heur, 1, 1);
 		expected = restarter.getTotalRunLength();
-		restarter.getProgressTracker().setFoundBest();
+		// replaced call to deprecated setFoundBest()
+		restarter.getProgressTracker().update(0, new TestObject(), true);
 		restarter.reoptimize(1);
 		assertEquals(expected, restarter.getTotalRunLength());
 		restarter.close();
@@ -1318,7 +1320,8 @@ public class ParallelReoptimizableMultistarterSingleThreadTests {
 					if (elapsed >= stopAtEval) {
 						elapsed = stopAtEval;
 						tracker.stop();
-						tracker.setFoundBest();
+						// Replaces old call to deprecated setFoundBest()
+						tracker.update(1, new TestObject(), true);
 						c = 1;
 					}
 					break;
@@ -1331,7 +1334,8 @@ public class ParallelReoptimizableMultistarterSingleThreadTests {
 				case 2:
 					if (elapsed >= findBestAtEval) {
 						elapsed = findBestAtEval;
-						tracker.setFoundBest();
+						// Replaces old call to deprecated setFoundBest()
+						tracker.update(1, new TestObject(), true);
 						c = 1;
 					}
 					break;

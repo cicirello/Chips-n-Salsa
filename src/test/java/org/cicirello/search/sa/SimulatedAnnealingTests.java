@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -261,7 +261,8 @@ public class SimulatedAnnealingTests {
 	@Test
 	public void testFoundBest() {
 		TestObject t = new TestObject(100);
-		i_known.getProgressTracker().setFoundBest();
+		// replaced call to deprecated setFoundBest()
+		i_known.getProgressTracker().update(0, new TestObject(0), true);
 		assertNull(i_known.optimize(10));
 		assertNull(i_known.optimize(10, t));
 		assertNull(i_known.reoptimize(10));

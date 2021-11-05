@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -108,7 +108,8 @@ public class IterativeSamplingTests {
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		IterativeSampling<TestObject> is = new IterativeSampling<TestObject>(problem, init, tracker);
 		
-		tracker.setFoundBest();
+		// replaced deprecated call to setFoundBest()
+		tracker.update(0, new TestObject(0), true);
 		SolutionCostPair<TestObject> solution = is.optimize();
 		assertNull(solution);
 		solution = is.optimize(1);

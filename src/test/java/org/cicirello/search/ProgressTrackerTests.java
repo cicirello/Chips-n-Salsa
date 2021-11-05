@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
 package org.cicirello.search;
 
 import org.junit.*;
@@ -47,7 +47,7 @@ public class ProgressTrackerTests {
 		int[] expectedCosts = {5, 4, 3, 3, 3, 1};
 		for (int i = 0; i < s.length; i++) {
 			// testing with int costs
-			t.update(expectedCosts[i], s[i]);
+			t.update(expectedCosts[i], s[i], false);
 			assertEquals(expectedCosts[i], t.getCost());
 			assertEquals(expectedCosts[i], t.getCostDouble(), EPSILON);
 			TestCopyable solution = t.getSolution();
@@ -73,7 +73,7 @@ public class ProgressTrackerTests {
 		double[] expectedCostsD = {5, 4, 3, 3, 3, 1};
 		for (int i = 0; i < s.length; i++) {
 			// testing with double costs
-			t.update(expectedCostsD[i], s[i]);
+			t.update(expectedCostsD[i], s[i], false);
 			assertEquals(expectedCostsD[i], t.getCostDouble(), EPSILON);
 			TestCopyable solution = t.getSolution();
 			pair = t.getSolutionCostPair();
@@ -94,24 +94,25 @@ public class ProgressTrackerTests {
 		ProgressTracker<TestCopyable> t = new ProgressTracker<TestCopyable>();
 		for (int i = 5; i >= 0; i--) {
 			assertFalse(t.didFindBest());
-			t.update(i, new TestCopyable(i));
+			t.update(i, new TestCopyable(i), false);
 		}
 		for (int i = 0; i <= 5; i++) {
 			assertFalse(t.didFindBest());
-			t.update(i, new TestCopyable(i));
+			t.update(i, new TestCopyable(i), false);
 		}
-		t.setFoundBest();
+		// deprecated: t.setFoundBest();
+		t.update(-1, new TestCopyable(-1), true);
 		assertTrue(t.didFindBest());
 		
 		// test stop flag
 		t = new ProgressTracker<TestCopyable>();
 		for (int i = 5; i >= 0; i--) {
 			assertFalse(t.isStopped());
-			t.update(i, new TestCopyable(i));
+			t.update(i, new TestCopyable(i), false);
 		}
 		for (int i = 0; i <= 5; i++) {
 			assertFalse(t.isStopped());
-			t.update(i, new TestCopyable(i));
+			t.update(i, new TestCopyable(i), false);
 		}
 		t.stop();
 		assertTrue(t.isStopped());
@@ -121,13 +122,54 @@ public class ProgressTrackerTests {
 		assertFalse(t.containsIntCost());
 		for (int i = 0; i < 10; i++) {
 			if (i % 2 == 0) {
-				t.update(100 - i, new TestCopyable(i));
+				t.update(100 - i, new TestCopyable(i), false);
 				assertTrue(t.containsIntCost());
 			} else {
-				t.update(100.0 - i, new TestCopyable(i));
+				t.update(100.0 - i, new TestCopyable(i), false);
 				assertFalse(t.containsIntCost());
 			}
 		}
+	}
+	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void testDeprecatedMethods() {
+		// Include this test method until the deprecated methods
+		// are removed. At that point, remove this. Continue to
+		// include for now as regression tests since some may still
+		// depend on these.
+		
+		// Test with int costs
+		ProgressTracker<TestCopyable> t = new ProgressTracker<TestCopyable>();
+		for (int i = 5; i >= 0; i--) {
+			assertFalse(t.didFindBest());
+			// Following is deprecated
+			t.update(i, new TestCopyable(i));
+		}
+		for (int i = 0; i <= 5; i++) {
+			assertFalse(t.didFindBest());
+			// Following is deprecated
+			t.update(i, new TestCopyable(i));
+		}
+		// Following is deprecated 
+		t.setFoundBest();
+		assertTrue(t.didFindBest());
+		
+		// Test with double costs
+		t = new ProgressTracker<TestCopyable>();
+		for (int i = 5; i >= 0; i--) {
+			assertFalse(t.didFindBest());
+			// Following is deprecated
+			t.update((double)i, new TestCopyable(i));
+		}
+		for (int i = 0; i <= 5; i++) {
+			assertFalse(t.didFindBest());
+			// Following is deprecated
+			t.update((double)i, new TestCopyable(i));
+		}
+		// Following is deprecated 
+		t.setFoundBest();
+		assertTrue(t.didFindBest());
 	}
 	
 	

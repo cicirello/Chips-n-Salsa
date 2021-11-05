@@ -4,13 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-10-25
+## [Unreleased] - 2021-11-05
 
 ### Added
+* New methods added to ProgressTracker class:
+  * `update(int, T, boolean)`
+  * `update(double, T, boolean)`
 
 ### Changed
 
 ### Deprecated
+* The following methods of the ProgressTracker class have been deprecated:
+  * `update(int, T)` in favor of using `update(int, T, boolean)`.
+  * `update(double, T)` in favor of using `update(double, T, boolean)`.
+  * `setFoundBest()` in favor of using either `update(int, T, boolean)` 
+    or `update(double, T, boolean)`.
 
 ### Removed
 

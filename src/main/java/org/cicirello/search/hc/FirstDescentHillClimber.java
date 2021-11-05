@@ -49,7 +49,6 @@ import org.cicirello.search.operators.MutationIterator;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2021
  */
 public final class FirstDescentHillClimber<T extends Copyable<T>> extends AbstractHillClimber<T> {
 	
@@ -140,10 +139,7 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
 				}
 				// update tracker
 				if (currentCost < tracker.getCost()) {
-					tracker.update(currentCost, current);
-					if (currentCost == pOptInt.minCost()) {
-						tracker.setFoundBest();
-					}
+					tracker.update(currentCost, current, pOptInt.isMinCost(currentCost));
 				}
 				return new SolutionCostPair<T>(current, currentCost);
 		};
@@ -172,10 +168,7 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
 				}
 				// update tracker
 				if (currentCost < tracker.getCostDouble()) {
-					tracker.update(currentCost, current);
-					if (currentCost == pOpt.minCost()) {
-						tracker.setFoundBest();
-					}
+					tracker.update(currentCost, current, pOpt.isMinCost(currentCost));
 				}			
 				return new SolutionCostPair<T>(current, currentCost);
 		};

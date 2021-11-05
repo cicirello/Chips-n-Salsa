@@ -44,7 +44,6 @@ import org.cicirello.util.Copyable;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.13.2021
  */
 public class HeuristicSolutionGenerator<T extends Copyable<T>> implements SimpleMetaheuristic<T> {
 	
@@ -143,20 +142,14 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
 			SolutionCostPair<T> solution = pOptInt.getSolutionCostPair(complete);
 			int cost = solution.getCost();
 			if (cost < tracker.getCost()) {
-				tracker.update(cost, complete);
-				if (cost == pOptInt.minCost()) {
-					tracker.setFoundBest();
-				}
+				tracker.update(cost, complete, pOptInt.isMinCost(cost));
 			}
 			return solution;
 		} else {
 			SolutionCostPair<T> solution = pOpt.getSolutionCostPair(complete);
 			double cost = solution.getCostDouble();
 			if (cost < tracker.getCostDouble()) {
-				tracker.update(cost, complete);
-				if (cost == pOpt.minCost()) {
-					tracker.setFoundBest();
-				}
+				tracker.update(cost, complete, pOpt.isMinCost(cost));
 			}
 			return solution;
 		}

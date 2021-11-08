@@ -102,4 +102,6 @@ module org.cicirello.chips_n_salsa {
 	// return Permutation objects, defined in this
 	// module.
 	requires transitive org.cicirello.jpt;
+	requires org.cicirello.rho_mu;
+	requires org.cicirello.core;
 }

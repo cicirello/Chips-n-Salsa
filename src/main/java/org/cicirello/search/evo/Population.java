@@ -43,6 +43,8 @@ public final class Population<T extends Copyable<T>> implements Splittable<Popul
 	private final PopulationMember.DoubleFitness<T>[] pop;
 	private final FitnessFunction<T> f;
 	
+	private PopulationMember.DoubleFitness<T> mostFit;
+	
 	/**
 	 * Constructs the Population.
 	 *
@@ -70,8 +72,9 @@ public final class Population<T extends Copyable<T>> implements Splittable<Popul
 		// split these: not threadsafe
 		initializer = other.initializer.split();
 		
-		// initialize these fresh: not threadsafe
+		// initialize these fresh: not threadsafe or otherwise needs its own
 		pop = initPop(other.pop.length);
+		mostFit = null;
 	}
 	
 	@Override
@@ -101,12 +104,24 @@ public final class Population<T extends Copyable<T>> implements Splittable<Popul
 		return pop.length;
 	}
 	
+	/**
+	 * Gets the most fit encountered in any generation.
+	 * @return the most fit encountered in any generation
+	 */
+	public PopulationMember.DoubleFitness<T> getMostFit() {
+		return mostFit;
+	}
+	
 	private PopulationMember.DoubleFitness<T>[] initPop(int n) {
 		@SuppressWarnings("unchecked")
 		PopulationMember.DoubleFitness<T>[] pop = (PopulationMember.DoubleFitness<T>[])new PopulationMember.DoubleFitness<?>[n];
 		for (int i = 0; i < n; i++ ) {
 			T c = initializer.createCandidateSolution();
-			pop[i] = new PopulationMember.DoubleFitness<T>(c, f.fitness(c));
+			double fit = f.fitness(c);
+			pop[i] = new PopulationMember.DoubleFitness<T>(c, fit);
+			if (mostFit==null || fit > mostFit.getFitness()) {
+				mostFit = new PopulationMember.DoubleFitness<T>(c.copy(), fit);
+			}
 		}
 		return pop;
 	}		

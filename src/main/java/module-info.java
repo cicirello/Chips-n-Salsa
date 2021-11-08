@@ -82,6 +82,7 @@
 module org.cicirello.chips_n_salsa {
 	exports org.cicirello.search;
 	exports org.cicirello.search.concurrent;
+	exports org.cicirello.search.evo;
 	exports org.cicirello.search.hc;
 	exports org.cicirello.search.operators;
 	exports org.cicirello.search.operators.bits;

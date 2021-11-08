@@ -83,15 +83,15 @@ public final class Population<T extends Copyable<T>> implements Splittable<Popul
 	}
 	
 	/**
-	 * Gets a member of the population subject to genetic operators
+	 * Gets a candidate solution from the population subject to genetic operators
 	 * during the current generation.
 	 *
 	 * @param i An index into the population (indexes begin at 0).
 	 * @return The member of the population at index i.
 	 * @throws ArrayIndexOutOfBoundsException if i is outside the interval [0, size()).
 	 */
-	public PopulationMember.DoubleFitness<T> get(int i) {
-		return pop[i];
+	public T get(int i) {
+		return pop[i].getCandidate();
 	}
 	
 	/**

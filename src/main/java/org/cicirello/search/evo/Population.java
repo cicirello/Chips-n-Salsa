@@ -37,11 +37,12 @@ import org.cicirello.search.operators.Initializer;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class Population<T extends Copyable<T>> implements Splittable<Population<T>> {
+final class Population<T extends Copyable<T>> implements Splittable<Population<T>>, PopulationFitnessVector.Double {
 	
 	private final Initializer<T> initializer;
 	private final PopulationMember.DoubleFitness<T>[] pop;
 	private final FitnessFunction<T> f;
+	private final SelectionOperator selection;
 	
 	private PopulationMember.DoubleFitness<T> mostFit;
 	
@@ -55,9 +56,10 @@ public final class Population<T extends Copyable<T>> implements Splittable<Popul
 	 *
 	 * @throws IllegalArgumentException if n is not positive.
 	 */
-	public Population(int n, Initializer<T> initializer, FitnessFunction<T> f) {
+	public Population(int n, Initializer<T> initializer, FitnessFunction<T> f, SelectionOperator selection) {
 		if (n < 1) throw new IllegalArgumentException("population size must be positive");
 		this.initializer = initializer;
+		this.selection = selection;
 		this.f = f;
 		pop = initPop(n);
 	}
@@ -68,6 +70,7 @@ public final class Population<T extends Copyable<T>> implements Splittable<Popul
 	private Population(Population<T> other) {
 		// these are threadsafe, so just copy references
 		f = other.f;
+		selection = other.selection;
 		
 		// split these: not threadsafe
 		initializer = other.initializer.split();
@@ -88,28 +91,56 @@ public final class Population<T extends Copyable<T>> implements Splittable<Popul
 	 *
 	 * @param i An index into the population (indexes begin at 0).
 	 * @return The member of the population at index i.
-	 * @throws ArrayIndexOutOfBoundsException if i is outside the interval [0, size()).
+	 * @throws ArrayIndexOutOfBoundsException if i is outside the interval [0, nonEliteSize()).
 	 */
 	public T get(int i) {
 		return pop[i].getCandidate();
 	}
 	
 	/**
-	 * Gets the size of the population that is subject to application of
-	 * genetic operators during the current generation.
+	 * Gets the size of the population.
 	 *
 	 * @return The size of the population.
 	 */
+	@Override
 	public int size() {
 		return pop.length;
 	}
 	
 	/**
-	 * Gets the most fit encountered in any generation.
+	 * Gets the size of the population that is subject to genetic operators.
+	 *
+	 * @return The size of the population.
+	 */
+	public int nonEliteSize() {
+		return pop.length;
+	}
+	
+	/**
+	 * Gets the most fit candidate solution encountered in any generation.
 	 * @return the most fit encountered in any generation
 	 */
-	public PopulationMember.DoubleFitness<T> getMostFit() {
-		return mostFit;
+	public T getMostFit() {
+		return mostFit.getCandidate();
+	}
+	
+	/**
+	 * Gets the most fit candidate solution encountered in any generation.
+	 * @return the most fit encountered in any generation
+	 */
+	public double getFitnessOfMostFit() {
+		return mostFit.getFitness();
+	}
+	
+	/**
+	 * Gets the fitness of a population member.
+	 * @param i The index into the population, which must be in the interval [0, size()).
+	 * @return the fitness of population member i.
+	 * @throws ArrayIndexOutOfBoundsException if i is out of bounds.
+	 */
+	@Override
+	public double getFitness(int i) {
+		return pop[i].getFitness();
 	}
 	
 	private PopulationMember.DoubleFitness<T>[] initPop(int n) {

@@ -34,7 +34,7 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public abstract class PopulationMember<T extends Copyable<T>> {
+abstract class PopulationMember<T extends Copyable<T>> {
 	
 	private final T candidate;
 	
@@ -67,7 +67,7 @@ public abstract class PopulationMember<T extends Copyable<T>> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	public static final class DoubleFitness<U extends Copyable<U>> extends PopulationMember<U> {
+	static final class DoubleFitness<U extends Copyable<U>> extends PopulationMember<U> {
 		
 		private double fitness;
 		
@@ -113,7 +113,7 @@ public abstract class PopulationMember<T extends Copyable<T>> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	public static final class IntegerFitness<U extends Copyable<U>> extends PopulationMember<U> {
+	static final class IntegerFitness<U extends Copyable<U>> extends PopulationMember<U> {
 		
 		private int fitness;
 		

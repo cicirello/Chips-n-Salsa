@@ -20,6 +20,9 @@
  
 package org.cicirello.search.evo;
 
+import org.cicirello.search.problems.Problem;
+import org.cicirello.util.Copyable;
+
 /**
  * Fitness function interfaces. Implement one of the two nested interfaces
  * to provide a fitness function for use by genetic algorithms and other forms of
@@ -32,7 +35,13 @@ package org.cicirello.search.evo;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public interface FitnessFunction<T> {
+public interface FitnessFunction<T extends Copyable<T>> {
+	
+	/**
+	 * Gets a reference to the problem that this fitness function is for.
+	 * @return a reference to the problem.
+	 */
+	Problem<T> getProblem();
 	
 	/**
 	 * Fitness function interface for double-valued fitnesses. Implement 
@@ -46,7 +55,7 @@ public interface FitnessFunction<T> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	interface Double<T> extends FitnessFunction<T> {
+	interface Double<T extends Copyable<T>> extends FitnessFunction<T> {
 		
 		/**
 		 * Computes the fitness of a candidate solution to a problem,
@@ -73,7 +82,7 @@ public interface FitnessFunction<T> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	interface Integer<T> extends FitnessFunction<T> {
+	interface Integer<T extends Copyable<T>> extends FitnessFunction<T> {
 		
 		/**
 		 * Computes the fitness of a candidate solution to a problem,

@@ -23,6 +23,7 @@ package org.cicirello.search.evo;
 import org.cicirello.util.Copyable;
 import org.cicirello.search.concurrent.Splittable;
 import org.cicirello.search.operators.Initializer;
+import org.cicirello.search.SolutionCostPair;
 import java.util.ArrayList;
 
 /**
@@ -60,7 +61,7 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 	 * Gets the most fit candidate solution encountered in any generation.
 	 * @return the most fit encountered in any generation
 	 */
-	T getMostFit();
+	SolutionCostPair<T> getMostFit();
 	
 	/**
 	 * Update the fitness of a population member.
@@ -95,10 +96,12 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 		private ArrayList<PopulationMember.DoubleFitness<T>> nextPop;
 		
 		private final FitnessFunction.Double<T> f;		
-		private PopulationMember.DoubleFitness<T> mostFit;
 		private final int n;
 		
 		private final int[] selected;
+		
+		private SolutionCostPair<T> mostFit;
+		private double bestFitness;
 		
 		/**
 		 * Constructs the Population.
@@ -117,6 +120,7 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(n);
 			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(n);
 			selected = new int[n];
+			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
 		}
 		
 		/*
@@ -136,6 +140,7 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(n);
 			selected = new int[n];
 			mostFit = null;
+			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
 		}
 		
 		@Override
@@ -164,8 +169,8 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 		}
 		
 		@Override
-		public T getMostFit() {
-			return mostFit.getCandidate();
+		public SolutionCostPair<T> getMostFit() {
+			return mostFit;
 		}
 		
 		/**
@@ -173,15 +178,16 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 		 * @return the fitness of the most fit encountered in any generation
 		 */
 		public double getFitnessOfMostFit() {
-			return mostFit.getFitness();
+			return bestFitness;
 		}
 		
 		@Override
 		public void updateFitness(int i) {
 			double fit = f.fitness(pop.get(i).getCandidate());
 			pop.get(i).setFitness(fit);
-			if (fit > mostFit.getFitness()) {
-				mostFit = new PopulationMember.DoubleFitness<T>(pop.get(i).getCandidate().copy(), fit);
+			if (fit > bestFitness) {
+				bestFitness = fit;
+				mostFit = f.getProblem().getSolutionCostPair(pop.get(i).getCandidate().copy()); 
 			}
 		}
 		
@@ -200,13 +206,18 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 		@Override
 		public void init() {
 			pop.clear();
+			T newBest = null;
 			for (int i = 0; i < n; i++ ) {
 				T c = initializer.createCandidateSolution();
 				double fit = f.fitness(c);
 				pop.add(new PopulationMember.DoubleFitness<T>(c, fit));
-				if (mostFit==null || fit > mostFit.getFitness()) {
-					mostFit = new PopulationMember.DoubleFitness<T>(c.copy(), fit);
+				if (mostFit==null || fit > bestFitness) {
+					bestFitness = fit;
+					newBest = c;
 				}
+			}
+			if (newBest != null) {
+				mostFit = f.getProblem().getSolutionCostPair(newBest.copy());
 			}
 		}
 	}

@@ -21,10 +21,11 @@
 package org.cicirello.search.evo;
 
 /**
- * Fitness function interface. Implement this interface to provide a
- * fitness function for use by genetic algorithms and other forms of
+ * Fitness function interfaces. Implement one of the two nested interfaces
+ * to provide a fitness function for use by genetic algorithms and other forms of
  * evolutionary computation. The classes of this library assume that
- * fitness values are positive. 
+ * fitness values are positive. The difference between the two nested interfaces
+ * is only the type of the fitness values (double vs int). 
  *
  * @param <T> The type of object under optimization.
  *
@@ -34,14 +35,56 @@ package org.cicirello.search.evo;
 public interface FitnessFunction<T> {
 	
 	/**
-	 * Computes the fitness of a candidate solution to a problem,
-	 * for use by genetic algorithms and other evolutionary algorithms.
-	 * Implementations of this method must ensure that the fitness values that
-	 * it returns are positive, as the implementations of evolutionary algorithms
-	 * in this library assume that all fitness values are positive.
+	 * Fitness function interface for double-valued fitnesses. Implement 
+	 * this interface to provide a
+	 * fitness function for use by genetic algorithms and other forms of
+	 * evolutionary computation. The classes of this library assume that
+	 * fitness values are positive. 
 	 *
-	 * @param candidate The solution whose fitness is to be evaluated.
-	 * @return the fitness of candidate
+	 * @param <T> The type of object under optimization.
+	 *
+	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	double fitness(T candidate);
+	interface Double<T> extends FitnessFunction<T> {
+		
+		/**
+		 * Computes the fitness of a candidate solution to a problem,
+		 * for use by genetic algorithms and other evolutionary algorithms.
+		 * Implementations of this method must ensure that the fitness values that
+		 * it returns are positive, as the implementations of evolutionary algorithms
+		 * in this library assume that all fitness values are positive.
+		 *
+		 * @param candidate The solution whose fitness is to be evaluated.
+		 * @return the fitness of candidate
+		 */
+		double fitness(T candidate);
+	}
+	
+	/**
+	 * Fitness function interface for int-valued fitnesses. Implement 
+	 * this interface to provide a
+	 * fitness function for use by genetic algorithms and other forms of
+	 * evolutionary computation. The classes of this library assume that
+	 * fitness values are positive. 
+	 *
+	 * @param <T> The type of object under optimization.
+	 *
+	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+	 */
+	interface Integer<T> extends FitnessFunction<T> {
+		
+		/**
+		 * Computes the fitness of a candidate solution to a problem,
+		 * for use by genetic algorithms and other evolutionary algorithms.
+		 * Implementations of this method must ensure that the fitness values that
+		 * it returns are positive, as the implementations of evolutionary algorithms
+		 * in this library assume that all fitness values are positive.
+		 *
+		 * @param candidate The solution whose fitness is to be evaluated.
+		 * @return the fitness of candidate
+		 */
+		int fitness(T candidate);
+	}
 }

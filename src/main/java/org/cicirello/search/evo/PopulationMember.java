@@ -36,7 +36,7 @@ import org.cicirello.util.Copyable;
  */
 abstract class PopulationMember<T extends Copyable<T>> {
 	
-	private final T candidate;
+	final T candidate;
 	
 	/*
 	 * for use only by the nested classes
@@ -62,12 +62,12 @@ abstract class PopulationMember<T extends Copyable<T>> {
 	 * problem that this member of the population represents as well as its
 	 * fitness. 
 	 *
-	 * @param <U> The type of object under optimization.
+	 * @param <T> The type of object under optimization.
 	 *
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	static final class DoubleFitness<U extends Copyable<U>> extends PopulationMember<U> {
+	static final class DoubleFitness<T extends Copyable<T>> extends PopulationMember<T> implements Copyable<DoubleFitness<T>> {
 		
 		private double fitness;
 		
@@ -77,9 +77,14 @@ abstract class PopulationMember<T extends Copyable<T>> {
 		 * @param candidate The candidate solution for the member of the population.
 		 * @param fitness The fitness of the candidate solution.
 		 */
-		public DoubleFitness(U candidate, double fitness) {
+		public DoubleFitness(T candidate, double fitness) {
 			super(candidate);
 			this.fitness = fitness;
+		}
+		
+		@Override
+		public DoubleFitness<T> copy() {
+			return new DoubleFitness(candidate, fitness);
 		}
 		
 		/**
@@ -108,12 +113,12 @@ abstract class PopulationMember<T extends Copyable<T>> {
 	 * problem that this member of the population represents as well as its
 	 * fitness. 
 	 *
-	 * @param <U> The type of object under optimization.
+	 * @param <T> The type of object under optimization.
 	 *
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	static final class IntegerFitness<U extends Copyable<U>> extends PopulationMember<U> {
+	static final class IntegerFitness<T extends Copyable<T>> extends PopulationMember<T> implements Copyable<IntegerFitness<T>> {
 		
 		private int fitness;
 		
@@ -123,9 +128,14 @@ abstract class PopulationMember<T extends Copyable<T>> {
 		 * @param candidate The candidate solution for the member of the population.
 		 * @param fitness The fitness of the candidate solution.
 		 */
-		public IntegerFitness(U candidate, int fitness) {
+		public IntegerFitness(T candidate, int fitness) {
 			super(candidate);
 			this.fitness = fitness;
+		}
+		
+		@Override
+		public IntegerFitness<T> copy() {
+			return new IntegerFitness(candidate, fitness);
 		}
 		
 		/**

@@ -186,6 +186,32 @@ public final class ProgressTracker<T extends Copyable<T>> {
 	}
 	
 	/**
+	 * Updates the best solution contained in this progress tracker.
+	 * The update takes place only if the new solution has lower cost than
+	 * the current best cost solution stored in the progress tracker.  This method
+	 * is thread-safe.
+	 * @param pair A solution cost pair.
+	 * @return true If the cost of the solution in the ProgressTracker is that of this
+	 * pair at the time that this method returns, which will be the case if this pair
+	 * contains a new best solution or a solution with cost equal to that contained in the
+	 * ProgressTracker. It otherwise returns false.
+	 */
+	public boolean update(SolutionCostPair<T> pair) {
+		if (pair.containsIntCost()) {
+			int c = pair.getCost();
+			if (c < bestCost) {
+				return c == update(c, pair.getSolution(), pair.containsKnownOptimal());
+			}
+		} else {
+			double c = pair.getCostDouble();
+			if (c < bestCostD) {
+				return c == update(c, pair.getSolution(), pair.containsKnownOptimal());
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * Gets the current best solution and its corresponding cost from the ProgressTracker.
 	 * This method
 	 * is thread-safe, and the solution and cost contained in the returned object are

@@ -89,6 +89,63 @@ public class ProgressTrackerTests {
 	}
 	
 	@Test
+	public void testTrackingWithSolutionCostPairUpdates() {
+		ProgressTracker<TestCopyable> t = new ProgressTracker<TestCopyable>();
+		assertNull("Initially should contain no solution", t.getSolution());
+		SolutionCostPair<TestCopyable> pair = t.getSolutionCostPair();
+		assertNull("Initially should contain no solution", pair.getSolution());
+		TestCopyable[] s = {
+			new TestCopyable(5), new TestCopyable(4), new TestCopyable(3), 
+			new TestCopyable(4), new TestCopyable(5), new TestCopyable(1)
+		}; 
+		long initial = t.elapsed();
+		long previousElapsed = initial;
+		assertEquals("Elapsed time should initially be 0.", 0, initial);
+		int[] expectedCosts = {5, 4, 3, 3, 3, 1};
+		for (int i = 0; i < s.length; i++) {
+			// testing with int costs
+			t.update(new SolutionCostPair<TestCopyable>(s[i], expectedCosts[i], false));
+			assertEquals(expectedCosts[i], t.getCost());
+			assertEquals(expectedCosts[i], t.getCostDouble(), EPSILON);
+			TestCopyable solution = t.getSolution();
+			pair = t.getSolutionCostPair();
+			assertEquals(expectedCosts[i], pair.getCost());
+			assertEquals(expectedCosts[i], pair.getCostDouble(), EPSILON);
+			assertEquals("solution in pair should be same", solution, pair.getSolution());
+			int j = i < 3 ? i : (i < 5 ? 2 : 5);
+			assertTrue("Should be a different object than original", solution != s[j]);
+			assertEquals("Checking returned solution", s[j], solution);
+			long nextElapsed = t.elapsed();
+			assertTrue("time should be nondecreasing", nextElapsed >= previousElapsed);
+			previousElapsed = nextElapsed;
+		}
+		t = new ProgressTracker<TestCopyable>();
+		assertNull("Initially should contain no solution", t.getSolution());
+		pair = t.getSolutionCostPair();
+		assertNull("Initially should contain no solution", pair.getSolution());
+		
+		initial = t.elapsed();
+		previousElapsed = initial;
+		assertEquals("Elapsed time should initially be 0.", 0, initial);
+		double[] expectedCostsD = {5, 4, 3, 3, 3, 1};
+		for (int i = 0; i < s.length; i++) {
+			// testing with double costs
+			t.update(new SolutionCostPair<TestCopyable>(s[i], expectedCostsD[i], false));
+			assertEquals(expectedCostsD[i], t.getCostDouble(), EPSILON);
+			TestCopyable solution = t.getSolution();
+			pair = t.getSolutionCostPair();
+			assertEquals(expectedCostsD[i], pair.getCostDouble(), EPSILON);
+			assertEquals("solution in pair should be same", solution, pair.getSolution());
+			int j = i < 3 ? i : (i < 5 ? 2 : 5);
+			assertTrue("Should be a different object than original", solution != s[j]);
+			assertEquals("Checking returned solution", s[j], solution);
+			long nextElapsed = t.elapsed();
+			assertTrue("time should be nondecreasing", nextElapsed >= previousElapsed);
+			previousElapsed = nextElapsed;
+		}
+	}
+	
+	@Test
 	public void testFlags() {
 		// test found best flag
 		ProgressTracker<TestCopyable> t = new ProgressTracker<TestCopyable>();

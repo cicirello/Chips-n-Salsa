@@ -10,9 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * New methods added to ProgressTracker class:
   * `update(int, T, boolean)`
   * `update(double, T, boolean)`
+  * `update(SolutionCostPair<T>)`
 * New constructors in SolutionCostPair class:
-  * `SolutionCostPair(T solution, int cost, boolean isKnownOptimal)`
-  * `SolutionCostPair(T solution, double cost, boolean isKnownOptimal)`
+  * `SolutionCostPair(T, int, boolean)`
+  * `SolutionCostPair(T, double, boolean)`
 
 ### Changed
 
@@ -22,10 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * `update(double, T)` in favor of using `update(double, T, boolean)`.
   * `setFoundBest()` in favor of using either `update(int, T, boolean)` 
     or `update(double, T, boolean)`.
-* The following constructors of the SolutionCostPair class have been deprecated
-  in favor of using the new constructors (see the list of added functionality):
-  * `SolutionCostPair(T solution, int cost)`
-  * `SolutionCostPair(T solution, double cost)`
+* The following constructors of the SolutionCostPair class have been deprecated:
+  * `SolutionCostPair(T, int)` in favor of using `SolutionCostPair(T, int, boolean)`
+  * `SolutionCostPair(T, double)` in favor of using `SolutionCostPair(T, double, boolean)`
 
 ### Removed
 

@@ -56,7 +56,6 @@ import org.cicirello.search.SolutionCostPair;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.5.2021
  */
 public interface OptimizationProblem<T extends Copyable<T>> extends Problem<T> {
 	
@@ -105,6 +104,7 @@ public interface OptimizationProblem<T extends Copyable<T>> extends Problem<T> {
 	 */
 	@Override
 	default SolutionCostPair<T> getSolutionCostPair(T candidate) {
-		return new SolutionCostPair<T>(candidate, cost(candidate));
+		double c = cost(candidate);
+		return new SolutionCostPair<T>(candidate, c, isMinCost(c));
 	}
 }

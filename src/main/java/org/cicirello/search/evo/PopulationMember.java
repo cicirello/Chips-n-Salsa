@@ -84,7 +84,7 @@ abstract class PopulationMember<T extends Copyable<T>> {
 		
 		@Override
 		public DoubleFitness<T> copy() {
-			return new DoubleFitness(candidate, fitness);
+			return new DoubleFitness<T>(candidate, fitness);
 		}
 		
 		/**
@@ -135,7 +135,7 @@ abstract class PopulationMember<T extends Copyable<T>> {
 		
 		@Override
 		public IntegerFitness<T> copy() {
-			return new IntegerFitness(candidate, fitness);
+			return new IntegerFitness<T>(candidate, fitness);
 		}
 		
 		/**

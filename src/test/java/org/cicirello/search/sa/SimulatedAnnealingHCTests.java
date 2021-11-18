@@ -811,7 +811,7 @@ public class SimulatedAnnealingHCTests {
 		public SolutionCostPair<TestObject> optimize() { return null; }
 		@Override
 		public SolutionCostPair<TestObject> optimize(TestObject start) {
-			return new SolutionCostPair<TestObject>(start, optInt!=null ? optInt.cost(start) : opt.cost(start));
+			return new SolutionCostPair<TestObject>(start, optInt!=null ? optInt.cost(start) : opt.cost(start), false);
 		}
 		@Override
 		public SolutionCostPair<TestObject> optimize(int numRestarts) { 

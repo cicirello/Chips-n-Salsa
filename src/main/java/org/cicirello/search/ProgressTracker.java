@@ -198,9 +198,9 @@ public final class ProgressTracker<T extends Copyable<T>> {
 	public SolutionCostPair<T> getSolutionCostPair() {
 		synchronized (lock) {
 			if (containsIntCost)
-				return new SolutionCostPair<T>(bestSolution, bestCost);
+				return new SolutionCostPair<T>(bestSolution, bestCost, foundBest);
 			else
-				return new SolutionCostPair<T>(bestSolution, bestCostD);
+				return new SolutionCostPair<T>(bestSolution, bestCostD, foundBest);
 		}
 	}
 	

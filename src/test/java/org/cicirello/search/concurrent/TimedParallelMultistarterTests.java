@@ -1272,7 +1272,7 @@ public class TimedParallelMultistarterTests {
 				return null;
 			} else {
 				TestObject obj = new TestObject(0);
-				return new SolutionCostPair<TestObject>(obj, problem.cost(obj));
+				return new SolutionCostPair<TestObject>(obj, problem.cost(obj), false);
 			}
 		}
 		
@@ -1285,7 +1285,7 @@ public class TimedParallelMultistarterTests {
 				return null;
 			} else {
 				TestObject obj = new TestObject(0);
-				return new SolutionCostPair<TestObject>(obj, problem.cost(obj));
+				return new SolutionCostPair<TestObject>(obj, problem.cost(obj), false);
 			}
 		}
 	}
@@ -1328,7 +1328,7 @@ public class TimedParallelMultistarterTests {
 					tracker.update(bestCost, threadBest, false);
 				}
 			}
-			return new SolutionCostPair<TestObject>(threadBest, problem.cost(threadBest));
+			return new SolutionCostPair<TestObject>(threadBest, problem.cost(threadBest), false);
 		}
 		
 		@Override
@@ -1349,7 +1349,7 @@ public class TimedParallelMultistarterTests {
 					tracker.update(bestCost, threadBest, false);
 				}
 			}
-			return new SolutionCostPair<TestObject>(threadBest, problem.cost(threadBest));
+			return new SolutionCostPair<TestObject>(threadBest, problem.cost(threadBest), false);
 		}
 		
 	
@@ -1395,7 +1395,7 @@ public class TimedParallelMultistarterTests {
 				}
 				catch(InterruptedException ex) {
 					TestObject obj = new TestObject(0);
-					return new SolutionCostPair<TestObject>(obj, problem.cost(obj)); 
+					return new SolutionCostPair<TestObject>(obj, problem.cost(obj), false); 
 				}
 			}
 			return null;
@@ -1421,7 +1421,7 @@ public class TimedParallelMultistarterTests {
 			if (id == 1000) {
 				TestObject sol = new TestObject(10);
 				getProgressTracker().update(10, sol, false);
-				return new SolutionCostPair<TestObject>(sol, 10);
+				return new SolutionCostPair<TestObject>(sol, 10, false);
 			} else {
 				while (!getProgressTracker().containsIntCost()) {
 					try {
@@ -1429,7 +1429,7 @@ public class TimedParallelMultistarterTests {
 					}
 					catch(InterruptedException ex) {}
 				}
-				return new SolutionCostPair<TestObject>(new TestObject(id-1000), id-1000);
+				return new SolutionCostPair<TestObject>(new TestObject(id-1000), id-1000, false);
 			}
 		}
 		

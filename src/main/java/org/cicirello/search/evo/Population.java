@@ -24,6 +24,7 @@ import org.cicirello.util.Copyable;
 import org.cicirello.search.concurrent.Splittable;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.ProgressTracker;
 import java.util.ArrayList;
 
 /**
@@ -103,6 +104,8 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 		private SolutionCostPair<T> mostFit;
 		private double bestFitness;
 		
+		private ProgressTracker<T> tracker;
+		
 		/**
 		 * Constructs the Population.
 		 *
@@ -112,9 +115,10 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 		 * @param f The fitness function.
 		 * @param selection The selection operator.
 		 */
-		public Double(int n, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
+		public Double(int n, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
 			this.initializer = initializer;
 			this.selection = selection;
+			this.tracker = tracker;
 			this.f = f;
 			this.n = n;
 			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(n);
@@ -131,6 +135,9 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 			f = other.f;
 			selection = other.selection;
 			n = other.n;
+			
+			// These must be shared, so just copy reference.
+			tracker = other.tracker;
 			
 			// split these: not threadsafe
 			initializer = other.initializer.split();
@@ -188,6 +195,7 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 			if (fit > bestFitness) {
 				bestFitness = fit;
 				mostFit = f.getProblem().getSolutionCostPair(pop.get(i).getCandidate().copy()); 
+				tracker.update(mostFit);
 			}
 		}
 		
@@ -218,6 +226,7 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 			}
 			if (newBest != null) {
 				mostFit = f.getProblem().getSolutionCostPair(newBest.copy());
+				tracker.update(mostFit);
 			}
 		}
 	}

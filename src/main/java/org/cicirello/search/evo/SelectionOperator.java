@@ -44,7 +44,8 @@ public interface SelectionOperator {
 	 * @param fitnesses A vector of fitnesses of the members of the population.
 	 * @param selected An array for the result. The selection operator should select 
 	 * selected.length members of the population based on fitnesses, populating 
-	 * selected with the indexes of the chosen members.
+	 * selected with the indexes of the chosen members. Note that selected.length may
+	 * be different than the fitnesses.size().
 	 */
 	void select(PopulationFitnessVector.Integer fitnesses, int[] selected);
 	
@@ -61,7 +62,8 @@ public interface SelectionOperator {
 	 * @param fitnesses A vector of fitnesses of the members of the population.
 	 * @param selected An array for the result. The selection operator should select 
 	 * selected.length members of the population based on fitnesses, populating 
-	 * selected with the indexes of the chosen members.
+	 * selected with the indexes of the chosen members. Note that selected.length may
+	 * be different than the fitnesses.size().
 	 */
 	void select(PopulationFitnessVector.Double fitnesses, int[] selected);
 }

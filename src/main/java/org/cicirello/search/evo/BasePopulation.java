@@ -38,7 +38,7 @@ import java.util.ArrayList;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-abstract class GenerationalPopulation<T extends Copyable<T>> implements Population<T> {
+abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 	
 	private ProgressTracker<T> tracker;
 	private SolutionCostPair<T> mostFit;
@@ -46,7 +46,7 @@ abstract class GenerationalPopulation<T extends Copyable<T>> implements Populati
 	/**
 	 * package-private for use by subclasses in this package only.
 	 */
-	GenerationalPopulation(ProgressTracker<T> tracker) {
+	BasePopulation(ProgressTracker<T> tracker) {
 		this.tracker = tracker;
 		mostFit = null;
 	}
@@ -54,7 +54,7 @@ abstract class GenerationalPopulation<T extends Copyable<T>> implements Populati
 	/**
 	 * package-private for use by subclasses in this package only.
 	 */
-	GenerationalPopulation(GenerationalPopulation<T> other) {
+	BasePopulation(BasePopulation<T> other) {
 		// These must be shared, so just copy reference.
 		tracker = other.tracker;
 		
@@ -63,14 +63,37 @@ abstract class GenerationalPopulation<T extends Copyable<T>> implements Populati
 	}
 	
 	@Override
+	public void init() {
+		mostFit = null;
+	}
+	
+	@Override
 	public final SolutionCostPair<T> getMostFit() {
 		return mostFit;
+	}
+	
+	@Override
+	public boolean evolutionIsPaused() {
+		return tracker.didFindBest() || tracker.isStopped();
+	}
+	
+	@Override
+	public final ProgressTracker<T> getProgressTracker() {
+		return tracker;
+	}
+	
+	@Override
+	public final void setProgressTracker(ProgressTracker<T> tracker) {
+		this.tracker = tracker;
 	}
 	
 	final void setMostFit(SolutionCostPair<T> mostFit) {
 		this.mostFit = mostFit;
 		tracker.update(mostFit);
 	}
+	
+	@Override
+	abstract public BasePopulation<T> split();
 	
 	/**
 	 * The Population for an evolutionary algorithm where fitness values are type double. 
@@ -80,16 +103,17 @@ abstract class GenerationalPopulation<T extends Copyable<T>> implements Populati
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	static final class Double<T extends Copyable<T>> extends GenerationalPopulation<T> implements PopulationFitnessVector.Double {
+	static final class Double<T extends Copyable<T>> extends BasePopulation<T> implements PopulationFitnessVector.Double {
 		
 		private final Initializer<T> initializer;
 		private final SelectionOperator selection;
 	
-		private ArrayList<PopulationMember.DoubleFitness<T>> pop;
-		private ArrayList<PopulationMember.DoubleFitness<T>> nextPop;
+		private final ArrayList<PopulationMember.DoubleFitness<T>> pop;
+		private final ArrayList<PopulationMember.DoubleFitness<T>> nextPop;
 		
 		private final FitnessFunction.Double<T> f;		
-		private final int n;
+		private final int MU;
+		private final int LAMBDA;
 		
 		private final int[] selected;
 		
@@ -111,38 +135,38 @@ abstract class GenerationalPopulation<T extends Copyable<T>> implements Populati
 			this.selection = selection;
 			
 			this.f = f;
-			this.n = n;
-			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(n);
-			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(n);
-			selected = new int[n];
+			MU = LAMBDA = n;
+			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
+			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
+			selected = new int[LAMBDA];
 			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
 		}
 		
 		/*
 		 * private constructor for use by split.
 		 */
-		private Double(GenerationalPopulation.Double<T> other) {
+		private Double(BasePopulation.Double<T> other) {
 			super(other);
 			
 			// these are threadsafe, so just copy references
 			f = other.f;
 			selection = other.selection;
-			n = other.n;
-			
+			MU = other.MU;
+			LAMBDA = other.LAMBDA;
 			
 			// split these: not threadsafe
 			initializer = other.initializer.split();
 		
 			// initialize these fresh: not threadsafe or otherwise needs its own
-			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(n);
-			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(n);
-			selected = new int[n];
+			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
+			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
+			selected = new int[LAMBDA];
 			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
 		}
 		
 		@Override
-		public GenerationalPopulation.Double<T> split() {
-			return new GenerationalPopulation.Double<T>(this);
+		public BasePopulation.Double<T> split() {
+			return new BasePopulation.Double<T>(this);
 		}
 		
 		@Override
@@ -157,12 +181,12 @@ abstract class GenerationalPopulation<T extends Copyable<T>> implements Populati
 		
 		@Override
 		public int size() {
-			return n;
+			return MU;
 		}
 		
 		@Override
 		public int mutableSize() {
-			return n;
+			return LAMBDA;
 		}
 		
 		/**
@@ -186,25 +210,27 @@ abstract class GenerationalPopulation<T extends Copyable<T>> implements Populati
 		@Override
 		public void select() {
 			selection.select(this, selected);
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < LAMBDA; i++) {
 				nextPop.add(pop.get(selected[i]).copy());
 			}
 		}
 		
 		@Override
 		public void replace() {
-			ArrayList<PopulationMember.DoubleFitness<T>> temp = pop;
-			pop = nextPop;
-			nextPop = temp;
+			for (int i = 0; i < LAMBDA; i++) {
+				pop.set(i, nextPop.get(i));
+			}
 			nextPop.clear();
 		}
 		
 		@Override
 		public void init() {
+			super.init();
+			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
 			pop.clear();
 			nextPop.clear();
 			T newBest = null;
-			for (int i = 0; i < n; i++ ) {
+			for (int i = 0; i < MU; i++ ) {
 				T c = initializer.createCandidateSolution();
 				double fit = f.fitness(c);
 				pop.add(new PopulationMember.DoubleFitness<T>(c, fit));

@@ -23,6 +23,7 @@ package org.cicirello.search.evo;
 import org.cicirello.search.concurrent.Splittable;
 import org.cicirello.util.Copyable;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.ProgressTracker;
 
 /**
  * The Population interface represents a population of candidate solutions
@@ -79,4 +80,28 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 	 * Updates population based on children of genetic operators.
 	 */
 	void replace();
+	
+	/**
+	 * Determines whether there is any reason the search should stop, such as
+	 * if the ProgressTracker contains the best, or if another thread has stopped
+	 * the ProgressTracker.
+	 *
+	 * @return true if the search should continue to run, and false otherwise.
+	 */
+	boolean evolutionIsPaused();
+	
+	/**
+	 * Gets the ProgressTracker maintained by this population.
+	 * @return the ProgressTracker
+	 */
+	ProgressTracker<T> getProgressTracker();
+	
+	/**
+	 * Sets the ProgressTracker maintained by this population.
+	 * @param tracker The new ProgressTracker
+	 */
+	void setProgressTracker(ProgressTracker<T> tracker);
+	
+	@Override
+	abstract public Population<T> split();
 }

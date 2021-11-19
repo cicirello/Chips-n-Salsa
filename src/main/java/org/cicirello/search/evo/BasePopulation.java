@@ -239,9 +239,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 					newBest = c;
 				}
 			}
-			if (newBest != null) {
-				setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
-			}
+			setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
 		}
 	}
 	

@@ -67,8 +67,13 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	 * @param f The fitness function.
 	 * @param selection The selection operator.
 	 * @param tracker A ProgressTracker.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
 	 */
 	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+		if (n < 1) {
+			throw new IllegalArgumentException("n must be positive");
+		}
 		pop = new BasePopulation.Double<T>(n, initializer, f, selection, tracker);
 		problem = f.getProblem();
 		this.mutation = mutation;

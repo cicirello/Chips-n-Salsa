@@ -61,10 +61,15 @@ public class BasePopulationTests {
 		assertEquals(6.4, pop.getFitnessOfMostFit(), EPSILON);
 		assertEquals(1.0/7.0, pop.getMostFit().getCostDouble(), EPSILON);
 		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		int[] expected = { 2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
+		for (int i = 0; i < 10; i++) {
+			// fitnesses of original before selection.
+			assertEquals(expected[9-i]+0.4, pop.getFitness(i), EPSILON);
+		}
 		assertFalse(selection.called);
 		pop.select();
 		assertTrue(selection.called);
-		int[] expected = { 2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
 		for (int i = 0; i < 10; i++) {
 			// fitnesses of original before selection.
 			assertEquals(expected[9-i]+0.4, pop.getFitness(i), EPSILON);
@@ -75,6 +80,7 @@ public class BasePopulationTests {
 		assertEquals(6.4, pop.getFitnessOfMostFit(), EPSILON);
 		assertEquals(1.0/7.0, pop.getMostFit().getCostDouble(), EPSILON);
 		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
 		pop.replace();
 		pop.select();
 		for (int i = 0; i < 10; i++) {
@@ -84,6 +90,7 @@ public class BasePopulationTests {
 		assertEquals(6.4, pop.getFitnessOfMostFit(), EPSILON);
 		assertEquals(1.0/7.0, pop.getMostFit().getCostDouble(), EPSILON);
 		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
 		
 		f.changeFitness(1);
 		pop.updateFitness(0);
@@ -115,9 +122,51 @@ public class BasePopulationTests {
 		for (int i = 0; i < 10; i++) {
 			assertEquals(1-i+12+0.4, pop2.getFitness(i), EPSILON);
 		}
+		
+		assertFalse(pop.evolutionIsPaused());
+		assertFalse(pop2.evolutionIsPaused());
+		tracker.stop();
+		assertTrue(pop.evolutionIsPaused());
+		assertTrue(pop2.evolutionIsPaused());
+		tracker.start();
+		assertFalse(pop.evolutionIsPaused());
+		assertFalse(pop2.evolutionIsPaused());
+		tracker.update(0.0, new TestObject(), true);
+		assertTrue(pop.evolutionIsPaused());
+		assertTrue(pop2.evolutionIsPaused());
+		
 	}
 	
-	
+	@Test
+	public void testBasePopulationDouble_SelectCopies() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessDouble f = new TestFitnessDouble();
+		BasePopulation.Double<TestObject> pop = new BasePopulation.Double<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker
+		);
+		pop.init();
+		pop.select();
+		TestObject[] firstSelect = new TestObject[10];
+		for (int i = 0; i < 10; i++) {
+			firstSelect[i] = pop.get(i);
+		}
+		pop.replace();
+		pop.select();
+		TestObject[] secondSelect = new TestObject[10];
+		for (int i = 0; i < 10; i++) {
+			secondSelect[i] = pop.get(i);
+		}
+		for (int i = 0; i < 10; i++) {
+			assertFalse(firstSelect[i] == secondSelect[9-i]);
+			assertEquals(firstSelect[i], secondSelect[9-i]);
+		}
+	}
 	
 	private static class TestSelectionOp implements SelectionOperator {
 		

@@ -915,14 +915,14 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests {
 		public SolutionCostPair<TestObject> optimize(int runLength) {
 			optCounter++;
 			int c = update(runLength);
-			return new SolutionCostPair<TestObject>(new TestObject(), c);
+			return new SolutionCostPair<TestObject>(new TestObject(), c, false);
 		}
 		
 		@Override
 		public SolutionCostPair<TestObject> reoptimize(int runLength) {	
 			reoptCounter++;
 			int c = update(runLength);
-			return new SolutionCostPair<TestObject>(new TestObject(), c);
+			return new SolutionCostPair<TestObject>(new TestObject(), c, false);
 		}
 		
 		private int update(int runLength) {

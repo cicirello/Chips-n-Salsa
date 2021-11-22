@@ -567,10 +567,11 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 			// initialize best cost, etc
 			int bestCost = tracker.getCost();
 			if (currentCost < bestCost) {
-				bestCost = tracker.update(currentCost, current, pOptInt.isMinCost(currentCost));
+				boolean isMinCost = pOptInt.isMinCost(currentCost);
+				bestCost = tracker.update(currentCost, current, isMinCost);
 				if (tracker.didFindBest()) {
 					// found theoretical best so no point in proceeding
-					return new SolutionCostPair<T>(current, currentCost);
+					return new SolutionCostPair<T>(current, currentCost, isMinCost);
 				}
 			}
 			
@@ -582,7 +583,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 				if (tracker.isStopped()) {
 					// some other thread signaled to stop
 					elapsedEvals += (i-1);
-					return new SolutionCostPair<T>(current, currentCost);
+					return new SolutionCostPair<T>(current, currentCost, pOptInt.isMinCost(currentCost));
 				}
 				mutation.mutate(current);
 				int neighborCost = pOptInt.cost(current);
@@ -590,11 +591,12 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 					// accepting the neighbor
 					currentCost = neighborCost;
 					if (currentCost < bestCost) {
-						bestCost = tracker.update(currentCost, current, pOptInt.isMinCost(currentCost));
+						boolean isMinCost = pOptInt.isMinCost(currentCost);
+						bestCost = tracker.update(currentCost, current, isMinCost);
 						if (tracker.didFindBest()) {
 							// found theoretical best so no point in proceeding
 							elapsedEvals += i;
-							return new SolutionCostPair<T>(current, currentCost);
+							return new SolutionCostPair<T>(current, currentCost, isMinCost);
 						}
 					}
 				} else {
@@ -604,7 +606,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 			}
 			elapsedEvals += maxEvals;
 			return hc==null 
-				? new SolutionCostPair<T>(current, currentCost)
+				? new SolutionCostPair<T>(current, currentCost, pOptInt.isMinCost(currentCost))
 				: hc.optimize(current);
 		};
 	}
@@ -617,10 +619,11 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 			// initialize best cost, etc
 			double bestCost = tracker.getCostDouble();
 			if (currentCost < bestCost) {
-				bestCost = tracker.update(currentCost, current, pOpt.isMinCost(currentCost));
+				boolean isMinCost = pOpt.isMinCost(currentCost);
+				bestCost = tracker.update(currentCost, current, isMinCost);
 				if (tracker.didFindBest()) {
 					// found theoretical best so no point in proceeding
-					return new SolutionCostPair<T>(current, currentCost);
+					return new SolutionCostPair<T>(current, currentCost, isMinCost);
 				}
 			}
 			
@@ -632,7 +635,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 				if (tracker.isStopped()) {
 					// some other thread signaled to stop
 					elapsedEvals += (i-1);
-					return new SolutionCostPair<T>(current, currentCost);
+					return new SolutionCostPair<T>(current, currentCost, pOpt.isMinCost(currentCost));
 				}
 				mutation.mutate(current);
 				double neighborCost = pOpt.cost(current);
@@ -640,11 +643,12 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 					// accepting the neighbor
 					currentCost = neighborCost;
 					if (currentCost < bestCost) {
-						bestCost = tracker.update(currentCost, current, pOpt.isMinCost(currentCost));
+						boolean isMinCost = pOpt.isMinCost(currentCost);
+						bestCost = tracker.update(currentCost, current, isMinCost);
 						if (tracker.didFindBest()) {
 							// found theoretical best so no point in proceeding
 							elapsedEvals += i;
-							return new SolutionCostPair<T>(current, currentCost);
+							return new SolutionCostPair<T>(current, currentCost, isMinCost);
 						}
 					}
 				} else {
@@ -654,7 +658,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
 			}
 			elapsedEvals += maxEvals;
 			return hc==null 
-				? new SolutionCostPair<T>(current, currentCost)
+				? new SolutionCostPair<T>(current, currentCost, pOpt.isMinCost(currentCost))
 				: hc.optimize(current);
 		};
 	}

@@ -141,10 +141,11 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>> extends Abs
 					}
 				}
 				// update tracker
+				boolean isMinCost = pOptInt.isMinCost(currentCost);
 				if (currentCost < tracker.getCost()) {
-					tracker.update(currentCost, current, pOptInt.isMinCost(currentCost));
+					tracker.update(currentCost, current, isMinCost);
 				}
-				return new SolutionCostPair<T>(current, currentCost);
+				return new SolutionCostPair<T>(current, currentCost, isMinCost);
 		};
 	}
 	
@@ -174,10 +175,11 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>> extends Abs
 					}
 				}
 				// update tracker
+				boolean isMinCost = pOpt.isMinCost(currentCost);
 				if (currentCost < tracker.getCostDouble()) {
-					tracker.update(currentCost, current, pOpt.isMinCost(currentCost));
+					tracker.update(currentCost, current, isMinCost);
 				}
-				return new SolutionCostPair<T>(current, currentCost);
+				return new SolutionCostPair<T>(current, currentCost, isMinCost);
 		};
 	}
 	

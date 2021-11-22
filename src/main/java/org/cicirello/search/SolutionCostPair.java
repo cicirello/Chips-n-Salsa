@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -29,7 +29,6 @@ import org.cicirello.util.Copyable;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.11.2020
  */
 public final class SolutionCostPair<T extends Copyable<T>> implements Comparable<SolutionCostPair<T>> {
 	
@@ -37,28 +36,55 @@ public final class SolutionCostPair<T extends Copyable<T>> implements Comparable
 	private final int cost;
 	private final double costD;
 	private final boolean containsIntCost;
+	private final boolean isKnownOptimal;
 	
 	/**
 	 * Constructs a SolutionCostPair with integer cost.
 	 * @param solution The solution.
 	 * @param cost The cost of the solution.
+	 * @param isKnownOptimal Pass true if this solution is known to be the optimal, and false otherwise.
 	 */
-	public SolutionCostPair(T solution, int cost) {			
+	public SolutionCostPair(T solution, int cost, boolean isKnownOptimal) {			
 		this.solution = solution;
 		costD = this.cost = cost;
 		containsIntCost = true;
+		this.isKnownOptimal = isKnownOptimal;
 	}
 	
 	/**
 	 * Constructs a SolutionCostPair with integer cost.
 	 * @param solution The solution.
 	 * @param cost The cost of the solution.
+	 * @param isKnownOptimal Pass true if this solution is known to be the optimal, and false otherwise.
 	 */
-	public SolutionCostPair(T solution, double cost) {			
+	public SolutionCostPair(T solution, double cost, boolean isKnownOptimal) {			
 		this.solution = solution;
 		costD = cost;
 		this.cost = (int)(cost + 0.5);
 		containsIntCost = false;
+		this.isKnownOptimal = isKnownOptimal;
+	}
+	
+	/**
+	 * Constructs a SolutionCostPair with integer cost.
+	 * @param solution The solution.
+	 * @param cost The cost of the solution.
+	 * @deprecated Use {@link #SolutionCostPair(Copyable, int, boolean)} instead.
+	 */
+	@Deprecated
+	public SolutionCostPair(T solution, int cost) {			
+		this(solution, cost, false);
+	}
+	
+	/**
+	 * Constructs a SolutionCostPair with integer cost.
+	 * @param solution The solution.
+	 * @param cost The cost of the solution.
+	 * @deprecated Use {@link #SolutionCostPair(Copyable, double, boolean)} instead.
+	 */
+	@Deprecated
+	public SolutionCostPair(T solution, double cost) {			
+		this(solution, cost, false);
 	}
 	
 	/**
@@ -95,6 +121,16 @@ public final class SolutionCostPair<T extends Copyable<T>> implements Comparable
 	 */
 	public boolean containsIntCost() {
 		return containsIntCost;
+	}
+	
+	/**
+	 * Checks if the solution contained in this object has a cost value equal to
+	 * the theoretical minimum cost for the problem instance, such as if the cost
+	 * is equal to a lower bound on the cost for the problem instance.
+	 * @return true if the solution is a known optimal, and false otherwise.
+	 */
+	public boolean containsKnownOptimal() {
+		return isKnownOptimal;
 	}
 	
 	/**

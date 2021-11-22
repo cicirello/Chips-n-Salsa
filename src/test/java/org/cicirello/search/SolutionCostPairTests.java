@@ -34,26 +34,56 @@ public class SolutionCostPairTests {
 	@Test
 	public void testSolutionCostPair() {
 		TestCopyable s = new TestCopyable(5);
+		SolutionCostPair<TestCopyable> pairInt = new SolutionCostPair<TestCopyable>(s, 10, false);
+		assertEquals(s, pairInt.getSolution());
+		assertTrue(pairInt.containsIntCost());
+		assertEquals(10, pairInt.getCost());
+		assertEquals(10.0, pairInt.getCostDouble(), EPSILON);
+		assertFalse(pairInt.containsKnownOptimal());
+		
+		pairInt = new SolutionCostPair<TestCopyable>(s, 10, true);
+		assertTrue(pairInt.containsKnownOptimal());
+		
+		SolutionCostPair<TestCopyable> pairDouble = new SolutionCostPair<TestCopyable>(s, 10.0, false);
+		assertEquals(s, pairDouble.getSolution());
+		assertFalse(pairDouble.containsIntCost());
+		assertEquals(10.0, pairDouble.getCostDouble(), EPSILON);
+		assertFalse(pairDouble.containsKnownOptimal());
+		
+		pairDouble = new SolutionCostPair<TestCopyable>(s, 10.0, true);
+		assertTrue(pairDouble.containsKnownOptimal());
+	}
+	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void testDeprecatedMethods() {
+		// Include this test method until the deprecated constructors
+		// are removed. At that point, remove this. Continue to
+		// include for now as regression tests since some may still
+		// depend on these.
+		TestCopyable s = new TestCopyable(5);
 		SolutionCostPair<TestCopyable> pairInt = new SolutionCostPair<TestCopyable>(s, 10);
 		assertEquals(s, pairInt.getSolution());
 		assertTrue(pairInt.containsIntCost());
 		assertEquals(10, pairInt.getCost());
 		assertEquals(10.0, pairInt.getCostDouble(), EPSILON);
+		assertFalse(pairInt.containsKnownOptimal());
 		
 		SolutionCostPair<TestCopyable> pairDouble = new SolutionCostPair<TestCopyable>(s, 10.0);
 		assertEquals(s, pairDouble.getSolution());
 		assertFalse(pairDouble.containsIntCost());
 		assertEquals(10.0, pairDouble.getCostDouble(), EPSILON);
+		assertFalse(pairDouble.containsKnownOptimal());
 	}
 	
 	@Test
 	public void testCompareTo() {
-		SolutionCostPair<TestCopyable> p1 = new SolutionCostPair<TestCopyable>(new TestCopyable(1), 5);
-		SolutionCostPair<TestCopyable> p2 = new SolutionCostPair<TestCopyable>(new TestCopyable(2), 5);
-		SolutionCostPair<TestCopyable> p3 = new SolutionCostPair<TestCopyable>(new TestCopyable(3), 4);
-		SolutionCostPair<TestCopyable> p4 = new SolutionCostPair<TestCopyable>(new TestCopyable(4), 6);
-		SolutionCostPair<TestCopyable> p5 = new SolutionCostPair<TestCopyable>(new TestCopyable(5), 3);
-		SolutionCostPair<TestCopyable> p6 = new SolutionCostPair<TestCopyable>(new TestCopyable(6), 7);
+		SolutionCostPair<TestCopyable> p1 = new SolutionCostPair<TestCopyable>(new TestCopyable(1), 5, false);
+		SolutionCostPair<TestCopyable> p2 = new SolutionCostPair<TestCopyable>(new TestCopyable(2), 5, false);
+		SolutionCostPair<TestCopyable> p3 = new SolutionCostPair<TestCopyable>(new TestCopyable(3), 4, false);
+		SolutionCostPair<TestCopyable> p4 = new SolutionCostPair<TestCopyable>(new TestCopyable(4), 6, false);
+		SolutionCostPair<TestCopyable> p5 = new SolutionCostPair<TestCopyable>(new TestCopyable(5), 3, false);
+		SolutionCostPair<TestCopyable> p6 = new SolutionCostPair<TestCopyable>(new TestCopyable(6), 7, false);
 		assertEquals(0, p1.compareTo(p2));
 		assertEquals(0, p2.compareTo(p1));
 		assertEquals(1, p1.compareTo(p3));
@@ -64,12 +94,12 @@ public class SolutionCostPairTests {
 		assertEquals(-2, p5.compareTo(p1));
 		assertEquals(-2, p1.compareTo(p6));
 		assertEquals(2, p6.compareTo(p1));
-		p1 = new SolutionCostPair<TestCopyable>(new TestCopyable(1), 5.0);
-		p2 = new SolutionCostPair<TestCopyable>(new TestCopyable(2), 5.0);
-		p3 = new SolutionCostPair<TestCopyable>(new TestCopyable(3), 4.0);
-		p4 = new SolutionCostPair<TestCopyable>(new TestCopyable(4), 6.0);
-		p5 = new SolutionCostPair<TestCopyable>(new TestCopyable(5), 3.0);
-		p6 = new SolutionCostPair<TestCopyable>(new TestCopyable(6), 7.0);
+		p1 = new SolutionCostPair<TestCopyable>(new TestCopyable(1), 5.0, false);
+		p2 = new SolutionCostPair<TestCopyable>(new TestCopyable(2), 5.0, false);
+		p3 = new SolutionCostPair<TestCopyable>(new TestCopyable(3), 4.0, false);
+		p4 = new SolutionCostPair<TestCopyable>(new TestCopyable(4), 6.0, false);
+		p5 = new SolutionCostPair<TestCopyable>(new TestCopyable(5), 3.0, false);
+		p6 = new SolutionCostPair<TestCopyable>(new TestCopyable(6), 7.0, false);
 		assertEquals(0, p1.compareTo(p2));
 		assertEquals(0, p2.compareTo(p1));
 		assertEquals(1, p1.compareTo(p3));

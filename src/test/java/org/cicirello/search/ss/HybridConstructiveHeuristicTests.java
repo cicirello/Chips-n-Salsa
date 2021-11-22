@@ -357,7 +357,7 @@ public class HybridConstructiveHeuristicTests {
 	private static class TestProblem implements Problem<TestObject> {
 		@Override
 		public SolutionCostPair<TestObject> getSolutionCostPair​(TestObject candidate) {
-			return new SolutionCostPair<TestObject>(candidate, candidate.value);
+			return new SolutionCostPair<TestObject>(candidate, candidate.value, false);
 		}
 	}
 	

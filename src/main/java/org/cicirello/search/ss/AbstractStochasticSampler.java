@@ -138,17 +138,19 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>> implements Simpl
 		if (pOptInt != null) {
 			int cost = pOptInt.cost(complete);
 			// update tracker
+			boolean isMinCost = pOptInt.isMinCost(cost);
 			if (cost < tracker.getCost()) {
-				tracker.update(cost, complete, pOptInt.isMinCost(cost));
+				tracker.update(cost, complete, isMinCost);
 			}
-			return new SolutionCostPair<T>(complete, cost);
+			return new SolutionCostPair<T>(complete, cost, isMinCost);
 		} else {
 			double cost = pOpt.cost(complete);
 			// update tracker
+			boolean isMinCost = pOpt.isMinCost(cost);
 			if (cost < tracker.getCostDouble()) {
-				tracker.update(cost, complete, pOpt.isMinCost(cost));
+				tracker.update(cost, complete, isMinCost);
 			}
-			return new SolutionCostPair<T>(complete, cost);
+			return new SolutionCostPair<T>(complete, cost, isMinCost);
 		}
 	}
 	

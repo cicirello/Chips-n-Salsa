@@ -4,12 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-11-05
+## [Unreleased] - 2021-11-22
 
 ### Added
+* Generational evolutionary algorithms, including the following variations:
+  * Mutation-only
 * New methods added to ProgressTracker class:
   * `update(int, T, boolean)`
   * `update(double, T, boolean)`
+  * `update(SolutionCostPair<T>)`
+* New constructors in SolutionCostPair class:
+  * `SolutionCostPair(T, int, boolean)`
+  * `SolutionCostPair(T, double, boolean)`
 
 ### Changed
 
@@ -19,12 +25,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * `update(double, T)` in favor of using `update(double, T, boolean)`.
   * `setFoundBest()` in favor of using either `update(int, T, boolean)` 
     or `update(double, T, boolean)`.
+* The following constructors of the SolutionCostPair class have been deprecated:
+  * `SolutionCostPair(T, int)` in favor of using `SolutionCostPair(T, int, boolean)`
+  * `SolutionCostPair(T, double)` in favor of using `SolutionCostPair(T, double, boolean)`
 
 ### Removed
 
 ### Fixed
 
 ### CI/CD
+* Updated CI/CD workflow to comment on PRs with the coverage and branches coverage percentages.
 
 ### Other
 

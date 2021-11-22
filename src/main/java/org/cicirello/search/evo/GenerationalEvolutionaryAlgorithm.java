@@ -54,7 +54,8 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	private int numFitnessEvals;
 	
 	/**
-	 * Constructs and initializes the evolutionary algorithm with mutation only.
+	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
+	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
 	 *
 	 * @param n The population size.
 	 * @param mutation The mutation operator.
@@ -71,11 +72,37 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	 * @throws IllegalArgumentException if n is less than 1.
 	 */
 	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
-		if (n < 1) {
-			throw new IllegalArgumentException("n must be positive");
-		}
-		pop = new BasePopulation.Double<T>(n, initializer, f, selection, tracker);
-		problem = f.getProblem();
+		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
+	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the mutation rate, and then pass 1.0 for this parameter.
+	 * @param initializer An initializer for generat6ing random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 * @param tracker A ProgressTracker.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate);
+	}
+	
+	/*
+	 * Internal helper constructor.
+	 */
+	private GenerationalEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate) {
+		this.pop = pop;
+		this.problem = problem;
 		this.mutation = mutation;
 		M = mutationRate;
 		

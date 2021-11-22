@@ -134,8 +134,8 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 		go = other.go;
 		switch (go) {
 			case MUTATION_ONLY: sr = mutationOnly(); break;
-			case ALWAYS_MUTATION: sr = alwaysMutate(); break;
-			default: sr = null; break;
+			default: //case ALWAYS_MUTATION: 
+				sr = alwaysMutate(); break;
 		}
 	}
 	

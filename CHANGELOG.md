@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-11-18
 
 ### Added
+* Generational evolutionary algorithms, including the following variations:
+  * Mutation-only
 * New methods added to ProgressTracker class:
   * `update(int, T, boolean)`
   * `update(double, T, boolean)`

@@ -28,6 +28,7 @@ import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.problems.OptimizationProblem;
+import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 
 /**
  * JUnit 4 test cases for BasePopulation.
@@ -134,7 +135,6 @@ public class BasePopulationTests {
 		tracker.update(0.0, new TestObject(), true);
 		assertTrue(pop.evolutionIsPaused());
 		assertTrue(pop2.evolutionIsPaused());
-		
 	}
 	
 	@Test
@@ -167,6 +167,267 @@ public class BasePopulationTests {
 			assertEquals(firstSelect[i], secondSelect[9-i]);
 		}
 	}
+	
+	@Test
+	public void testBasePopulationDoubleIntCost() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
+		BasePopulation.Double<TestObject> pop = new BasePopulation.Double<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker
+		);
+		assertTrue(tracker == pop.getProgressTracker());
+		tracker = new ProgressTracker<TestObject>();
+		pop.setProgressTracker(tracker);
+		assertTrue(tracker == pop.getProgressTracker());
+		
+		assertEquals(10, pop.size());
+		assertEquals(10, pop.mutableSize());
+		pop.init();
+		assertEquals(16.0, pop.getFitnessOfMostFit(), EPSILON);
+		assertEquals(94, pop.getMostFit().getCost());
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		int[] expected = { 2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
+		for (int i = 0; i < 10; i++) {
+			// fitnesses of original before selection.
+			assertEquals(expected[9-i]+10.0, pop.getFitness(i), EPSILON);
+		}
+		assertFalse(selection.called);
+		pop.select();
+		assertTrue(selection.called);
+		for (int i = 0; i < 10; i++) {
+			// fitnesses of original before selection.
+			assertEquals(expected[9-i]+10.0, pop.getFitness(i), EPSILON);
+			// subject to mutation to opposite order since we selected, which reversed.
+			assertEquals(expected[i], pop.get(i).id);
+			
+		}
+		assertEquals(16.0, pop.getFitnessOfMostFit(), EPSILON);
+		assertEquals(94, pop.getMostFit().getCost());
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		pop.replace();
+		pop.select();
+		for (int i = 0; i < 10; i++) {
+			assertEquals(expected[9-i], pop.get(i).id);
+			assertEquals(expected[i]+10.0, pop.getFitness(i), EPSILON);
+		}
+		assertEquals(16.0, pop.getFitnessOfMostFit(), EPSILON);
+		assertEquals(94, pop.getMostFit().getCost());
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		
+		f.changeFitness(1);
+		pop.updateFitness(0);
+		f.changeFitness(10);
+		pop.updateFitness(1);
+		pop.replace();
+		assertEquals(expected[9]+10.0+1, pop.getFitness(0), EPSILON);
+		assertEquals(expected[8]+10.0+10, pop.getFitness(1), EPSILON);
+		assertEquals(22.0, pop.getFitnessOfMostFit(), EPSILON);
+		assertEquals(2, pop.getMostFit().getSolution().id);
+		assertEquals(98, pop.getMostFit().getCost());
+		
+		f.changeFitness(12);
+		BasePopulation.Double<TestObject> pop2 = pop.split();
+		
+		// orginal should be same
+		assertEquals(expected[9]+10.0+1, pop.getFitness(0), EPSILON);
+		assertEquals(expected[8]+10.0+10, pop.getFitness(1), EPSILON);
+		assertEquals(22.0, pop.getFitnessOfMostFit(), EPSILON);
+		assertEquals(2, pop.getMostFit().getSolution().id);
+		assertEquals(98, pop.getMostFit().getCost());
+		
+		// trackers should be same
+		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
+		
+		assertEquals(10, pop2.size());
+		assertEquals(10, pop2.mutableSize());
+		pop2.init();
+		for (int i = 0; i < 10; i++) {
+			assertEquals(1-i+12+10.0, pop2.getFitness(i), EPSILON);
+		}
+		
+		assertFalse(pop.evolutionIsPaused());
+		assertFalse(pop2.evolutionIsPaused());
+		tracker.stop();
+		assertTrue(pop.evolutionIsPaused());
+		assertTrue(pop2.evolutionIsPaused());
+		tracker.start();
+		assertFalse(pop.evolutionIsPaused());
+		assertFalse(pop2.evolutionIsPaused());
+		tracker.update(0.0, new TestObject(), true);
+		assertTrue(pop.evolutionIsPaused());
+		assertTrue(pop2.evolutionIsPaused());	
+	}
+	
+	@Test
+	public void testBasePopulationDoubleIntCost_SelectCopies() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
+		BasePopulation.Double<TestObject> pop = new BasePopulation.Double<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker
+		);
+		pop.init();
+		pop.select();
+		TestObject[] firstSelect = new TestObject[10];
+		for (int i = 0; i < 10; i++) {
+			firstSelect[i] = pop.get(i);
+		}
+		pop.replace();
+		pop.select();
+		TestObject[] secondSelect = new TestObject[10];
+		for (int i = 0; i < 10; i++) {
+			secondSelect[i] = pop.get(i);
+		}
+		for (int i = 0; i < 10; i++) {
+			assertFalse(firstSelect[i] == secondSelect[9-i]);
+			assertEquals(firstSelect[i], secondSelect[9-i]);
+		}
+	}
+	
+	@Test
+	public void testBasePopulationInteger() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessInteger f = new TestFitnessInteger();
+		BasePopulation.Integer<TestObject> pop = new BasePopulation.Integer<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker
+		);
+		assertTrue(tracker == pop.getProgressTracker());
+		tracker = new ProgressTracker<TestObject>();
+		pop.setProgressTracker(tracker);
+		assertTrue(tracker == pop.getProgressTracker());
+		
+		assertEquals(10, pop.size());
+		assertEquals(10, pop.mutableSize());
+		pop.init();
+		assertEquals(16, pop.getFitnessOfMostFit());
+		assertEquals(94, pop.getMostFit().getCost());
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		int[] expected = { 2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
+		for (int i = 0; i < 10; i++) {
+			// fitnesses of original before selection.
+			assertEquals(expected[9-i]+10, pop.getFitness(i));
+		}
+		assertFalse(selection.called);
+		pop.select();
+		assertTrue(selection.called);
+		for (int i = 0; i < 10; i++) {
+			// fitnesses of original before selection.
+			assertEquals(expected[9-i]+10, pop.getFitness(i));
+			// subject to mutation to opposite order since we selected, which reversed.
+			assertEquals(expected[i], pop.get(i).id);
+			
+		}
+		assertEquals(16, pop.getFitnessOfMostFit());
+		assertEquals(94, pop.getMostFit().getCost());
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		pop.replace();
+		pop.select();
+		for (int i = 0; i < 10; i++) {
+			assertEquals(expected[9-i], pop.get(i).id);
+			assertEquals(expected[i]+10, pop.getFitness(i));
+		}
+		assertEquals(16, pop.getFitnessOfMostFit());
+		assertEquals(94, pop.getMostFit().getCost());
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		
+		f.changeFitness(1);
+		pop.updateFitness(0);
+		f.changeFitness(10);
+		pop.updateFitness(1);
+		pop.replace();
+		assertEquals(expected[9]+10+1, pop.getFitness(0));
+		assertEquals(expected[8]+10+10, pop.getFitness(1));
+		assertEquals(22, pop.getFitnessOfMostFit());
+		assertEquals(2, pop.getMostFit().getSolution().id);
+		assertEquals(98, pop.getMostFit().getCost());
+		
+		f.changeFitness(12);
+		BasePopulation.Integer<TestObject> pop2 = pop.split();
+		
+		// orginal should be same
+		assertEquals(expected[9]+10+1, pop.getFitness(0));
+		assertEquals(expected[8]+10+10, pop.getFitness(1));
+		assertEquals(22, pop.getFitnessOfMostFit());
+		assertEquals(2, pop.getMostFit().getSolution().id);
+		assertEquals(98, pop.getMostFit().getCost());
+		
+		// trackers should be same
+		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
+		
+		assertEquals(10, pop2.size());
+		assertEquals(10, pop2.mutableSize());
+		pop2.init();
+		for (int i = 0; i < 10; i++) {
+			assertEquals(1-i+12+10, pop2.getFitness(i));
+		}
+		
+		assertFalse(pop.evolutionIsPaused());
+		assertFalse(pop2.evolutionIsPaused());
+		tracker.stop();
+		assertTrue(pop.evolutionIsPaused());
+		assertTrue(pop2.evolutionIsPaused());
+		tracker.start();
+		assertFalse(pop.evolutionIsPaused());
+		assertFalse(pop2.evolutionIsPaused());
+		tracker.update(0, new TestObject(), true);
+		assertTrue(pop.evolutionIsPaused());
+		assertTrue(pop2.evolutionIsPaused());	
+	}
+	
+	@Test
+	public void testBasePopulationInteger_SelectCopies() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessInteger f = new TestFitnessInteger();
+		BasePopulation.Integer<TestObject> pop = new BasePopulation.Integer<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker
+		);
+		pop.init();
+		pop.select();
+		TestObject[] firstSelect = new TestObject[10];
+		for (int i = 0; i < 10; i++) {
+			firstSelect[i] = pop.get(i);
+		}
+		pop.replace();
+		pop.select();
+		TestObject[] secondSelect = new TestObject[10];
+		for (int i = 0; i < 10; i++) {
+			secondSelect[i] = pop.get(i);
+		}
+		for (int i = 0; i < 10; i++) {
+			assertFalse(firstSelect[i] == secondSelect[9-i]);
+			assertEquals(firstSelect[i], secondSelect[9-i]);
+		}
+	}
+
 	
 	private static class TestSelectionOp implements SelectionOperator {
 		
@@ -211,6 +472,59 @@ public class BasePopulationTests {
 		
 		public void changeFitness(int adjustment) {
 			this.adjustment = adjustment;
+		}
+	}
+	
+	private static class TestFitnessDoubleIntCost implements FitnessFunction.Double<TestObject> {
+		
+		private TestProblemInteger problem;
+		private int adjustment;
+		
+		public TestFitnessDoubleIntCost() {
+			problem = new TestProblemInteger();
+		}
+		
+		public double fitness(TestObject c) {
+			return c.id + 10 + adjustment;
+		}
+		
+		public Problem<TestObject> getProblem() {
+			return problem;
+		}
+		
+		public void changeFitness(int adjustment) {
+			this.adjustment = adjustment;
+		}
+	}
+	
+	private static class TestFitnessInteger implements FitnessFunction.Integer<TestObject> {
+		
+		private TestProblemInteger problem;
+		private int adjustment;
+		
+		public TestFitnessInteger() {
+			problem = new TestProblemInteger();
+		}
+		
+		public int fitness(TestObject c) {
+			return c.id + 10 + adjustment;
+		}
+		
+		public Problem<TestObject> getProblem() {
+			return problem;
+		}
+		
+		public void changeFitness(int adjustment) {
+			this.adjustment = adjustment;
+		}
+	}
+	
+	private static class TestProblemInteger implements IntegerCostOptimizationProblem<TestObject> {
+		public int cost(TestObject c) {
+			return 100 - c.id;
+		}
+		public int value(TestObject c) {
+			return cost(c);
 		}
 	}
 	

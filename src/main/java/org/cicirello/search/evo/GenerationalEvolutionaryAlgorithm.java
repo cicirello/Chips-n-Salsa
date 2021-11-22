@@ -70,6 +70,7 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	 * @param tracker A ProgressTracker.
 	 *
 	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws NullPointerException if any of mutation, initializer, f, selection, or tracker are null.
 	 */
 	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
 		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate);
@@ -92,6 +93,7 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	 * @param tracker A ProgressTracker.
 	 *
 	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws NullPointerException if any of mutation, initializer, f, selection, or tracker are null.
 	 */
 	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
 		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate);
@@ -101,6 +103,9 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	 * Internal helper constructor.
 	 */
 	private GenerationalEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate) {
+		if (mutation == null) {
+			throw new NullPointerException("mutation must be non-null");
+		}
 		this.pop = pop;
 		this.problem = problem;
 		this.mutation = mutation;

@@ -37,6 +37,52 @@ public class BasePopulationTests {
 	
 	private static final double EPSILON = 1e-10;
 	
+	@Test
+	public void testExceptions() {
+		NullPointerException thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new BasePopulation.Double<TestObject>(10, null, new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), null, new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), null)
+		);
+		
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new BasePopulation.Integer<TestObject>(10, null, new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), null, new ProgressTracker<TestObject>())
+		);
+		thrown = assertThrows( 
+			NullPointerException.class,
+			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), null)
+		);
+		
+		IllegalArgumentException thrown2 = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BasePopulation.Double<TestObject>(0, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+		);
+		thrown2 = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BasePopulation.Integer<TestObject>(0, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+		);
+	}
+	
 	
 	@Test
 	public void testBasePopulationDouble() {

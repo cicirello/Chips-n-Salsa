@@ -131,6 +131,10 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		 */
 		public Double(int n, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
 			super(tracker);
+			if (n < 1) throw new IllegalArgumentException("population size n must be positive");
+			if (initializer == null || f == null || selection == null || tracker == null) {
+				throw new NullPointerException("passed a null object for a required parameter");
+			}
 			this.initializer = initializer;
 			this.selection = selection;
 			
@@ -280,6 +284,10 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		 */
 		public Integer(int n, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
 			super(tracker);
+			if (n < 1) throw new IllegalArgumentException("population size n must be positive");
+			if (initializer == null || f == null || selection == null || tracker == null) {
+				throw new NullPointerException("passed a null object for a required parameter");
+			}
 			this.initializer = initializer;
 			this.selection = selection;
 			

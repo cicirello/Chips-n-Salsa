@@ -464,6 +464,7 @@ public class GenerationalEATests {
 		public TestSelectionOp() {
 			calledCount = 0;
 		}
+		@Override
 		public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
 			int next = selected.length - 1;
 			for (int i = 0; i < selected.length; i++) {
@@ -472,6 +473,7 @@ public class GenerationalEATests {
 			}
 			calledCount++;
 		}
+		@Override
 		public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
 			int next = selected.length - 1;
 			for (int i = 0; i < selected.length; i++) {
@@ -479,6 +481,10 @@ public class GenerationalEATests {
 				next--;
 			}
 			calledCount++;
+		}
+		@Override
+		public TestSelectionOp split() {
+			return new TestSelectionOp();
 		}
 	}
 	

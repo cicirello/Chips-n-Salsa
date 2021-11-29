@@ -20,6 +20,8 @@
  
 package org.cicirello.search.evo;
 
+import org.cicirello.search.concurrent.Splittable;
+
 /**
  * Implement this interface to provide a selection operator
  * for use by genetic algorithms and other forms of
@@ -29,7 +31,7 @@ package org.cicirello.search.evo;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public interface SelectionOperator {
+public interface SelectionOperator extends Splittable<SelectionOperator> {
 	
 	/**
 	 * Selects a set of members of the population based on fitness. Implementations should

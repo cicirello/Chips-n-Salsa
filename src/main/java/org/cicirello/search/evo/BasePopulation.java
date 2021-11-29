@@ -154,12 +154,12 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			
 			// these are threadsafe, so just copy references
 			f = other.f;
-			selection = other.selection;
 			MU = other.MU;
 			LAMBDA = other.LAMBDA;
 			
 			// split these: not threadsafe
 			initializer = other.initializer.split();
+			selection = other.selection.split();
 		
 			// initialize these fresh: not threadsafe or otherwise needs its own
 			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
@@ -307,12 +307,12 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			
 			// these are threadsafe, so just copy references
 			f = other.f;
-			selection = other.selection;
 			MU = other.MU;
 			LAMBDA = other.LAMBDA;
 			
 			// split these: not threadsafe
 			initializer = other.initializer.split();
+			selection = other.selection.split();
 		
 			// initialize these fresh: not threadsafe or otherwise needs its own
 			pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);

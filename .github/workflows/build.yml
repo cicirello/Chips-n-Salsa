@@ -17,13 +17,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Checkout badges branch
+    - name: Checkout badges branch to a badges directory nested inside first checkout
       uses: actions/checkout@v2
       with:
         ref: badges
         path: badges
 
-    - name: Set up JDK 1.11
+    - name: Set up JDK 11
       uses: actions/setup-java@v2
       with:
         distribution: 'adopt'
@@ -32,7 +32,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package -Pcoverage
 
-    - name: Generate Jacoco Badge
+    - name: Generate JaCoCo badge
       id: jacoco
       uses: cicirello/jacoco-badge-generator@v2
       with:
@@ -70,7 +70,7 @@ jobs:
         COVERAGE=$(jq -r '.coverage' <<< "$REPORT")%
         BRANCHES=$(jq -r '.branches' <<< "$REPORT")%
         NEWLINE=$'\n'
-        BODY="JaCoCo Test Coverage Summary Statistics${NEWLINE}Coverage = ${COVERAGE}${NEWLINE}Branches = ${BRANCHES}"
+        BODY="## JaCoCo Test Coverage Summary Statistics${NEWLINE}* __Coverage:__ ${COVERAGE}${NEWLINE}* __Branches:__ ${BRANCHES}"
         gh pr comment ${{github.event.pull_request.number}} -b "${BODY}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

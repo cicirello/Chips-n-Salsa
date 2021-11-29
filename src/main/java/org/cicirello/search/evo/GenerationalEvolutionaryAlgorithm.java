@@ -154,6 +154,7 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	public final SolutionCostPair<T> optimize(int numGenerations) {
 		if (pop.evolutionIsPaused()) return null;
 		pop.init();
+		pop.initOperators(numGenerations);
 		numFitnessEvals = numFitnessEvals + pop.size();
 		internalOptimize(numGenerations);
 		return pop.getMostFit();
@@ -174,6 +175,7 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	@Override
 	public final SolutionCostPair<T> reoptimize(int numGenerations) {
 		if (pop.evolutionIsPaused()) return null;
+		pop.initOperators(numGenerations);
 		internalOptimize(numGenerations);
 		return pop.getMostFit();
 	}

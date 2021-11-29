@@ -228,6 +228,11 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		}
 		
 		@Override
+		public void initOperators(int generations) {
+			selection.init(generations);
+		}
+		
+		@Override
 		public void init() {
 			super.init();
 			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
@@ -378,6 +383,11 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 				pop.set(i, nextPop.get(i));
 			}
 			nextPop.clear();
+		}
+		
+		@Override
+		public void initOperators(int generations) {
+			selection.init(generations);
 		}
 		
 		@Override

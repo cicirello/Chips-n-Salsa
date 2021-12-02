@@ -38,6 +38,52 @@ public class SelectionOperatorTests {
 		validateIndexes_Integer(selection2);
 	}
 	
+	@Test
+	public void testTournamentSelection() {
+		for (int k = 2; k <= 4; k++) {
+			TournamentSelection selection = new TournamentSelection(k);
+			validateIndexes_Double(selection);
+			validateIndexes_Integer(selection);
+			TournamentSelection selection2 = selection.split();
+			validateIndexes_Double(selection2);
+			validateIndexes_Integer(selection2);
+		}
+		
+		TournamentSelection selection = new TournamentSelection(4);
+		PopFitVectorInteger pf_int = new PopFitVectorInteger(10);
+		int[] selected = new int[20];
+		selection.select(pf_int, selected);
+		int countLarger = 0;
+		for (int i = 0; i < selected.length; i++) {
+			if (selected[i] >= pf_int.size() / 2) countLarger++;
+		}
+		assertTrue(countLarger > selected.length/2);
+		
+		PopFitVectorDouble pf_d = new PopFitVectorDouble(10);
+		selected = new int[20];
+		selection.select(pf_d, selected);
+		countLarger = 0;
+		for (int i = 0; i < selected.length; i++) {
+			if (selected[i] >= pf_d.size() / 2) countLarger++;
+		}
+		assertTrue(countLarger > selected.length/2);
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TournamentSelection(1)
+		);
+	}
+	
+	@Test
+	public void testBinaryTournamentSelection() {
+		TournamentSelection selection = new TournamentSelection();
+		validateIndexes_Double(selection);
+		validateIndexes_Integer(selection);
+		TournamentSelection selection2 = selection.split();
+		validateIndexes_Double(selection2);
+		validateIndexes_Integer(selection2);
+	}
+	
 	
 	private void validateIndexes_Double(SelectionOperator selection) {
 		selection.init(17);
@@ -94,9 +140,14 @@ public class SelectionOperatorTests {
 	private static class PopFitVectorDouble implements PopulationFitnessVector.Double {
 		
 		private int s;
+		private int[] fitnesses;
 		
 		public PopFitVectorDouble(int size) {
 			s = size;
+			fitnesses = new int[s];
+			for (int i = 0; i < s; i++) {
+				fitnesses[i] = 1 + i;
+			}
 		}
 		
 		@Override
@@ -104,16 +155,21 @@ public class SelectionOperatorTests {
 		
 		@Override
 		public double getFitness(int i) {
-			return 1.0;
+			return fitnesses[i];
 		}
 	}
 	
 	private static class PopFitVectorInteger implements PopulationFitnessVector.Integer {
 		
 		private int s;
+		private int[] fitnesses;
 		
 		public PopFitVectorInteger(int size) {
 			s = size;
+			fitnesses = new int[s];
+			for (int i = 0; i < s; i++) {
+				fitnesses[i] = 1 + i;
+			}
 		}
 		
 		@Override
@@ -121,7 +177,7 @@ public class SelectionOperatorTests {
 		
 		@Override
 		public int getFitness(int i) {
-			return 1;
+			return fitnesses[i];
 		}
 	}
 }

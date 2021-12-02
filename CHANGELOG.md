@@ -4,12 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-11-29
+## [Unreleased] - 2021-12-02
 
 ### Added
 * Generational evolutionary algorithms, including the following features and functionality:
-  * Includes the following EA variations:
+  * The following EA variations:
     * Mutation-only
+  * The following selection operators:
+    * Random selection
 * New methods added to ProgressTracker class:
   * `update(int, T, boolean)`
   * `update(double, T, boolean)`

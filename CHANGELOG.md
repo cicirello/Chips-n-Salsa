@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * The following EA variations:
     * Mutation-only
   * The following selection operators:
+    * TournamentSelection
     * Random selection
 * New methods added to ProgressTracker class:
   * `update(int, T, boolean)`

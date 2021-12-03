@@ -31,7 +31,7 @@ import org.cicirello.math.rand.RandomIndexer;
  * tournament selection.</p>
  *
  * <p>The runtime to select M population members from a population of size N is
- * O(k M).</p> 
+ * O(k M), which includes generating O(k M) random int values.</p> 
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

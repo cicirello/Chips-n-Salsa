@@ -28,7 +28,7 @@ import org.cicirello.math.rand.RandomIndexer;
  * values.</p>
  *
  * <p>The runtime to select M population members from a population of size N is
- * O(M).</p> 
+ * O(M), which includes generating O(M) random int values.</p> 
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

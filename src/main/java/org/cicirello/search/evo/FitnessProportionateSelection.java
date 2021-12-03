@@ -29,7 +29,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * fitness relative to the total fitness of the population. For example, if the 
  * fitness of population member i is f<sub>i</sub>, then the probability of selecting
  * population member i is: f<sub>i</sub> / &sum;<sub>j</sub> f<sub>j</sub>, for j &isin;
- * { 1, 2, ..., N }, where N is the population size.</p>
+ * { 1, 2, ..., N }, where N is the population size. To select M members of the population,
+ * M independent random decisions are executed in this way, thus requiring generating M
+ * random numbers of type double.</p>
  *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M lg N).</p>

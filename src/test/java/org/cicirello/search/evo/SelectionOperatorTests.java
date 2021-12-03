@@ -138,13 +138,13 @@ public class SelectionOperatorTests {
 				}
 			}
 			if (s >= 4) {
-				boolean different = false;
-				for (int i = 1; i < s && !different; i++) {
-					if (count[i] != count[i-1]) {
-						different = true;
+				int numDifferentSelected = 0;
+				for (int i = 0; i < s; i++) {
+					if (count[i] > 0) {
+						numDifferentSelected++;
 					}
 				}
-				assertTrue(different);
+				assertTrue(numDifferentSelected > 1);
 			}
 		}
 	}
@@ -164,13 +164,13 @@ public class SelectionOperatorTests {
 				}
 			}
 			if (s >= 4) {
-				boolean different = false;
-				for (int i = 1; i < s && !different; i++) {
-					if (count[i] != count[i-1]) {
-						different = true;
+				int numDifferentSelected = 0;
+				for (int i = 0; i < s; i++) {
+					if (count[i] > 0) {
+						numDifferentSelected++;
 					}
 				}
-				assertTrue(different);
+				assertTrue(numDifferentSelected > 1);
 			}
 		}
 	}

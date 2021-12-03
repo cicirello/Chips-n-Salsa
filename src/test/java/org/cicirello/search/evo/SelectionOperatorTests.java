@@ -95,6 +95,104 @@ public class SelectionOperatorTests {
 		}
 	}
 	
+	@Test
+	public void testSUS() {
+		StochasticUniversalSampling selection = new StochasticUniversalSampling();
+		validateIndexes_Double(selection);
+		validateIndexes_Integer(selection);
+		StochasticUniversalSampling selection2 = selection.split();
+		validateIndexes_Double(selection2);
+		validateIndexes_Integer(selection2);
+		
+		validateHigherFitnessSelectedMoreOften_Double(selection);
+		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
+		double[] expected = {1, 3, 6, 10, 15};
+		assertEquals(5, weights.length);
+		for (int i = 0; i < weights.length; i++) {
+			assertEquals(expected[i], weights[i], 1E-10);
+		}
+		
+		weights = selection.computeWeightRunningSum(new PopFitVectorIntegerSimple(5));
+		assertEquals(5, weights.length);
+		for (int i = 0; i < weights.length; i++) {
+			assertEquals(expected[i], weights[i], 1E-10);
+		}
+		
+		PopFitVectorDouble pf = new PopFitVectorDouble(16);
+		int[] selected = new int[16];
+		selection.select(pf, selected);
+		int[] expectedMin = new int[16];
+		int[] expectedMax = new int[16];
+		int[] counts = new int[16];
+		double totalFitness = 0;
+		for (int i = 0; i < 16; i++) {
+			totalFitness = totalFitness + pf.getFitness(i);
+			counts[selected[i]]++;
+		}
+		for (int i = 0; i < 16; i++) {
+			expectedMin[i] = (int)(16 * pf.getFitness(i) / totalFitness);
+			expectedMax[i] = (int)Math.ceil(16 * pf.getFitness(i) / totalFitness);
+			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
+			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+		}
+		
+		PopFitVectorInteger pf2 = new PopFitVectorInteger(16);
+		selected = new int[16];
+		selection.select(pf2, selected);
+		expectedMin = new int[16];
+		expectedMax = new int[16];
+		counts = new int[16];
+		totalFitness = 0;
+		for (int i = 0; i < 16; i++) {
+			totalFitness = totalFitness + pf2.getFitness(i);
+			counts[selected[i]]++;
+		}
+		for (int i = 0; i < 16; i++) {
+			expectedMin[i] = (int)(16 * pf2.getFitness(i) / totalFitness);
+			expectedMax[i] = (int)Math.ceil(16 * pf2.getFitness(i) / totalFitness);
+			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
+			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+		}
+		
+		PopFitVectorIntegerSimple pf3 = new PopFitVectorIntegerSimple(16);
+		selected = new int[16];
+		selection.select(pf3, selected);
+		expectedMin = new int[16];
+		expectedMax = new int[16];
+		counts = new int[16];
+		totalFitness = 0;
+		for (int i = 0; i < 16; i++) {
+			totalFitness = totalFitness + pf3.getFitness(i);
+			counts[selected[i]]++;
+		}
+		for (int i = 0; i < 16; i++) {
+			expectedMin[i] = (int)(16 * pf3.getFitness(i) / totalFitness);
+			expectedMax[i] = (int)Math.ceil(16 * pf3.getFitness(i) / totalFitness);
+			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
+			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+		}
+		
+		PopFitVectorDoubleSimple pf4 = new PopFitVectorDoubleSimple(16);
+		selected = new int[16];
+		selection.select(pf4, selected);
+		expectedMin = new int[16];
+		expectedMax = new int[16];
+		counts = new int[16];
+		totalFitness = 0;
+		for (int i = 0; i < 16; i++) {
+			totalFitness = totalFitness + pf4.getFitness(i);
+			counts[selected[i]]++;
+		}
+		for (int i = 0; i < 16; i++) {
+			expectedMin[i] = (int)(16 * pf4.getFitness(i) / totalFitness);
+			expectedMax[i] = (int)Math.ceil(16 * pf4.getFitness(i) / totalFitness);
+			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
+			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+		}
+	}
+	
 	private void validateHigherFitnessSelectedMoreOften_Double(SelectionOperator selection) {
 		// This part of the test attempts to confirm that greater weight is placed on
 		// higher fitness population members. A sporadic failure is not necessarily a 
@@ -146,7 +244,7 @@ public class SelectionOperatorTests {
 		for (int s = 1; s <= 8; s *= 2) {
 			PopFitVectorDouble pf = new PopFitVectorDouble(s);
 			int[] count = new int[s];
-			for (int i = Math.max(0, s-2); i <= s+2; i++) {
+			for (int i = Math.max(1, s-2); i <= s+2; i++) {
 				int[] selected = new int[i];
 				selection.select(pf, selected);
 				for (int j = 0; j < selected.length; j++) {
@@ -172,7 +270,7 @@ public class SelectionOperatorTests {
 		for (int s = 1; s <= 8; s *= 2) {
 			PopFitVectorInteger pf = new PopFitVectorInteger(s);
 			int[] count = new int[s];
-			for (int i = Math.max(0, s-2); i <= s+2; i++) {
+			for (int i = Math.max(1, s-2); i <= s+2; i++) {
 				int[] selected = new int[i];
 				selection.select(pf, selected);
 				for (int j = 0; j < selected.length; j++) {

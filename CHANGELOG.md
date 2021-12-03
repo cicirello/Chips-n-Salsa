@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * Mutation-only
   * The following selection operators:
     * FitnessProportionateSelection
+    * StochasticUniversalSampling
     * TournamentSelection
     * Random selection
 * New methods added to ProgressTracker class:

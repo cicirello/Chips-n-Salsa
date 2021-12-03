@@ -107,6 +107,15 @@ public class SelectionOperatorTests {
 			if (selected[i] >= pf_d.size() / 2) countLarger++;
 		}
 		assertTrue(countLarger > selected.length/2);
+		
+		pf_d.reverse();
+		selected = new int[20];
+		selection.select(pf_d, selected);
+		countLarger = 0;
+		for (int i = 0; i < selected.length; i++) {
+			if (selected[i] < pf_d.size() / 2) countLarger++;
+		}
+		assertTrue(countLarger > selected.length/2);
 	}
 	
 	private void validateHigherFitnessSelectedMoreOften_Integer(SelectionOperator selection) {
@@ -119,6 +128,15 @@ public class SelectionOperatorTests {
 		int countLarger = 0;
 		for (int i = 0; i < selected.length; i++) {
 			if (selected[i] >= pf_int.size() / 2) countLarger++;
+		}
+		assertTrue(countLarger > selected.length/2);
+		
+		pf_int.reverse();
+		selected = new int[20];
+		selection.select(pf_int, selected);
+		countLarger = 0;
+		for (int i = 0; i < selected.length; i++) {
+			if (selected[i] < pf_int.size() / 2) countLarger++;
 		}
 		assertTrue(countLarger > selected.length/2);
 	}
@@ -195,6 +213,15 @@ public class SelectionOperatorTests {
 		public double getFitness(int i) {
 			return fitnesses[i];
 		}
+		
+		public void reverse() {
+			int half = fitnesses.length / 2;
+			for (int i = 0; i < half; i++) {
+				int temp = fitnesses[i];
+				fitnesses[i] = fitnesses[fitnesses.length-1-i];
+				fitnesses[fitnesses.length-1-i] = temp;
+			}
+		}
 	}
 	
 	private static class PopFitVectorInteger implements PopulationFitnessVector.Integer {
@@ -216,6 +243,15 @@ public class SelectionOperatorTests {
 		@Override
 		public int getFitness(int i) {
 			return fitnesses[i];
+		}
+		
+		public void reverse() {
+			int half = fitnesses.length / 2;
+			for (int i = 0; i < half; i++) {
+				int temp = fitnesses[i];
+				fitnesses[i] = fitnesses[fitnesses.length-1-i];
+				fitnesses[fitnesses.length-1-i] = temp;
+			}
 		}
 	}
 	

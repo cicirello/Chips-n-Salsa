@@ -1,0 +1,117 @@
+/*
+ * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
+ *
+ * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
+ * 
+ * Chips-n-Salsa is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Chips-n-Salsa is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+ 
+package org.cicirello.search.evo;
+
+import java.util.concurrent.ThreadLocalRandom;
+
+/**
+ * <p>This class implements fitness proportionate selection, sometimes referred to as weighted 
+ * roulette wheel, for evolutionary algorithms. In fitness proportionate selection,
+ * a member of the population is chosen randomly with probability proportional to its
+ * fitness relative to the total fitness of the population. For example, if the 
+ * fitness of population member i is f<sub>i</sub>, then the probability of selecting
+ * population member i is: f<sub>i</sub> / &sum;<sub>j</sub> f<sub>j</sub>, for j &isin;
+ * { 1, 2, ..., N }, where N is the population size.</p>
+ *
+ * <p>The runtime to select M population members from a population of size N is
+ * O(N + M lg N).</p>
+ *
+ * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+ * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ */
+public class FitnessProportionateSelection implements SelectionOperator {
+	
+	/**
+	 * Construct a fitness proportionate selection operator.
+	 */
+	public FitnessProportionateSelection() {}
+	
+	@Override
+	public final void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
+		selectAll(normalizeWeights(computeWeightRunningSum(fitnesses)), selected);
+	}
+	
+	@Override
+	public final void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
+		selectAll(normalizeWeights(computeWeightRunningSum(fitnesses)), selected);
+	}
+	
+	@Override
+	public FitnessProportionateSelection split() {
+		// Since this selection operator maintains no mutable state, it is
+		// safe for multiple threads to share a single instance, so just return this.
+		return this;
+	}
+	
+	/*
+	 * package private to enable subclasses in same package to override
+	 */
+	double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
+		double[] p = new double[fitnesses.size()];
+		p[0] = fitnesses.getFitness(0);
+		for (int i = 1; i < p.length; i++) {
+			p[i] = p[i-1] + fitnesses.getFitness(i);
+		}
+		return p;
+	}
+	
+	/*
+	 * package private to enable subclasses in same package to override
+	 */
+	double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
+		double[] p = new double[fitnesses.size()];
+		p[0] = fitnesses.getFitness(0);
+		for (int i = 1; i < p.length; i++) {
+			p[i] = p[i-1] + fitnesses.getFitness(i);
+		}
+		return p;
+	}
+	
+	/*
+	 * package private to enable subclasses in same package to override
+	 */
+	void selectAll(double[] weights, int[] selected) {
+		for (int i = 0; i < selected.length; i++) {
+			selected[i] = selectOne(weights, 0, weights.length-1, ThreadLocalRandom.current().nextDouble());
+		}
+	}
+	
+	private int selectOne(double[] weights, int first, int last, double u) {
+		if (last <= first) {
+			return first;
+		}
+		int mid = (first + last) >> 1;
+		if (u < weights[mid]) {
+			return selectOne(weights, first, mid, u);
+		} else {
+			return selectOne(weights, mid+1, last, u);
+		}
+	}
+	
+	private double[] normalizeWeights(double[] weights) {
+		double total = weights[weights.length-1];
+		weights[weights.length-1] = 1.0;
+		for (int i = weights.length-2; i >= 0; i--) {
+			weights[i] /= total;
+		}
+		return weights;
+	}
+}

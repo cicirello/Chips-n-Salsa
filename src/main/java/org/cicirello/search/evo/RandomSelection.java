@@ -23,9 +23,12 @@ package org.cicirello.search.evo;
 import org.cicirello.math.rand.RandomIndexer;
 
 /**
- * This class implements a simple random selection operator that selects
+ * <p>This class implements a simple random selection operator that selects
  * members of the population uniformly at random, independent of fitness
- * values.   
+ * values.</p>
+ *
+ * <p>The runtime to select M population members from a population of size N is
+ * O(M).</p> 
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

@@ -23,12 +23,15 @@ package org.cicirello.search.evo;
 import org.cicirello.math.rand.RandomIndexer;
 
 /**
- * This class implements tournament selection for evolutionary algorithms. In tournament
+ * <p>This class implements tournament selection for evolutionary algorithms. In tournament
  * selection, a member of the population is chosen in the following manner. First, choose
  * k members of the population uniformly at random (with replacement). Next, from those
  * k members, select the one with greatest fitness. Repeat this process as many times as
  * needed to form the population for the generation. When k=2, it is known as binary
- * tournament selection. 
+ * tournament selection.</p>
+ *
+ * <p>The runtime to select M population members from a population of size N is
+ * O(k M).</p> 
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

@@ -80,14 +80,27 @@ public class SelectionOperatorTests {
 		
 		validateHigherFitnessSelectedMoreOften_Double(selection);
 		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
+		double[] expected = {1, 3, 6, 10, 15};
+		assertEquals(5, weights.length);
+		for (int i = 0; i < weights.length; i++) {
+			assertEquals(expected[i], weights[i], 1E-10);
+		}
+		
+		weights = selection.computeWeightRunningSum(new PopFitVectorIntegerSimple(5));
+		assertEquals(5, weights.length);
+		for (int i = 0; i < weights.length; i++) {
+			assertEquals(expected[i], weights[i], 1E-10);
+		}
 	}
 	
 	private void validateHigherFitnessSelectedMoreOften_Double(SelectionOperator selection) {
 		// This part of the test attempts to confirm that greater weight is placed on
 		// higher fitness population members. A sporadic failure is not necessarily a 
 		// real failure, but it should fail with low probability.
-		PopFitVectorDouble pf_d = new PopFitVectorDouble(20);
-		int[] selected = new int[40];
+		PopFitVectorDouble pf_d = new PopFitVectorDouble(10);
+		int[] selected = new int[20];
 		selection.select(pf_d, selected);
 		int countLarger = 0;
 		for (int i = 0; i < selected.length; i++) {
@@ -100,8 +113,8 @@ public class SelectionOperatorTests {
 		// This part of the test attempts to confirm that greater weight is placed on
 		// higher fitness population members. A sporadic failure is not necessarily a 
 		// real failure, but it should fail with low probability.
-		PopFitVectorInteger pf_int = new PopFitVectorInteger(20);
-		int[] selected = new int[40];
+		PopFitVectorInteger pf_int = new PopFitVectorInteger(10);
+		int[] selected = new int[20];
 		selection.select(pf_int, selected);
 		int countLarger = 0;
 		for (int i = 0; i < selected.length; i++) {
@@ -171,7 +184,7 @@ public class SelectionOperatorTests {
 			s = size;
 			fitnesses = new int[s];
 			for (int i = 0; i < s; i++) {
-				fitnesses[i] = 1 + i;
+				fitnesses[i] = 1 << i;
 			}
 		}
 		
@@ -194,6 +207,50 @@ public class SelectionOperatorTests {
 			fitnesses = new int[s];
 			for (int i = 0; i < s; i++) {
 				fitnesses[i] = 1 << i;
+			}
+		}
+		
+		@Override
+		public int size() { return s; }
+		
+		@Override
+		public int getFitness(int i) {
+			return fitnesses[i];
+		}
+	}
+	
+	private static class PopFitVectorDoubleSimple implements PopulationFitnessVector.Double {
+		
+		private int s;
+		private int[] fitnesses;
+		
+		public PopFitVectorDoubleSimple(int size) {
+			s = size;
+			fitnesses = new int[s];
+			for (int i = 0; i < s; i++) {
+				fitnesses[i] = 1 + i;
+			}
+		}
+		
+		@Override
+		public int size() { return s; }
+		
+		@Override
+		public double getFitness(int i) {
+			return fitnesses[i];
+		}
+	}
+	
+	private static class PopFitVectorIntegerSimple implements PopulationFitnessVector.Integer {
+		
+		private int s;
+		private int[] fitnesses;
+		
+		public PopFitVectorIntegerSimple(int size) {
+			s = size;
+			fitnesses = new int[s];
+			for (int i = 0; i < s; i++) {
+				fitnesses[i] = 1 + i;
 			}
 		}
 		

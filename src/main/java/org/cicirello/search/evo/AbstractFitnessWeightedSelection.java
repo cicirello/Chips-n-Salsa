@@ -71,6 +71,21 @@ abstract class AbstractFitnessWeightedSelection implements SelectionOperator {
 	}
 	
 	/*
+	 * package private for use by subclasses in same package.
+	 */
+	final int selectOne(double[] normalizedWeights, int first, int last, double u) {
+		if (last <= first) {
+			return first;
+		}
+		int mid = (first + last) >> 1;
+		if (u < normalizedWeights[mid]) {
+			return selectOne(normalizedWeights, first, mid, u);
+		} else {
+			return selectOne(normalizedWeights, mid+1, last, u);
+		}
+	}
+	
+	/*
 	 * package private to enable subclasses in same package to override
 	 */
 	abstract void selectAll(double[] normalizedWeights, int[] selected);

@@ -62,16 +62,4 @@ public class FitnessProportionateSelection extends AbstractFitnessWeightedSelect
 			selected[i] = selectOne(normalizedWeights, 0, normalizedWeights.length-1, ThreadLocalRandom.current().nextDouble());
 		}
 	}
-	
-	private int selectOne(double[] normalizedWeights, int first, int last, double u) {
-		if (last <= first) {
-			return first;
-		}
-		int mid = (first + last) >> 1;
-		if (u < normalizedWeights[mid]) {
-			return selectOne(normalizedWeights, first, mid, u);
-		} else {
-			return selectOne(normalizedWeights, mid+1, last, u);
-		}
-	}
 }

@@ -96,6 +96,45 @@ public class SelectionOperatorTests {
 	}
 	
 	@Test
+	public void testBiasedFitnessProportionateSelection() {
+		BiasedFitnessProportionateSelection selection = new BiasedFitnessProportionateSelection(x -> x*x);
+		validateIndexes_Double(selection);
+		validateIndexes_Integer(selection);
+		BiasedFitnessProportionateSelection selection2 = selection.split();
+		assertTrue(selection != selection2);
+		validateIndexes_Double(selection2);
+		validateIndexes_Integer(selection2);
+		
+		validateHigherFitnessSelectedMoreOften_Double(selection);
+		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
+		double[] expected = {1, 5, 14, 30, 55};
+		assertEquals(5, weights.length);
+		for (int i = 0; i < weights.length; i++) {
+			assertEquals(expected[i], weights[i], 1E-10);
+		}
+		
+		weights = selection.computeWeightRunningSum(new PopFitVectorIntegerSimple(5));
+		assertEquals(5, weights.length);
+		for (int i = 0; i < weights.length; i++) {
+			assertEquals(expected[i], weights[i], 1E-10);
+		}
+		
+		weights = selection2.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
+		assertEquals(5, weights.length);
+		for (int i = 0; i < weights.length; i++) {
+			assertEquals(expected[i], weights[i], 1E-10);
+		}
+		
+		weights = selection2.computeWeightRunningSum(new PopFitVectorIntegerSimple(5));
+		assertEquals(5, weights.length);
+		for (int i = 0; i < weights.length; i++) {
+			assertEquals(expected[i], weights[i], 1E-10);
+		}
+	}
+	
+	@Test
 	public void testSUS() {
 		StochasticUniversalSampling selection = new StochasticUniversalSampling();
 		validateIndexes_Double(selection);

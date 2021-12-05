@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * StochasticUniversalSampling
     * TournamentSelection
     * Random selection
+    * BiasedFitnessProportionateSelection
 * New methods added to ProgressTracker class:
   * `update(int, T, boolean)`
   * `update(double, T, boolean)`

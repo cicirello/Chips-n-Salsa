@@ -67,7 +67,7 @@ public class StochasticUniversalSampling extends AbstractFitnessWeightedSelectio
 	 * package private to enable subclasses in same package to override
 	 */
 	@Override
-	void selectAll(double[] normalizedWeights, int[] selected) {
+	final void selectAll(double[] normalizedWeights, int[] selected) {
 		double increment = 1.0 / selected.length;
 		double pointer = ThreadLocalRandom.current().nextDouble(increment);		
 		int j = selected[0] = selectOne(normalizedWeights, 0, normalizedWeights.length-1, pointer);

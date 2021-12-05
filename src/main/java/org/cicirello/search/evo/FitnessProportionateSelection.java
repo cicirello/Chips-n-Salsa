@@ -57,7 +57,7 @@ public class FitnessProportionateSelection extends AbstractFitnessWeightedSelect
 	 * package private to enable subclasses in same package to override
 	 */
 	@Override
-	void selectAll(double[] normalizedWeights, int[] selected) {
+	final void selectAll(double[] normalizedWeights, int[] selected) {
 		for (int i = 0; i < selected.length; i++) {
 			selected[i] = selectOne(normalizedWeights, 0, normalizedWeights.length-1, ThreadLocalRandom.current().nextDouble());
 		}

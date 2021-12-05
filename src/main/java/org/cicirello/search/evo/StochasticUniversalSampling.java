@@ -63,9 +63,6 @@ public class StochasticUniversalSampling extends AbstractFitnessWeightedSelectio
 		return this;
 	}
 	
-	/*
-	 * package private to enable subclasses in same package to override
-	 */
 	@Override
 	final void selectAll(double[] normalizedWeights, int[] selected) {
 		double increment = 1.0 / selected.length;

@@ -53,9 +53,6 @@ public class FitnessProportionateSelection extends AbstractFitnessWeightedSelect
 		return this;
 	}
 	
-	/*
-	 * package private to enable subclasses in same package to override
-	 */
 	@Override
 	final void selectAll(double[] normalizedWeights, int[] selected) {
 		for (int i = 0; i < selected.length; i++) {

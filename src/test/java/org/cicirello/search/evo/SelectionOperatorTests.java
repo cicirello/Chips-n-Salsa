@@ -221,7 +221,7 @@ public class SelectionOperatorTests {
 	
 	@Test
 	public void testBiasedSUS() {
-		BiasedStochasticUniversalSampling selection = new BiasedStochasticUniversalSampling(x -> 11*x);
+		BiasedStochasticUniversalSampling selection = new BiasedStochasticUniversalSampling(x -> x*x);
 		validateIndexes_Double(selection);
 		validateIndexes_Integer(selection);
 		StochasticUniversalSampling selection2 = selection.split();
@@ -232,7 +232,7 @@ public class SelectionOperatorTests {
 		validateHigherFitnessSelectedMoreOften_Integer(selection);
 		
 		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
-		double[] expected = {11, 33, 66, 110, 165};
+		double[] expected = {1, 5, 14, 30, 55};
 		assertEquals(5, weights.length);
 		for (int i = 0; i < weights.length; i++) {
 			assertEquals(expected[i], weights[i], 1E-10);
@@ -252,12 +252,12 @@ public class SelectionOperatorTests {
 		int[] counts = new int[16];
 		double totalFitness = 0;
 		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf.getFitness(i);
+			totalFitness = totalFitness + pf.getFitness(i) * pf.getFitness(i);
 			counts[selected[i]]++;
 		}
 		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16 * pf.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16 * pf.getFitness(i) / totalFitness);
+			expectedMin[i] = (int)(16.0 * pf.getFitness(i) * pf.getFitness(i) / totalFitness);
+			expectedMax[i] = (int)Math.ceil(16.0 * pf.getFitness(i) * pf.getFitness(i) / totalFitness);
 			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
 			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
 		}
@@ -270,12 +270,12 @@ public class SelectionOperatorTests {
 		counts = new int[16];
 		totalFitness = 0;
 		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf2.getFitness(i);
+			totalFitness = totalFitness + pf2.getFitness(i) * pf2.getFitness(i);
 			counts[selected[i]]++;
 		}
 		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16 * pf2.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16 * pf2.getFitness(i) / totalFitness);
+			expectedMin[i] = (int)(16.0 * pf2.getFitness(i) * pf2.getFitness(i) / totalFitness);
+			expectedMax[i] = (int)Math.ceil(16.0 * pf2.getFitness(i) * pf2.getFitness(i) / totalFitness);
 			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
 			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
 		}
@@ -288,12 +288,12 @@ public class SelectionOperatorTests {
 		counts = new int[16];
 		totalFitness = 0;
 		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf3.getFitness(i);
+			totalFitness = totalFitness + pf3.getFitness(i) * pf3.getFitness(i);
 			counts[selected[i]]++;
 		}
 		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16 * pf3.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16 * pf3.getFitness(i) / totalFitness);
+			expectedMin[i] = (int)(16.0 * pf3.getFitness(i) * pf3.getFitness(i) / totalFitness);
+			expectedMax[i] = (int)Math.ceil(16.0 * pf3.getFitness(i) * pf3.getFitness(i) / totalFitness);
 			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
 			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
 		}
@@ -306,12 +306,12 @@ public class SelectionOperatorTests {
 		counts = new int[16];
 		totalFitness = 0;
 		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf4.getFitness(i);
+			totalFitness = totalFitness + pf4.getFitness(i) * pf4.getFitness(i);
 			counts[selected[i]]++;
 		}
 		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16 * pf4.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16 * pf4.getFitness(i) / totalFitness);
+			expectedMin[i] = (int)(16.0 * pf4.getFitness(i) * pf4.getFitness(i) / totalFitness);
+			expectedMax[i] = (int)Math.ceil(16.0 * pf4.getFitness(i) * pf4.getFitness(i) / totalFitness);
 			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
 			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
 		}

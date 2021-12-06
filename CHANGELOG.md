@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-12-02
+## [Unreleased] - 2021-12-06
 
 ### Added
 * Generational evolutionary algorithms, including the following features and functionality:
@@ -15,7 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * StochasticUniversalSampling
     * TournamentSelection
     * Random selection
-    * BiasedFitnessProportionateSelection
+    * BiasedFitnessProportionateSelection, which is fitness proportionate selection but which
+      enables transforming the fitness values by a bias function
+    * BiasedStochasticUniversalSampling, which is stochastic universal sampling but which
+      enables transforming the fitness values by a bias function
 * New methods added to ProgressTracker class:
   * `update(int, T, boolean)`
   * `update(double, T, boolean)`

@@ -31,11 +31,14 @@ package org.cicirello.search.evo;
  * M independent random decisions are executed in this way, thus requiring generating M
  * random numbers of type double.</p>
  *
- * <p>As an example bias function, consider: bias(x) = x<sup>2</sup>, which would square the fitness
- * values x.</p>
+ * <p>As an example bias function, consider: bias(x) = x<sup>2</sup>, which would square each fitness
+ * value x.</p>
  *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M lg N), assuming the bias function has a constant runtime.</p>
+ *
+ * <p>For the more common standard version of fitness proportionate selection, see the
+ * {@link FitnessProportionateSelection} class.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

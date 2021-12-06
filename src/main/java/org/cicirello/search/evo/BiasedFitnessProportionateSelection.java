@@ -54,7 +54,10 @@ public final class BiasedFitnessProportionateSelection extends FitnessProportion
 	
 	@Override
 	public BiasedFitnessProportionateSelection split() {
-		return new BiasedFitnessProportionateSelection(bias);
+		// The FitnessBiasFunction interface's contract is that implementations
+		// must be threadsafe and thread efficient, so assume that the only state,
+		// the bias function meets that contract.
+		return this;
 	}
 	
 	@Override

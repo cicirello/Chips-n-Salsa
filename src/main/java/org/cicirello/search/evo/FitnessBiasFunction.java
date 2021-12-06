@@ -32,8 +32,14 @@ public interface FitnessBiasFunction {
 	
 	/**
 	 * Applies a bias function to a fitness value. Implementations must ensure that
-	 * this method always returns positive values.
-	 * @param fitness A fitness value
+	 * this method always returns positive values. It may assume that the parameter
+	 * fitness is positive. Implementations must also be both threadsafe as well as
+	 * thread efficient, because if evolutionary algorithms are used in combination with 
+	 * the parallel search functionality of the library, it may provide multiple threads
+	 * with references to the same FitnessBiasFunction object. Ideally, implementations
+	 * of this interface should avoid mutable state.
+	 *
+	 * @param fitness A fitness value, which is assumed positive.
 	 * @return A biased fitness.
 	 */
 	double bias(double fitness);

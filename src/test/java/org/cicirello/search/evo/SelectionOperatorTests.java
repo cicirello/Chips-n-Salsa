@@ -101,7 +101,6 @@ public class SelectionOperatorTests {
 		validateIndexes_Double(selection);
 		validateIndexes_Integer(selection);
 		BiasedFitnessProportionateSelection selection2 = selection.split();
-		assertTrue(selection != selection2);
 		validateIndexes_Double(selection2);
 		validateIndexes_Integer(selection2);
 		
@@ -116,18 +115,6 @@ public class SelectionOperatorTests {
 		}
 		
 		weights = selection.computeWeightRunningSum(new PopFitVectorIntegerSimple(5));
-		assertEquals(5, weights.length);
-		for (int i = 0; i < weights.length; i++) {
-			assertEquals(expected[i], weights[i], 1E-10);
-		}
-		
-		weights = selection2.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
-		assertEquals(5, weights.length);
-		for (int i = 0; i < weights.length; i++) {
-			assertEquals(expected[i], weights[i], 1E-10);
-		}
-		
-		weights = selection2.computeWeightRunningSum(new PopFitVectorIntegerSimple(5));
 		assertEquals(5, weights.length);
 		for (int i = 0; i < weights.length; i++) {
 			assertEquals(expected[i], weights[i], 1E-10);

@@ -20,6 +20,8 @@
  
 package org.cicirello.search.evo;
 
+import org.cicirello.search.concurrent.Splittable;
+
 /**
  * Implement this interface to provide a selection operator
  * for use by genetic algorithms and other forms of
@@ -29,7 +31,7 @@ package org.cicirello.search.evo;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public interface SelectionOperator {
+public interface SelectionOperator extends Splittable<SelectionOperator> {
 	
 	/**
 	 * Selects a set of members of the population based on fitness. Implementations should
@@ -66,4 +68,17 @@ public interface SelectionOperator {
 	 * be different than the fitnesses.size().
 	 */
 	void select(PopulationFitnessVector.Double fitnesses, int[] selected);
+	
+	/**
+	 * Perform any initialization necessary for the selection operator at the start
+	 * of the run of the evolutionary algorithm. This method is called by the evolutionary
+	 * algorithm at the start of a run (i.e., whenever an EA's optimize or reoptimize methods
+	 * are called. The default implementation of this method does nothing, which is appropriate
+	 * for most selection operators since the behavior of most standard selection operators is
+	 * doesn't change during runs. However, some selection operators may adjust behavior during
+	 * the run, such as Boltzmann selection which adjusts a temperature parameter. The init method
+	 * enables reinitializing such parameters at the start of runs.
+	 * @param generations The number of generations for the run of the evolutionary algorithm about to commence.
+	 */
+	default void init(int generations) {}
 }

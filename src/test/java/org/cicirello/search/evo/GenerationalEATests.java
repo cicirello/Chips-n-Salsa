@@ -139,6 +139,8 @@ public class GenerationalEATests {
 		
 		assertEquals(0L, ea.getTotalRunLength());
 		
+		assertEquals(0, selection.initCount);
+		
 		// optimize
 		SolutionCostPair<TestObject> solution = ea.optimize(3);
 		assertEquals(N, initializer.count);
@@ -148,6 +150,7 @@ public class GenerationalEATests {
 		assertEquals(3, selection.calledCount);
 		assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
 		assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+		assertEquals(1, selection.initCount);
 		
 		// split it
 		GenerationalEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
@@ -161,6 +164,7 @@ public class GenerationalEATests {
 		assertEquals(f.count, N + mutation.count);
 		assertEquals((long)f.count, ea.getTotalRunLength());
 		assertEquals(8, selection.calledCount);
+		assertEquals(2, selection.initCount);
 		
 		// another optimize
 		oldMutationCount = mutation.count;
@@ -171,10 +175,12 @@ public class GenerationalEATests {
 		assertEquals(f.count, 2*N + mutation.count);
 		assertEquals((long)f.count, ea.getTotalRunLength());
 		assertEquals(10, selection.calledCount);
+		assertEquals(3, selection.initCount);
 		
 		tracker.stop();
 		assertNull(ea.optimize(2));
 		assertNull(ea.reoptimize(2));
+		assertEquals(3, selection.initCount);
 		
 		// Try the split version
 		assertEquals(0L, ea2.getTotalRunLength());
@@ -191,6 +197,8 @@ public class GenerationalEATests {
 		assertEquals(oldMutationCount, mutation.count);
 		// This can be shared so should increase
 		assertTrue(f.count > oldFCount);
+		
+		assertEquals(3, selection.initCount);
 	}
 	
 	@Test
@@ -221,6 +229,8 @@ public class GenerationalEATests {
 		
 		assertEquals(0L, ea.getTotalRunLength());
 		
+		assertEquals(0, selection.initCount);
+		
 		// optimize
 		SolutionCostPair<TestObject> solution = ea.optimize(3);
 		assertEquals(N, initializer.count);
@@ -230,6 +240,7 @@ public class GenerationalEATests {
 		assertEquals(3, selection.calledCount);
 		assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
 		assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+		assertEquals(1, selection.initCount);
 		
 		// split it
 		GenerationalEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
@@ -242,6 +253,7 @@ public class GenerationalEATests {
 		assertEquals(f.count, N + mutation.count);
 		assertEquals((long)f.count, ea.getTotalRunLength());
 		assertEquals(8, selection.calledCount);
+		assertEquals(2, selection.initCount);
 		
 		// another optimize
 		solution = ea.optimize(2);
@@ -251,10 +263,12 @@ public class GenerationalEATests {
 		assertEquals(f.count, 2*N + mutation.count);
 		assertEquals((long)f.count, ea.getTotalRunLength());
 		assertEquals(10, selection.calledCount);
+		assertEquals(3, selection.initCount);
 		
 		tracker.stop();
 		assertNull(ea.optimize(2));
 		assertNull(ea.reoptimize(2));
+		assertEquals(3, selection.initCount);
 		
 		// Try the split version
 		assertEquals(0L, ea2.getTotalRunLength());
@@ -271,6 +285,8 @@ public class GenerationalEATests {
 		assertEquals(oldMutationCount, mutation.count);
 		// This can be shared so should increase
 		assertTrue(f.count > oldFCount);
+		
+		assertEquals(3, selection.initCount);
 	}
 	
 	// int fitness
@@ -302,6 +318,7 @@ public class GenerationalEATests {
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
+		assertEquals(0, selection.initCount);
 		
 		// optimize
 		SolutionCostPair<TestObject> solution = ea.optimize(3);
@@ -312,6 +329,7 @@ public class GenerationalEATests {
 		assertEquals(3, selection.calledCount);
 		assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
 		assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+		assertEquals(1, selection.initCount);
 		
 		// split it
 		GenerationalEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
@@ -325,6 +343,7 @@ public class GenerationalEATests {
 		assertEquals(f.count, N + mutation.count);
 		assertEquals((long)f.count, ea.getTotalRunLength());
 		assertEquals(8, selection.calledCount);
+		assertEquals(2, selection.initCount);
 		
 		// another optimize
 		oldMutationCount = mutation.count;
@@ -335,10 +354,12 @@ public class GenerationalEATests {
 		assertEquals(f.count, 2*N + mutation.count);
 		assertEquals((long)f.count, ea.getTotalRunLength());
 		assertEquals(10, selection.calledCount);
+		assertEquals(3, selection.initCount);
 		
 		tracker.stop();
 		assertNull(ea.optimize(2));
 		assertNull(ea.reoptimize(2));
+		assertEquals(3, selection.initCount);
 		
 		// Try the split version
 		assertEquals(0L, ea2.getTotalRunLength());
@@ -355,6 +376,8 @@ public class GenerationalEATests {
 		assertEquals(oldMutationCount, mutation.count);
 		// This can be shared so should increase
 		assertTrue(f.count > oldFCount);
+		
+		assertEquals(3, selection.initCount);
 	}
 	
 	@Test
@@ -385,6 +408,8 @@ public class GenerationalEATests {
 		
 		assertEquals(0L, ea.getTotalRunLength());
 		
+		assertEquals(0, selection.initCount);
+		
 		// optimize
 		SolutionCostPair<TestObject> solution = ea.optimize(3);
 		assertEquals(N, initializer.count);
@@ -394,6 +419,7 @@ public class GenerationalEATests {
 		assertEquals(3, selection.calledCount);
 		assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
 		assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+		assertEquals(1, selection.initCount);
 		
 		// split it
 		GenerationalEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
@@ -406,6 +432,7 @@ public class GenerationalEATests {
 		assertEquals(f.count, N + mutation.count);
 		assertEquals((long)f.count, ea.getTotalRunLength());
 		assertEquals(8, selection.calledCount);
+		assertEquals(2, selection.initCount);
 		
 		// another optimize
 		solution = ea.optimize(2);
@@ -415,10 +442,12 @@ public class GenerationalEATests {
 		assertEquals(f.count, 2*N + mutation.count);
 		assertEquals((long)f.count, ea.getTotalRunLength());
 		assertEquals(10, selection.calledCount);
+		assertEquals(3, selection.initCount);
 		
 		tracker.stop();
 		assertNull(ea.optimize(2));
 		assertNull(ea.reoptimize(2));
+		assertEquals(3, selection.initCount);
 		
 		// Try the split version
 		assertEquals(0L, ea2.getTotalRunLength());
@@ -435,6 +464,8 @@ public class GenerationalEATests {
 		assertEquals(oldMutationCount, mutation.count);
 		// This can be shared so should increase
 		assertTrue(f.count > oldFCount);
+		
+		assertEquals(3, selection.initCount);
 	}
 	
 	// HELPER CLASSES
@@ -461,9 +492,13 @@ public class GenerationalEATests {
 	private static class TestSelectionOp implements SelectionOperator {
 		
 		volatile int calledCount;
+		volatile int initCount;
+		
 		public TestSelectionOp() {
 			calledCount = 0;
+			initCount = 0;
 		}
+		@Override
 		public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
 			int next = selected.length - 1;
 			for (int i = 0; i < selected.length; i++) {
@@ -472,6 +507,7 @@ public class GenerationalEATests {
 			}
 			calledCount++;
 		}
+		@Override
 		public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
 			int next = selected.length - 1;
 			for (int i = 0; i < selected.length; i++) {
@@ -479,6 +515,14 @@ public class GenerationalEATests {
 				next--;
 			}
 			calledCount++;
+		}
+		@Override
+		public void init(int generations) {
+			initCount++;
+		}
+		@Override
+		public TestSelectionOp split() {
+			return new TestSelectionOp();
 		}
 	}
 	

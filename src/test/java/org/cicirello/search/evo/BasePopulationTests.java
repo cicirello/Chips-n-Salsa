@@ -481,6 +481,7 @@ public class BasePopulationTests {
 		public TestSelectionOp() {
 			called = false;
 		}
+		@Override
 		public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
 			int next = selected.length - 1;
 			for (int i = 0; i < selected.length; i++) {
@@ -489,6 +490,7 @@ public class BasePopulationTests {
 			}
 			called = true;
 		}
+		@Override
 		public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
 			int next = selected.length - 1;
 			for (int i = 0; i < selected.length; i++) {
@@ -496,6 +498,10 @@ public class BasePopulationTests {
 				next--;
 			}
 			called = true;
+		}
+		@Override
+		public TestSelectionOp split() {
+			return new TestSelectionOp();
 		}
 	}
 	

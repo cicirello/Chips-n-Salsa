@@ -72,6 +72,13 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 	void init();
 	
 	/**
+	 * Initialize or reinitialize any operators such as
+	 * selection that may require doing so.
+	 * @param generations Number of generations
+	 */
+	void initOperators(int generations);
+	
+	/**
 	 * Performs selection to choose the population members to undergo genetic operators.
 	 */
 	void select();

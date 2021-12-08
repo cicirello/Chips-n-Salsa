@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * FitnessProportionalSelection
     * StochasticUniversalSampling
     * TournamentSelection
+    * TruncationSelection
     * RandomSelection
     * BiasedFitnessProportionalSelection, which is fitness proportional selection but which
       enables transforming the fitness values by a bias function

@@ -4,18 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-12-06
+## [Unreleased] - 2021-12-08
 
 ### Added
 * Generational evolutionary algorithms, including the following features and functionality:
   * The following EA variations:
     * Mutation-only
   * The following selection operators:
-    * FitnessProportionateSelection
+    * FitnessProportionalSelection
     * StochasticUniversalSampling
     * TournamentSelection
-    * Random selection
-    * BiasedFitnessProportionateSelection, which is fitness proportionate selection but which
+    * RandomSelection
+    * BiasedFitnessProportionalSelection, which is fitness proportional selection but which
       enables transforming the fitness values by a bias function
     * BiasedStochasticUniversalSampling, which is stochastic universal sampling but which
       enables transforming the fitness values by a bias function

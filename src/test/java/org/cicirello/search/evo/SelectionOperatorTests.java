@@ -81,18 +81,8 @@ public class SelectionOperatorTests {
 		validateHigherFitnessSelectedMoreOften_Double(selection);
 		validateHigherFitnessSelectedMoreOften_Integer(selection);
 		
-		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
-		double[] expected = {1, 3, 6, 10, 15};
-		assertEquals(5, weights.length);
-		for (int i = 0; i < weights.length; i++) {
-			assertEquals(expected[i], weights[i], 1E-10);
-		}
-		
-		weights = selection.computeWeightRunningSum(new PopFitVectorIntegerSimple(5));
-		assertEquals(5, weights.length);
-		for (int i = 0; i < weights.length; i++) {
-			assertEquals(expected[i], weights[i], 1E-10);
-		}
+		validateComputeRunningSum(selection);
+		validateComputeRunningSum(selection2);
 	}
 	
 	@Test
@@ -107,18 +97,8 @@ public class SelectionOperatorTests {
 		validateHigherFitnessSelectedMoreOften_Double(selection);
 		validateHigherFitnessSelectedMoreOften_Integer(selection);
 		
-		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
-		double[] expected = {1, 5, 14, 30, 55};
-		assertEquals(5, weights.length);
-		for (int i = 0; i < weights.length; i++) {
-			assertEquals(expected[i], weights[i], 1E-10);
-		}
-		
-		weights = selection.computeWeightRunningSum(new PopFitVectorIntegerSimple(5));
-		assertEquals(5, weights.length);
-		for (int i = 0; i < weights.length; i++) {
-			assertEquals(expected[i], weights[i], 1E-10);
-		}
+		validateBiasedComputeRunningSum(selection);
+		validateBiasedComputeRunningSum(selection2);
 	}
 	
 	@Test
@@ -133,90 +113,18 @@ public class SelectionOperatorTests {
 		validateHigherFitnessSelectedMoreOften_Double(selection);
 		validateHigherFitnessSelectedMoreOften_Integer(selection);
 		
-		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
-		double[] expected = {1, 3, 6, 10, 15};
-		assertEquals(5, weights.length);
-		for (int i = 0; i < weights.length; i++) {
-			assertEquals(expected[i], weights[i], 1E-10);
-		}
+		validateComputeRunningSum(selection);
+		validateComputeRunningSum(selection2);
 		
-		weights = selection.computeWeightRunningSum(new PopFitVectorIntegerSimple(5));
-		assertEquals(5, weights.length);
-		for (int i = 0; i < weights.length; i++) {
-			assertEquals(expected[i], weights[i], 1E-10);
-		}
+		validateExpectedCountsSUS(selection, new PopFitVectorDouble(16), x -> x);
+		validateExpectedCountsSUS(selection, new PopFitVectorInteger(16), x -> x);
+		validateExpectedCountsSUS(selection, new PopFitVectorDoubleSimple(16), x -> x);
+		validateExpectedCountsSUS(selection, new PopFitVectorIntegerSimple(16), x -> x);
 		
-		PopFitVectorDouble pf = new PopFitVectorDouble(16);
-		int[] selected = new int[16];
-		selection.select(pf, selected);
-		int[] expectedMin = new int[16];
-		int[] expectedMax = new int[16];
-		int[] counts = new int[16];
-		double totalFitness = 0;
-		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf.getFitness(i);
-			counts[selected[i]]++;
-		}
-		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16 * pf.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16 * pf.getFitness(i) / totalFitness);
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
-		}
-		
-		PopFitVectorInteger pf2 = new PopFitVectorInteger(16);
-		selected = new int[16];
-		selection.select(pf2, selected);
-		expectedMin = new int[16];
-		expectedMax = new int[16];
-		counts = new int[16];
-		totalFitness = 0;
-		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf2.getFitness(i);
-			counts[selected[i]]++;
-		}
-		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16 * pf2.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16 * pf2.getFitness(i) / totalFitness);
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
-		}
-		
-		PopFitVectorIntegerSimple pf3 = new PopFitVectorIntegerSimple(16);
-		selected = new int[16];
-		selection.select(pf3, selected);
-		expectedMin = new int[16];
-		expectedMax = new int[16];
-		counts = new int[16];
-		totalFitness = 0;
-		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf3.getFitness(i);
-			counts[selected[i]]++;
-		}
-		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16 * pf3.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16 * pf3.getFitness(i) / totalFitness);
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
-		}
-		
-		PopFitVectorDoubleSimple pf4 = new PopFitVectorDoubleSimple(16);
-		selected = new int[16];
-		selection.select(pf4, selected);
-		expectedMin = new int[16];
-		expectedMax = new int[16];
-		counts = new int[16];
-		totalFitness = 0;
-		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf4.getFitness(i);
-			counts[selected[i]]++;
-		}
-		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16 * pf4.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16 * pf4.getFitness(i) / totalFitness);
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
-		}
+		validateExpectedCountsSUS(selection2, new PopFitVectorDouble(16), x -> x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorInteger(16), x -> x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorDoubleSimple(16), x -> x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorIntegerSimple(16), x -> x);
 	}
 	
 	@Test
@@ -231,6 +139,74 @@ public class SelectionOperatorTests {
 		validateHigherFitnessSelectedMoreOften_Double(selection);
 		validateHigherFitnessSelectedMoreOften_Integer(selection);
 		
+		validateBiasedComputeRunningSum(selection);
+		validateBiasedComputeRunningSum(selection2);
+		
+		validateExpectedCountsSUS(selection, new PopFitVectorDouble(16), x -> x*x);
+		validateExpectedCountsSUS(selection, new PopFitVectorInteger(16), x -> x*x);
+		validateExpectedCountsSUS(selection, new PopFitVectorDoubleSimple(16), x -> x*x);
+		validateExpectedCountsSUS(selection, new PopFitVectorIntegerSimple(16), x -> x*x);
+		
+		validateExpectedCountsSUS(selection2, new PopFitVectorDouble(16), x -> x*x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorInteger(16), x -> x*x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorDoubleSimple(16), x -> x*x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorIntegerSimple(16), x -> x*x);
+	}
+	
+	private void validateExpectedCountsSUS(StochasticUniversalSampling selection, PopulationFitnessVector.Double pf, FitnessBiasFunction bias) {
+		int[] selected = new int[pf.size()];
+		selection.select(pf, selected);
+		int[] expectedMin = new int[pf.size()];
+		int[] expectedMax = new int[pf.size()];
+		int[] counts = new int[pf.size()];
+		double totalFitness = 0;
+		for (int i = 0; i < pf.size(); i++) {
+			totalFitness = totalFitness + bias.bias(pf.getFitness(i));
+			counts[selected[i]]++;
+		}
+		for (int i = 0; i < pf.size(); i++) {
+			expectedMin[i] = (int)(pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
+			expectedMax[i] = (int)Math.ceil(pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
+			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
+			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+		}
+	}
+	
+	private void validateExpectedCountsSUS(StochasticUniversalSampling selection, PopulationFitnessVector.Integer pf, FitnessBiasFunction bias) {
+		int[] selected = new int[pf.size()];
+		selection.select(pf, selected);
+		int[] expectedMin = new int[pf.size()];
+		int[] expectedMax = new int[pf.size()];
+		int[] counts = new int[pf.size()];
+		double totalFitness = 0;
+		for (int i = 0; i < pf.size(); i++) {
+			totalFitness = totalFitness + bias.bias(pf.getFitness(i));
+			counts[selected[i]]++;
+		}
+		for (int i = 0; i < pf.size(); i++) {
+			expectedMin[i] = (int)(pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
+			expectedMax[i] = (int)Math.ceil(pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
+			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
+			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+		}
+	}
+	
+	private void validateComputeRunningSum(AbstractFitnessWeightedSelection selection) {
+		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
+		double[] expected = {1, 3, 6, 10, 15};
+		assertEquals(5, weights.length);
+		for (int i = 0; i < weights.length; i++) {
+			assertEquals(expected[i], weights[i], 1E-10);
+		}
+		
+		weights = selection.computeWeightRunningSum(new PopFitVectorIntegerSimple(5));
+		assertEquals(5, weights.length);
+		for (int i = 0; i < weights.length; i++) {
+			assertEquals(expected[i], weights[i], 1E-10);
+		}
+	}
+	
+	private void validateBiasedComputeRunningSum(AbstractFitnessWeightedSelection selection) {
 		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
 		double[] expected = {1, 5, 14, 30, 55};
 		assertEquals(5, weights.length);
@@ -242,78 +218,6 @@ public class SelectionOperatorTests {
 		assertEquals(5, weights.length);
 		for (int i = 0; i < weights.length; i++) {
 			assertEquals(expected[i], weights[i], 1E-10);
-		}
-		
-		PopFitVectorDouble pf = new PopFitVectorDouble(16);
-		int[] selected = new int[16];
-		selection.select(pf, selected);
-		int[] expectedMin = new int[16];
-		int[] expectedMax = new int[16];
-		int[] counts = new int[16];
-		double totalFitness = 0;
-		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf.getFitness(i) * pf.getFitness(i);
-			counts[selected[i]]++;
-		}
-		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16.0 * pf.getFitness(i) * pf.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16.0 * pf.getFitness(i) * pf.getFitness(i) / totalFitness);
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
-		}
-		
-		PopFitVectorInteger pf2 = new PopFitVectorInteger(16);
-		selected = new int[16];
-		selection.select(pf2, selected);
-		expectedMin = new int[16];
-		expectedMax = new int[16];
-		counts = new int[16];
-		totalFitness = 0;
-		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf2.getFitness(i) * pf2.getFitness(i);
-			counts[selected[i]]++;
-		}
-		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16.0 * pf2.getFitness(i) * pf2.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16.0 * pf2.getFitness(i) * pf2.getFitness(i) / totalFitness);
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
-		}
-		
-		PopFitVectorIntegerSimple pf3 = new PopFitVectorIntegerSimple(16);
-		selected = new int[16];
-		selection.select(pf3, selected);
-		expectedMin = new int[16];
-		expectedMax = new int[16];
-		counts = new int[16];
-		totalFitness = 0;
-		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf3.getFitness(i) * pf3.getFitness(i);
-			counts[selected[i]]++;
-		}
-		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16.0 * pf3.getFitness(i) * pf3.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16.0 * pf3.getFitness(i) * pf3.getFitness(i) / totalFitness);
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
-		}
-		
-		PopFitVectorDoubleSimple pf4 = new PopFitVectorDoubleSimple(16);
-		selected = new int[16];
-		selection.select(pf4, selected);
-		expectedMin = new int[16];
-		expectedMax = new int[16];
-		counts = new int[16];
-		totalFitness = 0;
-		for (int i = 0; i < 16; i++) {
-			totalFitness = totalFitness + pf4.getFitness(i) * pf4.getFitness(i);
-			counts[selected[i]]++;
-		}
-		for (int i = 0; i < 16; i++) {
-			expectedMin[i] = (int)(16.0 * pf4.getFitness(i) * pf4.getFitness(i) / totalFitness);
-			expectedMax[i] = (int)Math.ceil(16.0 * pf4.getFitness(i) * pf4.getFitness(i) / totalFitness);
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
 		}
 	}
 	

@@ -22,7 +22,7 @@ package org.cicirello.search.evo;
 
 /**
  * This functional interface is used to provide a bias function to the 
- * {@link BiasedFitnessProportionateSelection} operator as well as the
+ * {@link BiasedFitnessProportionalSelection} operator as well as the
  * {@link BiasedStochasticUniversalSampling} operator.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 

@@ -25,23 +25,23 @@ import org.cicirello.math.rand.RandomIndexer;
 
 /**
  * <p>This class implements Stochastic Universal Sampling (SUS), a selection operator 
- * for evolutionary algorithms. In SUS, similarly to fitness proportionate selection,
+ * for evolutionary algorithms. In SUS, similarly to fitness proportional selection,
  * a member of the population is chosen randomly with probability proportional to its
  * fitness relative to the total fitness of the population. For example, if the 
  * fitness of population member i is f<sub>i</sub>, then the probability of selecting
  * population member i is: f<sub>i</sub> / &sum;<sub>j</sub> f<sub>j</sub>, for j &isin;
  * { 1, 2, ..., N }, where N is the population size.</p> 
  *
- * <p>However, whereas fitness proportionate selection is like spinning a carnival wheel
+ * <p>However, whereas fitness proportional selection is like spinning a carnival wheel
  * with a single pointer M times to select M members of the population, SUS instead is
  * like spinning a carnival wheel that has M equidistant pointers a single time to select
  * all M simultaneously. One statistical consequence of this is that it reduces the variance
- * of the selected copies of population members as compared to fitness proportionate selection.
+ * of the selected copies of population members as compared to fitness proportional selection.
  * Another consequence is that SUS is typically much faster since only a single random floating
- * point number is needed per generation, compared to M random floating-point numbers for fitness proportionate
+ * point number is needed per generation, compared to M random floating-point numbers for fitness proportional
  * selection. However, SUS then must randomize the ordering of the population to avoid all of the
  * copies of a single population member from being in sequence so that parent assignment is random,
- * whereas fitness proportionate selection has this property built in.</p>
+ * whereas fitness proportional selection has this property built in.</p>
  *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M), which includes the need to generate only a single random double, and O(M) ints.</p>
@@ -49,7 +49,7 @@ import org.cicirello.math.rand.RandomIndexer;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class StochasticUniversalSampling extends AbstractFitnessWeightedSelection {
+public class StochasticUniversalSampling extends AbstractFitnessProportionalSelection {
 	
 	/**
 	 * Construct an SUS operator.

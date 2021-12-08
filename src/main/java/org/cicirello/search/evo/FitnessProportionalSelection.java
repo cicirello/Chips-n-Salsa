@@ -23,8 +23,8 @@ package org.cicirello.search.evo;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>This class implements fitness proportionate selection, sometimes referred to as weighted 
- * roulette wheel, for evolutionary algorithms. In fitness proportionate selection,
+ * <p>This class implements fitness proportional selection, sometimes referred to as weighted 
+ * roulette wheel, for evolutionary algorithms. In fitness proportional selection,
  * a member of the population is chosen randomly with probability proportional to its
  * fitness relative to the total fitness of the population. For example, if the 
  * fitness of population member i is f<sub>i</sub>, then the probability of selecting
@@ -39,15 +39,15 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class FitnessProportionateSelection extends AbstractFitnessWeightedSelection {
+public class FitnessProportionalSelection extends AbstractFitnessProportionalSelection {
 	
 	/**
-	 * Construct a fitness proportionate selection operator.
+	 * Construct a fitness proportional selection operator.
 	 */
-	public FitnessProportionateSelection() {}
+	public FitnessProportionalSelection() {}
 	
 	@Override
-	public FitnessProportionateSelection split() {
+	public FitnessProportionalSelection split() {
 		// Since this selection operator maintains no mutable state, it is
 		// safe for multiple threads to share a single instance, so just return this.
 		return this;

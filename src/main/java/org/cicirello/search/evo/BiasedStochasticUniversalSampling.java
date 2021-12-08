@@ -33,18 +33,18 @@ package org.cicirello.search.evo;
  * <p>As an example bias function, consider: bias(x) = x<sup>2</sup>, which would square each fitness
  * value x.</p>
  *
- * <p>SUS and this Biased SUS are similar to fitness proportionate selection and a biased variation of
- * fitness proportionate selection. However, whereas fitness 
- * proportionate selection is like spinning a carnival wheel
+ * <p>SUS and this Biased SUS are similar to fitness proportional selection and a biased variation of
+ * fitness proportional selection. However, whereas fitness 
+ * proportional selection is like spinning a carnival wheel
  * with a single pointer M times to select M members of the population, SUS instead is
  * like spinning a carnival wheel that has M equidistant pointers a single time to select
  * all M simultaneously. One statistical consequence of this is that it reduces the variance
- * of the selected copies of population members as compared to fitness proportionate selection (and its biased variation).
+ * of the selected copies of population members as compared to fitness proportional selection (and its biased variation).
  * Another consequence is that SUS and Biased SUS are typically much faster since only a single random floating
- * point number is needed per generation, compared to M random floating-point numbers for fitness proportionate
+ * point number is needed per generation, compared to M random floating-point numbers for fitness proportional
  * selection. However, SUS and Biased SUS then must randomize the ordering of the population to avoid all of the
  * copies of a single population member from being in sequence so that parent assignment is random,
- * whereas fitness proportionate selection has this property built in.</p>
+ * whereas fitness proportional selection has this property built in.</p>
  *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M), which includes the need to generate only a single random double, and O(M) ints. This assumes

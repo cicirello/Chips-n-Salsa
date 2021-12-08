@@ -28,13 +28,13 @@ package org.cicirello.search.evo;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-abstract class AbstractFitnessWeightedSelection implements SelectionOperator {
+abstract class AbstractFitnessProportionalSelection implements SelectionOperator {
 	
 	/**
 	 * Construct a selection operator, which weights population members
 	 * by their fitness or a function of their fitness.
 	 */
-	public AbstractFitnessWeightedSelection() {}
+	public AbstractFitnessProportionalSelection() {}
 	
 	@Override
 	public final void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {

@@ -70,11 +70,11 @@ public class SelectionOperatorTests {
 	}
 	
 	@Test
-	public void testFitnessProportionateSelection() {
-		FitnessProportionateSelection selection = new FitnessProportionateSelection();
+	public void testFitnessProportionalSelection() {
+		FitnessProportionalSelection selection = new FitnessProportionalSelection();
 		validateIndexes_Double(selection);
 		validateIndexes_Integer(selection);
-		FitnessProportionateSelection selection2 = selection.split();
+		FitnessProportionalSelection selection2 = selection.split();
 		validateIndexes_Double(selection2);
 		validateIndexes_Integer(selection2);
 		
@@ -86,11 +86,11 @@ public class SelectionOperatorTests {
 	}
 	
 	@Test
-	public void testBiasedFitnessProportionateSelection() {
-		BiasedFitnessProportionateSelection selection = new BiasedFitnessProportionateSelection(x -> x*x);
+	public void testBiasedFitnessProportionalSelection() {
+		BiasedFitnessProportionalSelection selection = new BiasedFitnessProportionalSelection(x -> x*x);
 		validateIndexes_Double(selection);
 		validateIndexes_Integer(selection);
-		BiasedFitnessProportionateSelection selection2 = selection.split();
+		BiasedFitnessProportionalSelection selection2 = selection.split();
 		validateIndexes_Double(selection2);
 		validateIndexes_Integer(selection2);
 		
@@ -191,7 +191,7 @@ public class SelectionOperatorTests {
 		}
 	}
 	
-	private void validateComputeRunningSum(AbstractFitnessWeightedSelection selection) {
+	private void validateComputeRunningSum(AbstractFitnessProportionalSelection selection) {
 		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
 		double[] expected = {1, 3, 6, 10, 15};
 		assertEquals(5, weights.length);
@@ -206,7 +206,7 @@ public class SelectionOperatorTests {
 		}
 	}
 	
-	private void validateBiasedComputeRunningSum(AbstractFitnessWeightedSelection selection) {
+	private void validateBiasedComputeRunningSum(AbstractFitnessProportionalSelection selection) {
 		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
 		double[] expected = {1, 5, 14, 30, 55};
 		assertEquals(5, weights.length);

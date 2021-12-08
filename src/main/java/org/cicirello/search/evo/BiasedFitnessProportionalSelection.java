@@ -21,8 +21,8 @@
 package org.cicirello.search.evo;
 
 /**
- * <p>This class implements a variation of fitness proportionate selection that applies
- * a bias function to transform the fitness values. In this biased fitness proportionate selection,
+ * <p>This class implements a variation of fitness proportional selection that applies
+ * a bias function to transform the fitness values. In this biased fitness proportional selection,
  * a member of the population is chosen randomly with probability proportional to a bias function of its
  * fitness relative to the total of such biased fitness of the population. For example, if the 
  * fitness of population member i is f<sub>i</sub>, then the probability of selecting
@@ -37,26 +37,26 @@ package org.cicirello.search.evo;
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M lg N), assuming the bias function has a constant runtime.</p>
  *
- * <p>For the more common standard version of fitness proportionate selection, see the
- * {@link FitnessProportionateSelection} class.</p>
+ * <p>For the more common standard version of fitness proportional selection, see the
+ * {@link FitnessProportionalSelection} class.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class BiasedFitnessProportionateSelection extends FitnessProportionateSelection {
+public final class BiasedFitnessProportionalSelection extends FitnessProportionalSelection {
 	
 	private final FitnessBiasFunction bias;
 	
 	/**
-	 * Construct a biased fitness proportionate selection operator.
+	 * Construct a biased fitness proportional selection operator.
 	 * @param bias A bias function
 	 */
-	public BiasedFitnessProportionateSelection(FitnessBiasFunction bias) {
+	public BiasedFitnessProportionalSelection(FitnessBiasFunction bias) {
 		this.bias = bias;
 	}
 	
 	@Override
-	public BiasedFitnessProportionateSelection split() {
+	public BiasedFitnessProportionalSelection split() {
 		// The FitnessBiasFunction interface's contract is that implementations
 		// must be threadsafe and thread efficient, so assume that the only state,
 		// the bias function meets that contract.

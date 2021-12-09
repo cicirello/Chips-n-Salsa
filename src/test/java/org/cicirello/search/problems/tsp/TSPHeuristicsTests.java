@@ -90,6 +90,153 @@ public class TSPHeuristicsTests {
 		}
 	}
 	
+	@Test
+	public void testNearestCityPair_InitialConditions() {
+		TSP.Double tsp = new TSP.Double(5, 10.0, 42); 
+		NearestCityPairHeuristic h = new NearestCityPairHeuristic(tsp);
+		assertTrue(tsp == h.getProblem());
+		assertEquals(5, h.completeLength());
+		Partial<Permutation> partial = h.createPartial(5);
+		assertFalse(partial.isComplete());
+		assertEquals(5, partial.numExtensions());
+		assertEquals(0, partial.size());
+	}
+	
+	@Test
+	public void testNearestCityPair_IncrementalEvaluation_and_HeuristicValues() {
+		double[][] weights = {
+			{0, 1, 2, 3, 4}, 
+			{1, 0, 5, 6, 7}, 
+			{2, 5, 0, 8, 9}, 
+			{3, 6, 8, 0, 10}, 
+			{4, 7, 9, 10, 0}
+		};
+		double[] expectedDistance = {1, 1, 2, 3, 4};
+		int[] expectedNearest = {1, 0, 0, 0, 0};
+		double[] expectedH = {1.0/2.0, 1.0/2.0, 1.0/3.0, 1.0/4.0, 1.0/5.0};
+		TSPSubClassExplicitWeights tsp = new TSPSubClassExplicitWeights(weights); 
+		NearestCityPairHeuristic h = new NearestCityPairHeuristic(tsp);
+		Partial<Permutation> partial = h.createPartial(5);
+		NearestCityPairHeuristic.NearestCityPairHeuristicIncrementalEvaluation inc = 
+			(NearestCityPairHeuristic.NearestCityPairHeuristicIncrementalEvaluation)h.createIncrementalEvaluation();
+		for (int i = 0; i < 5; i++) {
+			assertEquals(expectedNearest[i], inc.nearestRemainingCity[i]);
+			assertEquals(expectedDistance[i], inc.distanceToNearestCity[i], 1E-10);
+			assertEquals(expectedH[i], h.h(partial, i, inc), 1E-10);
+		}
+		assertEquals(5, inc.numRemaining());
+		boolean[] skip = new boolean[5];
+		
+		int element = 2;
+		inc.extend(partial, element);
+		skip[element] = true;
+		assertEquals(4, inc.numRemaining());
+		for (int i = 0; i < partial.numExtensions(); i++) {
+			if (partial.getExtension(i)==element) {
+				partial.extend(i);
+				break;
+			}
+		}
+		expectedH[0] = 1.0 / 4.0;
+		expectedH[1] = 1.0 / 7.0;
+		expectedH[3] = 1.0 / 12.0;
+		expectedH[4] = 1.0 / 14.0;
+		for (int i = 0; i < 5; i++) {
+			if (!skip[i]) {
+				assertEquals(expectedNearest[i], inc.nearestRemainingCity[i]);
+				assertEquals(expectedDistance[i], inc.distanceToNearestCity[i], 1E-10);
+				assertEquals(expectedH[i], h.h(partial, i, inc), 1E-10);
+			}
+		}
+		
+		element = 0;
+		inc.extend(partial, element);
+		skip[element] = true;
+		assertEquals(3, inc.numRemaining());
+		for (int i = 0; i < partial.numExtensions(); i++) {
+			if (partial.getExtension(i)==element) {
+				partial.extend(i);
+				break;
+			}
+		}
+		expectedDistance[1] = 6;
+		expectedNearest[1] = 3;
+		expectedDistance[3] = 6;
+		expectedNearest[3] = 1;
+		expectedDistance[4] = 7;
+		expectedNearest[4] = 1;
+		expectedH[1] = 1.0 / 8.0;
+		expectedH[3] = 1.0 / 10.0;
+		expectedH[4] = 1.0 / 12.0;
+		for (int i = 0; i < 5; i++) {
+			if (!skip[i]) {
+				assertEquals(expectedNearest[i], inc.nearestRemainingCity[i]);
+				assertEquals("i:"+i, expectedDistance[i], inc.distanceToNearestCity[i], 1E-10);
+				assertEquals(expectedH[i], h.h(partial, i, inc), 1E-10);
+			}
+		}
+		
+		element = 3;
+		inc.extend(partial, element);
+		skip[element] = true;
+		assertEquals(2, inc.numRemaining());
+		for (int i = 0; i < partial.numExtensions(); i++) {
+			if (partial.getExtension(i)==element) {
+				partial.extend(i);
+				break;
+			}
+		}
+		expectedDistance[1] = 7;
+		expectedNearest[1] = 4;
+		expectedDistance[4] = 7;
+		expectedNearest[4] = 1;
+		expectedH[1] = 1.0 / 14.0;
+		expectedH[4] = 1.0 / 18.0;
+		for (int i = 0; i < 5; i++) {
+			if (!skip[i]) {
+				assertEquals(expectedNearest[i], inc.nearestRemainingCity[i]);
+				assertEquals("i:"+i, expectedDistance[i], inc.distanceToNearestCity[i], 1E-10);
+				assertEquals(expectedH[i], h.h(partial, i, inc), 1E-10);
+			}
+		}
+		
+		element = 1;
+		inc.extend(partial, element);
+		skip[element] = true;
+		assertEquals(1, inc.numRemaining());
+		for (int i = 0; i < partial.numExtensions(); i++) {
+			if (partial.getExtension(i)==element) {
+				partial.extend(i);
+				break;
+			}
+		}
+		expectedDistance[4] = 0;
+		expectedH[4] = 1.0 / 8.0;
+		for (int i = 0; i < 5; i++) {
+			if (!skip[i]) {
+				assertEquals("i:"+i, expectedDistance[i], inc.distanceToNearestCity[i], 1E-10);
+				assertEquals(expectedH[i], h.h(partial, i, inc), 1E-10);
+			}
+		}
+		
+		
+		// try to extend by element not left
+		element = 0;
+		inc.extend(partial, element);
+		assertEquals(1, inc.numRemaining());
+		for (int i = 0; i < 5; i++) {
+			if (!skip[i]) {
+				assertEquals("i:"+i, expectedDistance[i], inc.distanceToNearestCity[i], 1E-10);
+			}
+		}
+		
+		// extend by last element
+		element = 4;
+		inc.extend(partial, element);
+		skip[element] = true;
+		assertEquals(0, inc.numRemaining());
+	}
+	
 	private static class TSPSubClassExplicitWeights extends TSP implements OptimizationProblem<Permutation> {
 			
 		private final double[][] edgeWeights;

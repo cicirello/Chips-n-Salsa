@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       enables transforming the fitness values by a bias function
 * Constructive heuristics for the TSP for use by stochastic sampling algorithms, including:
   * Nearest city heuristic
+  * Nearest city pair heuristic, which prefers the first city of the nearest 2-city combination
 * New methods added to ProgressTracker class:
   * `update(int, T, boolean)`
   * `update(double, T, boolean)`

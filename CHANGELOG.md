@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-12-08
+## [Unreleased] - 2021-12-09
 
 ### Added
 * Generational evolutionary algorithms, including the following features and functionality:
@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       enables transforming the fitness values by a bias function
     * BiasedStochasticUniversalSampling, which is stochastic universal sampling but which
       enables transforming the fitness values by a bias function
+* Constructive heuristics for the TSP for use by stochastic sampling algorithms, including:
+  * Nearest city heuristic
 * New methods added to ProgressTracker class:
   * `update(int, T, boolean)`
   * `update(double, T, boolean)`

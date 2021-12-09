@@ -24,6 +24,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.SplittableRandom;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.SolutionCostPair;
 
 /**
  * JUnit tests for the TSP class and its nested subclasses.
@@ -45,6 +46,18 @@ public class TSPTests {
 				);
 				LENGTH = n;
 				WIDTH = w;
+			}
+			
+			@Override
+			public double edgeCostForHeuristics(int i, int j) {
+				// Tests don't use this.
+				return -1;
+			}
+			
+			@Override
+			public SolutionCostPair<Permutation> getSolutionCostPair(Permutation p) {
+				// Tests don't use this.
+				return new SolutionCostPair<Permutation>(p, -1, false);
 			}
 			
 			public void validateDistanceFunction() {
@@ -111,6 +124,18 @@ public class TSPTests {
 				);
 				LENGTH = n;
 				WIDTH = w;
+			}
+			
+			@Override
+			public double edgeCostForHeuristics(int i, int j) {
+				// Tests don't use this.
+				return -1;
+			}
+			
+			@Override
+			public SolutionCostPair<Permutation> getSolutionCostPair(Permutation p) {
+				// Tests don't use this.
+				return new SolutionCostPair<Permutation>(p, -1, false);
 			}
 			
 			public void validateDistanceFunction() {
@@ -192,6 +217,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				double expected = Math.sqrt((tsp.x[i]-tsp.x[j])*(tsp.x[i]-tsp.x[j]) + (tsp.y[i]-tsp.y[j])*(tsp.y[i]-tsp.y[j]));
 				assertEquals(expected, tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
@@ -230,6 +256,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				double expected = Math.sqrt((tsp.x[i]-tsp.x[j])*(tsp.x[i]-tsp.x[j]) + (tsp.y[i]-tsp.y[j])*(tsp.y[i]-tsp.y[j]));
 				assertEquals(expected, tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
@@ -272,6 +299,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				double expected = Math.abs(tsp.x[i]-tsp.x[j]) + Math.abs(tsp.y[i]-tsp.y[j]);
 				assertEquals(expected, tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
@@ -311,6 +339,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				double expected = Math.abs(tsp.x[i]-tsp.x[j]) + Math.abs(tsp.y[i]-tsp.y[j]);
 				assertEquals(expected, tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
@@ -346,6 +375,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				int expected = (int)Math.round(Math.sqrt((tsp.x[i]-tsp.x[j])*(tsp.x[i]-tsp.x[j]) + (tsp.y[i]-tsp.y[j])*(tsp.y[i]-tsp.y[j])));
 				assertEquals(expected, tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm));
@@ -384,6 +414,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				int expected = (int)Math.round(Math.sqrt((tsp.x[i]-tsp.x[j])*(tsp.x[i]-tsp.x[j]) + (tsp.y[i]-tsp.y[j])*(tsp.y[i]-tsp.y[j])));
 				assertEquals(expected, tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm));
@@ -426,6 +457,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				int expected = (int)Math.round(Math.abs(tsp.x[i]-tsp.x[j]) + Math.abs(tsp.y[i]-tsp.y[j]));
 				assertEquals(expected, tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm));
@@ -465,6 +497,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				int expected = (int)Math.round(Math.abs(tsp.x[i]-tsp.x[j]) + Math.abs(tsp.y[i]-tsp.y[j]));
 				assertEquals(expected, tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm));
@@ -500,6 +533,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				double expected = Math.sqrt((tsp.x[i]-tsp.x[j])*(tsp.x[i]-tsp.x[j]) + (tsp.y[i]-tsp.y[j])*(tsp.y[i]-tsp.y[j]));
 				assertEquals(expected, tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
@@ -538,6 +572,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				double expected = Math.sqrt((tsp.x[i]-tsp.x[j])*(tsp.x[i]-tsp.x[j]) + (tsp.y[i]-tsp.y[j])*(tsp.y[i]-tsp.y[j]));
 				assertEquals(expected, tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
@@ -580,6 +615,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				double expected = Math.abs(tsp.x[i]-tsp.x[j]) + Math.abs(tsp.y[i]-tsp.y[j]);
 				assertEquals(expected, tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
@@ -619,6 +655,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				double expected = Math.abs(tsp.x[i]-tsp.x[j]) + Math.abs(tsp.y[i]-tsp.y[j]);
 				assertEquals(expected, tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
@@ -654,6 +691,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				int expected = (int)Math.round(Math.sqrt((tsp.x[i]-tsp.x[j])*(tsp.x[i]-tsp.x[j]) + (tsp.y[i]-tsp.y[j])*(tsp.y[i]-tsp.y[j])));
 				assertEquals(expected, tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm));
@@ -692,6 +730,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				int expected = (int)Math.round(Math.sqrt((tsp.x[i]-tsp.x[j])*(tsp.x[i]-tsp.x[j]) + (tsp.y[i]-tsp.y[j])*(tsp.y[i]-tsp.y[j])));
 				assertEquals(expected, tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm));
@@ -734,6 +773,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				int expected = (int)Math.round(Math.abs(tsp.x[i]-tsp.x[j]) + Math.abs(tsp.y[i]-tsp.y[j]));
 				assertEquals(expected, tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm));
@@ -773,6 +813,7 @@ public class TSPTests {
 			for (int j = 0; j < N; j++) {
 				int expected = (int)Math.round(Math.abs(tsp.x[i]-tsp.x[j]) + Math.abs(tsp.y[i]-tsp.y[j]));
 				assertEquals(expected, tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected, tsp.edgeCostForHeuristics(i,j), 1E-10);
 			}
 		}
 		assertEquals(expectedCost, tsp.cost(perm));

@@ -21,6 +21,7 @@
 package org.cicirello.search.problems.tsp;
 
 import java.util.SplittableRandom;
+import org.cicirello.search.problems.Problem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.permutations.Permutation;
@@ -43,7 +44,7 @@ import org.cicirello.permutations.Permutation;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public abstract class TSP {
+public abstract class TSP implements Problem<Permutation> {
 	
 	/* These are package-private to provide access to the static inner classes. */
 	final double[] x;
@@ -108,6 +109,11 @@ public abstract class TSP {
 	public final double getY(int i) {
 		return y[i];
 	}
+	
+	/*
+	 * package private to support implementing heuristics in same package.
+	 */
+	abstract double edgeCostForHeuristics(int i, int j);
 		
 	/**
 	 * <p>Cost function for the Traveling Salesperson Problem (TSP), where edge costs 
@@ -196,6 +202,14 @@ public abstract class TSP {
 		@Override
 		public double value(Permutation candidate) {
 			return cost(candidate);
+		}
+		
+		/*
+		 * package private to support implementing heuristics in same package.
+		 */
+		@Override
+		final double edgeCostForHeuristics(int i, int j) {
+			return d.distance(x[i], y[i], x[j], y[j]);
 		}
 	}
 	
@@ -286,6 +300,16 @@ public abstract class TSP {
 		@Override
 		public int value(Permutation candidate) {
 			return cost(candidate);
+		}
+		
+		/*
+		 * package private to support implementing heuristics in same package.
+		 */
+		@Override
+		final double edgeCostForHeuristics(int i, int j) {
+			// Although return type is double, must return the int edge cost version for this class.
+			// This method only used by heuristics.
+			return d.distanceAsInt(x[i], y[i], x[j], y[j]);
 		}
 	}
 	
@@ -389,6 +413,14 @@ public abstract class TSP {
 			}
 			return w;
 		}
+		
+		/*
+		 * package private to support implementing heuristics in same package.
+		 */
+		@Override
+		final double edgeCostForHeuristics(int i, int j) {
+			return weights[i][j];
+		}
 	}
 	
 	/**
@@ -490,6 +522,14 @@ public abstract class TSP {
 				}
 			}
 			return w;
+		}
+		
+		/*
+		 * package private to support implementing heuristics in same package.
+		 */
+		@Override
+		final double edgeCostForHeuristics(int i, int j) {
+			return weights[i][j];
 		}
 	}
 	

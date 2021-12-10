@@ -80,6 +80,7 @@ public class BoundMaxTests {
 					assertEquals(count, b.value(x));
 					assertEquals(n-count, b.cost(x));
 					assertEquals(0, b.value(null));
+					assertEquals(1, b.fitness(null));
 				}
 			}
 		}
@@ -89,7 +90,9 @@ public class BoundMaxTests {
 		int[] vShort = { 4, 3, 4, 4, 3, 4 };
 		IntegerVector x = new IntegerVector(vShort);
 		assertEquals(4, b.value(x));
+		assertEquals(5, b.fitness(x));
 		assertEquals(3, b.cost(x));	
+		assertTrue(b == b.getProblem());
 	}
 	
 	@Test

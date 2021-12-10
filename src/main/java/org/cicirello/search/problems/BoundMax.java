@@ -22,6 +22,7 @@ package org.cicirello.search.problems;
 
 import org.cicirello.search.representations.IntegerVector;
 import org.cicirello.search.operators.integers.IntegerVectorInitializer;
+import org.cicirello.search.evo.FitnessFunction;
 
 /**
  * <p>The BoundMax class is an implementation of a generalization of
@@ -46,7 +47,9 @@ import org.cicirello.search.operators.integers.IntegerVectorInitializer;
  * <p>The {@link #value value} method simply counts the number
  * of components equal to B.  The problem is to maximize this count.  Thus, as 
  * a cost function, the {@link #cost cost} method counts the number
- * of components not equal to B, where the minimum cost is thus 0.</p>
+ * of components not equal to B, where the minimum cost is thus 0.
+ * The {@link #fitness} method returns 1 greater than the {@link #value value} method
+ * because the library requires fitness to be positive.</p>
  *
  * <p>The BoundMax class extends {@link IntegerVectorInitializer}
  * to ensure that metaheuristics solving an instance have access to a correct means
@@ -63,9 +66,8 @@ import org.cicirello.search.operators.integers.IntegerVectorInitializer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.12.2021
  */
-public final class BoundMax extends IntegerVectorInitializer implements IntegerCostOptimizationProblem<IntegerVector> {
+public final class BoundMax extends IntegerVectorInitializer implements IntegerCostOptimizationProblem<IntegerVector>, FitnessFunction.Integer<IntegerVector> {
 	
 	private final int b;
 	private final int n;
@@ -101,6 +103,16 @@ public final class BoundMax extends IntegerVectorInitializer implements IntegerC
 		return sum;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>Computes fitness as: 1 + value(candidate).</p>
+	 */
+	@Override
+	public int fitness(IntegerVector candidate) {
+		return value(candidate) + 1;
+	}
+	
 	@Override
 	public int minCost() {
 		return 0;
@@ -118,5 +130,10 @@ public final class BoundMax extends IntegerVectorInitializer implements IntegerC
 		}
 		BoundMax o = (BoundMax)other;
 		return b == o.b && n == o.n;
+	}
+	
+	@Override
+	public BoundMax getProblem() {
+		return this;
 	}
 }

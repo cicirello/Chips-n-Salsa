@@ -43,7 +43,9 @@ public class PorcupineTests {
 			v.not();
 			assertEquals(0, problem.cost(v));
 			assertEquals(10*n, problem.value(v));
+			assertEquals(10*n+16, problem.fitness(v));
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -60,7 +62,9 @@ public class PorcupineTests {
 			int penalty = n%2 == 1 ? -15 : 0;
 			assertEquals(10*n-penalty, problem.cost(v));
 			assertEquals(penalty, problem.value(v));
+			assertEquals(penalty+16, problem.fitness(v));
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -73,6 +77,7 @@ public class PorcupineTests {
 			int penalty = (n-i)%2 == 1 ? -15 : 0;
 			assertEquals("i:"+i, 10*(n-i)-penalty, problem.cost(v));
 			assertEquals("i:"+i, 10*i+penalty, problem.value(v));
+			assertEquals("i:"+i, 10*i+penalty+16, problem.fitness(v));
 			bits[0] = bits[0] | (1 << i); 
 		}
 	}

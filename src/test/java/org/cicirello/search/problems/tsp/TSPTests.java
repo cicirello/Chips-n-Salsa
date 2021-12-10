@@ -55,6 +55,12 @@ public class TSPTests {
 			}
 			
 			@Override
+			public double costAsDouble(Permutation c) {
+				// tests don't use this
+				return 1;
+			}
+			
+			@Override
 			public SolutionCostPair<Permutation> getSolutionCostPair(Permutation p) {
 				// Tests don't use this.
 				return new SolutionCostPair<Permutation>(p, -1, false);
@@ -130,6 +136,12 @@ public class TSPTests {
 			public double edgeCostForHeuristics(int i, int j) {
 				// Tests don't use this.
 				return -1;
+			}
+			
+			@Override
+			public double costAsDouble(Permutation c) {
+				// tests don't use this
+				return 1;
 			}
 			
 			@Override

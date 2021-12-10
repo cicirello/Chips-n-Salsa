@@ -43,6 +43,7 @@ public class ProblemInterfacesTests {
 		};
 		assertFalse(defaults.isMinCost(10));
 		assertTrue(defaults.isMinCost(9));
+		assertEquals(25.0, defaults.costAsDouble(new Permutation(1)), 1E-10);
 	}
 	
 	@Test
@@ -58,6 +59,7 @@ public class ProblemInterfacesTests {
 		};
 		assertFalse(defaults.isMinCost(10));
 		assertTrue(defaults.isMinCost(9));
+		assertEquals(25.0, defaults.costAsDouble(new Permutation(1)), 1E-10);
 	}
 
 }

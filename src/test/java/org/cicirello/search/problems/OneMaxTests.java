@@ -44,7 +44,9 @@ public class OneMaxTests {
 			BitVector v = new BitVector(n);
 			assertEquals(n, problem.cost(v));
 			assertEquals(0, problem.value(v));
+			assertEquals(1, problem.fitness(v));
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -59,7 +61,9 @@ public class OneMaxTests {
 			v.not();
 			assertEquals(0, problem.cost(v));
 			assertEquals(n, problem.value(v));
+			assertEquals(n+1, problem.fitness(v));
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -72,6 +76,7 @@ public class OneMaxTests {
 				v.setBit(shift, 1);
 				assertEquals(n-1, problem.cost(v));
 				assertEquals(1, problem.value(v));
+				assertEquals(2, problem.fitness(v));
 			}
 		}
 	}
@@ -87,6 +92,7 @@ public class OneMaxTests {
 				v.not();
 				assertEquals(1, problem.cost(v));
 				assertEquals(n-1, problem.value(v));
+				assertEquals(n, problem.fitness(v));
 			}
 		}
 	}
@@ -101,9 +107,11 @@ public class OneMaxTests {
 			}
 			assertEquals(n/2, problem.cost(v));
 			assertEquals((n+1)/2, problem.value(v));
+			assertEquals((n+1)/2+1, problem.fitness(v));
 			v.shiftLeft(1);
 			assertEquals((n+1)/2, problem.cost(v));
 			assertEquals(n/2, problem.value(v));
+			assertEquals(n/2+1, problem.fitness(v));
 		}
 	}
 	
@@ -122,7 +130,9 @@ public class OneMaxTests {
 			BitVector v = new BitVector(n);
 			assertEquals(10*n, problem.cost(v));
 			assertEquals(0, problem.value(v));
+			assertEquals(1, problem.fitness(v));
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -137,7 +147,9 @@ public class OneMaxTests {
 			v.not();
 			assertEquals(0, problem.cost(v));
 			assertEquals(10*n, problem.value(v));
+			assertEquals(10*n+1, problem.fitness(v));
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -150,6 +162,7 @@ public class OneMaxTests {
 				v.setBit(shift, 1);
 				assertEquals(10*n-10, problem.cost(v));
 				assertEquals(10, problem.value(v));
+				assertEquals(11, problem.fitness(v));
 			}
 		}
 	}
@@ -165,6 +178,7 @@ public class OneMaxTests {
 				v.not();
 				assertEquals(10, problem.cost(v));
 				assertEquals(10*n-10, problem.value(v));
+				assertEquals(10*n-9, problem.fitness(v));
 			}
 		}
 	}
@@ -179,9 +193,11 @@ public class OneMaxTests {
 			}
 			assertEquals(10*(n/2), problem.cost(v));
 			assertEquals(10*((n+1)/2), problem.value(v));
+			assertEquals(10*((n+1)/2)+1, problem.fitness(v));
 			v.shiftLeft(1);
 			assertEquals(10*((n+1)/2), problem.cost(v));
 			assertEquals(10*(n/2), problem.value(v));
+			assertEquals(10*(n/2)+1, problem.fitness(v));
 		}
 	}
 	

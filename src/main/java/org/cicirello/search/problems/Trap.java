@@ -21,6 +21,7 @@
 package org.cicirello.search.problems;
 
 import org.cicirello.search.representations.BitVector;
+import org.cicirello.search.evo.FitnessFunction;
 
 /**
  * <p>This class implements Ackley's Trap function, which defines
@@ -55,6 +56,9 @@ import org.cicirello.search.representations.BitVector;
  * is still all 1-bits, which has a cost equal to 0.  The local optima
  * is still all 0-bits, which has a cost equal to 2*n.</p>
  *
+ * <p>The {@link #fitness} method returns 1 greater than the {@link #value value} method
+ * because the library requires fitness to be positive.</p>
+ *
  * <p>The Trap problem
  * was introduced by David Ackley in the following paper:<br>
  * David H. Ackley. An empirical study of bit vector function optimization. Genetic
@@ -63,9 +67,8 @@ import org.cicirello.search.representations.BitVector;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.24.2021
  */
-public final class Trap implements OptimizationProblem<BitVector> {
+public final class Trap implements OptimizationProblem<BitVector>, FitnessFunction.Double<BitVector> {
 	
 	/**
 	 * Constructs an instance of Ackley's Trap function.
@@ -110,8 +113,23 @@ public final class Trap implements OptimizationProblem<BitVector> {
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>Computes fitness as: 1 + value(candidate).</p>
+	 */
+	@Override
+	public double fitness(BitVector candidate) {
+		return value(candidate) + 1;
+	}
+	
 	@Override
 	public boolean isMinCost(double cost) {
 		return cost == 0;
+	}
+	
+	@Override
+	public Trap getProblem() {
+		return this;
 	}
 }

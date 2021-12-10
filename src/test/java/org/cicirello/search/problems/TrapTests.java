@@ -46,7 +46,9 @@ public class TrapTests {
 			double expectedValue = n <= 1 ? 0 : 8*n;
 			assertEquals(expectedCost, problem.cost(v), 0.0);
 			assertEquals(expectedValue, problem.value(v), 0.0);
+			assertEquals(expectedValue+1, problem.fitness(v), 0.0);
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 		
 	@Test
@@ -63,7 +65,9 @@ public class TrapTests {
 			v.not();
 			assertEquals(0.0, problem.cost(v), 0.0);
 			assertEquals(10.0*n, problem.value(v), 0.0);
+			assertEquals(10.0*n+1, problem.fitness(v), 0.0);
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -79,6 +83,7 @@ public class TrapTests {
 			}
 			assertEquals(10.0*n, problem.cost(v), 0.0);
 			assertEquals(0, problem.value(v), 0.0);
+			assertEquals(1.0, problem.fitness(v), 0.0);
 		}
 	}
 	
@@ -102,6 +107,7 @@ public class TrapTests {
 				expectedValue += 40;
 				assertEquals(expectedValue, problem.value(v1), EPSILON);
 				assertEquals(expectedCost, problem.cost(v1), EPSILON);
+				assertEquals(expectedValue+1, problem.fitness(v1), EPSILON);
 			}
 			expectedCost = 10*n;
 			expectedValue = 0;
@@ -112,6 +118,7 @@ public class TrapTests {
 				expectedValue += delta;
 				assertEquals(expectedValue, problem.value(v2), EPSILON);
 				assertEquals(expectedCost, problem.cost(v2), EPSILON);
+				assertEquals(expectedValue+1, problem.fitness(v2), EPSILON);
 			}
 		}
 	}

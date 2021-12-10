@@ -44,7 +44,9 @@ public class TwoMaxTests {
 			BitVector v = new BitVector(n);
 			assertEquals(2*n, problem.cost(v));
 			assertEquals(8*n, problem.value(v));
+			assertEquals(8*n+1, problem.fitness(v));
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -61,7 +63,9 @@ public class TwoMaxTests {
 			v.not();
 			assertEquals(0, problem.cost(v));
 			assertEquals(10*n, problem.value(v));
+			assertEquals(10*n+1, problem.fitness(v));
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -74,6 +78,7 @@ public class TwoMaxTests {
 		v.setBit(8, 1);
 		assertEquals(90, problem.cost(v));
 		assertEquals(0, problem.value(v));
+		assertEquals(1, problem.fitness(v));
 	}
 	
 	@Test
@@ -93,6 +98,7 @@ public class TwoMaxTests {
 			expectedCost -= 18;
 			assertEquals(expectedValue, problem.value(v1));
 			assertEquals(expectedCost, problem.cost(v1));
+			assertEquals(expectedValue+1, problem.fitness(v1));
 		}
 		expectedValue = 0;
 		expectedCost = 90;
@@ -102,6 +108,7 @@ public class TwoMaxTests {
 			expectedCost -= 18;
 			assertEquals(expectedValue, problem.value(v2));
 			assertEquals(expectedCost, problem.cost(v2));
+			assertEquals(expectedValue+1, problem.fitness(v2));
 		}
 	}
 	
@@ -120,7 +127,9 @@ public class TwoMaxTests {
 			BitVector v = new BitVector(n);
 			assertEquals(0, problem.cost(v));
 			assertEquals(10*n, problem.value(v));
+			assertEquals(10*n+1, problem.fitness(v));
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -137,7 +146,9 @@ public class TwoMaxTests {
 			v.not();
 			assertEquals(0, problem.cost(v));
 			assertEquals(10*n, problem.value(v));
+			assertEquals(10*n+1, problem.fitness(v));
 		}
+		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -150,6 +161,7 @@ public class TwoMaxTests {
 		v.setBit(3, 1);
 		assertEquals(80, problem.cost(v));
 		assertEquals(0, problem.value(v));
+		assertEquals(1, problem.fitness(v));
 	}
 	
 	@Test
@@ -169,6 +181,7 @@ public class TwoMaxTests {
 			expectedCost -= 20;
 			assertEquals(expectedValue, problem.value(v1));
 			assertEquals(expectedCost, problem.cost(v1));
+			assertEquals(expectedValue+1, problem.fitness(v1));
 		}
 		expectedValue = 0;
 		expectedCost = 80;
@@ -178,6 +191,7 @@ public class TwoMaxTests {
 			expectedCost -= 20;
 			assertEquals(expectedValue, problem.value(v2));
 			assertEquals(expectedCost, problem.cost(v2));
+			assertEquals(expectedValue+1, problem.fitness(v2));
 		}
 	}
 	

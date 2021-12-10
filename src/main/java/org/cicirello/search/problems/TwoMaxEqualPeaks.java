@@ -21,6 +21,7 @@
 package org.cicirello.search.problems;
 
 import org.cicirello.search.representations.BitVector;
+import org.cicirello.search.evo.FitnessFunction;
 
 /**
  * <p>This class implements a variation of the benchmarking problem known
@@ -46,11 +47,13 @@ import org.cicirello.search.representations.BitVector;
  * are still all 1-bits or all 0-bits, each of which has a cost 
  * equal to 0.</p>
  *
+ * <p>The {@link #fitness} method returns 1 greater than the {@link #value value} method
+ * because the library requires fitness to be positive.</p>
+ *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.18.2021
  */
-public final class TwoMaxEqualPeaks implements IntegerCostOptimizationProblem<BitVector> {
+public final class TwoMaxEqualPeaks implements IntegerCostOptimizationProblem<BitVector>, FitnessFunction.Integer<BitVector> {
 	
 	/**
 	 * Constructs a TwoMaxEqualPeaks object for use 
@@ -76,8 +79,23 @@ public final class TwoMaxEqualPeaks implements IntegerCostOptimizationProblem<Bi
 		return Math.abs(20*candidate.countOnes()-10*candidate.length());
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>Computes fitness as: 1 + value(candidate).</p>
+	 */
+	@Override
+	public int fitness(BitVector candidate) {
+		return value(candidate) + 1;
+	}
+	
 	@Override
 	public boolean isMinCost(int cost) {
 		return cost == 0;
+	}
+	
+	@Override
+	public TwoMaxEqualPeaks getProblem() {
+		return this;
 	}
 }

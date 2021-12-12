@@ -21,7 +21,6 @@
 package org.cicirello.search.problems;
 
 import org.cicirello.search.representations.BitVector;
-import org.cicirello.search.evo.FitnessFunction;
 
 /**
  * <p>The OneMaxAckley class is an implementation of 
@@ -47,9 +46,7 @@ import org.cicirello.search.evo.FitnessFunction;
  * of bits in the BitVector equal to 1, which is to be maximized. Thus, as 
  * a cost function, the {@link #cost cost} method returns 10 times the number
  * of bits not equal to 1, where the minimum cost is thus 0, corresponding
- * to the case of maximal number of 1-bits.
- * The {@link #fitness} method returns 1 greater than the {@link #value value} method
- * because the library requires fitness to be positive.</p>
+ * to the case of maximal number of 1-bits.</p>
  *
  * <p>The Chips-n-Salsa library also includes a version that is a simple
  * count of the bits without the multiplication by 10 in the {@link OneMax}
@@ -64,8 +61,9 @@ import org.cicirello.search.evo.FitnessFunction;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ * @version 3.20.2021
  */
-public final class OneMaxAckley implements IntegerCostOptimizationProblem<BitVector>, FitnessFunction.Integer<BitVector> {
+public final class OneMaxAckley implements IntegerCostOptimizationProblem<BitVector> {
 	
 	/**
 	 * Constructs a OneMaxAckley object for use in evaluating candidate solutions to the
@@ -88,23 +86,8 @@ public final class OneMaxAckley implements IntegerCostOptimizationProblem<BitVec
 		return 10*candidate.countOnes();
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>Computes fitness as: 1 + value(candidate).</p>
-	 */
-	@Override
-	public int fitness(BitVector candidate) {
-		return value(candidate) + 1;
-	}
-	
 	@Override
 	public boolean isMinCost(int cost) {
 		return cost == 0;
-	}
-	
-	@Override
-	public OneMaxAckley getProblem() {
-		return this;
 	}
 }

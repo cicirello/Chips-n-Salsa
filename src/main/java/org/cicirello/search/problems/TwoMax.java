@@ -21,7 +21,6 @@
 package org.cicirello.search.problems;
 
 import org.cicirello.search.representations.BitVector;
-import org.cicirello.search.evo.FitnessFunction;
 
 /**
  * <p>This class implements the benchmarking problem known
@@ -47,9 +46,6 @@ import org.cicirello.search.evo.FitnessFunction;
  * is still all 1-bits, which has a cost equal to 0.  The local optima
  * is still all 0-bits, which has a cost equal to 2*n.</p>
  *
- * <p>The {@link #fitness} method returns 1 greater than the {@link #value value} method
- * because the library requires fitness to be positive.</p>
- *
  * <p>The TwoMax problem
  * was introduced by David Ackley in the following paper:<br>
  * David H. Ackley. A connectionist algorithm for genetic search. Proceedings of
@@ -58,8 +54,9 @@ import org.cicirello.search.evo.FitnessFunction;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ * @version 3.18.2021
  */
-public final class TwoMax implements IntegerCostOptimizationProblem<BitVector>, FitnessFunction.Integer<BitVector> {
+public final class TwoMax implements IntegerCostOptimizationProblem<BitVector> {
 	
 	/**
 	 * Constructs a TwoMax object for use in evaluating candidate solutions to the
@@ -82,23 +79,8 @@ public final class TwoMax implements IntegerCostOptimizationProblem<BitVector>, 
 		return Math.abs(18*candidate.countOnes()-8*candidate.length());
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>Computes fitness as: 1 + value(candidate).</p>
-	 */
-	@Override
-	public int fitness(BitVector candidate) {
-		return value(candidate) + 1;
-	}
-	
 	@Override
 	public boolean isMinCost(int cost) {
 		return cost == 0;
-	}
-	
-	@Override
-	public TwoMax getProblem() {
-		return this;
 	}
 }

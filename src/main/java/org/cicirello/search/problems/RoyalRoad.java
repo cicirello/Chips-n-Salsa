@@ -21,7 +21,6 @@
 package org.cicirello.search.problems;
 
 import org.cicirello.search.representations.BitVector;
-import org.cicirello.search.evo.FitnessFunction;
 
 /**
  * <p>Implementation of the Royal Road problem of Mitchell, Forrest, and Holland,
@@ -73,15 +72,11 @@ import org.cicirello.search.evo.FitnessFunction;
  * a cost function. The {@link #cost cost} method implements the equivalent
  * as a minimization problem with minimum cost of 0.</p>
  *
- * <p>The {@link #fitness} method returns 1 greater than the {@link #value value} method
- * because the library requires fitness to be positive, and the original function has a 
- * minimum of 0.</p>
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  * @version 7.27.2021
  */
-public final class RoyalRoad implements IntegerCostOptimizationProblem<BitVector>, FitnessFunction.Integer<BitVector> {
+public final class RoyalRoad implements IntegerCostOptimizationProblem<BitVector> {
 	
 	private final int blockSize;
 	private final boolean steppingStones;
@@ -133,16 +128,6 @@ public final class RoyalRoad implements IntegerCostOptimizationProblem<BitVector
 		return total;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>Computes fitness as: 1 + value(candidate), which ensures that fitness is always positive.</p>
-	 */
-	@Override
-	public int fitness(BitVector candidate) {
-		return value(candidate) + 1;
-	}
-	
 	private int calculateLevelLargeBlock(BitVector candidate, int m) {
 		int total = 0;
 		BitVector.BitIterator iter = candidate.bitIterator(32);
@@ -183,10 +168,5 @@ public final class RoyalRoad implements IntegerCostOptimizationProblem<BitVector
 			count++;
 		}
 		return count;
-	}
-	
-	@Override
-	public RoyalRoad getProblem() {
-		return this;
 	}
 }

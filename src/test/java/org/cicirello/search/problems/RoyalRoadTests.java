@@ -44,9 +44,7 @@ public class RoyalRoadTests {
 				v.not();
 				assertEquals(2*n, problem.value(v));
 				assertEquals(0, problem.cost(v));
-				assertEquals(2*n+1, problem.fitness(v));
 			}
-			assertTrue(problem == problem.getProblem());
 		}		
 	}
 	
@@ -64,7 +62,6 @@ public class RoyalRoadTests {
 				BitVector v = new BitVector(n);
 				assertEquals(2*n, problem.cost(v));
 				assertEquals(0, problem.value(v));
-				assertEquals(1, problem.fitness(v));
 			}
 		}		
 	}
@@ -84,7 +81,6 @@ public class RoyalRoadTests {
 				v.not();
 				assertEquals("n,m="+n+","+m, numLevels(n,m)*n, problem.value(v));
 				assertEquals(0, problem.cost(v));
-				assertEquals(numLevels(n,m)*n+1, problem.fitness(v));
 			}
 		}		
 	}
@@ -103,7 +99,6 @@ public class RoyalRoadTests {
 				BitVector v = new BitVector(n);
 				assertEquals("n,m="+n+","+m, numLevels(n,m)*n, problem.cost(v));
 				assertEquals(0, problem.value(v));
-				assertEquals(1, problem.fitness(v));
 			}
 		}		
 	}
@@ -133,7 +128,6 @@ public class RoyalRoadTests {
 			expected -= m;
 			assertEquals(expected, problem.value(v));
 			assertEquals(2*n-expected, problem.cost(v));
-			assertEquals(expected+1, problem.fitness(v));
 		}
 	}
 	
@@ -150,22 +144,18 @@ public class RoyalRoadTests {
 			expected = expected - 32 - 16 - 8;
 			assertEquals(expected, problem.value(v));
 			assertEquals(4*n-expected, problem.cost(v));
-			assertEquals(expected+1, problem.fitness(v));
 			v.flip(i+8);
 			expected = expected - 8;
 			assertEquals(expected, problem.value(v));
 			assertEquals(4*n-expected, problem.cost(v));
-			assertEquals(expected+1, problem.fitness(v));
 			v.flip(i+16);
 			expected = expected - 16 - 8;
 			assertEquals(expected, problem.value(v));
 			assertEquals(4*n-expected, problem.cost(v));
-			assertEquals(expected+1, problem.fitness(v));
 			v.flip(i+24);
 			expected = expected - 8;
 			assertEquals(expected, problem.value(v));
 			assertEquals(4*n-expected, problem.cost(v));
-			assertEquals(expected+1, problem.fitness(v));
 		}
 		v = new BitVector(n);
 		v.not();
@@ -175,22 +165,18 @@ public class RoyalRoadTests {
 			expected = expected - 32 - 16 - 8;
 			assertEquals(expected, problem.value(v));
 			assertEquals(4*n-expected, problem.cost(v));
-			assertEquals(expected+1, problem.fitness(v));
 			v.flip(i+8);
 			expected = expected - 8;
 			assertEquals(expected, problem.value(v));
 			assertEquals(4*n-expected, problem.cost(v));
-			assertEquals(expected+1, problem.fitness(v));
 			v.flip(i+16);
 			expected = expected - 16 - 8;
 			assertEquals(expected, problem.value(v));
 			assertEquals(4*n-expected, problem.cost(v));
-			assertEquals(expected+1, problem.fitness(v));
 			v.flip(i+24);
 			expected = expected - 8;
 			assertEquals(expected, problem.value(v));
 			assertEquals(4*n-expected, problem.cost(v));
-			assertEquals(expected+1, problem.fitness(v));
 		}
 	}
 	

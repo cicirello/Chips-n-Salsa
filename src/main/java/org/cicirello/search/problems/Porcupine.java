@@ -21,7 +21,6 @@
 package org.cicirello.search.problems;
 
 import org.cicirello.search.representations.BitVector;
-import org.cicirello.search.evo.FitnessFunction;
 
 /**
  * <p>This class implements the Porcupine landscape (Ackley, 1985), which
@@ -39,10 +38,6 @@ import org.cicirello.search.evo.FitnessFunction;
  * cost(x) = 10*n - f(x).  The global optima
  * is still all 1-bits, which has a cost equal to 0.</p>
  *
- * <p>The {@link #fitness} method returns 16 greater than the {@link #value value} method
- * because the library requires fitness to be positive, and the original function has a 
- * minimum of -15.</p>
- *
  * <p>The Porcupine problem
  * was introduced by David Ackley in the following paper:<br>
  * David H. Ackley. A connectionist algorithm for genetic search. Proceedings of
@@ -51,8 +46,9 @@ import org.cicirello.search.evo.FitnessFunction;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ * @version 3.18.2021
  */
-public final class Porcupine implements IntegerCostOptimizationProblem<BitVector>, FitnessFunction.Integer<BitVector> {
+public final class Porcupine implements IntegerCostOptimizationProblem<BitVector> {
 	
 	/**
 	 * Constructs a Porcupine object for use in evaluating candidate solutions to the
@@ -85,23 +81,8 @@ public final class Porcupine implements IntegerCostOptimizationProblem<BitVector
 		return value;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>Computes fitness as: 16 + value(candidate), which ensures that fitness is always positive.</p>
-	 */
-	@Override
-	public int fitness(BitVector candidate) {
-		return value(candidate) + 16;
-	}
-	
 	@Override
 	public boolean isMinCost(int cost) {
 		return cost == 0;
-	}
-	
-	@Override
-	public Porcupine getProblem() {
-		return this;
 	}
 }

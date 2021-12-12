@@ -53,7 +53,7 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class CostToFitness<T extends Copyable<T>> implements FitnessFunction.Double<T> {
+public final class InverseCostFitnessFunction<T extends Copyable<T>> implements FitnessFunction.Double<T> {
 	
 	private final Problem<T> problem;
 	private final double c;
@@ -67,7 +67,7 @@ public final class CostToFitness<T extends Copyable<T>> implements FitnessFuncti
 	 *
 	 * @throws IllegalArgumentException if problem.minCost() is non-finite, such as infinite or nan.
 	 */
-	public CostToFitness(OptimizationProblem<T> problem) {
+	public InverseCostFitnessFunction(OptimizationProblem<T> problem) {
 		this(problem, 1.0);
 	}
 	
@@ -79,7 +79,7 @@ public final class CostToFitness<T extends Copyable<T>> implements FitnessFuncti
 	 *
 	 * @throws IllegalArgumentException if problem.minCost() equals Integer.MAX_VALUE or Integer.MIN_VALUE.
 	 */
-	public CostToFitness(IntegerCostOptimizationProblem<T> problem) {
+	public InverseCostFitnessFunction(IntegerCostOptimizationProblem<T> problem) {
 		this(problem, 1.0);
 	}
 	
@@ -93,7 +93,7 @@ public final class CostToFitness<T extends Copyable<T>> implements FitnessFuncti
 	 * @throws IllegalArgumentException if c is less than or equal to 0.0.
 	 * @throws IllegalArgumentException if problem.minCost() is non-finite, such as infinite or nan.
 	 */
-	public CostToFitness(OptimizationProblem<T> problem, double c) {
+	public InverseCostFitnessFunction(OptimizationProblem<T> problem, double c) {
 		if (c <= 0.0) {
 			throw new IllegalArgumentException("c must be positive");
 		}
@@ -115,7 +115,7 @@ public final class CostToFitness<T extends Copyable<T>> implements FitnessFuncti
 	 * @throws IllegalArgumentException if c is less than or equal to 0.0.
 	 * @throws IllegalArgumentException if problem.minCost() equals Integer.MAX_VALUE or Integer.MIN_VALUE.
 	 */
-	public CostToFitness(IntegerCostOptimizationProblem<T> problem, double c) {
+	public InverseCostFitnessFunction(IntegerCostOptimizationProblem<T> problem, double c) {
 		if (c <= 0.0) {
 			throw new IllegalArgumentException("c must be positive");
 		}

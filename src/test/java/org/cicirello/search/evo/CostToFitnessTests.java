@@ -27,28 +27,30 @@ import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.util.Copyable;
 
 /**
- * JUnit 4 test cases for CostToFitness.
+ * JUnit 4 test cases for cost to fitness transformations.
  */
 public class CostToFitnessTests {
+	
+	// InverseCostFitnessFunction test cases
 	
 	@Test
 	public void testDoubleToFitness1() {
 		TestProblemDouble problem = new TestProblemDouble(0);
-		CostToFitness<TestObject> fitness = new CostToFitness<TestObject>(problem);
+		InverseCostFitnessFunction<TestObject> fitness = new InverseCostFitnessFunction<TestObject>(problem);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(0)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(1)), 1E-10);
 		assertEquals(0.25, fitness.fitness(new TestObject(3)), 1E-10);
 		
 		problem = new TestProblemDouble(1);
-		fitness = new CostToFitness<TestObject>(problem);
+		fitness = new InverseCostFitnessFunction<TestObject>(problem);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(1)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(2)), 1E-10);
 		assertEquals(0.25, fitness.fitness(new TestObject(4)), 1E-10);
 		
 		problem = new TestProblemDouble(-1);
-		fitness = new CostToFitness<TestObject>(problem);
+		fitness = new InverseCostFitnessFunction<TestObject>(problem);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(-1)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(0)), 1E-10);
@@ -56,33 +58,33 @@ public class CostToFitnessTests {
 		
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new CostToFitness<TestObject>(new TestProblemDouble(0), 0.0)
+			() -> new InverseCostFitnessFunction<TestObject>(new TestProblemDouble(0), 0.0)
 		);
 		
 		thrown = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new CostToFitness<TestObject>(new TestProblemDouble(Double.POSITIVE_INFINITY))
+			() -> new InverseCostFitnessFunction<TestObject>(new TestProblemDouble(Double.POSITIVE_INFINITY))
 		);
 	}
 	
 	@Test
 	public void testDoubleToFitness2() {
 		TestProblemDouble problem = new TestProblemDouble(0);
-		CostToFitness<TestObject> fitness = new CostToFitness<TestObject>(problem, 2);
+		InverseCostFitnessFunction<TestObject> fitness = new InverseCostFitnessFunction<TestObject>(problem, 2);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(0)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(2)), 1E-10);
 		assertEquals(0.25, fitness.fitness(new TestObject(6)), 1E-10);
 		
 		problem = new TestProblemDouble(1);
-		fitness = new CostToFitness<TestObject>(problem, 2);
+		fitness = new InverseCostFitnessFunction<TestObject>(problem, 2);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(1)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(3)), 1E-10);
 		assertEquals(0.25, fitness.fitness(new TestObject(7)), 1E-10);
 		
 		problem = new TestProblemDouble(-1);
-		fitness = new CostToFitness<TestObject>(problem, 2);
+		fitness = new InverseCostFitnessFunction<TestObject>(problem, 2);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(-1)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(1)), 1E-10);
@@ -92,21 +94,21 @@ public class CostToFitnessTests {
 	@Test
 	public void testIntegerToFitness1() {
 		TestProblemInteger problem = new TestProblemInteger(0);
-		CostToFitness<TestObject> fitness = new CostToFitness<TestObject>(problem);
+		InverseCostFitnessFunction<TestObject> fitness = new InverseCostFitnessFunction<TestObject>(problem);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(0)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(1)), 1E-10);
 		assertEquals(0.25, fitness.fitness(new TestObject(3)), 1E-10);
 		
 		problem = new TestProblemInteger(1);
-		fitness = new CostToFitness<TestObject>(problem);
+		fitness = new InverseCostFitnessFunction<TestObject>(problem);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(1)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(2)), 1E-10);
 		assertEquals(0.25, fitness.fitness(new TestObject(4)), 1E-10);
 		
 		problem = new TestProblemInteger(-1);
-		fitness = new CostToFitness<TestObject>(problem);
+		fitness = new InverseCostFitnessFunction<TestObject>(problem);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(-1)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(0)), 1E-10);
@@ -114,36 +116,36 @@ public class CostToFitnessTests {
 		
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new CostToFitness<TestObject>(new TestProblemInteger(0), 0.0)
+			() -> new InverseCostFitnessFunction<TestObject>(new TestProblemInteger(0), 0.0)
 		);
 		thrown = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new CostToFitness<TestObject>(new TestProblemInteger(Integer.MAX_VALUE))
+			() -> new InverseCostFitnessFunction<TestObject>(new TestProblemInteger(Integer.MAX_VALUE))
 		);
 		thrown = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new CostToFitness<TestObject>(new TestProblemInteger(Integer.MIN_VALUE))
+			() -> new InverseCostFitnessFunction<TestObject>(new TestProblemInteger(Integer.MIN_VALUE))
 		);
 	}
 	
 	@Test
 	public void testIntegerToFitness2() {
 		TestProblemInteger problem = new TestProblemInteger(0);
-		CostToFitness<TestObject> fitness = new CostToFitness<TestObject>(problem, 2);
+		InverseCostFitnessFunction<TestObject> fitness = new InverseCostFitnessFunction<TestObject>(problem, 2);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(0)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(2)), 1E-10);
 		assertEquals(0.25, fitness.fitness(new TestObject(6)), 1E-10);
 		
 		problem = new TestProblemInteger(1);
-		fitness = new CostToFitness<TestObject>(problem, 2);
+		fitness = new InverseCostFitnessFunction<TestObject>(problem, 2);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(1)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(3)), 1E-10);
 		assertEquals(0.25, fitness.fitness(new TestObject(7)), 1E-10);
 		
 		problem = new TestProblemInteger(-1);
-		fitness = new CostToFitness<TestObject>(problem, 2);
+		fitness = new InverseCostFitnessFunction<TestObject>(problem, 2);
 		assertTrue(problem == fitness.getProblem());
 		assertEquals(1.0, fitness.fitness(new TestObject(-1)), 1E-10);
 		assertEquals(0.5, fitness.fitness(new TestObject(1)), 1E-10);

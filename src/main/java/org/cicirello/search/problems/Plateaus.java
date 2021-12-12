@@ -21,7 +21,6 @@
 package org.cicirello.search.problems;
 
 import org.cicirello.search.representations.BitVector;
-import org.cicirello.search.evo.FitnessFunction;
 
 /**
  * <p>This class implements Ackley's Plateaus problem, an
@@ -49,9 +48,7 @@ import org.cicirello.search.evo.FitnessFunction;
  * as the following minimization problem: minimize
  * cost(x) = 10*n - f(x), where f(x) is the Plateaus function as defined above.  
  * The global optima
- * is still all 1-bits, which has a cost equal to 0.
- * The {@link #fitness} method returns 1 greater than the {@link #value value} method
- * because the library requires fitness to be positive.</p>
+ * is still all 1-bits, which has a cost equal to 0.</p>
  *
  * <p>The Plateaus problem
  * was introduced by David Ackley in the following paper:<br>
@@ -61,8 +58,9 @@ import org.cicirello.search.evo.FitnessFunction;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ * @version 3.25.2021
  */
-public final class Plateaus implements OptimizationProblem<BitVector>, FitnessFunction.Double<BitVector> {
+public final class Plateaus implements OptimizationProblem<BitVector> {
 	
 	/**
 	 * Constructs an instance of Ackley's Plateaus problem.
@@ -103,16 +101,6 @@ public final class Plateaus implements OptimizationProblem<BitVector>, FitnessFu
 		return blockCount * candidate.length() * 2.5;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>Computes fitness as: 1 + value(candidate).</p>
-	 */
-	@Override
-	public double fitness(BitVector candidate) {
-		return value(candidate) + 1;
-	}
-	
 	@Override
 	public boolean isMinCost(double cost) {
 		return cost == 0;
@@ -133,10 +121,5 @@ public final class Plateaus implements OptimizationProblem<BitVector>, FitnessFu
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public Plateaus getProblem() {
-		return this;
 	}
  }

@@ -45,16 +45,13 @@ public class PlateausTests {
 			v.not();
 			assertEquals(0.0, problem.cost(v), 0.0);
 			assertEquals(10.0*n, problem.value(v), 0.0);
-			assertEquals(10.0*n+1, problem.fitness(v), 0.0);
 		}
 		for (int n = 124; n <= 132; n++) {
 			BitVector v = new BitVector(n);
 			v.not();
 			assertEquals(0.0, problem.cost(v), 0.0);
 			assertEquals(10.0*n, problem.value(v), 0.0);
-			assertEquals(10.0*n+1, problem.fitness(v), 0.0);
 		}
-		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -71,15 +68,12 @@ public class PlateausTests {
 			BitVector v = new BitVector(n);
 			assertEquals("n:"+n, 0.0, problem.value(v), 0.0);
 			assertEquals("n:"+n, 10.0*n, problem.cost(v), 0.0);
-			assertEquals(1.0, problem.fitness(v), 0.0);
 		}
 		for (int n = 124; n <= 132; n++) {
 			BitVector v = new BitVector(n);
 			assertEquals("n:"+n, 0.0, problem.value(v), 0.0);
 			assertEquals("n:"+n, 10.0*n, problem.cost(v), 0.0);
-			assertEquals(1.0, problem.fitness(v), 0.0);
 		}
-		assertTrue(problem == problem.getProblem());
 	}
 	
 	@Test
@@ -106,7 +100,6 @@ public class PlateausTests {
 			BitVector v = new BitVector(n, cases[i]);
 			assertEquals("i:"+i+" n:"+n, 0.0, problem.value(v), 0.0);
 			assertEquals("i:"+i+" n:"+n, 10.0*n, problem.cost(v), 0.0);
-			assertEquals(1.0, problem.fitness(v), 0.0);
 		}
 	}
 	
@@ -149,7 +142,6 @@ public class PlateausTests {
 			BitVector v = new BitVector(n, cases[i]);
 			assertEquals("i:"+i+" n:"+n, 2.5*n, problem.value(v), 0.0);
 			assertEquals("i:"+i+" n:"+n, 7.5*n, problem.cost(v), 0.0);
-			assertEquals(2.5*n+1, problem.fitness(v), 0.0);
 		}
 	}
 	
@@ -192,7 +184,6 @@ public class PlateausTests {
 			BitVector v = new BitVector(n, cases[i]);
 			assertEquals("i:"+i+" n:"+n, 5.0*n, problem.value(v), 0.0);
 			assertEquals("i:"+i+" n:"+n, 5.0*n, problem.cost(v), 0.0);
-			assertEquals(5.0*n+1, problem.fitness(v), 0.0);
 		}
 	}
 	
@@ -235,7 +226,6 @@ public class PlateausTests {
 			BitVector v = new BitVector(n, cases[i]);
 			assertEquals("i:"+i+" n:"+n, 7.5*n, problem.value(v), 0.0);
 			assertEquals("i:"+i+" n:"+n, 2.5*n, problem.cost(v), 0.0);
-			assertEquals(7.5*n+1, problem.fitness(v), 0.0);
 		}
 	}
 	

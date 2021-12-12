@@ -34,7 +34,6 @@ public class MixTests {
 	@Test
 	public void testMixAllOnesAndAllZerosCases() {
 		Mix problem = new Mix();
-		assertTrue(problem == problem.getProblem());
 		assertEquals(0.0, problem.minCost(), 0.0);
 		double zero = 0;
 		assertTrue(problem.isMinCost(zero));
@@ -58,13 +57,11 @@ public class MixTests {
 			BitVector v = new BitVector(n);
 			// all zeros
 			assertEquals(expectedValueZeroCase, problem.value(v), 0.0);
-			assertEquals(expectedValueZeroCase+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValueZeroCase, problem.cost(v), 0.0);
 			// all ones
 			v.not();
 			assertEquals(0.0, problem.cost(v), 0.0);
 			assertEquals(10.0*n, problem.value(v), 0.0);
-			assertEquals(10.0*n+16, problem.fitness(v), 0.0);
 		}
 		for (int i = 1; i <= 2; i++) {
 			int n = 160 * i;
@@ -76,19 +73,16 @@ public class MixTests {
 			// all zeros
 			assertEquals(expectedValueZeroCase, problem.value(v), 0.0);
 			assertEquals(10.0*n-expectedValueZeroCase, problem.cost(v), 0.0);
-			assertEquals(expectedValueZeroCase+16, problem.fitness(v), 0.0);
 			// all ones
 			v.not();
 			assertEquals(0.0, problem.cost(v), 0.0);
 			assertEquals(10.0*n, problem.value(v), 0.0);
-			assertEquals(10.0*n+16, problem.fitness(v), 0.0);
 		}
 	}
 	
 	@Test
 	public void testMixAllOnesInOneMaxSegment() {
 		Mix problem = new Mix();
-		assertTrue(problem == problem.getProblem());
 		for (int i = 1; i <= 2; i++) {
 			int n = 160 * i;
 			BitVector v = new BitVector(n);
@@ -105,7 +99,6 @@ public class MixTests {
 			expectedValue += 10 * m;
 			
 			assertEquals(expectedValue, problem.value(v), 0.0);
-			assertEquals(expectedValue+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValue, problem.cost(v), 0.0);
 		}
 	}
@@ -129,7 +122,6 @@ public class MixTests {
 			expectedValue += 10 * m;
 			
 			assertEquals(expectedValue, problem.value(v), 0.0);
-			assertEquals(expectedValue+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValue, problem.cost(v), 0.0);
 		}
 	}
@@ -153,7 +145,6 @@ public class MixTests {
 			expectedValue += 10 * m;
 			
 			assertEquals(expectedValue, problem.value(v), 0.0);
-			assertEquals(expectedValue+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValue, problem.cost(v), 0.0);
 		}
 	}
@@ -177,7 +168,6 @@ public class MixTests {
 			expectedValue += 10 * m;
 			
 			assertEquals(expectedValue, problem.value(v), 0.0);
-			assertEquals(expectedValue+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValue, problem.cost(v), 0.0);
 		}
 	}
@@ -201,7 +191,6 @@ public class MixTests {
 			expectedValue += 10 * m;
 			
 			assertEquals(expectedValue, problem.value(v), 0.0);
-			assertEquals(expectedValue+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValue, problem.cost(v), 0.0);
 		}
 	}
@@ -225,7 +214,6 @@ public class MixTests {
 			expectedValue += 5 * m;
 			
 			assertEquals(expectedValue, problem.value(v), 0.0);
-			assertEquals(expectedValue+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValue, problem.cost(v), 0.0);
 		}
 	}
@@ -249,7 +237,6 @@ public class MixTests {
 			expectedValue += m;
 			
 			assertEquals(expectedValue, problem.value(v), 0.0);
-			assertEquals(expectedValue+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValue, problem.cost(v), 0.0);
 		}
 	}
@@ -273,7 +260,6 @@ public class MixTests {
 			expectedValue += 8.0*m/3.0;
 			
 			assertEquals(expectedValue, problem.value(v), EPSILON);
-			assertEquals(expectedValue+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValue, problem.cost(v), EPSILON);
 		}
 	}
@@ -298,7 +284,6 @@ public class MixTests {
 			expectedValue += 5 * m;
 			
 			assertEquals(expectedValue, problem.value(v), 0.0);
-			assertEquals(expectedValue+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValue, problem.cost(v), 0.0);
 		}
 		// Almost half ones case (to get a Porcupine quill in there).
@@ -317,7 +302,6 @@ public class MixTests {
 			expectedValue += 10 * (m/2-1) - 15;
 			
 			assertEquals(expectedValue, problem.value(v), 0.0);
-			assertEquals(expectedValue+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValue, problem.cost(v), 0.0);
 		}
 	}
@@ -339,7 +323,6 @@ public class MixTests {
 			
 			// all zeros
 			assertEquals(expectedValue, problem.value(v), 0.0);
-			assertEquals(expectedValue+16, problem.fitness(v), 0.0);
 			assertEquals(10.0*n-expectedValue, problem.cost(v), 0.0);
 		}
 	}

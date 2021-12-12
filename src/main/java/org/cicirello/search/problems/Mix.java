@@ -21,7 +21,6 @@
 package org.cicirello.search.problems;
 
 import org.cicirello.search.representations.BitVector;
-import org.cicirello.search.evo.FitnessFunction;
 
 /**
  * <p>This class implements Ackley's Mix problem, an artificial landscape that
@@ -53,10 +52,6 @@ import org.cicirello.search.evo.FitnessFunction;
  * The global optima
  * is all 1-bits, which has a cost equal to 0.</p>
  *
- * <p>The {@link #fitness} method returns 16 greater than the {@link #value value} method
- * because the library requires fitness to be positive, and the original function has a 
- * minimum of -15 due to the contribution of the Porcupine function which can be negative.</p>
- *
  * <p>The Mix problem
  * was introduced by David Ackley in the following paper:<br>
  * David H. Ackley. An empirical study of bit vector function optimization. Genetic
@@ -65,8 +60,9 @@ import org.cicirello.search.evo.FitnessFunction;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ * @version 3.26.2021
  */
-public final class Mix implements OptimizationProblem<BitVector>, FitnessFunction.Double<BitVector> {
+public final class Mix implements OptimizationProblem<BitVector> {
 	
 	private final OneMaxAckley onemax;
 	private final TwoMax twomax;
@@ -118,23 +114,8 @@ public final class Mix implements OptimizationProblem<BitVector>, FitnessFunctio
 			+ plateauValue;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>Computes fitness as: 16 + value(candidate), which ensures that fitness is always positive.</p>
-	 */
-	@Override
-	public double fitness(BitVector candidate) {
-		return value(candidate) + 16;
-	}
-	
 	@Override
 	public boolean isMinCost(double cost) {
 		return cost == 0;
-	}
-	
-	@Override
-	public Mix getProblem() {
-		return this;
 	}
 }

@@ -61,6 +61,7 @@ public final class ShiftedFitnessProportionalSelection extends FitnessProportion
 		return this;
 	}
 	
+	@Override
 	final double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
 		double[] p = new double[fitnesses.size()];
 		int adjustment = fitnesses.getFitness(0);
@@ -77,6 +78,7 @@ public final class ShiftedFitnessProportionalSelection extends FitnessProportion
 		return p;
 	}
 	
+	@Override
 	final double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
 		double[] p = new double[fitnesses.size()];
 		double adjustment = fitnesses.getFitness(0);

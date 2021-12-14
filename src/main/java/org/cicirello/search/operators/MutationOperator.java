@@ -24,7 +24,8 @@ import org.cicirello.search.concurrent.Splittable;
 
 /**
  * <p>Implement the MutationOperator interface to implement a mutation operator
- * for use in simulated annealing, and other metaheuristics, that require a
+ * for use in simulated annealing, genetic algorithms, and other evolutionary algorithms,
+ * and other metaheuristics, that require a
  * way to generate random neighbors of a candidate solution.</p>  
  *
  * <p>If your mutation

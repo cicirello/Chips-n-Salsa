@@ -57,6 +57,5 @@ public interface MutationOperator<T> extends Splittable<MutationOperator<T>> {
 	 * @param c The candidate solution subject to the mutation.  This method
 	 * changes the state of c.
 	 */
-	void mutate(T c);
-	
+	void mutate(T c);	
 }

@@ -34,7 +34,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * random numbers of type double.</p>
  *
  * <p><b>This selection operator requires positive fitness values. Behavior is undefined if any 
- * fitness values are less than or equal to 0.</b></p>
+ * fitness values are less than or equal to 0.</b> If your fitness values may be negative,
+ * use {@link ShiftedFitnessProportionalSelection} instead.</p>
  *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M lg N).</p>
@@ -47,7 +48,9 @@ public class FitnessProportionalSelection extends AbstractFitnessProportionalSel
 	/**
 	 * Construct a fitness proportional selection operator.
 	 */
-	public FitnessProportionalSelection() {}
+	public FitnessProportionalSelection() {
+		super();
+	}
 	
 	@Override
 	public FitnessProportionalSelection split() {

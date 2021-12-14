@@ -86,6 +86,22 @@ public class SelectionOperatorTests {
 	}
 	
 	@Test
+	public void testShiftedFitnessProportionalSelection() {
+		ShiftedFitnessProportionalSelection selection = new ShiftedFitnessProportionalSelection();
+		validateIndexes_Double(selection);
+		validateIndexes_Integer(selection);
+		ShiftedFitnessProportionalSelection selection2 = selection.split();
+		validateIndexes_Double(selection2);
+		validateIndexes_Integer(selection2);
+		
+		validateHigherFitnessSelectedMoreOften_Double(selection);
+		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		validateComputeRunningSumShifted(selection);
+		validateComputeRunningSumShifted(selection2);
+	}
+	
+	@Test
 	public void testBiasedFitnessProportionalSelection() {
 		BiasedFitnessProportionalSelection selection = new BiasedFitnessProportionalSelection(x -> x*x);
 		validateIndexes_Double(selection);
@@ -619,6 +635,39 @@ public class SelectionOperatorTests {
 		assertEquals(5, weights.length);
 		for (int i = 0; i < weights.length; i++) {
 			assertEquals(expected[i], weights[i], 1E-10);
+		}
+	}
+	
+	private void validateComputeRunningSumShifted(AbstractFitnessProportionalSelection selection) {
+		int[][] cases = {
+			{1, 2, 3, 4, 5},
+			{5, 4, 3, 2, 1}, 
+			{11, 12, 13, 14, 15}, 
+			{15, 14, 13, 12, 11},
+			{-15, -14, -13, -12, -11},
+			{-11, -12, -13, -14, -15}, 
+			{-2, -1, 0, 1, 2}, 
+			{2, 1, 0, -1, -2} 
+		};
+		double[][] expected = {
+			{1, 3, 6, 10, 15},
+			{5, 9, 12, 14, 15}
+		};
+		
+		for (int c = 0; c < cases.length; c++) {
+			PopFitVectorDoubleSimple pop1 = new PopFitVectorDoubleSimple(cases[c]);
+			double[] weights = selection.computeWeightRunningSum(pop1);
+			assertEquals(5, weights.length);
+			for (int i = 0; i < weights.length; i++) {
+				assertEquals(expected[c%2][i], weights[i], 1E-10);
+			}
+			
+			PopFitVectorIntegerSimple pop2 = new PopFitVectorIntegerSimple(cases[c]);
+			weights = selection.computeWeightRunningSum(pop2);
+			assertEquals(5, weights.length);
+			for (int i = 0; i < weights.length; i++) {
+				assertEquals(expected[c%2][i], weights[i], 1E-10);
+			}
 		}
 	}
 	

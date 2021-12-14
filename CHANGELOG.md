@@ -17,9 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * TruncationSelection
     * RandomSelection
     * BiasedFitnessProportionalSelection, which is fitness proportional selection but which
-      enables transforming the fitness values by a bias function
+      enables transforming the fitness values by a bias function.
     * BiasedStochasticUniversalSampling, which is stochastic universal sampling but which
-      enables transforming the fitness values by a bias function
+      enables transforming the fitness values by a bias function.
+    * ShiftedFitnessProportionalSelection, which is a variation of FitnessProportionalSelection
+      that uses transformed fitness values that are shifted so that the minimum is equal to 1,
+      enabling safe use with negative fitness values.
   * Classes to transform cost values to fitness values:
     * InverseCostFitnessFunction: Transforms optimization cost functions to fitnesses with a
       division.

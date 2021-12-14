@@ -359,6 +359,12 @@ public class HybridConstructiveHeuristicTests {
 		public SolutionCostPair<TestObject> getSolutionCostPair​(TestObject candidate) {
 			return new SolutionCostPair<TestObject>(candidate, candidate.value, false);
 		}
+		
+		@Override
+		public double costAsDouble(TestObject c) {
+			// tests don't use this
+			return 1;
+		}
 	}
 	
 	private static class TestPartial implements Partial<TestObject> {

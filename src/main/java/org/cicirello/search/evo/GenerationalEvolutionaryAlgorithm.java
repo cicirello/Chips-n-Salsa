@@ -63,8 +63,8 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
 	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
 	 *     interpretation of mutation rate, configure
-	 *     your mutation operator with the mutation rate, and then pass 1.0 for this parameter.
-	 * @param initializer An initializer for generat6ing random initial population members.
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param initializer An initializer for generating random initial population members.
 	 * @param f The fitness function.
 	 * @param selection The selection operator.
 	 * @param tracker A ProgressTracker.
@@ -86,8 +86,8 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
 	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
 	 *     interpretation of mutation rate, configure
-	 *     your mutation operator with the mutation rate, and then pass 1.0 for this parameter.
-	 * @param initializer An initializer for generat6ing random initial population members.
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param initializer An initializer for generating random initial population members.
 	 * @param f The fitness function.
 	 * @param selection The selection operator.
 	 * @param tracker A ProgressTracker.

@@ -34,11 +34,8 @@ import org.cicirello.search.representations.SingleReal;
  * abs(c<sub>0</sub> + c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + 
  * ... + c<sub>N</sub>*x<sup>N</sup>).
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.29.2020
  */
 public final class PolynomialRootFinding implements OptimizationProblem<SingleReal> {
 	

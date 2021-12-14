@@ -63,7 +63,6 @@ import org.cicirello.search.operators.integers.IntegerVectorInitializer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.12.2021
  */
 public final class BoundMax extends IntegerVectorInitializer implements IntegerCostOptimizationProblem<IntegerVector> {
 	

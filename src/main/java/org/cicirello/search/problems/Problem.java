@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -28,11 +28,9 @@ import org.cicirello.search.SolutionCostPair;
  * by the library. 
  *
  * @param <T> The type of object used to represent candidate solutions to the problem.
- * @since 1.0
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.15.2020
  */
 public interface Problem<T extends Copyable<T>> {
 	
@@ -45,4 +43,16 @@ public interface Problem<T extends Copyable<T>> {
 	 * and the cost of that candidate solution.  Lower cost means better solution.
 	 */
 	SolutionCostPair<T> getSolutionCostPair(T candidate);
+	
+	/**
+	 * Computes the cost of a candidate solution to the problem instance.
+	 * The lower the cost, the more optimal the candidate solution. Note that
+	 * subinterfaces provide methods for computing the cost as more specific
+	 * types (e.g., as an int).
+	 * 
+	 * @param candidate The candidate solution to evaluate.
+	 * @return The cost of the candidate solution as a value of type double. 
+	 * Lower cost means better solution.
+	 */
+	double costAsDouble(T candidate);
 }

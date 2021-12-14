@@ -26,9 +26,11 @@ import org.cicirello.util.Copyable;
 /**
  * Fitness function interfaces. Implement one of the two nested interfaces
  * to provide a fitness function for use by genetic algorithms and other forms of
- * evolutionary computation. The classes of this library assume that
- * fitness values are positive. The difference between the two nested interfaces
- * is only the type of the fitness values (double vs int). 
+ * evolutionary computation. Some of the {@link SelectionOperator} classes of this 
+ * library assume that
+ * fitness values are positive, so for maximal compatibility, you should design your
+ * fitness function such that fitness values are always positive. The difference 
+ * between the two nested interfaces is only the type of the fitness values (double vs int). 
  *
  * @param <T> The type of object under optimization.
  *
@@ -47,8 +49,10 @@ public interface FitnessFunction<T extends Copyable<T>> {
 	 * Fitness function interface for double-valued fitnesses. Implement 
 	 * this interface to provide a
 	 * fitness function for use by genetic algorithms and other forms of
-	 * evolutionary computation. The classes of this library assume that
-	 * fitness values are positive. 
+	 * evolutionary computation. Some of the {@link SelectionOperator} classes of this 
+	 * library assume that
+	 * fitness values are positive, so for maximal compatibility, you should design your
+	 * fitness function such that fitness values are always positive. 
 	 *
 	 * @param <T> The type of object under optimization.
 	 *
@@ -60,9 +64,6 @@ public interface FitnessFunction<T extends Copyable<T>> {
 		/**
 		 * Computes the fitness of a candidate solution to a problem,
 		 * for use by genetic algorithms and other evolutionary algorithms.
-		 * Implementations of this method must ensure that the fitness values that
-		 * it returns are positive, as the implementations of evolutionary algorithms
-		 * in this library assume that all fitness values are positive.
 		 *
 		 * @param candidate The solution whose fitness is to be evaluated.
 		 * @return the fitness of candidate
@@ -74,8 +75,10 @@ public interface FitnessFunction<T extends Copyable<T>> {
 	 * Fitness function interface for int-valued fitnesses. Implement 
 	 * this interface to provide a
 	 * fitness function for use by genetic algorithms and other forms of
-	 * evolutionary computation. The classes of this library assume that
-	 * fitness values are positive. 
+	 * evolutionary computation. Some of the {@link SelectionOperator} classes of this 
+	 * library assume that
+	 * fitness values are positive, so for maximal compatibility, you should design your
+	 * fitness function such that fitness values are always positive. 
 	 *
 	 * @param <T> The type of object under optimization.
 	 *
@@ -87,9 +90,6 @@ public interface FitnessFunction<T extends Copyable<T>> {
 		/**
 		 * Computes the fitness of a candidate solution to a problem,
 		 * for use by genetic algorithms and other evolutionary algorithms.
-		 * Implementations of this method must ensure that the fitness values that
-		 * it returns are positive, as the implementations of evolutionary algorithms
-		 * in this library assume that all fitness values are positive.
 		 *
 		 * @param candidate The solution whose fitness is to be evaluated.
 		 * @return the fitness of candidate

@@ -46,6 +46,9 @@ package org.cicirello.search.evo;
  * copies of a single population member from being in sequence so that parent assignment is random,
  * whereas fitness proportional selection has this property built in.</p>
  *
+ * <p><b>This selection operator requires positive fitness values. Behavior is undefined if any 
+ * fitness values are less than or equal to 0.</b></p>
+ *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M), which includes the need to generate only a single random double, and O(M) ints. This assumes
  * that the bias function has a constant runtime.</p>

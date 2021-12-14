@@ -107,4 +107,15 @@ public interface OptimizationProblem<T extends Copyable<T>> extends Problem<T> {
 		double c = cost(candidate);
 		return new SolutionCostPair<T>(candidate, c, isMinCost(c));
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * <p>The default implementation delegates work to the {@link #cost} method. 
+	 * You should not need to override this default behavior.</p>
+	 */
+	@Override
+	default double costAsDouble(T candidate) {
+		return cost(candidate);
+	}
 }

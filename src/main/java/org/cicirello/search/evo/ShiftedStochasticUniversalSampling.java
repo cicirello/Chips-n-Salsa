@@ -20,17 +20,19 @@
  
 package org.cicirello.search.evo;
 
-import java.util.concurrent.ThreadLocalRandom;
-import org.cicirello.math.rand.RandomIndexer;
-
 /**
- * <p>This class implements Stochastic Universal Sampling (SUS), a selection operator 
- * for evolutionary algorithms. In SUS, similarly to fitness proportional selection,
- * a member of the population is chosen randomly with probability proportional to its
- * fitness relative to the total fitness of the population. For example, if the 
- * fitness of population member i is f<sub>i</sub>, then the probability of selecting
- * population member i is: f<sub>i</sub> / &sum;<sub>j</sub> f<sub>j</sub>, for j &isin;
- * { 1, 2, ..., N }, where N is the population size.</p> 
+ * <p>This class implements a variation of Stochastic Universal Sampling (SUS) that uses
+ * shifted fitness values. Specifically, it shifts all fitness values by the minimum
+ * fitness minus one, such that the least fit population member's selection probability
+ * is based on a transformed fitness equal to 1. 
+ * A member of the population is chosen randomly with probability proportional to this
+ * shifted fitness relative to the total shifted fitness of the population. For example, if the 
+ * fitness of population member i is f<sub>i</sub>, and if the minimum fitness in the population
+ * is f<sub>min</sub>, then the probability of selecting
+ * population member i is: 
+ * (f<sub>i</sub> - f<sub>min</sub> + 1) / &sum;<sub>j</sub> (f<sub>j</sub> - f<sub>min</sub> + 1), 
+ * for j &isin;
+ * { 1, 2, ..., N }, where N is the population size.</p>
  *
  * <p>However, whereas fitness proportional selection is like spinning a carnival wheel
  * with a single pointer M times to select M members of the population, SUS instead is
@@ -43,9 +45,8 @@ import org.cicirello.math.rand.RandomIndexer;
  * copies of a single population member from being in sequence so that parent assignment is random,
  * whereas fitness proportional selection has this property built in.</p>
  *
- * <p><b>This selection operator requires positive fitness values. Behavior is undefined if any 
- * fitness values are less than or equal to 0.</b> If your fitness values may be negative,
- * use {@link ShiftedStochasticUniversalSampling} instead.</p>
+ * <p>This selection operator is compatible with all fitness functions, even in the case of
+ * negative fitness values.</p>
  *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M), which includes the need to generate only a single random double, and O(M) ints.</p>
@@ -53,43 +54,53 @@ import org.cicirello.math.rand.RandomIndexer;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class StochasticUniversalSampling extends AbstractFitnessProportionalSelection {
+public final class ShiftedStochasticUniversalSampling extends StochasticUniversalSampling {
 	
 	/**
-	 * Construct an SUS operator.
+	 * Construct a shifted stochastic universal sampling operator.
 	 */
-	public StochasticUniversalSampling() {}
+	public ShiftedStochasticUniversalSampling() {
+		super();
+	}
 	
 	@Override
-	public StochasticUniversalSampling split() {
+	public ShiftedStochasticUniversalSampling split() {
 		// Since this selection operator maintains no mutable state, it is
 		// safe for multiple threads to share a single instance, so just return this.
 		return this;
 	}
 	
 	@Override
-	final void selectAll(double[] normalizedWeights, int[] selected) {
-		double increment = 1.0 / selected.length;
-		double pointer = ThreadLocalRandom.current().nextDouble(increment);		
-		int j = selected[0] = selectOne(normalizedWeights, 0, normalizedWeights.length-1, pointer);
-		for (int i = 1; i < selected.length; i++) {
-			pointer += increment;
-			while (normalizedWeights[j] <= pointer) {
-				j++;
+	final double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
+		double[] p = new double[fitnesses.size()];
+		int adjustment = fitnesses.getFitness(0);
+		for (int i = 1; i < p.length; i++) {
+			if (fitnesses.getFitness(i) < adjustment) {
+				adjustment = fitnesses.getFitness(i);
 			}
-			selected[i] = j;
 		}
-		randomize(selected);
+		adjustment--;
+		p[0] = fitnesses.getFitness(0) - adjustment;
+		for (int i = 1; i < p.length; i++) {
+			p[i] = p[i-1] + fitnesses.getFitness(i) - adjustment;
+		}
+		return p;
 	}
 	
-	private void randomize(int[] selected) {
-		for (int i = selected.length-1; i > 0; i--) {
-			int j = RandomIndexer.nextInt(i+1);
-			if (i != j) {
-				int temp = selected[i];
-				selected[i] = selected[j];
-				selected[j] = temp;
+	@Override
+	final double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
+		double[] p = new double[fitnesses.size()];
+		double adjustment = fitnesses.getFitness(0);
+		for (int i = 1; i < p.length; i++) {
+			if (fitnesses.getFitness(i) < adjustment) {
+				adjustment = fitnesses.getFitness(i);
 			}
 		}
+		adjustment -= 1.0;
+		p[0] = fitnesses.getFitness(0) - adjustment;
+		for (int i = 1; i < p.length; i++) {
+			p[i] = p[i-1] + fitnesses.getFitness(i) - adjustment;
+		}
+		return p;
 	}
 }

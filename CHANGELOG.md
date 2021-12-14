@@ -23,6 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * ShiftedFitnessProportionalSelection, which is a variation of FitnessProportionalSelection
       that uses transformed fitness values that are shifted so that the minimum is equal to 1,
       enabling safe use with negative fitness values.
+    * ShiftedStochasticUniversalSampling, which is a variation of StochasticUniversalSampling
+      that uses transformed fitness values that are shifted so that the minimum is equal to 1,
+      enabling safe use with negative fitness values.
   * Classes to transform cost values to fitness values:
     * InverseCostFitnessFunction: Transforms optimization cost functions to fitnesses with a
       division.

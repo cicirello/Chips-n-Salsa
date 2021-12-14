@@ -144,6 +144,32 @@ public class SelectionOperatorTests {
 	}
 	
 	@Test
+	public void testShiftedSUS() {
+		ShiftedStochasticUniversalSampling selection = new ShiftedStochasticUniversalSampling();
+		validateIndexes_Double(selection);
+		validateIndexes_Integer(selection);
+		ShiftedStochasticUniversalSampling selection2 = selection.split();
+		validateIndexes_Double(selection2);
+		validateIndexes_Integer(selection2);
+		
+		validateHigherFitnessSelectedMoreOften_Double(selection);
+		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		validateComputeRunningSumShifted(selection);
+		validateComputeRunningSumShifted(selection2);
+		
+		validateExpectedCountsSUS(selection, new PopFitVectorDouble(16), x -> x);
+		validateExpectedCountsSUS(selection, new PopFitVectorInteger(16), x -> x);
+		validateExpectedCountsSUS(selection, new PopFitVectorDoubleSimple(16), x -> x);
+		validateExpectedCountsSUS(selection, new PopFitVectorIntegerSimple(16), x -> x);
+		
+		validateExpectedCountsSUS(selection2, new PopFitVectorDouble(16), x -> x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorInteger(16), x -> x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorDoubleSimple(16), x -> x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorIntegerSimple(16), x -> x);
+	}
+	
+	@Test
 	public void testBiasedSUS() {
 		BiasedStochasticUniversalSampling selection = new BiasedStochasticUniversalSampling(x -> x*x);
 		validateIndexes_Double(selection);

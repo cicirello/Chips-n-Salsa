@@ -190,7 +190,7 @@ public class SelectionOperatorTests {
 		BiasedStochasticUniversalSampling selection = new BiasedStochasticUniversalSampling(x -> x*x);
 		validateIndexes_Double(selection);
 		validateIndexes_Integer(selection);
-		StochasticUniversalSampling selection2 = selection.split();
+		BiasedStochasticUniversalSampling selection2 = selection.split();
 		validateIndexes_Double(selection2);
 		validateIndexes_Integer(selection2);
 		
@@ -199,6 +199,32 @@ public class SelectionOperatorTests {
 		
 		validateBiasedComputeRunningSum(selection);
 		validateBiasedComputeRunningSum(selection2);
+		
+		validateExpectedCountsSUS(selection, new PopFitVectorDouble(16), x -> x*x);
+		validateExpectedCountsSUS(selection, new PopFitVectorInteger(16), x -> x*x);
+		validateExpectedCountsSUS(selection, new PopFitVectorDoubleSimple(16), x -> x*x);
+		validateExpectedCountsSUS(selection, new PopFitVectorIntegerSimple(16), x -> x*x);
+		
+		validateExpectedCountsSUS(selection2, new PopFitVectorDouble(16), x -> x*x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorInteger(16), x -> x*x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorDoubleSimple(16), x -> x*x);
+		validateExpectedCountsSUS(selection2, new PopFitVectorIntegerSimple(16), x -> x*x);
+	}
+	
+	@Test
+	public void testBiasedShiftedSUS() {
+		BiasedShiftedStochasticUniversalSampling selection = new BiasedShiftedStochasticUniversalSampling(x -> x*x);
+		validateIndexes_Double(selection);
+		validateIndexes_Integer(selection);
+		BiasedShiftedStochasticUniversalSampling selection2 = selection.split();
+		validateIndexes_Double(selection2);
+		validateIndexes_Integer(selection2);
+		
+		validateHigherFitnessSelectedMoreOften_Double(selection);
+		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		validateBiasedComputeRunningSumShifted(selection);
+		validateBiasedComputeRunningSumShifted(selection2);
 		
 		validateExpectedCountsSUS(selection, new PopFitVectorDouble(16), x -> x*x);
 		validateExpectedCountsSUS(selection, new PopFitVectorInteger(16), x -> x*x);

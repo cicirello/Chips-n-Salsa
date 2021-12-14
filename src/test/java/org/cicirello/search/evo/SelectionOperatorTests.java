@@ -118,6 +118,22 @@ public class SelectionOperatorTests {
 	}
 	
 	@Test
+	public void testBiasedShiftedFitnessProportionalSelection() {
+		BiasedShiftedFitnessProportionalSelection selection = new BiasedShiftedFitnessProportionalSelection(x -> x*x);
+		validateIndexes_Double(selection);
+		validateIndexes_Integer(selection);
+		BiasedShiftedFitnessProportionalSelection selection2 = selection.split();
+		validateIndexes_Double(selection2);
+		validateIndexes_Integer(selection2);
+		
+		validateHigherFitnessSelectedMoreOften_Double(selection);
+		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		validateBiasedComputeRunningSumShifted(selection);
+		validateBiasedComputeRunningSumShifted(selection2);
+	}
+	
+	@Test
 	public void testSUS() {
 		StochasticUniversalSampling selection = new StochasticUniversalSampling();
 		validateIndexes_Double(selection);
@@ -709,6 +725,36 @@ public class SelectionOperatorTests {
 		assertEquals(5, weights.length);
 		for (int i = 0; i < weights.length; i++) {
 			assertEquals(expected[i], weights[i], 1E-10);
+		}
+	}
+	
+	private void validateBiasedComputeRunningSumShifted(AbstractFitnessProportionalSelection selection) {
+		int[][] cases = {
+			{1, 2, 3, 4, 5},
+			{5, 4, 3, 2, 1}, 
+			{11, 12, 13, 14, 15}, 
+			{15, 14, 13, 12, 11},
+			{-15, -14, -13, -12, -11},
+			{-11, -12, -13, -14, -15}, 
+			{-2, -1, 0, 1, 2}, 
+			{2, 1, 0, -1, -2} 
+		};
+		double[][] expected = {
+			{1, 5, 14, 30, 55},
+			{25, 41, 50, 54, 55}
+		};
+		for (int c = 0; c < cases.length; c++) {
+			double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(cases[c]));
+			assertEquals(5, weights.length);
+			for (int i = 0; i < weights.length; i++) {
+				assertEquals(expected[c%2][i], weights[i], 1E-10);
+			}
+			
+			weights = selection.computeWeightRunningSum(new PopFitVectorIntegerSimple(cases[c]));
+			assertEquals(5, weights.length);
+			for (int i = 0; i < weights.length; i++) {
+				assertEquals(expected[c%2][i], weights[i], 1E-10);
+			}
 		}
 	}
 	

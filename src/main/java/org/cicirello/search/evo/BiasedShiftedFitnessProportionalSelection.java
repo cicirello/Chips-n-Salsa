@@ -21,12 +21,18 @@
 package org.cicirello.search.evo;
 
 /**
- * <p>This class implements a variation of fitness proportional selection that applies
- * a bias function to transform the fitness values. In this biased fitness proportional selection,
- * a member of the population is chosen randomly with probability proportional to a bias function of its
- * fitness relative to the total of such biased fitness of the population. For example, if the 
- * fitness of population member i is f<sub>i</sub>, then the probability of selecting
- * population member i is: bias(f<sub>i</sub>) / &sum;<sub>j</sub> bias(f<sub>j</sub>), for j &isin;
+ * <p>This class implements a variation of fitness proportional selection that 
+ * uses shifted fitness values and applies
+ * a bias function to further transform the shifted fitness values. 
+ * Specifically, first it shifts all fitness values by the minimum
+ * fitness minus one, such that the least fit population member's selection probability
+ * is based on a transformed fitness equal to 1.
+ * Next, a member of the population is chosen randomly with probability proportional to a bias function of this
+ * shifted fitness relative to the total of such biased shifted fitness of the population. For example, if the 
+ * fitness of population member i is f<sub>i</sub>, and if the minimum fitness in the population
+ * is f<sub>min</sub>, then the probability of selecting
+ * population member i is: 
+ * (bias(f<sub>i</sub>) - f<sub>min</sub> + 1) / &sum;<sub>j</sub> (bias(f<sub>j</sub>) - f<sub>min</sub> + 1), for j &isin;
  * { 1, 2, ..., N }, where N is the population size, and bias is a bias function. To select M members of the population,
  * M independent random decisions are executed in this way, thus requiring generating M
  * random numbers of type double.</p>
@@ -34,33 +40,29 @@ package org.cicirello.search.evo;
  * <p>As an example bias function, consider: bias(x) = x<sup>2</sup>, which would square each fitness
  * value x.</p>
  *
- * <p><b>This selection operator requires positive fitness values. Behavior is undefined if any 
- * fitness values are less than or equal to 0.</b> If your fitness values may be negative,
- * use {@link BiasedShiftedFitnessProportionalSelection} instead.</p>
+ * <p>This selection operator is compatible with all fitness functions, even in the case of
+ * negative fitness values.</p>
  *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M lg N), assuming the bias function has a constant runtime.</p>
  *
- * <p>For the more common standard version of fitness proportional selection, see the
- * {@link FitnessProportionalSelection} class.</p>
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class BiasedFitnessProportionalSelection extends FitnessProportionalSelection {
+public final class BiasedShiftedFitnessProportionalSelection extends FitnessProportionalSelection {
 	
 	private final FitnessBiasFunction bias;
 	
 	/**
-	 * Construct a biased fitness proportional selection operator.
+	 * Construct a biased shifted fitness proportional selection operator.
 	 * @param bias A bias function
 	 */
-	public BiasedFitnessProportionalSelection(FitnessBiasFunction bias) {
+	public BiasedShiftedFitnessProportionalSelection(FitnessBiasFunction bias) {
 		this.bias = bias;
 	}
 	
 	@Override
-	public BiasedFitnessProportionalSelection split() {
+	public BiasedShiftedFitnessProportionalSelection split() {
 		// The FitnessBiasFunction interface's contract is that implementations
 		// must be threadsafe and thread efficient, so assume that the only state,
 		// the bias function meets that contract.
@@ -70,9 +72,16 @@ public final class BiasedFitnessProportionalSelection extends FitnessProportiona
 	@Override
 	final double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
 		double[] p = new double[fitnesses.size()];
-		p[0] = bias.bias(fitnesses.getFitness(0));
+		int adjustment = fitnesses.getFitness(0);
 		for (int i = 1; i < p.length; i++) {
-			p[i] = p[i-1] + bias.bias(fitnesses.getFitness(i));
+			if (fitnesses.getFitness(i) < adjustment) {
+				adjustment = fitnesses.getFitness(i);
+			}
+		}
+		adjustment--;
+		p[0] = bias.bias(fitnesses.getFitness(0) - adjustment);
+		for (int i = 1; i < p.length; i++) {
+			p[i] = p[i-1] + bias.bias(fitnesses.getFitness(i) - adjustment);
 		}
 		return p;
 	}
@@ -80,9 +89,16 @@ public final class BiasedFitnessProportionalSelection extends FitnessProportiona
 	@Override
 	final double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
 		double[] p = new double[fitnesses.size()];
-		p[0] = bias.bias(fitnesses.getFitness(0));
+		double adjustment = fitnesses.getFitness(0);
 		for (int i = 1; i < p.length; i++) {
-			p[i] = p[i-1] + bias.bias(fitnesses.getFitness(i));
+			if (fitnesses.getFitness(i) < adjustment) {
+				adjustment = fitnesses.getFitness(i);
+			}
+		}
+		adjustment -= 1.0;
+		p[0] = bias.bias(fitnesses.getFitness(0) - adjustment);
+		for (int i = 1; i < p.length; i++) {
+			p[i] = p[i-1] + bias.bias(fitnesses.getFitness(i) - adjustment);
 		}
 		return p;
 	}

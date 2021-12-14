@@ -27,7 +27,7 @@ disableTools = ["eslint"]
 # 3) FindSecBugs generates PATH_TRAVERSAL_OUT for the same reason as above,
 # and we are ignoring them for the same reason.
 
-ignore = ["PREDICTABLE_RANDOM", "PATH_TRAVERSAL_IN", "PATH_TRAVERSAL_OUT"]
+ignoreRules = ["PREDICTABLE_RANDOM", "PATH_TRAVERSAL_IN", "PATH_TRAVERSAL_OUT"]
 
 # Ignore results from these directories
 

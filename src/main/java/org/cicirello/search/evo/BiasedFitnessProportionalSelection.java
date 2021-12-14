@@ -34,6 +34,9 @@ package org.cicirello.search.evo;
  * <p>As an example bias function, consider: bias(x) = x<sup>2</sup>, which would square each fitness
  * value x.</p>
  *
+ * <p><b>This selection operator requires positive fitness values. Behavior is undefined if any 
+ * fitness values are less than or equal to 0.</b></p>
+ *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M lg N), assuming the bias function has a constant runtime.</p>
  *

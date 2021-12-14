@@ -30,6 +30,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * needed to form the population for the generation. When k=2, it is known as binary
  * tournament selection.</p>
  *
+ * <p>This selection operator is compatible with all fitness functions, even in the case of
+ * negative fitness values, since it simply compares which fitness values are higher.</p>
+ *
  * <p>The runtime to select M population members from a population of size N is
  * O(k M), which includes generating O(k M) random int values.</p> 
  *

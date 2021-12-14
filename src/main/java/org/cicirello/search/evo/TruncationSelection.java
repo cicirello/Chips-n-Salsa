@@ -37,6 +37,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * of greatest fitness population members to select from. For example, if population size is
  * N, and if we want the equivalent behavior for a proportion p=0.5, we would pass 50 for k.</p>
  *
+ * <p>This selection operator is compatible with all fitness functions, even in the case of
+ * negative fitness values, since it simply compares which fitness values are higher.</p>
+ *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M), which includes generating O(M) random int values. In a typical generational
  * model, M=N, and this is simply O(N). Note that you will often see the runtime

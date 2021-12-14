@@ -33,6 +33,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * M independent random decisions are executed in this way, thus requiring generating M
  * random numbers of type double.</p>
  *
+ * <p><b>This selection operator requires positive fitness values. Behavior is undefined if any 
+ * fitness values are less than or equal to 0.</b></p>
+ *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M lg N).</p>
  *

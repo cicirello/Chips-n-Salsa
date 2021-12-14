@@ -27,6 +27,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * members of the population uniformly at random, independent of fitness
  * values.</p>
  *
+ * <p>This selection operator is compatible with all fitness functions, even in the case of
+ * negative fitness values, since it doesn't use the fitness values and simply picks randomly.</p>
+ *
  * <p>The runtime to select M population members from a population of size N is
  * O(M), which includes generating O(M) random int values.</p> 
  *

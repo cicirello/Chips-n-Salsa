@@ -40,7 +40,7 @@ public class HybridCrossoverTests {
 	// If you make any code changes that can potentially affect this, then
 	// reenable by setting true.  You can then set to false after the test cases pass.
 	// Just note that if enabled and the chi-square tests fail, rerun the test cases.
-	private static final boolean DISABLE_STATISTICAL_TESTS = false;
+	private static final boolean DISABLE_STATISTICAL_TESTS = true;
 	
 	@Test
 	public void testExceptions() {
@@ -48,6 +48,24 @@ public class HybridCrossoverTests {
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new HybridCrossover<TestObject>(c)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridCrossover<TestObject>(c, new int[0])
+		);
+		c.add(new TestCrossover());
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridCrossover<TestObject>(c, new int[] {1, 2})
+		);
+		c.add(new TestCrossover());		
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridCrossover<TestObject>(c, new int[] {0, 2})
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new WeightedHybridCrossover<TestObject>(c, new int[] {1, 0})
 		);
 	}
 	
@@ -100,6 +118,109 @@ public class HybridCrossoverTests {
 			// component crosses.
 			assertEquals(n, total);
 		}
+	}
+	
+	@Test
+	public void testWeightedHybridCrossoverEqualWeights() {
+		int n = 6000;
+		// used for chi-square tests: tested at 95% level
+		double[] threshold = { 0, 3.841, 5.991 };
+		for (int w = 1; w <= 2; w++) {
+			for (int k = 1; k <= 3; k++) {
+				int[] weights = new int[k];
+				ArrayList<TestCrossover> crosses = new ArrayList<TestCrossover>();
+				for (int i = 0; i < k; i++) {
+					crosses.add(new TestCrossover());
+					weights[i] = w;
+				}
+				WeightedHybridCrossover<TestObject> m = new WeightedHybridCrossover<TestObject>(crosses, weights); 
+				TestObject t1 = new TestObject("a");
+				TestObject t2 = new TestObject("b");
+				for (int i = 0; i < n; i++) {
+					m.cross(t1, t2);
+				}
+				if (k==1) {
+					assertEquals(n, crosses.get(0).crossCount);
+				} else {
+					// Chi-square goodness-of-fit tests on the distribution
+					// of cross calls across the set of crossover ops.
+					int x = 0;
+					int total = 0;
+					for (int i = 0; i < k; i++) {
+						int o = crosses.get(i).crossCount;
+						assertTrue(o > 0 && o <= n);
+						x += o*o*k;
+						total += o;
+					}
+					assertEquals(n, total);
+					double v = 1.0*x/n - n;
+					if (!DISABLE_STATISTICAL_TESTS) {
+						// Chi-square at 95% level
+						assertTrue("chi-square test failed, rerun tests since expected to fail 5% of the time", v <= threshold[k-1]);
+					}
+				}
+				WeightedHybridCrossover<TestObject> s = m.split();
+				for (int i = 0; i < 10; i++) {
+					s.cross(t1, t2);
+				}
+				int total = 0;
+				for (int i = 0; i < k; i++) {
+					int o = crosses.get(i).crossCount;
+					total += o;
+				}
+				// Verify split didn't keep references to pre-split
+				// component crosses.
+				assertEquals(n, total);
+			}
+		}
+	}
+	
+	@Test
+	public void testWeightedHybridCrossoverUnequalWeights() {
+		int n = 6000;
+		// used for chi-square tests: tested at 95% level
+		double[] threshold = { 0, 3.841, 5.991 };
+		int k = 3;
+		int[] weights = {1, 2, 1};
+		ArrayList<TestCrossover> crosses = new ArrayList<TestCrossover>();
+		for (int i = 0; i < k; i++) {
+			crosses.add(new TestCrossover());
+		}
+		WeightedHybridCrossover<TestObject> m = new WeightedHybridCrossover<TestObject>(crosses, weights); 
+		TestObject t1 = new TestObject("a");
+		TestObject t2 = new TestObject("b");		
+		for (int i = 0; i < n; i++) {
+			m.cross(t1, t2);
+		}		
+		// Chi-square goodness-of-fit tests on the distribution
+		// of cross calls across the set of crossover ops.
+		int x = 0;
+		int total = 0;
+		for (int i = 0; i < k; i++) {
+			int o = crosses.get(i).crossCount;
+			assertTrue(o > 0 && o <= n);
+			int mult = (i==1) ? 2 : 4;
+			x += o*o*mult;
+			total += o;
+		}
+		assertEquals(n, total);
+		double v = 1.0*x/n - n;
+		if (!DISABLE_STATISTICAL_TESTS) {
+			// Chi-square at 95% level
+			assertTrue("chi-square test failed, rerun tests since expected to fail 5% of the time", v <= threshold[k-1]);
+		}
+		WeightedHybridCrossover<TestObject> s = m.split();
+		for (int i = 0; i < 10; i++) {
+			s.cross(t1, t2);
+		}
+		total = 0;
+		for (int i = 0; i < k; i++) {
+			int o = crosses.get(i).crossCount;
+			total += o;
+		}
+		// Verify split didn't keep references to pre-split
+		// component crosses.
+		assertEquals(n, total);
 	}
 	
 	private static class TestCrossover implements CrossoverOperator<TestObject> {

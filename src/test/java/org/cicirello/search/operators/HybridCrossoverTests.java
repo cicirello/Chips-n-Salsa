@@ -43,6 +43,15 @@ public class HybridCrossoverTests {
 	private static final boolean DISABLE_STATISTICAL_TESTS = false;
 	
 	@Test
+	public void testExceptions() {
+		final ArrayList<TestCrossover> c = new ArrayList<TestCrossover>();
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new HybridCrossover<TestObject>(c)
+		);
+	}
+	
+	@Test
 	public void testHybridCrossover() {
 		int n = 6000;
 		// used for chi-square tests: tested at 95% level
@@ -53,8 +62,8 @@ public class HybridCrossoverTests {
 				crosses.add(new TestCrossover());
 			}
 			HybridCrossover<TestObject> c = new HybridCrossover<TestObject>(crosses); 
-			TestObject t1 = new TestObject();
-			TestObject t2 = new TestObject();
+			TestObject t1 = new TestObject("a");
+			TestObject t2 = new TestObject("b");
 			for (int i = 0; i < n; i++) {
 				c.cross(t1, t2);
 			}
@@ -108,6 +117,8 @@ public class HybridCrossoverTests {
 		}
 		
 		public void cross(TestObject t1, TestObject t2) {
+			assertEquals("a", t1.id);
+			assertEquals("b", t2.id);
 			crossCount++;
 			lastCalled = id;
 		}
@@ -118,6 +129,8 @@ public class HybridCrossoverTests {
 	}
 	
 	private static class TestObject implements Copyable<TestObject> {
-		public TestObject copy() { return new TestObject(); }
+		private String id;
+		public TestObject(String id) { this.id = id; }
+		public TestObject copy() { return new TestObject(id); }
 	}
 }

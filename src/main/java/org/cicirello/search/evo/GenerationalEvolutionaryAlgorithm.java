@@ -378,14 +378,13 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 				pop.updateFitness(first);
 				pop.updateFitness(second);
 			}
-			numFitnessEvals = numFitnessEvals + count + count;
 			final int LAMBDA = pop.mutableSize();
 			for (int j = 0; j < LAMBDA; j++) {
 				mutation.mutate(pop.get(j));
 				pop.updateFitness(j);
 			}
 			pop.replace();
-			numFitnessEvals = numFitnessEvals + LAMBDA;
+			numFitnessEvals = numFitnessEvals + LAMBDA + count + count;
 		};
 	}
 	

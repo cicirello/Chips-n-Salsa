@@ -29,6 +29,7 @@ import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomVariates;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -389,13 +390,15 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	private SingleGen<T> mutationOnly() {
 		return () -> {
 			pop.select();
-			int[] mutateThese = RandomIndexer.sample(pop.mutableSize(), M);
-			for (int j = 0; j < mutateThese.length; j++) {
-				mutation.mutate(pop.get(mutateThese[j]));
-				pop.updateFitness(mutateThese[j]);
+			// Since select() above randomizes ordering, just use a binomial
+			// to get count of how many to mutate and mutate the first count individuals.
+			final int count = RandomVariates.nextBinomial(pop.mutableSize(), M);
+			for (int j = 0; j < count; j++) {
+				mutation.mutate(pop.get(j));
+				pop.updateFitness(j);
 			}
 			pop.replace();
-			numFitnessEvals = numFitnessEvals + mutateThese.length;
+			numFitnessEvals = numFitnessEvals + count;
 		};
 	}
 	

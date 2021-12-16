@@ -39,6 +39,29 @@ import java.util.concurrent.ThreadLocalRandom;
  * members of the parent population, and where the children replace the 
  * parents in the next generation.</p>
  *
+ * <p>The crossover, mutation, and selection operators are completely configurable
+ * by passing instances of classes that implement the {@link CrossoverOperator},
+ * {@link MutationOperator}, and {@link SelectionOperator} classes to one of the
+ * constructors.</p>
+ *
+ * <p>This class supports a variety of evolutionary algorithm models, depending
+ * upon the constructor you use, including:</p>
+ * <ul>
+ * <li>The typical generational model using both crossover and mutation, controlled by
+ * a crossover rate and a mutation rate, such that each child may be the result of
+ * crossover alone, mutation alone, a combination of both crossover and mutation, or
+ * a simple copy of a parent.</li>
+ * <li>A generational model using mutually exclusive crossover and mutation operators, 
+ * controlled by a crossover rate and a mutation rate, but such that each child is the
+ * result of crossover, or mutation, or a simply copy of a parent, but never the result
+ * of both crossover and mutation.</li>
+ * <li>A generational mutation-only evolutionary algorithm.</li>
+ * </ul>
+ * <p>Note that it does not include a constructor dedicated to a crossover-only case
+ * since it would be rare (if ever) that you would find it desirable not to use a 
+ * mutation operator. However, if you find a crossover-only use-case, then simply
+ * pass any mutation operator and 0.0 for the mutation rate to one of the constructors.</p>
+ *
  * @param <T> The type of object under optimization.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 

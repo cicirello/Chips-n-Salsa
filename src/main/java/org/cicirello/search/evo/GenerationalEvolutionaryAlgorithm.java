@@ -368,15 +368,17 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	private SingleGen<T> alwaysMutateFullGeneration() {
 		return () -> {
 			pop.select();
-			int[] operateOnThese = RandomIndexer.sample(pop.mutableSize()/2, C);
-			for (int j = 0; j < operateOnThese.length; j++) {
-				int first = operateOnThese[j] << 1;
-				int second = first + 1;
+			// Since select() above randomizes ordering, just use a binomial
+			// to get count of number of pairs of parents to cross and cross the first 
+			// count pairs of parents. Pair up parents with indexes: first and (first + count).
+			final int count = RandomVariates.nextBinomial(pop.mutableSize()/2, C);
+			for (int first = 0; first < count; first++) {
+				int second = first + count;
 				crossover.cross(pop.get(first), pop.get(second));
 				pop.updateFitness(first);
 				pop.updateFitness(second);
 			}
-			numFitnessEvals = numFitnessEvals + operateOnThese.length + operateOnThese.length;
+			numFitnessEvals = numFitnessEvals + count + count;
 			final int LAMBDA = pop.mutableSize();
 			for (int j = 0; j < LAMBDA; j++) {
 				mutation.mutate(pop.get(j));

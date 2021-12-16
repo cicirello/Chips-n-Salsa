@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -26,73 +26,73 @@ import java.util.Collection;
 import java.util.Arrays;
 
 /**
- * <p>A WeightedHybridMutation enables using multiple mutation operators for the
- * search, such that each time the {@link #mutate} method is called,
- * a randomly chosen mutation operator is applied to the candidate
- * solution.  The random choice of mutation operator is weighted proportionately based on
+ * <p>A WeightedHybridCrossover enables using multiple crossover operators,
+ * such that each time the {@link #cross} method is called,
+ * a randomly chosen crossover operator is applied to the candidate
+ * solutions.  The random choice of crossover operator is weighted proportionately based on
  * an array of weights passed upon construction.</p>
  *
  * <p>Consider the following weights: w = [ 1, 2, 3].  In this example, the
- * first mutation operator will be used with probability 0.167, the second
- * mutation operator will be used with probability 2/6 = 0.333, and the third 
- * mutation operator will be used with probability 3/6 = 0.5.</p>
+ * first crossover operator will be used with probability 0.167, the second
+ * crossover operator will be used with probability 2/6 = 0.333, and the third 
+ * crossover operator will be used with probability 3/6 = 0.5.</p>
  *
  * @param <T> The type of object used to represent candidate solutions to the problem.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a> 
  */
-public final class WeightedHybridMutation<T> implements MutationOperator<T> {
+public final class WeightedHybridCrossover<T> implements CrossoverOperator<T> {
 	
-	private final ArrayList<MutationOperator<T>> mutationOps;
+	private final ArrayList<CrossoverOperator<T>> ops;
 	private final int[] choice;
 	
 	/**
-	 * Constructs a WeightedHybridMutation from a Collection of MutationOperators.
-	 * @param mutationOps A Collection of MutationOperators.
-	 * @param weights The array of weights, whose length must be equal to mutationOps.size().
+	 * Constructs a WeightedHybridCrossover from a Collection of CrossoverOperators.
+	 * @param ops A Collection of CrossoverOperators.
+	 * @param weights The array of weights, whose length must be equal to ops.size().
 	 * Every element of weights must be greater than 0.
-	 * @throws IllegalArgumentException if mutationOps doesn't contain any MutationOperators.
-	 * @throws IllegalArgumentException if mutationOps.size() is not equal to weights.length.
+	 * @throws IllegalArgumentException if ops doesn't contain any CrossoverOperators.
+	 * @throws IllegalArgumentException if ops.size() is not equal to weights.length.
 	 * @throws IllegalArgumentException if any weights are non-positive.
 	 */
-	public WeightedHybridMutation(Collection<? extends MutationOperator<T>> mutationOps, int[] weights) {
-		if (mutationOps.size() == 0) throw new IllegalArgumentException("Must pass at least 1 MutationOperator.");
-		if (mutationOps.size() != weights.length) throw new IllegalArgumentException("Number of weights must be same as number of mutation operators.");
+	public WeightedHybridCrossover(Collection<? extends CrossoverOperator<T>> ops, int[] weights) {
+		if (ops.size() == 0) throw new IllegalArgumentException("Must pass at least 1 CrossoverOperator.");
+		if (ops.size() != weights.length) throw new IllegalArgumentException("Number of weights must be same as number of crossover operators.");
 		choice = weights.clone();
 		if (choice[0] <= 0) throw new IllegalArgumentException("The weights must be positive.");
 		for (int i = 1; i < choice.length; i++) {
 			if (choice[i] <= 0) throw new IllegalArgumentException("The weights must be positive.");
 			choice[i] = choice[i-1] + choice[i];
 		}
-		this.mutationOps = new ArrayList<MutationOperator<T>>(mutationOps.size());
-		for (MutationOperator<T> op : mutationOps) {
-			this.mutationOps.add(op);
+		this.ops = new ArrayList<CrossoverOperator<T>>(ops.size());
+		for (CrossoverOperator<T> op : ops) {
+			this.ops.add(op);
 		}
 	}
 	
 	/*
 	 * private constructor to support split method
 	 */
-	private WeightedHybridMutation(WeightedHybridMutation<T> other) {
-		mutationOps = new ArrayList<MutationOperator<T>>(other.mutationOps.size());
-		for (MutationOperator<T> op : other.mutationOps) {
-			mutationOps.add(op.split());
+	private WeightedHybridCrossover(WeightedHybridCrossover<T> other) {
+		ops = new ArrayList<CrossoverOperator<T>>(other.ops.size());
+		for (CrossoverOperator<T> op : other.ops) {
+			ops.add(op.split());
 		}
 		choice = other.choice.clone();
 	}
 	
 	@Override
-	public void mutate(T c) {
+	public void cross(T c1, T c2) {
 		int value = RandomIndexer.nextInt(choice[choice.length-1]);
 		int i = Arrays.binarySearch(choice, value);
 		if (i < 0) i = -(i + 1);
 		else i++;
-		mutationOps.get(i).mutate(c);
+		ops.get(i).cross(c1, c2);
 	}
 	
 	@Override
-	public WeightedHybridMutation<T> split() {
-		return new WeightedHybridMutation<T>(this);
+	public WeightedHybridCrossover<T> split() {
+		return new WeightedHybridCrossover<T>(this);
 	}
 }

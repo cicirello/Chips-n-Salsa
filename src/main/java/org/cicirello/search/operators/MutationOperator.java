@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -24,7 +24,8 @@ import org.cicirello.search.concurrent.Splittable;
 
 /**
  * <p>Implement the MutationOperator interface to implement a mutation operator
- * for use in simulated annealing, and other metaheuristics, that require a
+ * for use in simulated annealing, genetic algorithms, and other evolutionary algorithms,
+ * and other metaheuristics, that require a
  * way to generate random neighbors of a candidate solution.</p>  
  *
  * <p>If your mutation
@@ -43,11 +44,9 @@ import org.cicirello.search.concurrent.Splittable;
  * that do.</p>
  *
  * @param <T> The type of object used to represent candidate solutions to the problem.
- * @since 1.0
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.8.2020
  */
 public interface MutationOperator<T> extends Splittable<MutationOperator<T>> {
 	
@@ -59,6 +58,5 @@ public interface MutationOperator<T> extends Splittable<MutationOperator<T>> {
 	 * @param c The candidate solution subject to the mutation.  This method
 	 * changes the state of c.
 	 */
-	void mutate(T c);
-	
+	void mutate(T c);	
 }

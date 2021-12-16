@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 /**
  * JUnit tests for the various classes that implement hybrid mutation
- * operators (i.e., that combine multiple mutation operators.
+ * operators (i.e., that combine multiple mutation operators).
  */
 public class HybridMutationTests {
 	

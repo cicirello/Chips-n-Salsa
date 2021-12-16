@@ -450,32 +450,32 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 	}
 	
 	private SingleGen<T> mutuallyExclusiveOperators() {
-		return new SingleGen<T>() {
-			
-			private final double M_PRIME = C < 1.0 ? M / (1.0 - C) : 0.0;
-			
-			@Override
-			public void optimizeSingleGen() {
-				pop.select();
-				// Since select() above randomizes ordering, just use a binomial
-				// to get count of number of pairs of parents to cross and cross the first 
-				// count pairs of parents. Pair up parents with indexes: first and (first + count).
-				final int count = RandomVariates.nextBinomial(pop.mutableSize()/2, C);
-				for (int first = 0; first < count; first++) {
-					int second = first + count;
-					crossover.cross(pop.get(first), pop.get(second));
-					pop.updateFitness(first);
-					pop.updateFitness(second);
-				}
-				final int crossed = count + count;
-				final int mutateCount = crossed < pop.mutableSize() ? RandomVariates.nextBinomial(pop.mutableSize()-crossed, M_PRIME) : 0;
+		return () -> {
+			pop.select();
+			// Since select() above randomizes ordering, just use a binomial
+			// to get count of number of pairs of parents to cross and cross the first 
+			// count pairs of parents. Pair up parents with indexes: first and (first + count).
+			final int count = C < 1.0 ? RandomVariates.nextBinomial(pop.mutableSize()/2, C) : pop.mutableSize()/2;
+			for (int first = 0; first < count; first++) {
+				int second = first + count;
+				crossover.cross(pop.get(first), pop.get(second));
+				pop.updateFitness(first);
+				pop.updateFitness(second);
+			}
+			final int crossed = count + count;
+			int mutateCount = 0;
+			if (C < 1.0) {
+				final double M_PRIME = M / (1.0 - C);
+				mutateCount = crossed < pop.mutableSize() ? 
+					(M_PRIME < 1.0 ? RandomVariates.nextBinomial(pop.mutableSize()-crossed, M_PRIME) : pop.mutableSize()-crossed) 
+					: 0;
 				for (int j = crossed + mutateCount - 1; j >= crossed; j--) {
 					mutation.mutate(pop.get(j));
 					pop.updateFitness(j);
 				}
-				pop.replace();
-				numFitnessEvals = numFitnessEvals + crossed + mutateCount;
 			}
+			pop.replace();
+			numFitnessEvals = numFitnessEvals + crossed + mutateCount;
 		};
 	}
 	

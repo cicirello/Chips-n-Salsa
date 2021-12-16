@@ -78,7 +78,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 	private final SingleGen<T> sr;
 	private final GenerationOption go;
 	
-	private int numFitnessEvals;
+	private long numFitnessEvals;
 	
 	// Constructors for standard generational model using both crossover and mutation operators
 	
@@ -344,6 +344,8 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 		problem = other.problem;
 		M = other.M;
 		C = other.C;
+		
+		// Each instance must maintain its own count of evals.
 		numFitnessEvals = 0;
 		
 		// Initialize the runner   

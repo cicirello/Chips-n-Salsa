@@ -30,7 +30,6 @@ import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.math.rand.RandomVariates;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <p>This class implements an evolutionary algorithm with a generational

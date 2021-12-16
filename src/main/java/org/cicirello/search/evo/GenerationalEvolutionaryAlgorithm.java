@@ -29,6 +29,7 @@ import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.math.rand.RandomIndexer;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <p>This class implements an evolutionary algorithm with a generational
@@ -185,14 +186,15 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 		this.pop = pop;
 		this.problem = problem;
 		this.mutation = mutation;
-		M = mutationRate;
 		this.crossover = crossover;
 		C = crossoverRate < 1.0 ? crossoverRate : 1.0;
 		
-		if (M < 1.0) {
+		if (mutationRate < 1.0) {
+			M = mutationRate;
 			sr = fullGeneration(); 
 			go = GenerationOption.FULL_GENERATION;
 		} else {
+			M = 1.0;
 			sr = alwaysMutateFullGeneration();
 			go = GenerationOption.FULL_GENERATION_ALWAYS_MUTATE;
 		}
@@ -211,14 +213,15 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 		this.pop = pop;
 		this.problem = problem;
 		this.mutation = mutation;
-		M = mutationRate;
 		crossover = null;
 		C = 0.0;
 		
-		if (M < 1.0) {
+		if (mutationRate < 1.0) {
+			M = mutationRate;
 			sr = mutationOnly(); 
 			go = GenerationOption.MUTATION_ONLY;
 		} else {
+			M = 1.0;
 			sr = alwaysMutate();
 			go = GenerationOption.ALWAYS_MUTATION;
 		}

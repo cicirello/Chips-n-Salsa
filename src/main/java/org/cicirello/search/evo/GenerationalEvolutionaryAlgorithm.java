@@ -58,11 +58,12 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	
 	private int numFitnessEvals;
 	
-	// Constructors for standard case of crossover and mutation operators
+	// Constructors for standard generational model using both crossover and mutation operators
 	
 	/**
 	 * Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
-	 * and a mutation operator. This constructor supports fitness functions
+	 * and a mutation operator, and such that members of the population are permitted to undergo both crossover and
+	 * mutation in the same generation. This constructor supports fitness functions
 	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
 	 *
 	 * @param n The population size.
@@ -84,12 +85,13 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
 	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
-		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate, false);
 	}
 	
 	/**
 	 * Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
-	 * and a mutation operator. This constructor supports fitness functions
+	 * and a mutation operator, and such that members of the population are permitted to undergo both crossover and
+	 * mutation in the same generation. This constructor supports fitness functions
 	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
 	 *
 	 * @param n The population size.
@@ -111,7 +113,79 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
 	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
-		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate, false);
+	}
+	
+	
+	// Constructors for generational model with both crossover and mutation but 
+	// special case where crossover and mutation are mutually exclusive (i.e.,
+	// each member of the population can be involved in crossover or mutation, but not
+	// both).
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+	 * and a mutation operator. This constructor enables configuring the EA for either the more common case where
+	 * population members are permitted to undergo both crossover and mutation in the same generation 
+	 * (mutuallyExclusiveOps = false), as well as the case when the genetic operators follow a mutually exclusive 
+	 * property where each population member is involved in at most one of those operations in a single generation
+	 * (mutuallyExclusiveOps = true). This constructor supports fitness functions
+	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param crossover The crossover operator.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 * @param mutuallyExclusiveOps If true, each member of the population will undergo crossover or mutation, but never both.
+	 *   If false, then a member of the population may undergo both crossover and mutation.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 * @param tracker A ProgressTracker.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, boolean mutuallyExclusiveOps, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate, mutuallyExclusiveOps);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+	 * and a mutation operator. This constructor enables configuring the EA for either the more common case where
+	 * population members are permitted to undergo both crossover and mutation in the same generation 
+	 * (mutuallyExclusiveOps = false), as well as the case when the genetic operators follow a mutually exclusive 
+	 * property where each population member is involved in at most one of those operations in a single generation
+	 * (mutuallyExclusiveOps = true). This constructor supports fitness functions
+	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param crossover The crossover operator.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 * @param mutuallyExclusiveOps If true, each member of the population will undergo crossover or mutation, but never both.
+	 *   If false, then a member of the population may undergo both crossover and mutation.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 * @param tracker A ProgressTracker.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, boolean mutuallyExclusiveOps, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate, mutuallyExclusiveOps);
 	}
 	
 	
@@ -171,7 +245,7 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	/*
 	 * Internal helper constructor for standard EAs with full generation (both crossover and mutation).
 	 */
-	private GenerationalEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate) {
+	private GenerationalEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, boolean mutuallyExclusiveOps) {
 		if (mutation == null) {
 			throw new NullPointerException("mutation must be non-null");
 		}
@@ -184,13 +258,15 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 		if (crossoverRate < 0.0) {
 			throw new IllegalArgumentException("crossoverRate must not be negative");
 		}
-		this.pop = pop;
-		this.problem = problem;
-		this.mutation = mutation;
-		this.crossover = crossover;
-		C = crossoverRate < 1.0 ? crossoverRate : 1.0;
 		
-		if (mutationRate < 1.0) {
+		if (mutuallyExclusiveOps) {
+			if (mutationRate + crossoverRate > 1.0) {
+				throw new IllegalArgumentException("mutually exclusive operators requires mutationRate + crossoverRate <= 1.0");
+			}
+			M = mutationRate;
+			sr = mutuallyExclusiveOperators();
+			go = GenerationOption.MUTUALLY_EXCLUSIVE_OPERATORS;
+		} else if (mutationRate < 1.0) {
 			M = mutationRate;
 			sr = fullGeneration(); 
 			go = GenerationOption.FULL_GENERATION;
@@ -199,6 +275,11 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 			sr = alwaysMutateFullGeneration();
 			go = GenerationOption.FULL_GENERATION_ALWAYS_MUTATE;
 		}
+		C = crossoverRate < 1.0 ? crossoverRate : 1.0;
+		this.pop = pop;
+		this.problem = problem;
+		this.mutation = mutation;
+		this.crossover = crossover;
 	}
 	
 	/*
@@ -248,6 +329,7 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 		switch (go) {
 			case FULL_GENERATION: sr = fullGeneration(); break;
 			case FULL_GENERATION_ALWAYS_MUTATE: sr = alwaysMutateFullGeneration(); break;
+			case MUTUALLY_EXCLUSIVE_OPERATORS: sr = mutuallyExclusiveOperators(); break;
 			case MUTATION_ONLY: sr = mutationOnly(); break;
 			default: //case ALWAYS_MUTATION: 
 				sr = alwaysMutate(); break;
@@ -334,13 +416,43 @@ public final class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> impl
 	}
 	
 	private enum GenerationOption {
-		FULL_GENERATION, FULL_GENERATION_ALWAYS_MUTATE, MUTATION_ONLY, ALWAYS_MUTATION
+		FULL_GENERATION, FULL_GENERATION_ALWAYS_MUTATE, MUTUALLY_EXCLUSIVE_OPERATORS, MUTATION_ONLY, ALWAYS_MUTATION
 	}
 	
 	private void internalOptimize(int numGenerations) {
 		for (int i = 0; i < numGenerations && !pop.evolutionIsPaused(); i++) {
 			sr.optimizeSingleGen();
 		}
+	}
+	
+	private SingleGen<T> mutuallyExclusiveOperators() {
+		return new SingleGen<T>() {
+			
+			private final double M_PRIME = C < 1.0 ? M / (1.0 - C) : 0.0;
+			
+			@Override
+			public void optimizeSingleGen() {
+				pop.select();
+				// Since select() above randomizes ordering, just use a binomial
+				// to get count of number of pairs of parents to cross and cross the first 
+				// count pairs of parents. Pair up parents with indexes: first and (first + count).
+				final int count = RandomVariates.nextBinomial(pop.mutableSize()/2, C);
+				for (int first = 0; first < count; first++) {
+					int second = first + count;
+					crossover.cross(pop.get(first), pop.get(second));
+					pop.updateFitness(first);
+					pop.updateFitness(second);
+				}
+				final int crossed = count + count;
+				final int mutateCount = crossed < pop.mutableSize() ? RandomVariates.nextBinomial(pop.mutableSize()-crossed, M_PRIME) : 0;
+				for (int j = crossed + mutateCount - 1; j >= crossed; j--) {
+					mutation.mutate(pop.get(j));
+					pop.updateFitness(j);
+				}
+				pop.replace();
+				numFitnessEvals = numFitnessEvals + crossed + mutateCount;
+			}
+		};
 	}
 	
 	private SingleGen<T> fullGeneration() {

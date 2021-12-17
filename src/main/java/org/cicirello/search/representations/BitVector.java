@@ -33,7 +33,6 @@ import java.util.Arrays;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.26.2021
  */
 public final class BitVector implements Copyable<BitVector> {
 	
@@ -100,6 +99,69 @@ public final class BitVector implements Copyable<BitVector> {
 		bits = other.bits.clone();
 		bitLength = other.bitLength;
 		lastIntMask = other.lastIntMask;
+	}
+	
+	/**
+	 * Exchanges a sequence of bits between two BitVector objects.
+	 *
+	 * @param b1 The first BitVector.
+	 * @param b2 The second BitVector.
+	 * @param firstIndex The first index of the sequence to exchange, inclusive.
+	 * @param lastIndex The last index of the sequence to exchange, inclusive.
+	 *
+	 * @throws IndexOutOfBoundsException if either index is negative, or if either index &ge; length()
+	 */
+	public static void exchangeBitSequence(BitVector b1, BitVector b2, int firstIndex, int lastIndex) {
+		if (firstIndex > lastIndex) {
+			int temp = firstIndex;
+			firstIndex = lastIndex;
+			lastIndex = temp;
+		}
+		if (firstIndex < 0 || lastIndex >= b1.bitLength || lastIndex >= b2.bitLength) {
+			throw new IndexOutOfBoundsException("index(es) is(are) not in the bounds of the BitVector");
+		}
+		int firstBlock = firstIndex >> 5;
+		int lastBlock = lastIndex >> 5;
+		if (firstBlock == lastBlock) {
+			// all within a single block case
+			int r = (lastIndex - firstIndex + 1);
+			if (r == 32) {
+				// whole block
+				int temp = b1.bits[firstBlock];
+				b1.bits[firstBlock] = b2.bits[firstBlock];
+				b2.bits[firstBlock] = temp;
+			} else {
+				int swapMask = ((1 << r) - 1) << (firstIndex & 0x1f);
+				partialBlockSwap(b1, b2, firstBlock, ~swapMask, swapMask);
+			}
+		} else {
+			int r = firstIndex & 0x1f;
+			if (r != 0) {
+				// Handle first partial block here
+				int keepMask = (1 << r) - 1;
+				partialBlockSwap(b1, b2, firstBlock, keepMask, ~keepMask);
+				firstBlock++;
+			}
+			r = lastIndex & 0x1f;
+			if (r != 31) {
+				// Handle last partial block here
+				int swapMask = (1 << (r+1)) - 1;
+				partialBlockSwap(b1, b2, lastBlock, ~swapMask, swapMask);
+				lastBlock--;
+			}
+			// handle the whole block cases
+			for (int i = firstBlock; i <= lastBlock; i++) {
+				int temp = b1.bits[i];
+				b1.bits[i] = b2.bits[i];
+				b2.bits[i] = temp;
+			}
+		}
+	}
+	
+	private static void partialBlockSwap(BitVector b1, BitVector b2, int index, int keepMask, int swapMask) {
+		int temp = (b1.bits[index] & swapMask) | (b2.bits[index] & keepMask);
+		b1.bits[index] = (b2.bits[index] & swapMask) | (b1.bits[index] & keepMask);
+		b2.bits[index] = temp;
 	}
 	
 	/**

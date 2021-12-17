@@ -138,6 +138,60 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate, false);
 	}
 	
+	/**
+	 * Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+	 * and a mutation operator, and such that members of the population are permitted to undergo both crossover and
+	 * mutation in the same generation. This constructor supports fitness functions
+	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param crossover The crossover operator.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
+		this(new BasePopulation.Double<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate, crossover, crossoverRate, false);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+	 * and a mutation operator, and such that members of the population are permitted to undergo both crossover and
+	 * mutation in the same generation. This constructor supports fitness functions
+	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param crossover The crossover operator.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection) {
+		this(new BasePopulation.Integer<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate, crossover, crossoverRate, false);
+	}
+	
 	
 	// Constructors for generational model with both crossover and mutation but 
 	// special case where crossover and mutation are mutually exclusive (i.e.,
@@ -210,6 +264,70 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate, mutuallyExclusiveOps);
 	}
 	
+	/**
+	 * Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+	 * and a mutation operator. This constructor enables configuring the EA for either the more common case where
+	 * population members are permitted to undergo both crossover and mutation in the same generation 
+	 * (mutuallyExclusiveOps = false), as well as the case when the genetic operators follow a mutually exclusive 
+	 * property where each population member is involved in at most one of those operations in a single generation
+	 * (mutuallyExclusiveOps = true). This constructor supports fitness functions
+	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param crossover The crossover operator.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 * @param mutuallyExclusiveOps If true, each member of the population will undergo crossover or mutation, but never both.
+	 *   If false, then a member of the population may undergo both crossover and mutation.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, boolean mutuallyExclusiveOps, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
+		this(new BasePopulation.Double<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate, crossover, crossoverRate, mutuallyExclusiveOps);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+	 * and a mutation operator. This constructor enables configuring the EA for either the more common case where
+	 * population members are permitted to undergo both crossover and mutation in the same generation 
+	 * (mutuallyExclusiveOps = false), as well as the case when the genetic operators follow a mutually exclusive 
+	 * property where each population member is involved in at most one of those operations in a single generation
+	 * (mutuallyExclusiveOps = true). This constructor supports fitness functions
+	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param crossover The crossover operator.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 * @param mutuallyExclusiveOps If true, each member of the population will undergo crossover or mutation, but never both.
+	 *   If false, then a member of the population may undergo both crossover and mutation.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, boolean mutuallyExclusiveOps, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection) {
+		this(new BasePopulation.Integer<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate, crossover, crossoverRate, mutuallyExclusiveOps);
+	}
+	
 	
 	// Mutation-Only Constructors
 	
@@ -259,6 +377,52 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 	 */
 	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
 		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
+	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if mutationRate is less than 0.
+	 * @throws NullPointerException if any of mutation, initializer, f, or selection are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
+		this(new BasePopulation.Double<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
+	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if mutationRate is less than 0.
+	 * @throws NullPointerException if any of mutation, initializer, f, or selection are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection) {
+		this(new BasePopulation.Integer<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate);
 	}
 	
 	

@@ -33,9 +33,9 @@ import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
- * JUnit 4 test cases for GenerationalEvolutionaryAlgorithm.
+ * JUnit 4 test cases for GenerationalEvolutionaryAlgorithm, cases with constructors without ProgressTracker parameter.
  */
-public class GenerationalEATests {
+public class GenerationalEANoPTTests {
 	
 	@Test
 	public void testExceptions() {
@@ -47,8 +47,7 @@ public class GenerationalEATests {
 				0.5, 
 				new TestInitializer(), 
 				new TestFitnessDouble(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownNull = assertThrows( 
@@ -59,8 +58,7 @@ public class GenerationalEATests {
 				0.5, 
 				new TestInitializer(), 
 				new TestFitnessInteger(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownNull = assertThrows( 
@@ -73,8 +71,7 @@ public class GenerationalEATests {
 				0.5,
 				new TestInitializer(), 
 				new TestFitnessDouble(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownNull = assertThrows( 
@@ -87,8 +84,7 @@ public class GenerationalEATests {
 				0.5,
 				new TestInitializer(), 
 				new TestFitnessInteger(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownNull = assertThrows( 
@@ -101,8 +97,7 @@ public class GenerationalEATests {
 				0.5,
 				new TestInitializer(), 
 				new TestFitnessDouble(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownNull = assertThrows( 
@@ -115,8 +110,7 @@ public class GenerationalEATests {
 				0.5,
 				new TestInitializer(), 
 				new TestFitnessInteger(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownNull = assertThrows( 
@@ -130,8 +124,7 @@ public class GenerationalEATests {
 				false,
 				new TestInitializer(), 
 				new TestFitnessDouble(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownNull = assertThrows( 
@@ -145,8 +138,7 @@ public class GenerationalEATests {
 				false,
 				new TestInitializer(), 
 				new TestFitnessInteger(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownNull = assertThrows( 
@@ -160,8 +152,7 @@ public class GenerationalEATests {
 				false,
 				new TestInitializer(), 
 				new TestFitnessDouble(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownNull = assertThrows( 
@@ -175,8 +166,7 @@ public class GenerationalEATests {
 				false,
 				new TestInitializer(), 
 				new TestFitnessInteger(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		IllegalArgumentException thrownIllegal = assertThrows( 
@@ -187,8 +177,7 @@ public class GenerationalEATests {
 				-1E-10, 
 				new TestInitializer(), 
 				new TestFitnessDouble(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -199,8 +188,7 @@ public class GenerationalEATests {
 				-1E-10, 
 				new TestInitializer(), 
 				new TestFitnessInteger(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -213,8 +201,7 @@ public class GenerationalEATests {
 				-1E-10,
 				new TestInitializer(), 
 				new TestFitnessDouble(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -227,8 +214,7 @@ public class GenerationalEATests {
 				-1E-10,
 				new TestInitializer(), 
 				new TestFitnessInteger(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -241,8 +227,7 @@ public class GenerationalEATests {
 				1E-10,
 				new TestInitializer(), 
 				new TestFitnessDouble(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -255,8 +240,7 @@ public class GenerationalEATests {
 				1E-10,
 				new TestInitializer(), 
 				new TestFitnessInteger(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -270,8 +254,7 @@ public class GenerationalEATests {
 				true,
 				new TestInitializer(), 
 				new TestFitnessInteger(), 
-				new TestSelectionOp(), 
-				new ProgressTracker<TestObject>()
+				new TestSelectionOp()
 			)
 		);
 	}
@@ -293,7 +276,6 @@ public class GenerationalEATests {
 		}
 		
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -306,9 +288,9 @@ public class GenerationalEATests {
 			0.5, 
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
 		try {
 			TestThread t = new TestThread(ea);
 			t.start();
@@ -326,7 +308,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOpsDoubleFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -342,14 +323,10 @@ public class GenerationalEATests {
 			0.5,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
-		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -426,7 +403,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOpsAlwaysMutateDoubleFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -442,14 +418,11 @@ public class GenerationalEATests {
 			0.5,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -524,7 +497,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOps_1_0_DoubleFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -542,14 +514,11 @@ public class GenerationalEATests {
 			1.0,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -622,7 +591,6 @@ public class GenerationalEATests {
 	@Test
 	public void testMutationOnlyDoubleFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -635,14 +603,11 @@ public class GenerationalEATests {
 			0.5, 
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -712,7 +677,6 @@ public class GenerationalEATests {
 	@Test
 	public void testAlwaysDoubleFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -725,14 +689,11 @@ public class GenerationalEATests {
 			1.0, 
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -802,7 +763,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOpsDoubleFitness_Mutual() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -819,14 +779,11 @@ public class GenerationalEATests {
 			true,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -906,7 +863,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOps_MutualSumTo1_DoubleFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -925,14 +881,11 @@ public class GenerationalEATests {
 			true,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -1002,7 +955,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOps_MutualAllCross_DoubleFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -1021,14 +973,11 @@ public class GenerationalEATests {
 			true,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -1101,7 +1050,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOps_Mutual_CNear1_DoubleFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -1120,14 +1068,11 @@ public class GenerationalEATests {
 			true,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -1202,7 +1147,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOpsDoubleFitness_MutualFalse() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -1219,14 +1163,11 @@ public class GenerationalEATests {
 			false,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -1303,7 +1244,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOpsAlwaysMutateDoubleFitness_MutualFalse() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -1320,14 +1260,11 @@ public class GenerationalEATests {
 			false,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -1402,7 +1339,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOps_1_0_DoubleFitness_MutualFalse() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
 		TestInitializer initializer = new TestInitializer();
@@ -1421,14 +1357,11 @@ public class GenerationalEATests {
 			false,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -1504,7 +1437,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOpsIntegerFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -1520,14 +1452,11 @@ public class GenerationalEATests {
 			0.5,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -1604,7 +1533,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOpsAlwaysMutateIntegerFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -1620,14 +1548,11 @@ public class GenerationalEATests {
 			0.5,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -1702,7 +1627,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOps_1_0_IntegerFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -1720,14 +1644,11 @@ public class GenerationalEATests {
 			1.0,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -1800,7 +1721,6 @@ public class GenerationalEATests {
 	@Test
 	public void testMutationOnlyIntegerFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -1813,14 +1733,11 @@ public class GenerationalEATests {
 			0.5, 
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -1889,7 +1806,6 @@ public class GenerationalEATests {
 	@Test
 	public void testAlwaysIntegerFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -1902,14 +1818,11 @@ public class GenerationalEATests {
 			1.0, 
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -1979,7 +1892,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOpsIntegerFitness_Mutual() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -1996,14 +1908,11 @@ public class GenerationalEATests {
 			true,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -2083,7 +1992,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOps_MutualSumTo1_IntegerFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -2102,14 +2010,11 @@ public class GenerationalEATests {
 			true,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -2179,7 +2084,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOps_MutualAllCross_IntegerFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -2198,14 +2102,11 @@ public class GenerationalEATests {
 			true,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -2278,7 +2179,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOps_Mutual_CNear1_IntegerFitness() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -2297,14 +2197,11 @@ public class GenerationalEATests {
 			true,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -2379,7 +2276,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOpsIntegerFitness_MutualFalse() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -2396,14 +2292,11 @@ public class GenerationalEATests {
 			false,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -2480,7 +2373,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOpsAlwaysMutateIntegerFitness_MutualFalse() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -2497,14 +2389,11 @@ public class GenerationalEATests {
 			false,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());
@@ -2579,7 +2468,6 @@ public class GenerationalEATests {
 	@Test
 	public void testBothOps_1_0_IntegerFitness_MutualFalse() {
 		TestObject.reinit();
-		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
 		TestInitializer initializer = new TestInitializer();
@@ -2598,14 +2486,11 @@ public class GenerationalEATests {
 			false,
 			initializer, 
 			f, 
-			selection, 
-			tracker
+			selection
 		);
 		
-		assertTrue(tracker == ea.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		ea.setProgressTracker(tracker);
-		assertTrue(tracker == ea.getProgressTracker());
+		ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+		assertNotNull(tracker);
 		assertTrue(f.getProblem() == ea.getProblem());
 		
 		assertEquals(0L, ea.getTotalRunLength());

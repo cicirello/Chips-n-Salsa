@@ -110,6 +110,7 @@ public final class BitVector implements Copyable<BitVector> {
 	 * @param lastIndex The last index of the sequence to exchange, inclusive.
 	 *
 	 * @throws IndexOutOfBoundsException if either index is negative, or if either index &ge; length()
+	 * @throws IllegalArgumentException if b1.length() is not equal to b2.length()
 	 */
 	public static void exchangeBitSequence(BitVector b1, BitVector b2, int firstIndex, int lastIndex) {
 		if (firstIndex > lastIndex) {
@@ -117,7 +118,10 @@ public final class BitVector implements Copyable<BitVector> {
 			firstIndex = lastIndex;
 			lastIndex = temp;
 		}
-		if (firstIndex < 0 || lastIndex >= b1.bitLength || lastIndex >= b2.bitLength) {
+		if (b1.bitLength != b2.bitLength) {
+			throw new IllegalArgumentException("BitVectors must be same length");
+		}
+		if (firstIndex < 0 || lastIndex >= b1.bitLength) {
 			throw new IndexOutOfBoundsException("index(es) is(are) not in the bounds of the BitVector");
 		}
 		int firstBlock = firstIndex >> 5;

@@ -109,8 +109,8 @@ public final class BitVector implements Copyable<BitVector> {
 	 * @param firstIndex The first index of the sequence to exchange, inclusive.
 	 * @param lastIndex The last index of the sequence to exchange, inclusive.
 	 *
-	 * @throws IndexOutOfBoundsException if either index is negative, or if either index &ge; length()
 	 * @throws IllegalArgumentException if b1.length() is not equal to b2.length()
+	 * @throws IndexOutOfBoundsException if either index is negative, or if either index &ge; length()
 	 */
 	public static void exchangeBits(BitVector b1, BitVector b2, int firstIndex, int lastIndex) {
 		if (firstIndex > lastIndex) {
@@ -159,6 +159,27 @@ public final class BitVector implements Copyable<BitVector> {
 				b1.bits[i] = b2.bits[i];
 				b2.bits[i] = temp;
 			}
+		}
+	}
+	
+	/**
+	 * Exchanges a selection of bits between two BitVectors, where the bits to exchange are
+	 * indicated by a bit mask, also represented by a BitVector.
+	 *
+	 * @param b1 The first BitVector.
+	 * @param b2 The second BitVector.
+	 * @param mask A bit mask indicating which bit positions to exchange. Specifically, if mask.getBit(i)
+	 *     is a 1, then b1 and b2 will trade the bits in position i between each other, and otherwise they
+	 *     won't.
+	 *
+	 * @throws IllegalArgumentException if the lengths of b1, b2, and mask, are not all the same.
+	 */
+	public static void exchangeBits(BitVector b1, BitVector b2, BitVector mask) {
+		if (b1.bitLength != mask.bitLength || b2.bitLength != mask.bitLength) {
+			throw new IllegalArgumentException("BitVectors must be same length");
+		}
+		for (int i = 0; i < mask.bits.length; i++) {
+			partialBlockSwap(b1, b2, i, ~mask.bits[i], mask.bits[i]);
 		}
 	}
 	

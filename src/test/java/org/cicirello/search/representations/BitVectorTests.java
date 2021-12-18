@@ -51,6 +51,35 @@ public class BitVectorTests {
 			IllegalArgumentException.class,
 			() -> BitVector.exchangeBits(new BitVector(32), new BitVector(33), 1, 1)
 		);
+		thrown2 = assertThrows( 
+			IllegalArgumentException.class,
+			() -> BitVector.exchangeBits(new BitVector(32), new BitVector(32), new BitVector(31))
+		);
+		thrown2 = assertThrows( 
+			IllegalArgumentException.class,
+			() -> BitVector.exchangeBits(new BitVector(32), new BitVector(31), new BitVector(32))
+		);
+		thrown2 = assertThrows( 
+			IllegalArgumentException.class,
+			() -> BitVector.exchangeBits(new BitVector(31), new BitVector(32), new BitVector(32))
+		);
+	}
+	
+	@Test
+	public void testExchangeBitsViaMask() {
+		int[] maskBits = { 0xffffffff, 0x00000000, 0xff00ff00, 0x00ff00ff, 0x00ff00ff, 0xff00ff00, 0xff00ff00, 0x00ff00ff };
+		int[] bits1 =    { 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xff00ff00, 0x00ff00ff, 0xff00ff00, 0x00ff00ff };
+		int[] bits2 =    { 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0x00ff00ff, 0xff00ff00, 0x00ff00ff, 0xff00ff00 };
+		int[] expected1 = {0xffffffff, 0x00000000, 0xff00ff00, 0x00ff00ff, 0xffffffff, 0xffffffff, 0x00000000, 0x00000000 };
+		int[] expected2 = {0x00000000, 0xffffffff, 0x00ff00ff, 0xff00ff00, 0x00000000, 0x00000000, 0xffffffff, 0xffffffff };
+		BitVector b1 = new BitVector(bits1.length*32, bits1);
+		BitVector b2 = new BitVector(bits2.length*32, bits2);
+		BitVector bMask = new BitVector(maskBits.length*32, maskBits);
+		BitVector bExpect1 = new BitVector(expected1.length*32, expected1);
+		BitVector bExpect2 = new BitVector(expected2.length*32, expected2);
+		BitVector.exchangeBits(b1, b2, bMask);
+		assertEquals(bExpect1, b1);
+		assertEquals(bExpect2, b2);
 	}
 	
 	@Test

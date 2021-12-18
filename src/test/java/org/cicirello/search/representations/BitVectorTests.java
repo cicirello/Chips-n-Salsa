@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -30,31 +30,31 @@ import java.util.Arrays;
 public class BitVectorTests {
 	
 	@Test
-	public void testExchangeBitSequence_Exceptions() {
+	public void testExchangeBits_Exceptions() {
 		IndexOutOfBoundsException thrown = assertThrows( 
 			IndexOutOfBoundsException.class,
-			() -> BitVector.exchangeBitSequence(new BitVector(32), new BitVector(32), -1, 1)
+			() -> BitVector.exchangeBits(new BitVector(32), new BitVector(32), -1, 1)
 		);
 		thrown = assertThrows( 
 			IndexOutOfBoundsException.class,
-			() -> BitVector.exchangeBitSequence(new BitVector(32), new BitVector(32), 1, -1)
+			() -> BitVector.exchangeBits(new BitVector(32), new BitVector(32), 1, -1)
 		);
 		thrown = assertThrows( 
 			IndexOutOfBoundsException.class,
-			() -> BitVector.exchangeBitSequence(new BitVector(32), new BitVector(32), 32, 1)
+			() -> BitVector.exchangeBits(new BitVector(32), new BitVector(32), 32, 1)
 		);
 		thrown = assertThrows( 
 			IndexOutOfBoundsException.class,
-			() -> BitVector.exchangeBitSequence(new BitVector(32), new BitVector(32), 1, 32)
+			() -> BitVector.exchangeBits(new BitVector(32), new BitVector(32), 1, 32)
 		);
 		IllegalArgumentException thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> BitVector.exchangeBitSequence(new BitVector(32), new BitVector(33), 1, 1)
+			() -> BitVector.exchangeBits(new BitVector(32), new BitVector(33), 1, 1)
 		);
 	}
 	
 	@Test
-	public void testExchangeBitSequence_PartialBlocksAtEnds() {
+	public void testExchangeBits_PartialBlocksAtEnds() {
 		// Swapped bits opposite
 		for (int n = 96; n <= 128; n+=32) {
 			// b1 0s
@@ -63,7 +63,7 @@ public class BitVectorTests {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
 					b2.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < i; k++) {
 						assertEquals(0, b1.getBit(k));
 						assertEquals(1, b2.getBit(k));
@@ -84,7 +84,7 @@ public class BitVectorTests {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
 					b1.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < i; k++) {
 						assertEquals(1, b1.getBit(k));
 						assertEquals(0, b2.getBit(k));
@@ -106,7 +106,7 @@ public class BitVectorTests {
 				for (int j = n-32; j < n-1; j++) {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < n; k++) {
 						assertEquals(0, b1.getBit(k));
 						assertEquals(0, b2.getBit(k));
@@ -122,7 +122,7 @@ public class BitVectorTests {
 					BitVector b2 = new BitVector(n);
 					b1.not();
 					b2.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < n; k++) {
 						assertEquals(1, b1.getBit(k));
 						assertEquals(1, b2.getBit(k));
@@ -133,7 +133,7 @@ public class BitVectorTests {
 	}
 	
 	@Test
-	public void testExchangeBitSequence_MultipleWholeBlocks() {
+	public void testExchangeBits_MultipleWholeBlocks() {
 		// Swapped bits opposite
 		for (int n = 32; n <= 128; n+=32) {
 			// b1 0s
@@ -142,7 +142,7 @@ public class BitVectorTests {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
 					b2.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < i; k++) {
 						assertEquals(0, b1.getBit(k));
 						assertEquals(1, b2.getBit(k));
@@ -163,7 +163,7 @@ public class BitVectorTests {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
 					b1.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < i; k++) {
 						assertEquals(1, b1.getBit(k));
 						assertEquals(0, b2.getBit(k));
@@ -185,7 +185,7 @@ public class BitVectorTests {
 				for (int j = i+63; j < n; j+= 32) {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < n; k++) {
 						assertEquals(0, b1.getBit(k));
 						assertEquals(0, b2.getBit(k));
@@ -201,7 +201,7 @@ public class BitVectorTests {
 					BitVector b2 = new BitVector(n);
 					b1.not();
 					b2.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < n; k++) {
 						assertEquals(1, b1.getBit(k));
 						assertEquals(1, b2.getBit(k));
@@ -212,7 +212,7 @@ public class BitVectorTests {
 	}
 	
 	@Test
-	public void testExchangeBitSequence_SingleWholeBlock() {
+	public void testExchangeBits_SingleWholeBlock() {
 		// Swapped bits opposite
 		for (int n = 32; n <= 96; n+=32) {
 			// b1 0s
@@ -221,7 +221,7 @@ public class BitVectorTests {
 				BitVector b1 = new BitVector(n);
 				BitVector b2 = new BitVector(n);
 				b2.not();
-				BitVector.exchangeBitSequence(b1, b2, i, j);
+				BitVector.exchangeBits(b1, b2, i, j);
 				for (int k = 0; k < i; k++) {
 					assertEquals(0, b1.getBit(k));
 					assertEquals(1, b2.getBit(k));
@@ -241,7 +241,7 @@ public class BitVectorTests {
 				BitVector b1 = new BitVector(n);
 				BitVector b2 = new BitVector(n);
 				b1.not();
-				BitVector.exchangeBitSequence(b1, b2, i, j);
+				BitVector.exchangeBits(b1, b2, i, j);
 				for (int k = 0; k < i; k++) {
 					assertEquals(1, b1.getBit(k));
 					assertEquals(0, b2.getBit(k));
@@ -262,7 +262,7 @@ public class BitVectorTests {
 				int j = i + 31;
 				BitVector b1 = new BitVector(n);
 				BitVector b2 = new BitVector(n);
-				BitVector.exchangeBitSequence(b1, b2, i, j);
+				BitVector.exchangeBits(b1, b2, i, j);
 				for (int k = 0; k < n; k++) {
 					assertEquals(0, b1.getBit(k));
 					assertEquals(0, b2.getBit(k));
@@ -277,7 +277,7 @@ public class BitVectorTests {
 				BitVector b2 = new BitVector(n);
 				b1.not();
 				b2.not();
-				BitVector.exchangeBitSequence(b1, b2, i, j);
+				BitVector.exchangeBits(b1, b2, i, j);
 				for (int k = 0; k < n; k++) {
 					assertEquals(1, b1.getBit(k));
 					assertEquals(1, b2.getBit(k));
@@ -287,7 +287,7 @@ public class BitVectorTests {
 	}
 	
 	@Test
-	public void testExchangeBitSequence_SinglePartialBlock0() {
+	public void testExchangeBits_SinglePartialBlock0() {
 		// Swapped bits opposite
 		for (int n = 32; n <= 96; n+=32) {
 			// b1 0s
@@ -296,7 +296,7 @@ public class BitVectorTests {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
 					b2.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < i; k++) {
 						assertEquals(0, b1.getBit(k));
 						assertEquals(1, b2.getBit(k));
@@ -317,7 +317,7 @@ public class BitVectorTests {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
 					b1.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < i; k++) {
 						assertEquals(1, b1.getBit(k));
 						assertEquals(0, b2.getBit(k));
@@ -339,7 +339,7 @@ public class BitVectorTests {
 				for (int j = i; j < i+31; j++) {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < n; k++) {
 						assertEquals(0, b1.getBit(k));
 						assertEquals(0, b2.getBit(k));
@@ -355,7 +355,7 @@ public class BitVectorTests {
 					BitVector b2 = new BitVector(n);
 					b1.not();
 					b2.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < n; k++) {
 						assertEquals(1, b1.getBit(k));
 						assertEquals(1, b2.getBit(k));
@@ -366,7 +366,7 @@ public class BitVectorTests {
 	}
 	
 	@Test
-	public void testExchangeBitSequence_SinglePartialBlock31() {
+	public void testExchangeBits_SinglePartialBlock31() {
 		// Swapped bits opposite
 		for (int n = 32; n <= 96; n+=32) {
 			// b1 0s
@@ -375,7 +375,7 @@ public class BitVectorTests {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
 					b2.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < i; k++) {
 						assertEquals(0, b1.getBit(k));
 						assertEquals(1, b2.getBit(k));
@@ -396,7 +396,7 @@ public class BitVectorTests {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
 					b1.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < i; k++) {
 						assertEquals(1, b1.getBit(k));
 						assertEquals(0, b2.getBit(k));
@@ -418,7 +418,7 @@ public class BitVectorTests {
 				for (int i = j; i > j-31; i--) {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < n; k++) {
 						assertEquals(0, b1.getBit(k));
 						assertEquals(0, b2.getBit(k));
@@ -434,7 +434,7 @@ public class BitVectorTests {
 					BitVector b2 = new BitVector(n);
 					b1.not();
 					b2.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < n; k++) {
 						assertEquals(1, b1.getBit(k));
 						assertEquals(1, b2.getBit(k));
@@ -445,7 +445,7 @@ public class BitVectorTests {
 	}
 	
 	@Test
-	public void testExchangeBitSequence_SinglePartialBlockMiddle() {
+	public void testExchangeBits_SinglePartialBlockMiddle() {
 		// Swapped bits opposite
 		for (int n = 32; n <= 96; n+=32) {
 			// b1 0s
@@ -455,7 +455,7 @@ public class BitVectorTests {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
 					b2.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < i; k++) {
 						assertEquals(0, b1.getBit(k));
 						assertEquals(1, b2.getBit(k));
@@ -477,7 +477,7 @@ public class BitVectorTests {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
 					b1.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < i; k++) {
 						assertEquals(1, b1.getBit(k));
 						assertEquals(0, b2.getBit(k));
@@ -500,7 +500,7 @@ public class BitVectorTests {
 				for (int j = i; j < m-1; j++) {
 					BitVector b1 = new BitVector(n);
 					BitVector b2 = new BitVector(n);
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < n; k++) {
 						assertEquals(0, b1.getBit(k));
 						assertEquals(0, b2.getBit(k));
@@ -517,7 +517,7 @@ public class BitVectorTests {
 					BitVector b2 = new BitVector(n);
 					b1.not();
 					b2.not();
-					BitVector.exchangeBitSequence(b1, b2, i, j);
+					BitVector.exchangeBits(b1, b2, i, j);
 					for (int k = 0; k < n; k++) {
 						assertEquals(1, b1.getBit(k));
 						assertEquals(1, b2.getBit(k));
@@ -528,7 +528,7 @@ public class BitVectorTests {
 	}
 	
 	@Test
-	public void testExchangeBitSequence_SingleWholeBlock_IndexesReversed() {
+	public void testExchangeBits_SingleWholeBlock_IndexesReversed() {
 		// Swapped bits opposite
 		for (int n = 32; n <= 96; n+=32) {
 			// b1 0s
@@ -537,7 +537,7 @@ public class BitVectorTests {
 				BitVector b1 = new BitVector(n);
 				BitVector b2 = new BitVector(n);
 				b2.not();
-				BitVector.exchangeBitSequence(b1, b2, j, i);
+				BitVector.exchangeBits(b1, b2, j, i);
 				for (int k = 0; k < i; k++) {
 					assertEquals(0, b1.getBit(k));
 					assertEquals(1, b2.getBit(k));
@@ -557,7 +557,7 @@ public class BitVectorTests {
 				BitVector b1 = new BitVector(n);
 				BitVector b2 = new BitVector(n);
 				b1.not();
-				BitVector.exchangeBitSequence(b1, b2, j, i);
+				BitVector.exchangeBits(b1, b2, j, i);
 				for (int k = 0; k < i; k++) {
 					assertEquals(1, b1.getBit(k));
 					assertEquals(0, b2.getBit(k));
@@ -578,7 +578,7 @@ public class BitVectorTests {
 				int j = i + 31;
 				BitVector b1 = new BitVector(n);
 				BitVector b2 = new BitVector(n);
-				BitVector.exchangeBitSequence(b1, b2, j, i);
+				BitVector.exchangeBits(b1, b2, j, i);
 				for (int k = 0; k < n; k++) {
 					assertEquals(0, b1.getBit(k));
 					assertEquals(0, b2.getBit(k));
@@ -593,7 +593,7 @@ public class BitVectorTests {
 				BitVector b2 = new BitVector(n);
 				b1.not();
 				b2.not();
-				BitVector.exchangeBitSequence(b1, b2, j, i);
+				BitVector.exchangeBits(b1, b2, j, i);
 				for (int k = 0; k < n; k++) {
 					assertEquals(1, b1.getBit(k));
 					assertEquals(1, b2.getBit(k));

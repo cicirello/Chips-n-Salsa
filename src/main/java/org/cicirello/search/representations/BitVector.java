@@ -112,7 +112,7 @@ public final class BitVector implements Copyable<BitVector> {
 	 * @throws IndexOutOfBoundsException if either index is negative, or if either index &ge; length()
 	 * @throws IllegalArgumentException if b1.length() is not equal to b2.length()
 	 */
-	public static void exchangeBitSequence(BitVector b1, BitVector b2, int firstIndex, int lastIndex) {
+	public static void exchangeBits(BitVector b1, BitVector b2, int firstIndex, int lastIndex) {
 		if (firstIndex > lastIndex) {
 			int temp = firstIndex;
 			firstIndex = lastIndex;

@@ -538,6 +538,10 @@ public final class BitVector implements Copyable<BitVector> {
 		return h;
 	}
 	
+	/**
+	 * Returns a String representation of the BitVector.
+	 * @return a String representation of the BitVector.
+	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder(bitLength);

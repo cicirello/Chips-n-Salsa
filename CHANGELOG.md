@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Enhancements to BitVector class, including:
   * A new method to exchange a sequence of bits between two BitVectors.
   * A new method to exchange a selection of bits, specified with a bit mask, between two BitVectors.
+  * A new constructor, BitVector(length, p), that generates random bit masks given probability p of a 1-bit.
 * Generational evolutionary algorithms, including the following features and functionality:
   * The following EA variations:
     * Standard generational model, parents replaced by children, crossover and mutation.

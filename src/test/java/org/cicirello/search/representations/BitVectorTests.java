@@ -839,6 +839,76 @@ public class BitVectorTests {
 	}
 	
 	@Test
+	public void testConstructorBitMask() {
+		// p = 0.0 case
+		for (int n = 0; n <= 64; n++) {
+			BitVector b = new BitVector(n, 0.0);
+			assertEquals(n, b.length());
+			assertEquals(0, b.countOnes());
+			assertEquals(n, b.countZeros());
+			for (int i = 0; i < n; i++) {
+				assertEquals(0, b.getBit(i));
+				assertFalse(b.isOne(i));
+				assertTrue(b.isZero(i));
+			}
+			if (n > 0) {
+				for (int i = 0; i <= (n-1)/32; i++) {
+					assertEquals("get32("+i+") with n="+n, 0, b.get32(i));
+				}
+			}
+			BitVector b2 = b.copy();
+			assertTrue(b != b2);
+			assertEquals(b, b2);
+			assertEquals(b.hashCode(), b2.hashCode());
+		}
+		// p = 1.0 case
+		for (int n = 0; n <= 64; n++) {
+			BitVector b = new BitVector(n, 1.0);
+			assertEquals(n, b.length());
+			assertEquals(n, b.countOnes());
+			assertEquals(0, b.countZeros());
+			for (int i = 0; i < n; i++) {
+				assertEquals(1, b.getBit(i));
+				assertTrue(b.isOne(i));
+				assertFalse(b.isZero(i));
+			}
+			if (n > 0) {
+				for (int i = 0; i <= (n-1)/32 - 1; i++) {
+					assertEquals("get32("+i+") with n="+n, 0xffffffff, b.get32(i));
+				}
+				int i = (n-1)/32;
+				assertEquals("get32("+i+") with n="+n, 0xffffffff >>> (32 - (n & 0x1f)), b.get32(i));
+			}
+			BitVector b2 = b.copy();
+			assertTrue(b != b2);
+			assertEquals(b, b2);
+			assertEquals(b.hashCode(), b2.hashCode());
+		}
+		// p = 0.25, 0.5, 0.75 cases
+		double[] pCases = {0.5, 0.25, 0.75};
+		for (double p : pCases) {
+			for (int n = 0; n <= 64; n++) {
+				BitVector b = new BitVector(n, p);
+				assertEquals(n, b.length());
+				assertEquals(n, b.countZeros() + b.countOnes());
+				for (int i = 0; i < n; i++) {
+					int bit = b.getBit(i);
+					assertTrue(bit == 0 || bit == 1);
+					assertNotEquals(b.isOne(i), b.isZero(i));
+				}
+				BitVector b2 = b.copy();
+				assertEquals(n, b2.length());
+				assertTrue(b != b2);
+				assertEquals(b, b2);
+				assertEquals(b.hashCode(), b2.hashCode());
+				for (int i = 0; i < n; i++) {
+					assertEquals(b.getBit(i), b2.getBit(i));
+				}
+			}
+		}
+	}
+	
+	@Test
 	public void testConstructorRandom() {
 		for (int n = 0; n <= 64; n++) {
 			BitVector b = new BitVector(n, true);
@@ -1542,6 +1612,10 @@ public class BitVectorTests {
 		thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new BitVector(-1, new int[1])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BitVector(-1, 0.5)
 		);
 		thrown = assertThrows( 
 			IllegalArgumentException.class,

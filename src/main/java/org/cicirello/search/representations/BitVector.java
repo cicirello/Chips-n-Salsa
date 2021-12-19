@@ -22,6 +22,7 @@ package org.cicirello.search.representations;
 
 import java.util.concurrent.ThreadLocalRandom;
 import org.cicirello.util.Copyable;
+import org.cicirello.math.rand.RandomIndexer;
 import java.util.Arrays;
 
 /**
@@ -90,6 +91,40 @@ public final class BitVector implements Copyable<BitVector> {
 		this.bitLength = bitLength;
 		lastIntMask = 0xffffffff >>> ((bits.length << 5) - bitLength);
 		this.bits[this.bits.length-1] &= lastIntMask;
+	}
+	
+	/**
+	 * Initializes a bit vector randomly given probability of 1-bit.
+	 *
+	 * @param bitLength The length of the bit vector in number of bits.
+	 * @param p The probability, in [0.0, 1.0], that each bit is a 1.
+	 *
+	 * @throws IllegalArgumentException if bitLength &lt; 0 .
+	 */
+	public BitVector(int bitLength, double p) {
+		if (bitLength < 0) throw new IllegalArgumentException("bitLength must be non-negative");
+		bits = new int[(bitLength + 31) >> 5];
+		this.bitLength = bitLength;
+		lastIntMask = 0xffffffff >>> ((bits.length << 5) - bitLength);
+		if (bitLength > 0) {
+			if (p == 0.5) {
+				for (int i = 0; i < bits.length; i++) {
+					bits[i] = ThreadLocalRandom.current().nextInt();
+				}
+				bits[bits.length-1] &= lastIntMask;
+			} else if (p >= 1.0) {
+				for (int i = 0; i < bits.length - 1; i++) {
+					bits[i] = 0xffffffff;
+				}
+				bits[bits.length-1] = lastIntMask;
+			} else if (p > 0.0) {
+				int[] bitsToSet = RandomIndexer.sample(bitLength, p);
+				for (int index : bitsToSet) {
+					int i = index >> 5;
+					bits[i] ^= (1 << (index - (i << 5)));
+				}
+			}
+		}
 	}
 	
 	/*
@@ -273,6 +308,10 @@ public final class BitVector implements Copyable<BitVector> {
 		if (index < 0 || index >= bitLength) {
 			throw new IndexOutOfBoundsException("index is not in the bounds of the BitVector");
 		}
+		internalSetBit(index, bitValue);
+	}
+	
+	private void internalSetBit(int index, int bitValue) {
 		int i = index >> 5;
 		int value = bitValue & 1;
 		if (value == 0) {

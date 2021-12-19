@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -22,7 +22,6 @@ package org.cicirello.search.operators.bits;
 
 import org.cicirello.search.representations.BitVector;
 import org.cicirello.search.operators.UndoableMutationOperator;
-import org.cicirello.math.rand.RandomIndexer;
 
 /**
  * <p>This class implements Bit Flip Mutation, the mutation operator commonly used
@@ -40,16 +39,13 @@ import org.cicirello.math.rand.RandomIndexer;
  * BitVectors that guarantees that all calls to the {@link #mutate} method will change
  * the BitVector, then consider using the {@link DefiniteBitFlipMutation} class instead.</p> 
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 4.25.2020
  */
 public final class BitFlipMutation implements UndoableMutationOperator<BitVector> {
 	
 	private final double m;
-	private int[] flipped;
+	private BitVector bitMask;
 	
 	/**
 	 * Constructs a BitFlipMutation operator with a specified mutation rate.
@@ -69,22 +65,19 @@ public final class BitFlipMutation implements UndoableMutationOperator<BitVector
 	 */
 	private BitFlipMutation(BitFlipMutation other) {
 		m = other.m;
+		// deliberately don't copy bitMask (each instance needs to maintain its own for undo)
 	}
 	
 	@Override
 	public void mutate(BitVector c) {
-		flipped = RandomIndexer.sample(c.length(), m);
-		for (int i = 0; i < flipped.length; i++) {
-			c.flip(flipped[i]);
-		}
+		bitMask = new BitVector(c.length(), m);
+		c.xor(bitMask);
 	}
 	
 	@Override
 	public void undo(BitVector c) {
-		if (flipped != null) {
-			for (int i = 0; i < flipped.length; i++) {
-				c.flip(flipped[i]);
-			}
+		if (bitMask != null) {
+			c.xor(bitMask);
 		}
 	}
 	

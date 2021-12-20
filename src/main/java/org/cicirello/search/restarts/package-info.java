@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -23,7 +23,8 @@
  * This package includes classes and interfaces related to implementing multistart
  * metaheuristics (i.e., metaheuristics that periodically restart, and return the best
  * solution across a number of such restarts). 
- * @version 10.2.2019
- * @since 1.0
+ *
+ * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+ * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
 package org.cicirello.search.restarts;

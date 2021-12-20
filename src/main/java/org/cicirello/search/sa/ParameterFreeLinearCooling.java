@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -73,11 +73,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * for setting steps to a power of 2 is for efficiency in computing &Delta;t and steps (start steps at 1
  * and double until &Delta;t is in target range, very few iterations needed and usually terminates after first).</p>
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.30.2019
  */
 public final class ParameterFreeLinearCooling implements AnnealingSchedule {
 	

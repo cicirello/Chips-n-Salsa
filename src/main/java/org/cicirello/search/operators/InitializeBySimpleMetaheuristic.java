@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -36,11 +36,9 @@ import org.cicirello.search.SimpleMetaheuristic;
  *
  *
  * @param <T> The type of object used to represent candidate solutions to the problem.
- * @since 1.0
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2020
  */
 public final class InitializeBySimpleMetaheuristic<T extends Copyable<T>> implements Initializer<T> {
 	

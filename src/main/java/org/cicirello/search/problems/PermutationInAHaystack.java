@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -52,11 +52,8 @@ import org.cicirello.permutations.distance.PermutationDistanceMeasurer;
  * Permutation in a Haystack Problem and the Calculus of Search Landscapes,"</a> 
  * IEEE Transactions on Evolutionary Computation, 20(3):434-446, June 2016.</p>
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 6.11.2020
  */
 public final class PermutationInAHaystack implements IntegerCostOptimizationProblem<Permutation> {
 	

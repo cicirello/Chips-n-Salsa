@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -42,11 +42,8 @@ import org.cicirello.search.operators.Initializer;
  *
  * @param <T> The type of object under optimization.
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 8.12.2020
  */
 public final class IterativeSampling<T extends Copyable<T>> extends AbstractStochasticSampler<T> {
 	

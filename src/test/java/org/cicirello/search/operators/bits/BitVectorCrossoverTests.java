@@ -166,6 +166,75 @@ public class BitVectorCrossoverTests {
 		);
 	}
 	
+	@Test
+	public void testUniformCrossover() {
+		UniformCrossover crossover = new UniformCrossover(0.0);
+		for (int n = 1; n <= 64; n*=2) {
+			BitVector b1 = new BitVector(n);
+			BitVector b2 = new BitVector(n, 1.0);
+			crossover.cross(b1, b2);
+			assertTrue(b2.allOnes());
+			assertTrue(b1.allZeros());
+			b2.not();
+			assertEquals(b1, b2);
+		}
+		crossover = new UniformCrossover(1.0);
+		for (int n = 1; n <= 64; n*=2) {
+			BitVector b1 = new BitVector(n);
+			BitVector b2 = new BitVector(n, 1.0);
+			crossover.cross(b1, b2);
+			assertTrue(b1.allOnes());
+			assertTrue(b2.allZeros());
+			b2.not();
+			assertEquals(b1, b2);
+		}
+		double[] rates = {0.33, 0.5, 0.66};
+		for (double p : rates) {
+			crossover = new UniformCrossover(p);
+			for (int n = 32; n <= 128; n*=2) {
+				BitVector b1 = new BitVector(n);
+				BitVector b2 = new BitVector(n, 1.0);
+				crossover.cross(b1, b2);
+				assertFalse(b1.allOnes());
+				assertFalse(b2.allOnes());
+				assertFalse(b1.allZeros());
+				assertFalse(b2.allZeros());
+				b2.not();
+				assertEquals(b1, b2);
+			}
+		}
+		crossover = new UniformCrossover();
+		for (int n = 32; n <= 128; n*=2) {
+			BitVector b1 = new BitVector(n);
+			BitVector b2 = new BitVector(n, 1.0);
+			crossover.cross(b1, b2);
+			assertFalse(b1.allOnes());
+			assertFalse(b2.allOnes());
+			assertFalse(b1.allZeros());
+			assertFalse(b2.allZeros());
+			b2.not();
+			assertEquals(b1, b2);
+		}
+		// test split version
+		crossover = crossover.split();
+		for (int n = 32; n <= 128; n*=2) {
+			BitVector b1 = new BitVector(n);
+			BitVector b2 = new BitVector(n, 1.0);
+			crossover.cross(b1, b2);
+			assertFalse(b1.allOnes());
+			assertFalse(b2.allOnes());
+			assertFalse(b1.allZeros());
+			assertFalse(b2.allZeros());
+			b2.not();
+			assertEquals(b1, b2);
+		}
+		final UniformCrossover crossover2 = crossover;
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> crossover2.cross(new BitVector(5), new BitVector(6))
+		);
+	}
+	
 	private int countNumberOfCrossPoints(BitVector b, int shouldStartWith) {
 		// Assumes that parents were all 0s and all 1s
 		int count = b.getBit(0) != shouldStartWith ? 1 : 0;

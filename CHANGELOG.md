@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Crossover operators for BitVectors, including:
     * Single-point crossover
     * Two-point crossover
-	* K-point crossover
+    * K-point crossover
   * The following selection operators:
     * FitnessProportionalSelection
     * StochasticUniversalSampling

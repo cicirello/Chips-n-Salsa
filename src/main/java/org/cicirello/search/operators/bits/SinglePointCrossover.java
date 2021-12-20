@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2021  Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,41 +20,42 @@
  
 package org.cicirello.search.operators.bits;
 
-import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.BitVector;
+import org.cicirello.search.operators.CrossoverOperator;
+import org.cicirello.math.rand.RandomIndexer;
 
 /**
- * Generates random {@link BitVector} objects for use in generating random initial solutions
- * for simulated annealing and other metaheuristics.  Also used for copying such objects.
- * A BitVector is an indexable vector of bits.  
+ * <p>Implementation of single point crossover, a classic crossover operator for 
+ * BitVectors. In a single point crossover, a random cross point is chosen
+ * uniformly along the length of the bit vector parents. Both parents are cut at that
+ * point. Each child gets the bits before the cross point from one parent, and the
+ * bits after the cross point from the other parent.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class BitVectorInitializer implements Initializer<BitVector> {
-	
-	private final int bitLength;
+public final class SinglePointCrossover implements CrossoverOperator<BitVector> {
 	
 	/**
-	 * Construct a BitVectorInitializer for creating random BitVectors of a
-	 * specified length.
-	 * @param bitLength The length in bits of the BitVectors created by this initializer.
-	 * @throws IllegalArgumentException if bitLength is negative.
+	 * Constructs a single point crossover operator.
 	 */
-	public BitVectorInitializer(int bitLength) {
-		if (bitLength < 0) throw new IllegalArgumentException("bitLength must be non-negative.");
-		this.bitLength = bitLength;
+	public SinglePointCrossover() {}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @throws IllegalArgumentException if c1.length() is not equal to c2.length()
+	 * @throws IllegalArgumentException if c1.length() is less than 2.
+	 */
+	@Override
+	public void cross(BitVector c1, BitVector c2) {
+		BitVector.exchangeBits(c1, c2, 0, RandomIndexer.nextInt(c1.length()-1));
 	}
 	
 	@Override
-	public BitVector createCandidateSolution() {
-		return new BitVector(bitLength, true);
-	}
-	
-	@Override
-	public BitVectorInitializer split() {
-		//thread-safe so can simply return this.
+	public SinglePointCrossover split() {
+		// Doesn't maintain any state, so safe to use with multiple threads.
+		// Just return this.
 		return this;
 	}
-	
 }

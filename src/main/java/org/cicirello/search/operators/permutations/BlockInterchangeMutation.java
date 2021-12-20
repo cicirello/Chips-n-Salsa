@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -48,11 +48,8 @@ import org.cicirello.math.rand.RandomIndexer;
  * movement of every permutation element.  On average, approximately 0.6 n elements
  * are moved by this mutation operator.</p>  
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.11.2019
  */
 public class BlockInterchangeMutation implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 	

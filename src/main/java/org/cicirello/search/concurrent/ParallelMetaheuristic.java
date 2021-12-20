@@ -43,7 +43,6 @@ import java.util.function.Function;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.12.2021
  */
 public class ParallelMetaheuristic<T extends Copyable<T>> implements Metaheuristic<T>, AutoCloseable {
 	

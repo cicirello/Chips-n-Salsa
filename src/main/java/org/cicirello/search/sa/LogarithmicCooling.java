@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -49,11 +49,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * t<sub>k</sub> = t<sub>0</sub> / ln(k + e), where e is the base of the natural
  * logarithm.</p>
  *
- * @since 1.0
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.2.2019
  */
 public final class LogarithmicCooling implements AnnealingSchedule {
 	

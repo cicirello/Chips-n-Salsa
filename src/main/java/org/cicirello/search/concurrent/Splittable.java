@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -31,11 +31,9 @@ package org.cicirello.search.concurrent;
  * both safe and efficient for multiple threads to share a single copy of the Splittable object.
  *
  * @param <T> The type of object that supports splitting.
- * @since 1.0
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.9.2020
  */
 public interface Splittable<T extends Splittable<T>> {
 	

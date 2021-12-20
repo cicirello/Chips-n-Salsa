@@ -48,6 +48,15 @@ public class BitVectorCrossoverTests {
 			b2.not();
 			assertEquals(b1, b2);
 		}
+		final SinglePointCrossover crossover2 = crossover;
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> crossover2.cross(new BitVector(1), new BitVector(1))
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> crossover2.cross(new BitVector(5), new BitVector(4))
+		);
 	}
 	
 	@Test
@@ -96,6 +105,65 @@ public class BitVectorCrossoverTests {
 				assertEquals(b1, b2);
 			}
 		}
+		final TwoPointCrossover crossover2 = crossover;
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> crossover2.cross(new BitVector(1), new BitVector(1))
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> crossover2.cross(new BitVector(5), new BitVector(4))
+		);
+	}
+	
+	@Test
+	public void testKPoint() {
+		for (int k = 1; k < 8; k++) {
+			KPointCrossover crossover = new KPointCrossover(k);
+			final int MAX_N = 2*k*k;
+			for (int n = k; n <= MAX_N; n*=2) {
+				for (int i = 0; i < 5; i++) {
+					BitVector b1 = new BitVector(n);
+					BitVector b2 = new BitVector(n, 1.0);
+					crossover.cross(b1, b2);
+					int count1 = countNumberOfCrossPoints(b1, 0);
+					int count2 = countNumberOfCrossPoints(b2, 1);
+					assertEquals(k, count1);
+					assertEquals(k, count2);
+					b2.not();
+					assertEquals(b1, b2);
+				}
+			}
+			// test split version
+			crossover = crossover.split();
+			for (int n = k; n <= MAX_N; n*=2) {
+				for (int i = 0; i < 5; i++) {
+					BitVector b1 = new BitVector(n);
+					BitVector b2 = new BitVector(n, 1.0);
+					crossover.cross(b1, b2);
+					int count1 = countNumberOfCrossPoints(b1, 0);
+					int count2 = countNumberOfCrossPoints(b2, 1);
+					assertEquals(k, count1);
+					assertEquals(k, count2);
+					b2.not();
+					assertEquals(b1, b2);
+				}
+			}
+			final KPointCrossover crossover2 = crossover;
+			final int K_PRIME = k;
+			IllegalArgumentException thrown = assertThrows( 
+				IllegalArgumentException.class,
+				() -> crossover2.cross(new BitVector(K_PRIME-1), new BitVector(K_PRIME-1))
+			);
+			thrown = assertThrows( 
+				IllegalArgumentException.class,
+				() -> crossover2.cross(new BitVector(K_PRIME+5), new BitVector(K_PRIME+4))
+			);
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new KPointCrossover(0)
+		);
 	}
 	
 	private int countNumberOfCrossPoints(BitVector b, int shouldStartWith) {

@@ -50,6 +50,66 @@ public class BitVectorCrossoverTests {
 		}
 	}
 	
+	@Test
+	public void testTwoPoint() {
+		TwoPointCrossover crossover = new TwoPointCrossover();
+		// if n is 2, then equivalent to a single point
+		BitVector b1 = new BitVector(2);
+		BitVector b2 = new BitVector(2, 1.0);
+		crossover.cross(b1, b2);
+		assertEquals(1, countNumberOfCrossPoints(b1));
+		assertEquals(1, countNumberOfCrossPoints(b2));
+		b2.not();
+		assertEquals(b1, b2);
+		for (int n = 4; n <= 64; n*=2) {
+			boolean foundAtLeastOne2Case = false;
+			for (int i = 0; i < 30 && !foundAtLeastOne2Case; i++) {
+				b1 = new BitVector(n);
+				b2 = new BitVector(n, 1.0);
+				crossover.cross(b1, b2);
+				int count1 = countNumberOfCrossPoints(b1);
+				int count2 = countNumberOfCrossPoints(b2);
+				assertTrue(count1 >= 1 && count1 <= 2);
+				assertTrue(count1 >= 1 && count1 <= 2);
+				assertEquals(count1, count2);
+				b2.not();
+				assertEquals(b1, b2);
+				if (count1 == 2) {
+					foundAtLeastOne2Case = true;
+				}
+			}
+			assertTrue(foundAtLeastOne2Case);
+		}
+		// if n is 2, then equivalent to a single point
+		crossover = crossover.split();
+		b1 = new BitVector(2);
+		b2 = new BitVector(2, 1.0);
+		crossover.cross(b1, b2);
+		assertEquals(1, countNumberOfCrossPoints(b1));
+		assertEquals(1, countNumberOfCrossPoints(b2));
+		b2.not();
+		assertEquals(b1, b2);
+		for (int n = 4; n <= 64; n*=2) {
+			boolean foundAtLeastOne2Case = false;
+			for (int i = 0; i < 30 && !foundAtLeastOne2Case; i++) {
+				b1 = new BitVector(n);
+				b2 = new BitVector(n, 1.0);
+				crossover.cross(b1, b2);
+				int count1 = countNumberOfCrossPoints(b1);
+				int count2 = countNumberOfCrossPoints(b2);
+				assertTrue(count1 >= 1 && count1 <= 2);
+				assertTrue(count1 >= 1 && count1 <= 2);
+				assertEquals(count1, count2);
+				b2.not();
+				assertEquals(b1, b2);
+				if (count1 == 2) {
+					foundAtLeastOne2Case = true;
+				}
+			}
+			assertTrue(foundAtLeastOne2Case);
+		}
+	}
+	
 	private int countNumberOfCrossPoints(BitVector b) {
 		// Assumes that parents were all 0s and all 1s
 		int count = 0;

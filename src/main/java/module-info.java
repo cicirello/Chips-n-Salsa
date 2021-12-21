@@ -29,14 +29,16 @@
  * The Chips-n-Salsa library includes implementations of several stochastic
  * local search algorithms, including simulated annealing, hill climbers,
  * as well as constructive search algorithms such as stochastic sampling.
- * The library most extensively supports simulated annealing.
+ * Chips-n-Salsa now also includes genetic algorithms as well as evolutionary
+ * algorithms more generally. The library very extensively supports simulated annealing.
  * The library includes several built-in representations for representing
  * solutions to a variety of optimization problems.  For example, the library
  * includes a BitVector class that implements vectors of bits, as well as classes
  * for representing solutions to problems where we are searching for an optimal
  * vector of integers or reals.  For each of the built-in representations, the
  * library provides the most common mutation operators for generating random
- * neighbors of candidate solutions.  Additionally, the library provides
+ * neighbors of candidate solutions, as well as crossover operators for use with
+ * evolutionary algorithms. Additionally, the library provides
  * extensive support for permutation optimization problems, including implementations
  * of a very large variety of mutation operators for permutations, and utilizing the efficiently
  * implemented Permutation class of 
@@ -49,7 +51,7 @@
  * simulated annealing), creating hybrid mutation operators (e.g., local search using 
  * multiple mutation operators), and classes that support running more than one type
  * of search for the same problem concurrently using multiple threads as a form of
- * algorithm portfolio.  Chips-n-Salsa is iterative, with support for multistart 
+ * algorithm portfolio. Chips-n-Salsa is iterative, with support for multistart 
  * metaheuristics, including implementations of several restart schedules for
  * varying the run lengths across the restarts.  It also supports parallel execution
  * of multiple instances of the same, or different, stochastic local search algorithms

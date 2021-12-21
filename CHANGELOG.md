@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-12-20
+## [Unreleased] - 2021-12-21
 
 ### Added
 * Enhancements to BitVector class, including:
@@ -12,11 +12,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * A new method to exchange a selection of bits, specified with a bit mask, between two BitVectors.
   * A new constructor, BitVector(length, p), that generates random bit masks given probability p of a 1-bit.
 * Generational evolutionary algorithms, including the following features and functionality:
-  * The following EA variations:
+  * A generic base class, GenerationalEvolutionaryAlgorithms, with type parameter to specify type of structure we
+    are evolving, and which supports the following EA variations:
     * Standard generational model, parents replaced by children, crossover and mutation.
     * Generational with mutation-only (no crossover).
     * Generational, parents replaced by children, with mutually exclusive crossover and mutation (i.e.,
       no child is result of both crossover and mutation).
+  * Subclasses of GenerationalEvolutionaryAlgorithms for Genetic Algorithm specific cases for convenience
+    when optimizing BitVectors, including:
+    * GeneticAlgorithm: a standard generational GA with bit flip mutation, and choice of crossover operator
+      and selection operator.
+    * MutationOnlyGeneticAlgorithm: a generational GA with only bit flip mutation, and choice of selection operator.
+    * SimpleGeneticAlgorithm: a generational GA with bit flip mutation, single-point crossover, and fitness proportional
+      selection.
   * Crossover features (mirrors the existing features of mutation operators):
     * CrossoverOperator interface for defining custom crossover operators.
     * Support for hybrid crossover operators (e.g., picking randomly from set of crossover operators).

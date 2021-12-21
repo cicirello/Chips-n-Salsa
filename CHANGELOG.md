@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-12-21
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+### Other
+
+
+## [3.1.0] - 2021-12-21
+
+### Added
 * Enhancements to BitVector class, including:
   * A new method to exchange a sequence of bits between two BitVectors.
   * A new method to exchange a selection of bits, specified with a bit mask, between two BitVectors.
@@ -72,8 +89,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * `SolutionCostPair(T, int, boolean)`
   * `SolutionCostPair(T, double, boolean)`
 
-### Changed
-
 ### Deprecated
 * The following methods of the ProgressTracker class have been deprecated:
   * `update(int, T)` in favor of using `update(int, T, boolean)`.
@@ -84,14 +99,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * `SolutionCostPair(T, int)` in favor of using `SolutionCostPair(T, int, boolean)`
   * `SolutionCostPair(T, double)` in favor of using `SolutionCostPair(T, double, boolean)`
 
-### Removed
-
-### Fixed
-
 ### CI/CD
 * Updated CI/CD workflow to comment on PRs with the coverage and branches coverage percentages.
-
-### Other
 
 
 ## [3.0.0] - 2021-10-25

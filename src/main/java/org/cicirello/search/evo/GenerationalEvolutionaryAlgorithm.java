@@ -496,9 +496,10 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 	}
 	
 	/*
-	 * Internal constructor for use by split method
+	 * Internal constructor for use by split method.
+	 * package private so subclasses in same package can use it for initialization for their own split methods.
 	 */
-	private GenerationalEvolutionaryAlgorithm(GenerationalEvolutionaryAlgorithm<T> other) {
+	GenerationalEvolutionaryAlgorithm(GenerationalEvolutionaryAlgorithm<T> other) {
 		// Must be split
 		pop = other.pop.split();
 		mutation = other.mutation.split();

@@ -73,7 +73,7 @@ public class GeneticAlgorithm extends GenerationalEvolutionaryAlgorithm<BitVecto
 	 * @throws NullPointerException if any of crossover, initializer, f, selection, or tracker are null.
 	 */
 	public GeneticAlgorithm(int n, Initializer<BitVector> initializer, FitnessFunction.Double<BitVector> f, double mutationRate, CrossoverOperator<BitVector> crossover, double crossoverRate, SelectionOperator selection, ProgressTracker<BitVector> tracker) {
-		super(n, new BitFlipMutation(mutationRate), mutationRate > 0.0 ? 1.0 : 0.0, crossover, crossoverRate, initializer, f, selection, tracker);
+		super(n, new BitFlipMutation(mutationRate), 1.0, crossover, crossoverRate, initializer, f, selection, tracker);
 	}
 	
 	/**
@@ -98,7 +98,7 @@ public class GeneticAlgorithm extends GenerationalEvolutionaryAlgorithm<BitVecto
 	 * @throws NullPointerException if any of crossover, initializer, f, selection, or tracker are null.
 	 */
 	public GeneticAlgorithm(int n, Initializer<BitVector> initializer, FitnessFunction.Integer<BitVector> f, double mutationRate, CrossoverOperator<BitVector> crossover, double crossoverRate, SelectionOperator selection, ProgressTracker<BitVector> tracker) {
-		super(n, new BitFlipMutation(mutationRate), mutationRate > 0.0 ? 1.0 : 0.0, crossover, crossoverRate, initializer, f, selection, tracker);
+		super(n, new BitFlipMutation(mutationRate), 1.0, crossover, crossoverRate, initializer, f, selection, tracker);
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public class GeneticAlgorithm extends GenerationalEvolutionaryAlgorithm<BitVecto
 	 * @throws NullPointerException if any of crossover, initializer, f, or selection are null.
 	 */
 	public GeneticAlgorithm(int n, Initializer<BitVector> initializer, FitnessFunction.Double<BitVector> f, double mutationRate, CrossoverOperator<BitVector> crossover, double crossoverRate, SelectionOperator selection) {
-		super(n, new BitFlipMutation(mutationRate), mutationRate > 0.0 ? 1.0 : 0.0, crossover, crossoverRate, initializer, f, selection);
+		super(n, new BitFlipMutation(mutationRate), 1.0, crossover, crossoverRate, initializer, f, selection);
 	}
 	
 	/**
@@ -146,7 +146,7 @@ public class GeneticAlgorithm extends GenerationalEvolutionaryAlgorithm<BitVecto
 	 * @throws NullPointerException if any of crossover, initializer, f, or selection are null.
 	 */
 	public GeneticAlgorithm(int n, Initializer<BitVector> initializer, FitnessFunction.Integer<BitVector> f, double mutationRate, CrossoverOperator<BitVector> crossover, double crossoverRate, SelectionOperator selection) {
-		super(n, new BitFlipMutation(mutationRate), mutationRate > 0.0 ? 1.0 : 0.0, crossover, crossoverRate, initializer, f, selection);
+		super(n, new BitFlipMutation(mutationRate), 1.0, crossover, crossoverRate, initializer, f, selection);
 	}
 	
 	// Constructors with all possible parameters, except specifying length of bit vectors instead of Initializer object.

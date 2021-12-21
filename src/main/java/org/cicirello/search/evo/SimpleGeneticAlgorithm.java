@@ -24,10 +24,26 @@ import org.cicirello.search.representations.BitVector;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.operators.bits.SinglePointCrossover;
 
-
-
-
-
+/**
+ * <p>This class is an implementation of the simple genetic algorithm (Simple GA) with the common
+ * bit vector representation of solutions to optimization problems, and the
+ * generational model where children replace their parents each generation.
+ * It uses the usual bit flip mutation, where each bit of each member of the
+ * population is mutated (flipped) with some probability, known as the mutation
+ * rate, each generation. The crossover operator is single-point crossover (see the {@link SinglePointCrossover} class), and the
+ * selection operator is fitness proportional (see the {@link FitnessProportionalSelection} class).</p>
+ *
+ * <p>The library also includes other classes for evolutionary algorithms that
+ * may be more relevant depending upon your use-case. For example, see the
+ * {@link GeneticAlgorithm} class for greater flexibility in configuring the crossover and selection
+ * operators, the {@link MutationOnlyGeneticAlgorithm} class if all you want to use is mutation and no
+ * crossover, and the {@link GenerationalEvolutionaryAlgorithm} class if you want
+ * to optimize something other than BitVectors or if you want even greater flexibility
+ * in configuring your evolutionary search.</p>
+ *
+ * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+ * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ */
 public final class SimpleGeneticAlgorithm extends GeneticAlgorithm {
 	
 	/**

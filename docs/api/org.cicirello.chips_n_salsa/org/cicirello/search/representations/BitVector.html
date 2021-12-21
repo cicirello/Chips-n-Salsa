@@ -35,8 +35,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":9,"i12":9,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -211,6 +211,13 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 </td>
 </tr>
 <tr class="altColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int,double)">BitVector</a></span>&#8203;(int&nbsp;bitLength,
+         double&nbsp;p)</code></th>
+<td class="colLast">
+<div class="block">Initializes a bit vector randomly given probability of 1-bit.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int,int%5B%5D)">BitVector</a></span>&#8203;(int&nbsp;bitLength,
          int[]&nbsp;bits)</code></th>
 <td class="colLast">
@@ -229,7 +236,7 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -315,6 +322,26 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 </td>
 </tr>
 <tr id="i11" class="rowColor">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#exchangeBits(org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector,int,int)">exchangeBits</a></span>&#8203;(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;b1,
+            <a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;b2,
+            int&nbsp;firstIndex,
+            int&nbsp;lastIndex)</code></th>
+<td class="colLast">
+<div class="block">Exchanges a sequence of bits between two BitVector objects.</div>
+</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#exchangeBits(org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector)">exchangeBits</a></span>&#8203;(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;b1,
+            <a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;b2,
+            <a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;mask)</code></th>
+<td class="colLast">
+<div class="block">Exchanges a selection of bits between two BitVectors, where the bits to exchange are
+ indicated by a bit mask, also represented by a BitVector.</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#flip(int)">flip</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">
@@ -322,63 +349,63 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
  change to a 1; if it is a 1, change to a 0).</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#get32(int)">get32</a></span>&#8203;(int&nbsp;i)</code></th>
 <td class="colLast">
 <div class="block">Gets a block of up to 32 bits.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBit(int)">getBit</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">
 <div class="block">Gets the value of the bit at a designated index.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns a hash code value for the object.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isOne(int)">isOne</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">
 <div class="block">Checks if the bit at a designated index is equal to a 1.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isZero(int)">isZero</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">
 <div class="block">Checks if the bit at a designated index is equal to a 0.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#length()">length</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the length of the bit vector in number of bits.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#not()">not</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Computes the bitwise complement of this BitVector.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#or(org.cicirello.search.representations.BitVector)">or</a></span>&#8203;(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;other)</code></th>
 <td class="colLast">
 <div class="block">Computes the bitwise OR of this BitVector and another BitVector.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#set32(int,int)">set32</a></span>&#8203;(int&nbsp;i,
      int&nbsp;block)</code></th>
@@ -386,7 +413,7 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <div class="block">Sets a block of up to 32 bits.</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBit(int,int)">setBit</a></span>&#8203;(int&nbsp;index,
       int&nbsp;bitValue)</code></th>
@@ -394,7 +421,7 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <div class="block">Sets the value of the bit at a designated index.</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#shiftLeft(int)">shiftLeft</a></span>&#8203;(int&nbsp;numBits)</code></th>
 <td class="colLast">
@@ -402,7 +429,7 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
  the right.</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#shiftRight(int)">shiftRight</a></span>&#8203;(int&nbsp;numBits)</code></th>
 <td class="colLast">
@@ -410,12 +437,14 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
  the left.</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns a String representation of the BitVector.</div>
+</td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#xor(org.cicirello.search.representations.BitVector)">xor</a></span>&#8203;(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;other)</code></th>
 <td class="colLast">
@@ -484,7 +513,7 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <a id="&lt;init&gt;(int,int[])">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>BitVector</h4>
 <pre>public&nbsp;BitVector&#8203;(int&nbsp;bitLength,
@@ -501,6 +530,24 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 </dl>
 </li>
 </ul>
+<a id="&lt;init&gt;(int,double)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>BitVector</h4>
+<pre>public&nbsp;BitVector&#8203;(int&nbsp;bitLength,
+                 double&nbsp;p)</pre>
+<div class="block">Initializes a bit vector randomly given probability of 1-bit.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>bitLength</code> - The length of the bit vector in number of bits.</dd>
+<dd><code>p</code> - The probability, in [0.0, 1.0], that each bit is a 1.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if bitLength &lt; 0 .</dd>
+</dl>
+</li>
+</ul>
 </li>
 </ul>
 </section>
@@ -511,6 +558,52 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="exchangeBits(org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector,int,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>exchangeBits</h4>
+<pre class="methodSignature">public static&nbsp;void&nbsp;exchangeBits&#8203;(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;b1,
+                                <a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;b2,
+                                int&nbsp;firstIndex,
+                                int&nbsp;lastIndex)</pre>
+<div class="block">Exchanges a sequence of bits between two BitVector objects.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>b1</code> - The first BitVector.</dd>
+<dd><code>b2</code> - The second BitVector.</dd>
+<dd><code>firstIndex</code> - The first index of the sequence to exchange, inclusive.</dd>
+<dd><code>lastIndex</code> - The last index of the sequence to exchange, inclusive.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if b1.length() is not equal to b2.length()</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IndexOutOfBoundsException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IndexOutOfBoundsException</a></code> - if either index is negative, or if either index &ge; length()</dd>
+</dl>
+</li>
+</ul>
+<a id="exchangeBits(org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>exchangeBits</h4>
+<pre class="methodSignature">public static&nbsp;void&nbsp;exchangeBits&#8203;(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;b1,
+                                <a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;b2,
+                                <a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;mask)</pre>
+<div class="block">Exchanges a selection of bits between two BitVectors, where the bits to exchange are
+ indicated by a bit mask, also represented by a BitVector.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>b1</code> - The first BitVector.</dd>
+<dd><code>b2</code> - The second BitVector.</dd>
+<dd><code>mask</code> - A bit mask indicating which bit positions to exchange. Specifically, if mask.getBit(i)
+     is a 1, then b1 and b2 will trade the bits in position i between each other, and otherwise they
+     won't.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if the lengths of b1, b2, and mask, are not all the same.</dd>
+</dl>
+</li>
+</ul>
 <a id="allZeros()">
 <!--   -->
 </a>
@@ -916,9 +1009,12 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <li class="blockList">
 <h4>toString</h4>
 <pre class="methodSignature">public&nbsp;<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a>&nbsp;toString()</pre>
+<div class="block">Returns a String representation of the BitVector.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang" class="externalLink">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a String representation of the BitVector.</dd>
 </dl>
 </li>
 </ul>

@@ -35,7 +35,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":18,"i2":18,"i3":18,"i4":6};
+var data = {"i0":6,"i1":18,"i2":18,"i3":18,"i4":18,"i5":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -207,13 +207,20 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>default double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#costAsDouble(T)">costAsDouble</a></span>&#8203;(<a href="IntegerCostOptimizationProblem.html" title="type parameter in IntegerCostOptimizationProblem">T</a>&nbsp;candidate)</code></th>
+<td class="colLast">
+<div class="block">Computes the cost of a candidate solution to the problem instance.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>default <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="IntegerCostOptimizationProblem.html" title="type parameter in IntegerCostOptimizationProblem">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSolutionCostPair(T)">getSolutionCostPair</a></span>&#8203;(<a href="IntegerCostOptimizationProblem.html" title="type parameter in IntegerCostOptimizationProblem">T</a>&nbsp;candidate)</code></th>
 <td class="colLast">
 <div class="block">Computes the cost of a candidate solution to the problem instance.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>default boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isMinCost(int)">isMinCost</a></span>&#8203;(int&nbsp;cost)</code></th>
 <td class="colLast">
@@ -221,7 +228,7 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
  to the problem instance, where lower cost implies better solution.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>default int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#minCost()">minCost</a></span>()</code></th>
 <td class="colLast">
@@ -229,7 +236,7 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
  to the problem instance, where lower cost implies better solution.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#value(T)">value</a></span>&#8203;(<a href="IntegerCostOptimizationProblem.html" title="type parameter in IntegerCostOptimizationProblem">T</a>&nbsp;candidate)</code></th>
 <td class="colLast">
@@ -330,7 +337,7 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
 </a><a id="getSolutionCostPair(T)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getSolutionCostPair</h4>
 <pre class="methodSignature">default&nbsp;<a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="IntegerCostOptimizationProblem.html" title="type parameter in IntegerCostOptimizationProblem">T</a>&gt;&nbsp;getSolutionCostPair&#8203;(<a href="IntegerCostOptimizationProblem.html" title="type parameter in IntegerCostOptimizationProblem">T</a>&nbsp;candidate)</pre>
@@ -348,6 +355,33 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A SolutionCostPair object containing the candidate solution
  and the cost of that candidate solution.  Lower cost means better solution.</dd>
+</dl>
+</li>
+</ul>
+<a id="costAsDouble(org.cicirello.util.Copyable)">
+<!--   -->
+</a><a id="costAsDouble(T)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>costAsDouble</h4>
+<pre class="methodSignature">default&nbsp;double&nbsp;costAsDouble&#8203;(<a href="IntegerCostOptimizationProblem.html" title="type parameter in IntegerCostOptimizationProblem">T</a>&nbsp;candidate)</pre>
+<div class="block">Computes the cost of a candidate solution to the problem instance.
+ The lower the cost, the more optimal the candidate solution. Note that
+ subinterfaces provide methods for computing the cost as more specific
+ types (e.g., as an int).
+ 
+ <p>The default implementation delegates work to the <a href="#cost(T)"><code>cost(T)</code></a> method. 
+ You should not need to override this default behavior.</p></div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="Problem.html#costAsDouble(T)">costAsDouble</a></code>&nbsp;in interface&nbsp;<code><a href="Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="IntegerCostOptimizationProblem.html" title="type parameter in IntegerCostOptimizationProblem">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="IntegerCostOptimizationProblem.html" title="type parameter in IntegerCostOptimizationProblem">T</a>&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>candidate</code> - The candidate solution to evaluate.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The cost of the candidate solution as a value of type double. 
+ Lower cost means better solution.</dd>
 </dl>
 </li>
 </ul>

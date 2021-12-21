@@ -101,7 +101,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </nav>
 </header>
 <main role="main">
-<div class="contentContainer"><a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a><a id="I:A">
+<div class="contentContainer"><a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a><a id="I:A">
 <!--   -->
 </a>
 <h2 class="title">A</h2>
@@ -245,6 +245,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">B</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessBiasFunction.html#bias(double)">bias(double)</a></span> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessBiasFunction.html" title="interface in org.cicirello.search.evo">FitnessBiasFunction</a></dt>
+<dd>
+<div class="block">Applies a bias function to a fitness value.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ValueBiasedStochasticSampling.BiasFunction.html#bias(double)">bias(double)</a></span> - Method in interface org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ValueBiasedStochasticSampling.BiasFunction.html" title="interface in org.cicirello.search.ss">ValueBiasedStochasticSampling.BiasFunction</a></dt>
 <dd>
 <div class="block">This method is the bias function.</div>
@@ -252,6 +256,46 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/HeuristicBiasedStochasticSampling.BiasFunction.html#bias(int)">bias(int)</a></span> - Method in interface org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/HeuristicBiasedStochasticSampling.BiasFunction.html" title="interface in org.cicirello.search.ss">HeuristicBiasedStochasticSampling.BiasFunction</a></dt>
 <dd>
 <div class="block">This method is the bias function.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">BiasedFitnessProportionalSelection</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements a variation of fitness proportional selection that applies
+ a bias function to transform the fitness values.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedFitnessProportionalSelection.html#%3Cinit%3E(org.cicirello.search.evo.FitnessBiasFunction)">BiasedFitnessProportionalSelection(FitnessBiasFunction)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">BiasedFitnessProportionalSelection</a></dt>
+<dd>
+<div class="block">Construct a biased fitness proportional selection operator.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">BiasedShiftedFitnessProportionalSelection</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements a variation of fitness proportional selection that 
+ uses shifted fitness values and applies
+ a bias function to further transform the shifted fitness values.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedFitnessProportionalSelection.html#%3Cinit%3E(org.cicirello.search.evo.FitnessBiasFunction)">BiasedShiftedFitnessProportionalSelection(FitnessBiasFunction)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">BiasedShiftedFitnessProportionalSelection</a></dt>
+<dd>
+<div class="block">Construct a biased shifted fitness proportional selection operator.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">BiasedShiftedStochasticUniversalSampling</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements a variation of Stochastic Universal Sampling (SUS) that we call
+ Biased Shifted Stochastic Universal Sampling (Biased Shifted SUS), which uses shifted fitness values
+ and integrates the use of a bias function
+ with SUS to enable transforming the shifted fitness values prior to the stochastic selection decisions.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedStochasticUniversalSampling.html#%3Cinit%3E(org.cicirello.search.evo.FitnessBiasFunction)">BiasedShiftedStochasticUniversalSampling(FitnessBiasFunction)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BiasedShiftedStochasticUniversalSampling</a></dt>
+<dd>
+<div class="block">Construct a biased shifted stochastic universal sampling operator.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">BiasedStochasticUniversalSampling</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements a variation of Stochastic Universal Sampling (SUS) that we call
+ Biased Stochastic Universal Sampling (Biased SUS), which integrates the use of a bias function
+ with SUS to enable transforming fitness values prior to the stochastic selection decisions.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html#%3Cinit%3E(org.cicirello.search.evo.FitnessBiasFunction)">BiasedStochasticUniversalSampling(FitnessBiasFunction)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BiasedStochasticUniversalSampling</a></dt>
+<dd>
+<div class="block">Construct a biased stochastic universal sampling operator.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/BitFlipMutation.html" title="class in org.cicirello.search.operators.bits"><span class="typeNameLink">BitFlipMutation</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/package-summary.html">org.cicirello.search.operators.bits</a></dt>
 <dd>
@@ -284,6 +328,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html#%3Cinit%3E(int,boolean)">BitVector(int, boolean)</a></span> - Constructor for class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
 <div class="block">Initializes the bit vector.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html#%3Cinit%3E(int,double)">BitVector(int, double)</a></span> - Constructor for class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
+<dd>
+<div class="block">Initializes a bit vector randomly given probability of 1-bit.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html#%3Cinit%3E(int,int%5B%5D)">BitVector(int, int[])</a></span> - Constructor for class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
@@ -409,6 +457,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Compares this SolutionCostPair with the specified SolutionCostPair for order.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html#completeLength()">completeLength()</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityHeuristic</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html#completeLength()">completeLength()</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityPairHeuristic</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ConstructiveHeuristic.html#completeLength()">completeLength()</a></span> - Method in interface org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></dt>
 <dd>
 <div class="block">Gets the required length of complete solutions 
@@ -442,6 +494,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Checks whether the cost of the solution contained in this SolutionCostPair
  is integer valued.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html#containsKnownOptimal()">containsKnownOptimal()</a></span> - Method in class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a></dt>
+<dd>
+<div class="block">Checks if the solution contained in this object has a cost value equal to
+ the theoretical minimum cost for the problem instance, such as if the cost
+ is equal to a lower bound on the cost for the problem instance.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/UndoableUniformMutation.html#copy()">copy()</a></span> - Method in class org.cicirello.search.operators.integers.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a></dt>
 <dd>
@@ -576,6 +634,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Computes the cost of a candidate solution to the problem instance.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/OptimizationProblem.html#cost(T)">cost(T)</a></span> - Method in interface org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a></dt>
+<dd>
+<div class="block">Computes the cost of a candidate solution to the problem instance.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/IntegerCostOptimizationProblem.html#costAsDouble(T)">costAsDouble(T)</a></span> - Method in interface org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a></dt>
+<dd>
+<div class="block">Computes the cost of a candidate solution to the problem instance.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/OptimizationProblem.html#costAsDouble(T)">costAsDouble(T)</a></span> - Method in interface org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a></dt>
+<dd>
+<div class="block">Computes the cost of a candidate solution to the problem instance.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/Problem.html#costAsDouble(T)">costAsDouble(T)</a></span> - Method in interface org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a></dt>
 <dd>
 <div class="block">Computes the cost of a candidate solution to the problem instance.</div>
 </dd>
@@ -714,6 +784,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html#createIncrementalEvaluation()">createIncrementalEvaluation()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTimeLateOnly</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html#createIncrementalEvaluation()">createIncrementalEvaluation()</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityPairHeuristic</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ConstructiveHeuristic.html#createIncrementalEvaluation()">createIncrementalEvaluation()</a></span> - Method in interface org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></dt>
 <dd>
 <div class="block">Creates an IncrementalEvaluation object corresponding to an initially
@@ -726,6 +798,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  of the stochastic sampling search, and then delegates the usual function
  of this method to the chosen heuristic.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html#createPartial(int)">createPartial(int)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityHeuristic</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html#createPartial(int)">createPartial(int)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityPairHeuristic</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ConstructiveHeuristic.html#createPartial(int)">createPartial(int)</a></span> - Method in interface org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></dt>
 <dd>
 <div class="block">Creates an empty Partial solution, which will be incrementally
@@ -827,6 +903,40 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/UniformMutation.html#createUniformMutation(int,int)">createUniformMutation(int, int)</a></span> - Static method in class org.cicirello.search.operators.integers.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a></dt>
 <dd>
 <div class="block">Create a Uniform mutation operator.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/KPointCrossover.html#cross(org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector)">cross(BitVector, BitVector)</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/KPointCrossover.html" title="class in org.cicirello.search.operators.bits">KPointCrossover</a></dt>
+<dd>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
+ forms two children from two parents.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/SinglePointCrossover.html#cross(org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector)">cross(BitVector, BitVector)</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits">SinglePointCrossover</a></dt>
+<dd>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
+ forms two children from two parents.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/TwoPointCrossover.html#cross(org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector)">cross(BitVector, BitVector)</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/TwoPointCrossover.html" title="class in org.cicirello.search.operators.bits">TwoPointCrossover</a></dt>
+<dd>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
+ forms two children from two parents.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/UniformCrossover.html#cross(org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector)">cross(BitVector, BitVector)</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/UniformCrossover.html" title="class in org.cicirello.search.operators.bits">UniformCrossover</a></dt>
+<dd>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
+ forms two children from two parents.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/CrossoverOperator.html#cross(T,T)">cross(T, T)</a></span> - Method in interface org.cicirello.search.operators.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a></dt>
+<dd>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
+ forms two children from two parents.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridCrossover.html#cross(T,T)">cross(T, T)</a></span> - Method in class org.cicirello.search.operators.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridCrossover.html" title="class in org.cicirello.search.operators">HybridCrossover</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridCrossover.html#cross(T,T)">cross(T, T)</a></span> - Method in class org.cicirello.search.operators.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridCrossover.html" title="class in org.cicirello.search.operators">WeightedHybridCrossover</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators"><span class="typeNameLink">CrossoverOperator</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/CrossoverOperator.html" title="type parameter in CrossoverOperator">T</a>&gt; - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/package-summary.html">org.cicirello.search.operators</a></dt>
+<dd>
+<div class="block">Implement the CrossoverOperator interface to implement a crossover operator
+ for use in evolutionary algorithms.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/CycleMutation.html" title="class in org.cicirello.search.operators.permutations"><span class="typeNameLink">CycleMutation</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></dt>
 <dd>
@@ -1010,6 +1120,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html#exchangeBits(org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector,int,int)">exchangeBits(BitVector, BitVector, int, int)</a></span> - Static method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
+<dd>
+<div class="block">Exchanges a sequence of bits between two BitVector objects.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html#exchangeBits(org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector,org.cicirello.search.representations.BitVector)">exchangeBits(BitVector, BitVector, BitVector)</a></span> - Static method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
+<dd>
+<div class="block">Exchanges a selection of bits between two BitVectors, where the bits to exchange are
+ indicated by a bit mask, also represented by a BitVector.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/ExponentialCooling.html" title="class in org.cicirello.search.sa"><span class="typeNameLink">ExponentialCooling</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/package-summary.html">org.cicirello.search.sa</a></dt>
 <dd>
 <div class="block">This class implements the classic and most commonly encountered
@@ -1079,6 +1198,49 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs a first descent hill climber object for real-valued optimization problem.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.Double.html#fitness(T)">fitness(T)</a></span> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a></dt>
+<dd>
+<div class="block">Computes the fitness of a candidate solution to a problem,
+ for use by genetic algorithms and other evolutionary algorithms.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.Integer.html#fitness(T)">fitness(T)</a></span> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a></dt>
+<dd>
+<div class="block">Computes the fitness of a candidate solution to a problem,
+ for use by genetic algorithms and other evolutionary algorithms.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html#fitness(T)">fitness(T)</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html" title="class in org.cicirello.search.evo">InverseCostFitnessFunction</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeCostFitnessFunction.html#fitness(T)">fitness(T)</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeCostFitnessFunction.html" title="class in org.cicirello.search.evo">NegativeCostFitnessFunction</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeIntegerCostFitnessFunction.html#fitness(T)">fitness(T)</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeIntegerCostFitnessFunction.html" title="class in org.cicirello.search.evo">NegativeIntegerCostFitnessFunction</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessBiasFunction.html" title="interface in org.cicirello.search.evo"><span class="typeNameLink">FitnessBiasFunction</span></a> - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This functional interface is used to provide a bias function to the 
+ <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>BiasedFitnessProportionalSelection</code></a> operator as well as the
+ <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>BiasedStochasticUniversalSampling</code></a> operator.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.html" title="interface in org.cicirello.search.evo"><span class="typeNameLink">FitnessFunction</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.html" title="type parameter in FitnessFunction">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.html" title="type parameter in FitnessFunction">T</a>&gt;&gt; - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">Fitness function interfaces.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><span class="typeNameLink">FitnessFunction.Double</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.Double.html" title="type parameter in FitnessFunction.Double">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.Double.html" title="type parameter in FitnessFunction.Double">T</a>&gt;&gt; - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">Fitness function interface for double-valued fitnesses.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><span class="typeNameLink">FitnessFunction.Integer</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.Integer.html" title="type parameter in FitnessFunction.Integer">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.Integer.html" title="type parameter in FitnessFunction.Integer">T</a>&gt;&gt; - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">Fitness function interface for int-valued fitnesses.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">FitnessProportionalSelection</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements fitness proportional selection, sometimes referred to as weighted 
+ roulette wheel, for evolutionary algorithms.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html#%3Cinit%3E()">FitnessProportionalSelection()</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo">FitnessProportionalSelection</a></dt>
+<dd>
+<div class="block">Construct a fitness proportional selection operator.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html#flip(int)">flip(int)</a></span> - Method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
 <div class="block">Flips the value of the bit at the specified index (e.g., if it is a 0, then
@@ -1108,6 +1270,120 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">This class implements Gaussian
  mutation.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">GenerationalEvolutionaryAlgorithm</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="type parameter in GenerationalEvolutionaryAlgorithm">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="type parameter in GenerationalEvolutionaryAlgorithm">T</a>&gt;&gt; - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements an evolutionary algorithm with a generational
+ model, such as is commonly used in genetic algorithms, where a
+ population of children are formed by applying genetic operators to
+ members of the parent population, and where the children replace the 
+ parents in the next generation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,boolean,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, CrossoverOperator&lt;T&gt;, double, boolean, Initializer&lt;T&gt;, FitnessFunction.Double&lt;T&gt;, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+ and a mutation operator.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,boolean,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, CrossoverOperator&lt;T&gt;, double, boolean, Initializer&lt;T&gt;, FitnessFunction.Double&lt;T&gt;, SelectionOperator, ProgressTracker&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+ and a mutation operator.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,boolean,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,org.cicirello.search.evo.SelectionOperator)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, CrossoverOperator&lt;T&gt;, double, boolean, Initializer&lt;T&gt;, FitnessFunction.Integer&lt;T&gt;, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+ and a mutation operator.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,boolean,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, CrossoverOperator&lt;T&gt;, double, boolean, Initializer&lt;T&gt;, FitnessFunction.Integer&lt;T&gt;, SelectionOperator, ProgressTracker&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+ and a mutation operator.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, CrossoverOperator&lt;T&gt;, double, Initializer&lt;T&gt;, FitnessFunction.Double&lt;T&gt;, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+ and a mutation operator, and such that members of the population are permitted to undergo both crossover and
+ mutation in the same generation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, CrossoverOperator&lt;T&gt;, double, Initializer&lt;T&gt;, FitnessFunction.Double&lt;T&gt;, SelectionOperator, ProgressTracker&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+ and a mutation operator, and such that members of the population are permitted to undergo both crossover and
+ mutation in the same generation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,org.cicirello.search.evo.SelectionOperator)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, CrossoverOperator&lt;T&gt;, double, Initializer&lt;T&gt;, FitnessFunction.Integer&lt;T&gt;, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+ and a mutation operator, and such that members of the population are permitted to undergo both crossover and
+ mutation in the same generation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, CrossoverOperator&lt;T&gt;, double, Initializer&lt;T&gt;, FitnessFunction.Integer&lt;T&gt;, SelectionOperator, ProgressTracker&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm for a typical EA utilizing both a crossover operator
+ and a mutation operator, and such that members of the population are permitted to undergo both crossover and
+ mutation in the same generation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, Initializer&lt;T&gt;, FitnessFunction.Double&lt;T&gt;, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm with mutation only.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, Initializer&lt;T&gt;, FitnessFunction.Double&lt;T&gt;, SelectionOperator, ProgressTracker&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm with mutation only.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,org.cicirello.search.evo.SelectionOperator)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, Initializer&lt;T&gt;, FitnessFunction.Integer&lt;T&gt;, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm with mutation only.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GenerationalEvolutionaryAlgorithm(int, MutationOperator&lt;T&gt;, double, Initializer&lt;T&gt;, FitnessFunction.Integer&lt;T&gt;, SelectionOperator, ProgressTracker&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Constructs and initializes the evolutionary algorithm with mutation only.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">GeneticAlgorithm</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class is an implementation of a genetic algorithm (GA) with the common
+ bit vector representation of solutions to optimization problems, and the
+ generational model where children replace their parents each generation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator)">GeneticAlgorithm(int, int, FitnessFunction.Double&lt;BitVector&gt;, double, CrossoverOperator&lt;BitVector&gt;, double, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GeneticAlgorithm(int, int, FitnessFunction.Double&lt;BitVector&gt;, double, CrossoverOperator&lt;BitVector&gt;, double, SelectionOperator, ProgressTracker&lt;BitVector&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator)">GeneticAlgorithm(int, int, FitnessFunction.Integer&lt;BitVector&gt;, double, CrossoverOperator&lt;BitVector&gt;, double, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GeneticAlgorithm(int, int, FitnessFunction.Integer&lt;BitVector&gt;, double, CrossoverOperator&lt;BitVector&gt;, double, SelectionOperator, ProgressTracker&lt;BitVector&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator)">GeneticAlgorithm(int, Initializer&lt;BitVector&gt;, FitnessFunction.Double&lt;BitVector&gt;, double, CrossoverOperator&lt;BitVector&gt;, double, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GeneticAlgorithm(int, Initializer&lt;BitVector&gt;, FitnessFunction.Double&lt;BitVector&gt;, double, CrossoverOperator&lt;BitVector&gt;, double, SelectionOperator, ProgressTracker&lt;BitVector&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator)">GeneticAlgorithm(int, Initializer&lt;BitVector&gt;, FitnessFunction.Integer&lt;BitVector&gt;, double, CrossoverOperator&lt;BitVector&gt;, double, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GeneticAlgorithm(int, Initializer&lt;BitVector&gt;, FitnessFunction.Integer&lt;BitVector&gt;, double, CrossoverOperator&lt;BitVector&gt;, double, SelectionOperator, ProgressTracker&lt;BitVector&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/SingleInteger.html#get()">get()</a></span> - Method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/SingleInteger.html" title="class in org.cicirello.search.representations">SingleInteger</a></dt>
 <dd>
@@ -1231,6 +1507,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/PartialPermutation.html#getExtension(int)">getExtension(int)</a></span> - Method in class org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Double.html#getFitness(int)">getFitness(int)</a></span> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Double.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Double</a></dt>
+<dd>
+<div class="block">Gets the fitness of a population member.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Integer.html#getFitness(int)">getFitness(int)</a></span> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Integer.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Integer</a></dt>
+<dd>
+<div class="block">Gets the fitness of a population member.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/MinimizeMakespan.html#getInstanceData()">getInstanceData()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/MinimizeMakespan.html" title="class in org.cicirello.search.problems.scheduling">MinimizeMakespan</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/MinimizeMaximumFlowtime.html#getInstanceData()">getInstanceData()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/MinimizeMaximumFlowtime.html" title="class in org.cicirello.search.problems.scheduling">MinimizeMaximumFlowtime</a></dt>
@@ -1271,6 +1555,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.html#getProblem()">getProblem()</a></span> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessFunction.html" title="interface in org.cicirello.search.evo">FitnessFunction</a></dt>
+<dd>
+<div class="block">Gets a reference to the problem that this fitness function is for.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html" title="class in org.cicirello.search.evo">InverseCostFitnessFunction</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeCostFitnessFunction.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeCostFitnessFunction.html" title="class in org.cicirello.search.evo">NegativeCostFitnessFunction</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeIntegerCostFitnessFunction.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeIntegerCostFitnessFunction.html" title="class in org.cicirello.search.evo">NegativeIntegerCostFitnessFunction</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityHeuristic</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityPairHeuristic</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/Multistarter.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.restarts.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/SimulatedAnnealing.html#getProblem()">getProblem()</a></span> - Method in class org.cicirello.search.sa.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
@@ -1302,6 +1602,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/ParallelMetaheuristic.html#getProgressTracker()">getProgressTracker()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/ParallelMetaheuristic.html" title="class in org.cicirello.search.concurrent">ParallelMetaheuristic</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html#getProgressTracker()">getProgressTracker()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#getProgressTracker()">getProgressTracker()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/Multistarter.html#getProgressTracker()">getProgressTracker()</a></span> - Method in class org.cicirello.search.restarts.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a></dt>
 <dd>&nbsp;</dd>
@@ -1376,6 +1678,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Gets the total run length of all restarts of all parallel instances of 
  the underlying metaheuristics combined.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#getTotalRunLength()">getTotalRunLength()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Gets the total run length in number of fitness evaluations.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/Multistarter.html#getTotalRunLength()">getTotalRunLength()</a></span> - Method in class org.cicirello.search.restarts.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a></dt>
 <dd>
@@ -1479,6 +1785,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)">h(Partial&lt;Permutation&gt;, int, IncrementalEvaluation&lt;Permutation&gt;)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedShortestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTime</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)">h(Partial&lt;Permutation&gt;, int, IncrementalEvaluation&lt;Permutation&gt;)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedShortestProcessingTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTimeLateOnly</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)">h(Partial&lt;Permutation&gt;, int, IncrementalEvaluation&lt;Permutation&gt;)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityHeuristic</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)">h(Partial&lt;Permutation&gt;, int, IncrementalEvaluation&lt;Permutation&gt;)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityPairHeuristic</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ConstructiveHeuristic.html#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)">h(Partial&lt;T&gt;, int, IncrementalEvaluation&lt;T&gt;)</a></span> - Method in interface org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a></dt>
 <dd>
@@ -1706,6 +2016,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  stochastic sampler (i.e., each time <a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/HybridConstructiveHeuristic.html#createIncrementalEvaluation()"><code>HybridConstructiveHeuristic.createIncrementalEvaluation()</code></a>
  is called).</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridCrossover.html" title="class in org.cicirello.search.operators"><span class="typeNameLink">HybridCrossover</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridCrossover.html" title="type parameter in HybridCrossover">T</a>&gt; - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/package-summary.html">org.cicirello.search.operators</a></dt>
+<dd>
+<div class="block">A HybridCrossover enables using multiple crossover operators for the
+ evolutionary algorithm, such that each time the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridCrossover.html#cross(T,T)"><code>HybridCrossover.cross(T, T)</code></a> method is called,
+ a randomly chosen crossover operator is applied to the candidate
+ solution.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridCrossover.html#%3Cinit%3E(java.util.Collection)">HybridCrossover(Collection&lt;? extends CrossoverOperator&lt;T&gt;&gt;)</a></span> - Constructor for class org.cicirello.search.operators.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridCrossover.html" title="class in org.cicirello.search.operators">HybridCrossover</a></dt>
+<dd>
+<div class="block">Constructs a HybridCrossover from a Collection of CrossoverOperator.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridMutation.html" title="class in org.cicirello.search.operators"><span class="typeNameLink">HybridMutation</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridMutation.html" title="type parameter in HybridMutation">T</a>&gt; - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/package-summary.html">org.cicirello.search.operators</a></dt>
 <dd>
 <div class="block">A HybridMutation enables using multiple mutation operators for the
@@ -1741,6 +2062,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  in the library support incremental updates, 
  as the solution is heuristically assembled,
  to problem and/or heuristic data utilized by the heuristic.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SelectionOperator.html#init(int)">init(int)</a></span> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></dt>
+<dd>
+<div class="block">Perform any initialization necessary for the selection operator at the start
+ of the run of the evolutionary algorithm.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/AcceptanceTracker.html#init(int)">init(int)</a></span> - Method in class org.cicirello.search.sa.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/AcceptanceTracker.html" title="class in org.cicirello.search.sa">AcceptanceTracker</a></dt>
 <dd>&nbsp;</dd>
@@ -1931,6 +2257,31 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  uniformly in the interval [a, b), subject to
  bounds [min, max].</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">InverseCostFitnessFunction</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&gt; - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class provides a convenient mechanism for transforming optimization cost
+ values to fitness values.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem)">InverseCostFitnessFunction(IntegerCostOptimizationProblem&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html" title="class in org.cicirello.search.evo">InverseCostFitnessFunction</a></dt>
+<dd>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
+ the following transformation: fitness(s) = 1.0 / (1.0 + problem.cost(s) - problem.minCost()).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,double)">InverseCostFitnessFunction(IntegerCostOptimizationProblem&lt;T&gt;, double)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html" title="class in org.cicirello.search.evo">InverseCostFitnessFunction</a></dt>
+<dd>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
+ the following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem)">InverseCostFitnessFunction(OptimizationProblem&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html" title="class in org.cicirello.search.evo">InverseCostFitnessFunction</a></dt>
+<dd>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
+ the following transformation: fitness(s) = 1.0 / (1.0 + problem.cost(s) - problem.minCost()).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,double)">InverseCostFitnessFunction(OptimizationProblem&lt;T&gt;, double)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html" title="class in org.cicirello.search.evo">InverseCostFitnessFunction</a></dt>
+<dd>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
+ the following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()).</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/ParallelMetaheuristic.html#isClosed()">isClosed()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/ParallelMetaheuristic.html" title="class in org.cicirello.search.concurrent">ParallelMetaheuristic</a></dt>
 <dd>
 <div class="block">Checks whether the thread pool has been shutdown.</div>
@@ -2096,6 +2447,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Creates and returns a <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
  systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
  of a candidate solution, as one might do in a hill climber.</div>
+</dd>
+</dl>
+<a id="I:K">
+<!--   -->
+</a>
+<h2 class="title">K</h2>
+<dl>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/KPointCrossover.html" title="class in org.cicirello.search.operators.bits"><span class="typeNameLink">KPointCrossover</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/package-summary.html">org.cicirello.search.operators.bits</a></dt>
+<dd>
+<div class="block">Implementation of K-point crossover, a classic crossover operator for 
+ BitVectors.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/KPointCrossover.html#%3Cinit%3E(int)">KPointCrossover(int)</a></span> - Constructor for class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/KPointCrossover.html" title="class in org.cicirello.search.operators.bits">KPointCrossover</a></dt>
+<dd>
+<div class="block">Constructs a K-point crossover operator.</div>
 </dd>
 </dl>
 <a id="I:L">
@@ -2487,10 +2853,57 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Defines an interface for iterating over all of the mutants (i.e., neighbors)
  of a candidate solution to a problem.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">MutationOnlyGeneticAlgorithm</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class is an implementation of a mutation-only genetic algorithm (GA) with the common
+ bit vector representation of solutions to optimization problems, and the
+ generational model where children replace their parents each generation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator)">MutationOnlyGeneticAlgorithm(int, int, FitnessFunction.Double&lt;BitVector&gt;, double, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm(int, int, FitnessFunction.Double&lt;BitVector&gt;, double, SelectionOperator, ProgressTracker&lt;BitVector&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator)">MutationOnlyGeneticAlgorithm(int, int, FitnessFunction.Integer&lt;BitVector&gt;, double, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm(int, int, FitnessFunction.Integer&lt;BitVector&gt;, double, SelectionOperator, ProgressTracker&lt;BitVector&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator)">MutationOnlyGeneticAlgorithm(int, Initializer&lt;BitVector&gt;, FitnessFunction.Double&lt;BitVector&gt;, double, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm(int, Initializer&lt;BitVector&gt;, FitnessFunction.Double&lt;BitVector&gt;, double, SelectionOperator, ProgressTracker&lt;BitVector&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator)">MutationOnlyGeneticAlgorithm(int, Initializer&lt;BitVector&gt;, FitnessFunction.Integer&lt;BitVector&gt;, double, SelectionOperator)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm(int, Initializer&lt;BitVector&gt;, FitnessFunction.Integer&lt;BitVector&gt;, double, SelectionOperator, ProgressTracker&lt;BitVector&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/MutationOperator.html" title="interface in org.cicirello.search.operators"><span class="typeNameLink">MutationOperator</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/MutationOperator.html" title="type parameter in MutationOperator">T</a>&gt; - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/package-summary.html">org.cicirello.search.operators</a></dt>
 <dd>
 <div class="block">Implement the MutationOperator interface to implement a mutation operator
- for use in simulated annealing, and other metaheuristics, that require a
+ for use in simulated annealing, genetic algorithms, and other evolutionary algorithms,
+ and other metaheuristics, that require a
  way to generate random neighbors of a candidate solution.</div>
 </dd>
 </dl>
@@ -2499,6 +2912,44 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">N</h2>
 <dl>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html" title="class in org.cicirello.search.problems.tsp"><span class="typeNameLink">NearestCityHeuristic</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></dt>
+<dd>
+<div class="block">This class implements a nearest city constructive heuristic for the TSP
+ for use by stochastic sampling algorithms.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html#%3Cinit%3E(org.cicirello.search.problems.tsp.TSP)">NearestCityHeuristic(TSP)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityHeuristic</a></dt>
+<dd>
+<div class="block">Constructs a nearest city heuristic for an instance of the TSP.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html" title="class in org.cicirello.search.problems.tsp"><span class="typeNameLink">NearestCityPairHeuristic</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></dt>
+<dd>
+<div class="block">This class implements a constructive heuristic for the TSP that prefers the
+ first city of the nearest pair of cities.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html#%3Cinit%3E(org.cicirello.search.problems.tsp.TSP)">NearestCityPairHeuristic(TSP)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityPairHeuristic</a></dt>
+<dd>
+<div class="block">Constructs a nearest city pair heuristic for an instance of the TSP.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeCostFitnessFunction.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">NegativeCostFitnessFunction</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeCostFitnessFunction.html" title="type parameter in NegativeCostFitnessFunction">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeCostFitnessFunction.html" title="type parameter in NegativeCostFitnessFunction">T</a>&gt;&gt; - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class provides a convenient mechanism for transforming optimization cost
+ values to fitness values.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeCostFitnessFunction.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem)">NegativeCostFitnessFunction(OptimizationProblem&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeCostFitnessFunction.html" title="class in org.cicirello.search.evo">NegativeCostFitnessFunction</a></dt>
+<dd>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
+ the following transformation: fitness(s) = -cost(s).</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeIntegerCostFitnessFunction.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">NegativeIntegerCostFitnessFunction</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeIntegerCostFitnessFunction.html" title="type parameter in NegativeIntegerCostFitnessFunction">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeIntegerCostFitnessFunction.html" title="type parameter in NegativeIntegerCostFitnessFunction">T</a>&gt;&gt; - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class provides a convenient mechanism for transforming optimization cost
+ values to fitness values.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeIntegerCostFitnessFunction.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem)">NegativeIntegerCostFitnessFunction(IntegerCostOptimizationProblem&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/NegativeIntegerCostFitnessFunction.html" title="class in org.cicirello.search.evo">NegativeIntegerCostFitnessFunction</a></dt>
+<dd>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
+ the following transformation: fitness(s) = -cost(s).</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.BitIterator.html#nextBit()">nextBit()</a></span> - Method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.BitIterator.html" title="class in org.cicirello.search.representations">BitVector.BitIterator</a></dt>
 <dd>
 <div class="block">Gets the next bit from the BitVector.</div>
@@ -2609,6 +3060,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Executes a parallel multistart search.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#optimize(int)">optimize(int)</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Runs the evolutionary algorithm beginning from a randomly generated population.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/Metaheuristic.html#optimize(int)">optimize(int)</a></span> - Method in interface org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a></dt>
 <dd>
 <div class="block">Executes a run of the metaheuristic beginning at a randomly generated solution.</div>
@@ -2655,6 +3110,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">This package includes multithreaded search implementations, as well as
  classes and interfaces related to implementing multithreaded metaheuristics.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a> - package org.cicirello.search.evo</dt>
+<dd>
+<div class="block">This package includes classes and interfaces directly related to implementing
+ evolutionary algorithms.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/hc/package-summary.html">org.cicirello.search.hc</a> - package org.cicirello.search.hc</dt>
 <dd>
@@ -2966,6 +3426,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Defines a problem for finding a root of a quadratic equation 
  of the form: 0 = a*x<sup>2</sup> + b*x + c.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.html" title="interface in org.cicirello.search.evo"><span class="typeNameLink">PopulationFitnessVector</span></a> - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">An interface to a vector of fitnesses of a population.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Double.html" title="interface in org.cicirello.search.evo"><span class="typeNameLink">PopulationFitnessVector.Double</span></a> - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">An interface to a vector of fitnesses, each a double, of a population.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Integer.html" title="interface in org.cicirello.search.evo"><span class="typeNameLink">PopulationFitnessVector.Integer</span></a> - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">An interface to a vector of fitnesses, each an int, of a population.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/Porcupine.html" title="class in org.cicirello.search.problems"><span class="typeNameLink">Porcupine</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></dt>
 <dd>
 <div class="block">This class implements the Porcupine landscape (Ackley, 1985), which
@@ -2997,6 +3469,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">R</h2>
 <dl>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">RandomSelection</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements a simple random selection operator that selects
+ members of the population uniformly at random, independent of fitness
+ values.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html#%3Cinit%3E()">RandomSelection()</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html" title="class in org.cicirello.search.evo">RandomSelection</a></dt>
+<dd>
+<div class="block">Constructs the random selection operator.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/RandomValueChangeMutation.html" title="class in org.cicirello.search.operators.integers"><span class="typeNameLink">RandomValueChangeMutation</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/RandomValueChangeMutation.html" title="type parameter in RandomValueChangeMutation">T</a> extends <a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt; - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/package-summary.html">org.cicirello.search.operators.integers</a></dt>
 <dd>
 <div class="block">This mutation operator is for integer valued representations, and replaces an
@@ -3121,6 +3603,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Executes a parallel multistart search.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#reoptimize(int)">reoptimize(int)</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>
+<div class="block">Runs the evolutionary algorithm continuing from the final population from the most recent call
+ to either <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#optimize(int)"><code>GenerationalEvolutionaryAlgorithm.optimize(int)</code></a> or <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#reoptimize(int)"><code>GenerationalEvolutionaryAlgorithm.reoptimize(int)</code></a>, or from a random population if this is the first
+ call to either method.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ReoptimizableMetaheuristic.html#reoptimize(int)">reoptimize(int)</a></span> - Method in interface org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a></dt>
 <dd>
 <div class="block">Executes a run of the metaheuristic beginning at the previously best found solution
@@ -3145,7 +3633,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/RestartSchedule.html#reset()">reset()</a></span> - Method in interface org.cicirello.search.restarts.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a></dt>
 <dd>
 <div class="block">Resets the restart schedule to its initial conditions, such that
- the next call to <a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/RestartSchedule.html#nextRunLength()"><code>nextRunLength()</code></a> will return the initial
+ the next call to <a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/RestartSchedule.html#nextRunLength()"><code>RestartSchedule.nextRunLength()</code></a> will return the initial
  run length of the schedule.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/VariableAnnealingLength.html#reset()">reset()</a></span> - Method in class org.cicirello.search.restarts.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/VariableAnnealingLength.html" title="class in org.cicirello.search.restarts">VariableAnnealingLength</a></dt>
@@ -3206,6 +3694,32 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/ScrambleMutation.html#%3Cinit%3E()">ScrambleMutation()</a></span> - Constructor for class org.cicirello.search.operators.permutations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/ScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">ScrambleMutation</a></dt>
 <dd>
 <div class="block">Constructs a ScrambleMutation mutation operator.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)">select(PopulationFitnessVector.Double, int[])</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html" title="class in org.cicirello.search.evo">RandomSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)">select(PopulationFitnessVector.Double, int[])</a></span> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></dt>
+<dd>
+<div class="block">Selects a set of members of the population based on fitness.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)">select(PopulationFitnessVector.Double, int[])</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html" title="class in org.cicirello.search.evo">TournamentSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)">select(PopulationFitnessVector.Double, int[])</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html" title="class in org.cicirello.search.evo">TruncationSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)">select(PopulationFitnessVector.Integer, int[])</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html" title="class in org.cicirello.search.evo">RandomSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)">select(PopulationFitnessVector.Integer, int[])</a></span> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></dt>
+<dd>
+<div class="block">Selects a set of members of the population based on fitness.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)">select(PopulationFitnessVector.Integer, int[])</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html" title="class in org.cicirello.search.evo">TournamentSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)">select(PopulationFitnessVector.Integer, int[])</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html" title="class in org.cicirello.search.evo">TruncationSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SelectionOperator.html" title="interface in org.cicirello.search.evo"><span class="typeNameLink">SelectionOperator</span></a> - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">Implement this interface to provide a selection operator
+ for use by genetic algorithms and other forms of
+ evolutionary computation.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/SelfTuningLam.html" title="class in org.cicirello.search.sa"><span class="typeNameLink">SelfTuningLam</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/package-summary.html">org.cicirello.search.sa</a></dt>
 <dd>
@@ -3280,12 +3794,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#setFoundBest()">setFoundBest()</a></span> - Method in class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a></dt>
 <dd>
-<div class="block">Record that the best solution contained in the ProgressTracker is the
- best possible solution to the problem.</div>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">Use <a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#update(int,T,boolean)"><code>ProgressTracker.update(int, Copyable, boolean)</code></a> or
+ <a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#update(double,T,boolean)"><code>ProgressTracker.update(double, Copyable, boolean)</code></a> instead to set the 
+ foundBest flag when the solution is updated.</div>
+</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/ParallelMetaheuristic.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker(ProgressTracker&lt;T&gt;)</a></span> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/ParallelMetaheuristic.html" title="class in org.cicirello.search.concurrent">ParallelMetaheuristic</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker(ProgressTracker&lt;T&gt;)</a></span> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker(ProgressTracker&lt;T&gt;)</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/Multistarter.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker(ProgressTracker&lt;T&gt;)</a></span> - Method in class org.cicirello.search.restarts.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/restarts/Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a></dt>
 <dd>&nbsp;</dd>
@@ -3307,6 +3826,24 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html#setTimeUnit(int)">setTimeUnit(int)</a></span> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
 <dd>
 <div class="block">Changes the unit of time used by the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html#optimize(int)"><code>TimedParallelMultistarter.optimize(int)</code></a> method.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">ShiftedFitnessProportionalSelection</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements a variation of fitness proportional selection that uses
+ shifted fitness values.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedFitnessProportionalSelection.html#%3Cinit%3E()">ShiftedFitnessProportionalSelection()</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">ShiftedFitnessProportionalSelection</a></dt>
+<dd>
+<div class="block">Construct a shifted fitness proportional selection operator.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">ShiftedStochasticUniversalSampling</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements a variation of Stochastic Universal Sampling (SUS) that uses
+ shifted fitness values.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedStochasticUniversalSampling.html#%3Cinit%3E()">ShiftedStochasticUniversalSampling()</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">ShiftedStochasticUniversalSampling</a></dt>
+<dd>
+<div class="block">Construct a shifted stochastic universal sampling operator.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html#shiftLeft(int)">shiftLeft(int)</a></span> - Method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
@@ -3344,6 +3881,36 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/ShortestProcessingTime.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblem)">ShortestProcessingTime(SingleMachineSchedulingProblem)</a></span> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/ShortestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling">ShortestProcessingTime</a></dt>
 <dd>
 <div class="block">Constructs an ShortestProcessingTime heuristic.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">SimpleGeneticAlgorithm</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class is an implementation of the simple genetic algorithm (Simple GA) with the common
+ bit vector representation of solutions to optimization problems, and the
+ generational model where children replace their parents each generation.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,double)">SimpleGeneticAlgorithm(int, int, FitnessFunction.Double&lt;BitVector&gt;, double, double)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a simple genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation, single-point crossover (the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits"><code>SinglePointCrossover</code></a> class), 
+ and fitness-proportional selection (the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a> class).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,double,org.cicirello.search.ProgressTracker)">SimpleGeneticAlgorithm(int, int, FitnessFunction.Double&lt;BitVector&gt;, double, double, ProgressTracker&lt;BitVector&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a simple genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation, single-point crossover (the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits"><code>SinglePointCrossover</code></a> class), 
+ and fitness-proportional selection (the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a> class).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,double)">SimpleGeneticAlgorithm(int, int, FitnessFunction.Integer&lt;BitVector&gt;, double, double)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a simple genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation, single-point crossover (the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits"><code>SinglePointCrossover</code></a> class), 
+ and fitness-proportional selection (the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a> class).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,double,org.cicirello.search.ProgressTracker)">SimpleGeneticAlgorithm(int, int, FitnessFunction.Integer&lt;BitVector&gt;, double, double, ProgressTracker&lt;BitVector&gt;)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></dt>
+<dd>
+<div class="block">Initializes a simple genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation, single-point crossover (the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits"><code>SinglePointCrossover</code></a> class), 
+ and fitness-proportional selection (the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a> class).</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search"><span class="typeNameLink">SimpleLocalMetaheuristic</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/SimpleLocalMetaheuristic.html" title="type parameter in SimpleLocalMetaheuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/SimpleLocalMetaheuristic.html" title="type parameter in SimpleLocalMetaheuristic">T</a>&gt;&gt; - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/package-summary.html">org.cicirello.search</a></dt>
 <dd>
@@ -3478,6 +4045,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  data that defines the jobs of the scheduling instance, such as the
  process times, setup times (if any), due-dates, etc of the jobs.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits"><span class="typeNameLink">SinglePointCrossover</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/package-summary.html">org.cicirello.search.operators.bits</a></dt>
+<dd>
+<div class="block">Implementation of single point crossover, a classic crossover operator for 
+ BitVectors.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/SinglePointCrossover.html#%3Cinit%3E()">SinglePointCrossover()</a></span> - Constructor for class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits">SinglePointCrossover</a></dt>
+<dd>
+<div class="block">Constructs a single point crossover operator.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/SingleReal.html" title="class in org.cicirello.search.representations"><span class="typeNameLink">SingleReal</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/package-summary.html">org.cicirello.search.representations</a></dt>
 <dd>
 <div class="block">A simple class for representing the input to a univariate function.</div>
@@ -3500,6 +4076,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  of single-solution metaheuristics, i.e., metaheuristics such as simulated annealing
  that operate one a single candidate solution (as compared to population-based metaheuristics
  such as genetic algorithms.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.html#size()">size()</a></span> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector</a></dt>
+<dd>
+<div class="block">The size of the population.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/Partial.html#size()">size()</a></span> - Method in interface org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a></dt>
 <dd>
@@ -3552,9 +4132,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html#%3Cinit%3E(T,double)">SolutionCostPair(T, double)</a></span> - Constructor for class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a></dt>
 <dd>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">Use <a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html#%3Cinit%3E(T,double,boolean)"><code>SolutionCostPair(Copyable, double, boolean)</code></a> instead.</div>
+</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html#%3Cinit%3E(T,double,boolean)">SolutionCostPair(T, double, boolean)</a></span> - Constructor for class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a></dt>
+<dd>
 <div class="block">Constructs a SolutionCostPair with integer cost.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html#%3Cinit%3E(T,int)">SolutionCostPair(T, int)</a></span> - Constructor for class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a></dt>
+<dd>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">Use <a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html#%3Cinit%3E(T,int,boolean)"><code>SolutionCostPair(Copyable, int, boolean)</code></a> instead.</div>
+</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html#%3Cinit%3E(T,int,boolean)">SolutionCostPair(T, int, boolean)</a></span> - Constructor for class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a></dt>
 <dd>
 <div class="block">Constructs a SolutionCostPair with integer cost.</div>
 </dd>
@@ -3575,6 +4167,36 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#split()">split()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedFitnessProportionalSelection.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">BiasedFitnessProportionalSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedFitnessProportionalSelection.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">BiasedShiftedFitnessProportionalSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedStochasticUniversalSampling.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BiasedShiftedStochasticUniversalSampling</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BiasedStochasticUniversalSampling</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo">FitnessProportionalSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html" title="class in org.cicirello.search.evo">RandomSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedFitnessProportionalSelection.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">ShiftedFitnessProportionalSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedStochasticUniversalSampling.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">ShiftedStochasticUniversalSampling</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/StochasticUniversalSampling.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/StochasticUniversalSampling.html" title="class in org.cicirello.search.evo">StochasticUniversalSampling</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html" title="class in org.cicirello.search.evo">TournamentSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html" title="class in org.cicirello.search.evo">TruncationSelection</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/hc/FirstDescentHillClimber.html#split()">split()</a></span> - Method in class org.cicirello.search.hc.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/hc/FirstDescentHillClimber.html" title="class in org.cicirello.search.hc">FirstDescentHillClimber</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/hc/SteepestDescentHillClimber.html#split()">split()</a></span> - Method in class org.cicirello.search.hc.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/hc/SteepestDescentHillClimber.html" title="class in org.cicirello.search.hc">SteepestDescentHillClimber</a></dt>
@@ -3586,6 +4208,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/BitVectorInitializer.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/BitVectorInitializer.html" title="class in org.cicirello.search.operators.bits">BitVectorInitializer</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/DefiniteBitFlipMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/DefiniteBitFlipMutation.html" title="class in org.cicirello.search.operators.bits">DefiniteBitFlipMutation</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/KPointCrossover.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/KPointCrossover.html" title="class in org.cicirello.search.operators.bits">KPointCrossover</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/SinglePointCrossover.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits">SinglePointCrossover</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/TwoPointCrossover.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/TwoPointCrossover.html" title="class in org.cicirello.search.operators.bits">TwoPointCrossover</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/UniformCrossover.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/UniformCrossover.html" title="class in org.cicirello.search.operators.bits">UniformCrossover</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridCrossover.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridCrossover.html" title="class in org.cicirello.search.operators">HybridCrossover</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/HybridMutation.html" title="class in org.cicirello.search.operators">HybridMutation</a></dt>
 <dd>&nbsp;</dd>
@@ -3666,6 +4298,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/reals/UniformMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.reals.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/reals/UniformMutation.html" title="class in org.cicirello.search.operators.reals">UniformMutation</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/UndoableMutationOperator.html#split()">split()</a></span> - Method in interface org.cicirello.search.operators.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridCrossover.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridCrossover.html" title="class in org.cicirello.search.operators">WeightedHybridCrossover</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridMutation.html#split()">split()</a></span> - Method in class org.cicirello.search.operators.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridMutation.html" title="class in org.cicirello.search.operators">WeightedHybridMutation</a></dt>
 <dd>&nbsp;</dd>
@@ -3754,6 +4388,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/hc/SteepestDescentHillClimber.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,org.cicirello.search.operators.IterableMutationOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.ProgressTracker)">SteepestDescentHillClimber(OptimizationProblem&lt;T&gt;, IterableMutationOperator&lt;T&gt;, Initializer&lt;T&gt;, ProgressTracker&lt;T&gt;)</a></span> - Constructor for class org.cicirello.search.hc.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/hc/SteepestDescentHillClimber.html" title="class in org.cicirello.search.hc">SteepestDescentHillClimber</a></dt>
 <dd>
 <div class="block">Constructs a steepest descent hill climber object for real-valued optimization problem.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/StochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">StochasticUniversalSampling</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements Stochastic Universal Sampling (SUS), a selection operator 
+ for evolutionary algorithms.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/StochasticUniversalSampling.html#%3Cinit%3E()">StochasticUniversalSampling()</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/StochasticUniversalSampling.html" title="class in org.cicirello.search.evo">StochasticUniversalSampling</a></dt>
+<dd>
+<div class="block">Construct an SUS operator.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#stop()">stop()</a></span> - Method in class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a></dt>
 <dd>
@@ -3937,7 +4580,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  based on that described in:</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html#toString()">toString()</a></span> - Method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns a String representation of the BitVector.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">TournamentSelection</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements tournament selection for evolutionary algorithms.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html#%3Cinit%3E()">TournamentSelection()</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html" title="class in org.cicirello.search.evo">TournamentSelection</a></dt>
+<dd>
+<div class="block">Constructs a binary tournament selection operator, i.e., k = 2.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html#%3Cinit%3E(int)">TournamentSelection(int)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html" title="class in org.cicirello.search.evo">TournamentSelection</a></dt>
+<dd>
+<div class="block">Constructs a tournament selection operator.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/TrackableSearch.html" title="interface in org.cicirello.search"><span class="typeNameLink">TrackableSearch</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/TrackableSearch.html" title="type parameter in TrackableSearch">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/TrackableSearch.html" title="type parameter in TrackableSearch">T</a>&gt;&gt; - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/package-summary.html">org.cicirello.search</a></dt>
 <dd>
 <div class="block">This interface defines the required functionality of
@@ -3955,6 +4612,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/Trap.html#%3Cinit%3E()">Trap()</a></span> - Constructor for class org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/Trap.html" title="class in org.cicirello.search.problems">Trap</a></dt>
 <dd>
 <div class="block">Constructs an instance of Ackley's Trap function.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">TruncationSelection</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements truncation selection for evolutionary algorithms.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html#%3Cinit%3E(int)">TruncationSelection(int)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html" title="class in org.cicirello.search.evo">TruncationSelection</a></dt>
+<dd>
+<div class="block">Constructs a truncation selection operator that selects uniformly
+ at random from the k most fit current members of the population.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.html" title="class in org.cicirello.search.problems.tsp"><span class="typeNameLink">TSP</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></dt>
 <dd>
@@ -4018,6 +4684,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  TwoMaxEqualPeaks problem, a variation of the TwoMax problem
  but with two globally optimal solutions, rather than one
  global optima and a local optima.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/TwoPointCrossover.html" title="class in org.cicirello.search.operators.bits"><span class="typeNameLink">TwoPointCrossover</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/package-summary.html">org.cicirello.search.operators.bits</a></dt>
+<dd>
+<div class="block">Implementation of two-point crossover, a classic crossover operator for 
+ BitVectors.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/TwoPointCrossover.html#%3Cinit%3E()">TwoPointCrossover()</a></span> - Constructor for class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/TwoPointCrossover.html" title="class in org.cicirello.search.operators.bits">TwoPointCrossover</a></dt>
+<dd>
+<div class="block">Constructs a two-point crossover operator.</div>
 </dd>
 </dl>
 <a id="I:U">
@@ -4141,6 +4816,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs a UndoableUniformScrambleMutation mutation operator.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/UniformCrossover.html" title="class in org.cicirello.search.operators.bits"><span class="typeNameLink">UniformCrossover</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/package-summary.html">org.cicirello.search.operators.bits</a></dt>
+<dd>
+<div class="block">Implementation of uniform crossover, a classic crossover operator for 
+ BitVectors.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/UniformCrossover.html#%3Cinit%3E()">UniformCrossover()</a></span> - Constructor for class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/UniformCrossover.html" title="class in org.cicirello.search.operators.bits">UniformCrossover</a></dt>
+<dd>
+<div class="block">Constructs a uniform crossover operator with a probability of 
+ exchanging each bit of p=0.5.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/UniformCrossover.html#%3Cinit%3E(double)">UniformCrossover(double)</a></span> - Constructor for class org.cicirello.search.operators.bits.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/UniformCrossover.html" title="class in org.cicirello.search.operators.bits">UniformCrossover</a></dt>
+<dd>
+<div class="block">Constructs a uniform crossover operator.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/UniformMutation.html" title="class in org.cicirello.search.operators.integers"><span class="typeNameLink">UniformMutation</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/UniformMutation.html" title="type parameter in UniformMutation">T</a> extends <a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt; - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/package-summary.html">org.cicirello.search.operators.integers</a></dt>
 <dd>
 <div class="block">This class implements a uniform
@@ -4168,9 +4857,25 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#update(double,T)">update(double, T)</a></span> - Method in class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a></dt>
 <dd>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">Use <a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#update(double,T,boolean)"><code>ProgressTracker.update(double, Copyable, boolean)</code></a> instead.</div>
+</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#update(double,T,boolean)">update(double, T, boolean)</a></span> - Method in class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a></dt>
+<dd>
 <div class="block">Updates the best solution contained in this progress tracker.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#update(int,T)">update(int, T)</a></span> - Method in class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a></dt>
+<dd>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">Use <a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#update(int,T,boolean)"><code>ProgressTracker.update(int, Copyable, boolean)</code></a> instead.</div>
+</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#update(int,T,boolean)">update(int, T, boolean)</a></span> - Method in class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a></dt>
+<dd>
+<div class="block">Updates the best solution contained in this progress tracker.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#update(org.cicirello.search.SolutionCostPair)">update(SolutionCostPair&lt;T&gt;)</a></span> - Method in class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a></dt>
 <dd>
 <div class="block">Updates the best solution contained in this progress tracker.</div>
 </dd>
@@ -4375,6 +5080,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs a single machine scheduling problem for minimizing 
  weighted flowtime.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridCrossover.html" title="class in org.cicirello.search.operators"><span class="typeNameLink">WeightedHybridCrossover</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridCrossover.html" title="type parameter in WeightedHybridCrossover">T</a>&gt; - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/package-summary.html">org.cicirello.search.operators</a></dt>
+<dd>
+<div class="block">A WeightedHybridCrossover enables using multiple crossover operators,
+ such that each time the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridCrossover.html#cross(T,T)"><code>WeightedHybridCrossover.cross(T, T)</code></a> method is called,
+ a randomly chosen crossover operator is applied to the candidate
+ solutions.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridCrossover.html#%3Cinit%3E(java.util.Collection,int%5B%5D)">WeightedHybridCrossover(Collection&lt;? extends CrossoverOperator&lt;T&gt;&gt;, int[])</a></span> - Constructor for class org.cicirello.search.operators.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridCrossover.html" title="class in org.cicirello.search.operators">WeightedHybridCrossover</a></dt>
+<dd>
+<div class="block">Constructs a WeightedHybridCrossover from a Collection of CrossoverOperators.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridMutation.html" title="class in org.cicirello.search.operators"><span class="typeNameLink">WeightedHybridMutation</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/WeightedHybridMutation.html" title="type parameter in WeightedHybridMutation">T</a>&gt; - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/package-summary.html">org.cicirello.search.operators</a></dt>
 <dd>
@@ -4637,7 +5353,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Computes the bitwise XOR of this BitVector and another BitVector.</div>
 </dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a></div>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a></div>
 </main>
 <footer role="contentinfo">
 <nav role="navigation">

@@ -130,13 +130,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="#org.cicirello.search.evo">org.cicirello.search.evo</a></th>
+<td class="colLast">
+<div class="block">This package includes classes and interfaces directly related to implementing
+ evolutionary algorithms.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.hc">org.cicirello.search.hc</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
  hill climbers.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.operators">org.cicirello.search.operators</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces for defining various operators
@@ -145,28 +152,28 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  other related classes and interfaces.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.operators.bits">org.cicirello.search.operators.bits</a></th>
 <td class="colLast">
 <div class="block">This package includes classes that implement operators that create, mutate, etc,
  BitVectors.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.operators.integers">org.cicirello.search.operators.integers</a></th>
 <td class="colLast">
 <div class="block">This package includes classes that implement operators that create, mutate, etc,
  integer valued representations.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.operators.permutations">org.cicirello.search.operators.permutations</a></th>
 <td class="colLast">
 <div class="block">This package includes classes that implement mutation operators for permutations, and other
  operators required by simulated annealing and other related metaheuristics.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.operators.reals">org.cicirello.search.operators.reals</a></th>
 <td class="colLast">
 <div class="block">This package includes classes that implement operators that create, mutate, etc, the
@@ -175,7 +182,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  problems using simulated annealing or other metaheuristics.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.problems">org.cicirello.search.problems</a></th>
 <td class="colLast">
 <div class="block">Package of classes and interfaces related to representing
@@ -183,7 +190,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  a variety of specific computational problems.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.restarts">org.cicirello.search.restarts</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces related to implementing multistart
@@ -191,14 +198,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  solution across a number of such restarts).</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
  simulated annealing.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.ss">org.cicirello.search.ss</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
@@ -366,6 +373,171 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </section>
 </li>
 <li class="blockList">
+<section role="region"><a id="org.cicirello.search.evo">
+<!--   -->
+</a>
+<h3>Uses of <a href="../Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a> in <a href="../../evo/package-summary.html">org.cicirello.search.evo</a></h3>
+<table class="useSummary">
+<caption><span>Subinterfaces of <a href="../Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a> in <a href="../../evo/package-summary.html">org.cicirello.search.evo</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Interface</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></span></code></th>
+<td class="colLast">
+<div class="block">Implement this interface to provide a selection operator
+ for use by genetic algorithms and other forms of
+ evolutionary computation.</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="useSummary">
+<caption><span>Classes in <a href="../../evo/package-summary.html">org.cicirello.search.evo</a> that implement <a href="../Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/BiasedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">BiasedFitnessProportionalSelection</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements a variation of fitness proportional selection that applies
+ a bias function to transform the fitness values.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/BiasedShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">BiasedShiftedFitnessProportionalSelection</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements a variation of fitness proportional selection that 
+ uses shifted fitness values and applies
+ a bias function to further transform the shifted fitness values.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/BiasedShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BiasedShiftedStochasticUniversalSampling</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements a variation of Stochastic Universal Sampling (SUS) that we call
+ Biased Shifted Stochastic Universal Sampling (Biased Shifted SUS), which uses shifted fitness values
+ and integrates the use of a bias function
+ with SUS to enable transforming the shifted fitness values prior to the stochastic selection decisions.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BiasedStochasticUniversalSampling</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements a variation of Stochastic Universal Sampling (SUS) that we call
+ Biased Stochastic Universal Sampling (Biased SUS), which integrates the use of a bias function
+ with SUS to enable transforming fitness values prior to the stochastic selection decisions.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo">FitnessProportionalSelection</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements fitness proportional selection, sometimes referred to as weighted 
+ roulette wheel, for evolutionary algorithms.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</span></code></th>
+<td class="colLast">
+<div class="block">This class implements an evolutionary algorithm with a generational
+ model, such as is commonly used in genetic algorithms, where a
+ population of children are formed by applying genetic operators to
+ members of the parent population, and where the children replace the 
+ parents in the next generation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></span></code></th>
+<td class="colLast">
+<div class="block">This class is an implementation of a genetic algorithm (GA) with the common
+ bit vector representation of solutions to optimization problems, and the
+ generational model where children replace their parents each generation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></span></code></th>
+<td class="colLast">
+<div class="block">This class is an implementation of a mutation-only genetic algorithm (GA) with the common
+ bit vector representation of solutions to optimization problems, and the
+ generational model where children replace their parents each generation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/RandomSelection.html" title="class in org.cicirello.search.evo">RandomSelection</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements a simple random selection operator that selects
+ members of the population uniformly at random, independent of fitness
+ values.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/ShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">ShiftedFitnessProportionalSelection</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements a variation of fitness proportional selection that uses
+ shifted fitness values.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/ShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">ShiftedStochasticUniversalSampling</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements a variation of Stochastic Universal Sampling (SUS) that uses
+ shifted fitness values.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></span></code></th>
+<td class="colLast">
+<div class="block">This class is an implementation of the simple genetic algorithm (Simple GA) with the common
+ bit vector representation of solutions to optimization problems, and the
+ generational model where children replace their parents each generation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/StochasticUniversalSampling.html" title="class in org.cicirello.search.evo">StochasticUniversalSampling</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements Stochastic Universal Sampling (SUS), a selection operator 
+ for evolutionary algorithms.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/TournamentSelection.html" title="class in org.cicirello.search.evo">TournamentSelection</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements tournament selection for evolutionary algorithms.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/TruncationSelection.html" title="class in org.cicirello.search.evo">TruncationSelection</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements truncation selection for evolutionary algorithms.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</li>
+<li class="blockList">
 <section role="region"><a id="org.cicirello.search.hc">
 <!--   -->
 </a>
@@ -411,6 +583,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code>interface&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;T&gt;</span></code></th>
+<td class="colLast">
+<div class="block">Implement the CrossoverOperator interface to implement a crossover operator
+ for use in evolutionary algorithms.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;</span></code></th>
 <td class="colLast">
 <div class="block">Implement the Initializer interface to provide
@@ -418,7 +598,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  to generate initial candidate solutions to a problem.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>interface&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;T&gt;</span></code></th>
 <td class="colLast">
@@ -427,16 +607,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  a candidate solution, like one would do in a hill climber.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>interface&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T&gt;</span></code></th>
 <td class="colLast">
 <div class="block">Implement the MutationOperator interface to implement a mutation operator
- for use in simulated annealing, and other metaheuristics, that require a
+ for use in simulated annealing, genetic algorithms, and other evolutionary algorithms,
+ and other metaheuristics, that require a
  way to generate random neighbors of a candidate solution.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>interface&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;</span></code></th>
 <td class="colLast">
@@ -458,6 +639,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/HybridCrossover.html" title="class in org.cicirello.search.operators">HybridCrossover</a>&lt;T&gt;</span></code></th>
+<td class="colLast">
+<div class="block">A HybridCrossover enables using multiple crossover operators for the
+ evolutionary algorithm, such that each time the <a href="../../operators/HybridCrossover.html#cross(T,T)"><code>HybridCrossover.cross(T, T)</code></a> method is called,
+ a randomly chosen crossover operator is applied to the candidate
+ solution.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/HybridMutation.html" title="class in org.cicirello.search.operators">HybridMutation</a>&lt;T&gt;</span></code></th>
 <td class="colLast">
 <div class="block">A HybridMutation enables using multiple mutation operators for the
@@ -466,7 +657,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  solution.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/HybridUndoableMutation.html" title="class in org.cicirello.search.operators">HybridUndoableMutation</a>&lt;T&gt;</span></code></th>
 <td class="colLast">
@@ -476,7 +667,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  solution.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/InitializeBySimpleMetaheuristic.html" title="class in org.cicirello.search.operators">InitializeBySimpleMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</span></code></th>
 <td class="colLast">
@@ -484,6 +675,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  metaheuristics and other search algorithms with a way
  to generate initial candidate solutions to a problem, that are themselves
  generated via a metaheuristic.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/WeightedHybridCrossover.html" title="class in org.cicirello.search.operators">WeightedHybridCrossover</a>&lt;T&gt;</span></code></th>
+<td class="colLast">
+<div class="block">A WeightedHybridCrossover enables using multiple crossover operators,
+ such that each time the <a href="../../operators/WeightedHybridCrossover.html#cross(T,T)"><code>WeightedHybridCrossover.cross(T, T)</code></a> method is called,
+ a randomly chosen crossover operator is applied to the candidate
+ solutions.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -545,6 +746,38 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/bits/DefiniteBitFlipMutation.html" title="class in org.cicirello.search.operators.bits">DefiniteBitFlipMutation</a></span></code></th>
 <td class="colLast">
 <div class="block">DefiniteBitFlipMutation implements a variation of Bit Flip Mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/bits/KPointCrossover.html" title="class in org.cicirello.search.operators.bits">KPointCrossover</a></span></code></th>
+<td class="colLast">
+<div class="block">Implementation of K-point crossover, a classic crossover operator for 
+ BitVectors.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits">SinglePointCrossover</a></span></code></th>
+<td class="colLast">
+<div class="block">Implementation of single point crossover, a classic crossover operator for 
+ BitVectors.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/bits/TwoPointCrossover.html" title="class in org.cicirello.search.operators.bits">TwoPointCrossover</a></span></code></th>
+<td class="colLast">
+<div class="block">Implementation of two-point crossover, a classic crossover operator for 
+ BitVectors.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/bits/UniformCrossover.html" title="class in org.cicirello.search.operators.bits">UniformCrossover</a></span></code></th>
+<td class="colLast">
+<div class="block">Implementation of uniform crossover, a classic crossover operator for 
+ BitVectors.</div>
 </td>
 </tr>
 </tbody>

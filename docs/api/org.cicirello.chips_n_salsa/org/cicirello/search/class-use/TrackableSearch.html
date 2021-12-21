@@ -130,13 +130,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="#org.cicirello.search.evo">org.cicirello.search.evo</a></th>
+<td class="colLast">
+<div class="block">This package includes classes and interfaces directly related to implementing
+ evolutionary algorithms.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.hc">org.cicirello.search.hc</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
  hill climbers.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.restarts">org.cicirello.search.restarts</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces related to implementing multistart
@@ -144,14 +151,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  solution across a number of such restarts).</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
  simulated annealing.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.ss">org.cicirello.search.ss</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
@@ -283,6 +290,61 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</span></code></th>
 <td class="colLast">
 <div class="block">This class is used for implementing parallel multistart metaheuristics.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</li>
+<li class="blockList">
+<section role="region"><a id="org.cicirello.search.evo">
+<!--   -->
+</a>
+<h3>Uses of <a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a> in <a href="../evo/package-summary.html">org.cicirello.search.evo</a></h3>
+<table class="useSummary">
+<caption><span>Classes in <a href="../evo/package-summary.html">org.cicirello.search.evo</a> that implement <a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</span></code></th>
+<td class="colLast">
+<div class="block">This class implements an evolutionary algorithm with a generational
+ model, such as is commonly used in genetic algorithms, where a
+ population of children are formed by applying genetic operators to
+ members of the parent population, and where the children replace the 
+ parents in the next generation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></span></code></th>
+<td class="colLast">
+<div class="block">This class is an implementation of a genetic algorithm (GA) with the common
+ bit vector representation of solutions to optimization problems, and the
+ generational model where children replace their parents each generation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></span></code></th>
+<td class="colLast">
+<div class="block">This class is an implementation of a mutation-only genetic algorithm (GA) with the common
+ bit vector representation of solutions to optimization problems, and the
+ generational model where children replace their parents each generation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../evo/SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></span></code></th>
+<td class="colLast">
+<div class="block">This class is an implementation of the simple genetic algorithm (Simple GA) with the common
+ bit vector representation of solutions to optimization problems, and the
+ generational model where children replace their parents each generation.</div>
 </td>
 </tr>
 </tbody>

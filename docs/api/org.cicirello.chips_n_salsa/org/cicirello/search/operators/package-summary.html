@@ -124,6 +124,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;T&gt;</th>
+<td class="colLast">
+<div class="block">Implement the CrossoverOperator interface to implement a crossover operator
+ for use in evolutionary algorithms.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;</th>
 <td class="colLast">
 <div class="block">Implement the Initializer interface to provide
@@ -131,7 +138,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  to generate initial candidate solutions to a problem.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;T&gt;</th>
 <td class="colLast">
 <div class="block">Implement the IterableMutationOperator interface to define a mutation
@@ -139,22 +146,23 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  a candidate solution, like one would do in a hill climber.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="MutationIterator.html" title="interface in org.cicirello.search.operators">MutationIterator</a></th>
 <td class="colLast">
 <div class="block">Defines an interface for iterating over all of the mutants (i.e., neighbors)
  of a candidate solution to a problem.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T&gt;</th>
 <td class="colLast">
 <div class="block">Implement the MutationOperator interface to implement a mutation operator
- for use in simulated annealing, and other metaheuristics, that require a
+ for use in simulated annealing, genetic algorithms, and other evolutionary algorithms,
+ and other metaheuristics, that require a
  way to generate random neighbors of a candidate solution.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;</th>
 <td class="colLast">
 <div class="block">Implement the UndoableMutationOperator interface to implement a mutation operator
@@ -175,6 +183,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="HybridCrossover.html" title="class in org.cicirello.search.operators">HybridCrossover</a>&lt;T&gt;</th>
+<td class="colLast">
+<div class="block">A HybridCrossover enables using multiple crossover operators for the
+ evolutionary algorithm, such that each time the <a href="HybridCrossover.html#cross(T,T)"><code>HybridCrossover.cross(T, T)</code></a> method is called,
+ a randomly chosen crossover operator is applied to the candidate
+ solution.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="HybridMutation.html" title="class in org.cicirello.search.operators">HybridMutation</a>&lt;T&gt;</th>
 <td class="colLast">
 <div class="block">A HybridMutation enables using multiple mutation operators for the
@@ -183,7 +200,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  solution.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="HybridUndoableMutation.html" title="class in org.cicirello.search.operators">HybridUndoableMutation</a>&lt;T&gt;</th>
 <td class="colLast">
 <div class="block">A HybridMutation enables using multiple mutation operators for the
@@ -192,13 +209,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  solution.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="InitializeBySimpleMetaheuristic.html" title="class in org.cicirello.search.operators">InitializeBySimpleMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</th>
 <td class="colLast">
 <div class="block">This class implements the <a href="Initializer.html" title="interface in org.cicirello.search.operators"><code>Initializer</code></a> interface to provide
  metaheuristics and other search algorithms with a way
  to generate initial candidate solutions to a problem, that are themselves
  generated via a metaheuristic.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="WeightedHybridCrossover.html" title="class in org.cicirello.search.operators">WeightedHybridCrossover</a>&lt;T&gt;</th>
+<td class="colLast">
+<div class="block">A WeightedHybridCrossover enables using multiple crossover operators,
+ such that each time the <a href="WeightedHybridCrossover.html#cross(T,T)"><code>WeightedHybridCrossover.cross(T, T)</code></a> method is called,
+ a randomly chosen crossover operator is applied to the candidate
+ solutions.</div>
 </td>
 </tr>
 <tr class="rowColor">

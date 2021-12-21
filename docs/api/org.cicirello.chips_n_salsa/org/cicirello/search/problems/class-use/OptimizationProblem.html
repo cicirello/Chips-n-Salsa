@@ -115,13 +115,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="#org.cicirello.search.evo">org.cicirello.search.evo</a></th>
+<td class="colLast">
+<div class="block">This package includes classes and interfaces directly related to implementing
+ evolutionary algorithms.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.hc">org.cicirello.search.hc</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
  hill climbers.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.problems">org.cicirello.search.problems</a></th>
 <td class="colLast">
 <div class="block">Package of classes and interfaces related to representing
@@ -129,20 +136,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  a variety of specific computational problems.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.problems.tsp">org.cicirello.search.problems.tsp</a></th>
 <td class="colLast">
 <div class="block">Classes and interfaces related to the Traveling Salesperson Problem (TSP).</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
  simulated annealing.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.ss">org.cicirello.search.ss</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
@@ -154,6 +161,59 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </li>
 <li class="blockList">
 <ul class="blockList">
+<li class="blockList">
+<section role="region"><a id="org.cicirello.search.evo">
+<!--   -->
+</a>
+<h3>Uses of <a href="../OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a> in <a href="../../evo/package-summary.html">org.cicirello.search.evo</a></h3>
+<table class="useSummary">
+<caption><span>Methods in <a href="../../evo/package-summary.html">org.cicirello.search.evo</a> that return <a href="../OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../evo/NegativeCostFitnessFunction.html" title="type parameter in NegativeCostFitnessFunction">T</a>&gt;</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">NegativeCostFitnessFunction.</span><code><span class="memberNameLink"><a href="../../evo/NegativeCostFitnessFunction.html#getProblem()">getProblem</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table class="useSummary">
+<caption><span>Constructors in <a href="../../evo/package-summary.html">org.cicirello.search.evo</a> with parameters of type <a href="../OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Constructor</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/InverseCostFitnessFunction.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem)">InverseCostFitnessFunction</a></span>&#8203;(<a href="../OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../evo/InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&nbsp;problem)</code></th>
+<td class="colLast">
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
+ the following transformation: fitness(s) = 1.0 / (1.0 + problem.cost(s) - problem.minCost()).</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/InverseCostFitnessFunction.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,double)">InverseCostFitnessFunction</a></span>&#8203;(<a href="../OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../evo/InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&nbsp;problem,
+                          double&nbsp;c)</code></th>
+<td class="colLast">
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
+ the following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()).</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/NegativeCostFitnessFunction.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem)">NegativeCostFitnessFunction</a></span>&#8203;(<a href="../OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../evo/NegativeCostFitnessFunction.html" title="type parameter in NegativeCostFitnessFunction">T</a>&gt;&nbsp;problem)</code></th>
+<td class="colLast">
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
+ the following transformation: fitness(s) = -cost(s).</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</li>
 <li class="blockList">
 <section role="region"><a id="org.cicirello.search.hc">
 <!--   -->

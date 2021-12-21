@@ -35,8 +35,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":42,"i9":10,"i10":10,"i11":42,"i12":10,"i13":42,"i14":10,"i15":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -190,7 +190,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -261,8 +261,11 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setFoundBest()">setFoundBest</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Record that the best solution contained in the ProgressTracker is the
- best possible solution to the problem.</div>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">Use <a href="#update(int,T,boolean)"><code>update(int, Copyable, boolean)</code></a> or
+ <a href="#update(double,T,boolean)"><code>update(double, Copyable, boolean)</code></a> instead to set the 
+ foundBest flag when the solution is updated.</div>
+</div>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
@@ -285,13 +288,42 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(double,T)">update</a></span>&#8203;(double&nbsp;cost,
       <a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&nbsp;solution)</code></th>
 <td class="colLast">
-<div class="block">Updates the best solution contained in this progress tracker.</div>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">Use <a href="#update(double,T,boolean)"><code>update(double, Copyable, boolean)</code></a> instead.</div>
+</div>
 </td>
 </tr>
 <tr id="i12" class="altColor">
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(double,T,boolean)">update</a></span>&#8203;(double&nbsp;cost,
+      <a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&nbsp;solution,
+      boolean&nbsp;isKnownOptimal)</code></th>
+<td class="colLast">
+<div class="block">Updates the best solution contained in this progress tracker.</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(int,T)">update</a></span>&#8203;(int&nbsp;cost,
       <a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&nbsp;solution)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">Use <a href="#update(int,T,boolean)"><code>update(int, Copyable, boolean)</code></a> instead.</div>
+</div>
+</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(int,T,boolean)">update</a></span>&#8203;(int&nbsp;cost,
+      <a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&nbsp;solution,
+      boolean&nbsp;isKnownOptimal)</code></th>
+<td class="colLast">
+<div class="block">Updates the best solution contained in this progress tracker.</div>
+</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(org.cicirello.search.SolutionCostPair)">update</a></span>&#8203;(<a href="SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&gt;&nbsp;pair)</code></th>
 <td class="colLast">
 <div class="block">Updates the best solution contained in this progress tracker.</div>
 </td>
@@ -348,8 +380,12 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <ul class="blockList">
 <li class="blockList">
 <h4>update</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;update&#8203;(int&nbsp;cost,
+<pre class="methodSignature"><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Deprecated.html?is-external=true" title="class or interface in java.lang" class="externalLink">@Deprecated</a>
+public&nbsp;int&nbsp;update&#8203;(int&nbsp;cost,
                   <a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&nbsp;solution)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">Use <a href="#update(int,T,boolean)"><code>update(int, Copyable, boolean)</code></a> instead.</div>
+</div>
 <div class="block">Updates the best solution contained in this progress tracker.
  The update takes place only if the new solution has lower cost than
  the current best cost solution stored in the progress tracker.  This method
@@ -381,8 +417,12 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <ul class="blockList">
 <li class="blockList">
 <h4>update</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;update&#8203;(double&nbsp;cost,
+<pre class="methodSignature"><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Deprecated.html?is-external=true" title="class or interface in java.lang" class="externalLink">@Deprecated</a>
+public&nbsp;double&nbsp;update&#8203;(double&nbsp;cost,
                      <a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&nbsp;solution)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">Use <a href="#update(double,T,boolean)"><code>update(double, Copyable, boolean)</code></a> instead.</div>
+</div>
 <div class="block">Updates the best solution contained in this progress tracker.
  The update takes place only if the new solution has lower cost than
  the current best cost solution stored in the progress tracker.  This method
@@ -403,6 +443,100 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <dd>The cost of the best solution found.  This may or may not be equal
  to the cost passed as a parameter.  If the returned value is less than cost, then
  that means the best solution was previously updated by this or another thread.</dd>
+</dl>
+</li>
+</ul>
+<a id="update(int,org.cicirello.util.Copyable,boolean)">
+<!--   -->
+</a><a id="update(int,T,boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>update</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;update&#8203;(int&nbsp;cost,
+                  <a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&nbsp;solution,
+                  boolean&nbsp;isKnownOptimal)</pre>
+<div class="block">Updates the best solution contained in this progress tracker.
+ The update takes place only if the new solution has lower cost than
+ the current best cost solution stored in the progress tracker.  This method
+ is thread-safe.  However, it uses synchronization for thread-safety, so
+ it is strongly suggested that in multithreaded search implementations that
+ you reserve calls to this method for when the search believes it has likely found 
+ a better solution than all currently running threads.  Although in theory the 
+ functionality of this class is such that it can be used as the sole means of a
+ search algorithm keeping track of the best found solution.  If multiple
+ parallel runs attempt to share this object for that purpose, significant blocking
+ may occur.  You may consider using the nonblocking <a href="#getCost()"><code>getCost()</code></a> method
+ first.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>cost</code> - The cost of the solution.</dd>
+<dd><code>solution</code> - The new solution.</dd>
+<dd><code>isKnownOptimal</code> - Pass true if this solution is known to be the optimal such as if
+ it is equal to a lower bound for the problem, and otherwise pass false.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The cost of the best solution found.  This may or may not be equal
+ to the cost passed as a parameter.  If the returned value is less than cost, then
+ that means the best solution was previously updated by this or another thread.</dd>
+</dl>
+</li>
+</ul>
+<a id="update(double,org.cicirello.util.Copyable,boolean)">
+<!--   -->
+</a><a id="update(double,T,boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>update</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;update&#8203;(double&nbsp;cost,
+                     <a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&nbsp;solution,
+                     boolean&nbsp;isKnownOptimal)</pre>
+<div class="block">Updates the best solution contained in this progress tracker.
+ The update takes place only if the new solution has lower cost than
+ the current best cost solution stored in the progress tracker.  This method
+ is thread-safe.  However, it uses synchronization for thread-safety, so
+ it is strongly suggested that in multithreaded search implementations that
+ you reserve calls to this method for when the search believes it has likely found 
+ a better solution than all currently running threads.  Although in theory the 
+ functionality of this class is such that it can be used as the sole means of a
+ search algorithm keeping track of the best found solution.  If multiple
+ parallel runs attempt to share this object for that purpose, significant blocking
+ may occur.  You may consider using the nonblocking <a href="#getCostDouble()"><code>getCostDouble()</code></a> method
+ first.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>cost</code> - The cost of the solution.</dd>
+<dd><code>solution</code> - The new solution.</dd>
+<dd><code>isKnownOptimal</code> - Pass true if this solution is known to be the optimal such as if
+ it is equal to a lower bound for the problem, and otherwise pass false.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The cost of the best solution found.  This may or may not be equal
+ to the cost passed as a parameter.  If the returned value is less than cost, then
+ that means the best solution was previously updated by this or another thread.</dd>
+</dl>
+</li>
+</ul>
+<a id="update(org.cicirello.search.SolutionCostPair)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>update</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;update&#8203;(<a href="SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&gt;&nbsp;pair)</pre>
+<div class="block">Updates the best solution contained in this progress tracker.
+ The update takes place only if the new solution has lower cost than
+ the current best cost solution stored in the progress tracker.  This method
+ is thread-safe.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>pair</code> - A solution cost pair.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true If the cost of the solution in the ProgressTracker is that of this
+ pair at the time that this method returns, which will be the case if this pair
+ contains a new best solution or a solution with cost equal to that contained in the
+ ProgressTracker. It otherwise returns false.</dd>
 </dl>
 </li>
 </ul>
@@ -493,7 +627,13 @@ extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/ja
 <ul class="blockList">
 <li class="blockList">
 <h4>setFoundBest</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setFoundBest()</pre>
+<pre class="methodSignature"><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Deprecated.html?is-external=true" title="class or interface in java.lang" class="externalLink">@Deprecated</a>
+public&nbsp;void&nbsp;setFoundBest()</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span>
+<div class="deprecationComment">Use <a href="#update(int,T,boolean)"><code>update(int, Copyable, boolean)</code></a> or
+ <a href="#update(double,T,boolean)"><code>update(double, Copyable, boolean)</code></a> instead to set the 
+ foundBest flag when the solution is updated.</div>
+</div>
 <div class="block">Record that the best solution contained in the ProgressTracker is the
  best possible solution to the problem.</div>
 </li>

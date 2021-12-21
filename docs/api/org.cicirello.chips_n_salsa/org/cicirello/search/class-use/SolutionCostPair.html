@@ -130,6 +130,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="#org.cicirello.search.evo">org.cicirello.search.evo</a></th>
+<td class="colLast">
+<div class="block">This package includes classes and interfaces directly related to implementing
+ evolutionary algorithms.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.problems">org.cicirello.search.problems</a></th>
 <td class="colLast">
 <div class="block">Package of classes and interfaces related to representing
@@ -137,7 +144,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  a variety of specific computational problems.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.restarts">org.cicirello.search.restarts</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces related to implementing multistart
@@ -145,14 +152,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  solution across a number of such restarts).</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
  simulated annealing.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="#org.cicirello.search.ss">org.cicirello.search.ss</a></th>
 <td class="colLast">
 <div class="block">This package includes classes and interfaces directly related to implementing
@@ -242,6 +249,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Compares this SolutionCostPair with the specified SolutionCostPair for order.</div>
 </td>
 </tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">ProgressTracker.</span><code><span class="memberNameLink"><a href="../ProgressTracker.html#update(org.cicirello.search.SolutionCostPair)">update</a></span>&#8203;(<a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&gt;&nbsp;pair)</code></th>
+<td class="colLast">
+<div class="block">Updates the best solution contained in this progress tracker.</div>
+</td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -304,6 +318,39 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Gets a list of the best solution stored in this search's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>
  at each time interval of the most recent call to the <a href="../concurrent/TimedParallelMultistarter.html#optimize(int)"><code>TimedParallelMultistarter.optimize(int)</code></a> 
  method, or null if <a href="../concurrent/TimedParallelMultistarter.html#optimize(int)"><code>TimedParallelMultistarter.optimize(int)</code></a> has not been called.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</li>
+<li class="blockList">
+<section role="region"><a id="org.cicirello.search.evo">
+<!--   -->
+</a>
+<h3>Uses of <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a> in <a href="../evo/package-summary.html">org.cicirello.search.evo</a></h3>
+<table class="useSummary">
+<caption><span>Methods in <a href="../evo/package-summary.html">org.cicirello.search.evo</a> that return <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../evo/GenerationalEvolutionaryAlgorithm.html" title="type parameter in GenerationalEvolutionaryAlgorithm">T</a>&gt;</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">GenerationalEvolutionaryAlgorithm.</span><code><span class="memberNameLink"><a href="../evo/GenerationalEvolutionaryAlgorithm.html#optimize(int)">optimize</a></span>&#8203;(int&nbsp;numGenerations)</code></th>
+<td class="colLast">
+<div class="block">Runs the evolutionary algorithm beginning from a randomly generated population.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../evo/GenerationalEvolutionaryAlgorithm.html" title="type parameter in GenerationalEvolutionaryAlgorithm">T</a>&gt;</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">GenerationalEvolutionaryAlgorithm.</span><code><span class="memberNameLink"><a href="../evo/GenerationalEvolutionaryAlgorithm.html#reoptimize(int)">reoptimize</a></span>&#8203;(int&nbsp;numGenerations)</code></th>
+<td class="colLast">
+<div class="block">Runs the evolutionary algorithm continuing from the final population from the most recent call
+ to either <a href="../evo/GenerationalEvolutionaryAlgorithm.html#optimize(int)"><code>GenerationalEvolutionaryAlgorithm.optimize(int)</code></a> or <a href="../evo/GenerationalEvolutionaryAlgorithm.html#reoptimize(int)"><code>GenerationalEvolutionaryAlgorithm.reoptimize(int)</code></a>, or from a random population if this is the first
+ call to either method.</div>
 </td>
 </tr>
 </tbody>

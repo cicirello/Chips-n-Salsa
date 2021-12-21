@@ -246,7 +246,7 @@ public class HybridConstructiveHeuristicTests {
 		heuristics.add(h102);
 		h100.incCallCount = 0;
 		hybrid = new HybridConstructiveHeuristic<TestObject>(heuristics, weights);
-		final int NUM_SAMPLES = 200;
+		final int NUM_SAMPLES = 300;
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			inc = hybrid.createIncrementalEvaluation();
 			partial = hybrid.createPartial(5);

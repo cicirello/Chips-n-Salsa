@@ -68,7 +68,7 @@ public final class MutationOnlyGeneticAlgorithm extends GenerationalEvolutionary
 	 * @throws NullPointerException if any of initializer, f, selection, or tracker are null.
 	 */
 	public MutationOnlyGeneticAlgorithm(int n, Initializer<BitVector> initializer, FitnessFunction.Double<BitVector> f, double mutationRate, SelectionOperator selection, ProgressTracker<BitVector> tracker) {
-		super(n, new BitFlipMutation(mutationRate), mutationRate > 0.0 ? 1.0 : 0.0, initializer, f, selection, tracker);
+		super(n, new BitFlipMutation(mutationRate), 1.0, initializer, f, selection, tracker);
 	}
 	
 	/**
@@ -90,7 +90,7 @@ public final class MutationOnlyGeneticAlgorithm extends GenerationalEvolutionary
 	 * @throws NullPointerException if any of initializer, f, selection, or tracker are null.
 	 */
 	public MutationOnlyGeneticAlgorithm(int n, Initializer<BitVector> initializer, FitnessFunction.Integer<BitVector> f, double mutationRate, SelectionOperator selection, ProgressTracker<BitVector> tracker) {
-		super(n, new BitFlipMutation(mutationRate), mutationRate > 0.0 ? 1.0 : 0.0, initializer, f, selection, tracker);
+		super(n, new BitFlipMutation(mutationRate), 1.0, initializer, f, selection, tracker);
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public final class MutationOnlyGeneticAlgorithm extends GenerationalEvolutionary
 	 * @throws NullPointerException if any of initializer, f, or selection are null.
 	 */
 	public MutationOnlyGeneticAlgorithm(int n, Initializer<BitVector> initializer, FitnessFunction.Double<BitVector> f, double mutationRate, SelectionOperator selection) {
-		super(n, new BitFlipMutation(mutationRate), mutationRate > 0.0 ? 1.0 : 0.0, initializer, f, selection);
+		super(n, new BitFlipMutation(mutationRate), 1.0, initializer, f, selection);
 	}
 	
 	/**
@@ -132,7 +132,7 @@ public final class MutationOnlyGeneticAlgorithm extends GenerationalEvolutionary
 	 * @throws NullPointerException if any of initializer, f, or selection are null.
 	 */
 	public MutationOnlyGeneticAlgorithm(int n, Initializer<BitVector> initializer, FitnessFunction.Integer<BitVector> f, double mutationRate, SelectionOperator selection) {
-		super(n, new BitFlipMutation(mutationRate), mutationRate > 0.0 ? 1.0 : 0.0, initializer, f, selection);
+		super(n, new BitFlipMutation(mutationRate), 1.0, initializer, f, selection);
 	}
 	
 	// Constructors with bitLength specified.

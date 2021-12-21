@@ -96,7 +96,53 @@ public final class SimpleGeneticAlgorithm extends GeneticAlgorithm {
 		super(n, bitLength, f, mutationRate, new SinglePointCrossover(), crossoverRate, new FitnessProportionalSelection(), tracker);
 	}
 	
+	/**
+	 * <p>Initializes a simple genetic algorithm with a generational model where children replace the parents,
+	 * using the standard bit flip mutation, single-point crossover (the {@link SinglePointCrossover} class), 
+	 * and fitness-proportional selection (the {@link FitnessProportionalSelection} class).
+	 * This constructor supports fitness functions
+	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.</p>
+	 *
+	 * @param n The population size.
+	 * @param bitLength The length of each bit vector.
+	 * @param f The fitness function.
+	 * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the 
+	 *    population is flipped with this probability, and the decisions to flip bits are independent.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+	 * @throws IllegalArgumentException if crossoverRate is less than 0.
+	 * @throws IllegalArgumentException if bitLength is negative.
+	 * @throws NullPointerException if f is null.
+	 */
+	public SimpleGeneticAlgorithm(int n, int bitLength, FitnessFunction.Double<BitVector> f, double mutationRate, double crossoverRate) {
+		super(n, bitLength, f, mutationRate, new SinglePointCrossover(), crossoverRate, new FitnessProportionalSelection());
+	}
 	
+	/**
+	 * <p>Initializes a simple genetic algorithm with a generational model where children replace the parents,
+	 * using the standard bit flip mutation, single-point crossover (the {@link SinglePointCrossover} class), 
+	 * and fitness-proportional selection (the {@link FitnessProportionalSelection} class).
+	 * This constructor supports fitness functions
+	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.</p>
+	 *
+	 * @param n The population size.
+	 * @param bitLength The length of each bit vector.
+	 * @param f The fitness function.
+	 * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the 
+	 *    population is flipped with this probability, and the decisions to flip bits are independent.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+	 * @throws IllegalArgumentException if crossoverRate is less than 0.
+	 * @throws IllegalArgumentException if bitLength is negative.
+	 * @throws NullPointerException if f is null.
+	 */
+	public SimpleGeneticAlgorithm(int n, int bitLength, FitnessFunction.Integer<BitVector> f, double mutationRate, double crossoverRate) {
+		super(n, bitLength, f, mutationRate, new SinglePointCrossover(), crossoverRate, new FitnessProportionalSelection());
+	}
 	
 	/*
 	 * Internal constructor for use by split method

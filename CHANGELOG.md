@@ -27,6 +27,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   users as the GenerationalEvolutionaryAlgorithm was just introduced. For this using it
   simply use the new GenerationalMutationOnlyEvolutionaryAlgorithm class where you will
   find all the same constructors and methods necessary for mutation-only EAs.
+* All methods/constructors that were previously deprecated in earlier releases have 
+  now been removed, including:
+  * The following deprecated methods of the ProgressTracker class have been removed:
+    * `update(int, T)` in favor of using `update(int, T, boolean)`.
+    * `update(double, T)` in favor of using `update(double, T, boolean)`.
+    * `setFoundBest()` in favor of using either `update(int, T, boolean)` 
+      or `update(double, T, boolean)`.
+  * The following deprecated constructors of the SolutionCostPair class have been removed:
+    * `SolutionCostPair(T, int)` in favor of using `SolutionCostPair(T, int, boolean)`
+    * `SolutionCostPair(T, double)` in favor of using `SolutionCostPair(T, double, boolean)`
 
 ### Fixed
 

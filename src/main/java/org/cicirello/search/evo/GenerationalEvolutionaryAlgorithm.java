@@ -21,8 +21,6 @@
 package org.cicirello.search.evo;
 
 import org.cicirello.util.Copyable;
-import org.cicirello.search.ReoptimizableMetaheuristic;
-import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.operators.Initializer;
@@ -66,10 +64,8 @@ import org.cicirello.math.rand.RandomVariates;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements ReoptimizableMetaheuristic<T> {
+public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends AbstractEvolutionaryAlgorithm<T> {
 	
-	private final Population<T> pop;
-	private final Problem<T> problem;
 	private final MutationOperator<T> mutation;
 	private final double M;
 	private final CrossoverOperator<T> crossover;
@@ -77,8 +73,6 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 	
 	private final SingleGen<T> sr;
 	private final GenerationOption go;
-	
-	private long numFitnessEvals;
 	
 	// Constructors for standard generational model using both crossover and mutation operators
 	
@@ -432,6 +426,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 	 * Internal helper constructor for standard EAs with full generation (both crossover and mutation).
 	 */
 	private GenerationalEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, boolean mutuallyExclusiveOps) {
+		super(pop, problem);
 		if (mutation == null) {
 			throw new NullPointerException("mutation must be non-null");
 		}
@@ -462,8 +457,6 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 			go = GenerationOption.FULL_GENERATION_ALWAYS_MUTATE;
 		}
 		C = crossoverRate < 1.0 ? crossoverRate : 1.0;
-		this.pop = pop;
-		this.problem = problem;
 		this.mutation = mutation;
 		this.crossover = crossover;
 	}
@@ -472,14 +465,13 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 	 * Internal helper constructor for Mutation-Only EAs.
 	 */
 	private GenerationalEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate) {
+		super(pop, problem);
 		if (mutation == null) {
 			throw new NullPointerException("mutation must be non-null");
 		}
 		if (mutationRate < 0.0) {
 			throw new IllegalArgumentException("mutationRate must not be negative");
 		}
-		this.pop = pop;
-		this.problem = problem;
 		this.mutation = mutation;
 		crossover = null;
 		C = 0.0;
@@ -500,18 +492,15 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 	 * package private so subclasses in same package can use it for initialization for their own split methods.
 	 */
 	GenerationalEvolutionaryAlgorithm(GenerationalEvolutionaryAlgorithm<T> other) {
+		super(other);
+		
 		// Must be split
-		pop = other.pop.split();
 		mutation = other.mutation.split();
 		crossover = other.crossover != null ? other.crossover.split() : null; 
 		
 		// Threadsafe so just copy reference or values
-		problem = other.problem;
 		M = other.M;
 		C = other.C;
-		
-		// Each instance must maintain its own count of evals.
-		numFitnessEvals = 0;
 		
 		// Initialize the runner   
 		go = other.go;
@@ -525,97 +514,26 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 		}
 	}
 	
-	/**
-	 * Runs the evolutionary algorithm beginning from a randomly generated population. If this 
-	 * method is called multiple times, each call begins at a new randomly generated population.
-	 *
-	 * @param numGenerations The number of generations to run.
-	 *
-	 * @return The best solution found during this set of generations, which may or may not be the
-	 * same as the solution contained in the {@link ProgressTracker}, which contains the best across all
-	 * calls to optimize as well as {@link #reoptimize}. Returns null if the run did not execute, such 
-	 * as if the ProgressTracker already contains the theoretical best solution.
-	 */
-	@Override
-	public final SolutionCostPair<T> optimize(int numGenerations) {
-		if (pop.evolutionIsPaused()) return null;
-		pop.init();
-		pop.initOperators(numGenerations);
-		numFitnessEvals = numFitnessEvals + pop.size();
-		internalOptimize(numGenerations);
-		return pop.getMostFit();
-	}
-	
-	/**
-	 * Runs the evolutionary algorithm continuing from the final population from the most recent call
-	 * to either {@link #optimize} or {@link #reoptimize}, or from a random population if this is the first
-	 * call to either method. 
-	 *
-	 * @param numGenerations The number of generations to run.
-	 *
-	 * @return The best solution found during this set of generations, which may or may not be the
-	 * same as the solution contained in the {@link ProgressTracker}, which contains the best across all
-	 * calls to optimize as well as {@link #optimize}. Returns null if the run did not execute, such 
-	 * as if the ProgressTracker already contains the theoretical best solution.
-	 */
-	@Override
-	public final SolutionCostPair<T> reoptimize(int numGenerations) {
-		if (pop.evolutionIsPaused()) return null;
-		pop.initOperators(numGenerations);
-		internalOptimize(numGenerations);
-		return pop.getMostFit();
-	}
-	
 	@Override
 	public GenerationalEvolutionaryAlgorithm<T> split() {
 		return new GenerationalEvolutionaryAlgorithm<T>(this);
 	}
-	
-	@Override
-	public final Problem<T> getProblem() {
-		return problem;
-	}
-	
-	@Override
-	public final ProgressTracker<T> getProgressTracker() {
-		return pop.getProgressTracker();
-	}
-	
-	@Override
-	public final void setProgressTracker(ProgressTracker<T> tracker) {
-		pop.setProgressTracker(tracker);
-	}
-	
-	/**
-	 * Gets the total run length in number of fitness evaluations. This is the total run length across all 
-	 * calls to {@link #optimize} and {@link #reoptimize}. This may differ from what may be expected 
-	 * based on run lengths. For example, the search terminates if it finds the theoretical best 
-	 * solution, and also immediately returns if a prior call found the theoretical best. In such 
-	 * cases, the total run length may be less than the requested run length.
-	 *
-	 * @return The total number of generations completed across all calls to {@link #optimize} and {@link #reoptimize}.
-	 */
-	@Override
-	public long getTotalRunLength() {
-		return numFitnessEvals;
-	}
 		
 	private interface SingleGen<T extends Copyable<T>> {
-		void optimizeSingleGen();
+		int optimizeSingleGen(Population<T> pop);
 	}
 	
 	private enum GenerationOption {
 		FULL_GENERATION, FULL_GENERATION_ALWAYS_MUTATE, MUTUALLY_EXCLUSIVE_OPERATORS, MUTATION_ONLY, ALWAYS_MUTATION
 	}
 	
-	private void internalOptimize(int numGenerations) {
-		for (int i = 0; i < numGenerations && !pop.evolutionIsPaused(); i++) {
-			sr.optimizeSingleGen();
-		}
+	@Override
+	final int oneGeneration(Population<T> pop) {
+		return sr.optimizeSingleGen(pop);
 	}
 	
 	private SingleGen<T> mutuallyExclusiveOperators() {
-		return () -> {
+		return (pop) -> {
 			pop.select();
 			// Since select() above randomizes ordering, just use a binomial
 			// to get count of number of pairs of parents to cross and cross the first 
@@ -640,12 +558,12 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 				}
 			}
 			pop.replace();
-			numFitnessEvals = numFitnessEvals + crossed + mutateCount;
+			return crossed + mutateCount;
 		};
 	}
 	
 	private SingleGen<T> fullGeneration() {
-		return () -> {
+		return (pop) -> {
 			pop.select();
 			// Since select() above randomizes ordering, just use a binomial
 			// to get count of number of pairs of parents to cross and cross the first 
@@ -663,12 +581,12 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 				pop.updateFitness(operateOnThese[j]);
 			}
 			pop.replace();
-			numFitnessEvals = numFitnessEvals + operateOnThese.length + count + count;
+			return operateOnThese.length + count + count;
 		};
 	}
 	
 	private SingleGen<T> alwaysMutateFullGeneration() {
-		return () -> {
+		return (pop) -> {
 			pop.select();
 			// Since select() above randomizes ordering, just use a binomial
 			// to get count of number of pairs of parents to cross and cross the first 
@@ -686,12 +604,12 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 				pop.updateFitness(j);
 			}
 			pop.replace();
-			numFitnessEvals = numFitnessEvals + LAMBDA + count + count;
+			return LAMBDA + count + count;
 		};
 	}
 	
 	private SingleGen<T> mutationOnly() {
-		return () -> {
+		return (pop) -> {
 			pop.select();
 			// Since select() above randomizes ordering, just use a binomial
 			// to get count of how many to mutate and mutate the first count individuals.
@@ -701,12 +619,12 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 				pop.updateFitness(j);
 			}
 			pop.replace();
-			numFitnessEvals = numFitnessEvals + count;
+			return count;
 		};
 	}
 	
 	private SingleGen<T> alwaysMutate() {
-		return () -> {
+		return (pop) -> {
 			final int LAMBDA = pop.mutableSize();
 			pop.select();
 			for (int j = 0; j < LAMBDA; j++) {
@@ -714,7 +632,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> implements
 				pop.updateFitness(j);
 			}
 			pop.replace();
-			numFitnessEvals = numFitnessEvals + LAMBDA;
+			return LAMBDA;
 		};
 	}
 	

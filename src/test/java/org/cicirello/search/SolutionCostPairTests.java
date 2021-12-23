@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -52,28 +52,6 @@ public class SolutionCostPairTests {
 		
 		pairDouble = new SolutionCostPair<TestCopyable>(s, 10.0, true);
 		assertTrue(pairDouble.containsKnownOptimal());
-	}
-	
-	@Test
-	@SuppressWarnings("deprecation")
-	public void testDeprecatedMethods() {
-		// Include this test method until the deprecated constructors
-		// are removed. At that point, remove this. Continue to
-		// include for now as regression tests since some may still
-		// depend on these.
-		TestCopyable s = new TestCopyable(5);
-		SolutionCostPair<TestCopyable> pairInt = new SolutionCostPair<TestCopyable>(s, 10);
-		assertEquals(s, pairInt.getSolution());
-		assertTrue(pairInt.containsIntCost());
-		assertEquals(10, pairInt.getCost());
-		assertEquals(10.0, pairInt.getCostDouble(), EPSILON);
-		assertFalse(pairInt.containsKnownOptimal());
-		
-		SolutionCostPair<TestCopyable> pairDouble = new SolutionCostPair<TestCopyable>(s, 10.0);
-		assertEquals(s, pairDouble.getSolution());
-		assertFalse(pairDouble.containsIntCost());
-		assertEquals(10.0, pairDouble.getCostDouble(), EPSILON);
-		assertFalse(pairDouble.containsKnownOptimal());
 	}
 	
 	@Test

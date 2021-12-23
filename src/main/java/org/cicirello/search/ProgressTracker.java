@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -31,7 +31,6 @@ import org.cicirello.util.Copyable;
  * All other methods are non-blocking.
  *
  * @param <T> The type of object the search is optimizing.
- *
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
@@ -65,56 +64,6 @@ public final class ProgressTracker<T extends Copyable<T>> {
 		 * stop = false;
 		 * containsIntCost = false;
 		 */
-	}
-	
-	/**
-	 * Updates the best solution contained in this progress tracker.
-	 * The update takes place only if the new solution has lower cost than
-	 * the current best cost solution stored in the progress tracker.  This method
-	 * is thread-safe.  However, it uses synchronization for thread-safety, so
-	 * it is strongly suggested that in multithreaded search implementations that
-	 * you reserve calls to this method for when the search believes it has likely found 
-	 * a better solution than all currently running threads.  Although in theory the 
-	 * functionality of this class is such that it can be used as the sole means of a
-	 * search algorithm keeping track of the best found solution.  If multiple
-	 * parallel runs attempt to share this object for that purpose, significant blocking
-	 * may occur.  You may consider using the nonblocking {@link #getCost} method
-	 * first.
-	 * @param cost The cost of the solution.
-	 * @param solution The new solution.
-	 * @return The cost of the best solution found.  This may or may not be equal
-	 * to the cost passed as a parameter.  If the returned value is less than cost, then
-	 * that means the best solution was previously updated by this or another thread.
-	 * @deprecated Use {@link #update(int, Copyable, boolean)} instead.
-	 */
-	@Deprecated
-	public int update(int cost, T solution) {
-		return update(cost, solution, false);
-	}
-	
-	/**
-	 * Updates the best solution contained in this progress tracker.
-	 * The update takes place only if the new solution has lower cost than
-	 * the current best cost solution stored in the progress tracker.  This method
-	 * is thread-safe.  However, it uses synchronization for thread-safety, so
-	 * it is strongly suggested that in multithreaded search implementations that
-	 * you reserve calls to this method for when the search believes it has likely found 
-	 * a better solution than all currently running threads.  Although in theory the 
-	 * functionality of this class is such that it can be used as the sole means of a
-	 * search algorithm keeping track of the best found solution.  If multiple
-	 * parallel runs attempt to share this object for that purpose, significant blocking
-	 * may occur.  You may consider using the nonblocking {@link #getCostDouble} method
-	 * first.
-	 * @param cost The cost of the solution.
-	 * @param solution The new solution.
-	 * @return The cost of the best solution found.  This may or may not be equal
-	 * to the cost passed as a parameter.  If the returned value is less than cost, then
-	 * that means the best solution was previously updated by this or another thread.
-	 * @deprecated Use {@link #update(double, Copyable, boolean)} instead.
-	 */
-	@Deprecated
-	public double update(double cost, T solution) {
-		return update(cost, solution, false);
 	}
 	
 	/**
@@ -266,19 +215,7 @@ public final class ProgressTracker<T extends Copyable<T>> {
 	public long elapsed() {
 		return when - origin;
 	}
-	
-	/**
-	 * Record that the best solution contained in the ProgressTracker is the
-	 * best possible solution to the problem.
-	 * @deprecated Use {@link #update(int, Copyable, boolean)} or
-	 * {@link #update(double, Copyable, boolean)} instead to set the 
-	 * foundBest flag when the solution is updated.
-	 */
-	@Deprecated
-	public void setFoundBest() {
-		foundBest = true;
-	}
-	
+		
 	/**
 	 * Check whether the solution contained in the ProgressTracker has been marked
 	 * as the best possible solution.

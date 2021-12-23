@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2021-12-23
 
+### BREAKING CHANGES
+* Next release will be 4.0.0 due to breaking changes.
+
 ### Added
+* Added GenerationalMutationOnlyEvolutionaryAlgorithm, moving the mutation-only EA
+  functionality into this new class from the existing GenerationalEvolutionaryAlgorithm
+  class.
 
 ### Changed
 * Refactored evolutionary algorithm classes to improve maintainability, and ease
@@ -15,6 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 ### Removed
+* Removed all mutation-only EA functionality from the GenerationalEvolutionaryAlgorithm,
+  moving that functionality into the new GenerationalMutationOnlyEvolutionaryAlgorithm. This
+  was done for maintainability. It is a breaking-change, although it should affect minimal
+  users as the GenerationalEvolutionaryAlgorithm was just introduced. For this using it
+  simply use the new GenerationalMutationOnlyEvolutionaryAlgorithm class where you will
+  find all the same constructors and methods necessary for mutation-only EAs.
 
 ### Fixed
 
@@ -37,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * Generational with mutation-only (no crossover).
     * Generational, parents replaced by children, with mutually exclusive crossover and mutation (i.e.,
       no child is result of both crossover and mutation).
-  * Subclasses of GenerationalEvolutionaryAlgorithms for Genetic Algorithm specific cases for convenience
+  * Subclasses of GenerationalEvolutionaryAlgorithm for Genetic Algorithm specific cases for convenience
     when optimizing BitVectors, including:
     * GeneticAlgorithm: a standard generational GA with bit flip mutation, and choice of crossover operator
       and selection operator.

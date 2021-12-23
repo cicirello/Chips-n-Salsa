@@ -53,9 +53,6 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
 	private final MutationOperator<T> mutation;
 	private final double M;
 	
-	private final SingleGen<T> sr;
-	private final GenerationOption go;
-	
 	/**
 	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
 	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
@@ -166,15 +163,7 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
 		}
 		this.mutation = mutation;
 		
-		if (mutationRate < 1.0) {
-			M = mutationRate;
-			sr = mutationOnly(); 
-			go = GenerationOption.MUTATION_ONLY;
-		} else {
-			M = 1.0;
-			sr = alwaysMutate();
-			go = GenerationOption.ALWAYS_MUTATION;
-		}
+		M = mutationRate < 1.0 ? mutationRate : 1.0;
 	}
 	
 	/*
@@ -189,60 +178,28 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
 		
 		// Threadsafe so just copy reference or values
 		M = other.M;
-		
-		// Initialize the runner   
-		go = other.go;
-		switch (go) {
-			case MUTATION_ONLY: sr = mutationOnly(); break;
-			default: //case ALWAYS_MUTATION: 
-				sr = alwaysMutate(); break;
-		}
 	}
 	
 	@Override
 	public GenerationalMutationOnlyEvolutionaryAlgorithm<T> split() {
 		return new GenerationalMutationOnlyEvolutionaryAlgorithm<T>(this);
 	}
-		
-	private interface SingleGen<T extends Copyable<T>> {
-		int optimizeSingleGen(Population<T> pop);
-	}
-	
-	private enum GenerationOption {
-		MUTATION_ONLY, ALWAYS_MUTATION
-	}
 	
 	@Override
 	final int oneGeneration(Population<T> pop) {
-		return sr.optimizeSingleGen(pop);
+		pop.select();
+		final int count = 
+			M == 1.0 ?
+				pop.mutableSize()
+				: RandomVariates.nextBinomial(pop.mutableSize(), M);
+		// Since select() randomizes ordering, just use a binomial
+		// to get count of how many to mutate and mutate the first count individuals.
+		// Although if M is 1.0 just mutate them all without computing the binomial.
+		for (int j = 0; j < count; j++) {
+			mutation.mutate(pop.get(j));
+			pop.updateFitness(j);
+		}
+		pop.replace();
+		return count;
 	}
-	
-	private SingleGen<T> mutationOnly() {
-		return (pop) -> {
-			pop.select();
-			// Since select() above randomizes ordering, just use a binomial
-			// to get count of how many to mutate and mutate the first count individuals.
-			final int count = RandomVariates.nextBinomial(pop.mutableSize(), M);
-			for (int j = 0; j < count; j++) {
-				mutation.mutate(pop.get(j));
-				pop.updateFitness(j);
-			}
-			pop.replace();
-			return count;
-		};
-	}
-	
-	private SingleGen<T> alwaysMutate() {
-		return (pop) -> {
-			final int LAMBDA = pop.mutableSize();
-			pop.select();
-			for (int j = 0; j < LAMBDA; j++) {
-				mutation.mutate(pop.get(j));
-				pop.updateFitness(j);
-			}
-			pop.replace();
-			return LAMBDA;
-		};
-	}
-	
 }

@@ -4,15 +4,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-12-21
+## [Unreleased] - 2021-12-23
+
+### BREAKING CHANGES
+* Next release will be 4.0.0 due to breaking changes.
 
 ### Added
+* Added GenerationalMutationOnlyEvolutionaryAlgorithm, moving the mutation-only EA
+  functionality into this new class from the existing GenerationalEvolutionaryAlgorithm
+  class.
 
 ### Changed
+* Refactored evolutionary algorithm classes to improve maintainability, and ease
+  integration of planned future functionality.
 
 ### Deprecated
 
 ### Removed
+* Removed all mutation-only EA functionality from the GenerationalEvolutionaryAlgorithm,
+  moving that functionality into the new GenerationalMutationOnlyEvolutionaryAlgorithm. This
+  was done for maintainability. It is a breaking-change, although it should affect minimal
+  users as the GenerationalEvolutionaryAlgorithm was just introduced. For this using it
+  simply use the new GenerationalMutationOnlyEvolutionaryAlgorithm class where you will
+  find all the same constructors and methods necessary for mutation-only EAs.
+* All methods/constructors that were previously deprecated in earlier releases have 
+  now been removed, including:
+  * The following deprecated methods of the ProgressTracker class have been removed:
+    * `update(int, T)` in favor of using `update(int, T, boolean)`.
+    * `update(double, T)` in favor of using `update(double, T, boolean)`.
+    * `setFoundBest()` in favor of using either `update(int, T, boolean)` 
+      or `update(double, T, boolean)`.
+  * The following deprecated constructors of the SolutionCostPair class have been removed:
+    * `SolutionCostPair(T, int)` in favor of using `SolutionCostPair(T, int, boolean)`
+    * `SolutionCostPair(T, double)` in favor of using `SolutionCostPair(T, double, boolean)`
 
 ### Fixed
 
@@ -35,7 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * Generational with mutation-only (no crossover).
     * Generational, parents replaced by children, with mutually exclusive crossover and mutation (i.e.,
       no child is result of both crossover and mutation).
-  * Subclasses of GenerationalEvolutionaryAlgorithms for Genetic Algorithm specific cases for convenience
+  * Subclasses of GenerationalEvolutionaryAlgorithm for Genetic Algorithm specific cases for convenience
     when optimizing BitVectors, including:
     * GeneticAlgorithm: a standard generational GA with bit flip mutation, and choice of crossover operator
       and selection operator.

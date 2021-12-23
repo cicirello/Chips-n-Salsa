@@ -333,7 +333,7 @@ public class HillClimberTests {
 		SolutionCostPair<TestObject> solution = null;
 		try {
 			do {
-				Thread.sleep(10);
+				Thread.sleep(20);
 			} while (!thread.started && problem.countEvals <= 1);
 			tracker.stop();		
 			solution = future.get();

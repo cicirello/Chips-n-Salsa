@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -187,48 +187,6 @@ public class ProgressTrackerTests {
 			}
 		}
 	}
-	
-	@Test
-	@SuppressWarnings("deprecation")
-	public void testDeprecatedMethods() {
-		// Include this test method until the deprecated methods
-		// are removed. At that point, remove this. Continue to
-		// include for now as regression tests since some may still
-		// depend on these.
-		
-		// Test with int costs
-		ProgressTracker<TestCopyable> t = new ProgressTracker<TestCopyable>();
-		for (int i = 5; i >= 0; i--) {
-			assertFalse(t.didFindBest());
-			// Following is deprecated
-			t.update(i, new TestCopyable(i));
-		}
-		for (int i = 0; i <= 5; i++) {
-			assertFalse(t.didFindBest());
-			// Following is deprecated
-			t.update(i, new TestCopyable(i));
-		}
-		// Following is deprecated 
-		t.setFoundBest();
-		assertTrue(t.didFindBest());
-		
-		// Test with double costs
-		t = new ProgressTracker<TestCopyable>();
-		for (int i = 5; i >= 0; i--) {
-			assertFalse(t.didFindBest());
-			// Following is deprecated
-			t.update((double)i, new TestCopyable(i));
-		}
-		for (int i = 0; i <= 5; i++) {
-			assertFalse(t.didFindBest());
-			// Following is deprecated
-			t.update((double)i, new TestCopyable(i));
-		}
-		// Following is deprecated 
-		t.setFoundBest();
-		assertTrue(t.didFindBest());
-	}
-	
 	
 	private static class TestCopyable implements Copyable<TestCopyable> {
 		

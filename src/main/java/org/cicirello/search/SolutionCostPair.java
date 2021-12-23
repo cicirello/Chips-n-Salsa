@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -64,29 +64,7 @@ public final class SolutionCostPair<T extends Copyable<T>> implements Comparable
 		containsIntCost = false;
 		this.isKnownOptimal = isKnownOptimal;
 	}
-	
-	/**
-	 * Constructs a SolutionCostPair with integer cost.
-	 * @param solution The solution.
-	 * @param cost The cost of the solution.
-	 * @deprecated Use {@link #SolutionCostPair(Copyable, int, boolean)} instead.
-	 */
-	@Deprecated
-	public SolutionCostPair(T solution, int cost) {			
-		this(solution, cost, false);
-	}
-	
-	/**
-	 * Constructs a SolutionCostPair with integer cost.
-	 * @param solution The solution.
-	 * @param cost The cost of the solution.
-	 * @deprecated Use {@link #SolutionCostPair(Copyable, double, boolean)} instead.
-	 */
-	@Deprecated
-	public SolutionCostPair(T solution, double cost) {			
-		this(solution, cost, false);
-	}
-	
+		
 	/**
 	 * Gets the cost contained in this solution cost pair as an int.
 	 * Behavior is undefined if costs are floating-point values.

@@ -33,7 +33,8 @@ import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
- * JUnit 4 test cases for GenerationalEvolutionaryAlgorithm.
+ * JUnit 4 test cases for GenerationalEvolutionaryAlgorithm 
+ * and GenerationalMutationOnlyEvolutionaryAlgorithm.
  */
 public class GenerationalEATests {
 	
@@ -41,7 +42,7 @@ public class GenerationalEATests {
 	public void testExceptions() {
 		NullPointerException thrownNull = assertThrows( 
 			NullPointerException.class,
-			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
 				5, 
 				null, 
 				0.5, 
@@ -53,7 +54,7 @@ public class GenerationalEATests {
 		);
 		thrownNull = assertThrows( 
 			NullPointerException.class,
-			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
 				5, 
 				null, 
 				0.5, 
@@ -181,7 +182,7 @@ public class GenerationalEATests {
 		);
 		IllegalArgumentException thrownIllegal = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
 				5, 
 				new CountMutationCalls(), 
 				-1E-10, 
@@ -193,7 +194,7 @@ public class GenerationalEATests {
 		);
 		thrownIllegal = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
 				5, 
 				new CountMutationCalls(), 
 				-1E-10, 
@@ -280,9 +281,9 @@ public class GenerationalEATests {
 	public void testStoppedByTracker() {
 		class TestThread extends Thread {
 			
-			GenerationalEvolutionaryAlgorithm<TestObject> ea;
+			GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject> ea;
 			
-			public TestThread(GenerationalEvolutionaryAlgorithm<TestObject> ea) {
+			public TestThread(GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject> ea) {
 				this.ea = ea;
 			}
 			
@@ -300,7 +301,7 @@ public class GenerationalEATests {
 		CountMutationCalls mutation = new CountMutationCalls();
 		final int N = 100;
 		
-		GenerationalEvolutionaryAlgorithm<TestObject> ea = new GenerationalEvolutionaryAlgorithm<TestObject>(
+		GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject> ea = new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
 			N, 
 			mutation, 
 			0.5, 
@@ -629,7 +630,7 @@ public class GenerationalEATests {
 		CountMutationCalls mutation = new CountMutationCalls();
 		final int N = 100;
 		
-		GenerationalEvolutionaryAlgorithm<TestObject> ea = new GenerationalEvolutionaryAlgorithm<TestObject>(
+		GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject> ea = new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
 			N, 
 			mutation, 
 			0.5, 
@@ -661,7 +662,7 @@ public class GenerationalEATests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		int oldMutationCount = mutation.count;
@@ -719,7 +720,7 @@ public class GenerationalEATests {
 		CountMutationCalls mutation = new CountMutationCalls();
 		final int N = 100;
 		
-		GenerationalEvolutionaryAlgorithm<TestObject> ea = new GenerationalEvolutionaryAlgorithm<TestObject>(
+		GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject> ea = new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
 			N, 
 			mutation, 
 			1.0, 
@@ -751,7 +752,7 @@ public class GenerationalEATests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		solution = ea.reoptimize(5);
@@ -1807,7 +1808,7 @@ public class GenerationalEATests {
 		CountMutationCalls mutation = new CountMutationCalls();
 		final int N = 100;
 		
-		GenerationalEvolutionaryAlgorithm<TestObject> ea = new GenerationalEvolutionaryAlgorithm<TestObject>(
+		GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject> ea = new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
 			N, 
 			mutation, 
 			0.5, 
@@ -1838,7 +1839,7 @@ public class GenerationalEATests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		int oldMutationCount = mutation.count;
@@ -1896,7 +1897,7 @@ public class GenerationalEATests {
 		CountMutationCalls mutation = new CountMutationCalls();
 		final int N = 100;
 		
-		GenerationalEvolutionaryAlgorithm<TestObject> ea = new GenerationalEvolutionaryAlgorithm<TestObject>(
+		GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject> ea = new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
 			N, 
 			mutation, 
 			1.0, 
@@ -1928,7 +1929,7 @@ public class GenerationalEATests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		solution = ea.reoptimize(5);

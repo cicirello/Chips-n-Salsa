@@ -38,14 +38,15 @@ import org.cicirello.search.operators.bits.BitFlipMutation;
  * may be more relevant depending upon your use-case. For example, see the
  * {@link SimpleGeneticAlgorithm} class for the form of GA known as the Simple GA,
  * the {@link GeneticAlgorithm} class if you want to use both mutation and 
- * crossover, and the {@link GenerationalEvolutionaryAlgorithm} class if you want
+ * crossover, and the {@link GenerationalEvolutionaryAlgorithm} 
+ * and {@link GenerationalMutationOnlyEvolutionaryAlgorithm} classes if you want
  * to optimize something other than BitVectors or if you want even greater flexibility
  * in configuring your evolutionary search.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class MutationOnlyGeneticAlgorithm extends GenerationalEvolutionaryAlgorithm<BitVector> {
+public final class MutationOnlyGeneticAlgorithm extends GenerationalMutationOnlyEvolutionaryAlgorithm<BitVector> {
 	
 	// Constructors with an Initializer as parameter.
 	

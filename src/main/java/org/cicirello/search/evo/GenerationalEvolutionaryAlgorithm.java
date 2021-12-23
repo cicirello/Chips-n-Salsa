@@ -41,7 +41,7 @@ import org.cicirello.math.rand.RandomVariates;
  * {@link MutationOperator}, and {@link SelectionOperator} classes to one of the
  * constructors.</p>
  *
- * <p>This class supports a variety of evolutionary algorithm models, depending
+ * <p>This class supports multiple evolutionary algorithm models, depending
  * upon the constructor you use, including:</p>
  * <ul>
  * <li>The typical generational model using both crossover and mutation, controlled by
@@ -52,12 +52,9 @@ import org.cicirello.math.rand.RandomVariates;
  * controlled by a crossover rate and a mutation rate, but such that each child is the
  * result of crossover, or mutation, or a simply copy of a parent, but never the result
  * of both crossover and mutation.</li>
- * <li>A generational mutation-only evolutionary algorithm.</li>
  * </ul>
- * <p>Note that it does not include a constructor dedicated to a crossover-only case
- * since it would be rare (if ever) that you would find it desirable not to use a 
- * mutation operator. However, if you find a crossover-only use-case, then simply
- * pass any mutation operator and 0.0 for the mutation rate to one of the constructors.</p>
+ * <p>The library also includes a class for mutation-only generational EAs
+ * (see {@link GenerationalMutationOnlyEvolutionaryAlgorithm}).</p>
  *
  * @param <T> The type of object under optimization.
  *
@@ -322,104 +319,6 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 		this(new BasePopulation.Integer<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate, crossover, crossoverRate, mutuallyExclusiveOps);
 	}
 	
-	
-	// Mutation-Only Constructors
-	
-	/**
-	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
-	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
-	 *
-	 * @param n The population size.
-	 * @param mutation The mutation operator.
-	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
-	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
-	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
-	 *     interpretation of mutation rate, configure
-	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
-	 * @param initializer An initializer for generating random initial population members.
-	 * @param f The fitness function.
-	 * @param selection The selection operator.
-	 * @param tracker A ProgressTracker.
-	 *
-	 * @throws IllegalArgumentException if n is less than 1.
-	 * @throws IllegalArgumentException if mutationRate is less than 0.
-	 * @throws NullPointerException if any of mutation, initializer, f, selection, or tracker are null.
-	 */
-	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
-		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate);
-	}
-	
-	/**
-	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
-	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
-	 *
-	 * @param n The population size.
-	 * @param mutation The mutation operator.
-	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
-	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
-	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
-	 *     interpretation of mutation rate, configure
-	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
-	 * @param initializer An initializer for generating random initial population members.
-	 * @param f The fitness function.
-	 * @param selection The selection operator.
-	 * @param tracker A ProgressTracker.
-	 *
-	 * @throws IllegalArgumentException if n is less than 1.
-	 * @throws IllegalArgumentException if mutationRate is less than 0.
-	 * @throws NullPointerException if any of mutation, initializer, f, selection, or tracker are null.
-	 */
-	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
-		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate);
-	}
-	
-	/**
-	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
-	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
-	 *
-	 * @param n The population size.
-	 * @param mutation The mutation operator.
-	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
-	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
-	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
-	 *     interpretation of mutation rate, configure
-	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
-	 * @param initializer An initializer for generating random initial population members.
-	 * @param f The fitness function.
-	 * @param selection The selection operator.
-	 *
-	 * @throws IllegalArgumentException if n is less than 1.
-	 * @throws IllegalArgumentException if mutationRate is less than 0.
-	 * @throws NullPointerException if any of mutation, initializer, f, or selection are null.
-	 */
-	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
-		this(new BasePopulation.Double<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate);
-	}
-	
-	/**
-	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
-	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
-	 *
-	 * @param n The population size.
-	 * @param mutation The mutation operator.
-	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
-	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
-	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
-	 *     interpretation of mutation rate, configure
-	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
-	 * @param initializer An initializer for generating random initial population members.
-	 * @param f The fitness function.
-	 * @param selection The selection operator.
-	 *
-	 * @throws IllegalArgumentException if n is less than 1.
-	 * @throws IllegalArgumentException if mutationRate is less than 0.
-	 * @throws NullPointerException if any of mutation, initializer, f, or selection are null.
-	 */
-	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection) {
-		this(new BasePopulation.Integer<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate);
-	}
-	
-	
 	// Internal Constructors
 	
 	/*
@@ -462,32 +361,6 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	}
 	
 	/*
-	 * Internal helper constructor for Mutation-Only EAs.
-	 */
-	private GenerationalEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate) {
-		super(pop, problem);
-		if (mutation == null) {
-			throw new NullPointerException("mutation must be non-null");
-		}
-		if (mutationRate < 0.0) {
-			throw new IllegalArgumentException("mutationRate must not be negative");
-		}
-		this.mutation = mutation;
-		crossover = null;
-		C = 0.0;
-		
-		if (mutationRate < 1.0) {
-			M = mutationRate;
-			sr = mutationOnly(); 
-			go = GenerationOption.MUTATION_ONLY;
-		} else {
-			M = 1.0;
-			sr = alwaysMutate();
-			go = GenerationOption.ALWAYS_MUTATION;
-		}
-	}
-	
-	/*
 	 * Internal constructor for use by split method.
 	 * package private so subclasses in same package can use it for initialization for their own split methods.
 	 */
@@ -496,7 +369,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 		
 		// Must be split
 		mutation = other.mutation.split();
-		crossover = other.crossover != null ? other.crossover.split() : null; 
+		crossover = other.crossover.split(); 
 		
 		// Threadsafe so just copy reference or values
 		M = other.M;
@@ -507,10 +380,8 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 		switch (go) {
 			case FULL_GENERATION: sr = fullGeneration(); break;
 			case FULL_GENERATION_ALWAYS_MUTATE: sr = alwaysMutateFullGeneration(); break;
-			case MUTUALLY_EXCLUSIVE_OPERATORS: sr = mutuallyExclusiveOperators(); break;
-			case MUTATION_ONLY: sr = mutationOnly(); break;
-			default: //case ALWAYS_MUTATION: 
-				sr = alwaysMutate(); break;
+			default: //case MUTUALLY_EXCLUSIVE_OPERATORS: 
+				sr = mutuallyExclusiveOperators(); break;
 		}
 	}
 	
@@ -524,7 +395,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	}
 	
 	private enum GenerationOption {
-		FULL_GENERATION, FULL_GENERATION_ALWAYS_MUTATE, MUTUALLY_EXCLUSIVE_OPERATORS, MUTATION_ONLY, ALWAYS_MUTATION
+		FULL_GENERATION, FULL_GENERATION_ALWAYS_MUTATE, MUTUALLY_EXCLUSIVE_OPERATORS
 	}
 	
 	@Override
@@ -607,33 +478,4 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 			return LAMBDA + count + count;
 		};
 	}
-	
-	private SingleGen<T> mutationOnly() {
-		return (pop) -> {
-			pop.select();
-			// Since select() above randomizes ordering, just use a binomial
-			// to get count of how many to mutate and mutate the first count individuals.
-			final int count = RandomVariates.nextBinomial(pop.mutableSize(), M);
-			for (int j = 0; j < count; j++) {
-				mutation.mutate(pop.get(j));
-				pop.updateFitness(j);
-			}
-			pop.replace();
-			return count;
-		};
-	}
-	
-	private SingleGen<T> alwaysMutate() {
-		return (pop) -> {
-			final int LAMBDA = pop.mutableSize();
-			pop.select();
-			for (int j = 0; j < LAMBDA; j++) {
-				mutation.mutate(pop.get(j));
-				pop.updateFitness(j);
-			}
-			pop.replace();
-			return LAMBDA;
-		};
-	}
-	
 }

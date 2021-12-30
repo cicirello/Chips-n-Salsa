@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   each child is result of either mutation, or crossover, or identical copy of a parent, but never
   result of both mutation and crossover) into this new class from the existing 
   GenerationalEvolutionaryAlgorithm class.
+* Enhancements to IntegerVector and BoundedIntegerVector, including:
+  * IntegerVector.exchange method which exchanges a subsequence between two IntegerVectors.
+  * BoundedIntegerVector.sameBounds method which checks if two bounded integer vector are
+    subject to the same min and max values.
 
 ### Changed
 * Refactored evolutionary algorithm classes to improve maintainability, and ease

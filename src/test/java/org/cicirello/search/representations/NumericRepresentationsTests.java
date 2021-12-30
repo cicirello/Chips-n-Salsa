@@ -285,6 +285,9 @@ public class NumericRepresentationsTests {
 		BoundedIntegerVector f3 = new BoundedIntegerVector(values, 1, 9);
 		assertNotEquals(f1, f2);
 		assertNotEquals(f1, f3);
+		assertFalse(f1.sameBounds(f2));
+		assertFalse(f1.sameBounds(f3));
+		assertTrue(f1.sameBounds(new BoundedIntegerVector(values, 1, 10)));
 		assertFalse(f1.equals(null));
 		IntegerVector nonBounded = new IntegerVector(values);
 		assertFalse(f1.equals(nonBounded));

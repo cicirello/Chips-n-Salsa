@@ -81,6 +81,17 @@ public final class BoundedIntegerVector extends IntegerVector {
 	}
 	
 	/**
+	 * Checks if the bounds of this BoundedIntegerVector are the 
+	 * same as those of another.
+	 *
+	 * @param other The other vector.
+	 * @return true if the vectors have the same bounds and false otherwise
+	 */
+	public final boolean sameBounds(BoundedIntegerVector other) {
+		return min == other.min && max == other.max;
+	}
+	
+	/**
 	 * Creates an identical copy of this object.
 	 * @return an identical copy of this object
 	 */
@@ -102,8 +113,7 @@ public final class BoundedIntegerVector extends IntegerVector {
 		if (!super.equals(other) || !(other instanceof BoundedIntegerVector)) {
 			return false;
 		}
-		BoundedIntegerVector b = (BoundedIntegerVector)other;
-		return min == b.min && max == b.max;
+		return sameBounds((BoundedIntegerVector)other);
 	}
 	
 	/**

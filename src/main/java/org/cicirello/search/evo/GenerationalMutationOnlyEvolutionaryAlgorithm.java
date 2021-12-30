@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -41,7 +41,14 @@ import org.cicirello.math.rand.RandomVariates;
  * constructors.</p>
  *
  * <p>See the {@link GenerationalEvolutionaryAlgorithm} class for a generational EA
- * with both crossover and mutation.</p>
+ * with both crossover and mutation, with the common genetic algorithm style generation,
+ * such that the next generation is formed from children that replace the parents,
+ * and such that children can be the result of crossover alone, mutation alone, both
+ * crossover and mutation, or simply identical copies of parents. The library also includes
+ * a variation of this generation structure in the class {@link GenerationalNANDOperatorsEvolutionaryAlgorithm},
+ * where crossover and mutation are treated as mutually exclusive operators such that a child
+ * in a generation may be the result of crossover, or mutation, or an identical copy, but never
+ * the result of both crossover and mutation.</p>
  *
  * @param <T> The type of object under optimization.
  *

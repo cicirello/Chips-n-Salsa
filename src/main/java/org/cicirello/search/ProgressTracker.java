@@ -148,16 +148,17 @@ public final class ProgressTracker<T extends Copyable<T>> {
 	public boolean update(SolutionCostPair<T> pair) {
 		if (pair.containsIntCost()) {
 			int c = pair.getCost();
-			if (c < bestCost) {
-				return c == update(c, pair.getSolution(), pair.containsKnownOptimal());
-			}
+			int updatedCost = c < bestCost 
+				? update(c, pair.getSolution(), pair.containsKnownOptimal())
+				: bestCost;
+			return c == updatedCost;
 		} else {
 			double c = pair.getCostDouble();
-			if (c < bestCostD) {
-				return c == update(c, pair.getSolution(), pair.containsKnownOptimal());
-			}
+			double updatedCost = c < bestCostD
+				? update(c, pair.getSolution(), pair.containsKnownOptimal())
+				: bestCostD;
+			return c == updatedCost;
 		}
-		return false;
 	}
 	
 	/**

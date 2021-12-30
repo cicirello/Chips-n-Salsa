@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-12-23
+## [Unreleased] - 2021-12-30
 
 ### BREAKING CHANGES
 * Next release will be 4.0.0 due to breaking changes.
@@ -13,10 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added GenerationalMutationOnlyEvolutionaryAlgorithm, moving the mutation-only EA
   functionality into this new class from the existing GenerationalEvolutionaryAlgorithm
   class.
+* Added GenerationalNANDOperatorsEvolutionaryAlgorithm, moving the EA
+  functionality related to mutually-exclusive genetic operators (i.e., generation variation where
+  each child is result of either mutation, or crossover, or identical copy of a parent, but never
+  result of both mutation and crossover) into this new class from the existing 
+  GenerationalEvolutionaryAlgorithm class.
 
 ### Changed
 * Refactored evolutionary algorithm classes to improve maintainability, and ease
   integration of planned future functionality.
+* Refactored ProgressTracker.update(SolutionCostPair) to simplify logic.
 
 ### Deprecated
 
@@ -24,9 +30,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Removed all mutation-only EA functionality from the GenerationalEvolutionaryAlgorithm,
   moving that functionality into the new GenerationalMutationOnlyEvolutionaryAlgorithm. This
   was done for maintainability. It is a breaking-change, although it should affect minimal
-  users as the GenerationalEvolutionaryAlgorithm was just introduced. For this using it
+  users as the GenerationalEvolutionaryAlgorithm was just introduced. For those using it
   simply use the new GenerationalMutationOnlyEvolutionaryAlgorithm class where you will
   find all the same constructors and methods necessary for mutation-only EAs.
+* Removed all mutually-exclusive genetic operator functionality from the GenerationalEvolutionaryAlgorithm,
+  moving that functionality into the new GenerationalNANDOperatorsEvolutionaryAlgorithm. This
+  was done for maintainability. It is a breaking-change, although it should affect minimal
+  users as the GenerationalEvolutionaryAlgorithm was just introduced. For those using it
+  simply use the new GenerationalNANDOperatorsEvolutionaryAlgorithm class where you will
+  find that functionality.
 * All methods/constructors that were previously deprecated in earlier releases have 
   now been removed, including:
   * The following deprecated methods of the ProgressTracker class have been removed:

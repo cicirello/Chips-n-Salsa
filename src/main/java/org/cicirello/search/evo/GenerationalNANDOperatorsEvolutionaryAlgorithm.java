@@ -26,46 +26,46 @@ import org.cicirello.search.problems.Problem;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.operators.CrossoverOperator;
-import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.math.rand.RandomVariates;
 
 /**
- * <p>This class implements an evolutionary algorithm with a generational
- * model, such as is commonly used in genetic algorithms, where a
- * population of children are formed by applying genetic operators to
+ * <p>This class implements an evolutionary algorithm (EA) with a generational
+ * model, where a population of children are formed by applying genetic operators to
  * members of the parent population, and where the children replace the 
- * parents in the next generation. It uses the typical generational model 
- * using both crossover and mutation, controlled by a crossover rate and a 
- * mutation rate, such that each child may be the result of
- * crossover alone, mutation alone, a combination of both crossover and mutation, or
- * a simple copy of a parent.</p>
+ * parents in the next generation. In this EA, utilizes both a crossover operator
+ * and a mutation operator, whose application is controlled by crossover and mutation
+ * rates, but such that the operators are mutually exclusive. That is, each child is the
+ * result of crossover, or mutation, or a simply copy of a parent, but never the result
+ * of both crossover and mutation.</p>
  *
  * <p>The crossover, mutation, and selection operators are completely configurable
  * by passing instances of classes that implement the {@link CrossoverOperator},
  * {@link MutationOperator}, and {@link SelectionOperator} classes to one of the
  * constructors.</p>
  *
- * <p>The library also includes a class for mutation-only generational EAs
- * (see {@link GenerationalMutationOnlyEvolutionaryAlgorithm}). It also includes
- * a variation of the generation structure in the class {@link GenerationalNANDOperatorsEvolutionaryAlgorithm},
- * where crossover and mutation are treated as mutually exclusive operators such that a child
- * in a generation may be the result of crossover, or mutation, or an identical copy, but never
- * the result of both crossover and mutation.</p>
+ * <p>The library also includes a class for the more common generational model, such
+ * that population members may undergo both crossover and mutation in the same generation
+ * (see the {@link GenerationalEvolutionaryAlgorithm} class) as well as a class for 
+ * mutation-only generational EAs
+ * (see {@link GenerationalMutationOnlyEvolutionaryAlgorithm}).</p>
  *
  * @param <T> The type of object under optimization.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends AbstractEvolutionaryAlgorithm<T> {
+public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T>> extends AbstractEvolutionaryAlgorithm<T> {
 	
 	private final MutationOperator<T> mutation;
-	private final double M;
+	private final double M_PRIME;
 	private final CrossoverOperator<T> crossover;
 	private final double C;
 	
 	/**
-	 * Constructs and initializes the evolutionary algorithm. This constructor supports fitness functions
+	 * Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover operator
+	 * and a mutation operator, such that the genetic operators follow a mutually exclusive 
+	 * property where each population member is involved in at most one of those operations in a single generation.
+	 * This constructor supports fitness functions
 	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
 	 *
 	 * @param n The population size.
@@ -84,14 +84,18 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	 *
 	 * @throws IllegalArgumentException if n is less than 1.
 	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws IllegalArgumentException if mutationRate + crossoverRate &gt; 1.0.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
-	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
 		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
 	}
 	
 	/**
-	 * Constructs and initializes the evolutionary algorithm. This constructor supports fitness functions
+	 * Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover operator
+	 * and a mutation operator, such that the genetic operators follow a mutually exclusive 
+	 * property where each population member is involved in at most one of those operations in a single generation.
+	 * This constructor supports fitness functions
 	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
 	 *
 	 * @param n The population size.
@@ -110,14 +114,18 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	 *
 	 * @throws IllegalArgumentException if n is less than 1.
 	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws IllegalArgumentException if mutationRate + crossoverRate &gt; 1.0.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
-	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
 		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
 	}
 	
 	/**
-	 * Constructs and initializes the evolutionary algorithm. This constructor supports fitness functions
+	 * Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover operator
+	 * and a mutation operator, such that the genetic operators follow a mutually exclusive 
+	 * property where each population member is involved in at most one of those operations in a single generation.
+	 * This constructor supports fitness functions
 	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
 	 *
 	 * @param n The population size.
@@ -135,14 +143,18 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	 *
 	 * @throws IllegalArgumentException if n is less than 1.
 	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws IllegalArgumentException if mutationRate + crossoverRate &gt; 1.0.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
 	 */
-	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
+	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
 		this(new BasePopulation.Double<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
 	}
 	
 	/**
-	 * Constructs and initializes the evolutionary algorithm. This constructor supports fitness functions
+	 * Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover operator
+	 * and a mutation operator, such that the genetic operators follow a mutually exclusive 
+	 * property where each population member is involved in at most one of those operations in a single generation.
+	 * This constructor supports fitness functions
 	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
 	 *
 	 * @param n The population size.
@@ -160,9 +172,10 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	 *
 	 * @throws IllegalArgumentException if n is less than 1.
 	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws IllegalArgumentException if mutationRate + crossoverRate &gt; 1.0.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
 	 */
-	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection) {
+	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection) {
 		this(new BasePopulation.Integer<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
 	}
 	
@@ -171,7 +184,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	/*
 	 * Internal helper constructor for standard EAs with full generation (both crossover and mutation).
 	 */
-	private GenerationalEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate) {
+	private GenerationalNANDOperatorsEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate) {
 		super(pop, problem);
 		if (mutation == null) {
 			throw new NullPointerException("mutation must be non-null");
@@ -185,8 +198,11 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 		if (crossoverRate < 0.0) {
 			throw new IllegalArgumentException("crossoverRate must not be negative");
 		}
-		M = mutationRate < 1.0 ? mutationRate : 1.0;
-		C = crossoverRate < 1.0 ? crossoverRate : 1.0;
+		if (mutationRate + crossoverRate > 1.0) {
+			throw new IllegalArgumentException("mutually exclusive operators requires mutationRate + crossoverRate <= 1.0");
+		}
+		C = crossoverRate;
+		M_PRIME = C < 1.0 ? mutationRate / (1.0 - C) : 0.0;
 		this.mutation = mutation;
 		this.crossover = crossover;
 	}
@@ -195,7 +211,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	 * Internal constructor for use by split method.
 	 * package private so subclasses in same package can use it for initialization for their own split methods.
 	 */
-	GenerationalEvolutionaryAlgorithm(GenerationalEvolutionaryAlgorithm<T> other) {
+	GenerationalNANDOperatorsEvolutionaryAlgorithm(GenerationalNANDOperatorsEvolutionaryAlgorithm<T> other) {
 		super(other);
 		
 		// Must be split
@@ -203,13 +219,13 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 		crossover = other.crossover.split(); 
 		
 		// Threadsafe so just copy reference or values
-		M = other.M;
+		M_PRIME = other.M_PRIME;
 		C = other.C;
 	}
 	
 	@Override
-	public GenerationalEvolutionaryAlgorithm<T> split() {
-		return new GenerationalEvolutionaryAlgorithm<T>(this);
+	public GenerationalNANDOperatorsEvolutionaryAlgorithm<T> split() {
+		return new GenerationalNANDOperatorsEvolutionaryAlgorithm<T>(this);
 	}
 		
 	@Override
@@ -218,29 +234,25 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 		// Since select() above randomizes ordering, just use a binomial
 		// to get count of number of pairs of parents to cross and cross the first 
 		// count pairs of parents. Pair up parents with indexes: first and (first + count).
-		int count = RandomVariates.nextBinomial(pop.mutableSize()/2, C);
+		final int count = C < 1.0 ? RandomVariates.nextBinomial(pop.mutableSize()/2, C) : pop.mutableSize()/2;
 		for (int first = 0; first < count; first++) {
 			int second = first + count;
 			crossover.cross(pop.get(first), pop.get(second));
 			pop.updateFitness(first);
 			pop.updateFitness(second);
 		}
-		if (M >= 1.0) {
-			final int LAMBDA = pop.mutableSize();
-			for (int j = 0; j < LAMBDA; j++) {
+		final int crossed = count << 1;
+		int mutateCount = 0;
+		if (C < 1.0) {
+			mutateCount = crossed < pop.mutableSize() ? 
+				(M_PRIME < 1.0 ? RandomVariates.nextBinomial(pop.mutableSize()-crossed, M_PRIME) : pop.mutableSize()-crossed) 
+				: 0;
+			for (int j = crossed + mutateCount - 1; j >= crossed; j--) {
 				mutation.mutate(pop.get(j));
 				pop.updateFitness(j);
 			}
-			count = (count << 1) + LAMBDA;
-		} else {
-			int[] operateOnThese = RandomIndexer.sample(pop.mutableSize(), M);
-			for (int j = 0; j < operateOnThese.length; j++) {
-				mutation.mutate(pop.get(operateOnThese[j]));
-				pop.updateFitness(operateOnThese[j]);
-			}
-			count = (count << 1) + operateOnThese.length;
 		}
 		pop.replace();
-		return count;
+		return crossed + mutateCount;
 	}
 }

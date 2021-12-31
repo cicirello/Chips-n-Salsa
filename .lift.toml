@@ -1,6 +1,6 @@
-build = "mvn compile"
+jdkVersion = "11"
 
-jdk11 = true
+summaryComments = true
 
 # don't run eslint... it is for js and will detect false positives 
 # in javadoc directories.

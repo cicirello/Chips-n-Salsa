@@ -15,9 +15,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Two-point crossover
   * K-point crossover
   * Uniform crossover
+* Crossover operators for RealVector and BoundedRealVector classes, including:
+  * Single-point crossover
+  * Two-point crossover
+  * K-point crossover
+  * Uniform crossover
 * Enhancements to IntegerVector and BoundedIntegerVector, including:
   * IntegerVector.exchange method which exchanges a subsequence between two IntegerVectors.
-  * BoundedIntegerVector.sameBounds method which checks if two bounded integer vector are
+  * BoundedIntegerVector.sameBounds method which checks if two bounded integer vectors are
+    subject to the same min and max values.
+* Enhancements to RealVector and BoundedRealVector, including:
+  * RealVector.exchange method which exchanges a subsequence between two RealVectors.
+  * BoundedRealVector.sameBounds method which checks if two bounded real vectors are
     subject to the same min and max values.
 * Added GenerationalMutationOnlyEvolutionaryAlgorithm, moving the mutation-only EA
   functionality into this new class from the existing GenerationalEvolutionaryAlgorithm

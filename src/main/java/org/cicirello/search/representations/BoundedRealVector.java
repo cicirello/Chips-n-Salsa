@@ -82,6 +82,17 @@ public final class BoundedRealVector extends RealVector {
 	}
 	
 	/**
+	 * Checks if the bounds of this BoundedRealVector are the 
+	 * same as those of another.
+	 *
+	 * @param other The other vector.
+	 * @return true if the vectors have the same bounds and false otherwise
+	 */
+	public final boolean sameBounds(BoundedRealVector other) {
+		return min == other.min && max == other.max;
+	}
+	
+	/**
 	 * Creates an identical copy of this object.
 	 * @return an identical copy of this object
 	 */
@@ -101,8 +112,7 @@ public final class BoundedRealVector extends RealVector {
 	@Override
 	public boolean equals(Object other) {
 		if (!super.equals(other) || !(other instanceof BoundedRealVector)) return false;
-		BoundedRealVector b = (BoundedRealVector)other;
-		return min == b.min && max == b.max;
+		return sameBounds((BoundedRealVector)other);
 	}
 	
 	/**

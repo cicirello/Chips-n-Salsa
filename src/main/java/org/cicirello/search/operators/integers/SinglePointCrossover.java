@@ -49,7 +49,7 @@ public final class SinglePointCrossover<T extends IntegerVector> implements Cros
 	/**
 	 * {@inheritDoc}
 	 *
-	 * Behavior is undefined if the IntegerVectors are of different lengths.
+	 * <p>Behavior is undefined if the IntegerVectors are of different lengths.</p>
 	 */
 	@Override
 	public void cross(IntegerVector c1, IntegerVector c2) {

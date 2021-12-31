@@ -53,7 +53,7 @@ public final class TwoPointCrossover<T extends IntegerVector> implements Crossov
 	/**
 	 * {@inheritDoc}
 	 *
-	 * Behavior is undefined if the IntegerVectors are of different lengths.
+	 * <p>Behavior is undefined if the IntegerVectors are of different lengths.</p>
 	 */
 	@Override
 	public void cross(IntegerVector c1, IntegerVector c2) {

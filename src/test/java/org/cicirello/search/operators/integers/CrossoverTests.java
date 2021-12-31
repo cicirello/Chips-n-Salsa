@@ -62,8 +62,73 @@ public class CrossoverTests {
 		validateMultiPointCrossoverBounded(crossoverBounded2, 2);
 	}
 	
+	@Test
+	public void testKPoint1() {
+		KPointCrossover<IntegerVector> crossover = new KPointCrossover<IntegerVector>(1);
+		validateMultiPointCrossover(crossover, 1);
+		
+		KPointCrossover<BoundedIntegerVector> crossoverBounded = new KPointCrossover<BoundedIntegerVector>(1);
+		validateMultiPointCrossoverBounded(crossoverBounded, 1);
+		
+		KPointCrossover<IntegerVector> crossover2 = crossover.split();
+		validateMultiPointCrossover(crossover2, 1);
+		
+		KPointCrossover<BoundedIntegerVector> crossoverBounded2 = crossoverBounded.split();
+		validateMultiPointCrossoverBounded(crossoverBounded2, 1);
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new KPointCrossover<IntegerVector>(0)
+		);
+	}
+	
+	@Test
+	public void testKPoint2() {
+		KPointCrossover<IntegerVector> crossover = new KPointCrossover<IntegerVector>(2);
+		validateMultiPointCrossover(crossover, 2);
+		
+		KPointCrossover<BoundedIntegerVector> crossoverBounded = new KPointCrossover<BoundedIntegerVector>(2);
+		validateMultiPointCrossoverBounded(crossoverBounded, 2);
+		
+		KPointCrossover<IntegerVector> crossover2 = crossover.split();
+		validateMultiPointCrossover(crossover2, 2);
+		
+		KPointCrossover<BoundedIntegerVector> crossoverBounded2 = crossoverBounded.split();
+		validateMultiPointCrossoverBounded(crossoverBounded2, 2);
+	}
+	
+	@Test
+	public void testKPoint3() {
+		KPointCrossover<IntegerVector> crossover = new KPointCrossover<IntegerVector>(3);
+		validateMultiPointCrossover(crossover, 3);
+		
+		KPointCrossover<BoundedIntegerVector> crossoverBounded = new KPointCrossover<BoundedIntegerVector>(3);
+		validateMultiPointCrossoverBounded(crossoverBounded, 3);
+		
+		KPointCrossover<IntegerVector> crossover2 = crossover.split();
+		validateMultiPointCrossover(crossover2, 3);
+		
+		KPointCrossover<BoundedIntegerVector> crossoverBounded2 = crossoverBounded.split();
+		validateMultiPointCrossoverBounded(crossoverBounded2, 3);
+	}
+	
+	@Test
+	public void testKPoint4() {
+		KPointCrossover<IntegerVector> crossover = new KPointCrossover<IntegerVector>(4);
+		validateMultiPointCrossover(crossover, 4);
+		
+		KPointCrossover<BoundedIntegerVector> crossoverBounded = new KPointCrossover<BoundedIntegerVector>(4);
+		validateMultiPointCrossoverBounded(crossoverBounded, 4);
+		
+		KPointCrossover<IntegerVector> crossover2 = crossover.split();
+		validateMultiPointCrossover(crossover2, 4);
+		
+		KPointCrossover<BoundedIntegerVector> crossoverBounded2 = crossoverBounded.split();
+		validateMultiPointCrossoverBounded(crossoverBounded2, 4);
+	}
+	
 	private void validateMultiPointCrossover(CrossoverOperator<IntegerVector> crossover, int expectedCrossPoints) {
-		for (int n = 2; n <= 32; n *= 2) {
+		for (int n = Math.max(2, expectedCrossPoints); n <= 32; n *= 2) {
 			int[] a1 = new int[n];
 			int[] a2 = new int[n];
 			for (int i = 0; i < n; i++) {
@@ -80,7 +145,7 @@ public class CrossoverTests {
 	}
 	
 	private void validateMultiPointCrossoverBounded(CrossoverOperator<BoundedIntegerVector> crossover, int expectedCrossPoints) {
-		for (int n = 2; n <= 32; n *= 2) {
+		for (int n = Math.max(2, expectedCrossPoints); n <= 32; n *= 2) {
 			int[] a1 = new int[n];
 			int[] a2 = new int[n];
 			for (int i = 0; i < n; i++) {

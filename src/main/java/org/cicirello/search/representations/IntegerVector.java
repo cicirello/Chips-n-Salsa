@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -28,10 +28,8 @@ import org.cicirello.util.Copyable;
  * A simple class for representing the input to a multivariate function,
  * with integer values.
  *
- *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.12.2021
  */
 public class IntegerVector implements IntegerValued, Copyable<IntegerVector> {
 	
@@ -83,6 +81,50 @@ public class IntegerVector implements IntegerValued, Copyable<IntegerVector> {
 	@Override
 	public void set(int i, int value) {
 		this.x[i] = value;
+	}
+	
+	/**
+	 * Exchanges a sequence of ints between two IntegerVector objects.
+	 *
+	 * @param v1 The first IntegerVector.
+	 * @param v2 The second IntegerVector.
+	 * @param firstIndex The first index of the sequence to exchange, inclusive.
+	 * @param lastIndex The last index of the sequence to exchange, inclusive.
+	 *
+	 * @throws IndexOutOfBoundsException if either index is negative, or if either index &ge; v1.length(),
+	 *     or if either index &ge; v2.length()
+	 */
+	public static void exchange(IntegerVector v1, IntegerVector v2, int firstIndex, int lastIndex) {
+		// Note: don't need to do bounds check... documented the behavior above.
+		if (firstIndex > lastIndex) {
+			int temp = firstIndex;
+			firstIndex = lastIndex;
+			lastIndex = temp;
+		}
+		if (canSimpleExchange(v1, v2)) {
+			// Either not bounded, or bounds are the same....
+			final int N = lastIndex-firstIndex+1;
+			int[] temp = new int[N];
+			System.arraycopy(v1.x, firstIndex, temp, 0, N);
+			System.arraycopy(v2.x, firstIndex, v1.x, firstIndex, N);
+			System.arraycopy(temp, 0, v2.x, firstIndex, N);
+		} else {
+			// different value-bounds so need to call set to check min and max
+			for (int i = firstIndex; i <= lastIndex; i++) {
+				int temp = v1.x[i];
+				v1.set(i, v2.x[i]);
+				v2.set(i, temp);
+			}
+		}
+	}
+	
+	private static boolean canSimpleExchange(IntegerVector v1, IntegerVector v2) {
+		if (v1 instanceof BoundedIntegerVector) {
+			return v2 instanceof BoundedIntegerVector && ((BoundedIntegerVector)v1).sameBounds((BoundedIntegerVector)v2);
+		} else if (v2 instanceof BoundedIntegerVector) {
+			return false;
+		}
+		return true;
 	}
 	
 	/**

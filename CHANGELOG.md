@@ -4,12 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-12-30
+## [Unreleased] - 2021-12-31
 
 ### BREAKING CHANGES
 * Next release will be 4.0.0 due to breaking changes.
 
 ### Added
+* Crossover operators for IntegerVector and BoundedIntegerVector classes, including:
+  * Single-point crossover
+  * Two-point crossover
+  * K-point crossover
+  * Uniform crossover
+* Enhancements to IntegerVector and BoundedIntegerVector, including:
+  * IntegerVector.exchange method which exchanges a subsequence between two IntegerVectors.
+  * BoundedIntegerVector.sameBounds method which checks if two bounded integer vector are
+    subject to the same min and max values.
 * Added GenerationalMutationOnlyEvolutionaryAlgorithm, moving the mutation-only EA
   functionality into this new class from the existing GenerationalEvolutionaryAlgorithm
   class.

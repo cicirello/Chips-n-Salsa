@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2021 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -26,7 +26,6 @@ package org.cicirello.search.representations;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.12.2021
  */
 public final class BoundedIntegerVector extends IntegerVector {
 		
@@ -82,6 +81,17 @@ public final class BoundedIntegerVector extends IntegerVector {
 	}
 	
 	/**
+	 * Checks if the bounds of this BoundedIntegerVector are the 
+	 * same as those of another.
+	 *
+	 * @param other The other vector.
+	 * @return true if the vectors have the same bounds and false otherwise
+	 */
+	public final boolean sameBounds(BoundedIntegerVector other) {
+		return min == other.min && max == other.max;
+	}
+	
+	/**
 	 * Creates an identical copy of this object.
 	 * @return an identical copy of this object
 	 */
@@ -103,8 +113,7 @@ public final class BoundedIntegerVector extends IntegerVector {
 		if (!super.equals(other) || !(other instanceof BoundedIntegerVector)) {
 			return false;
 		}
-		BoundedIntegerVector b = (BoundedIntegerVector)other;
-		return min == b.min && max == b.max;
+		return sameBounds((BoundedIntegerVector)other);
 	}
 	
 	/**

@@ -32,6 +32,155 @@ public class NumericRepresentationsTests {
 	private final double EPSILON = 1e-10;
 	
 	@Test
+	public void testExchangeIntegerVector() {
+		for (int n = 1; n <= 8; n*=2) {
+			for (int first = 0; first < n; first++) {
+				for (int last = first; last < n; last++) {
+					int[] raw1 = new int[n];
+					int[] raw2 = new int[n];
+					for (int i = 0; i < n; i++) {
+						raw1[i] = 100 + i;
+						raw2[i] = 200 + i;
+					}
+					IntegerVector v1 = new IntegerVector(raw1);
+					IntegerVector v2 = new IntegerVector(raw2);
+					IntegerVector.exchange(v1, v2, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v1.get(i));
+						assertEquals(raw2[i], v2.get(i));
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(raw2[i], v1.get(i));
+						assertEquals(raw1[i], v2.get(i));
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v1.get(i));
+						assertEquals(raw2[i], v2.get(i));
+					}
+					
+					// try first > last case
+					if (first != last) {
+						v1 = new IntegerVector(raw1);
+						v2 = new IntegerVector(raw2);
+						IntegerVector.exchange(v1, v2, last, first);
+						for (int i = 0; i < first; i++) {
+							assertEquals(raw1[i], v1.get(i));
+							assertEquals(raw2[i], v2.get(i));
+						}
+						for (int i = first; i <= last; i++) {
+							assertEquals(raw2[i], v1.get(i));
+							assertEquals(raw1[i], v2.get(i));
+						}
+						for (int i = last+1; i < n; i++) {
+							assertEquals(raw1[i], v1.get(i));
+							assertEquals(raw2[i], v2.get(i));
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void testExchangeBoundedIntegerVector() {
+		for (int n = 1; n <= 8; n*=2) {
+			for (int first = 0; first < n; first++) {
+				for (int last = first; last < n; last++) {
+					int[] raw1 = new int[n];
+					int[] raw2 = new int[n];
+					for (int i = 0; i < n; i++) {
+						raw1[i] = 100 + i;
+						raw2[i] = 200 + i;
+					}
+					BoundedIntegerVector v1 = new BoundedIntegerVector(raw1, 0, 300);
+					BoundedIntegerVector v2 = new BoundedIntegerVector(raw2, 0, 300);
+					IntegerVector.exchange(v1, v2, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v1.get(i));
+						assertEquals(raw2[i], v2.get(i));
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(raw2[i], v1.get(i));
+						assertEquals(raw1[i], v2.get(i));
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v1.get(i));
+						assertEquals(raw2[i], v2.get(i));
+					}
+					
+					// First not in bounds of second
+					v1 = new BoundedIntegerVector(raw1, 100, 199);
+					v2 = new BoundedIntegerVector(raw2, 0, 300);
+					IntegerVector.exchange(v1, v2, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v1.get(i));
+						assertEquals(raw2[i], v2.get(i));
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(199, v1.get(i));
+						assertEquals(raw1[i], v2.get(i));
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v1.get(i));
+						assertEquals(raw2[i], v2.get(i));
+					}
+					
+					// Second not in bounds of first
+					v1 = new BoundedIntegerVector(raw1, 0, 300);
+					v2 = new BoundedIntegerVector(raw2, 200, 300);
+					IntegerVector.exchange(v1, v2, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v1.get(i));
+						assertEquals(raw2[i], v2.get(i));
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(raw2[i], v1.get(i));
+						assertEquals(200, v2.get(i));
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v1.get(i));
+						assertEquals(raw2[i], v2.get(i));
+					}
+					
+					// second is not bounded
+					v1 = new BoundedIntegerVector(raw1, 100, 199);
+					IntegerVector v3 = new IntegerVector(raw2);
+					IntegerVector.exchange(v1, v3, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v1.get(i));
+						assertEquals(raw2[i], v3.get(i));
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(199, v1.get(i));
+						assertEquals(raw1[i], v3.get(i));
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v1.get(i));
+						assertEquals(raw2[i], v3.get(i));
+					}
+					
+					// First is not bounded
+					v3 = new IntegerVector(raw1);
+					v2 = new BoundedIntegerVector(raw2, 200, 300);
+					IntegerVector.exchange(v3, v2, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v3.get(i));
+						assertEquals(raw2[i], v2.get(i));
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(raw2[i], v3.get(i));
+						assertEquals(200, v2.get(i));
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v3.get(i));
+						assertEquals(raw2[i], v2.get(i));
+					}
+				}
+			}
+		}
+	}
+	
+	@Test
 	public void testUnivariate() {
 		SingleReal f0 = new SingleReal();
 		assertEquals("Default constructor", 0, f0.get(), EPSILON);
@@ -285,6 +434,9 @@ public class NumericRepresentationsTests {
 		BoundedIntegerVector f3 = new BoundedIntegerVector(values, 1, 9);
 		assertNotEquals(f1, f2);
 		assertNotEquals(f1, f3);
+		assertFalse(f1.sameBounds(f2));
+		assertFalse(f1.sameBounds(f3));
+		assertTrue(f1.sameBounds(new BoundedIntegerVector(values, 1, 10)));
 		assertFalse(f1.equals(null));
 		IntegerVector nonBounded = new IntegerVector(values);
 		assertFalse(f1.equals(nonBounded));

@@ -32,6 +32,172 @@ import org.cicirello.search.operators.CrossoverOperator;
 public class CrossoverTests {
 	
 	@Test
+	public void testUniformCrossover() {
+		UniformCrossover<IntegerVector> crossover0 = new UniformCrossover<IntegerVector>(0.0);
+		UniformCrossover<IntegerVector> crossover1 = new UniformCrossover<IntegerVector>(1.0);
+		UniformCrossover<IntegerVector> crossoverDefault = new UniformCrossover<IntegerVector>();
+		UniformCrossover<IntegerVector> crossover05 = new UniformCrossover<IntegerVector>(0.5);
+		
+		for (int n = 32; n <= 128; n *= 2) {
+			int[] a1 = new int[n];
+			int[] a2 = new int[n];
+			for (int i = 0; i < n; i++) {
+				a1[i] = 1;
+				a2[i] = 2;
+			}
+			IntegerVector v1 = new IntegerVector(a1);
+			IntegerVector v2 = new IntegerVector(a2);
+			IntegerVector copy1 = v1.copy();
+			IntegerVector copy2 = v2.copy();
+			
+			crossover0.cross(v1, v2);
+			assertEquals(copy1, v1);
+			assertEquals(copy2, v2);
+			
+			crossover1.cross(v1, v2);
+			assertEquals(copy2, v1);
+			assertEquals(copy1, v2);
+			
+			v1 = new IntegerVector(a1);
+			v2 = new IntegerVector(a2);
+			crossoverDefault.cross(v1, v2);
+			assertNotEquals(copy1, v1);
+			assertNotEquals(copy2, v2);
+			assertTrue(areSiblings(v1, v2, 1, 2));
+			
+			v1 = new IntegerVector(a1);
+			v2 = new IntegerVector(a2);
+			crossover05.cross(v1, v2);
+			assertNotEquals(copy1, v1);
+			assertNotEquals(copy2, v2);
+			assertTrue(areSiblings(v1, v2, 1, 2));
+		}
+		
+		UniformCrossover<IntegerVector> crossover0_s = crossover0.split();
+		UniformCrossover<IntegerVector> crossover1_s = crossover1.split();
+		UniformCrossover<IntegerVector> crossoverDefault_s = crossoverDefault.split();
+		UniformCrossover<IntegerVector> crossover05_s = crossover05.split();
+		
+		for (int n = 32; n <= 128; n *= 2) {
+			int[] a1 = new int[n];
+			int[] a2 = new int[n];
+			for (int i = 0; i < n; i++) {
+				a1[i] = 1;
+				a2[i] = 2;
+			}
+			IntegerVector v1 = new IntegerVector(a1);
+			IntegerVector v2 = new IntegerVector(a2);
+			IntegerVector copy1 = v1.copy();
+			IntegerVector copy2 = v2.copy();
+			
+			crossover0_s.cross(v1, v2);
+			assertEquals(copy1, v1);
+			assertEquals(copy2, v2);
+			
+			crossover1_s.cross(v1, v2);
+			assertEquals(copy2, v1);
+			assertEquals(copy1, v2);
+			
+			v1 = new IntegerVector(a1);
+			v2 = new IntegerVector(a2);
+			crossoverDefault_s.cross(v1, v2);
+			assertNotEquals(copy1, v1);
+			assertNotEquals(copy2, v2);
+			assertTrue(areSiblings(v1, v2, 1, 2));
+			
+			v1 = new IntegerVector(a1);
+			v2 = new IntegerVector(a2);
+			crossover05_s.cross(v1, v2);
+			assertNotEquals(copy1, v1);
+			assertNotEquals(copy2, v2);
+			assertTrue(areSiblings(v1, v2, 1, 2));
+		}
+	}
+	
+	@Test
+	public void testUniformCrossoverBounded() {
+		UniformCrossover<BoundedIntegerVector> crossover0 = new UniformCrossover<BoundedIntegerVector>(0.0);
+		UniformCrossover<BoundedIntegerVector> crossover1 = new UniformCrossover<BoundedIntegerVector>(1.0);
+		UniformCrossover<BoundedIntegerVector> crossoverDefault = new UniformCrossover<BoundedIntegerVector>();
+		UniformCrossover<BoundedIntegerVector> crossover05 = new UniformCrossover<BoundedIntegerVector>(0.5);
+		
+		for (int n = 32; n <= 128; n *= 2) {
+			int[] a1 = new int[n];
+			int[] a2 = new int[n];
+			for (int i = 0; i < n; i++) {
+				a1[i] = 1;
+				a2[i] = 2;
+			}
+			BoundedIntegerVector v1 = new BoundedIntegerVector(a1, 0, 5);
+			BoundedIntegerVector v2 = new BoundedIntegerVector(a2, 0, 5);
+			BoundedIntegerVector copy1 = v1.copy();
+			BoundedIntegerVector copy2 = v2.copy();
+			
+			crossover0.cross(v1, v2);
+			assertEquals(copy1, v1);
+			assertEquals(copy2, v2);
+			
+			crossover1.cross(v1, v2);
+			assertEquals(copy2, v1);
+			assertEquals(copy1, v2);
+			
+			v1 = new BoundedIntegerVector(a1, 0, 5);
+			v2 = new BoundedIntegerVector(a2, 0, 5);
+			crossoverDefault.cross(v1, v2);
+			assertNotEquals(copy1, v1);
+			assertNotEquals(copy2, v2);
+			assertTrue(areSiblings(v1, v2, 1, 2));
+			
+			v1 = new BoundedIntegerVector(a1, 0, 5);
+			v2 = new BoundedIntegerVector(a2, 0, 5);
+			crossover05.cross(v1, v2);
+			assertNotEquals(copy1, v1);
+			assertNotEquals(copy2, v2);
+			assertTrue(areSiblings(v1, v2, 1, 2));
+		}
+		
+		UniformCrossover<BoundedIntegerVector> crossover0_s = crossover0.split();
+		UniformCrossover<BoundedIntegerVector> crossover1_s = crossover1.split();
+		UniformCrossover<BoundedIntegerVector> crossoverDefault_s = crossoverDefault.split();
+		UniformCrossover<BoundedIntegerVector> crossover05_s = crossover05.split();
+		
+		for (int n = 32; n <= 128; n *= 2) {
+			int[] a1 = new int[n];
+			int[] a2 = new int[n];
+			for (int i = 0; i < n; i++) {
+				a1[i] = 1;
+				a2[i] = 2;
+			}
+			BoundedIntegerVector v1 = new BoundedIntegerVector(a1, 0, 5);
+			BoundedIntegerVector v2 = new BoundedIntegerVector(a2, 0, 5);
+			BoundedIntegerVector copy1 = v1.copy();
+			BoundedIntegerVector copy2 = v2.copy();
+			
+			crossover0_s.cross(v1, v2);
+			assertEquals(copy1, v1);
+			assertEquals(copy2, v2);
+			
+			crossover1_s.cross(v1, v2);
+			assertEquals(copy2, v1);
+			assertEquals(copy1, v2);
+			
+			v1 = new BoundedIntegerVector(a1, 0, 5);
+			v2 = new BoundedIntegerVector(a2, 0, 5);
+			crossoverDefault_s.cross(v1, v2);
+			assertNotEquals(copy1, v1);
+			assertNotEquals(copy2, v2);
+			assertTrue(areSiblings(v1, v2, 1, 2));
+			
+			v1 = new BoundedIntegerVector(a1, 0, 5);
+			v2 = new BoundedIntegerVector(a2, 0, 5);
+			crossover05_s.cross(v1, v2);
+			assertNotEquals(copy1, v1);
+			assertNotEquals(copy2, v2);
+			assertTrue(areSiblings(v1, v2, 1, 2));
+		}
+	}
+	
+	@Test
 	public void testSinglePoint() {
 		SinglePointCrossover<IntegerVector> crossover = new SinglePointCrossover<IntegerVector>();
 		validateSinglePointCrossover(crossover);

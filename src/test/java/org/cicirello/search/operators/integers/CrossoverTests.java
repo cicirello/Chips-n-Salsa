@@ -24,6 +24,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import org.cicirello.search.representations.IntegerVector;
 import org.cicirello.search.representations.BoundedIntegerVector;
+import org.cicirello.search.operators.CrossoverOperator;
 
 /**
  * JUnit tests for crossover operators for IntegerVectors.
@@ -33,7 +34,70 @@ public class CrossoverTests {
 	@Test
 	public void testSinglePoint() {
 		SinglePointCrossover<IntegerVector> crossover = new SinglePointCrossover<IntegerVector>();
-		for (int n = 2; n <= 16; n *= 2) {
+		validateSinglePointCrossover(crossover);
+		
+		SinglePointCrossover<BoundedIntegerVector> crossoverBounded = new SinglePointCrossover<BoundedIntegerVector>();
+		validateSinglePointCrossoverBounded(crossoverBounded);
+		
+		SinglePointCrossover<IntegerVector> crossover2 = crossover.split();
+		validateSinglePointCrossover(crossover2);
+		
+		SinglePointCrossover<BoundedIntegerVector> crossoverBounded2 = crossoverBounded.split();
+		validateSinglePointCrossoverBounded(crossoverBounded2);
+		
+	}
+	
+	@Test
+	public void testTwoPoint() {
+		TwoPointCrossover<IntegerVector> crossover = new TwoPointCrossover<IntegerVector>();
+		validateMultiPointCrossover(crossover, 2);
+		
+		TwoPointCrossover<BoundedIntegerVector> crossoverBounded = new TwoPointCrossover<BoundedIntegerVector>();
+		validateMultiPointCrossoverBounded(crossoverBounded, 2);
+		
+		TwoPointCrossover<IntegerVector> crossover2 = crossover.split();
+		validateMultiPointCrossover(crossover2, 2);
+		
+		TwoPointCrossover<BoundedIntegerVector> crossoverBounded2 = crossoverBounded.split();
+		validateMultiPointCrossoverBounded(crossoverBounded2, 2);
+	}
+	
+	private void validateMultiPointCrossover(CrossoverOperator<IntegerVector> crossover, int expectedCrossPoints) {
+		for (int n = 2; n <= 32; n *= 2) {
+			int[] a1 = new int[n];
+			int[] a2 = new int[n];
+			for (int i = 0; i < n; i++) {
+				a1[i] = 1;
+				a2[i] = 2;
+			}
+			IntegerVector v1 = new IntegerVector(a1);
+			IntegerVector v2 = new IntegerVector(a2);
+			crossover.cross(v1, v2);
+			assertEquals(expectedCrossPoints, countCrossPoints(v1, 1));
+			assertEquals(expectedCrossPoints, countCrossPoints(v2, 2));
+			assertTrue(areSiblings(v1, v2, 1, 2));
+		}
+	}
+	
+	private void validateMultiPointCrossoverBounded(CrossoverOperator<BoundedIntegerVector> crossover, int expectedCrossPoints) {
+		for (int n = 2; n <= 32; n *= 2) {
+			int[] a1 = new int[n];
+			int[] a2 = new int[n];
+			for (int i = 0; i < n; i++) {
+				a1[i] = 1;
+				a2[i] = 2;
+			}
+			BoundedIntegerVector v1 = new BoundedIntegerVector(a1, 0, 5);
+			BoundedIntegerVector v2 = new BoundedIntegerVector(a2, 0, 5);
+			crossover.cross(v1, v2);
+			assertEquals(expectedCrossPoints, countCrossPoints(v1, 1));
+			assertEquals(expectedCrossPoints, countCrossPoints(v2, 2));
+			assertTrue(areSiblings(v1, v2, 1, 2));
+		}
+	}
+	
+	private void validateSinglePointCrossover(CrossoverOperator<IntegerVector> crossover) {
+		for (int n = 2; n <= 32; n *= 2) {
 			int[] a1 = new int[n];
 			int[] a2 = new int[n];
 			for (int i = 0; i < n; i++) {
@@ -47,9 +111,10 @@ public class CrossoverTests {
 			assertEquals(1, countCrossPoints(v2));
 			assertTrue(areSiblings(v1, v2, 1, 2));
 		}
-		
-		SinglePointCrossover<BoundedIntegerVector> crossoverBounded = new SinglePointCrossover<BoundedIntegerVector>();
-		for (int n = 2; n <= 16; n *= 2) {
+	}
+	
+	private void validateSinglePointCrossoverBounded(CrossoverOperator<BoundedIntegerVector> crossover) {
+		for (int n = 2; n <= 32; n *= 2) {
 			int[] a1 = new int[n];
 			int[] a2 = new int[n];
 			for (int i = 0; i < n; i++) {
@@ -58,39 +123,7 @@ public class CrossoverTests {
 			}
 			BoundedIntegerVector v1 = new BoundedIntegerVector(a1, 0, 5);
 			BoundedIntegerVector v2 = new BoundedIntegerVector(a2, 0, 5);
-			crossoverBounded.cross(v1, v2);
-			assertEquals(1, countCrossPoints(v1));
-			assertEquals(1, countCrossPoints(v2));
-			assertTrue(areSiblings(v1, v2, 1, 2));
-		}
-		
-		SinglePointCrossover<IntegerVector> crossover2 = crossover.split();
-		for (int n = 2; n <= 16; n *= 2) {
-			int[] a1 = new int[n];
-			int[] a2 = new int[n];
-			for (int i = 0; i < n; i++) {
-				a1[i] = 1;
-				a2[i] = 2;
-			}
-			IntegerVector v1 = new IntegerVector(a1);
-			IntegerVector v2 = new IntegerVector(a2);
-			crossover2.cross(v1, v2);
-			assertEquals(1, countCrossPoints(v1));
-			assertEquals(1, countCrossPoints(v2));
-			assertTrue(areSiblings(v1, v2, 1, 2));
-		}
-		
-		SinglePointCrossover<BoundedIntegerVector> crossoverBounded2 = crossoverBounded.split();
-		for (int n = 2; n <= 16; n *= 2) {
-			int[] a1 = new int[n];
-			int[] a2 = new int[n];
-			for (int i = 0; i < n; i++) {
-				a1[i] = 1;
-				a2[i] = 2;
-			}
-			BoundedIntegerVector v1 = new BoundedIntegerVector(a1, 0, 5);
-			BoundedIntegerVector v2 = new BoundedIntegerVector(a2, 0, 5);
-			crossoverBounded2.cross(v1, v2);
+			crossover.cross(v1, v2);
 			assertEquals(1, countCrossPoints(v1));
 			assertEquals(1, countCrossPoints(v2));
 			assertTrue(areSiblings(v1, v2, 1, 2));
@@ -99,6 +132,14 @@ public class CrossoverTests {
 
 	private int countCrossPoints(IntegerVector v1) {
 		int count = 0;
+		for (int i = 1; i < v1.length(); i++) {
+			if (v1.get(i) != v1.get(i-1)) count++;
+		}
+		return count;
+	}
+	
+	private int countCrossPoints(IntegerVector v1, int shouldStartWith) {
+		int count = v1.get(0) != shouldStartWith ? 1 : 0;
 		for (int i = 1; i < v1.length(); i++) {
 			if (v1.get(i) != v1.get(i-1)) count++;
 		}

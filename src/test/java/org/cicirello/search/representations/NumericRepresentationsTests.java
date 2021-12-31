@@ -181,6 +181,155 @@ public class NumericRepresentationsTests {
 	}
 	
 	@Test
+	public void testExchangeRealVector() {
+		for (int n = 1; n <= 8; n*=2) {
+			for (int first = 0; first < n; first++) {
+				for (int last = first; last < n; last++) {
+					double[] raw1 = new double[n];
+					double[] raw2 = new double[n];
+					for (int i = 0; i < n; i++) {
+						raw1[i] = 100 + i;
+						raw2[i] = 200 + i;
+					}
+					RealVector v1 = new RealVector(raw1);
+					RealVector v2 = new RealVector(raw2);
+					RealVector.exchange(v1, v2, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v1.get(i), 0.0);
+						assertEquals(raw2[i], v2.get(i), 0.0);
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(raw2[i], v1.get(i), 0.0);
+						assertEquals(raw1[i], v2.get(i), 0.0);
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v1.get(i), 0.0);
+						assertEquals(raw2[i], v2.get(i), 0.0);
+					}
+					
+					// try first > last case
+					if (first != last) {
+						v1 = new RealVector(raw1);
+						v2 = new RealVector(raw2);
+						RealVector.exchange(v1, v2, last, first);
+						for (int i = 0; i < first; i++) {
+							assertEquals(raw1[i], v1.get(i), 0.0);
+							assertEquals(raw2[i], v2.get(i), 0.0);
+						}
+						for (int i = first; i <= last; i++) {
+							assertEquals(raw2[i], v1.get(i), 0.0);
+							assertEquals(raw1[i], v2.get(i), 0.0);
+						}
+						for (int i = last+1; i < n; i++) {
+							assertEquals(raw1[i], v1.get(i), 0.0);
+							assertEquals(raw2[i], v2.get(i), 0.0);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void testExchangeBoundedRealVector() {
+		for (int n = 1; n <= 8; n*=2) {
+			for (int first = 0; first < n; first++) {
+				for (int last = first; last < n; last++) {
+					double[] raw1 = new double[n];
+					double[] raw2 = new double[n];
+					for (int i = 0; i < n; i++) {
+						raw1[i] = 100 + i;
+						raw2[i] = 200 + i;
+					}
+					BoundedRealVector v1 = new BoundedRealVector(raw1, 0, 300);
+					BoundedRealVector v2 = new BoundedRealVector(raw2, 0, 300);
+					RealVector.exchange(v1, v2, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v1.get(i), 0.0);
+						assertEquals(raw2[i], v2.get(i), 0.0);
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(raw2[i], v1.get(i), 0.0);
+						assertEquals(raw1[i], v2.get(i), 0.0);
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v1.get(i), 0.0);
+						assertEquals(raw2[i], v2.get(i), 0.0);
+					}
+					
+					// First not in bounds of second
+					v1 = new BoundedRealVector(raw1, 100, 199);
+					v2 = new BoundedRealVector(raw2, 0, 300);
+					RealVector.exchange(v1, v2, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v1.get(i), 0.0);
+						assertEquals(raw2[i], v2.get(i), 0.0);
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(199, v1.get(i), 0.0);
+						assertEquals(raw1[i], v2.get(i), 0.0);
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v1.get(i), 0.0);
+						assertEquals(raw2[i], v2.get(i), 0.0);
+					}
+					
+					// Second not in bounds of first
+					v1 = new BoundedRealVector(raw1, 0, 300);
+					v2 = new BoundedRealVector(raw2, 200, 300);
+					RealVector.exchange(v1, v2, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v1.get(i), 0.0);
+						assertEquals(raw2[i], v2.get(i), 0.0);
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(raw2[i], v1.get(i), 0.0);
+						assertEquals(200, v2.get(i), 0.0);
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v1.get(i), 0.0);
+						assertEquals(raw2[i], v2.get(i), 0.0);
+					}
+					
+					// second is not bounded
+					v1 = new BoundedRealVector(raw1, 100, 199);
+					RealVector v3 = new RealVector(raw2);
+					RealVector.exchange(v1, v3, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v1.get(i), 0.0);
+						assertEquals(raw2[i], v3.get(i), 0.0);
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(199, v1.get(i), 0.0);
+						assertEquals(raw1[i], v3.get(i), 0.0);
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v1.get(i), 0.0);
+						assertEquals(raw2[i], v3.get(i), 0.0);
+					}
+					
+					// First is not bounded
+					v3 = new RealVector(raw1);
+					v2 = new BoundedRealVector(raw2, 200, 300);
+					RealVector.exchange(v3, v2, first, last);
+					for (int i = 0; i < first; i++) {
+						assertEquals(raw1[i], v3.get(i), 0.0);
+						assertEquals(raw2[i], v2.get(i), 0.0);
+					}
+					for (int i = first; i <= last; i++) {
+						assertEquals(raw2[i], v3.get(i), 0.0);
+						assertEquals(200, v2.get(i), 0.0);
+					}
+					for (int i = last+1; i < n; i++) {
+						assertEquals(raw1[i], v3.get(i), 0.0);
+						assertEquals(raw2[i], v2.get(i), 0.0);
+					}
+				}
+			}
+		}
+	}
+	
+	@Test
 	public void testUnivariate() {
 		SingleReal f0 = new SingleReal();
 		assertEquals("Default constructor", 0, f0.get(), EPSILON);

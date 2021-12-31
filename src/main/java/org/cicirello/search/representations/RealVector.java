@@ -83,6 +83,50 @@ public class RealVector implements RealValued, Copyable<RealVector> {
 	}
 	
 	/**
+	 * Exchanges a sequence of doubles between two RealVector objects.
+	 *
+	 * @param v1 The first RealVector.
+	 * @param v2 The second RealVector.
+	 * @param firstIndex The first index of the sequence to exchange, inclusive.
+	 * @param lastIndex The last index of the sequence to exchange, inclusive.
+	 *
+	 * @throws IndexOutOfBoundsException if either index is negative, or if either index &ge; v1.length(),
+	 *     or if either index &ge; v2.length()
+	 */
+	public static void exchange(RealVector v1, RealVector v2, int firstIndex, int lastIndex) {
+		// Note: don't need to do bounds check... documented the behavior above.
+		if (firstIndex > lastIndex) {
+			int temp = firstIndex;
+			firstIndex = lastIndex;
+			lastIndex = temp;
+		}
+		if (canSimpleExchange(v1, v2)) {
+			// Either not bounded, or bounds are the same....
+			final int N = lastIndex-firstIndex+1;
+			double[] temp = new double[N];
+			System.arraycopy(v1.x, firstIndex, temp, 0, N);
+			System.arraycopy(v2.x, firstIndex, v1.x, firstIndex, N);
+			System.arraycopy(temp, 0, v2.x, firstIndex, N);
+		} else {
+			// different value-bounds so need to call set to check min and max
+			for (int i = firstIndex; i <= lastIndex; i++) {
+				double temp = v1.x[i];
+				v1.set(i, v2.x[i]);
+				v2.set(i, temp);
+			}
+		}
+	}
+	
+	private static boolean canSimpleExchange(RealVector v1, RealVector v2) {
+		if (v1 instanceof BoundedRealVector) {
+			return v2 instanceof BoundedRealVector && ((BoundedRealVector)v1).sameBounds((BoundedRealVector)v2);
+		} else if (v2 instanceof BoundedRealVector) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
 	 * Creates an identical copy of this object.
 	 * @return an identical copy of this object
 	 */

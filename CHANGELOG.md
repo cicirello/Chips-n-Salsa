@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Single-point crossover
   * Two-point crossover
   * K-point crossover
+  * Uniform crossover
 * Enhancements to IntegerVector and BoundedIntegerVector, including:
   * IntegerVector.exchange method which exchanges a subsequence between two IntegerVectors.
   * BoundedIntegerVector.sameBounds method which checks if two bounded integer vector are

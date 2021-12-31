@@ -506,6 +506,9 @@ public class NumericRepresentationsTests {
 		BoundedRealVector f1 = new BoundedRealVector(values, 1, 10);
 		BoundedRealVector f2 = new BoundedRealVector(values, 2, 10);
 		BoundedRealVector f3 = new BoundedRealVector(values, 1, 9);
+		assertFalse(f1.sameBounds(f2));
+		assertFalse(f1.sameBounds(f3));
+		assertTrue(f1.sameBounds(new BoundedRealVector(values, 1, 10)));
 		assertNotEquals(f1, f2);
 		assertNotEquals(f1, f3);
 		assertFalse(f1.equals(null));

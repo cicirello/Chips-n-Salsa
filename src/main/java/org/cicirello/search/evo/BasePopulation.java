@@ -225,15 +225,16 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		@Override
 		public void select() {
 			selection.select(this, selected);
-			for (int i = 0; i < LAMBDA; i++) {
-				nextPop.add(pop.get(selected[i]).copy());
+			for (int j : selected) {
+				nextPop.add(pop.get(j).copy());
 			}
 		}
 		
 		@Override
 		public void replace() {
-			for (int i = 0; i < LAMBDA; i++) {
-				pop.set(i, nextPop.get(i));
+			pop.clear();
+			for (PopulationMember.DoubleFitness<T> e : nextPop) {
+				pop.add(e);
 			}
 			nextPop.clear();
 		}
@@ -394,15 +395,16 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		@Override
 		public void select() {
 			selection.select(this, selected);
-			for (int i = 0; i < LAMBDA; i++) {
-				nextPop.add(pop.get(selected[i]).copy());
+			for (int j : selected) {
+				nextPop.add(pop.get(j).copy());
 			}
 		}
 		
 		@Override
 		public void replace() {
-			for (int i = 0; i < LAMBDA; i++) {
-				pop.set(i, nextPop.get(i));
+			pop.clear();
+			for (PopulationMember.IntegerFitness<T> e : nextPop) {
+				pop.add(e);
 			}
 			nextPop.clear();
 		}

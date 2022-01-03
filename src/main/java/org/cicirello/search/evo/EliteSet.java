@@ -92,6 +92,17 @@ abstract class EliteSet<T extends Copyable<T>> {
 			}
 		}
 		
+		/*
+		 * package-private for use by classes in evo package for adding to a set of elite population members.
+		 */
+		void clear() {
+			isElite.clear();
+			for (int i = 0; i < size; i++) {
+				elite[i] = null;
+			}
+			size = 0;
+		}
+		
 		@Override
 		public Iterator<PopulationMember.DoubleFitness<T>> iterator() {
 			return new EliteIterator();
@@ -219,6 +230,17 @@ abstract class EliteSet<T extends Copyable<T>> {
 					percolateDown(0);
 				}
 			}
+		}
+		
+		/*
+		 * package-private for use by classes in evo package for adding to a set of elite population members.
+		 */
+		void clear() {
+			isElite.clear();
+			for (int i = 0; i < size; i++) {
+				elite[i] = null;
+			}
+			size = 0;
 		}
 		
 		@Override

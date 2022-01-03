@@ -114,6 +114,11 @@ public class EliteSetTests {
 				assertTrue(e.getCandidate().id > 10 - numElite);
 			}
 			assertEquals(numElite, count);
+			
+			// test clear
+			eliteSet.clear();
+			final Iterator<PopulationMember.DoubleFitness<TestObject>> iter = eliteSet.iterator();
+			assertFalse(iter.hasNext());
 		}
 	}
 	
@@ -232,6 +237,11 @@ public class EliteSetTests {
 				assertTrue(e.getCandidate().id > 10 - numElite);
 			}
 			assertEquals(numElite, count);
+			
+			// test clear
+			eliteSet.clear();
+			final Iterator<PopulationMember.IntegerFitness<TestObject>> iter = eliteSet.iterator();
+			assertFalse(iter.hasNext());
 		}
 	}
 	

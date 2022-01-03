@@ -51,6 +51,7 @@ abstract class EliteSet<T extends Copyable<T>> {
 		DoubleFitness(ArrayList<PopulationMember.DoubleFitness<T>> initialPop, int numElite) {
 			isElite = new HashSet<T>();
 			elite = (PopulationMember.DoubleFitness<T>[]) new PopulationMember.DoubleFitness[numElite];
+			size = 0;
 			offerAll(initialPop);
 		}
 		
@@ -70,9 +71,9 @@ abstract class EliteSet<T extends Copyable<T>> {
 			if (size < elite.length) {
 				if (!isElite.contains(popMember.candidate)) {
 					elite[size] = popMember;
+					percolateUp(size);
 					size++;
 					isElite.add(popMember.candidate);
-					percolateUp(size);
 				}
 			} else if (popMember.getFitness() > elite[0].getFitness()) {
 				if (!isElite.contains(popMember.candidate)) {
@@ -172,6 +173,7 @@ abstract class EliteSet<T extends Copyable<T>> {
 		IntegerFitness(ArrayList<PopulationMember.IntegerFitness<T>> initialPop, int numElite) {
 			isElite = new HashSet<T>();
 			elite = (PopulationMember.IntegerFitness<T>[]) new PopulationMember.IntegerFitness[numElite];
+			size = 0;
 			offerAll(initialPop);
 		}
 		
@@ -191,9 +193,9 @@ abstract class EliteSet<T extends Copyable<T>> {
 			if (size < elite.length) {
 				if (!isElite.contains(popMember.candidate)) {
 					elite[size] = popMember;
+					percolateUp(size);
 					size++;
 					isElite.add(popMember.candidate);
-					percolateUp(size);
 				}
 			} else if (popMember.getFitness() > elite[0].getFitness()) {
 				if (!isElite.contains(popMember.candidate)) {

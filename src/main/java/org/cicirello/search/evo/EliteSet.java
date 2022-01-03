@@ -48,10 +48,17 @@ abstract class EliteSet<T extends Copyable<T>> {
 		 * package-private for use by classes in evo package for maintaining a set of elite population members.
 		 */
 		@SuppressWarnings("unchecked")
-		DoubleFitness(ArrayList<PopulationMember.DoubleFitness<T>> initialPop, int numElite) {
+		DoubleFitness(int numElite) {
 			isElite = new HashSet<T>();
 			elite = (PopulationMember.DoubleFitness<T>[]) new PopulationMember.DoubleFitness[numElite];
 			size = 0;
+		}
+		
+		/*
+		 * package-private for use by classes in evo package for maintaining a set of elite population members.
+		 */
+		DoubleFitness(ArrayList<PopulationMember.DoubleFitness<T>> initialPop, int numElite) {
+			this(numElite);
 			offerAll(initialPop);
 		}
 		
@@ -170,10 +177,17 @@ abstract class EliteSet<T extends Copyable<T>> {
 		 * package-private for use by classes in evo package for maintaining a set of elite population members.
 		 */
 		@SuppressWarnings("unchecked")
-		IntegerFitness(ArrayList<PopulationMember.IntegerFitness<T>> initialPop, int numElite) {
+		IntegerFitness(int numElite) {
 			isElite = new HashSet<T>();
 			elite = (PopulationMember.IntegerFitness<T>[]) new PopulationMember.IntegerFitness[numElite];
 			size = 0;
+		}
+		
+		/*
+		 * package-private for use by classes in evo package for maintaining a set of elite population members.
+		 */
+		IntegerFitness(ArrayList<PopulationMember.IntegerFitness<T>> initialPop, int numElite) {
+			this(numElite);
 			offerAll(initialPop);
 		}
 		

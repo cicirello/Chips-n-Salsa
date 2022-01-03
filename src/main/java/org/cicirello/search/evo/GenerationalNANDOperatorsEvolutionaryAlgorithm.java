@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -88,7 +88,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
 	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
-		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker, 0), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
 	}
 	
 	/**
@@ -118,7 +118,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
 	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
-		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker, 0), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
 	}
 	
 	/**
@@ -147,7 +147,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
 	 */
 	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
-		this(new BasePopulation.Double<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+		this(new BasePopulation.Double<T>(n, initializer, f, selection, new ProgressTracker<T>(), 0), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
 	}
 	
 	/**
@@ -176,7 +176,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
 	 */
 	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection) {
-		this(new BasePopulation.Integer<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+		this(new BasePopulation.Integer<T>(n, initializer, f, selection, new ProgressTracker<T>(), 0), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
 	}
 	
 	// Internal Constructors

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -110,6 +110,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 	
 		private final ArrayList<PopulationMember.DoubleFitness<T>> pop;
 		private final ArrayList<PopulationMember.DoubleFitness<T>> nextPop;
+		private final EliteSet.DoubleFitness<PopulationMember.DoubleFitness<T>> elite;
 		
 		private final FitnessFunction.Double<T> f;		
 		private final int MU;
@@ -128,18 +129,27 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		 * @param f The fitness function.
 		 * @param selection The selection operator.
 		 * @param tracker A ProgressTracker.
+		 * @param numElite the number of elite members of the population.
 		 */
-		public Double(int n, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+		public Double(int n, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker, int numElite) {
 			super(tracker);
 			if (n < 1) throw new IllegalArgumentException("population size n must be positive");
+			if (numElite >= n) throw new IllegalArgumentException("number of elite population members must be less than population size");
 			if (initializer == null || f == null || selection == null || tracker == null) {
 				throw new NullPointerException("passed a null object for a required parameter");
 			}
 			this.initializer = initializer;
 			this.selection = selection;
 			
+			elite = numElite > 0 ? new EliteSet.DoubleFitness<PopulationMember.DoubleFitness<T>>(numElite) : null;
+			
 			this.f = f;
-			MU = LAMBDA = n;
+			if (numElite > 0) {
+				MU = n;
+				LAMBDA = n - numElite;
+			} else {
+				MU = LAMBDA = n;
+			}
 			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
 			selected = new int[LAMBDA];
@@ -164,6 +174,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			// initialize these fresh: not threadsafe or otherwise needs its own
 			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
+			elite = other.elite != null ? new EliteSet.DoubleFitness<PopulationMember.DoubleFitness<T>>(MU - LAMBDA) : null;
 			selected = new int[LAMBDA];
 			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
 		}
@@ -268,6 +279,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 	
 		private final ArrayList<PopulationMember.IntegerFitness<T>> pop;
 		private final ArrayList<PopulationMember.IntegerFitness<T>> nextPop;
+		private final EliteSet.IntegerFitness<PopulationMember.IntegerFitness<T>> elite;
 		
 		private final FitnessFunction.Integer<T> f;		
 		private final int MU;
@@ -286,18 +298,27 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		 * @param f The fitness function.
 		 * @param selection The selection operator.
 		 * @param tracker A ProgressTracker.
+		 * @param numElite The number of elite population members.
 		 */
-		public Integer(int n, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+		public Integer(int n, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker, int numElite) {
 			super(tracker);
 			if (n < 1) throw new IllegalArgumentException("population size n must be positive");
+			if (numElite >= n) throw new IllegalArgumentException("number of elite population members must be less than population size");
 			if (initializer == null || f == null || selection == null || tracker == null) {
 				throw new NullPointerException("passed a null object for a required parameter");
 			}
 			this.initializer = initializer;
 			this.selection = selection;
 			
+			elite = numElite > 0 ? new EliteSet.IntegerFitness<PopulationMember.IntegerFitness<T>>(numElite) : null;
+			
 			this.f = f;
-			MU = LAMBDA = n;
+			if (numElite > 0) {
+				MU = n;
+				LAMBDA = n - numElite;
+			} else {
+				MU = LAMBDA = n;
+			}
 			pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
 			selected = new int[LAMBDA];
@@ -322,6 +343,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			// initialize these fresh: not threadsafe or otherwise needs its own
 			pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
+			elite = other.elite != null ? new EliteSet.IntegerFitness<PopulationMember.IntegerFitness<T>>(MU - LAMBDA) : null;
 			selected = new int[LAMBDA];
 			bestFitness = java.lang.Integer.MIN_VALUE;
 		}

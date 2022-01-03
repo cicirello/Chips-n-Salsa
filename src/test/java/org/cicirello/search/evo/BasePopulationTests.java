@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -31,7 +31,7 @@ import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 
 /**
- * JUnit 4 test cases for BasePopulation.
+ * JUnit test cases for BasePopulation.
  */
 public class BasePopulationTests {
 	
@@ -41,45 +41,45 @@ public class BasePopulationTests {
 	public void testExceptions() {
 		NullPointerException thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, null, new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Double<TestObject>(10, null, new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), null, new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), null, new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), null)
+			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), null, 0)
 		);
 		
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, null, new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Integer<TestObject>(10, null, new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), null, new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), null, new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), null)
+			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), null, 0)
 		);
 		
 		IllegalArgumentException thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new BasePopulation.Double<TestObject>(0, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Double<TestObject>(0, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
 		);
 		thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new BasePopulation.Integer<TestObject>(0, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Integer<TestObject>(0, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
 		);
 	}
 	
@@ -95,7 +95,8 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -194,7 +195,8 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		pop.init();
 		pop.select();
@@ -225,7 +227,8 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -324,7 +327,8 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		pop.init();
 		pop.select();
@@ -355,7 +359,8 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -454,7 +459,8 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		pop.init();
 		pop.select();

@@ -22,44 +22,51 @@ package org.cicirello.search.evo;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import org.cicirello.util.Copyable;
 
+/**
+ * Abstract package-private class for use by classes within the evo package for maintaining a set of
+ * elite population members for evolutionary algorithms with elitism. This class supports
+ * double-valued fitness.
+ */
 abstract class EliteSet<T extends Copyable<T>> {
 	
-	final HashSet<T> isElite;
-	
-	EliteSet() {
-		isElite = new HashSet<T>();
-	}
-	
-	void offer(PopulationMember.DoubleFitness<T> popMember) {
-		throw new UnsupportedOperationException("This EliteSet is not configured for double valued fitness.");
-	}
-	
-	void offer(PopulationMember.IntegerFitness<T> popMember) {
-		throw new UnsupportedOperationException("This EliteSet is not configured for int valued fitness.");
-	}
-	
-	static <U extends Copyable<U>> EliteSet<U> createEliteSet(ArrayList<PopulationMember.DoubleFitness<U>> initialPop, int numElite) {
-		return new DoubleFitness<U>(initialPop, numElite);
-	}
-	
-	private static final class DoubleFitness<U extends Copyable<U>> extends EliteSet<U> {
+	/**
+	 * Package-private class for use by classes within the evo package for maintaining a set of
+	 * elite population members for evolutionary algorithms with elitism. This class supports
+	 * double-valued fitness.
+	 */
+	static final class DoubleFitness<T extends Copyable<T>> extends EliteSet<T> implements Iterable<PopulationMember.DoubleFitness<T>> {
 		
-		private final PopulationMember.DoubleFitness<U>[] elite;
+		private final PopulationMember.DoubleFitness<T>[] elite;
 		private int size;
+		private final HashSet<T> isElite;
 		
+		/*
+		 * package-private for use by classes in evo package for maintaining a set of elite population members.
+		 */
 		@SuppressWarnings("unchecked")
-		private DoubleFitness(ArrayList<PopulationMember.DoubleFitness<U>> initialPop, int numElite) {
-			super();
-			elite = (PopulationMember.DoubleFitness<U>[]) new PopulationMember.DoubleFitness[numElite];
-			for (PopulationMember.DoubleFitness<U> popMember : initialPop) {
+		DoubleFitness(ArrayList<PopulationMember.DoubleFitness<T>> initialPop, int numElite) {
+			isElite = new HashSet<T>();
+			elite = (PopulationMember.DoubleFitness<T>[]) new PopulationMember.DoubleFitness[numElite];
+			offerAll(initialPop);
+		}
+		
+		/*
+		 * package-private for use by classes in evo package for adding to a set of elite population members.
+		 */
+		void offerAll(ArrayList<PopulationMember.DoubleFitness<T>> pop) {
+			for (PopulationMember.DoubleFitness<T> popMember : pop) {
 				offer(popMember);
 			}
 		}
 		
-		@Override
-		void offer(PopulationMember.DoubleFitness<U> popMember) {
+		/*
+		 * package-private for use by classes in evo package for adding to a set of elite population members.
+		 */
+		void offer(PopulationMember.DoubleFitness<T> popMember) {
 			if (size < elite.length) {
 				if (!isElite.contains(popMember.candidate)) {
 					elite[size] = popMember;
@@ -77,6 +84,14 @@ abstract class EliteSet<T extends Copyable<T>> {
 			}
 		}
 		
+		@Override
+		public Iterator<PopulationMember.DoubleFitness<T>> iterator() {
+			return new EliteIterator();
+		}
+		
+		/*
+		 * private helper for min-heap used for elite set
+		 */
 		private void percolateDown(int index) {
 			int child = (index << 1) + 1;
 			if (child < size) {
@@ -86,7 +101,7 @@ abstract class EliteSet<T extends Copyable<T>> {
 					minIndex = child;
 				}
 				if (index != minIndex) {
-					PopulationMember.DoubleFitness<U> temp = elite[index];
+					PopulationMember.DoubleFitness<T> temp = elite[index];
 					elite[index] = elite[minIndex];
 					elite[minIndex] = temp;
 					percolateDown(minIndex);
@@ -94,17 +109,168 @@ abstract class EliteSet<T extends Copyable<T>> {
 			}
 		}
 		
+		/*
+		 * private helper for min-heap used for elite set
+		 */
 		private void percolateUp(int index) {
 			while (index > 0) {
 				int parent = (index - 1) >> 1;
 				if (elite[index].getFitness() < elite[parent].getFitness()) {
-					PopulationMember.DoubleFitness<U> temp = elite[index];
+					PopulationMember.DoubleFitness<T> temp = elite[index];
 					elite[index] = elite[parent];
 					elite[parent] = temp;
 					index = parent;
 				} else {
 					break;
 				}
+			}
+		}
+		
+		/*
+		 * internal iterator class
+		 */
+		private final class EliteIterator implements Iterator<PopulationMember.DoubleFitness<T>> {
+			
+			private int nextIndex;
+			
+			private EliteIterator() {
+				nextIndex = 0;
+			}
+			
+			@Override 
+			public boolean hasNext() {
+				return nextIndex < size;
+			}
+			
+			@Override
+			public PopulationMember.DoubleFitness<T> next() {
+				if (hasNext()) {
+					PopulationMember.DoubleFitness<T> result = elite[nextIndex];
+					nextIndex++;
+					return result;
+				}
+				throw new NoSuchElementException("No more elements in this iterator.");
+			}
+		}
+	}
+	
+	/**
+	 * Package-private class for use by classes within the evo package for maintaining a set of
+	 * elite population members for evolutionary algorithms with elitism. This class supports
+	 * int-valued fitness.
+	 */
+	static final class IntegerFitness<T extends Copyable<T>> extends EliteSet<T> implements Iterable<PopulationMember.IntegerFitness<T>> {
+		
+		private final PopulationMember.IntegerFitness<T>[] elite;
+		private int size;
+		private final HashSet<T> isElite;
+		
+		/*
+		 * package-private for use by classes in evo package for maintaining a set of elite population members.
+		 */
+		@SuppressWarnings("unchecked")
+		IntegerFitness(ArrayList<PopulationMember.IntegerFitness<T>> initialPop, int numElite) {
+			isElite = new HashSet<T>();
+			elite = (PopulationMember.IntegerFitness<T>[]) new PopulationMember.IntegerFitness[numElite];
+			offerAll(initialPop);
+		}
+		
+		/*
+		 * package-private for use by classes in evo package for adding to a set of elite population members.
+		 */
+		void offerAll(ArrayList<PopulationMember.IntegerFitness<T>> pop) {
+			for (PopulationMember.IntegerFitness<T> popMember : pop) {
+				offer(popMember);
+			}
+		}
+		
+		/*
+		 * package-private for use by classes in evo package for adding to a set of elite population members.
+		 */
+		void offer(PopulationMember.IntegerFitness<T> popMember) {
+			if (size < elite.length) {
+				if (!isElite.contains(popMember.candidate)) {
+					elite[size] = popMember;
+					size++;
+					isElite.add(popMember.candidate);
+					percolateUp(size);
+				}
+			} else if (popMember.getFitness() > elite[0].getFitness()) {
+				if (!isElite.contains(popMember.candidate)) {
+					isElite.remove(elite[0].candidate);
+					isElite.add(popMember.candidate);
+					elite[0] = popMember;
+					percolateDown(0);
+				}
+			}
+		}
+		
+		@Override
+		public Iterator<PopulationMember.IntegerFitness<T>> iterator() {
+			return new EliteIterator();
+		}
+		
+		/*
+		 * private helper for min-heap used for elite set
+		 */
+		private void percolateDown(int index) {
+			int child = (index << 1) + 1;
+			if (child < size) {
+				int minIndex = elite[child].getFitness() < elite[index].getFitness() ? child : index;
+				child++;
+				if (child < size && elite[child].getFitness() < elite[minIndex].getFitness()) {
+					minIndex = child;
+				}
+				if (index != minIndex) {
+					PopulationMember.IntegerFitness<T> temp = elite[index];
+					elite[index] = elite[minIndex];
+					elite[minIndex] = temp;
+					percolateDown(minIndex);
+				}
+			}
+		}
+		
+		/*
+		 * private helper for min-heap used for elite set
+		 */
+		private void percolateUp(int index) {
+			while (index > 0) {
+				int parent = (index - 1) >> 1;
+				if (elite[index].getFitness() < elite[parent].getFitness()) {
+					PopulationMember.IntegerFitness<T> temp = elite[index];
+					elite[index] = elite[parent];
+					elite[parent] = temp;
+					index = parent;
+				} else {
+					break;
+				}
+			}
+		}
+		
+		/*
+		 * internal iterator class
+		 */
+		private final class EliteIterator implements Iterator<PopulationMember.IntegerFitness<T>> {
+			
+			private int nextIndex;
+			
+			private EliteIterator() {
+				nextIndex = 0;
+			}
+			
+			@Override 
+			public boolean hasNext() {
+				return nextIndex < size;
+			}
+			
+			@Override
+			public PopulationMember.IntegerFitness<T> next() {
+				if (hasNext()) {
+					PopulationMember.IntegerFitness<T> result = elite[nextIndex];
+					nextIndex++;
+					return result;
+				}
+				throw new NoSuchElementException("No more elements in this iterator.");
 			}
 		}
 	}

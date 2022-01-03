@@ -3,7 +3,7 @@
 [<img alt="Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms" 
      src="docs/images/chips-n-salsa.png" width="640">](#chips-n-salsa---a-java-library-of-customizable-hybridizable-iterative-parallel-stochastic-and-self-adaptive-local-search-algorithms)
 
-Copyright (C) 2002-2021 [Vincent A. Cicirello](https://www.cicirello.org/).
+Copyright (C) 2002-2022 [Vincent A. Cicirello](https://www.cicirello.org/).
 
 Website: https://chips-n-salsa.cicirello.org/
 

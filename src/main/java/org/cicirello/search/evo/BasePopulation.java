@@ -110,7 +110,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 	
 		private final ArrayList<PopulationMember.DoubleFitness<T>> pop;
 		private final ArrayList<PopulationMember.DoubleFitness<T>> nextPop;
-		private final EliteSet.DoubleFitness<PopulationMember.DoubleFitness<T>> elite;
+		private final EliteSet.DoubleFitness<T> elite;
 		
 		private final FitnessFunction.Double<T> f;		
 		private final int MU;
@@ -141,7 +141,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			this.initializer = initializer;
 			this.selection = selection;
 			
-			elite = numElite > 0 ? new EliteSet.DoubleFitness<PopulationMember.DoubleFitness<T>>(numElite) : null;
+			elite = numElite > 0 ? new EliteSet.DoubleFitness<T>(numElite) : null;
 			
 			this.f = f;
 			if (numElite > 0) {
@@ -174,7 +174,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			// initialize these fresh: not threadsafe or otherwise needs its own
 			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
-			elite = other.elite != null ? new EliteSet.DoubleFitness<PopulationMember.DoubleFitness<T>>(MU - LAMBDA) : null;
+			elite = other.elite != null ? new EliteSet.DoubleFitness<T>(MU - LAMBDA) : null;
 			selected = new int[LAMBDA];
 			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
 		}
@@ -236,6 +236,12 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			for (PopulationMember.DoubleFitness<T> e : nextPop) {
 				pop.add(e);
 			}
+			if (elite != null) {
+				for (PopulationMember.DoubleFitness<T> e : elite) {
+					pop.add(e);
+				}
+				// TO DO: NEED TO UPDATE ELITE SET FROM nextPop
+			}
 			nextPop.clear();
 		}
 		
@@ -261,6 +267,10 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 				}
 			}
 			setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
+			if (elite != null) {
+				elite.clear();
+				elite.offerAll(pop);
+			}
 		}
 	}
 	
@@ -280,7 +290,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 	
 		private final ArrayList<PopulationMember.IntegerFitness<T>> pop;
 		private final ArrayList<PopulationMember.IntegerFitness<T>> nextPop;
-		private final EliteSet.IntegerFitness<PopulationMember.IntegerFitness<T>> elite;
+		private final EliteSet.IntegerFitness<T> elite;
 		
 		private final FitnessFunction.Integer<T> f;		
 		private final int MU;
@@ -311,7 +321,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			this.initializer = initializer;
 			this.selection = selection;
 			
-			elite = numElite > 0 ? new EliteSet.IntegerFitness<PopulationMember.IntegerFitness<T>>(numElite) : null;
+			elite = numElite > 0 ? new EliteSet.IntegerFitness<T>(numElite) : null;
 			
 			this.f = f;
 			if (numElite > 0) {
@@ -344,7 +354,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			// initialize these fresh: not threadsafe or otherwise needs its own
 			pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
-			elite = other.elite != null ? new EliteSet.IntegerFitness<PopulationMember.IntegerFitness<T>>(MU - LAMBDA) : null;
+			elite = other.elite != null ? new EliteSet.IntegerFitness<T>(MU - LAMBDA) : null;
 			selected = new int[LAMBDA];
 			bestFitness = java.lang.Integer.MIN_VALUE;
 		}
@@ -406,6 +416,12 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			for (PopulationMember.IntegerFitness<T> e : nextPop) {
 				pop.add(e);
 			}
+			if (elite != null) {
+				for (PopulationMember.IntegerFitness<T> e : elite) {
+					pop.add(e);
+				}
+				// TO DO: NEED TO UPDATE ELITE SET FROM nextPop
+			}
 			nextPop.clear();
 		}
 		
@@ -431,6 +447,10 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 				}
 			}
 			setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
+			if (elite != null) {
+				elite.clear();
+				elite.offerAll(pop);
+			}
 		}
 	}
 	

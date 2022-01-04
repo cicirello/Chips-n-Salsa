@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * GenerationalMutationOnlyEvolutionaryAlgorithm
   * GenerationalNANDOperatorsEvolutionaryAlgorithm
   * GeneticAlgorithm
+  * MutationOnlyGeneticAlgorithm
 * Crossover operators for IntegerVector and BoundedIntegerVector classes, including:
   * Single-point crossover
   * Two-point crossover

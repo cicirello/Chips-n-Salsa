@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -25,6 +25,7 @@ import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The Population interface represents a population of candidate solutions
@@ -110,6 +111,8 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 	
 		private final ArrayList<PopulationMember.DoubleFitness<T>> pop;
 		private final ArrayList<PopulationMember.DoubleFitness<T>> nextPop;
+		private final EliteSet.DoubleFitness<T> elite;
+		private final boolean[] updated;
 		
 		private final FitnessFunction.Double<T> f;		
 		private final int MU;
@@ -128,21 +131,31 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		 * @param f The fitness function.
 		 * @param selection The selection operator.
 		 * @param tracker A ProgressTracker.
+		 * @param numElite the number of elite members of the population.
 		 */
-		public Double(int n, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+		public Double(int n, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker, int numElite) {
 			super(tracker);
 			if (n < 1) throw new IllegalArgumentException("population size n must be positive");
+			if (numElite >= n) throw new IllegalArgumentException("number of elite population members must be less than population size");
 			if (initializer == null || f == null || selection == null || tracker == null) {
 				throw new NullPointerException("passed a null object for a required parameter");
 			}
 			this.initializer = initializer;
 			this.selection = selection;
 			
+			elite = numElite > 0 ? new EliteSet.DoubleFitness<T>(numElite) : null;
+			
 			this.f = f;
-			MU = LAMBDA = n;
+			if (numElite > 0) {
+				MU = n;
+				LAMBDA = n - numElite;
+			} else {
+				MU = LAMBDA = n;
+			}
 			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
 			selected = new int[LAMBDA];
+			updated = new boolean[LAMBDA];
 			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
 		}
 		
@@ -164,7 +177,9 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			// initialize these fresh: not threadsafe or otherwise needs its own
 			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
+			elite = other.elite != null ? new EliteSet.DoubleFitness<T>(MU - LAMBDA) : null;
 			selected = new int[LAMBDA];
+			updated = new boolean[LAMBDA];
 			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
 		}
 		
@@ -185,7 +200,9 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		
 		@Override
 		public int size() {
-			return MU;
+			// Use pop.size() rather than MU -- there is a weird, unlikely, rare edge case
+			// associated with use of elitism, where pop.size() may be less than MU early in search.
+			return pop.size(); 
 		}
 		
 		@Override
@@ -205,6 +222,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		public void updateFitness(int i) {
 			double fit = f.fitness(nextPop.get(i).getCandidate());
 			nextPop.get(i).setFitness(fit);
+			updated[i] = true;
 			if (fit > bestFitness) {
 				bestFitness = fit;
 				setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).getCandidate().copy())); 
@@ -214,15 +232,27 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		@Override
 		public void select() {
 			selection.select(this, selected);
-			for (int i = 0; i < LAMBDA; i++) {
-				nextPop.add(pop.get(selected[i]).copy());
+			for (int j : selected) {
+				nextPop.add(pop.get(j).copy());
 			}
 		}
 		
 		@Override
 		public void replace() {
-			for (int i = 0; i < LAMBDA; i++) {
-				pop.set(i, nextPop.get(i));
+			pop.clear();
+			for (PopulationMember.DoubleFitness<T> e : nextPop) {
+				pop.add(e);
+			}
+			if (elite != null) {
+				for (PopulationMember.DoubleFitness<T> e : elite) {
+					pop.add(e);
+				}
+				for (int i = 0; i < LAMBDA; i++) {
+					if (updated[i]) {
+						elite.offer(nextPop.get(i));
+						updated[i] = false;
+					}
+				}
 			}
 			nextPop.clear();
 		}
@@ -249,6 +279,11 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 				}
 			}
 			setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
+			if (elite != null) {
+				elite.clear();
+				elite.offerAll(pop);
+				Arrays.fill(updated, false);
+			}
 		}
 	}
 	
@@ -268,6 +303,8 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 	
 		private final ArrayList<PopulationMember.IntegerFitness<T>> pop;
 		private final ArrayList<PopulationMember.IntegerFitness<T>> nextPop;
+		private final EliteSet.IntegerFitness<T> elite;
+		private final boolean[] updated;
 		
 		private final FitnessFunction.Integer<T> f;		
 		private final int MU;
@@ -286,21 +323,31 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		 * @param f The fitness function.
 		 * @param selection The selection operator.
 		 * @param tracker A ProgressTracker.
+		 * @param numElite The number of elite population members.
 		 */
-		public Integer(int n, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+		public Integer(int n, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker, int numElite) {
 			super(tracker);
 			if (n < 1) throw new IllegalArgumentException("population size n must be positive");
+			if (numElite >= n) throw new IllegalArgumentException("number of elite population members must be less than population size");
 			if (initializer == null || f == null || selection == null || tracker == null) {
 				throw new NullPointerException("passed a null object for a required parameter");
 			}
 			this.initializer = initializer;
 			this.selection = selection;
 			
+			elite = numElite > 0 ? new EliteSet.IntegerFitness<T>(numElite) : null;
+			
 			this.f = f;
-			MU = LAMBDA = n;
+			if (numElite > 0) {
+				MU = n;
+				LAMBDA = n - numElite;
+			} else {
+				MU = LAMBDA = n;
+			}
 			pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
 			selected = new int[LAMBDA];
+			updated = new boolean[LAMBDA];
 			bestFitness = java.lang.Integer.MIN_VALUE;
 		}
 		
@@ -322,7 +369,9 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			// initialize these fresh: not threadsafe or otherwise needs its own
 			pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
+			elite = other.elite != null ? new EliteSet.IntegerFitness<T>(MU - LAMBDA) : null;
 			selected = new int[LAMBDA];
+			updated = new boolean[LAMBDA];
 			bestFitness = java.lang.Integer.MIN_VALUE;
 		}
 		
@@ -343,7 +392,9 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		
 		@Override
 		public int size() {
-			return MU;
+			// Use pop.size() rather than MU -- there is a weird, unlikely, rare edge case
+			// associated with use of elitism, where pop.size() may be less than MU early in search.
+			return pop.size();
 		}
 		
 		@Override
@@ -363,6 +414,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		public void updateFitness(int i) {
 			int fit = f.fitness(nextPop.get(i).getCandidate());
 			nextPop.get(i).setFitness(fit);
+			updated[i] = true;
 			if (fit > bestFitness) {
 				bestFitness = fit;
 				setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).getCandidate().copy())); 
@@ -372,15 +424,27 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		@Override
 		public void select() {
 			selection.select(this, selected);
-			for (int i = 0; i < LAMBDA; i++) {
-				nextPop.add(pop.get(selected[i]).copy());
+			for (int j : selected) {
+				nextPop.add(pop.get(j).copy());
 			}
 		}
 		
 		@Override
 		public void replace() {
-			for (int i = 0; i < LAMBDA; i++) {
-				pop.set(i, nextPop.get(i));
+			pop.clear();
+			for (PopulationMember.IntegerFitness<T> e : nextPop) {
+				pop.add(e);
+			}
+			if (elite != null) {
+				for (PopulationMember.IntegerFitness<T> e : elite) {
+					pop.add(e);
+				}
+				for (int i = 0; i < LAMBDA; i++) {
+					if (updated[i]) {
+						elite.offer(nextPop.get(i));
+						updated[i] = false;
+					}
+				}
 			}
 			nextPop.clear();
 		}
@@ -407,6 +471,11 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 				}
 			}
 			setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
+			if (elite != null) {
+				elite.clear();
+				elite.offerAll(pop);
+				Arrays.fill(updated, false);
+			}
 		}
 	}
 	

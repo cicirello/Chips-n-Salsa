@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -43,7 +43,9 @@ import org.cicirello.math.rand.RandomVariates;
  * <p>The crossover, mutation, and selection operators are completely configurable
  * by passing instances of classes that implement the {@link CrossoverOperator},
  * {@link MutationOperator}, and {@link SelectionOperator} classes to one of the
- * constructors.</p>
+ * constructors. The EA implemented by this class can also be configured to use
+ * elitism, if desired, such that a specified number of the best solutions in the
+ * population survive the generation unaltered.</p>
  *
  * <p>The library also includes a class for mutation-only generational EAs
  * (see {@link GenerationalMutationOnlyEvolutionaryAlgorithm}). It also includes
@@ -80,6 +82,62 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	 * @param initializer An initializer for generating random initial population members.
 	 * @param f The fitness function.
 	 * @param selection The selection operator.
+	 * @param eliteCount The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.
+	 * @param tracker A ProgressTracker.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
+	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, int eliteCount, ProgressTracker<T> tracker) {
+		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker, eliteCount), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm. This constructor supports fitness functions
+	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param crossover The crossover operator.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 * @param eliteCount The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.
+	 * @param tracker A ProgressTracker.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
+	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, int eliteCount, ProgressTracker<T> tracker) {
+		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker, eliteCount), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm. This constructor supports fitness functions
+	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param crossover The crossover operator.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
 	 * @param tracker A ProgressTracker.
 	 *
 	 * @throws IllegalArgumentException if n is less than 1.
@@ -87,7 +145,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
 	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
-		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, 0, tracker);
 	}
 	
 	/**
@@ -113,7 +171,61 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
 	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
-		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, 0, tracker);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm. This constructor supports fitness functions
+	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param crossover The crossover operator.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 * @param eliteCount The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
+	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, int eliteCount) {
+		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, eliteCount, new ProgressTracker<T>());
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm. This constructor supports fitness functions
+	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param crossover The crossover operator.
+	 * @param crossoverRate The probability that a pair of parents undergo crossover.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 * @param eliteCount The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
+	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
+	 */
+	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, int eliteCount) {
+		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, eliteCount, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -138,7 +250,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
 	 */
 	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
-		this(new BasePopulation.Double<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -163,7 +275,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>> extends Ab
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
 	 */
 	public GenerationalEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection) {
-		this(new BasePopulation.Integer<T>(n, initializer, f, selection, new ProgressTracker<T>()), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
+		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, new ProgressTracker<T>());
 	}
 	
 	// Internal Constructors

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -31,7 +31,7 @@ import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 
 /**
- * JUnit 4 test cases for BasePopulation.
+ * JUnit test cases for BasePopulation.
  */
 public class BasePopulationTests {
 	
@@ -41,48 +41,156 @@ public class BasePopulationTests {
 	public void testExceptions() {
 		NullPointerException thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, null, new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Double<TestObject>(10, null, new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), null, new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), null, new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), null)
+			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), null, 0)
 		);
 		
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, null, new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Integer<TestObject>(10, null, new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), null, new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), null, new ProgressTracker<TestObject>(), 0)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), null)
+			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), null, 0)
 		);
 		
 		IllegalArgumentException thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new BasePopulation.Double<TestObject>(0, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Double<TestObject>(0, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
 		);
 		thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new BasePopulation.Integer<TestObject>(0, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>())
+			() -> new BasePopulation.Integer<TestObject>(0, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+		);
+		thrown2 = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 10)
+		);
+		thrown2 = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 10)
 		);
 	}
 	
+	@Test
+	public void testBasePopulationElitismDouble() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessDouble f = new TestFitnessDouble();
+		BasePopulation.Double<TestObject> pop = new BasePopulation.Double<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker, 
+			3
+		);
+		assertTrue(tracker == pop.getProgressTracker());
+		tracker = new ProgressTracker<TestObject>();
+		pop.setProgressTracker(tracker);
+		assertTrue(tracker == pop.getProgressTracker());
+		
+		pop.init();
+		assertEquals(10, pop.size());
+		assertEquals(7, pop.mutableSize());
+		assertEquals(6.4, pop.getFitnessOfMostFit(), EPSILON);
+		assertEquals(1.0/7.0, pop.getMostFit().getCostDouble(), EPSILON);
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		int[] expected = { 2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
+		for (int i = 0; i < 10; i++) {
+			// fitnesses of original before selection.
+			assertEquals(expected[9-i]+0.4, pop.getFitness(i), EPSILON);
+		}
+		assertFalse(selection.called);
+		pop.select();
+		assertTrue(selection.called);
+		for (int i = 0; i < 10; i++) {
+			// fitnesses of original before selection.
+			assertEquals(expected[9-i]+0.4, pop.getFitness(i), EPSILON);
+			if (i < 7) {
+				// subject to mutation to opposite order since we selected, which reversed.
+				assertEquals(expected[i+3], pop.get(i).id);
+			} 
+		}
+		assertEquals(6.4, pop.getFitnessOfMostFit(), EPSILON);
+		assertEquals(1.0/7.0, pop.getMostFit().getCostDouble(), EPSILON);
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		pop.replace();
+		int[] expectedNow = { 5, 6, 5, 4, 3, 2, 1, 4, 6, 5 };
+		for (int i = 0; i < 10; i++) {
+			assertEquals("index i="+i, expectedNow[i]+0.4, pop.getFitness(i), EPSILON);
+		}
+		pop.select();
+		for (int i = 0; i < 7; i++) {
+			assertEquals(expectedNow[6-i], pop.get(i).id);
+		}
+		assertEquals(6.4, pop.getFitnessOfMostFit(), EPSILON);
+		assertEquals(1.0/7.0, pop.getMostFit().getCostDouble(), EPSILON);
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		
+		f.changeFitness(1);
+		pop.updateFitness(1);
+		f.changeFitness(10);
+		pop.updateFitness(2);
+		pop.replace();
+		assertEquals(2+0.4+1, pop.getFitness(1), EPSILON);
+		assertEquals(3+0.4+10, pop.getFitness(2), EPSILON);
+		assertEquals(13.4, pop.getFitnessOfMostFit(), EPSILON);
+		assertEquals(3, pop.getMostFit().getSolution().id);
+		assertEquals(1.0/4.0, pop.getMostFit().getCostDouble(), EPSILON);
+		
+		int[] andNow = {1, 2, 3, 4, 5, 6, 5, 4, 6, 5};
+		double[] andNowFitness = {1.4, 3.4, 13.4, 4.4, 5.4, 6.4, 5.4, 4.4, 6.4, 5.4};
+		for (int i = 0; i < 10; i++) {
+			assertEquals("index i="+i, andNowFitness[i], pop.getFitness(i), EPSILON);
+		}
+		
+		f.changeFitness(12);
+		BasePopulation.Double<TestObject> pop2 = pop.split();
+		
+		// original should be same after split
+		for (int i = 0; i < 10; i++) {
+			assertEquals("index i="+i, andNowFitness[i], pop.getFitness(i), EPSILON);
+		}
+		
+		// trackers should be same
+		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
+		
+		pop2.init();
+		assertEquals(10, pop2.size());
+		assertEquals(7, pop2.mutableSize());
+		for (int i = 0; i < 10; i++) {
+			assertEquals(1-i+12+0.4, pop2.getFitness(i), EPSILON);
+		}
+		
+		// Original should be unchanged after split copy does stuff
+		for (int i = 0; i < 10; i++) {
+			assertEquals("index i="+i, andNowFitness[i], pop.getFitness(i), EPSILON);
+		}
+	}
 	
 	@Test
 	public void testBasePopulationDouble() {
@@ -95,16 +203,17 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
 		pop.setProgressTracker(tracker);
 		assertTrue(tracker == pop.getProgressTracker());
 		
+		pop.init();
 		assertEquals(10, pop.size());
 		assertEquals(10, pop.mutableSize());
-		pop.init();
 		assertEquals(6.4, pop.getFitnessOfMostFit(), EPSILON);
 		assertEquals(1.0/7.0, pop.getMostFit().getCostDouble(), EPSILON);
 		assertEquals(6, pop.getMostFit().getSolution().id);
@@ -163,9 +272,9 @@ public class BasePopulationTests {
 		// trackers should be same
 		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
 		
+		pop2.init();
 		assertEquals(10, pop2.size());
 		assertEquals(10, pop2.mutableSize());
-		pop2.init();
 		for (int i = 0; i < 10; i++) {
 			assertEquals(1-i+12+0.4, pop2.getFitness(i), EPSILON);
 		}
@@ -194,7 +303,8 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		pop.init();
 		pop.select();
@@ -225,16 +335,17 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
 		pop.setProgressTracker(tracker);
 		assertTrue(tracker == pop.getProgressTracker());
 		
+		pop.init();
 		assertEquals(10, pop.size());
 		assertEquals(10, pop.mutableSize());
-		pop.init();
 		assertEquals(16.0, pop.getFitnessOfMostFit(), EPSILON);
 		assertEquals(94, pop.getMostFit().getCost());
 		assertEquals(6, pop.getMostFit().getSolution().id);
@@ -293,9 +404,9 @@ public class BasePopulationTests {
 		// trackers should be same
 		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
 		
+		pop2.init();
 		assertEquals(10, pop2.size());
 		assertEquals(10, pop2.mutableSize());
-		pop2.init();
 		for (int i = 0; i < 10; i++) {
 			assertEquals(1-i+12+10.0, pop2.getFitness(i), EPSILON);
 		}
@@ -324,7 +435,8 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		pop.init();
 		pop.select();
@@ -345,6 +457,102 @@ public class BasePopulationTests {
 	}
 	
 	@Test
+	public void testBasePopulationElitismInteger() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessInteger f = new TestFitnessInteger();
+		BasePopulation.Integer<TestObject> pop = new BasePopulation.Integer<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker, 
+			3
+		);
+		assertTrue(tracker == pop.getProgressTracker());
+		tracker = new ProgressTracker<TestObject>();
+		pop.setProgressTracker(tracker);
+		assertTrue(tracker == pop.getProgressTracker());
+		
+		pop.init();
+		assertEquals(10, pop.size());
+		assertEquals(7, pop.mutableSize());
+		assertEquals(16, pop.getFitnessOfMostFit());
+		assertEquals(94, pop.getMostFit().getCost());
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		int[] expected = { 2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
+		for (int i = 0; i < 10; i++) {
+			// fitnesses of original before selection.
+			assertEquals(expected[9-i]+10, pop.getFitness(i));
+		}
+		assertFalse(selection.called);
+		pop.select();
+		assertTrue(selection.called);
+		for (int i = 0; i < 10; i++) {
+			// fitnesses of original before selection.
+			assertEquals(expected[9-i]+10, pop.getFitness(i));
+			if (i < 7) {
+				// subject to mutation to opposite order since we selected, which reversed.
+				assertEquals(expected[i+3], pop.get(i).id);
+			} 
+		}
+		assertEquals(16, pop.getFitnessOfMostFit());
+		assertEquals(94, pop.getMostFit().getCost());
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		
+		f.changeFitness(10);
+		pop.updateFitness(4);
+		
+		pop.replace();
+		int[] expectedNow = { 5, 6, 5, 4, 3, 2, 1, 4, 6, 5 };
+		for (int i = 0; i < 10; i++) {
+			if (i!=4) assertEquals("index i="+i, expectedNow[i]+10, pop.getFitness(i));
+			else assertEquals("index i="+i, expectedNow[i]+20, pop.getFitness(i));
+		}
+		pop.select();
+		for (int i = 0; i < 7; i++) {
+			assertEquals(expectedNow[6-i], pop.get(i).id);
+		}
+		assertEquals(23, pop.getFitnessOfMostFit());
+		assertEquals(97, pop.getMostFit().getCost());
+		assertEquals(3, pop.getMostFit().getSolution().id);
+		
+		f.changeFitness(12);
+		BasePopulation.Integer<TestObject> pop2 = pop.split();
+		
+		// original should be same after split
+		for (int i = 0; i < 10; i++) {
+			if (i!=4) assertEquals("index i="+i, expectedNow[i]+10, pop.getFitness(i));
+			else assertEquals("index i="+i, expectedNow[i]+20, pop.getFitness(i));
+		}
+		for (int i = 0; i < 7; i++) {
+			assertEquals(expectedNow[6-i], pop.get(i).id);
+		}
+		
+		// trackers should be same
+		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
+		
+		pop2.init();
+		assertEquals(10, pop2.size());
+		assertEquals(7, pop2.mutableSize());
+		for (int i = 0; i < 10; i++) {
+			assertEquals(1-i+12+10, pop2.getFitness(i));
+		}
+		
+		// Original should be unchanged after split copy does stuff
+		for (int i = 0; i < 10; i++) {
+			if (i!=4) assertEquals("index i="+i, expectedNow[i]+10, pop.getFitness(i));
+			else assertEquals("index i="+i, expectedNow[i]+20, pop.getFitness(i));
+		}
+		for (int i = 0; i < 7; i++) {
+			assertEquals(expectedNow[6-i], pop.get(i).id);
+		}
+	}
+	
+	@Test
 	public void testBasePopulationInteger() {
 		TestObject.reinit();
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
@@ -355,16 +563,17 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
 		pop.setProgressTracker(tracker);
 		assertTrue(tracker == pop.getProgressTracker());
 		
+		pop.init();
 		assertEquals(10, pop.size());
 		assertEquals(10, pop.mutableSize());
-		pop.init();
 		assertEquals(16, pop.getFitnessOfMostFit());
 		assertEquals(94, pop.getMostFit().getCost());
 		assertEquals(6, pop.getMostFit().getSolution().id);
@@ -423,9 +632,9 @@ public class BasePopulationTests {
 		// trackers should be same
 		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
 		
+		pop2.init();
 		assertEquals(10, pop2.size());
 		assertEquals(10, pop2.mutableSize());
-		pop2.init();
 		for (int i = 0; i < 10; i++) {
 			assertEquals(1-i+12+10, pop2.getFitness(i));
 		}
@@ -454,7 +663,8 @@ public class BasePopulationTests {
 			new TestInitializer(),
 			f,
 			selection,
-			tracker
+			tracker, 
+			0
 		);
 		pop.init();
 		pop.select();
@@ -624,6 +834,12 @@ public class BasePopulationTests {
 			return new TestObject(id);
 		}
 		
+		@Override
+		public int hashCode() {
+			return id;
+		}
+		
+		@Override
 		public boolean equals(Object other) {
 			return id == ((TestObject)other).id;
 		}

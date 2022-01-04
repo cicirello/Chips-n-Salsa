@@ -18,10 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   each child is result of either mutation, or crossover, or identical copy of a parent, but never
   result of both mutation and crossover) into this new class from the existing 
   GenerationalEvolutionaryAlgorithm class.
-* Enhanced all of the following EA classes with the option to use elitism:
+* Enhanced all of the following Evolutionary Algorithm and Genetic Algorithm classes with the option to use elitism:
   * GenerationalEvolutionaryAlgorithm
   * GenerationalMutationOnlyEvolutionaryAlgorithm
   * GenerationalNANDOperatorsEvolutionaryAlgorithm
+  * GeneticAlgorithm
 * Crossover operators for IntegerVector and BoundedIntegerVector classes, including:
   * Single-point crossover
   * Two-point crossover

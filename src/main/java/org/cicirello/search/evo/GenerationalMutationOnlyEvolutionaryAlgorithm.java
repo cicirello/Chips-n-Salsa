@@ -38,7 +38,9 @@ import org.cicirello.math.rand.RandomVariates;
  * <p>The mutation and selection operators are completely configurable
  * by passing instances of classes that implement the
  * {@link MutationOperator}, and {@link SelectionOperator} classes to one of the
- * constructors.</p>
+ * constructors. The EA implemented by this class can also be configured to use
+ * elitism, if desired, such that a specified number of the best solutions in the
+ * population survive the generation unaltered.</p>
  *
  * <p>See the {@link GenerationalEvolutionaryAlgorithm} class for a generational EA
  * with both crossover and mutation, with the common genetic algorithm style generation,
@@ -74,6 +76,58 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
 	 * @param initializer An initializer for generating random initial population members.
 	 * @param f The fitness function.
 	 * @param selection The selection operator.
+	 * @param eliteCount The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.
+	 * @param tracker A ProgressTracker.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if mutationRate is less than 0.
+	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
+	 * @throws NullPointerException if any of mutation, initializer, f, selection, or tracker are null.
+	 */
+	public GenerationalMutationOnlyEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, int eliteCount, ProgressTracker<T> tracker) {
+		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker, eliteCount), f.getProblem(), mutation, mutationRate);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
+	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 * @param eliteCount The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.
+	 * @param tracker A ProgressTracker.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if mutationRate is less than 0.
+	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
+	 * @throws NullPointerException if any of mutation, initializer, f, selection, or tracker are null.
+	 */
+	public GenerationalMutationOnlyEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, int eliteCount, ProgressTracker<T> tracker) {
+		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker, eliteCount), f.getProblem(), mutation, mutationRate);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
+	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
 	 * @param tracker A ProgressTracker.
 	 *
 	 * @throws IllegalArgumentException if n is less than 1.
@@ -81,7 +135,7 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
 	 * @throws NullPointerException if any of mutation, initializer, f, selection, or tracker are null.
 	 */
 	public GenerationalMutationOnlyEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
-		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker, 0), f.getProblem(), mutation, mutationRate);
+		this(n, mutation, mutationRate, initializer, f, selection, 0, tracker);
 	}
 	
 	/**
@@ -105,7 +159,57 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
 	 * @throws NullPointerException if any of mutation, initializer, f, selection, or tracker are null.
 	 */
 	public GenerationalMutationOnlyEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
-		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker, 0), f.getProblem(), mutation, mutationRate);
+		this(n, mutation, mutationRate, initializer, f, selection, 0, tracker);
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
+	 * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 * @param eliteCount The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if mutationRate is less than 0.
+	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
+	 * @throws NullPointerException if any of mutation, initializer, f, or selection are null.
+	 */
+	public GenerationalMutationOnlyEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, int eliteCount) {
+		this(n, mutation, mutationRate, initializer, f, selection, eliteCount, new ProgressTracker<T>());
+	}
+	
+	/**
+	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
+	 * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+	 *
+	 * @param n The population size.
+	 * @param mutation The mutation operator.
+	 * @param mutationRate The probability that a member of the population is mutated once during a generation. Note that
+	 *     this is not a per-bit rate since this class is generalized to evolution of any {@link Copyable} object type.
+	 *     For {@link org.cicirello.search.representations.BitVector} optimization and traditional genetic algorithm 
+	 *     interpretation of mutation rate, configure
+	 *     your mutation operator with the per-bit mutation rate, and then pass 1.0 for this parameter.
+	 * @param initializer An initializer for generating random initial population members.
+	 * @param f The fitness function.
+	 * @param selection The selection operator.
+	 * @param eliteCount The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if mutationRate is less than 0.
+	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
+	 * @throws NullPointerException if any of mutation, initializer, f, or selection are null.
+	 */
+	public GenerationalMutationOnlyEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, int eliteCount) {
+		this(n, mutation, mutationRate, initializer, f, selection, eliteCount, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -128,7 +232,7 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
 	 * @throws NullPointerException if any of mutation, initializer, f, or selection are null.
 	 */
 	public GenerationalMutationOnlyEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
-		this(new BasePopulation.Double<T>(n, initializer, f, selection, new ProgressTracker<T>(), 0), f.getProblem(), mutation, mutationRate);
+		this(n, mutation, mutationRate, initializer, f, selection, new ProgressTracker<T>());
 	}
 	
 	/**
@@ -151,7 +255,7 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
 	 * @throws NullPointerException if any of mutation, initializer, f, or selection are null.
 	 */
 	public GenerationalMutationOnlyEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection) {
-		this(new BasePopulation.Integer<T>(n, initializer, f, selection, new ProgressTracker<T>(), 0), f.getProblem(), mutation, mutationRate);
+		this(n, mutation, mutationRate, initializer, f, selection, new ProgressTracker<T>());
 	}
 	
 	

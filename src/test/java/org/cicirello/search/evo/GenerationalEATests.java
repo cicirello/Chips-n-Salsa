@@ -341,7 +341,7 @@ public class GenerationalEATests {
 			
 			@Override
 			public void run() {
-				ea.optimize(1000);
+				ea.optimize(10000);
 			}
 		}
 		
@@ -368,7 +368,7 @@ public class GenerationalEATests {
 			while (selection.calledCount < 1);
 			tracker.stop();
 			t.join();
-			assertTrue(selection.calledCount < 1000);
+			assertTrue(selection.calledCount < 10000);
 		} catch (InterruptedException ex) {
 			fail("This test case shouldn't throw exceptions");
 		}

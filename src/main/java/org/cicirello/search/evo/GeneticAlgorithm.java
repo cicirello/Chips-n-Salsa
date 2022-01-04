@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -34,7 +34,9 @@ import org.cicirello.search.operators.bits.BitFlipMutation;
  * It uses the usual bit flip mutation, where each bit of each member of the
  * population is mutated (flipped) with some probability, known as the mutation
  * rate, each generation. All other genetic operators, such as crossover and
- * selection are configurable.</p>
+ * selection are configurable. This GeneticAlgorithm class can also be configured
+ * with or without the use of elitism. With elitism, a specified number of the
+ * most fit members of the population survive into the next generation unaltered.</p>
  *
  * <p>The library also includes other classes for evolutionary algorithms that
  * may be more relevant depending upon your use-case. For example, see the

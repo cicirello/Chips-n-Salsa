@@ -4,12 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-12-31
+## [Unreleased] - 2021-01-04
 
 ### BREAKING CHANGES
 * Next release will be 4.0.0 due to breaking changes.
 
 ### Added
+* Added GenerationalMutationOnlyEvolutionaryAlgorithm, moving the mutation-only EA
+  functionality into this new class from the existing GenerationalEvolutionaryAlgorithm
+  class.
+* Added GenerationalNANDOperatorsEvolutionaryAlgorithm, moving the EA
+  functionality related to mutually-exclusive genetic operators (i.e., generation variation where
+  each child is result of either mutation, or crossover, or identical copy of a parent, but never
+  result of both mutation and crossover) into this new class from the existing 
+  GenerationalEvolutionaryAlgorithm class.
+* Enhanced all of the following EA classes with the option to use elitism:
+  * GenerationalEvolutionaryAlgorithm
+  * GenerationalMutationOnlyEvolutionaryAlgorithm
+  * GenerationalNANDOperatorsEvolutionaryAlgorithm
 * Crossover operators for IntegerVector and BoundedIntegerVector classes, including:
   * Single-point crossover
   * Two-point crossover
@@ -28,14 +40,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * RealVector.exchange method which exchanges a subsequence between two RealVectors.
   * BoundedRealVector.sameBounds method which checks if two bounded real vectors are
     subject to the same min and max values.
-* Added GenerationalMutationOnlyEvolutionaryAlgorithm, moving the mutation-only EA
-  functionality into this new class from the existing GenerationalEvolutionaryAlgorithm
-  class.
-* Added GenerationalNANDOperatorsEvolutionaryAlgorithm, moving the EA
-  functionality related to mutually-exclusive genetic operators (i.e., generation variation where
-  each child is result of either mutation, or crossover, or identical copy of a parent, but never
-  result of both mutation and crossover) into this new class from the existing 
-  GenerationalEvolutionaryAlgorithm class.
 
 ### Changed
 * Refactored evolutionary algorithm classes to improve maintainability, and ease

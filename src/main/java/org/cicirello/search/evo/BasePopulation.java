@@ -196,7 +196,9 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		
 		@Override
 		public int size() {
-			return MU;
+			// Use pop.size() rather than MU -- there is a weird, unlikely, rare edge case
+			// associated with use of elitism, where pop.size() may be less than MU early in search.
+			return pop.size(); 
 		}
 		
 		@Override
@@ -376,7 +378,9 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		
 		@Override
 		public int size() {
-			return MU;
+			// Use pop.size() rather than MU -- there is a weird, unlikely, rare edge case
+			// associated with use of elitism, where pop.size() may be less than MU early in search.
+			return pop.size();
 		}
 		
 		@Override

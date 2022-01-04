@@ -103,9 +103,9 @@ public class BasePopulationTests {
 		pop.setProgressTracker(tracker);
 		assertTrue(tracker == pop.getProgressTracker());
 		
+		pop.init();
 		assertEquals(10, pop.size());
 		assertEquals(10, pop.mutableSize());
-		pop.init();
 		assertEquals(6.4, pop.getFitnessOfMostFit(), EPSILON);
 		assertEquals(1.0/7.0, pop.getMostFit().getCostDouble(), EPSILON);
 		assertEquals(6, pop.getMostFit().getSolution().id);
@@ -164,9 +164,9 @@ public class BasePopulationTests {
 		// trackers should be same
 		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
 		
+		pop2.init();
 		assertEquals(10, pop2.size());
 		assertEquals(10, pop2.mutableSize());
-		pop2.init();
 		for (int i = 0; i < 10; i++) {
 			assertEquals(1-i+12+0.4, pop2.getFitness(i), EPSILON);
 		}
@@ -235,9 +235,9 @@ public class BasePopulationTests {
 		pop.setProgressTracker(tracker);
 		assertTrue(tracker == pop.getProgressTracker());
 		
+		pop.init();
 		assertEquals(10, pop.size());
 		assertEquals(10, pop.mutableSize());
-		pop.init();
 		assertEquals(16.0, pop.getFitnessOfMostFit(), EPSILON);
 		assertEquals(94, pop.getMostFit().getCost());
 		assertEquals(6, pop.getMostFit().getSolution().id);
@@ -296,9 +296,9 @@ public class BasePopulationTests {
 		// trackers should be same
 		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
 		
+		pop2.init();
 		assertEquals(10, pop2.size());
 		assertEquals(10, pop2.mutableSize());
-		pop2.init();
 		for (int i = 0; i < 10; i++) {
 			assertEquals(1-i+12+10.0, pop2.getFitness(i), EPSILON);
 		}
@@ -367,9 +367,9 @@ public class BasePopulationTests {
 		pop.setProgressTracker(tracker);
 		assertTrue(tracker == pop.getProgressTracker());
 		
+		pop.init();
 		assertEquals(10, pop.size());
 		assertEquals(10, pop.mutableSize());
-		pop.init();
 		assertEquals(16, pop.getFitnessOfMostFit());
 		assertEquals(94, pop.getMostFit().getCost());
 		assertEquals(6, pop.getMostFit().getSolution().id);
@@ -428,9 +428,9 @@ public class BasePopulationTests {
 		// trackers should be same
 		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
 		
+		pop2.init();
 		assertEquals(10, pop2.size());
 		assertEquals(10, pop2.mutableSize());
-		pop2.init();
 		for (int i = 0; i < 10; i++) {
 			assertEquals(1-i+12+10, pop2.getFitness(i));
 		}

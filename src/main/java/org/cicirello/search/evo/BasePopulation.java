@@ -25,6 +25,7 @@ import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The Population interface represents a population of candidate solutions
@@ -111,6 +112,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		private final ArrayList<PopulationMember.DoubleFitness<T>> pop;
 		private final ArrayList<PopulationMember.DoubleFitness<T>> nextPop;
 		private final EliteSet.DoubleFitness<T> elite;
+		private final boolean[] updated;
 		
 		private final FitnessFunction.Double<T> f;		
 		private final int MU;
@@ -153,6 +155,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
 			selected = new int[LAMBDA];
+			updated = new boolean[LAMBDA];
 			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
 		}
 		
@@ -176,6 +179,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
 			elite = other.elite != null ? new EliteSet.DoubleFitness<T>(MU - LAMBDA) : null;
 			selected = new int[LAMBDA];
+			updated = new boolean[LAMBDA];
 			bestFitness = java.lang.Double.NEGATIVE_INFINITY;
 		}
 		
@@ -218,6 +222,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		public void updateFitness(int i) {
 			double fit = f.fitness(nextPop.get(i).getCandidate());
 			nextPop.get(i).setFitness(fit);
+			updated[i] = true;
 			if (fit > bestFitness) {
 				bestFitness = fit;
 				setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).getCandidate().copy())); 
@@ -242,7 +247,12 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 				for (PopulationMember.DoubleFitness<T> e : elite) {
 					pop.add(e);
 				}
-				// TO DO: NEED TO UPDATE ELITE SET FROM nextPop
+				for (int i = 0; i < LAMBDA; i++) {
+					if (updated[i]) {
+						elite.offer(nextPop.get(i));
+						updated[i] = false;
+					}
+				}
 			}
 			nextPop.clear();
 		}
@@ -272,6 +282,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			if (elite != null) {
 				elite.clear();
 				elite.offerAll(pop);
+				Arrays.fill(updated, false);
 			}
 		}
 	}
@@ -293,6 +304,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		private final ArrayList<PopulationMember.IntegerFitness<T>> pop;
 		private final ArrayList<PopulationMember.IntegerFitness<T>> nextPop;
 		private final EliteSet.IntegerFitness<T> elite;
+		private final boolean[] updated;
 		
 		private final FitnessFunction.Integer<T> f;		
 		private final int MU;
@@ -335,6 +347,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
 			nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
 			selected = new int[LAMBDA];
+			updated = new boolean[LAMBDA];
 			bestFitness = java.lang.Integer.MIN_VALUE;
 		}
 		
@@ -358,6 +371,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
 			elite = other.elite != null ? new EliteSet.IntegerFitness<T>(MU - LAMBDA) : null;
 			selected = new int[LAMBDA];
+			updated = new boolean[LAMBDA];
 			bestFitness = java.lang.Integer.MIN_VALUE;
 		}
 		
@@ -400,6 +414,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 		public void updateFitness(int i) {
 			int fit = f.fitness(nextPop.get(i).getCandidate());
 			nextPop.get(i).setFitness(fit);
+			updated[i] = true;
 			if (fit > bestFitness) {
 				bestFitness = fit;
 				setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).getCandidate().copy())); 
@@ -424,7 +439,12 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 				for (PopulationMember.IntegerFitness<T> e : elite) {
 					pop.add(e);
 				}
-				// TO DO: NEED TO UPDATE ELITE SET FROM nextPop
+				for (int i = 0; i < LAMBDA; i++) {
+					if (updated[i]) {
+						elite.offer(nextPop.get(i));
+						updated[i] = false;
+					}
+				}
 			}
 			nextPop.clear();
 		}
@@ -454,6 +474,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 			if (elite != null) {
 				elite.clear();
 				elite.offerAll(pop);
+				Arrays.fill(updated, false);
 			}
 		}
 	}

@@ -6,8 +6,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2021-01-05
 
-### BREAKING CHANGES
-* Next release will be 4.0.0 due to breaking changes.
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+### Other
+
+
+## [4.0.0] - 2021-01-05
+
+### CONTAINS BREAKING CHANGES
+This release contains breaking changes. See the Removed list below for details. The most significant
+breaking changes relate to functionality initially introduced in v3.1.0, released on 12/21/2021, and 
+thus likely affects very few users. Other breaking changes relate to removal of previously deprecated
+methods.
 
 ### Added
 * Added GenerationalMutationOnlyEvolutionaryAlgorithm, moving the mutation-only EA
@@ -50,19 +70,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   integration of planned future functionality.
 * Refactored ProgressTracker.update(SolutionCostPair) to simplify logic.
 
-### Deprecated
-
 ### Removed
 * Removed all mutation-only EA functionality from the GenerationalEvolutionaryAlgorithm,
   moving that functionality into the new GenerationalMutationOnlyEvolutionaryAlgorithm. This
   was done for maintainability. It is a breaking-change, although it should affect minimal
-  users as the GenerationalEvolutionaryAlgorithm was just introduced. For those using it
+  users as the GenerationalEvolutionaryAlgorithm was just introduced in v3.1.0. For those using it
   simply use the new GenerationalMutationOnlyEvolutionaryAlgorithm class where you will
   find all the same constructors and methods necessary for mutation-only EAs.
 * Removed all mutually-exclusive genetic operator functionality from the GenerationalEvolutionaryAlgorithm,
   moving that functionality into the new GenerationalNANDOperatorsEvolutionaryAlgorithm. This
   was done for maintainability. It is a breaking-change, although it should affect minimal
-  users as the GenerationalEvolutionaryAlgorithm was just introduced. For those using it
+  users as the GenerationalEvolutionaryAlgorithm was just introduced in v3.1.0. For those using it
   simply use the new GenerationalNANDOperatorsEvolutionaryAlgorithm class where you will
   find that functionality.
 * All methods/constructors that were previously deprecated in earlier releases have 
@@ -75,12 +93,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * The following deprecated constructors of the SolutionCostPair class have been removed:
     * `SolutionCostPair(T, int)` in favor of using `SolutionCostPair(T, int, boolean)`
     * `SolutionCostPair(T, double)` in favor of using `SolutionCostPair(T, double, boolean)`
-
-### Fixed
-
-### CI/CD
-
-### Other
 
 
 ## [3.1.0] - 2021-12-21

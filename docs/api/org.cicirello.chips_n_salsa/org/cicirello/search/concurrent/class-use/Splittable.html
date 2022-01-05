@@ -461,6 +461,27 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GenerationalMutationOnlyEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalMutationOnlyEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</span></code></th>
+<td class="colLast">
+<div class="block">This class implements an evolutionary algorithm (EA) with a generational
+ model, such as is commonly used in genetic algorithms, where a
+ population of children are formed by applying mutation to
+ members of the parent population, and where the children replace the 
+ parents in the next generation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GenerationalNANDOperatorsEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalNANDOperatorsEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</span></code></th>
+<td class="colLast">
+<div class="block">This class implements an evolutionary algorithm (EA) with a generational
+ model, where a population of children are formed by applying genetic operators to
+ members of the parent population, and where the children replace the 
+ parents in the next generation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></span></code></th>
 <td class="colLast">
 <div class="block">This class is an implementation of a genetic algorithm (GA) with the common
@@ -815,13 +836,34 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/integers/KPointCrossover.html" title="class in org.cicirello.search.operators.integers">KPointCrossover</a>&lt;T extends <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;</span></code></th>
+<td class="colLast">
+<div class="block">Implementation of K-point crossover, but for IntegerVectors.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/integers/RandomValueChangeMutation.html" title="class in org.cicirello.search.operators.integers">RandomValueChangeMutation</a>&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</span></code></th>
 <td class="colLast">
 <div class="block">This mutation operator is for integer valued representations, and replaces an
  integer value with a different random integer value from the domain.</div>
 </td>
 </tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/integers/SinglePointCrossover.html" title="class in org.cicirello.search.operators.integers">SinglePointCrossover</a>&lt;T extends <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;</span></code></th>
+<td class="colLast">
+<div class="block">Implementation of single point crossover, but for IntegerVectors.</div>
+</td>
+</tr>
 <tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/integers/TwoPointCrossover.html" title="class in org.cicirello.search.operators.integers">TwoPointCrossover</a>&lt;T extends <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;</span></code></th>
+<td class="colLast">
+<div class="block">Implementation of two-point crossover, but for IntegerVectors.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/integers/UndoableRandomValueChangeMutation.html" title="class in org.cicirello.search.operators.integers">UndoableRandomValueChangeMutation</a>&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</span></code></th>
 <td class="colLast">
@@ -830,12 +872,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  integer value with a different random integer value from the domain.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/integers/UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</span></code></th>
 <td class="colLast">
 <div class="block">This class implements a uniform
  mutation on integer valued parameters, with support for the <a href="../../operators/integers/UndoableUniformMutation.html#undo(T)"><code>UndoableUniformMutation.undo(T)</code></a> method.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/integers/UniformCrossover.html" title="class in org.cicirello.search.operators.integers">UniformCrossover</a>&lt;T extends <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;</span></code></th>
+<td class="colLast">
+<div class="block">Implementation of uniform crossover, but for IntegerVectors.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -1072,13 +1121,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/reals/KPointCrossover.html" title="class in org.cicirello.search.operators.reals">KPointCrossover</a>&lt;T extends <a href="../../representations/RealVector.html" title="class in org.cicirello.search.representations">RealVector</a>&gt;</span></code></th>
+<td class="colLast">
+<div class="block">Implementation of K-point crossover, but for RealVectors.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/reals/RealValueInitializer.html" title="class in org.cicirello.search.operators.reals">RealValueInitializer</a></span></code></th>
 <td class="colLast">
 <div class="block">Generating random <a href="../../representations/SingleReal.html" title="class in org.cicirello.search.representations"><code>SingleReal</code></a> objects for use in generating random initial solutions
  for simulated annealing and other metaheuristics, and for copying such objects.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/reals/RealVectorInitializer.html" title="class in org.cicirello.search.operators.reals">RealVectorInitializer</a></span></code></th>
 <td class="colLast">
@@ -1086,7 +1142,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  for simulated annealing and other metaheuristics, and for copying such objects.</div>
 </td>
 </tr>
+<tr class="rowColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/reals/SinglePointCrossover.html" title="class in org.cicirello.search.operators.reals">SinglePointCrossover</a>&lt;T extends <a href="../../representations/RealVector.html" title="class in org.cicirello.search.representations">RealVector</a>&gt;</span></code></th>
+<td class="colLast">
+<div class="block">Implementation of single point crossover, but for RealVectors.</div>
+</td>
+</tr>
 <tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/reals/TwoPointCrossover.html" title="class in org.cicirello.search.operators.reals">TwoPointCrossover</a>&lt;T extends <a href="../../representations/RealVector.html" title="class in org.cicirello.search.representations">RealVector</a>&gt;</span></code></th>
+<td class="colLast">
+<div class="block">Implementation of two-point crossover, but for RealVectors.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/reals/UndoableCauchyMutation.html" title="class in org.cicirello.search.operators.reals">UndoableCauchyMutation</a>&lt;T extends <a href="../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;</span></code></th>
 <td class="colLast">
@@ -1094,7 +1164,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  mutation with support for the <a href="../../operators/reals/UndoableCauchyMutation.html#undo(T)"><code>UndoableCauchyMutation.undo(T)</code></a> method.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/reals/UndoableGaussianMutation.html" title="class in org.cicirello.search.operators.reals">UndoableGaussianMutation</a>&lt;T extends <a href="../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;</span></code></th>
 <td class="colLast">
@@ -1102,12 +1172,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  mutation with support for the <a href="../../operators/reals/UndoableGaussianMutation.html#undo(T)"><code>UndoableGaussianMutation.undo(T)</code></a> method.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/reals/UndoableUniformMutation.html" title="class in org.cicirello.search.operators.reals">UndoableUniformMutation</a>&lt;T extends <a href="../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;</span></code></th>
 <td class="colLast">
 <div class="block">This class implements a uniform
  mutation with support for the <a href="../../operators/reals/UndoableUniformMutation.html#undo(T)"><code>UndoableUniformMutation.undo(T)</code></a> method.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../operators/reals/UniformCrossover.html" title="class in org.cicirello.search.operators.reals">UniformCrossover</a>&lt;T extends <a href="../../representations/RealVector.html" title="class in org.cicirello.search.representations">RealVector</a>&gt;</span></code></th>
+<td class="colLast">
+<div class="block">Implementation of uniform crossover, but for RealVectors.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -1482,7 +1559,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 </nav>
-<p class="legalCopy"><small>Copyright &copy; 2002-2021 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
+<p class="legalCopy"><small>Copyright &copy; 2002-2022 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
 </footer>
 </body>
 </html>

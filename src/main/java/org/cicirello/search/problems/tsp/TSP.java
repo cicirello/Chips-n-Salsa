@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -82,6 +82,32 @@ public abstract class TSP implements Problem<Permutation> {
 		d = distance;
 	}
 	
+	/* package-private constructor */
+	TSP(double[] x, double[] y) {
+		this(
+			x, 
+			y, 
+			(x1, y1, x2, y2) -> {
+				double deltaX = x1 - x2;
+				double deltaY = y1 - y2;
+				return Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+			}
+		);
+	}
+	
+	/* package-private constructor */
+	TSP(double[] x, double[] y, TSPEdgeDistance distance) {
+		if (x.length != y.length) {
+			throw new IllegalArgumentException("Arrays must be same length.");
+		}
+		if (x.length < 2) {
+			throw new IllegalArgumentException("Must be at least 2 cities.");
+		}
+		this.x = x.clone();
+		this.y = y.clone();
+		d = distance;
+	}
+	
 	/**
 	 * Gets the number of cities in the TSP instance.
 	 * @return number of cities
@@ -94,7 +120,7 @@ public abstract class TSP implements Problem<Permutation> {
 	 * Gets the x coordinate of a city.
 	 * @param i The city index.
 	 * @return the x coordinate of city i.
-	 * @throws NullPointerException if i &lt; 0 or i &ge; length().
+	 * @throws ArrayIndexOutOfBoundsException if i &lt; 0 or i &ge; length().
 	 */
 	public final double getX(int i) {
 		return x[i];
@@ -104,7 +130,7 @@ public abstract class TSP implements Problem<Permutation> {
 	 * Gets the y coordinate of a city.
 	 * @param i The city index.
 	 * @return the y coordinate of city i.
-	 * @throws NullPointerException if i &lt; 0 or i &ge; length().
+	 * @throws ArrayIndexOutOfBoundsException if i &lt; 0 or i &ge; length().
 	 */
 	public final double getY(int i) {
 		return y[i];
@@ -181,6 +207,34 @@ public abstract class TSP implements Problem<Permutation> {
 		 */
 		public Double(int n, double w, TSPEdgeDistance distance, long seed) {
 			super(n, w, distance, new SplittableRandom(seed));
+		}
+		
+		/**
+		 * Constructs a TSP instance with city locations specified by arrays of
+		 * x and y coordinates. The edge cost of a pair of cities is the Euclidean distance
+		 * between them.
+		 *
+		 * @param x Array of x coordinates.
+		 * @param y Array of y coordinates.
+		 * @throws IllegalArgumentException if x.length is not equal to y.length.
+		 * @throws IllegalArgumentException if the length of the arrays is less than 2.
+		 */
+		public Double(double[] x, double[] y) {
+			super(x, y);
+		}
+		
+		/**
+		 * Constructs a TSP instance with city locations specified by arrays of
+		 * x and y coordinates. 
+		 *
+		 * @param x Array of x coordinates.
+		 * @param y Array of y coordinates.
+		 * @param distance The distance function to use for the edge costs. 
+		 * @throws IllegalArgumentException if x.length is not equal to y.length.
+		 * @throws IllegalArgumentException if the length of the arrays is less than 2.
+		 */
+		public Double(double[] x, double[] y, TSPEdgeDistance distance) {
+			super(x, y, distance);
 		}
 		
 		@Override
@@ -279,6 +333,34 @@ public abstract class TSP implements Problem<Permutation> {
 		 */
 		public Integer(int n, double w, TSPEdgeDistance distance, long seed) {
 			super(n, w, distance, new SplittableRandom(seed));
+		}
+		
+		/**
+		 * Constructs a TSP instance with city locations specified by arrays of
+		 * x and y coordinates. The edge cost of a pair of cities is the Euclidean distance
+		 * between them rounded to the nearest integer.
+		 *
+		 * @param x Array of x coordinates.
+		 * @param y Array of y coordinates.
+		 * @throws IllegalArgumentException if x.length is not equal to y.length.
+		 * @throws IllegalArgumentException if the length of the arrays is less than 2.
+		 */
+		public Integer(double[] x, double[] y) {
+			super(x, y);
+		}
+		
+		/**
+		 * Constructs a TSP instance with city locations specified by arrays of
+		 * x and y coordinates. 
+		 *
+		 * @param x Array of x coordinates.
+		 * @param y Array of y coordinates.
+		 * @param distance The distance function to use for the edge costs. 
+		 * @throws IllegalArgumentException if x.length is not equal to y.length.
+		 * @throws IllegalArgumentException if the length of the arrays is less than 2.
+		 */
+		public Integer(double[] x, double[] y, TSPEdgeDistance distance) {
+			super(x, y, distance);
 		}
 		
 		@Override
@@ -384,6 +466,36 @@ public abstract class TSP implements Problem<Permutation> {
 		 */
 		public DoubleMatrix(int n, double w, TSPEdgeDistance distance, long seed) {
 			super(n, w, distance, new SplittableRandom(seed));
+			weights = computeWeights();
+		}
+		
+		/**
+		 * Constructs a TSP instance with city locations specified by arrays of
+		 * x and y coordinates. The edge cost of a pair of cities is the Euclidean distance
+		 * between them.
+		 *
+		 * @param x Array of x coordinates.
+		 * @param y Array of y coordinates.
+		 * @throws IllegalArgumentException if x.length is not equal to y.length.
+		 * @throws IllegalArgumentException if the length of the arrays is less than 2.
+		 */
+		public DoubleMatrix(double[] x, double[] y) {
+			super(x, y);
+			weights = computeWeights();
+		}
+		
+		/**
+		 * Constructs a TSP instance with city locations specified by arrays of
+		 * x and y coordinates. 
+		 *
+		 * @param x Array of x coordinates.
+		 * @param y Array of y coordinates.
+		 * @param distance The distance function to use for the edge costs. 
+		 * @throws IllegalArgumentException if x.length is not equal to y.length.
+		 * @throws IllegalArgumentException if the length of the arrays is less than 2.
+		 */
+		public DoubleMatrix(double[] x, double[] y, TSPEdgeDistance distance) {
+			super(x, y, distance);
 			weights = computeWeights();
 		}
 		
@@ -494,6 +606,36 @@ public abstract class TSP implements Problem<Permutation> {
 		 */
 		public IntegerMatrix(int n, double w, TSPEdgeDistance distance, long seed) {
 			super(n, w, distance, new SplittableRandom(seed));
+			weights = computeWeights();
+		}
+		
+		/**
+		 * Constructs a TSP instance with city locations specified by arrays of
+		 * x and y coordinates. The edge cost of a pair of cities is the Euclidean distance
+		 * between them rounded to the nearest integer.
+		 *
+		 * @param x Array of x coordinates.
+		 * @param y Array of y coordinates.
+		 * @throws IllegalArgumentException if x.length is not equal to y.length.
+		 * @throws IllegalArgumentException if the length of the arrays is less than 2.
+		 */
+		public IntegerMatrix(double[] x, double[] y) {
+			super(x, y);
+			weights = computeWeights();
+		}
+		
+		/**
+		 * Constructs a TSP instance with city locations specified by arrays of
+		 * x and y coordinates. 
+		 *
+		 * @param x Array of x coordinates.
+		 * @param y Array of y coordinates.
+		 * @param distance The distance function to use for the edge costs. 
+		 * @throws IllegalArgumentException if x.length is not equal to y.length.
+		 * @throws IllegalArgumentException if the length of the arrays is less than 2.
+		 */
+		public IntegerMatrix(double[] x, double[] y, TSPEdgeDistance distance) {
+			super(x, y, distance);
 			weights = computeWeights();
 		}
 		

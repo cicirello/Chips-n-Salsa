@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -203,6 +203,86 @@ public class TSPTests {
 	// test cases for TSP.Double nested class
 	
 	@Test
+	public void testDoubleCostFromArrays() {
+		double[] x = { 2.0, 2.0, 8.0 };
+		double[] y = { 5.0, 9.0, 9.0 };
+		double[][] expected = {
+			{ 0.0, 4.0, Math.sqrt(52.0) },
+			{ 4.0, 0.0, 6.0 },
+			{ Math.sqrt(52.0), 6.0, 0.0 }
+		};
+		TSP.Double tsp = new TSP.Double(x, y);
+		assertEquals(x.length, tsp.x.length);
+		assertEquals(y.length, tsp.y.length);
+		assertTrue(x != tsp.x);
+		assertTrue(y != tsp.y);
+		for (int i = 0; i < x.length; i++) {
+			assertEquals(x[i], tsp.x[i], 0.0);
+			assertEquals(y[i], tsp.y[i], 0.0);
+			for (int j = 0; j < y.length; j++) {
+				assertEquals(expected[i][j], tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected[i][j], tsp.edgeCostForHeuristics(i,j), 1E-10);
+			}
+		}
+		int[] permArray = { 1, 2, 0 };
+		double expectedCost = 10 + Math.sqrt(52.0);
+		Permutation perm = new Permutation(permArray);
+		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
+		assertEquals(expectedCost, tsp.value(perm), 1E-10);
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.Double(new double[2], new double[3])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.Double(new double[1], new double[1])
+		);
+	}
+	
+	@Test
+	public void testDoubleCostFromArraysWithDistance() {
+		double[] x = { 2.0, 2.0, 8.0 };
+		double[] y = { 5.0, 9.0, 9.0 };
+		double[][] expected = {
+			{ 0.0, 4.0, 10.0 },
+			{ 4.0, 0.0, 6.0 },
+			{ 10.0, 6.0, 0.0 }
+		};
+		TSP.Double tsp = new TSP.Double(
+			x, 
+			y,
+			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
+		);
+		assertEquals(x.length, tsp.x.length);
+		assertEquals(y.length, tsp.y.length);
+		assertTrue(x != tsp.x);
+		assertTrue(y != tsp.y);
+		for (int i = 0; i < x.length; i++) {
+			assertEquals(x[i], tsp.x[i], 0.0);
+			assertEquals(y[i], tsp.y[i], 0.0);
+			for (int j = 0; j < y.length; j++) {
+				assertEquals(expected[i][j], tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected[i][j], tsp.edgeCostForHeuristics(i,j), 1E-10);
+			}
+		}
+		int[] permArray = { 1, 2, 0 };
+		double expectedCost = 20.0;
+		Permutation perm = new Permutation(permArray);
+		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
+		assertEquals(expectedCost, tsp.value(perm), 1E-10);
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.Double(new double[2], new double[3])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.Double(new double[1], new double[1])
+		);
+	}
+	
+	@Test
 	public void testDoubleCost() {
 		int W = 5;
 		int N = 10;
@@ -359,6 +439,86 @@ public class TSPTests {
 	}
 	
 	// test cases for TSP.Integer nested class
+	
+	@Test
+	public void testIntCostFromArrays() {
+		double[] x = { 2.0, 2.0, 8.0 };
+		double[] y = { 5.0, 9.0, 9.0 };
+		int[][] expected = {
+			{ 0, 4, 7 },
+			{ 4, 0, 6 },
+			{ 7, 6, 0 }
+		};
+		TSP.Integer tsp = new TSP.Integer(x, y);
+		assertEquals(x.length, tsp.x.length);
+		assertEquals(y.length, tsp.y.length);
+		assertTrue(x != tsp.x);
+		assertTrue(y != tsp.y);
+		for (int i = 0; i < x.length; i++) {
+			assertEquals(x[i], tsp.x[i], 0.0);
+			assertEquals(y[i], tsp.y[i], 0.0);
+			for (int j = 0; j < y.length; j++) {
+				assertEquals(expected[i][j], tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected[i][j], tsp.edgeCostForHeuristics(i,j), 1E-10);
+			}
+		}
+		int[] permArray = { 1, 2, 0 };
+		int expectedCost = 17;
+		Permutation perm = new Permutation(permArray);
+		assertEquals(expectedCost, tsp.cost(perm));
+		assertEquals(expectedCost, tsp.value(perm));
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.Integer(new double[2], new double[3])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.Integer(new double[1], new double[1])
+		);
+	}
+	
+	@Test
+	public void testIntCostFromArraysWithDistance() {
+		double[] x = { 2.0, 2.0, 8.0 };
+		double[] y = { 5.0, 9.0, 9.0 };
+		int[][] expected = {
+			{ 0, 4, 10 },
+			{ 4, 0, 6 },
+			{ 10, 6, 0 }
+		};
+		TSP.Integer tsp = new TSP.Integer(
+			x, 
+			y,
+			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
+		);
+		assertEquals(x.length, tsp.x.length);
+		assertEquals(y.length, tsp.y.length);
+		assertTrue(x != tsp.x);
+		assertTrue(y != tsp.y);
+		for (int i = 0; i < x.length; i++) {
+			assertEquals(x[i], tsp.x[i], 0.0);
+			assertEquals(y[i], tsp.y[i], 0.0);
+			for (int j = 0; j < y.length; j++) {
+				assertEquals(expected[i][j], tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected[i][j], tsp.edgeCostForHeuristics(i,j), 1E-10);
+			}
+		}
+		int[] permArray = { 1, 2, 0 };
+		int expectedCost = 20;
+		Permutation perm = new Permutation(permArray);
+		assertEquals(expectedCost, tsp.cost(perm));
+		assertEquals(expectedCost, tsp.value(perm));
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.Integer(new double[2], new double[3])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.Integer(new double[1], new double[1])
+		);
+	}
 	
 	@Test
 	public void testIntCost() {
@@ -519,6 +679,86 @@ public class TSPTests {
 	// test cases for TSP.DoubleMatrix nested class
 	
 	@Test
+	public void testDoubleCostMatrixFromArrays() {
+		double[] x = { 2.0, 2.0, 8.0 };
+		double[] y = { 5.0, 9.0, 9.0 };
+		double[][] expected = {
+			{ 0.0, 4.0, Math.sqrt(52.0) },
+			{ 4.0, 0.0, 6.0 },
+			{ Math.sqrt(52.0), 6.0, 0.0 }
+		};
+		TSP.DoubleMatrix tsp = new TSP.DoubleMatrix(x, y);
+		assertEquals(x.length, tsp.x.length);
+		assertEquals(y.length, tsp.y.length);
+		assertTrue(x != tsp.x);
+		assertTrue(y != tsp.y);
+		for (int i = 0; i < x.length; i++) {
+			assertEquals(x[i], tsp.x[i], 0.0);
+			assertEquals(y[i], tsp.y[i], 0.0);
+			for (int j = 0; j < y.length; j++) {
+				assertEquals(expected[i][j], tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected[i][j], tsp.edgeCostForHeuristics(i,j), 1E-10);
+			}
+		}
+		int[] permArray = { 1, 2, 0 };
+		double expectedCost = 10 + Math.sqrt(52.0);
+		Permutation perm = new Permutation(permArray);
+		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
+		assertEquals(expectedCost, tsp.value(perm), 1E-10);
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.DoubleMatrix(new double[2], new double[3])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.DoubleMatrix(new double[1], new double[1])
+		);
+	}
+	
+	@Test
+	public void testDoubleCostMatrixFromArraysWithDistance() {
+		double[] x = { 2.0, 2.0, 8.0 };
+		double[] y = { 5.0, 9.0, 9.0 };
+		double[][] expected = {
+			{ 0.0, 4.0, 10.0 },
+			{ 4.0, 0.0, 6.0 },
+			{ 10.0, 6.0, 0.0 }
+		};
+		TSP.DoubleMatrix tsp = new TSP.DoubleMatrix(
+			x, 
+			y,
+			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
+		);
+		assertEquals(x.length, tsp.x.length);
+		assertEquals(y.length, tsp.y.length);
+		assertTrue(x != tsp.x);
+		assertTrue(y != tsp.y);
+		for (int i = 0; i < x.length; i++) {
+			assertEquals(x[i], tsp.x[i], 0.0);
+			assertEquals(y[i], tsp.y[i], 0.0);
+			for (int j = 0; j < y.length; j++) {
+				assertEquals(expected[i][j], tsp.d.distance(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]), 1E-10);
+				assertEquals(expected[i][j], tsp.edgeCostForHeuristics(i,j), 1E-10);
+			}
+		}
+		int[] permArray = { 1, 2, 0 };
+		double expectedCost = 20.0;
+		Permutation perm = new Permutation(permArray);
+		assertEquals(expectedCost, tsp.cost(perm), 1E-10);
+		assertEquals(expectedCost, tsp.value(perm), 1E-10);
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.DoubleMatrix(new double[2], new double[3])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.DoubleMatrix(new double[1], new double[1])
+		);
+	}
+	
+	@Test
 	public void testDoubleCostMatrix() {
 		int W = 5;
 		int N = 10;
@@ -675,6 +915,86 @@ public class TSPTests {
 	}
 	
 	// test cases for TSP.IntegerMatrix nested class
+	
+	@Test
+	public void testIntCostMatrixFromArrays() {
+		double[] x = { 2.0, 2.0, 8.0 };
+		double[] y = { 5.0, 9.0, 9.0 };
+		int[][] expected = {
+			{ 0, 4, 7 },
+			{ 4, 0, 6 },
+			{ 7, 6, 0 }
+		};
+		TSP.IntegerMatrix tsp = new TSP.IntegerMatrix(x, y);
+		assertEquals(x.length, tsp.x.length);
+		assertEquals(y.length, tsp.y.length);
+		assertTrue(x != tsp.x);
+		assertTrue(y != tsp.y);
+		for (int i = 0; i < x.length; i++) {
+			assertEquals(x[i], tsp.x[i], 0.0);
+			assertEquals(y[i], tsp.y[i], 0.0);
+			for (int j = 0; j < y.length; j++) {
+				assertEquals(expected[i][j], tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected[i][j], tsp.edgeCostForHeuristics(i,j), 1E-10);
+			}
+		}
+		int[] permArray = { 1, 2, 0 };
+		int expectedCost = 17;
+		Permutation perm = new Permutation(permArray);
+		assertEquals(expectedCost, tsp.cost(perm));
+		assertEquals(expectedCost, tsp.value(perm));
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.IntegerMatrix(new double[2], new double[3])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.IntegerMatrix(new double[1], new double[1])
+		);
+	}
+	
+	@Test
+	public void testIntCostMatrixFromArraysWithDistance() {
+		double[] x = { 2.0, 2.0, 8.0 };
+		double[] y = { 5.0, 9.0, 9.0 };
+		int[][] expected = {
+			{ 0, 4, 10 },
+			{ 4, 0, 6 },
+			{ 10, 6, 0 }
+		};
+		TSP.IntegerMatrix tsp = new TSP.IntegerMatrix(
+			x, 
+			y,
+			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
+		);
+		assertEquals(x.length, tsp.x.length);
+		assertEquals(y.length, tsp.y.length);
+		assertTrue(x != tsp.x);
+		assertTrue(y != tsp.y);
+		for (int i = 0; i < x.length; i++) {
+			assertEquals(x[i], tsp.x[i], 0.0);
+			assertEquals(y[i], tsp.y[i], 0.0);
+			for (int j = 0; j < y.length; j++) {
+				assertEquals(expected[i][j], tsp.d.distanceAsInt(tsp.x[i], tsp.y[i], tsp.x[j], tsp.y[j]));
+				assertEquals(expected[i][j], tsp.edgeCostForHeuristics(i,j), 1E-10);
+			}
+		}
+		int[] permArray = { 1, 2, 0 };
+		int expectedCost = 20;
+		Permutation perm = new Permutation(permArray);
+		assertEquals(expectedCost, tsp.cost(perm));
+		assertEquals(expectedCost, tsp.value(perm));
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.IntegerMatrix(new double[2], new double[3])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new TSP.IntegerMatrix(new double[1], new double[1])
+		);
+	}
 	
 	@Test
 	public void testIntCostMatrix() {

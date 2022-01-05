@@ -41,11 +41,6 @@
  * alt="GNU General Public License Version 3 (GPLv3)" height="20" width="102"></a>
  * </p>
  *
- * <p><b>Support Chips-n-Salsa:</b>
- * <a href="https://github.com/sponsors/cicirello"><img src="https://chips-n-salsa.cicirello.org/images/github-sponsors.svg" alt="GitHub Sponsors" width="107" height="28"></a>
- * <a href="https://liberapay.com/cicirello"><img src="https://chips-n-salsa.cicirello.org/images/Liberapay.svg" alt="Liberapay" width="119" height="28"></a>
- * <a href="https://ko-fi.com/cicirello"><img src="https://chips-n-salsa.cicirello.org/images/ko-fi.svg" alt="Ko-Fi" width="82" height="28"></a></p>
- *
  * <h3>About the Chips-n-Salsa Library</h3>
  *
  * <p>Chips-n-Salsa is a Java library of Customizable, Hybridizable, 
@@ -101,6 +96,12 @@
  * <i>Journal of Open Source Software</i>, 5(52), 2448, August 2020.
  * <a href="https://www.cicirello.org/publications/cicirello2020joss.pdf">[PDF]</a> <a href="https://www.cicirello.org/publications/cicirello2020joss.bib">[BIB]</a> <a href="https://doi.org/10.21105/joss.02448">[DOI]</a></li>
  * </ul>
+ *
+ * <h3>Support Chips-n-Salsa</h3>
+ *
+ * <p><a href="https://github.com/sponsors/cicirello"><img src="https://chips-n-salsa.cicirello.org/images/github-sponsors.svg" alt="GitHub Sponsors" width="107" height="28"></a>
+ * <a href="https://liberapay.com/cicirello"><img src="https://chips-n-salsa.cicirello.org/images/Liberapay.svg" alt="Liberapay" width="119" height="28"></a>
+ * <a href="https://ko-fi.com/cicirello"><img src="https://chips-n-salsa.cicirello.org/images/ko-fi.svg" alt="Ko-Fi" width="82" height="28"></a></p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

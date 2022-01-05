@@ -35,7 +35,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -260,6 +260,52 @@ extends <a href="GeneticAlgorithm.html" title="class in org.cicirello.search.evo
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;T&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getProblem()">getProblem</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gets a reference to the problem that this search is solving.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getProgressTracker()">getProgressTracker</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
+ tracking search progress.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>long</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalRunLength()">getTotalRunLength</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gets the total run length in number of fitness evaluations.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#optimize(int)">optimize</a></span>&#8203;(int&nbsp;numGenerations)</code></th>
+<td class="colLast">
+<div class="block">Runs the evolutionary algorithm beginning from a randomly generated population.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reoptimize(int)">reoptimize</a></span>&#8203;(int&nbsp;numGenerations)</code></th>
+<td class="colLast">
+<div class="block">Runs the evolutionary algorithm continuing from the final population from the most recent call
+ to either <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> or <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>, or from a random population if this is the first
+ call to either method.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker</a></span>&#8203;(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
+ tracking search progress.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#split()">split</a></span>()</code></th>
 <td class="colLast">
@@ -268,13 +314,6 @@ extends <a href="GeneticAlgorithm.html" title="class in org.cicirello.search.evo
 </td>
 </tr>
 </table>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.org.cicirello.search.evo.GenerationalEvolutionaryAlgorithm">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;org.cicirello.search.evo.<a href="GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></h3>
-<code><a href="GenerationalEvolutionaryAlgorithm.html#getProblem()">getProblem</a>, <a href="GenerationalEvolutionaryAlgorithm.html#getProgressTracker()">getProgressTracker</a>, <a href="GenerationalEvolutionaryAlgorithm.html#getTotalRunLength()">getTotalRunLength</a>, <a href="GenerationalEvolutionaryAlgorithm.html#optimize(int)">optimize</a>, <a href="GenerationalEvolutionaryAlgorithm.html#reoptimize(int)">reoptimize</a>, <a href="GenerationalEvolutionaryAlgorithm.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker</a></code></li>
-</ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
@@ -447,7 +486,7 @@ extends <a href="GeneticAlgorithm.html" title="class in org.cicirello.search.evo
 <a id="split()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>split</h4>
 <pre class="methodSignature">public&nbsp;<a href="SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a>&nbsp;split()</pre>
@@ -479,6 +518,132 @@ extends <a href="GeneticAlgorithm.html" title="class in org.cicirello.search.evo
 <dd>A functionally identical copy of the object, or a reference to this if
  it is both safe and efficient for multiple threads to share a single instance of this
  Splittable object.</dd>
+</dl>
+</li>
+</ul>
+<a id="optimize(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>optimize</h4>
+<pre class="methodSignature">public final&nbsp;<a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;&nbsp;optimize&#8203;(int&nbsp;numGenerations)</pre>
+<div class="block">Runs the evolutionary algorithm beginning from a randomly generated population. If this 
+ method is called multiple times, each call begins at a new randomly generated population.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../Metaheuristic.html#optimize(int)">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>numGenerations</code> - The number of generations to run.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The best solution found during this set of generations, which may or may not be the
+ same as the solution contained in the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best across all
+ calls to optimize as well as <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>. Returns null if the run did not execute, such 
+ as if the ProgressTracker already contains the theoretical best solution.</dd>
+</dl>
+</li>
+</ul>
+<a id="reoptimize(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>reoptimize</h4>
+<pre class="methodSignature">public final&nbsp;<a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T&gt;&nbsp;reoptimize&#8203;(int&nbsp;numGenerations)</pre>
+<div class="block">Runs the evolutionary algorithm continuing from the final population from the most recent call
+ to either <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> or <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>, or from a random population if this is the first
+ call to either method.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../ReoptimizableMetaheuristic.html#reoptimize(int)">reoptimize</a></code>&nbsp;in interface&nbsp;<code><a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>numGenerations</code> - The number of generations to run.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The best solution found during this set of generations, which may or may not be the
+ same as the solution contained in the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best across all
+ calls to optimize as well as <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a>. Returns null if the run did not execute, such 
+ as if the ProgressTracker already contains the theoretical best solution.</dd>
+</dl>
+</li>
+</ul>
+<a id="getProgressTracker()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getProgressTracker</h4>
+<pre class="methodSignature">public final&nbsp;<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;getProgressTracker()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#getProgressTracker()">TrackableSearch</a></code></span></div>
+<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
+ tracking search progress.  The object returned by this method
+ contains the best solution found during the search (including across
+ multiple concurrent runs if the search is multithreaded, or across
+ multiple restarts if the run methods were called 
+ multiple times), as well as cost of that solution, among other information.
+ See the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> documentation for more information about
+ the search data tracked by this object.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../TrackableSearch.html#getProgressTracker()">getProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> in use by this metaheuristic.</dd>
+</dl>
+</li>
+</ul>
+<a id="setProgressTracker(org.cicirello.search.ProgressTracker)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setProgressTracker</h4>
+<pre class="methodSignature">public final&nbsp;void&nbsp;setProgressTracker&#8203;(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#setProgressTracker(org.cicirello.search.ProgressTracker)">TrackableSearch</a></code></span></div>
+<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
+ tracking search progress.  Any previously set ProgressTracker is
+ replaced by this one.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../TrackableSearch.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>tracker</code> - The new ProgressTracker to set.  The tracker must not be null.
+ This method does nothing if tracker is null.</dd>
+</dl>
+</li>
+</ul>
+<a id="getProblem()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getProblem</h4>
+<pre class="methodSignature">public final&nbsp;<a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;T&gt;&nbsp;getProblem()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#getProblem()">TrackableSearch</a></code></span></div>
+<div class="block">Gets a reference to the problem that this search is solving.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../TrackableSearch.html#getProblem()">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to the problem.</dd>
+</dl>
+</li>
+</ul>
+<a id="getTotalRunLength()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getTotalRunLength</h4>
+<pre class="methodSignature">public&nbsp;long&nbsp;getTotalRunLength()</pre>
+<div class="block">Gets the total run length in number of fitness evaluations. This is the total run length across all 
+ calls to <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> and <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>. This may differ from what may be expected 
+ based on run lengths. For example, the search terminates if it finds the theoretical best 
+ solution, and also immediately returns if a prior call found the theoretical best. In such 
+ cases, the total run length may be less than the requested run length.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../TrackableSearch.html#getTotalRunLength()">getTotalRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html?is-external=true" title="class or interface in org.cicirello.util" class="externalLink">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The total number of generations completed across all calls to <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> and <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>.</dd>
 </dl>
 </li>
 </ul>
@@ -551,7 +716,7 @@ extends <a href="GeneticAlgorithm.html" title="class in org.cicirello.search.evo
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 </nav>
-<p class="legalCopy"><small>Copyright &copy; 2002-2021 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
+<p class="legalCopy"><small>Copyright &copy; 2002-2022 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
 </footer>
 </body>
 </html>

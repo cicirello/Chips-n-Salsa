@@ -186,13 +186,72 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
                 int&nbsp;bitLength,
                 <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
                 double&nbsp;mutationRate,
                 <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
                 double&nbsp;crossoverRate,
                 <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                int&nbsp;bitLength,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                int&nbsp;bitLength,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                int&nbsp;bitLength,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                int&nbsp;bitLength,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
                 <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
 <td class="colLast">
 <div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
@@ -222,6 +281,33 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
                 double&nbsp;crossoverRate,
                 <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
                 <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                int&nbsp;bitLength,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                int&nbsp;bitLength,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></th>
 <td class="colLast">
 <div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
  using the standard bit flip mutation.</div>
@@ -241,13 +327,73 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
                 int&nbsp;bitLength,
                 <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
                 double&nbsp;mutationRate,
                 <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
                 double&nbsp;crossoverRate,
-                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></th>
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                int&nbsp;bitLength,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                int&nbsp;bitLength,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                int&nbsp;bitLength,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                int&nbsp;bitLength,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
 <td class="colLast">
 <div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
  using the standard bit flip mutation.</div>
@@ -335,13 +481,101 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
                 <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
                 <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
                 double&nbsp;mutationRate,
                 <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
                 double&nbsp;crossoverRate,
                 <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
                 <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
 <td class="colLast">
 <div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
@@ -391,13 +625,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
                 <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
-                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
                 double&nbsp;mutationRate,
                 <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
                 double&nbsp;crossoverRate,
-                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></th>
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
 <td class="colLast">
 <div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
  using the standard bit flip mutation.</div>
@@ -424,6 +659,121 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
                 <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
                 double&nbsp;crossoverRate,
                 <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/GeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">GeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                double&nbsp;mutationRate,
+                <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;crossover,
+                double&nbsp;crossoverRate,
+                <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                int&nbsp;eliteCount,
+                <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
 <td class="colLast">
 <div class="block">Initializes a genetic algorithm with a generational model where children replace the parents,
  using the standard bit flip mutation.</div>
@@ -497,11 +847,37 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
                             int&nbsp;bitLength,
                             <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
                             double&nbsp;mutationRate,
                             <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            int&nbsp;bitLength,
+                            <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount,
+                            <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            int&nbsp;bitLength,
+                            <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount,
                             <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
 <td class="colLast">
 <div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
@@ -521,6 +897,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            int&nbsp;bitLength,
+                            <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
                             int&nbsp;bitLength,
                             <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
@@ -531,6 +919,44 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  using the standard bit flip mutation.</div>
 </td>
 </tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            int&nbsp;bitLength,
+                            <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            int&nbsp;bitLength,
+                            <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount,
+                            <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            int&nbsp;bitLength,
+                            <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount,
+                            <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
 <tr class="altColor">
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
                             int&nbsp;bitLength,
@@ -578,11 +1004,62 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
                             <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
                             <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
                             double&nbsp;mutationRate,
                             <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                            <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                            <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount,
+                            <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                            <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount,
+                            <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                            <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount,
                             <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
 <td class="colLast">
 <div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
@@ -614,11 +1091,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
                             <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
-                            <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            <a href="../../evo/FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
                             double&nbsp;mutationRate,
-                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></th>
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
 <td class="colLast">
 <div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
  using the standard bit flip mutation.</div>
@@ -630,6 +1108,80 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
                             <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
                             double&nbsp;mutationRate,
                             <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                            <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                            <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                            <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                            <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount,
+                            <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                            <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount,
+                            <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
+<td class="colLast">
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
+ using the standard bit flip mutation.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../../evo/MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)">MutationOnlyGeneticAlgorithm</a></span>&#8203;(int&nbsp;n,
+                            <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
+                            <a href="../../evo/FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
+                            double&nbsp;mutationRate,
+                            <a href="../../evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+                            int&nbsp;eliteCount,
+                            <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></th>
 <td class="colLast">
 <div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
  using the standard bit flip mutation.</div>
@@ -1091,7 +1643,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
 </nav>
-<p class="legalCopy"><small>Copyright &copy; 2002-2021 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
+<p class="legalCopy"><small>Copyright &copy; 2002-2022 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
 </footer>
 </body>
 </html>

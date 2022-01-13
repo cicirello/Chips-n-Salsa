@@ -1402,6 +1402,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h3>Uses of <a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a> in <a href="../../problems/package-summary.html">org.cicirello.search.problems</a></h3>
 <table class="useSummary">
+<caption><span>Methods in <a href="../../problems/package-summary.html">org.cicirello.search.problems</a> that return <a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">PermutationToBitVectorProblem.</span><code><span class="memberNameLink"><a href="../../problems/PermutationToBitVectorProblem.html#createCandidateSolution()">createCandidateSolution</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table class="useSummary">
 <caption><span>Methods in <a href="../../problems/package-summary.html">org.cicirello.search.problems</a> with parameters of type <a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
@@ -1429,6 +1444,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">OneMaxAckley.</span><code><span class="memberNameLink"><a href="../../problems/OneMaxAckley.html#cost(org.cicirello.search.representations.BitVector)">cost</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">PermutationToBitVectorProblem.DoubleCost.</span><code><span class="memberNameLink"><a href="../../problems/PermutationToBitVectorProblem.DoubleCost.html#cost(org.cicirello.search.representations.BitVector)">cost</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">PermutationToBitVectorProblem.IntegerCost.</span><code><span class="memberNameLink"><a href="../../problems/PermutationToBitVectorProblem.IntegerCost.html#cost(org.cicirello.search.representations.BitVector)">cost</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
@@ -1463,53 +1488,80 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">PermutationToBitVectorProblem.DoubleCost.</span><code><span class="memberNameLink"><a href="../../problems/PermutationToBitVectorProblem.DoubleCost.html#costAsDouble(org.cicirello.search.representations.BitVector)">costAsDouble</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">PermutationToBitVectorProblem.IntegerCost.</span><code><span class="memberNameLink"><a href="../../problems/PermutationToBitVectorProblem.IntegerCost.html#costAsDouble(org.cicirello.search.representations.BitVector)">costAsDouble</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations" class="externalLink">Permutation</a></code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">PermutationToBitVectorProblem.</span><code><span class="memberNameLink"><a href="../../problems/PermutationToBitVectorProblem.html#toPermutation(org.cicirello.search.representations.BitVector)">toPermutation</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;bits)</code></th>
+<td class="colLast">
+<div class="block">Converts a BitVector to a Permutation.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">HollandRoyalRoad.</span><code><span class="memberNameLink"><a href="../../problems/HollandRoyalRoad.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">
 <div class="block">Computes the value of the candidate solution within the usual constraints and
  interpretation of the problem.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">Mix.</span><code><span class="memberNameLink"><a href="../../problems/Mix.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">OneMax.</span><code><span class="memberNameLink"><a href="../../problems/OneMax.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">OneMaxAckley.</span><code><span class="memberNameLink"><a href="../../problems/OneMaxAckley.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr class="rowColor">
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">PermutationToBitVectorProblem.DoubleCost.</span><code><span class="memberNameLink"><a href="../../problems/PermutationToBitVectorProblem.DoubleCost.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
 <tr class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><span class="typeNameLabel">PermutationToBitVectorProblem.IntegerCost.</span><code><span class="memberNameLink"><a href="../../problems/PermutationToBitVectorProblem.IntegerCost.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">Plateaus.</span><code><span class="memberNameLink"><a href="../../problems/Plateaus.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">Porcupine.</span><code><span class="memberNameLink"><a href="../../problems/Porcupine.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">RoyalRoad.</span><code><span class="memberNameLink"><a href="../../problems/RoyalRoad.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">Trap.</span><code><span class="memberNameLink"><a href="../../problems/Trap.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">TwoMax.</span><code><span class="memberNameLink"><a href="../../problems/TwoMax.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><span class="typeNameLabel">TwoMaxEqualPeaks.</span><code><span class="memberNameLink"><a href="../../problems/TwoMaxEqualPeaks.html#value(org.cicirello.search.representations.BitVector)">value</a></span>&#8203;(<a href="../BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></th>
 <td class="colLast">&nbsp;</td>

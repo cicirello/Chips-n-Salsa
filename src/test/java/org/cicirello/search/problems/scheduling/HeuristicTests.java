@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -483,8 +483,8 @@ public class HeuristicTests {
 		final int N = highS/2;
 		
 		class FakeProblemSmallestNormSetupData implements SingleMachineSchedulingProblemData {
-			public int getProcessingTime​(int j) { return 1; }
-			public int[] getCompletionTimes​(Permutation schedule) { return null; }
+			public int getProcessingTime(int j) { return 1; }
+			public int[] getCompletionTimes(Permutation schedule) { return null; }
 			public int numberOfJobs() { return N; }
 			public boolean hasSetupTimes() { return true; }
 			public int getSetupTime(int j) { return 2; }
@@ -495,7 +495,7 @@ public class HeuristicTests {
 		}
 		
 		class FakeProblemSmallestNormSetup implements SingleMachineSchedulingProblem {
-			public int cost​(Permutation candidate) {return 0;}
+			public int cost(Permutation candidate) {return 0;}
 			public int value(Permutation candidate) {return 0;}
 			public SingleMachineSchedulingProblemData getInstanceData() {
 				return new FakeProblemSmallestNormSetupData();

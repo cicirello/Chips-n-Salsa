@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -39,7 +39,7 @@ import org.cicirello.search.restarts.ReoptimizableMultistarter;
 
 
 /**
- * JUnit 4 tests for TimedParallelMultistarter.
+ * JUnit tests for TimedParallelMultistarter.
  */
 public class TimedParallelMultistarterTests {
 	
@@ -507,7 +507,7 @@ public class TimedParallelMultistarterTests {
 		for (int i = 1; i <= T; i++) {
 			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
 		}
-		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T);
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules(T);
 		final TimedParallelMultistarter<TestObject> tpm = new TimedParallelMultistarter<TestObject>(searches, schedules);
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
@@ -526,7 +526,7 @@ public class TimedParallelMultistarterTests {
 		for (int i = 1; i <= T; i++) {
 			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
 		}
-		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T);
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules(T);
 		final TimedParallelReoptimizableMultistarter<TestObject> tpm = new TimedParallelReoptimizableMultistarter<TestObject>(searches, schedules);
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
@@ -686,7 +686,7 @@ public class TimedParallelMultistarterTests {
 		for (int i = 1; i <= T; i++) {
 			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
 		}
-		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T);
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules(T);
 		TimedParallelMultistarter<TestObject> tpm = new TimedParallelMultistarter<TestObject>(searches, schedules);
 		tpm.close();
 		tpm = new TimedParallelMultistarter<TestObject>(searches.get(0), 1000, T);
@@ -723,7 +723,7 @@ public class TimedParallelMultistarterTests {
 		for (int i = 1; i <= T; i++) {
 			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
 		}
-		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T+1);
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules(T+1);
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new TimedParallelMultistarter<TestObject>(searches, schedules)
@@ -811,7 +811,7 @@ public class TimedParallelMultistarterTests {
 		for (int i = 1; i <= T; i++) {
 			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
 		}
-		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T+1);
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules(T+1);
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new TimedParallelReoptimizableMultistarter<TestObject>(searches, schedules)
@@ -901,7 +901,7 @@ public class TimedParallelMultistarterTests {
 		for (int i = 1; i <= T; i++) {
 			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
 		}
-		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T);
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules(T);
 		TimedParallelMultistarter<TestObject> tpm = new TimedParallelMultistarter<TestObject>(searches, schedules);
 		ProgressTracker<TestObject> tracker2 = new ProgressTracker<TestObject>();
 		tpm.setProgressTracker(tracker2);
@@ -922,7 +922,7 @@ public class TimedParallelMultistarterTests {
 		for (int i = 1; i <= T; i++) {
 			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
 		}
-		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T);
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules(T);
 		TimedParallelReoptimizableMultistarter<TestObject> tpm = new TimedParallelReoptimizableMultistarter<TestObject>(searches, schedules);
 		tpm.close();
 		tpm = new TimedParallelReoptimizableMultistarter<TestObject>(searches.get(0), 1000, T);
@@ -959,7 +959,7 @@ public class TimedParallelMultistarterTests {
 		for (int i = 1; i <= T; i++) {
 			searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
 		}
-		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules​(T);
+		List<ParallelVariableAnnealingLength> schedules = ParallelVariableAnnealingLength.createRestartSchedules(T);
 		TimedParallelReoptimizableMultistarter<TestObject> tpm = new TimedParallelReoptimizableMultistarter<TestObject>(searches, schedules);
 		ProgressTracker<TestObject> tracker2 = new ProgressTracker<TestObject>();
 		tpm.setProgressTracker(tracker2);

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -355,6 +355,7 @@ public class HybridConstructiveHeuristicTests {
 	}
 	
 	private static class TestProblem implements Problem<TestObject> {
+		
 		@Override
 		public SolutionCostPair<TestObject> getSolutionCostPair​(TestObject candidate) {
 			return new SolutionCostPair<TestObject>(candidate, candidate.value, false);
@@ -386,7 +387,7 @@ public class HybridConstructiveHeuristicTests {
 			return size==n;
 		}
 		
-		@Override public int get​(int index) {
+		@Override public int get(int index) {
 			return 0;
 		}
 		
@@ -402,11 +403,11 @@ public class HybridConstructiveHeuristicTests {
 			return 1;
 		}
 		
-		@Override public int getExtension​(int extensionIndex) {
+		@Override public int getExtension(int extensionIndex) {
 			return 0;
 		}
 		
-		@Override public void extend​(int extensionIndex) {
+		@Override public void extend(int extensionIndex) {
 			if (!isComplete()) size++;
 		}
 	}
@@ -420,7 +421,7 @@ public class HybridConstructiveHeuristicTests {
 			this.id = id;
 		}
 		
-		@Override public void extend​(Partial<TestObject> p, int element) {
+		@Override public void extend(Partial<TestObject> p, int element) {
 			lastExtendCalled = id;
 		}
 	}

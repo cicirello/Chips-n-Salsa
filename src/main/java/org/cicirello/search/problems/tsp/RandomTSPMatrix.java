@@ -49,6 +49,13 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 	 * TSP and ATSP, and also provides the option to control whether or not the distance
 	 * matrix satisfies the triangle inequality.</p>
 	 *
+	 * <p>The random distance matrix is generated via an approach based on that
+	 * of the paper: Cirasella J., Johnson D.S., McGeoch L.A., Zhang W. (2001) The Asymmetric 
+	 * Traveling Salesman Problem: Algorithms, Instance Generators, and Tests. In <i>Algorithm Engineering and Experimentation (ALENEX 2001)</i>.
+	 * There are some minor differences between the approach described in that paper and
+	 * the approach of this class. This class generates random distances with a minimum of 1, whereas
+	 * the approach described in that paper allows distances of 0.</p>
+	 *
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
@@ -248,6 +255,13 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 	 * It supports both the
 	 * TSP and ATSP, and also provides the option to control whether or not the distance
 	 * matrix satisfies the triangle inequality.</p>
+	 *
+	 * <p>The random distance matrix is generated via an approach based on that
+	 * of the paper: Cirasella J., Johnson D.S., McGeoch L.A., Zhang W. (2001) The Asymmetric 
+	 * Traveling Salesman Problem: Algorithms, Instance Generators, and Tests. In <i>Algorithm Engineering and Experimentation (ALENEX 2001)</i>.
+	 * There are some minor differences between the approach described in that paper and
+	 * the approach of this class. This class generates random floating-point distances, whereas
+	 * the approach described in that paper uses integer valued distances.</p>
 	 *
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

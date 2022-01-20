@@ -26,9 +26,32 @@ import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 
-
+/**
+ * <p>This class and its nested classes implement the Traveling Salesperson Problem (TSP),
+ * and its variant, the Asymmetric Traveling Salesperson Problem (ATSP),
+ * by generating a random distance matrix.
+ * The RandomTSPMatrix class provides two inner classes, one for edge 
+ * costs that are floating-point valued (class {@link Double}), and
+ * one for integer cost edges (class {@link Integer}). Both nested classes support both the
+ * TSP and ATSP, and both also provide the option to control whether or not the distance
+ * matrix satisfies the triangle inequality.</p>
+ *
+ * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+ * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ */
 public abstract class RandomTSPMatrix extends BaseTSP {
 	
+	/**
+	 * <p>This class implements the Traveling Salesperson Problem (TSP),
+	 * and its variant, the Asymmetric Traveling Salesperson Problem (ATSP),
+	 * by generating a random distance matrix, with integer cost edges.
+	 * It supports both the
+	 * TSP and ATSP, and also provides the option to control whether or not the distance
+	 * matrix satisfies the triangle inequality.</p>
+	 *
+	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+	 */
 	public final class Integer extends RandomTSPMatrix implements IntegerCostOptimizationProblem<Permutation> {
 		
 		private final int[][] d;
@@ -218,6 +241,17 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 		}
 	}
 	
+	/**
+	 * <p>This class implements the Traveling Salesperson Problem (TSP),
+	 * and its variant, the Asymmetric Traveling Salesperson Problem (ATSP),
+	 * by generating a random distance matrix, with floating-point cost edges.
+	 * It supports both the
+	 * TSP and ATSP, and also provides the option to control whether or not the distance
+	 * matrix satisfies the triangle inequality.</p>
+	 *
+	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+	 */
 	public final class Double extends RandomTSPMatrix implements OptimizationProblem<Permutation> {
 		
 		private final double[][] d;

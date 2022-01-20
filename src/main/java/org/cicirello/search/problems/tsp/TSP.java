@@ -21,16 +21,18 @@
 package org.cicirello.search.problems.tsp;
 
 import java.util.SplittableRandom;
-import org.cicirello.search.problems.Problem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.permutations.Permutation;
 
 /**
- * <p>This class and its nested classes implement the Traveling Salesperson Problem (TSP).
- * It provides two inner classes where edge weights are computed as needed, one for edge 
+ * <p>This class and its nested classes implement the Traveling Salesperson Problem (TSP),
+ * such that cities are 2D points, and edge costs is the distance between them. The default
+ * distance is Euclidean distance, but any distance function can be configured by implementing
+ * the {@link TSPEdgeDistance} interface.
+ * The TSP class provides two inner classes where edge weights are computed as needed, one for edge 
  * costs that are floating-point valued (class {@link Double}), and
- * one for integer cost edges (class {@link Integer}). And it also provides two inner classes
+ * one for integer cost edges (class {@link Integer}); and it also provides two inner classes
  * where the edge weights are precomputed, one for edge 
  * costs that are floating-point valued (class {@link DoubleMatrix}), and
  * one for integer cost edges (class {@link IntegerMatrix}). The nested classes with precomputed
@@ -44,7 +46,7 @@ import org.cicirello.permutations.Permutation;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public abstract class TSP implements Problem<Permutation> {
+public abstract class TSP extends BaseTSP {
 	
 	/* These are package-private to provide access to the static inner classes. */
 	final double[] x;
@@ -112,6 +114,7 @@ public abstract class TSP implements Problem<Permutation> {
 	 * Gets the number of cities in the TSP instance.
 	 * @return number of cities
 	 */
+	@Override
 	public final int length() {
 		return x.length;
 	}
@@ -135,11 +138,6 @@ public abstract class TSP implements Problem<Permutation> {
 	public final double getY(int i) {
 		return y[i];
 	}
-	
-	/*
-	 * package private to support implementing heuristics in same package.
-	 */
-	abstract double edgeCostForHeuristics(int i, int j);
 		
 	/**
 	 * <p>Cost function for the Traveling Salesperson Problem (TSP), where edge costs 
@@ -242,12 +240,12 @@ public abstract class TSP implements Problem<Permutation> {
 			if (candidate.length() != x.length) {
 				throw new IllegalArgumentException("Permutation must be same length as number of cities.");
 			}
-			int i = candidate.get(0);
-			int j = candidate.get(candidate.length()-1);
+			int j = candidate.get(0);
+			int i = candidate.get(candidate.length()-1);
 			double total = d.distance(x[i], y[i], x[j], y[j]);
 			for (int k = 1; k < candidate.length(); k++) {
-				i = candidate.get(k);
-				j = candidate.get(k-1);
+				j = candidate.get(k);
+				i = candidate.get(k-1);
 				total = total + d.distance(x[i], y[i], x[j], y[j]);
 			}
 			return total;
@@ -368,12 +366,12 @@ public abstract class TSP implements Problem<Permutation> {
 			if (candidate.length() != x.length) {
 				throw new IllegalArgumentException("Permutation must be same length as number of cities.");
 			}
-			int i = candidate.get(0);
-			int j = candidate.get(candidate.length()-1);
+			int j = candidate.get(0);
+			int i = candidate.get(candidate.length()-1);
 			int total = d.distanceAsInt(x[i], y[i], x[j], y[j]);
 			for (int k = 1; k < candidate.length(); k++) {
-				i = candidate.get(k);
-				j = candidate.get(k-1);
+				j = candidate.get(k);
+				i = candidate.get(k-1);
 				total = total + d.distanceAsInt(x[i], y[i], x[j], y[j]);
 			}
 			return total;
@@ -504,9 +502,9 @@ public abstract class TSP implements Problem<Permutation> {
 			if (candidate.length() != x.length) {
 				throw new IllegalArgumentException("Permutation must be same length as number of cities.");
 			}
-			double total = weights[candidate.get(0)][candidate.get(candidate.length()-1)];
+			double total = weights[candidate.get(candidate.length()-1)][candidate.get(0)];
 			for (int k = 1; k < candidate.length(); k++) {
-				total = total + weights[candidate.get(k)][candidate.get(k-1)];
+				total = total + weights[candidate.get(k-1)][candidate.get(k)];
 			}
 			return total;
 		}
@@ -644,9 +642,9 @@ public abstract class TSP implements Problem<Permutation> {
 			if (candidate.length() != x.length) {
 				throw new IllegalArgumentException("Permutation must be same length as number of cities.");
 			}
-			int total = weights[candidate.get(0)][candidate.get(candidate.length()-1)];
+			int total = weights[candidate.get(candidate.length()-1)][candidate.get(0)];
 			for (int k = 1; k < candidate.length(); k++) {
-				total = total + weights[candidate.get(k)][candidate.get(k-1)];
+				total = total + weights[candidate.get(k-1)][candidate.get(k)];
 			}
 			return total;
 		}
@@ -674,5 +672,4 @@ public abstract class TSP implements Problem<Permutation> {
 			return weights[i][j];
 		}
 	}
-	
 }

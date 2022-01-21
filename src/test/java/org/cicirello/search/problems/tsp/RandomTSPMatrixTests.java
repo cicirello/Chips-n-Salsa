@@ -39,6 +39,14 @@ public class RandomTSPMatrixTests {
 			tsp = new RandomTSPMatrix.Integer(n, MAX);
 			validateSymmetric(tsp, n, MAX);
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Integer(1, 1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Integer(2, 0)
+		);
 	}
 	
 	@Test
@@ -55,6 +63,14 @@ public class RandomTSPMatrixTests {
 			tsp = new RandomTSPMatrix.Integer(n, MAX_A, false);
 			validateAsymmetric(tsp, n, MAX_A);
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Integer(1, 1, true)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Integer(2, 0, true)
+		);
 	}
 	
 	@Test
@@ -84,6 +100,14 @@ public class RandomTSPMatrixTests {
 			validateAsymmetric(tsp, n, MAX_A);
 			validateTriangleAsymmetric(tsp, n);
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Integer(1, 1, true, false)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Integer(2, 0, true, false)
+		);
 	}
 	
 	@Test
@@ -113,6 +137,14 @@ public class RandomTSPMatrixTests {
 			validateAsymmetric(tsp, n, MAX_A);
 			validateTriangleAsymmetric(tsp, n);
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Integer(1, 1, true, false, 42)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Integer(2, 0, true, false, 42)
+		);
 	}
 	
 	@Test
@@ -124,6 +156,14 @@ public class RandomTSPMatrixTests {
 			tsp = new RandomTSPMatrix.Double(n, MAX);
 			validateSymmetric(tsp, n, MAX);
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Double(1, 0.0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Double(2, -Math.ulp(0.0))
+		);
 	}
 	
 	@Test
@@ -139,6 +179,14 @@ public class RandomTSPMatrixTests {
 			tsp = new RandomTSPMatrix.Double(n, MAX, false);
 			validateAsymmetric(tsp, n, MAX);
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Double(1, 0.0, true)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Double(2, -Math.ulp(0.0), true)
+		);
 	}
 	
 	@Test
@@ -167,6 +215,14 @@ public class RandomTSPMatrixTests {
 			validateAsymmetric(tsp, n, MAX);
 			validateTriangleAsymmetric(tsp, n);
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Double(1, 0.0, true, false)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Double(2, -Math.ulp(0.0), true, false)
+		);
 	}
 	
 	@Test
@@ -195,6 +251,14 @@ public class RandomTSPMatrixTests {
 			validateAsymmetric(tsp, n, MAX);
 			validateTriangleAsymmetric(tsp, n);
 		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Double(1, 0.0, true, false, 42)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Double(2, -Math.ulp(0.0), true, false, 42)
+		);
 	}
 	
 	private void validateAllOne(RandomTSPMatrix.Integer tsp, int n) {

@@ -23,7 +23,6 @@ package org.cicirello.search.problems.tsp;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.cicirello.permutations.Permutation;
-import org.cicirello.search.SolutionCostPair;
 
 /**
  * JUnit tests for the RandomTSPMatrix class and its nested subclasses.
@@ -148,6 +147,62 @@ public class RandomTSPMatrixTests {
 	}
 	
 	@Test
+	public void testIntegerTSPMatrix() {
+		int[][] matrix2 = { {7, 3}, {5, 9} };
+		int[][] expected2 = { {7, 3}, {5, 9} };
+		RandomTSPMatrix.Integer tsp = new RandomTSPMatrix.Integer(matrix2);
+		assertEquals(2, tsp.length());
+		for (int i = 0; i < expected2.length; i++) {
+			for (int j = 0; j < expected2[i].length; j++) {
+				assertEquals(expected2[i][j], tsp.getDistance(i, j));
+				assertEquals(expected2[i][j], tsp.edgeCostForHeuristics(i, j), 0.0);
+			}
+		}
+		
+		int[][] matrix4 = {
+			{0,  10, 12, 14},
+			{8,  0,  5,  9},
+			{20, 1,  0,  3},
+			{17, 18, 4,  0}
+		};
+		int[][] expected4 = {
+			{0,  10, 12, 14},
+			{8,  0,  5,  9},
+			{20, 1,  0,  3},
+			{17, 18, 4,  0}
+		};
+		tsp = new RandomTSPMatrix.Integer(matrix4);
+		assertEquals(4, tsp.length());
+		for (int i = 0; i < expected4.length; i++) {
+			for (int j = 0; j < expected4[i].length; j++) {
+				assertEquals(expected4[i][j], tsp.getDistance(i, j));
+				assertEquals(expected4[i][j], tsp.edgeCostForHeuristics(i, j), 0.0);
+			}
+		}
+		
+		int[][] permutationTestCases = {
+			{0, 1, 2, 3},
+			{3, 2, 1, 0},
+			{2, 0, 3, 1}
+		};
+		int[] expectedCosts = {35, 27, 57};
+		for (int i = 0; i < permutationTestCases.length; i++) {
+			Permutation p = new Permutation(permutationTestCases[i]);
+			assertEquals(expectedCosts[i], tsp.cost(p));
+			assertEquals(expectedCosts[i], tsp.value(p));
+		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Integer(new int[1][1])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Integer(new int[4][5])
+		);
+	}
+	
+	@Test
 	public void testDoubleConstructor1() {
 		final double MAX = 1.0;
 		for (int n = 2; n <= 8; n*= 2) {
@@ -258,6 +313,62 @@ public class RandomTSPMatrixTests {
 		thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new RandomTSPMatrix.Double(2, -Math.ulp(0.0), true, false, 42)
+		);
+	}
+	
+	@Test
+	public void testDoubleTSPMatrix() {
+		double[][] matrix2 = { {7, 3}, {5, 9} };
+		double[][] expected2 = { {7, 3}, {5, 9} };
+		RandomTSPMatrix.Double tsp = new RandomTSPMatrix.Double(matrix2);
+		assertEquals(2, tsp.length());
+		for (int i = 0; i < expected2.length; i++) {
+			for (int j = 0; j < expected2[i].length; j++) {
+				assertEquals(expected2[i][j], tsp.getDistance(i, j), 0.0);
+				assertEquals(expected2[i][j], tsp.edgeCostForHeuristics(i, j), 0.0);
+			}
+		}
+		
+		double[][] matrix4 = {
+			{0,  10, 12, 14},
+			{8,  0,  5,  9},
+			{20, 1,  0,  3},
+			{17, 18, 4,  0}
+		};
+		double[][] expected4 = {
+			{0,  10, 12, 14},
+			{8,  0,  5,  9},
+			{20, 1,  0,  3},
+			{17, 18, 4,  0}
+		};
+		tsp = new RandomTSPMatrix.Double(matrix4);
+		assertEquals(4, tsp.length());
+		for (int i = 0; i < expected4.length; i++) {
+			for (int j = 0; j < expected4[i].length; j++) {
+				assertEquals(expected4[i][j], tsp.getDistance(i, j), 0.0);
+				assertEquals(expected4[i][j], tsp.edgeCostForHeuristics(i, j), 0.0);
+			}
+		}
+		
+		int[][] permutationTestCases = {
+			{0, 1, 2, 3},
+			{3, 2, 1, 0},
+			{2, 0, 3, 1}
+		};
+		double[] expectedCosts = {35, 27, 57};
+		for (int i = 0; i < permutationTestCases.length; i++) {
+			Permutation p = new Permutation(permutationTestCases[i]);
+			assertEquals(expectedCosts[i], tsp.cost(p), 1E-10);
+			assertEquals(expectedCosts[i], tsp.value(p), 1E-10);
+		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Double(new double[1][1])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new RandomTSPMatrix.Double(new double[4][5])
 		);
 	}
 	

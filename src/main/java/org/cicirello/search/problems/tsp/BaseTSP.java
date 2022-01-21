@@ -37,6 +37,11 @@ import org.cicirello.permutations.Permutation;
  */
 public abstract class BaseTSP implements Problem<Permutation> {
 	
+	/*
+	 * package-private default constructor so only same package can subclass
+	 */
+	BaseTSP() {}
+	
 	/**
 	 * Gets the number of cities in this instance of the TSP.
 	 * @return the number of cities in the problem.

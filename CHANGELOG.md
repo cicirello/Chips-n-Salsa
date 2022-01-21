@@ -4,11 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-01-13
+## [Unreleased] - 2022-01-21
 
 ### Added
+* Class RandomTSPMatrix that enables generating random instances of the Traveling Salesperson
+  Problem (TSP) as well as the Asymmetric TSP (ATSP) by generating a random distance matrix. This
+  new class includes the option to generate a random distance matrix that enforces the triangle
+  inequality. The library had previously introduced a TSP class in a prior release that bases the
+  instances on points in 2D space with a user defined metric. This new RandomTSPMatrix class
+  compliments that class by additionally providing the ability to specify arbitrary distance matrices
+  for a TSP instance.
 
 ### Changed
+* Refactored existing Traveling Salesperson Problem classes (all non-breaking changes)
+  to ease the addition of other variations.
 
 ### Deprecated
 

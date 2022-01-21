@@ -310,7 +310,7 @@ public class HybridConstructiveHeuristicTests {
 		}
 		
 		@Override
-		public double h​(Partial<TestObject> p, int element, IncrementalEvaluation<TestObject> incEval) {
+		public double h(Partial<TestObject> p, int element, IncrementalEvaluation<TestObject> incEval) {
 			assertEquals(id, ((TestIncrementalEvaluation)incEval).id);
 			hCallCount++;
 			lastHCalled = id;
@@ -325,7 +325,7 @@ public class HybridConstructiveHeuristicTests {
 		}
 		
 		@Override
-		public Partial<TestObject> createPartial​(int n) {
+		public Partial<TestObject> createPartial(int n) {
 			return new TestPartial(id, n);
 		}
 		
@@ -357,7 +357,7 @@ public class HybridConstructiveHeuristicTests {
 	private static class TestProblem implements Problem<TestObject> {
 		
 		@Override
-		public SolutionCostPair<TestObject> getSolutionCostPair​(TestObject candidate) {
+		public SolutionCostPair<TestObject> getSolutionCostPair(TestObject candidate) {
 			return new SolutionCostPair<TestObject>(candidate, candidate.value, false);
 		}
 		

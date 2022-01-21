@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -32,22 +32,22 @@ import org.cicirello.search.ss.PartialPermutation;
  * first city of the nearest pair of cities. 
  * Since the stochastic sampling algorithms of the library require higher heuristic
  * values to imply preferred choice, this heuristic is 
- * implemented as: h(i) == 1.0 / (1.0 + distance(j, i) + min<sub>k</sub>(distance(i, k))), 
- * where h(i) is the heuristic
- * value for city i, and j is the most recently added city.
+ * implemented as: h(j) == 1.0 / (1.0 + distance(i, j) + min<sub>k</sub>(distance(j, k))), 
+ * where h(j) is the heuristic
+ * value for city j, and i is the most recently added city.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
 public final class NearestCityPairHeuristic implements ConstructiveHeuristic<Permutation> {
 	
-	private final TSP problem;
+	private final BaseTSP problem;
 	
 	/**
 	 * Constructs a nearest city pair heuristic for an instance of the TSP.
 	 * @param problem The TSP instance to solve.
 	 */
-	public NearestCityPairHeuristic(TSP problem) {
+	public NearestCityPairHeuristic(BaseTSP problem) {
 		this.problem = problem;
 	}
 	

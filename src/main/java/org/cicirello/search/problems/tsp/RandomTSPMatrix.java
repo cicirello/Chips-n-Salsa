@@ -41,6 +41,11 @@ import org.cicirello.math.rand.RandomIndexer;
  */
 public abstract class RandomTSPMatrix extends BaseTSP {
 	
+	/*
+	 * package private constructor for use by subclasses only
+	 */
+	RandomTSPMatrix() {}
+	
 	/**
 	 * <p>This class implements the Traveling Salesperson Problem (TSP),
 	 * and its variant, the Asymmetric Traveling Salesperson Problem (ATSP),

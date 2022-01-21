@@ -59,7 +59,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	public final class Integer extends RandomTSPMatrix implements IntegerCostOptimizationProblem<Permutation> {
+	public final static class Integer extends RandomTSPMatrix implements IntegerCostOptimizationProblem<Permutation> {
 		
 		private final int[][] d;
 		
@@ -154,6 +154,17 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 					asymmetricCloseUnderShortestPaths();
 				}
 			}
+		}
+		
+		/**
+		 * Gets the distance (i.e., cost) of an edge.
+		 *
+		 * @param i The source city.
+		 * @param j The destination city.
+		 * @return The distance from i to j
+		 */
+		public final int getDistance(int i, int j) {
+			return d[i][j];
 		}
 		
 		/**
@@ -266,7 +277,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	public final class Double extends RandomTSPMatrix implements OptimizationProblem<Permutation> {
+	public final static class Double extends RandomTSPMatrix implements OptimizationProblem<Permutation> {
 		
 		private final double[][] d;
 		
@@ -280,10 +291,10 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 		 *
 		 * @param n The number of cities.
 		 * @param maxDistance The maximum distance between cities. The edge costs
-		 *        between pairs of cities are uniform in the interval [0, maxDistance).
+		 *        between pairs of cities are uniform in the interval [0, maxDistance].
 		 *
 		 * @throws IllegalArgumentException if n &lt; 2.
-		 * @throws IllegalArgumentException if maxDistance is not positive.
+		 * @throws IllegalArgumentException if maxDistance &lt; 0.0.
 		 */
 		public Double(int n, double maxDistance) {
 			this(n, maxDistance, true, false);
@@ -297,11 +308,11 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 		 *
 		 * @param n The number of cities.
 		 * @param maxDistance The maximum distance between cities. The edge costs
-		 *        between pairs of cities are uniform in the interval [0, maxDistance).
+		 *        between pairs of cities are uniform in the interval [0, maxDistance].
 		 * @param symmetric Pass true for the TSP, or false for the ATSP.
 		 *
 		 * @throws IllegalArgumentException if n &lt; 2.
-		 * @throws IllegalArgumentException if maxDistance is not positive.
+		 * @throws IllegalArgumentException if maxDistance &lt; 0.0.
 		 */
 		public Double(int n, double maxDistance, boolean symmetric) {
 			this(n, maxDistance, symmetric, false);
@@ -312,13 +323,13 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 		 *
 		 * @param n The number of cities.
 		 * @param maxDistance The maximum distance between cities. The edge costs
-		 *        between pairs of cities are uniform in the interval [0, maxDistance).
+		 *        between pairs of cities are uniform in the interval [0, maxDistance].
 		 * @param symmetric Pass true for the TSP, or false for the ATSP.
 		 * @param triangleInequality Pass true if you want the generated distance matrix
 		 *        to respect the triangle inequality, or false for purely random distances.
 		 *
 		 * @throws IllegalArgumentException if n &lt; 2.
-		 * @throws IllegalArgumentException if maxDistance is not positive.
+		 * @throws IllegalArgumentException if maxDistance &lt; 0.0.
 		 */
 		public Double(int n, double maxDistance, boolean symmetric, boolean triangleInequality) {
 			this(n, maxDistance, symmetric, triangleInequality, new SplittableRandom());
@@ -329,7 +340,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 		 *
 		 * @param n The number of cities.
 		 * @param maxDistance The maximum distance between cities. The edge costs
-		 *        between pairs of cities are uniform in the interval [0, maxDistance).
+		 *        between pairs of cities are uniform in the interval [0, maxDistance].
 		 * @param symmetric Pass true for the TSP, or false for the ATSP.
 		 * @param triangleInequality Pass true if you want the generated distance matrix
 		 *        to respect the triangle inequality, or false for purely random distances.
@@ -337,7 +348,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 		 *        same instance for experiment reproducibility.
 		 *
 		 * @throws IllegalArgumentException if n &lt; 2.
-		 * @throws IllegalArgumentException if maxDistance is not positive.
+		 * @throws IllegalArgumentException if maxDistance &lt; 0.0.
 		 */
 		public Double(int n, double maxDistance, boolean symmetric, boolean triangleInequality, long seed) {
 			this(n, maxDistance, symmetric, triangleInequality, new SplittableRandom(seed));
@@ -348,19 +359,30 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 		 */
 		private Double(int n, double maxDistance, boolean symmetric, boolean triangleInequality, SplittableRandom gen) {
 			if (n < 2) throw new IllegalArgumentException("n must be at least 2");
-			if (maxDistance <= 0) throw new IllegalArgumentException("maxDistance must be positive");
+			if (maxDistance < 0) throw new IllegalArgumentException("maxDistance must be non-negative");
 			d = new double[n][n];
 			if (symmetric) {
-				symmetricInitD(maxDistance, gen);
+				symmetricInitD(maxDistance + Math.ulp(maxDistance), gen);
 				if (triangleInequality) {
 					symmetricCloseUnderShortestPaths();
 				}
 			} else {
-				asymmetricInitD(maxDistance, gen);
+				asymmetricInitD(maxDistance + Math.ulp(maxDistance), gen);
 				if (triangleInequality) {
 					asymmetricCloseUnderShortestPaths();
 				}
 			}
+		}
+		
+		/**
+		 * Gets the distance (i.e., cost) of an edge.
+		 *
+		 * @param i The source city.
+		 * @param j The destination city.
+		 * @return The distance from i to j
+		 */
+		public final double getDistance(int i, int j) {
+			return d[i][j];
 		}
 		
 		/**

@@ -136,6 +136,30 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 			this(n, maxDistance, symmetric, triangleInequality, new SplittableRandom(seed));
 		}
 		
+		/**
+		 * Although the focus of this class is generating random TSP and ATSP instances, this 
+		 * constructor enables specifying the distance matrix directly.
+		 *
+		 * @param distance The distance matrix, such that distance[i][j] is the distance from
+		 *    city i to city j. The distance matrix must be square, with same number of rows as columns,
+		 *    and whose dimension determines number of cities. Dimensions must be at least 2 by 2.
+		 *
+		 * @throws IllegalArgumentException if distance is not at least a 2 by 2 array.
+		 * @throws IllegalArgumentException if number of rows is not same as number of columns, or
+		 *      if rows don't all have same length.
+		 */
+		public Integer(int[][] distance) {
+			final int n = distance.length;
+			if (n < 2) throw new IllegalArgumentException("distance must be at least 2 by 2");
+			d = new int[n][n];
+			for (int i = 0; i < n; i++) {
+				if (distance[i].length != n) {
+					throw new IllegalArgumentException("num rows and columns must be the same");
+				}
+				System.arraycopy(distance[i], 0, d[i], 0, n);
+			}
+		}
+		
 		/*
 		 * internal private constructor
 		 */
@@ -352,6 +376,30 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 		 */
 		public Double(int n, double maxDistance, boolean symmetric, boolean triangleInequality, long seed) {
 			this(n, maxDistance, symmetric, triangleInequality, new SplittableRandom(seed));
+		}
+		
+		/**
+		 * Although the focus of this class is generating random TSP and ATSP instances, this 
+		 * constructor enables specifying the distance matrix directly.
+		 *
+		 * @param distance The distance matrix, such that distance[i][j] is the distance from
+		 *    city i to city j. The distance matrix must be square, with same number of rows as columns,
+		 *    and whose dimension determines number of cities. Dimensions must be at least 2 by 2.
+		 *
+		 * @throws IllegalArgumentException if distance is not at least a 2 by 2 array.
+		 * @throws IllegalArgumentException if number of rows is not same as number of columns, or
+		 *      if rows don't all have same length.
+		 */
+		public Double(double[][] distance) {
+			final int n = distance.length;
+			if (n < 2) throw new IllegalArgumentException("distance must be at least 2 by 2");
+			d = new double[n][n];
+			for (int i = 0; i < n; i++) {
+				if (distance[i].length != n) {
+					throw new IllegalArgumentException("num rows and columns must be the same");
+				}
+				System.arraycopy(distance[i], 0, d[i], 0, n);
+			}
 		}
 		
 		/*

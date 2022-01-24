@@ -153,8 +153,8 @@ implements <a href="../../ss/ConstructiveHeuristic.html" title="interface in org
  prefers cities that are closest to the city most recently added to the tour.
  Since the stochastic sampling algorithms of the library require higher heuristic
  values to imply preferred choice, this heuristic is 
- implemented as: h(i) == 1.0 / (1.0 + distance(j, i)), where h(i) is the heuristic
- value for city i, and j is the most recently added city. If no cities have been added yet,
+ implemented as: h(j) == 1.0 / (1.0 + distance(i, j)), where h(j) is the heuristic
+ value for city j, and i is the most recently added city. If no cities have been added yet,
  the heuristic simply returns 1.</div>
 </li>
 </ul>
@@ -176,7 +176,7 @@ implements <a href="../../ss/ConstructiveHeuristic.html" title="interface in org
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(org.cicirello.search.problems.tsp.TSP)">NearestCityHeuristic</a></span>&#8203;(<a href="TSP.html" title="class in org.cicirello.search.problems.tsp">TSP</a>&nbsp;problem)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(org.cicirello.search.problems.tsp.BaseTSP)">NearestCityHeuristic</a></span>&#8203;(<a href="BaseTSP.html" title="class in org.cicirello.search.problems.tsp">BaseTSP</a>&nbsp;problem)</code></th>
 <td class="colLast">
 <div class="block">Constructs a nearest city heuristic for an instance of the TSP.</div>
 </td>
@@ -265,13 +265,13 @@ implements <a href="../../ss/ConstructiveHeuristic.html" title="interface in org
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(org.cicirello.search.problems.tsp.TSP)">
+<a id="&lt;init&gt;(org.cicirello.search.problems.tsp.BaseTSP)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>NearestCityHeuristic</h4>
-<pre>public&nbsp;NearestCityHeuristic&#8203;(<a href="TSP.html" title="class in org.cicirello.search.problems.tsp">TSP</a>&nbsp;problem)</pre>
+<pre>public&nbsp;NearestCityHeuristic&#8203;(<a href="BaseTSP.html" title="class in org.cicirello.search.problems.tsp">BaseTSP</a>&nbsp;problem)</pre>
 <div class="block">Constructs a nearest city heuristic for an instance of the TSP.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

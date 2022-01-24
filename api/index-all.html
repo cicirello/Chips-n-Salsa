@@ -245,6 +245,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">B</h2>
 <dl>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/BaseTSP.html" title="class in org.cicirello.search.problems.tsp"><span class="typeNameLink">BaseTSP</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></dt>
+<dd>
+<div class="block">This class serves as an abstract base class for the various
+ classes that implement variations of the Traveling Salesperson
+ Problem provided by the library.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessBiasFunction.html#bias(double)">bias(double)</a></span> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessBiasFunction.html" title="interface in org.cicirello.search.evo">FitnessBiasFunction</a></dt>
 <dd>
 <div class="block">Applies a bias function to a fitness value.</div>
@@ -582,6 +588,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedSquaredTardiness.html#cost(org.cicirello.permutations.Permutation)">cost(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedSquaredTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedSquaredTardiness</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedTardiness.html#cost(org.cicirello.permutations.Permutation)">cost(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedTardiness</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html#cost(org.cicirello.permutations.Permutation)">cost(Permutation)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Double</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html#cost(org.cicirello.permutations.Permutation)">cost(Permutation)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Integer</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Double.html#cost(org.cicirello.permutations.Permutation)">cost(Permutation)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Double.html" title="class in org.cicirello.search.problems.tsp">TSP.Double</a></dt>
 <dd>&nbsp;</dd>
@@ -1028,6 +1038,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Computes the distance between two cities in the TSP as an integer.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html#%3Cinit%3E(double%5B%5D%5B%5D)">Double(double[][])</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Double</a></dt>
+<dd>
+<div class="block">Although the focus of this class is generating random TSP and ATSP instances, this 
+ constructor enables specifying the distance matrix directly.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Double.html#%3Cinit%3E(double%5B%5D,double%5B%5D)">Double(double[], double[])</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Double.html" title="class in org.cicirello.search.problems.tsp">TSP.Double</a></dt>
 <dd>
 <div class="block">Constructs a TSP instance with city locations specified by arrays of
@@ -1038,10 +1053,26 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Constructs a TSP instance with city locations specified by arrays of
  x and y coordinates.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html#%3Cinit%3E(int,double)">Double(int, double)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Double</a></dt>
+<dd>
+<div class="block">Generates a random instance of either the TSP.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Double.html#%3Cinit%3E(int,double)">Double(int, double)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Double.html" title="class in org.cicirello.search.problems.tsp">TSP.Double</a></dt>
 <dd>
 <div class="block">Constructs a random TSP instance with cities randomly distributed within
  a square region.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html#%3Cinit%3E(int,double,boolean)">Double(int, double, boolean)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Double</a></dt>
+<dd>
+<div class="block">Generates a random instance of either the TSP or ATSP.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html#%3Cinit%3E(int,double,boolean,boolean)">Double(int, double, boolean, boolean)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Double</a></dt>
+<dd>
+<div class="block">Generates a random instance of either the TSP or ATSP.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html#%3Cinit%3E(int,double,boolean,boolean,long)">Double(int, double, boolean, boolean, long)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Double</a></dt>
+<dd>
+<div class="block">Generates a random instance of either the TSP or ATSP.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Double.html#%3Cinit%3E(int,double,long)">Double(int, double, long)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Double.html" title="class in org.cicirello.search.problems.tsp">TSP.Double</a></dt>
 <dd>
@@ -1670,6 +1701,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html#getCostDouble()">getCostDouble()</a></span> - Method in class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a></dt>
 <dd>
 <div class="block">Gets the cost contained in this solution cost pair as a double.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html#getDistance(int,int)">getDistance(int, int)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Double</a></dt>
+<dd>
+<div class="block">Gets the distance (i.e., cost) of an edge.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html#getDistance(int,int)">getDistance(int, int)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Integer</a></dt>
+<dd>
+<div class="block">Gets the distance (i.e., cost) of an edge.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#getDueDate(int)">getDueDate(int)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
 <dd>&nbsp;</dd>
@@ -2316,6 +2355,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Constructs a TSP instance with city locations specified by arrays of
  x and y coordinates.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html#%3Cinit%3E(int%5B%5D%5B%5D)">Integer(int[][])</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Integer</a></dt>
+<dd>
+<div class="block">Although the focus of this class is generating random TSP and ATSP instances, this 
+ constructor enables specifying the distance matrix directly.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Integer.html#%3Cinit%3E(int,double)">Integer(int, double)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Integer.html" title="class in org.cicirello.search.problems.tsp">TSP.Integer</a></dt>
 <dd>
 <div class="block">Constructs a random TSP instance with cities randomly distributed within
@@ -2335,6 +2379,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs a random TSP instance with cities randomly distributed within
  a square region.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html#%3Cinit%3E(int,int)">Integer(int, int)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Integer</a></dt>
+<dd>
+<div class="block">Generates a random instance of either the TSP.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html#%3Cinit%3E(int,int,boolean)">Integer(int, int, boolean)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Integer</a></dt>
+<dd>
+<div class="block">Generates a random instance of either the TSP or ATSP.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html#%3Cinit%3E(int,int,boolean,boolean)">Integer(int, int, boolean, boolean)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Integer</a></dt>
+<dd>
+<div class="block">Generates a random instance of either the TSP or ATSP.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html#%3Cinit%3E(int,int,boolean,boolean,long)">Integer(int, int, boolean, boolean, long)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Integer</a></dt>
+<dd>
+<div class="block">Generates a random instance of either the TSP or ATSP.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/PermutationToBitVectorProblem.IntegerCost.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,int)">IntegerCost(IntegerCostOptimizationProblem&lt;Permutation&gt;, int)</a></span> - Constructor for class org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/PermutationToBitVectorProblem.IntegerCost.html" title="class in org.cicirello.search.problems">PermutationToBitVectorProblem.IntegerCost</a></dt>
 <dd>
@@ -2702,6 +2762,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/reals/UniformMutation.html#length()">length()</a></span> - Method in class org.cicirello.search.operators.reals.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/reals/UniformMutation.html" title="class in org.cicirello.search.operators.reals">UniformMutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/BaseTSP.html#length()">length()</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/BaseTSP.html" title="class in org.cicirello.search.problems.tsp">BaseTSP</a></dt>
+<dd>
+<div class="block">Gets the number of cities in this instance of the TSP.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html#length()">length()</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Double</a></dt>
+<dd>
+<div class="block">Gets the number of cities in the TSP instance.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html#length()">length()</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Integer</a></dt>
+<dd>
+<div class="block">Gets the number of cities in the TSP instance.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.html#length()">length()</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.html" title="class in org.cicirello.search.problems.tsp">TSP</a></dt>
 <dd>
 <div class="block">Gets the number of cities in the TSP instance.</div>
@@ -3186,7 +3258,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">This class implements a nearest city constructive heuristic for the TSP
  for use by stochastic sampling algorithms.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html#%3Cinit%3E(org.cicirello.search.problems.tsp.TSP)">NearestCityHeuristic(TSP)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityHeuristic</a></dt>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html#%3Cinit%3E(org.cicirello.search.problems.tsp.BaseTSP)">NearestCityHeuristic(BaseTSP)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityHeuristic</a></dt>
 <dd>
 <div class="block">Constructs a nearest city heuristic for an instance of the TSP.</div>
 </dd>
@@ -3195,7 +3267,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">This class implements a constructive heuristic for the TSP that prefers the
  first city of the nearest pair of cities.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html#%3Cinit%3E(org.cicirello.search.problems.tsp.TSP)">NearestCityPairHeuristic(TSP)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityPairHeuristic</a></dt>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html#%3Cinit%3E(org.cicirello.search.problems.tsp.BaseTSP)">NearestCityPairHeuristic(BaseTSP)</a></span> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/NearestCityPairHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityPairHeuristic</a></dt>
 <dd>
 <div class="block">Constructs a nearest city pair heuristic for an instance of the TSP.</div>
 </dd>
@@ -3763,6 +3835,24 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html#%3Cinit%3E()">RandomSelection()</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html" title="class in org.cicirello.search.evo">RandomSelection</a></dt>
 <dd>
 <div class="block">Constructs the random selection operator.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.html" title="class in org.cicirello.search.problems.tsp"><span class="typeNameLink">RandomTSPMatrix</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></dt>
+<dd>
+<div class="block">This class and its nested classes implement the Traveling Salesperson Problem (TSP),
+ and its variant, the Asymmetric Traveling Salesperson Problem (ATSP),
+ by generating a random distance matrix.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html" title="class in org.cicirello.search.problems.tsp"><span class="typeNameLink">RandomTSPMatrix.Double</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></dt>
+<dd>
+<div class="block">This class implements the Traveling Salesperson Problem (TSP),
+ and its variant, the Asymmetric Traveling Salesperson Problem (ATSP),
+ by generating a random distance matrix, with floating-point cost edges.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html" title="class in org.cicirello.search.problems.tsp"><span class="typeNameLink">RandomTSPMatrix.Integer</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></dt>
+<dd>
+<div class="block">This class implements the Traveling Salesperson Problem (TSP),
+ and its variant, the Asymmetric Traveling Salesperson Problem (ATSP),
+ by generating a random distance matrix, with integer cost edges.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/RandomValueChangeMutation.html" title="class in org.cicirello.search.operators.integers"><span class="typeNameLink">RandomValueChangeMutation</span></a>&lt;<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/RandomValueChangeMutation.html" title="type parameter in RandomValueChangeMutation">T</a> extends <a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt; - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/package-summary.html">org.cicirello.search.operators.integers</a></dt>
 <dd>
@@ -4941,7 +5031,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.html" title="class in org.cicirello.search.problems.tsp"><span class="typeNameLink">TSP</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></dt>
 <dd>
-<div class="block">This class and its nested classes implement the Traveling Salesperson Problem (TSP).</div>
+<div class="block">This class and its nested classes implement the Traveling Salesperson Problem (TSP),
+ such that cities are 2D points, and edge costs is the distance between them.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Double.html" title="class in org.cicirello.search.problems.tsp"><span class="typeNameLink">TSP.Double</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></dt>
 <dd>
@@ -5253,6 +5344,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedSquaredTardiness.html#value(org.cicirello.permutations.Permutation)">value(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedSquaredTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedSquaredTardiness</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedTardiness.html#value(org.cicirello.permutations.Permutation)">value(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedTardiness</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html#value(org.cicirello.permutations.Permutation)">value(Permutation)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Double.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Double</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html#value(org.cicirello.permutations.Permutation)">value(Permutation)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/RandomTSPMatrix.Integer.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix.Integer</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Double.html#value(org.cicirello.permutations.Permutation)">value(Permutation)</a></span> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Double.html" title="class in org.cicirello.search.problems.tsp">TSP.Double</a></dt>
 <dd>&nbsp;</dd>

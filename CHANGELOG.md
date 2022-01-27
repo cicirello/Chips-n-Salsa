@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-01-24
+## [Unreleased] - 2022-01-27
 
 ### Added
 
@@ -19,6 +19,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 ### Other
+
+
+## [4.2.1] - 2022-01-27
+
+### Fixed
+* Implemented the optional method, minCost, of the OptimizationProblem and
+  IntegerCostOptimizationProblem classes in all of the various TSP implementations
+  to return a simple, extremely loose, lower bound of 0, to enable using the
+  InverseCostFitnessFunction class that require a finite lower bound. The default
+  implementation of that method otherwise returns negative infinity.
 
 
 ## [4.2.0] - 2022-01-24

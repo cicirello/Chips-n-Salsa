@@ -151,6 +151,7 @@ public class RandomTSPMatrixTests {
 		int[][] matrix2 = { {7, 3}, {5, 9} };
 		int[][] expected2 = { {7, 3}, {5, 9} };
 		RandomTSPMatrix.Integer tsp = new RandomTSPMatrix.Integer(matrix2);
+		assertEquals(0, tsp.minCost());
 		assertEquals(2, tsp.length());
 		for (int i = 0; i < expected2.length; i++) {
 			for (int j = 0; j < expected2[i].length; j++) {
@@ -321,6 +322,7 @@ public class RandomTSPMatrixTests {
 		double[][] matrix2 = { {7, 3}, {5, 9} };
 		double[][] expected2 = { {7, 3}, {5, 9} };
 		RandomTSPMatrix.Double tsp = new RandomTSPMatrix.Double(matrix2);
+		assertEquals(0, tsp.minCost(), 0.0);
 		assertEquals(2, tsp.length());
 		for (int i = 0; i < expected2.length; i++) {
 			for (int j = 0; j < expected2[i].length; j++) {

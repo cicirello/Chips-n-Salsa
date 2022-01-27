@@ -212,6 +212,7 @@ public class TSPTests {
 			{ Math.sqrt(52.0), 6.0, 0.0 }
 		};
 		TSP.Double tsp = new TSP.Double(x, y);
+		assertEquals(0.0, tsp.minCost(), 0.0);
 		assertEquals(x.length, tsp.x.length);
 		assertEquals(y.length, tsp.y.length);
 		assertTrue(x != tsp.x);
@@ -254,6 +255,7 @@ public class TSPTests {
 			y,
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
 		);
+		assertEquals(0.0, tsp.minCost(), 0.0);
 		assertEquals(x.length, tsp.x.length);
 		assertEquals(y.length, tsp.y.length);
 		assertTrue(x != tsp.x);
@@ -287,6 +289,7 @@ public class TSPTests {
 		int W = 5;
 		int N = 10;
 		TSP.Double tsp = new TSP.Double(N, W);
+		assertEquals(0.0, tsp.minCost(), 0.0);
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -326,6 +329,7 @@ public class TSPTests {
 		int W = 5;
 		int N = 10;
 		TSP.Double tsp = new TSP.Double(N, W, 42);
+		assertEquals(0.0, tsp.minCost(), 0.0);
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -367,6 +371,7 @@ public class TSPTests {
 		TSP.Double tsp = new TSP.Double(N, W,
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
 		);
+		assertEquals(0.0, tsp.minCost(), 0.0);
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -406,6 +411,7 @@ public class TSPTests {
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2),
 			42
 		);
+		assertEquals(0.0, tsp.minCost(), 0.0);
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -450,6 +456,7 @@ public class TSPTests {
 			{ 7, 6, 0 }
 		};
 		TSP.Integer tsp = new TSP.Integer(x, y);
+		assertEquals(0, tsp.minCost());
 		assertEquals(x.length, tsp.x.length);
 		assertEquals(y.length, tsp.y.length);
 		assertTrue(x != tsp.x);
@@ -492,6 +499,7 @@ public class TSPTests {
 			y,
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
 		);
+		assertEquals(0, tsp.minCost());
 		assertEquals(x.length, tsp.x.length);
 		assertEquals(y.length, tsp.y.length);
 		assertTrue(x != tsp.x);
@@ -525,6 +533,7 @@ public class TSPTests {
 		int W = 5;
 		int N = 10;
 		TSP.Integer tsp = new TSP.Integer(N, W);
+		assertEquals(0, tsp.minCost());
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -564,6 +573,7 @@ public class TSPTests {
 		int W = 5;
 		int N = 10;
 		TSP.Integer tsp = new TSP.Integer(N, W, 42);
+		assertEquals(0, tsp.minCost());
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -605,6 +615,7 @@ public class TSPTests {
 		TSP.Integer tsp = new TSP.Integer(N, W,
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
 		);
+		assertEquals(0, tsp.minCost());
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -644,6 +655,7 @@ public class TSPTests {
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2),
 			42
 		);
+		assertEquals(0, tsp.minCost());
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -688,6 +700,7 @@ public class TSPTests {
 			{ Math.sqrt(52.0), 6.0, 0.0 }
 		};
 		TSP.DoubleMatrix tsp = new TSP.DoubleMatrix(x, y);
+		assertEquals(0, tsp.minCost(), 0.0);
 		assertEquals(x.length, tsp.x.length);
 		assertEquals(y.length, tsp.y.length);
 		assertTrue(x != tsp.x);
@@ -730,6 +743,7 @@ public class TSPTests {
 			y,
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
 		);
+		assertEquals(0, tsp.minCost(), 0.0);
 		assertEquals(x.length, tsp.x.length);
 		assertEquals(y.length, tsp.y.length);
 		assertTrue(x != tsp.x);
@@ -763,6 +777,7 @@ public class TSPTests {
 		int W = 5;
 		int N = 10;
 		TSP.DoubleMatrix tsp = new TSP.DoubleMatrix(N, W);
+		assertEquals(0, tsp.minCost(), 0.0);
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -802,6 +817,7 @@ public class TSPTests {
 		int W = 5;
 		int N = 10;
 		TSP.DoubleMatrix tsp = new TSP.DoubleMatrix(N, W, 42);
+		assertEquals(0, tsp.minCost(), 0.0);
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -843,6 +859,7 @@ public class TSPTests {
 		TSP.DoubleMatrix tsp = new TSP.DoubleMatrix(N, W,
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
 		);
+		assertEquals(0, tsp.minCost(), 0.0);
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -882,6 +899,7 @@ public class TSPTests {
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2),
 			42
 		);
+		assertEquals(0, tsp.minCost(), 0.0);
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -926,6 +944,7 @@ public class TSPTests {
 			{ 7, 6, 0 }
 		};
 		TSP.IntegerMatrix tsp = new TSP.IntegerMatrix(x, y);
+		assertEquals(0, tsp.minCost());
 		assertEquals(x.length, tsp.x.length);
 		assertEquals(y.length, tsp.y.length);
 		assertTrue(x != tsp.x);
@@ -968,6 +987,7 @@ public class TSPTests {
 			y,
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
 		);
+		assertEquals(0, tsp.minCost());
 		assertEquals(x.length, tsp.x.length);
 		assertEquals(y.length, tsp.y.length);
 		assertTrue(x != tsp.x);
@@ -1001,6 +1021,7 @@ public class TSPTests {
 		int W = 5;
 		int N = 10;
 		TSP.IntegerMatrix tsp = new TSP.IntegerMatrix(N, W);
+		assertEquals(0, tsp.minCost());
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -1040,6 +1061,7 @@ public class TSPTests {
 		int W = 5;
 		int N = 10;
 		TSP.IntegerMatrix tsp = new TSP.IntegerMatrix(N, W, 42);
+		assertEquals(0, tsp.minCost());
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -1081,6 +1103,7 @@ public class TSPTests {
 		TSP.IntegerMatrix tsp = new TSP.IntegerMatrix(N, W,
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2)
 		);
+		assertEquals(0, tsp.minCost());
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {
@@ -1120,6 +1143,7 @@ public class TSPTests {
 			(x1, y1, x2, y2) -> Math.abs(x1-x2) + Math.abs(y1-y2),
 			42
 		);
+		assertEquals(0, tsp.minCost());
 		assertEquals(N, tsp.x.length);
 		assertEquals(N, tsp.y.length);
 		for (int i = 0; i < N; i++) {

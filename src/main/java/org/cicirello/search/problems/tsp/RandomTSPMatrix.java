@@ -219,6 +219,11 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 			return cost(candidate);
 		}
 		
+		@Override
+		public int minCost() {
+			return 0;
+		}
+		
 		/*
 		 * package private to support implementing heuristics in same package.
 		 */
@@ -459,6 +464,11 @@ public abstract class RandomTSPMatrix extends BaseTSP {
 		@Override
 		public double value(Permutation candidate) {
 			return cost(candidate);
+		}
+		
+		@Override
+		public double minCost() {
+			return 0;
 		}
 		
 		/*

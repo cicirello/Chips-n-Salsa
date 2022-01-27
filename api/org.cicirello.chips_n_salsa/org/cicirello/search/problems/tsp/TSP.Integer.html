@@ -35,7 +35,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -283,6 +283,14 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#minCost()">minCost</a></span>()</code></th>
+<td class="colLast">
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
+ to the problem instance, where lower cost implies better solution.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#value(org.cicirello.permutations.Permutation)">value</a></span>&#8203;(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations" class="externalLink">Permutation</a>&nbsp;candidate)</code></th>
 <td class="colLast">
 <div class="block">Computes the value of the candidate solution within the usual constraints and
@@ -309,7 +317,7 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;org.cicirello.search.problems.<a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a></h3>
-<code><a href="../IntegerCostOptimizationProblem.html#costAsDouble(T)">costAsDouble</a>, <a href="../IntegerCostOptimizationProblem.html#getSolutionCostPair(T)">getSolutionCostPair</a>, <a href="../IntegerCostOptimizationProblem.html#isMinCost(int)">isMinCost</a>, <a href="../IntegerCostOptimizationProblem.html#minCost()">minCost</a></code></li>
+<code><a href="../IntegerCostOptimizationProblem.html#costAsDouble(T)">costAsDouble</a>, <a href="../IntegerCostOptimizationProblem.html#getSolutionCostPair(T)">getSolutionCostPair</a>, <a href="../IntegerCostOptimizationProblem.html#isMinCost(int)">isMinCost</a></code></li>
 </ul>
 </li>
 </ul>
@@ -495,7 +503,7 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <a id="value(org.cicirello.permutations.Permutation)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>value</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;value&#8203;(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations" class="externalLink">Permutation</a>&nbsp;candidate)</pre>
@@ -509,6 +517,25 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The actual optimization value of the candidate solution.</dd>
+</dl>
+</li>
+</ul>
+<a id="minCost()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>minCost</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;minCost()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../IntegerCostOptimizationProblem.html#minCost()">IntegerCostOptimizationProblem</a></code></span></div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
+ to the problem instance, where lower cost implies better solution. 
+ The default implementation returns Integer.MIN_VALUE.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../IntegerCostOptimizationProblem.html#minCost()">minCost</a></code>&nbsp;in interface&nbsp;<code><a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations" class="externalLink">Permutation</a>&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A lower bound on the minimum theoretical cost of the problem instance.</dd>
 </dl>
 </li>
 </ul>

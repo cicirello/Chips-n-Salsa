@@ -269,6 +269,10 @@ public class BinPackingTests {
 			NegativeArraySizeException.class,
 			() -> new BinPacking.UniformRandom(-1, 100, 21, 30)
 		);
+		thrown2 = assertThrows( 
+			NegativeArraySizeException.class,
+			() -> new BinPacking.Triplet(-1)
+		);
 	}
 	
 	@Test

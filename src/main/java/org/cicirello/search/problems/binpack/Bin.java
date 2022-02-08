@@ -77,6 +77,7 @@ public final class Bin {
 	 * Gets the id of an item in this bin.
 	 * @param i an index into the bin
 	 * @return the id of the item at index i.
+	 * @throws IndexOutOfBoundsException if i is negative or greater than or equal to size()
 	 */
 	public final int getItem(int i) {
 		return items.get(i);

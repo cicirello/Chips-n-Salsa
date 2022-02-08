@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-02-08
 
 ### Added
+* Implementation of the Bin Packing Problem.
 
 ### Changed
 * Bumped org.cicirello.core to 1.1.0.

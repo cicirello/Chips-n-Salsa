@@ -117,6 +117,7 @@ module org.cicirello.chips_n_salsa {
 	exports org.cicirello.search.operators.permutations;
 	exports org.cicirello.search.operators.reals;
 	exports org.cicirello.search.problems;
+	exports org.cicirello.search.problems.binpack;
 	exports org.cicirello.search.problems.scheduling;
 	exports org.cicirello.search.problems.tsp;
 	exports org.cicirello.search.representations;

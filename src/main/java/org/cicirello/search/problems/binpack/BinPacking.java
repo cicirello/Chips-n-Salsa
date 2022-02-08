@@ -97,7 +97,7 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
 	 */
 	@Override
 	public final int cost(Permutation candidate) {
-		return new BinPackingSolution(candidate, capacity, items, lowerBound).cost();
+		return permutationToBinPackingSolution(candidate).cost();
 	}
 	
 	@Override

@@ -20,6 +20,8 @@
  
 package org.cicirello.search.problems.binpack;
 
+import org.cicirello.util.IntegerList;
+
 /**
  * This class is used by the {@link BinPackingSolution} class to represent the
  * contents of a bin in a solution to a {@link BinPacking} problem instance.
@@ -33,15 +35,14 @@ package org.cicirello.search.problems.binpack;
 public final class Bin {
 	
 	private int space;
-	private int[] items;
-	private int size;
+	private final IntegerList items;
 	
 	/*
 	 * package-private to keep initialization within the package 
 	 */
-	Bin(int space, int initialLength) {
+	Bin(int space) {
 		this.space = space;
-		items = new int[initialLength];
+		items = new IntegerList();
 	}
 	
 	/*
@@ -50,12 +51,7 @@ public final class Bin {
 	final void addItem(int itemId, int itemSize) {
 		if (itemSize <= space) {
 			space -= itemSize;
-			if (size >= items.length) {
-				int[] temp = new int[items.length << 1];
-				System.arraycopy(items, 0, temp, 0, size);
-			}
-			items[size] = itemId;
-			size++;
+			items.add(itemId);
 		} else {
 			throw new IllegalArgumentException("insufficient space remaining in bin");
 		}
@@ -74,7 +70,7 @@ public final class Bin {
 	 * @return the number of items in the Bin
 	 */
 	public final int size() {
-		return size;
+		return items.size();
 	}
 	
 	/**
@@ -83,6 +79,6 @@ public final class Bin {
 	 * @return the id of the item at index i.
 	 */
 	public final int getItem(int i) {
-		return items[i];
+		return items.get(i);
 	}
 }

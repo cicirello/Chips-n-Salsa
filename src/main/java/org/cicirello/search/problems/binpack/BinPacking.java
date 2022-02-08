@@ -24,6 +24,7 @@ import java.util.SplittableRandom;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.util.IntegerList;
 
 /**
  * This class, and its nested classes, implements the Bin Packing problem. Although
@@ -97,7 +98,23 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
 	 */
 	@Override
 	public final int cost(Permutation candidate) {
-		return permutationToBinPackingSolution(candidate).cost();
+		IntegerList bins = new IntegerList();
+		for (int i = 0; i < candidate.length(); i++) {
+			int id = candidate.get(i);
+			boolean added = false;
+			for (int j = 0; j < bins.size(); j++) {
+				int space = bins.get(j);
+				if (space >= items[id]) {
+					bins.set(j, space - items[id]);
+					added = true;
+					break;
+				}
+			}
+			if (!added) {
+				bins.add(capacity - items[id]);
+			}
+		}
+		return bins.size();
 	}
 	
 	@Override
@@ -118,7 +135,7 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
 	 * @return the solution that p represents.
 	 */
 	public final BinPackingSolution permutationToBinPackingSolution(Permutation p) {
-		return new BinPackingSolution(p, capacity, items, lowerBound);
+		return new BinPackingSolution(p, capacity, items);
 	}
 	
 	/**

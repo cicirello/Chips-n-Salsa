@@ -39,9 +39,8 @@ public final class BinPackingSolution {
 	/*
 	 * package-private so only the BinPacking class can directly construct instances.
 	 */
-	BinPackingSolution(Permutation p, int capacity, int[] items, int lowerBound) {
+	BinPackingSolution(Permutation p, int capacity, int[] items) {
 		solution = new ArrayList<Bin>();
-		final int initialLength = items.length / lowerBound;
 		for (int i = 0; i < p.length(); i++) {
 			int id = p.get(i);
 			boolean added = false;
@@ -53,7 +52,7 @@ public final class BinPackingSolution {
 				}
 			}
 			if (!added) {
-				Bin b = new Bin(capacity, initialLength);
+				Bin b = new Bin(capacity);
 				b.addItem(id, items[id]);
 				solution.add(b);
 			}

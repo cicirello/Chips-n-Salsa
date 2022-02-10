@@ -20,6 +20,8 @@
  
 package org.cicirello.search.evo;
 
+import java.util.function.DoubleUnaryOperator;
+
 /**
  * <p>This abstract class serves as a base class for selection operators that
  * select population members randomly but weighted by either their fitness directly
@@ -72,6 +74,20 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
 		p[0] = fitnesses.getFitness(0);
 		for (int i = 1; i < p.length; i++) {
 			p[i] = p[i-1] + fitnesses.getFitness(i);
+		}
+		return p;
+	}
+	
+	/*
+	 * package private to enable subclasses in same package to override.
+	 */
+	final double[] computeWeightRunningSumRanks(int[] indexes, DoubleUnaryOperator rankToWeight) {
+		double[] p = new double[indexes.length];
+		for (int i = 0; i < indexes.length; i++) {
+			p[indexes[i]] = rankToWeight.applyAsDouble(i);
+		}
+		for (int i = 1; i < p.length; i++) {
+			p[i] += p[i-1];
 		}
 		return p;
 	}

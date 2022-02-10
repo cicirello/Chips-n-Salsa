@@ -628,6 +628,49 @@ public class SelectionOperatorTests {
 		}
 	}
 	
+	@Test
+	public void testComputeWeightRunningSumRanks() {
+		class TestSelectionOp extends AbstractWeightedSelection {
+			@Override public void selectAll(double[] normalizedWeights, int[] selected) {
+				// doesn't matter.... not used in test
+			}
+			@Override public TestSelectionOp split() {
+				return this;
+			}
+		}
+		TestSelectionOp selection = new TestSelectionOp();
+		for (int n = 1; n <= 8; n *= 2) {
+			int[] indexes = new int[n];
+			int[] reversed = new int[n];
+			for (int i = 0; i < n; i++) {
+				indexes[i] = i;
+				reversed[n-1-i] = i;
+			}
+			double[] weightsRunningSum = selection.computeWeightRunningSumRanks(indexes, x -> x + 1);
+			for (int i = 0; i < n; i++) {
+				double expected = (i+1)*(i+2)/2;
+				assertEquals(expected, weightsRunningSum[i], 1E-10);
+			}
+			weightsRunningSum = selection.computeWeightRunningSumRanks(reversed, x -> x + 1);
+			for (int i = 0; i < n; i++) {
+				double expected = n*(n+1)/2 - (n-i-1)*(n-i)/2;
+				assertEquals(expected, weightsRunningSum[i], 1E-10);
+			}
+			weightsRunningSum = selection.computeWeightRunningSumRanks(indexes, x -> (x + 1)*(x + 1));
+			for (int i = 0; i < n; i++) {
+				int j = i+1;
+				double expected = j*(j+1)*(2*j+1)/6;
+				assertEquals(expected, weightsRunningSum[i], 1E-10);
+			}
+			weightsRunningSum = selection.computeWeightRunningSumRanks(reversed, x -> (x + 1)*(x + 1));
+			for (int i = 0; i < n; i++) {
+				int j = n-1-i;
+				double expected = n*(n+1)*(2*n+1)/6 - j*(j+1)*(2*j+1)/6;
+				assertEquals(expected, weightsRunningSum[i], 1E-10);
+			}
+		}
+	}
+	
 	private String toString(int[] array) {
 		String s = "" + array[0];
 		for (int i = 1; i < array.length; i++) {

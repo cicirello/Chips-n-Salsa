@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -19,8 +19,6 @@
  */
  
 package org.cicirello.search.evo;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <p>This class implements fitness proportional selection, sometimes referred to as weighted 
@@ -43,7 +41,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class FitnessProportionalSelection extends AbstractWeightedSelection {
+public class FitnessProportionalSelection extends AbstractRouletteWheelSelection {
 	
 	/**
 	 * Construct a fitness proportional selection operator.
@@ -57,12 +55,5 @@ public class FitnessProportionalSelection extends AbstractWeightedSelection {
 		// Since this selection operator maintains no mutable state, it is
 		// safe for multiple threads to share a single instance, so just return this.
 		return this;
-	}
-	
-	@Override
-	final void selectAll(double[] normalizedWeights, int[] selected) {
-		for (int i = 0; i < selected.length; i++) {
-			selected[i] = selectOne(normalizedWeights, 0, normalizedWeights.length-1, ThreadLocalRandom.current().nextDouble());
-		}
 	}
 }

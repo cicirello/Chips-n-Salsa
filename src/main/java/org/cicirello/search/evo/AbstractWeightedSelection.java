@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -23,18 +23,18 @@ package org.cicirello.search.evo;
 /**
  * <p>This abstract class serves as a base class for selection operators that
  * select population members randomly but weighted by either their fitness directly
- * or a function of their fitness.</p>
+ * or a function of their fitness, or by their ranks.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-abstract class AbstractFitnessProportionalSelection implements SelectionOperator {
+abstract class AbstractWeightedSelection implements SelectionOperator {
 	
 	/**
 	 * Construct a selection operator, which weights population members
-	 * by their fitness or a function of their fitness.
+	 * by their fitness or a function of their fitness or by their ranks.
 	 */
-	public AbstractFitnessProportionalSelection() {}
+	public AbstractWeightedSelection() {}
 	
 	@Override
 	public final void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
@@ -47,7 +47,10 @@ abstract class AbstractFitnessProportionalSelection implements SelectionOperator
 	}
 	
 	/*
-	 * package private to enable subclasses in same package to override
+	 * package private to enable subclasses in same package to override.
+	 * This implementation is suitable for selection operators that weight
+	 * population members by their fitnesses. Override to weight by a function of
+	 * fitness or by ranks or by something else.
 	 */
 	double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
 		double[] p = new double[fitnesses.size()];
@@ -59,7 +62,10 @@ abstract class AbstractFitnessProportionalSelection implements SelectionOperator
 	}
 	
 	/*
-	 * package private to enable subclasses in same package to override
+	 * package private to enable subclasses in same package to override.
+	 * This implementation is suitable for selection operators that weight
+	 * population members by their fitnesses. Override to weight by a function of
+	 * fitness or by ranks or by something else.
 	 */
 	double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
 		double[] p = new double[fitnesses.size()];

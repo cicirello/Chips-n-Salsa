@@ -573,6 +573,61 @@ public class SelectionOperatorTests {
 		}
 	}
 	
+	@Test
+	public void testSortedIndexes() {
+		class TestSortedIndexesSelectionOp extends AbstractWeightedSelection {
+			@Override public void selectAll(double[] normalizedWeights, int[] selected) {
+				// doesn't matter.... not used in test
+			}
+			@Override public TestSortedIndexesSelectionOp split() {
+				return this;
+			}
+		}
+		TestSortedIndexesSelectionOp selection = new TestSortedIndexesSelectionOp();
+		for (int n = 1; n <= 8; n *= 2) {
+			int[] expected = new int[n];
+			for (int i = 0; i < n; i++) {
+				expected[i] = i;
+			}
+			PopFitVectorDouble f1 = new PopFitVectorDouble(n);
+			int[] indexes = selection.sortedIndexes(f1);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			PopFitVectorInteger f2 = new PopFitVectorInteger(n);
+			indexes = selection.sortedIndexes(f2);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			PopFitVectorDoubleSimple f3 = new PopFitVectorDoubleSimple(n);
+			indexes = selection.sortedIndexes(f3);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			PopFitVectorIntegerSimple f4 = new PopFitVectorIntegerSimple(n);
+			indexes = selection.sortedIndexes(f4);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			
+			for (int i = 0; i < n; i++) {
+				expected[n-1-i] = i;
+			}
+			f1.reverse();
+			f2.reverse();
+			f3.reverse();
+			f4.reverse();
+			indexes = selection.sortedIndexes(f1);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			indexes = selection.sortedIndexes(f2);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			indexes = selection.sortedIndexes(f3);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			indexes = selection.sortedIndexes(f4);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+		}
+	}
+	
 	private String toString(int[] array) {
 		String s = "" + array[0];
 		for (int i = 1; i < array.length; i++) {

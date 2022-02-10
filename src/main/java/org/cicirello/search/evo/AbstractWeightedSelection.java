@@ -96,6 +96,30 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
 	 */
 	abstract void selectAll(double[] normalizedWeights, int[] selected);
 	
+	/*
+	 * package private for use by subclasses in same package
+	 */
+	final int[] sortedIndexes(PopulationFitnessVector.Integer fitnesses) {
+		int[] indexes = new int[fitnesses.size()];
+		for (int i = 0; i < indexes.length; i++) {
+			indexes[i] = i;
+		}
+		sort(indexes, fitnesses, 0, indexes.length - 1);
+		return indexes;
+	}
+	
+	/*
+	 * package private for use by subclasses in same package
+	 */
+	final int[] sortedIndexes(PopulationFitnessVector.Double fitnesses) {
+		int[] indexes = new int[fitnesses.size()];
+		for (int i = 0; i < indexes.length; i++) {
+			indexes[i] = i;
+		}
+		sort(indexes, fitnesses, 0, indexes.length - 1);
+		return indexes;
+	}
+	
 	private double[] normalizeWeights(double[] weights) {
 		double total = weights[weights.length-1];
 		weights[weights.length-1] = 1.0;
@@ -103,5 +127,73 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
 			weights[i] /= total;
 		}
 		return weights;
+	}
+	
+	private void sort(int[] indexes, PopulationFitnessVector.Double fitnesses, int first, int last) {
+		if (first < last) {
+			int mid = (first + last) >> 1;
+			sort(indexes, fitnesses, first, mid);
+			sort(indexes, fitnesses, mid + 1, last);
+			merge(indexes, fitnesses, first, mid, last);
+		}
+	}
+	
+	private void sort(int[] indexes, PopulationFitnessVector.Integer fitnesses, int first, int last) {
+		if (first < last) {
+			int mid = (first + last) >> 1;
+			sort(indexes, fitnesses, first, mid);
+			sort(indexes, fitnesses, mid + 1, last);
+			merge(indexes, fitnesses, first, mid, last);
+		}
+	}
+	
+	private void merge(int[] indexes, PopulationFitnessVector.Double fitnesses, int first, int mid, int last) {
+		int[] left = new int[mid - first + 1];
+		int[] right = new int[last - mid];
+		System.arraycopy(indexes, first, left, 0, left.length);
+		System.arraycopy(indexes, mid + 1, right, 0, right.length);
+		int i = 0;
+		int j = 0;
+		int k = first;
+		for ( ; i < left.length && j < right.length; k++) {
+			if (fitnesses.getFitness(left[i]) <= fitnesses.getFitness(right[j])) {
+				indexes[k] = left[i];
+				i++;
+			} else {
+				indexes[k] = right[j];
+				j++;
+			}
+		}
+		for ( ; i < left.length; i++, k++) {
+			indexes[k] = left[i];
+		}
+		for (; j < right.length; j++, k++) {
+			indexes[k] = right[j];
+		}
+	}
+	
+	private void merge(int[] indexes, PopulationFitnessVector.Integer fitnesses, int first, int mid, int last) {
+		int[] left = new int[mid - first + 1];
+		int[] right = new int[last - mid];
+		System.arraycopy(indexes, first, left, 0, left.length);
+		System.arraycopy(indexes, mid + 1, right, 0, right.length);
+		int i = 0;
+		int j = 0;
+		int k = first;
+		for ( ; i < left.length && j < right.length; k++) {
+			if (fitnesses.getFitness(left[i]) <= fitnesses.getFitness(right[j])) {
+				indexes[k] = left[i];
+				i++;
+			} else {
+				indexes[k] = right[j];
+				j++;
+			}
+		}
+		for ( ; i < left.length; i++, k++) {
+			indexes[k] = left[i];
+		}
+		for (; j < right.length; j++, k++) {
+			indexes[k] = right[j];
+		}
 	}
 }

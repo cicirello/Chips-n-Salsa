@@ -53,7 +53,7 @@ import org.cicirello.math.rand.RandomIndexer;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class StochasticUniversalSampling extends AbstractFitnessProportionalSelection {
+public class StochasticUniversalSampling extends AbstractWeightedSelection {
 	
 	/**
 	 * Construct an SUS operator.

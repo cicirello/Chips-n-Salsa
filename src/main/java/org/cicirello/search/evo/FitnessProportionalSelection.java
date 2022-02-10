@@ -43,7 +43,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class FitnessProportionalSelection extends AbstractFitnessProportionalSelection {
+public class FitnessProportionalSelection extends AbstractWeightedSelection {
 	
 	/**
 	 * Construct a fitness proportional selection operator.

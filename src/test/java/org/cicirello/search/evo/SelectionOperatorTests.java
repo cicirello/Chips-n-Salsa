@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -24,7 +24,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
- * JUnit 4 test cases for selection operators.
+ * JUnit test cases for selection operators.
  */
 public class SelectionOperatorTests {
 	
@@ -691,7 +691,7 @@ public class SelectionOperatorTests {
 		}
 	}
 	
-	private void validateComputeRunningSum(AbstractFitnessProportionalSelection selection) {
+	private void validateComputeRunningSum(AbstractWeightedSelection selection) {
 		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
 		double[] expected = {1, 3, 6, 10, 15};
 		assertEquals(5, weights.length);
@@ -706,7 +706,7 @@ public class SelectionOperatorTests {
 		}
 	}
 	
-	private void validateComputeRunningSumShifted(AbstractFitnessProportionalSelection selection) {
+	private void validateComputeRunningSumShifted(AbstractWeightedSelection selection) {
 		int[][] cases = {
 			{1, 2, 3, 4, 5},
 			{5, 4, 3, 2, 1}, 
@@ -739,7 +739,7 @@ public class SelectionOperatorTests {
 		}
 	}
 	
-	private void validateBiasedComputeRunningSum(AbstractFitnessProportionalSelection selection) {
+	private void validateBiasedComputeRunningSum(AbstractWeightedSelection selection) {
 		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
 		double[] expected = {1, 5, 14, 30, 55};
 		assertEquals(5, weights.length);
@@ -754,7 +754,7 @@ public class SelectionOperatorTests {
 		}
 	}
 	
-	private void validateBiasedComputeRunningSumShifted(AbstractFitnessProportionalSelection selection) {
+	private void validateBiasedComputeRunningSumShifted(AbstractWeightedSelection selection) {
 		int[][] cases = {
 			{1, 2, 3, 4, 5},
 			{5, 4, 3, 2, 1}, 

@@ -29,6 +29,69 @@ import static org.junit.Assert.*;
 public class SelectionOperatorTests {
 	
 	@Test
+	public void testLinearRankSelection() {
+		double[] cValues = {1.0, 1.25, 1.5, 1.75, 2.0};
+		for (double c : cValues) {
+			LinearRankSelection selection = new LinearRankSelection(c);
+			validateIndexes_Double(selection);
+			validateIndexes_Integer(selection);
+			LinearRankSelection selection2 = selection.split();
+			validateIndexes_Double(selection2);
+			validateIndexes_Integer(selection2);
+		}
+		LinearRankSelection selection = new LinearRankSelection(2.0);
+		validateHigherFitnessSelectedMoreOften_Double(selection);
+		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		LinearRankSelection selectionUniform = new LinearRankSelection(1.0);
+		
+		for (int n = 2; n <= 8; n *= 2) {
+			PopFitVectorDouble f1 = new PopFitVectorDouble(n);
+			double[] weights = selection.computeWeightRunningSum(f1);
+			assertEquals(0.0, weights[0], 1E-10);
+			assertEquals(n, weights[n-1], 1E-10);
+			double expectedDelta = 2.0;
+			assertEquals(expectedDelta, weights[n-1] - weights[n-2], 1E-10);
+			for (int i = n-2; i > 0; i--) {
+				double delta = weights[i] - weights[i-1];
+				assertTrue(delta <= expectedDelta);
+				expectedDelta = delta;
+			}
+			
+			weights = selectionUniform.computeWeightRunningSum(f1);
+			for (int i = 0; i < weights.length; i++) {
+				assertEquals(i+1.0, weights[i], 1E-10);
+			}
+			
+			PopFitVectorInteger f2 = new PopFitVectorInteger(n);
+			weights = selection.computeWeightRunningSum(f2);
+			assertEquals(0.0, weights[0], 1E-10);
+			assertEquals(n, weights[n-1], 1E-10);
+			expectedDelta = 2.0;
+			assertEquals(expectedDelta, weights[n-1] - weights[n-2], 1E-10);
+			for (int i = n-2; i > 0; i--) {
+				double delta = weights[i] - weights[i-1];
+				assertTrue(delta <= expectedDelta);
+				expectedDelta = delta;
+			}
+			
+			weights = selectionUniform.computeWeightRunningSum(f2);
+			for (int i = 0; i < weights.length; i++) {
+				assertEquals(i+1.0, weights[i], 1E-10);
+			}
+		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LinearRankSelection(2.0+Math.ulp(2.0))
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LinearRankSelection(1.0-Math.ulp(1.0))
+		);
+	}
+	
+	@Test
 	public void testRandomSelection() {
 		RandomSelection selection = new RandomSelection();
 		validateIndexes_Double(selection);

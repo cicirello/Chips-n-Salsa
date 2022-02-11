@@ -4,15 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-02-10
+## [Unreleased] - 2022-02-11
 
 ### Added
 * Linear Rank Selection
 * Linear Rank Stochastic Universal Sampling
-* Implementation of the Bin Packing Problem.
+* Exponential Rank Selection
+* Implementation of the Bin Packing Problem, including instance generators
 
 ### Changed
-* Bumped org.cicirello.core to 1.1.0.
+* Bumped dependency org.cicirello.core to 1.1.0
 
 ### Deprecated
 

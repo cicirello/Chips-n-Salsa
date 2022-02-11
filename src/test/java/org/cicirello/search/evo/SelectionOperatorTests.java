@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -24,9 +24,249 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
- * JUnit 4 test cases for selection operators.
+ * JUnit test cases for selection operators.
  */
 public class SelectionOperatorTests {
+	
+	@Test
+	public void testExponentialRankSelection() {
+		double[] cValues = {Math.ulp(0.0), 0.25, 0.5, 0.75, 1.0-Math.ulp(1.0)};
+		for (double c : cValues) {
+			ExponentialRankSelection selection = new ExponentialRankSelection(c);
+			validateIndexes_Double(selection, c >= 0.5);
+			validateIndexes_Integer(selection, c >= 0.5);
+			ExponentialRankSelection selection2 = selection.split();
+			validateIndexes_Double(selection2, c >= 0.5);
+			validateIndexes_Integer(selection2, c >= 0.5);
+		}
+		double c = 0.5;
+		ExponentialRankSelection selection = new ExponentialRankSelection(c);
+		validateHigherFitnessSelectedMoreOften_Double(selection);
+		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		for (int n = 2; n <= 8; n *= 2) {
+			PopFitVectorDouble f1 = new PopFitVectorDouble(n);
+			double[] weights = selection.computeWeightRunningSum(f1);
+			for (int i = n-1; i > 0; i--) {
+				double delta = weights[i] - weights[i-1];
+				double expectedDelta = Math.pow(c,n-(i+1));
+				assertEquals(expectedDelta, delta, 1E-10);
+			}
+			assertEquals(Math.pow(c,n-1), weights[0], 1E-10);
+			
+			PopFitVectorInteger f2 = new PopFitVectorInteger(n);
+			weights = selection.computeWeightRunningSum(f2);
+			for (int i = n-1; i > 0; i--) {
+				double delta = weights[i] - weights[i-1];
+				double expectedDelta = Math.pow(c,n-(i+1));
+				assertEquals(expectedDelta, delta, 1E-10);
+			}
+			assertEquals(Math.pow(c,n-1), weights[0], 1E-10);
+		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new ExponentialRankSelection(0.0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new ExponentialRankSelection(1.0)
+		);
+	}
+	
+	@Test
+	public void testExponentialRankSUS() {
+		double[] cValues = {Math.ulp(0.0), 0.25, 0.5, 0.75, 1.0-Math.ulp(1.0)};
+		for (double c : cValues) {
+			ExponentialRankStochasticUniversalSampling selection = new ExponentialRankStochasticUniversalSampling(c);
+			validateIndexes_Double(selection, c >= 0.5);
+			validateIndexes_Integer(selection, c >= 0.5);
+			ExponentialRankStochasticUniversalSampling selection2 = selection.split();
+			validateIndexes_Double(selection2, c >= 0.5);
+			validateIndexes_Integer(selection2, c >= 0.5);
+		}
+		double c = 0.5;
+		ExponentialRankStochasticUniversalSampling selection = new ExponentialRankStochasticUniversalSampling(c);
+		validateHigherFitnessSelectedMoreOften_Double(selection);
+		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		for (int n = 2; n <= 8; n *= 2) {
+			PopFitVectorDouble f1 = new PopFitVectorDouble(n);
+			double[] weights = selection.computeWeightRunningSum(f1);
+			for (int i = n-1; i > 0; i--) {
+				double delta = weights[i] - weights[i-1];
+				double expectedDelta = Math.pow(c,n-(i+1));
+				assertEquals(expectedDelta, delta, 1E-10);
+			}
+			assertEquals(Math.pow(c,n-1), weights[0], 1E-10);
+			
+			validateExpectedCountsSUSWithRanks(selection, f1);
+			
+			PopFitVectorInteger f2 = new PopFitVectorInteger(n);
+			weights = selection.computeWeightRunningSum(f2);
+			for (int i = n-1; i > 0; i--) {
+				double delta = weights[i] - weights[i-1];
+				double expectedDelta = Math.pow(c,n-(i+1));
+				assertEquals(expectedDelta, delta, 1E-10);
+			}
+			assertEquals(Math.pow(c,n-1), weights[0], 1E-10);
+			
+			validateExpectedCountsSUSWithRanks(selection, f2);
+		}
+		
+		PopFitVectorDoubleSimple f1 = new PopFitVectorDoubleSimple(100);
+		validateExpectedCountsSUSWithRanks(selection, f1);
+		PopFitVectorIntegerSimple f2 = new PopFitVectorIntegerSimple(100);
+		validateExpectedCountsSUSWithRanks(selection, f2);
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new ExponentialRankStochasticUniversalSampling(0.0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new ExponentialRankStochasticUniversalSampling(1.0)
+		);
+	}
+	
+	@Test
+	public void testLinearRankSelection() {
+		double[] cValues = {1.0, 1.25, 1.5, 1.75, 2.0};
+		for (double c : cValues) {
+			LinearRankSelection selection = new LinearRankSelection(c);
+			validateIndexes_Double(selection);
+			validateIndexes_Integer(selection);
+			LinearRankSelection selection2 = selection.split();
+			validateIndexes_Double(selection2);
+			validateIndexes_Integer(selection2);
+		}
+		LinearRankSelection selection = new LinearRankSelection(2.0);
+		validateHigherFitnessSelectedMoreOften_Double(selection);
+		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		LinearRankSelection selectionUniform = new LinearRankSelection(1.0);
+		
+		for (int n = 2; n <= 8; n *= 2) {
+			PopFitVectorDouble f1 = new PopFitVectorDouble(n);
+			double[] weights = selection.computeWeightRunningSum(f1);
+			assertEquals(0.0, weights[0], 1E-10);
+			assertEquals(n, weights[n-1], 1E-10);
+			double expectedDelta = 2.0;
+			assertEquals(expectedDelta, weights[n-1] - weights[n-2], 1E-10);
+			for (int i = n-2; i > 0; i--) {
+				double delta = weights[i] - weights[i-1];
+				assertTrue(delta <= expectedDelta);
+				expectedDelta = delta;
+			}
+			
+			weights = selectionUniform.computeWeightRunningSum(f1);
+			for (int i = 0; i < weights.length; i++) {
+				assertEquals(i+1.0, weights[i], 1E-10);
+			}
+			
+			PopFitVectorInteger f2 = new PopFitVectorInteger(n);
+			weights = selection.computeWeightRunningSum(f2);
+			assertEquals(0.0, weights[0], 1E-10);
+			assertEquals(n, weights[n-1], 1E-10);
+			expectedDelta = 2.0;
+			assertEquals(expectedDelta, weights[n-1] - weights[n-2], 1E-10);
+			for (int i = n-2; i > 0; i--) {
+				double delta = weights[i] - weights[i-1];
+				assertTrue(delta <= expectedDelta);
+				expectedDelta = delta;
+			}
+			
+			weights = selectionUniform.computeWeightRunningSum(f2);
+			for (int i = 0; i < weights.length; i++) {
+				assertEquals(i+1.0, weights[i], 1E-10);
+			}
+		}
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LinearRankSelection(2.0+Math.ulp(2.0))
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LinearRankSelection(1.0-Math.ulp(1.0))
+		);
+	}
+	
+	@Test
+	public void testLinearRankSUS() {
+		double[] cValues = {1.0, 1.25, 1.5, 1.75, 2.0};
+		for (double c : cValues) {
+			LinearRankStochasticUniversalSampling selection = new LinearRankStochasticUniversalSampling(c);
+			validateIndexes_Double(selection);
+			validateIndexes_Integer(selection);
+			LinearRankStochasticUniversalSampling selection2 = selection.split();
+			validateIndexes_Double(selection2);
+			validateIndexes_Integer(selection2);
+		}
+		LinearRankStochasticUniversalSampling selection = new LinearRankStochasticUniversalSampling(2.0);
+		validateHigherFitnessSelectedMoreOften_Double(selection);
+		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		
+		LinearRankStochasticUniversalSampling selectionUniform = new LinearRankStochasticUniversalSampling(1.0);
+		
+		for (int n = 2; n <= 8; n *= 2) {
+			PopFitVectorDouble f1 = new PopFitVectorDouble(n);
+			double[] weights = selection.computeWeightRunningSum(f1);
+			assertEquals(0.0, weights[0], 1E-10);
+			assertEquals(n, weights[n-1], 1E-10);
+			double expectedDelta = 2.0;
+			assertEquals(expectedDelta, weights[n-1] - weights[n-2], 1E-10);
+			for (int i = n-2; i > 0; i--) {
+				double delta = weights[i] - weights[i-1];
+				assertTrue(delta <= expectedDelta);
+				expectedDelta = delta;
+			}
+			
+			weights = selectionUniform.computeWeightRunningSum(f1);
+			for (int i = 0; i < weights.length; i++) {
+				assertEquals(i+1.0, weights[i], 1E-10);
+			}
+			
+			validateExpectedCountsSUSWithRanks(selection, f1);
+			validateExpectedCountsSUSWithRanks(selectionUniform, f1);
+			
+			PopFitVectorInteger f2 = new PopFitVectorInteger(n);
+			weights = selection.computeWeightRunningSum(f2);
+			assertEquals(0.0, weights[0], 1E-10);
+			assertEquals(n, weights[n-1], 1E-10);
+			expectedDelta = 2.0;
+			assertEquals(expectedDelta, weights[n-1] - weights[n-2], 1E-10);
+			for (int i = n-2; i > 0; i--) {
+				double delta = weights[i] - weights[i-1];
+				assertTrue(delta <= expectedDelta);
+				expectedDelta = delta;
+			}
+			
+			weights = selectionUniform.computeWeightRunningSum(f2);
+			for (int i = 0; i < weights.length; i++) {
+				assertEquals(i+1.0, weights[i], 1E-10);
+			}
+			
+			validateExpectedCountsSUSWithRanks(selection, f2);
+			validateExpectedCountsSUSWithRanks(selectionUniform, f2);
+		}
+		
+		PopFitVectorDoubleSimple f1 = new PopFitVectorDoubleSimple(100);
+		validateExpectedCountsSUSWithRanks(selection, f1);
+		validateExpectedCountsSUSWithRanks(selectionUniform, f1);
+		PopFitVectorIntegerSimple f2 = new PopFitVectorIntegerSimple(100);
+		validateExpectedCountsSUSWithRanks(selection, f2);
+		validateExpectedCountsSUSWithRanks(selectionUniform, f2);
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LinearRankStochasticUniversalSampling(2.0+Math.ulp(2.0))
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LinearRankStochasticUniversalSampling(1.0-Math.ulp(1.0))
+		);
+	}
 	
 	@Test
 	public void testRandomSelection() {
@@ -573,6 +813,104 @@ public class SelectionOperatorTests {
 		}
 	}
 	
+	@Test
+	public void testSortedIndexes() {
+		class TestSortedIndexesSelectionOp extends AbstractWeightedSelection {
+			@Override public void selectAll(double[] normalizedWeights, int[] selected) {
+				// doesn't matter.... not used in test
+			}
+			@Override public TestSortedIndexesSelectionOp split() {
+				return this;
+			}
+		}
+		TestSortedIndexesSelectionOp selection = new TestSortedIndexesSelectionOp();
+		for (int n = 1; n <= 8; n *= 2) {
+			int[] expected = new int[n];
+			for (int i = 0; i < n; i++) {
+				expected[i] = i;
+			}
+			PopFitVectorDouble f1 = new PopFitVectorDouble(n);
+			int[] indexes = selection.sortedIndexes(f1);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			PopFitVectorInteger f2 = new PopFitVectorInteger(n);
+			indexes = selection.sortedIndexes(f2);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			PopFitVectorDoubleSimple f3 = new PopFitVectorDoubleSimple(n);
+			indexes = selection.sortedIndexes(f3);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			PopFitVectorIntegerSimple f4 = new PopFitVectorIntegerSimple(n);
+			indexes = selection.sortedIndexes(f4);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			
+			for (int i = 0; i < n; i++) {
+				expected[n-1-i] = i;
+			}
+			f1.reverse();
+			f2.reverse();
+			f3.reverse();
+			f4.reverse();
+			indexes = selection.sortedIndexes(f1);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			indexes = selection.sortedIndexes(f2);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			indexes = selection.sortedIndexes(f3);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+			indexes = selection.sortedIndexes(f4);
+			assertEquals(n, indexes.length);
+			assertArrayEquals(expected, indexes);
+		}
+	}
+	
+	@Test
+	public void testComputeWeightRunningSumRanks() {
+		class TestSelectionOp extends AbstractWeightedSelection {
+			@Override public void selectAll(double[] normalizedWeights, int[] selected) {
+				// doesn't matter.... not used in test
+			}
+			@Override public TestSelectionOp split() {
+				return this;
+			}
+		}
+		TestSelectionOp selection = new TestSelectionOp();
+		for (int n = 1; n <= 8; n *= 2) {
+			int[] indexes = new int[n];
+			int[] reversed = new int[n];
+			for (int i = 0; i < n; i++) {
+				indexes[i] = i;
+				reversed[n-1-i] = i;
+			}
+			double[] weightsRunningSum = selection.computeWeightRunningSumRanks(indexes, x -> x + 1);
+			for (int i = 0; i < n; i++) {
+				double expected = (i+1)*(i+2)/2;
+				assertEquals(expected, weightsRunningSum[i], 1E-10);
+			}
+			weightsRunningSum = selection.computeWeightRunningSumRanks(reversed, x -> x + 1);
+			for (int i = 0; i < n; i++) {
+				double expected = n*(n+1)/2 - (n-i-1)*(n-i)/2;
+				assertEquals(expected, weightsRunningSum[i], 1E-10);
+			}
+			weightsRunningSum = selection.computeWeightRunningSumRanks(indexes, x -> (x + 1)*(x + 1));
+			for (int i = 0; i < n; i++) {
+				int j = i+1;
+				double expected = j*(j+1)*(2*j+1)/6;
+				assertEquals(expected, weightsRunningSum[i], 1E-10);
+			}
+			weightsRunningSum = selection.computeWeightRunningSumRanks(reversed, x -> (x + 1)*(x + 1));
+			for (int i = 0; i < n; i++) {
+				int j = n-1-i;
+				double expected = n*(n+1)*(2*n+1)/6 - j*(j+1)*(2*j+1)/6;
+				assertEquals(expected, weightsRunningSum[i], 1E-10);
+			}
+		}
+	}
+	
 	private String toString(int[] array) {
 		String s = "" + array[0];
 		for (int i = 1; i < array.length; i++) {
@@ -672,6 +1010,50 @@ public class SelectionOperatorTests {
 		}
 	}
 	
+	private void validateExpectedCountsSUSWithRanks(StochasticUniversalSampling selection, PopulationFitnessVector.Integer pf) {
+		int[] selected = new int[pf.size()];
+		selection.select(pf, selected);
+		int[] expectedMin = new int[pf.size()];
+		int[] expectedMax = new int[pf.size()];
+		int[] counts = new int[pf.size()];
+		for (int i = 0; i < pf.size(); i++) {
+			counts[selected[i]]++;
+		}
+		double[] runningSum = selection.computeWeightRunningSum(pf);
+		expectedMin[0] = (int)(pf.size() * runningSum[0] / runningSum[runningSum.length-1]);
+		expectedMax[0] = (int)Math.ceil(pf.size() * runningSum[0] / runningSum[runningSum.length-1]);
+		for (int i = 1; i < pf.size(); i++) {
+			expectedMin[i] = (int)(pf.size() * (runningSum[i]-runningSum[i-1]) / runningSum[runningSum.length-1]);
+			expectedMax[i] = (int)Math.ceil(pf.size() * (runningSum[i]-runningSum[i-1]) / runningSum[runningSum.length-1]);
+		}
+		for (int i = 0; i < pf.size(); i++) {
+			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
+			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+		}
+	}
+	
+	private void validateExpectedCountsSUSWithRanks(StochasticUniversalSampling selection, PopulationFitnessVector.Double pf) {
+		int[] selected = new int[pf.size()];
+		selection.select(pf, selected);
+		int[] expectedMin = new int[pf.size()];
+		int[] expectedMax = new int[pf.size()];
+		int[] counts = new int[pf.size()];
+		for (int i = 0; i < pf.size(); i++) {
+			counts[selected[i]]++;
+		}
+		double[] runningSum = selection.computeWeightRunningSum(pf);
+		expectedMin[0] = (int)(pf.size() * runningSum[0] / runningSum[runningSum.length-1]);
+		expectedMax[0] = (int)Math.ceil(pf.size() * runningSum[0] / runningSum[runningSum.length-1]);
+		for (int i = 1; i < pf.size(); i++) {
+			expectedMin[i] = (int)(pf.size() * (runningSum[i]-runningSum[i-1]) / runningSum[runningSum.length-1]);
+			expectedMax[i] = (int)Math.ceil(pf.size() * (runningSum[i]-runningSum[i-1]) / runningSum[runningSum.length-1]);
+		}
+		for (int i = 0; i < pf.size(); i++) {
+			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
+			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+		}
+	}
+	
 	private void validateExpectedCountsSUS(StochasticUniversalSampling selection, PopulationFitnessVector.Integer pf, FitnessBiasFunction bias) {
 		int[] selected = new int[pf.size()];
 		selection.select(pf, selected);
@@ -691,7 +1073,7 @@ public class SelectionOperatorTests {
 		}
 	}
 	
-	private void validateComputeRunningSum(AbstractFitnessProportionalSelection selection) {
+	private void validateComputeRunningSum(AbstractWeightedSelection selection) {
 		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
 		double[] expected = {1, 3, 6, 10, 15};
 		assertEquals(5, weights.length);
@@ -706,7 +1088,7 @@ public class SelectionOperatorTests {
 		}
 	}
 	
-	private void validateComputeRunningSumShifted(AbstractFitnessProportionalSelection selection) {
+	private void validateComputeRunningSumShifted(AbstractWeightedSelection selection) {
 		int[][] cases = {
 			{1, 2, 3, 4, 5},
 			{5, 4, 3, 2, 1}, 
@@ -739,7 +1121,7 @@ public class SelectionOperatorTests {
 		}
 	}
 	
-	private void validateBiasedComputeRunningSum(AbstractFitnessProportionalSelection selection) {
+	private void validateBiasedComputeRunningSum(AbstractWeightedSelection selection) {
 		double[] weights = selection.computeWeightRunningSum(new PopFitVectorDoubleSimple(5));
 		double[] expected = {1, 5, 14, 30, 55};
 		assertEquals(5, weights.length);
@@ -754,7 +1136,7 @@ public class SelectionOperatorTests {
 		}
 	}
 	
-	private void validateBiasedComputeRunningSumShifted(AbstractFitnessProportionalSelection selection) {
+	private void validateBiasedComputeRunningSumShifted(AbstractWeightedSelection selection) {
 		int[][] cases = {
 			{1, 2, 3, 4, 5},
 			{5, 4, 3, 2, 1}, 

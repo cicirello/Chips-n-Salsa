@@ -303,6 +303,30 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Construct a biased stochastic universal sampling operator.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/Bin.html" title="class in org.cicirello.search.problems.binpack"><span class="typeNameLink">Bin</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/package-summary.html">org.cicirello.search.problems.binpack</a></dt>
+<dd>
+<div class="block">This class is used by the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPackingSolution.html" title="class in org.cicirello.search.problems.binpack"><code>BinPackingSolution</code></a> class to represent the
+ contents of a bin in a solution to a <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html" title="class in org.cicirello.search.problems.binpack"><code>BinPacking</code></a> problem instance.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html" title="class in org.cicirello.search.problems.binpack"><span class="typeNameLink">BinPacking</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/package-summary.html">org.cicirello.search.problems.binpack</a></dt>
+<dd>
+<div class="block">This class, and its nested classes, implements the Bin Packing problem.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.Triplet.html" title="class in org.cicirello.search.problems.binpack"><span class="typeNameLink">BinPacking.Triplet</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/package-summary.html">org.cicirello.search.problems.binpack</a></dt>
+<dd>
+<div class="block">Generates instances of the Bin Packing problem where the optimal solution
+ is comprised of all full triplet bins (each bin in optimal solution has exactly
+ 3 items that fills the bin to capacity).</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.UniformRandom.html" title="class in org.cicirello.search.problems.binpack"><span class="typeNameLink">BinPacking.UniformRandom</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/package-summary.html">org.cicirello.search.problems.binpack</a></dt>
+<dd>
+<div class="block">Generates instances of the Bin Packing problem with item sizes that are
+ generated uniformly at random.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPackingSolution.html" title="class in org.cicirello.search.problems.binpack"><span class="typeNameLink">BinPackingSolution</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/package-summary.html">org.cicirello.search.problems.binpack</a></dt>
+<dd>
+<div class="block">This class represents a solution to a <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html" title="class in org.cicirello.search.problems.binpack"><code>BinPacking</code></a> problem instance.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/BitFlipMutation.html" title="class in org.cicirello.search.operators.bits"><span class="typeNameLink">BitFlipMutation</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/bits/package-summary.html">org.cicirello.search.operators.bits</a></dt>
 <dd>
 <div class="block">This class implements Bit Flip Mutation, the mutation operator commonly used
@@ -566,6 +590,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/SingleReal.html#copy()">copy()</a></span> - Method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a></dt>
 <dd>
 <div class="block">Creates an identical copy of this object.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPackingSolution.html#cost()">cost()</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPackingSolution.html" title="class in org.cicirello.search.problems.binpack">BinPackingSolution</a></dt>
+<dd>
+<div class="block">Gets the cost of this solution (i.e., number of bins used).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html#cost(org.cicirello.permutations.Permutation)">cost(Permutation)</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html" title="class in org.cicirello.search.problems.binpack">BinPacking</a></dt>
+<dd>
+<div class="block">Computes the cost of a candidate solution to the problem instance.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/PermutationInAHaystack.html#cost(org.cicirello.permutations.Permutation)">cost(Permutation)</a></span> - Method in class org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/PermutationInAHaystack.html" title="class in org.cicirello.search.problems">PermutationInAHaystack</a></dt>
 <dd>&nbsp;</dd>
@@ -1269,6 +1301,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs a ExponentialEarlyTardyHeuristic heuristic.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankSelection.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">ExponentialRankSelection</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements exponential rank selection.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankSelection.html#%3Cinit%3E(double)">ExponentialRankSelection(double)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankSelection.html" title="class in org.cicirello.search.evo">ExponentialRankSelection</a></dt>
+<dd>
+<div class="block">Construct an exponential rank selection operator.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankStochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">ExponentialRankStochasticUniversalSampling</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements exponential rank selection using Stochastic Universal Sampling (SUS).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankStochasticUniversalSampling.html#%3Cinit%3E(double)">ExponentialRankStochasticUniversalSampling(double)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">ExponentialRankStochasticUniversalSampling</a></dt>
+<dd>
+<div class="block">Construct an exponential rank selection operator that uses stochastic universal sampling.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/Partial.html#extend(int)">extend(int)</a></span> - Method in interface org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a></dt>
 <dd>
 <div class="block">Extends the Partial by adding an element to the
@@ -1668,9 +1716,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/AcceptanceTracker.html#reset(int)"><code>AcceptanceTracker.reset(int)</code></a> or since the last run of simulated annealing with
  a different run length.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPackingSolution.html#getBin(int)">getBin(int)</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPackingSolution.html" title="class in org.cicirello.search.problems.binpack">BinPackingSolution</a></dt>
+<dd>
+<div class="block">Gets one of the bins in this solution.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html#getBit(int)">getBit(int)</a></span> - Method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
 <div class="block">Gets the value of the bit at a designated index.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html#getCapacity()">getCapacity()</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html" title="class in org.cicirello.search.problems.binpack">BinPacking</a></dt>
+<dd>
+<div class="block">Gets the bin capacity for the instance.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#getCompletionTimes(org.cicirello.permutations.Permutation)">getCompletionTimes(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
 <dd>
@@ -1770,6 +1826,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedTardiness.html#getInstanceData()">getInstanceData()</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedTardiness.html" title="class in org.cicirello.search.problems.scheduling">WeightedTardiness</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/Bin.html#getItem(int)">getItem(int)</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/Bin.html" title="class in org.cicirello.search.problems.binpack">Bin</a></dt>
+<dd>
+<div class="block">Gets the id of an item in this bin.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/Partial.html#getLast()">getLast()</a></span> - Method in interface org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a></dt>
 <dd>
 <div class="block">Gets the element in the current last position of the Partial,
@@ -1865,6 +1925,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html#getSetupTime(int,int)">getSetupTime(int, int)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/WeightedStaticSchedulingWithSetups.html" title="class in org.cicirello.search.problems.scheduling">WeightedStaticSchedulingWithSetups</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html#getSize(int)">getSize(int)</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html" title="class in org.cicirello.search.problems.binpack">BinPacking</a></dt>
+<dd>
+<div class="block">Gets the size of an item.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html#getSolution()">getSolution()</a></span> - Method in class org.cicirello.search.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a></dt>
 <dd>
 <div class="block">Gets the current best solution stored in the ProgressTracker.</div>
@@ -2824,6 +2888,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs a LinearEarlyTardyHeuristic heuristic.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/LinearRankSelection.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">LinearRankSelection</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements linear rank selection.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/LinearRankSelection.html#%3Cinit%3E(double)">LinearRankSelection(double)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/LinearRankSelection.html" title="class in org.cicirello.search.evo">LinearRankSelection</a></dt>
+<dd>
+<div class="block">Construct a linear rank selection operator.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/LinearRankStochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">LinearRankStochasticUniversalSampling</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">This class implements linear rank selection using Stochastic Universal Sampling (SUS).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/LinearRankStochasticUniversalSampling.html#%3Cinit%3E(double)">LinearRankStochasticUniversalSampling(double)</a></span> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/LinearRankStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">LinearRankStochasticUniversalSampling</a></dt>
+<dd>
+<div class="block">Construct a linear rank selection operator that uses stochastic universal sampling.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/LogarithmicCooling.html" title="class in org.cicirello.search.sa"><span class="typeNameLink">LogarithmicCooling</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/package-summary.html">org.cicirello.search.sa</a></dt>
 <dd>
 <div class="block">This class implements logarithmic cooling, a classic annealing
@@ -2917,6 +2997,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Defines the minimum weight.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html" title="class in org.cicirello.search.problems.binpack">BinPacking</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/BoundMax.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/BoundMax.html" title="class in org.cicirello.search.problems">BoundMax</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/CostFunctionScaler.html#minCost()">minCost()</a></span> - Method in class org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/CostFunctionScaler.html" title="class in org.cicirello.search.problems">CostFunctionScaler</a></dt>
@@ -3358,6 +3440,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/PartialPermutation.html#numExtensions()">numExtensions()</a></span> - Method in class org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html#numItems()">numItems()</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html" title="class in org.cicirello.search.problems.binpack">BinPacking</a></dt>
+<dd>
+<div class="block">Gets the number of items in the instance.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.BitIterator.html#numRemainingBits()">numRemainingBits()</a></span> - Method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.BitIterator.html" title="class in org.cicirello.search.representations">BitVector.BitIterator</a></dt>
 <dd>
 <div class="block">Gets the number of bits remaining in the iterator.</div>
@@ -3504,6 +3590,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Package of classes and interfaces related to representing
  computational problems, as well as classes implementing
  a variety of specific computational problems.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/package-summary.html">org.cicirello.search.problems.binpack</a> - package org.cicirello.search.problems.binpack</dt>
+<dd>
+<div class="block">Classes and interfaces related to the Bin Packing.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a> - package org.cicirello.search.problems.scheduling</dt>
 <dd>
@@ -3737,6 +3827,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/PermutationInitializer.html#%3Cinit%3E(int)">PermutationInitializer(int)</a></span> - Constructor for class org.cicirello.search.operators.permutations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/PermutationInitializer.html" title="class in org.cicirello.search.operators.permutations">PermutationInitializer</a></dt>
 <dd>
 <div class="block">Constructs a PermutationInitializer.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html#permutationToBinPackingSolution(org.cicirello.permutations.Permutation)">permutationToBinPackingSolution(Permutation)</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html" title="class in org.cicirello.search.problems.binpack">BinPacking</a></dt>
+<dd>
+<div class="block">Determines the bin packing solution that corresponds to a given permutation,
+ such that the solution is formed by applying a first-fit heuristic using the item
+ ordering implied by the Permutation p.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/PermutationToBitVectorProblem.html" title="class in org.cicirello.search.problems"><span class="typeNameLink">PermutationToBitVectorProblem</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></dt>
 <dd>
@@ -4478,6 +4574,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The size of the population.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/Bin.html#size()">size()</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/Bin.html" title="class in org.cicirello.search.problems.binpack">Bin</a></dt>
+<dd>
+<div class="block">Gets the number of items in the Bin.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/Partial.html#size()">size()</a></span> - Method in interface org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a></dt>
 <dd>
 <div class="block">Gets the size of the Partial, which is the number of elements
@@ -4535,6 +4635,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs a SolutionCostPair with integer cost.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/Bin.html#space()">space()</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/Bin.html" title="class in org.cicirello.search.problems.binpack">Bin</a></dt>
+<dd>
+<div class="block">Gets the amount of space remaining in the bin.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/ParallelMetaheuristic.html#split()">split()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/ParallelMetaheuristic.html" title="class in org.cicirello.search.concurrent">ParallelMetaheuristic</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/ParallelMultistarter.html#split()">split()</a></span> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/ParallelMultistarter.html" title="class in org.cicirello.search.concurrent">ParallelMultistarter</a></dt>
@@ -4560,6 +4664,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BiasedStochasticUniversalSampling</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankSelection.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankSelection.html" title="class in org.cicirello.search.evo">ExponentialRankSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankStochasticUniversalSampling.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">ExponentialRankStochasticUniversalSampling</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo">FitnessProportionalSelection</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
@@ -4569,6 +4677,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalNANDOperatorsEvolutionaryAlgorithm.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalNANDOperatorsEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalNANDOperatorsEvolutionaryAlgorithm</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/LinearRankSelection.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/LinearRankSelection.html" title="class in org.cicirello.search.evo">LinearRankSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/LinearRankStochasticUniversalSampling.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/LinearRankStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">LinearRankStochasticUniversalSampling</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html#split()">split()</a></span> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></dt>
 <dd>&nbsp;</dd>
@@ -5032,6 +5144,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Constructs an instance of Ackley's Trap function.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.Triplet.html#%3Cinit%3E(int)">Triplet(int)</a></span> - Constructor for class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.Triplet.html" title="class in org.cicirello.search.problems.binpack">BinPacking.Triplet</a></dt>
+<dd>
+<div class="block">Generates a triplet instance of the Bin Packing Problem.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.Triplet.html#%3Cinit%3E(int,long)">Triplet(int, long)</a></span> - Constructor for class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.Triplet.html" title="class in org.cicirello.search.problems.binpack">BinPacking.Triplet</a></dt>
+<dd>
+<div class="block">Generates a triplet instance of the Bin Packing Problem.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html" title="class in org.cicirello.search.evo"><span class="typeNameLink">TruncationSelection</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
 <dd>
 <div class="block">This class implements truncation selection for evolutionary algorithms.</div>
@@ -5303,6 +5423,28 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">This class implements a uniform
  mutation.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.UniformRandom.html#%3Cinit%3E(int)">UniformRandom(int)</a></span> - Constructor for class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.UniformRandom.html" title="class in org.cicirello.search.problems.binpack">BinPacking.UniformRandom</a></dt>
+<dd>
+<div class="block">Generates a random instance of the Bin Packing problem, with a default
+ bin capacity of 150, and with item sizes generated uniformly at random
+ from the interval [20, 100].</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.UniformRandom.html#%3Cinit%3E(int,int,int,int)">UniformRandom(int, int, int, int)</a></span> - Constructor for class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.UniformRandom.html" title="class in org.cicirello.search.problems.binpack">BinPacking.UniformRandom</a></dt>
+<dd>
+<div class="block">Generates a random instance of the Bin Packing problem, with item
+ sizes generated uniformly at random from a specified interval.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.UniformRandom.html#%3Cinit%3E(int,int,int,int,long)">UniformRandom(int, int, int, int, long)</a></span> - Constructor for class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.UniformRandom.html" title="class in org.cicirello.search.problems.binpack">BinPacking.UniformRandom</a></dt>
+<dd>
+<div class="block">Generates a random instance of the Bin Packing problem, with item
+ sizes generated uniformly at random from a specified interval.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.UniformRandom.html#%3Cinit%3E(int,long)">UniformRandom(int, long)</a></span> - Constructor for class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.UniformRandom.html" title="class in org.cicirello.search.problems.binpack">BinPacking.UniformRandom</a></dt>
+<dd>
+<div class="block">Generates a random instance of the Bin Packing problem, with a default
+ bin capacity of 150, and with item sizes generated uniformly at random
+ from the interval [20, 100].</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/UniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations"><span class="typeNameLink">UniformScrambleMutation</span></a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></dt>
 <dd>
 <div class="block">This class implements a scramble mutation on permutations, where one mutation
@@ -5335,6 +5477,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">V</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html#value(org.cicirello.permutations.Permutation)">value(Permutation)</a></span> - Method in class org.cicirello.search.problems.binpack.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/binpack/BinPacking.html" title="class in org.cicirello.search.problems.binpack">BinPacking</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/PermutationInAHaystack.html#value(org.cicirello.permutations.Permutation)">value(Permutation)</a></span> - Method in class org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/PermutationInAHaystack.html" title="class in org.cicirello.search.problems">PermutationInAHaystack</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/MinimizeMakespan.html#value(org.cicirello.permutations.Permutation)">value(Permutation)</a></span> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/MinimizeMakespan.html" title="class in org.cicirello.search.problems.scheduling">MinimizeMakespan</a></dt>

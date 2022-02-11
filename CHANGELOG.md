@@ -7,14 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-02-11
 
 ### Added
-* Linear Rank Selection
-* Linear Rank Stochastic Universal Sampling
-* Exponential Rank Selection
-* Exponential Rank Stochastic Universal Sampling
-* Implementation of the Bin Packing Problem, including instance generators
 
 ### Changed
-* Bumped dependency org.cicirello.core to 1.1.0
 
 ### Deprecated
 
@@ -25,6 +19,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 ### Other
+
+
+## [4.3.0] - 2022-02-11
+
+### Added
+* Linear Rank Selection
+* Linear Rank Stochastic Universal Sampling
+* Exponential Rank Selection
+* Exponential Rank Stochastic Universal Sampling
+* Implementation of the Bin Packing Problem, including instance generators
+
+### Changed
+* Bumped dependency org.cicirello.core to 1.1.0
 
 
 ## [4.2.1] - 2022-01-27

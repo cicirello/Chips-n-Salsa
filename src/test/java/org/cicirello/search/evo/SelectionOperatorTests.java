@@ -141,8 +141,10 @@ public class SelectionOperatorTests {
 			validateIndexes_Integer(selection2);
 		}
 		LinearRankSelection selection = new LinearRankSelection(2.0);
-		validateHigherFitnessSelectedMoreOften_Double(selection);
-		validateHigherFitnessSelectedMoreOften_Integer(selection);
+		// Following two checks may sporadically fail due to random chance.
+		// Increase 2nd parameter to decrease probability of such failure (keep it even though).
+		validateHigherFitnessSelectedMoreOften_Double(selection, 40);
+		validateHigherFitnessSelectedMoreOften_Integer(selection, 40);
 		
 		LinearRankSelection selectionUniform = new LinearRankSelection(1.0);
 		
@@ -1167,11 +1169,15 @@ public class SelectionOperatorTests {
 	}
 	
 	private void validateHigherFitnessSelectedMoreOften_Double(SelectionOperator selection) {
+		validateHigherFitnessSelectedMoreOften_Double(selection, 20);
+	}
+	
+	private void validateHigherFitnessSelectedMoreOften_Double(SelectionOperator selection, int selectSize) {
 		// This part of the test attempts to confirm that greater weight is placed on
 		// higher fitness population members. A sporadic failure is not necessarily a 
 		// real failure, but it should fail with low probability.
 		PopFitVectorDouble pf_d = new PopFitVectorDouble(10);
-		int[] selected = new int[20];
+		int[] selected = new int[selectSize];
 		selection.select(pf_d, selected);
 		int countLarger = 0;
 		for (int i = 0; i < selected.length; i++) {
@@ -1180,7 +1186,7 @@ public class SelectionOperatorTests {
 		assertTrue(countLarger > selected.length/2);
 		
 		pf_d.reverse();
-		selected = new int[20];
+		selected = new int[selectSize];
 		selection.select(pf_d, selected);
 		countLarger = 0;
 		for (int i = 0; i < selected.length; i++) {
@@ -1190,11 +1196,15 @@ public class SelectionOperatorTests {
 	}
 	
 	private void validateHigherFitnessSelectedMoreOften_Integer(SelectionOperator selection) {
+		validateHigherFitnessSelectedMoreOften_Integer(selection, 20);
+	}
+	
+	private void validateHigherFitnessSelectedMoreOften_Integer(SelectionOperator selection, int selectSize) {
 		// This part of the test attempts to confirm that greater weight is placed on
 		// higher fitness population members. A sporadic failure is not necessarily a 
 		// real failure, but it should fail with low probability.
 		PopFitVectorInteger pf_int = new PopFitVectorInteger(10);
-		int[] selected = new int[20];
+		int[] selected = new int[selectSize];
 		selection.select(pf_int, selected);
 		int countLarger = 0;
 		for (int i = 0; i < selected.length; i++) {
@@ -1203,7 +1213,7 @@ public class SelectionOperatorTests {
 		assertTrue(countLarger > selected.length/2);
 		
 		pf_int.reverse();
-		selected = new int[20];
+		selected = new int[selectSize];
 		selection.select(pf_int, selected);
 		countLarger = 0;
 		for (int i = 0; i < selected.length; i++) {

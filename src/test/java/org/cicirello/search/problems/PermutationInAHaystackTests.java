@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -27,7 +27,7 @@ import org.cicirello.permutations.distance.ExactMatchDistance;
 
 
 /**
- * JUnit 4 test cases for the the PermutationInAHaystack problem.
+ * JUnit test cases for the PermutationInAHaystack problem.
  */
 public class PermutationInAHaystackTests {
 	

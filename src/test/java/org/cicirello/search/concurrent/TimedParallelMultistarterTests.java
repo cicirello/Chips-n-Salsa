@@ -1194,14 +1194,16 @@ public class TimedParallelMultistarterTests {
 		}		
 		TimedParallelReoptimizableMultistarter<TestObject> tpm = new TimedParallelReoptimizableMultistarter<TestObject>(searches, 1000);
 		assertEquals(1000, tpm.getTimeUnit());
-		tpm.setTimeUnit(10);
-		assertEquals(10, tpm.getTimeUnit());
+		int timeUnit = 20;
+		tpm.setTimeUnit(timeUnit);
+		assertEquals(timeUnit, tpm.getTimeUnit());
 		assertTrue(tracker == tpm.getProgressTracker());
 		assertTrue(problem == tpm.getProblem());
 		assertEquals(0, tpm.getTotalRunLength());
 		assertNull(tpm.getSearchHistory());
+		int reoptCount = 8;
 		long time1 = System.nanoTime();
-		SolutionCostPair<TestObject> solution = tpm.reoptimize(8);
+		SolutionCostPair<TestObject> solution = tpm.reoptimize(reoptCount);
 		long time2 = System.nanoTime();
 		int combinedRun = 0;
 		for (TestRestartedMetaheuristic search : searches) {
@@ -1213,7 +1215,7 @@ public class TimedParallelMultistarterTests {
 		}
 		assertEquals(combinedRun, tpm.getTotalRunLength());
 		ArrayList<SolutionCostPair<TestObject>> history = tpm.getSearchHistory();
-		assertEquals(8, history.size());
+		assertEquals(reoptCount, history.size());
 		for (int i = 1; i < history.size(); i++) {
 			assertTrue(history.get(i).getCostDouble() <= history.get(i-1).getCostDouble());
 			assertTrue(history.get(i).getCostDouble() >= tracker.getCostDouble());
@@ -1224,8 +1226,9 @@ public class TimedParallelMultistarterTests {
 		}
 		assertEquals(solution.getCostDouble(), tracker.getCostDouble(), 0.0);
 		long actualRunTime = time2-time1;
-		assertTrue("verifying runtime, actual="+actualRunTime+" ns, should be at least 80000000 ns", 
-					actualRunTime >= 80000000);
+		int minRunTime = timeUnit * reoptCount * 1000000;
+		assertTrue("verifying runtime, actual="+actualRunTime+" ns, should be at least " + minRunTime + " ns", 
+					actualRunTime >= minRunTime);
 					
 		// verify can call reoptimize again
 		solution = tpm.reoptimize(1);

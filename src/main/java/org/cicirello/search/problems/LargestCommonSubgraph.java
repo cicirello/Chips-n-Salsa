@@ -180,6 +180,18 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
 		return 0;
 	}
 	
+	/**
+	 * Determines an upper bound on the possible size in number of edges
+	 * of the largest common subgraph. This is simply the smaller of the number
+	 * of edges of the two graphs. Note it may or may not be possible to actually find
+	 * a common subgraph with this number of edges. It is simply an upper bound.
+	 *
+	 * @return the minimum of the number of edges in graph 1 and graph 2.
+	 */
+	public int maxValue() {
+		return bound;
+	}
+	
 	private void createIsomorphicRandomInstanceData(int v, double density, SplittableRandom gen) {
 		if (v <= 0) {
 			throw new IllegalArgumentException("Graphs must have at least 1 vertex.");

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,8 +20,8 @@
  
 package org.cicirello.search.operators.permutations;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.distance.CyclicEdgeDistance;
 import java.util.ArrayList;
@@ -30,9 +30,8 @@ import java.util.HashSet;
 import java.util.HashMap;
 import java.util.Set;
 
-
 /**
- * JUnit 4 test cases for ThreeOptMutation.
+ * JUnit test cases for ThreeOptMutation.
  */
 public class ThreeOptMutationTests {
 	

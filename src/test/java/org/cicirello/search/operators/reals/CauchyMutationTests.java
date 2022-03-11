@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,14 +20,14 @@
  
 package org.cicirello.search.operators.reals;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.representations.SingleReal;
 import org.cicirello.search.representations.RealVector;
 import org.cicirello.search.representations.RealValued;
 
 /**
- * JUnit 4 test cases for the classes that implement different variations of
+ * JUnit test cases for the classes that implement different variations of
  * Cauchy mutation for mutating floating-point function parameters.
  */
 public class CauchyMutationTests {
@@ -118,54 +118,54 @@ public class CauchyMutationTests {
 	@Test
 	public void testCauchyMutation1() {
 		CauchyMutation<RealValued> g1 = CauchyMutation.createCauchyMutation();
-		assertEquals("default scale = 1.0", 1.0, g1.get(0), EPSILON);
+		assertEquals(1.0, g1.get(0), EPSILON);
 		verifyMutate1(g1);
 		
 		CauchyMutation<RealValued> g5 = CauchyMutation.createCauchyMutation(5.0);
-		assertEquals("verifying scale initialized correctly", 5.0, g5.get(0), EPSILON);
+		assertEquals(5.0, g5.get(0), EPSILON);
 		verifyMutate1(g5);
 		
 		UndoableCauchyMutation<RealValued> g1u = UndoableCauchyMutation.createCauchyMutation();
-		assertEquals("verifying scale initialized correctly", 1.0, g1u.get(0), EPSILON);
+		assertEquals(1.0, g1u.get(0), EPSILON);
 		verifyMutate1(g1u);
 		verifyUndo(g1u);
 		
 		UndoableCauchyMutation<RealValued> g5u = UndoableCauchyMutation.createCauchyMutation(5.0);
-		assertEquals("verifying scale initialized correctly", 5.0, g5u.get(0), EPSILON);
+		assertEquals(5.0, g5u.get(0), EPSILON);
 		verifyMutate1(g5u);
 		verifyUndo(g5u);
 		
 		UndoableCauchyMutation<RealValued> g5copyU = g5u.split();
-		assertEquals("verifying scale initialized correctly", 5.0, g5copyU.get(0), EPSILON);
-		assertEquals("Verify split", g5u, g5copyU);
-		assertEquals("hashCode of equal objects should be equal", g5u.hashCode(), g5copyU.hashCode());
+		assertEquals(5.0, g5copyU.get(0), EPSILON);
+		assertEquals(g5u, g5copyU);
+		assertEquals(g5u.hashCode(), g5copyU.hashCode());
 		verifyMutate1(g5copyU);
 		verifyUndo(g5copyU);
 		
 		g5copyU = g5u.copy();
-		assertEquals("verifying scale initialized correctly", 5.0, g5copyU.get(0), EPSILON);
-		assertEquals("Verify copy method", g5u, g5copyU);
-		assertEquals("hashCode of equal objects should be equal", g5u.hashCode(), g5copyU.hashCode());
+		assertEquals(5.0, g5copyU.get(0), EPSILON);
+		assertEquals(g5u, g5copyU);
+		assertEquals(g5u.hashCode(), g5copyU.hashCode());
 		verifyMutate1(g5copyU);
 		verifyUndo(g5copyU);
 		
 		CauchyMutation<RealValued> g5split = g5.split();
-		assertEquals("verifying scale initialized correctly", 5.0, g5split.get(0), EPSILON);
-		assertEquals("Verify split", g5, g5split);
-		assertTrue("Split should return a new object", g5 != g5split);
-		assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5split.hashCode());
+		assertEquals(5.0, g5split.get(0), EPSILON);
+		assertEquals(g5, g5split);
+		assertTrue(g5 != g5split);
+		assertEquals(g5.hashCode(), g5split.hashCode());
 		verifyMutate1(g5split);
 		
 		CauchyMutation<RealValued> g5copyM = g5.copy();
-		assertEquals("verifying scale initialized correctly", 5.0, g5copyM.get(0), EPSILON);
-		assertEquals("Verify split", g5, g5copyM);
-		assertTrue("Split should return a new object", g5 != g5copyM);
-		assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5copyM.hashCode());
+		assertEquals(5.0, g5copyM.get(0), EPSILON);
+		assertEquals(g5, g5copyM);
+		assertTrue(g5 != g5copyM);
+		assertEquals(g5.hashCode(), g5copyM.hashCode());
 		verifyMutate1(g5copyM);
 		
 		CauchyMutation<RealValued> g3 = g5;
 		g3.set(0, 3.0);
-		assertEquals("verifying scale changed correctly", 3.0, g3.get(0), EPSILON);
+		assertEquals(3.0, g3.get(0), EPSILON);
 		verifyMutate1(g3);
 	}
 	
@@ -173,101 +173,101 @@ public class CauchyMutationTests {
 	public void testPartialCauchyMutation1() {
 		for (int k = 1; k <= 8; k++) {
 			UndoableCauchyMutation<RealValued> g1 = UndoableCauchyMutation.createCauchyMutation(1.0, k);
-			assertEquals("default scale = 1.0", 1.0, g1.get(0), EPSILON);
+			assertEquals(1.0, g1.get(0), EPSILON);
 			verifyMutate1(g1, k);
 			verifyUndo(g1);
 			
 			UndoableCauchyMutation<RealValued> g5 = UndoableCauchyMutation.createCauchyMutation(5.0, k);
-			assertEquals("verifying scale initialized correctly", 5.0, g5.get(0), EPSILON);
+			assertEquals(5.0, g5.get(0), EPSILON);
 			verifyMutate1(g5, k);
 			verifyUndo(g5);
 			
 			CauchyMutation<RealValued> g5dis = CauchyMutation.createCauchyMutation(5.0, k);
-			assertEquals("verifying scale initialized correctly", 5.0, g5dis.get(0), EPSILON);
-			assertNotEquals("Verify undo disabled", g5, g5dis);
+			assertEquals(5.0, g5dis.get(0), EPSILON);
+			assertNotEquals(g5, g5dis);
 			verifyMutate1(g5dis, k);
 			
 			UndoableCauchyMutation<RealValued> g5copy = g5.copy();
-			assertEquals("verifying scale initialized correctly", 5.0, g5copy.get(0), EPSILON);
-			assertEquals("Verify copy method", g5, g5copy);
-			assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5copy.hashCode());
+			assertEquals(5.0, g5copy.get(0), EPSILON);
+			assertEquals(g5, g5copy);
+			assertEquals(g5.hashCode(), g5copy.hashCode());
 			verifyMutate1(g5copy, k);
 			verifyUndo(g5copy);
 			
 			CauchyMutation<RealValued> g5copyDis = g5dis.copy();
-			assertEquals("verifying scale initialized correctly", 5.0, g5copyDis.get(0), EPSILON);
-			assertEquals("Verify copy method", g5dis, g5copyDis);
-			assertEquals("hashCode of equal objects should be equal", g5dis.hashCode(), g5copyDis.hashCode());
+			assertEquals(5.0, g5copyDis.get(0), EPSILON);
+			assertEquals(g5dis, g5copyDis);
+			assertEquals(g5dis.hashCode(), g5copyDis.hashCode());
 			verifyMutate1(g5copyDis, k);
 			
 			UndoableCauchyMutation<RealValued> g5split = g5.split();
-			assertEquals("verifying scale initialized correctly", 5.0, g5split.get(0), EPSILON);
-			assertEquals("Verify split", g5, g5split);
-			assertTrue("Split should return a new object", g5 != g5split);
-			assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5split.hashCode());
+			assertEquals(5.0, g5split.get(0), EPSILON);
+			assertEquals(g5, g5split);
+			assertTrue(g5 != g5split);
+			assertEquals(g5.hashCode(), g5split.hashCode());
 			verifyMutate1(g5split, k);
 			verifyUndo(g5split);
 			
 			CauchyMutation<RealValued> g5splitDis = g5dis.split();
-			assertEquals("verifying scale initialized correctly", 5.0, g5splitDis.get(0), EPSILON);
-			assertEquals("Verify split", g5dis, g5splitDis);
-			assertTrue("Split should return a new object", g5dis != g5splitDis);
-			assertEquals("hashCode of equal objects should be equal", g5dis.hashCode(), g5splitDis.hashCode());
+			assertEquals(5.0, g5splitDis.get(0), EPSILON);
+			assertEquals(g5dis, g5splitDis);
+			assertTrue(g5dis != g5splitDis);
+			assertEquals(g5dis.hashCode(), g5splitDis.hashCode());
 			verifyMutate1(g5splitDis, k);
 			
 			UndoableCauchyMutation<RealValued> g3 = g5;
 			g3.set(0, 3.0);
-			assertEquals("verifying scale changed correctly", 3.0, g3.get(0), EPSILON);
+			assertEquals(3.0, g3.get(0), EPSILON);
 			verifyMutate1(g3, k);
 			verifyUndo(g3);
 		}
 		for (double k = 0.25; k <= 1.1; k+=0.25) {
 			UndoableCauchyMutation<RealValued> g1 = UndoableCauchyMutation.createCauchyMutation(1.0, k);
-			assertEquals("default scale = 1.0", 1.0, g1.get(0), EPSILON);
+			assertEquals(1.0, g1.get(0), EPSILON);
 			verifyMutate1(g1, k);
 			verifyUndo(g1);
 			
 			UndoableCauchyMutation<RealValued> g5 = UndoableCauchyMutation.createCauchyMutation(5.0, k);
-			assertEquals("verifying scale initialized correctly", 5.0, g5.get(0), EPSILON);
+			assertEquals(5.0, g5.get(0), EPSILON);
 			verifyMutate1(g5, k);
 			verifyUndo(g5);
 			
 			CauchyMutation<RealValued> g5dis = CauchyMutation.createCauchyMutation(5.0, k);
-			assertEquals("verifying scale initialized correctly", 5.0, g5dis.get(0), EPSILON);
-			assertNotEquals("Verify undo disabled", g5, g5dis);
+			assertEquals(5.0, g5dis.get(0), EPSILON);
+			assertNotEquals(g5, g5dis);
 			verifyMutate1(g5dis, k);
 			
 			UndoableCauchyMutation<RealValued> g5copy = g5.copy();
-			assertEquals("verifying scale initialized correctly", 5.0, g5copy.get(0), EPSILON);
-			assertEquals("Verify copy constructor", g5, g5copy);
-			assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5copy.hashCode());
+			assertEquals(5.0, g5copy.get(0), EPSILON);
+			assertEquals(g5, g5copy);
+			assertEquals(g5.hashCode(), g5copy.hashCode());
 			verifyMutate1(g5copy, k);
 			verifyUndo(g5copy);
 			
 			CauchyMutation<RealValued> g5copyDis = g5dis.copy();
-			assertEquals("verifying scale initialized correctly", 5.0, g5copyDis.get(0), EPSILON);
-			assertEquals("Verify copy method", g5dis, g5copyDis);
-			assertEquals("hashCode of equal objects should be equal", g5dis.hashCode(), g5copyDis.hashCode());
+			assertEquals(5.0, g5copyDis.get(0), EPSILON);
+			assertEquals(g5dis, g5copyDis);
+			assertEquals(g5dis.hashCode(), g5copyDis.hashCode());
 			verifyMutate1(g5copyDis, k);
 			
 			UndoableCauchyMutation<RealValued> g5split = g5.split();
-			assertEquals("verifying scale initialized correctly", 5.0, g5split.get(0), EPSILON);
-			assertEquals("Verify split", g5, g5split);
-			assertTrue("Split should return a new object", g5 != g5split);
-			assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5split.hashCode());
+			assertEquals(5.0, g5split.get(0), EPSILON);
+			assertEquals(g5, g5split);
+			assertTrue(g5 != g5split);
+			assertEquals(g5.hashCode(), g5split.hashCode());
 			verifyMutate1(g5split, k);
 			verifyUndo(g5split);
 			
 			CauchyMutation<RealValued> g5splitDis = g5dis.split();
-			assertEquals("verifying scale initialized correctly", 5.0, g5splitDis.get(0), EPSILON);
-			assertEquals("Verify split", g5dis, g5splitDis);
-			assertTrue("Split should return a new object", g5dis != g5splitDis);
-			assertEquals("hashCode of equal objects should be equal", g5dis.hashCode(), g5splitDis.hashCode());
+			assertEquals(5.0, g5splitDis.get(0), EPSILON);
+			assertEquals(g5dis, g5splitDis);
+			assertTrue(g5dis != g5splitDis);
+			assertEquals(g5dis.hashCode(), g5splitDis.hashCode());
 			verifyMutate1(g5splitDis, k);
 			
 			UndoableCauchyMutation<RealValued> g3 = g5;
 			g3.set(0, 3.0);
-			assertEquals("verifying scale changed correctly", 3.0, g3.get(0), EPSILON);
+			assertEquals(3.0, g3.get(0), EPSILON);
 			verifyMutate1(g3, k);
 			verifyUndo(g3);
 		}
@@ -285,8 +285,8 @@ public class CauchyMutationTests {
 			if (f.get() < 9.0) countLow++;
 			else if (f.get() > 9.0) countHigh++;
 		}
-		assertTrue("Mutation failed to decrease value over large number of trials", countLow > 0);
-		assertTrue("Mutation failed to increase value over large number of trials", countHigh > 0);
+		assertTrue(countLow > 0);
+		assertTrue(countHigh > 0);
 		for (int j = 0; j < 5; j++) {
 			double[] v = new double[j];
 			for (int k = 0; k < j; k++) {
@@ -306,8 +306,8 @@ public class CauchyMutationTests {
 				if (done) break;
 			}
 			for (int k = 0; k < j; k++) {
-				assertTrue("Mutation failed to decrease value at index " + k, low[k] > 0);
-				assertTrue("Mutation failed to increase value at index " + k, high[k] > 0);
+				assertTrue(low[k] > 0);
+				assertTrue(high[k] > 0);
 			}
 		}
 	}
@@ -322,8 +322,8 @@ public class CauchyMutationTests {
 			if (f.get() < 9.0) countLow++;
 			else if (f.get() > 9.0) countHigh++;
 		}
-		assertTrue("Mutation failed to decrease value over large number of trials for p="+p, countLow > 0);
-		assertTrue("Mutation failed to increase value over large number of trials for p="+p, countHigh > 0);
+		assertTrue(countLow > 0);
+		assertTrue(countHigh > 0);
 		final int N = m.length() > 3 ? 3 + m.length() : 6;
 		for (int j = 0; j < N; j++) {
 			double[] v = new double[j];
@@ -345,8 +345,8 @@ public class CauchyMutationTests {
 				if (done) break;
 			}
 			for (int k = 0; k < low.length; k++) {
-				assertTrue("Mutation failed to decrease value at index " + k + " for p="+p, low[k] > 0);
-				assertTrue("Mutation failed to increase value at index " + k + " for p="+p, high[k] > 0);
+				assertTrue(low[k] > 0);
+				assertTrue(high[k] > 0);
 			}
 		}
 	}
@@ -360,8 +360,8 @@ public class CauchyMutationTests {
 			if (f.get() < 9.0) countLow++;
 			else if (f.get() > 9.0) countHigh++;
 		}
-		assertTrue("Mutation failed to decrease value over large number of trials for k="+K, countLow > 0);
-		assertTrue("Mutation failed to increase value over large number of trials for k="+K, countHigh > 0);
+		assertTrue(countLow > 0);
+		assertTrue(countHigh > 0);
 		final int N = m.length() > 3 ? 3 + m.length() : 6;
 		for (int j = 0; j < N; j++) {
 			double[] v = new double[j];
@@ -382,12 +382,12 @@ public class CauchyMutationTests {
 					if (f.get(k) > v[k]) { high[k]++; kCount++; }
 					if (low[k] == 0 || high[k] == 0) done = false;				 
 				}
-				assertTrue("Verify valid number of input vars mutated, k="+K+ " count="+kCount, kCount <= K);
+				assertTrue(kCount <= K);
 				if (done) break;
 			}
 			for (int k = 0; k < low.length; k++) {
-				assertTrue("Mutation failed to decrease value at index " + k + " for k="+K, low[k] > 0);
-				assertTrue("Mutation failed to increase value at index " + k + " for k="+K, high[k] > 0);
+				assertTrue(low[k] > 0);
+				assertTrue(high[k] > 0);
 			}
 		}
 	}
@@ -403,9 +403,9 @@ public class CauchyMutationTests {
 				changed = true;
 			}
 			m.undo(f);
-			assertEquals("mutate followed by undo should revert to original", f2, f);
+			assertEquals(f2, f);
 		}
-		assertTrue("verifying that mutate changed f at least once out of many trials", changed);
+		assertTrue(changed);
 		for (int j = 0; j < 5; j++) {
 			double[] v = new double[j];
 			for (int k = 0; k < j; k++) {
@@ -420,7 +420,7 @@ public class CauchyMutationTests {
 					changed = true;
 				}
 				m.undo(f);
-				assertEquals("mutate followed by undo should revert to original", f2, f);
+				assertEquals(f2, f);
 			}
 		}
 		verifySplitUndo(m);

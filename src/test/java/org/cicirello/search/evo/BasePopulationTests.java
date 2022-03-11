@@ -20,8 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.util.Copyable;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.SolutionCostPair;
@@ -140,7 +140,7 @@ public class BasePopulationTests {
 		pop.replace();
 		int[] expectedNow = { 5, 6, 5, 4, 3, 2, 1, 4, 6, 5 };
 		for (int i = 0; i < 10; i++) {
-			assertEquals("index i="+i, expectedNow[i]+0.4, pop.getFitness(i), EPSILON);
+			assertEquals(expectedNow[i]+0.4, pop.getFitness(i), EPSILON, "index i="+i);
 		}
 		pop.select();
 		for (int i = 0; i < 7; i++) {
@@ -165,7 +165,7 @@ public class BasePopulationTests {
 		int[] andNow = {1, 2, 3, 4, 5, 6, 5, 4, 6, 5};
 		double[] andNowFitness = {1.4, 3.4, 13.4, 4.4, 5.4, 6.4, 5.4, 4.4, 6.4, 5.4};
 		for (int i = 0; i < 10; i++) {
-			assertEquals("index i="+i, andNowFitness[i], pop.getFitness(i), EPSILON);
+			assertEquals(andNowFitness[i], pop.getFitness(i), EPSILON, "index i="+i);
 		}
 		
 		f.changeFitness(12);
@@ -173,7 +173,7 @@ public class BasePopulationTests {
 		
 		// original should be same after split
 		for (int i = 0; i < 10; i++) {
-			assertEquals("index i="+i, andNowFitness[i], pop.getFitness(i), EPSILON);
+			assertEquals(andNowFitness[i], pop.getFitness(i), EPSILON, "index i="+i);
 		}
 		
 		// trackers should be same
@@ -188,7 +188,7 @@ public class BasePopulationTests {
 		
 		// Original should be unchanged after split copy does stuff
 		for (int i = 0; i < 10; i++) {
-			assertEquals("index i="+i, andNowFitness[i], pop.getFitness(i), EPSILON);
+			assertEquals(andNowFitness[i], pop.getFitness(i), EPSILON, "index i="+i);
 		}
 	}
 	
@@ -509,8 +509,8 @@ public class BasePopulationTests {
 		pop.replace();
 		int[] expectedNow = { 5, 6, 5, 4, 3, 2, 1, 4, 6, 5 };
 		for (int i = 0; i < 10; i++) {
-			if (i!=4) assertEquals("index i="+i, expectedNow[i]+10, pop.getFitness(i));
-			else assertEquals("index i="+i, expectedNow[i]+20, pop.getFitness(i));
+			if (i!=4) assertEquals(expectedNow[i]+10, pop.getFitness(i), "index i="+i);
+			else assertEquals(expectedNow[i]+20, pop.getFitness(i), "index i="+i);
 		}
 		pop.select();
 		for (int i = 0; i < 7; i++) {
@@ -525,8 +525,8 @@ public class BasePopulationTests {
 		
 		// original should be same after split
 		for (int i = 0; i < 10; i++) {
-			if (i!=4) assertEquals("index i="+i, expectedNow[i]+10, pop.getFitness(i));
-			else assertEquals("index i="+i, expectedNow[i]+20, pop.getFitness(i));
+			if (i!=4) assertEquals(expectedNow[i]+10, pop.getFitness(i), "index i="+i);
+			else assertEquals(expectedNow[i]+20, pop.getFitness(i), "index i="+i);
 		}
 		for (int i = 0; i < 7; i++) {
 			assertEquals(expectedNow[6-i], pop.get(i).id);
@@ -544,8 +544,8 @@ public class BasePopulationTests {
 		
 		// Original should be unchanged after split copy does stuff
 		for (int i = 0; i < 10; i++) {
-			if (i!=4) assertEquals("index i="+i, expectedNow[i]+10, pop.getFitness(i));
-			else assertEquals("index i="+i, expectedNow[i]+20, pop.getFitness(i));
+			if (i!=4) assertEquals(expectedNow[i]+10, pop.getFitness(i), "index i="+i);
+			else assertEquals(expectedNow[i]+20, pop.getFitness(i), "index i="+i);
 		}
 		for (int i = 0; i < 7; i++) {
 			assertEquals(expectedNow[6-i], pop.get(i).id);

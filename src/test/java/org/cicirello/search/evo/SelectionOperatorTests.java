@@ -20,8 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * JUnit test cases for selection operators.
@@ -606,8 +606,7 @@ public class SelectionOperatorTests {
 				for (int i = 0; i < truncateCount; i++) {
 					assertFalse(found[partitioned[i]]);
 					found[partitioned[i]] = true;
-					assertTrue("k: " + k + " partitioned: " + toString(partitioned) + "  fits: " + toString(fits), 
-					pop1.getFitness(partitioned[i]) < 100);
+					assertTrue(pop1.getFitness(partitioned[i]) < 100, "k: " + k + " partitioned: " + toString(partitioned) + "  fits: " + toString(fits));
 				}
 				for (int i = truncateCount; i < n; i++) {
 					assertEquals(100, pop1.getFitness(partitioned[i]));
@@ -763,8 +762,7 @@ public class SelectionOperatorTests {
 				for (int i = 0; i < truncateCount; i++) {
 					assertFalse(found[partitioned[i]]);
 					found[partitioned[i]] = true;
-					assertTrue("k: " + k + " partitioned: " + toString(partitioned) + "  fits: " + toString(fits), 
-					pop1.getFitness(partitioned[i]) < 100);
+					assertTrue(pop1.getFitness(partitioned[i]) < 100, "k: " + k + " partitioned: " + toString(partitioned) + "  fits: " + toString(fits));
 				}
 				for (int i = truncateCount; i < n; i++) {
 					assertEquals(100.0, pop1.getFitness(partitioned[i]), 0.0);
@@ -1007,8 +1005,8 @@ public class SelectionOperatorTests {
 		for (int i = 0; i < pf.size(); i++) {
 			expectedMin[i] = (int)(pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
 			expectedMax[i] = (int)Math.ceil(pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+			assertTrue(counts[i] >= expectedMin[i], "i:"+i+" count:"+counts[i]+" min:"+expectedMin[i]);
+			assertTrue(counts[i] <= expectedMax[i], "i:"+i+" count:"+counts[i]+" max:"+expectedMax[i]);
 		}
 	}
 	
@@ -1029,8 +1027,8 @@ public class SelectionOperatorTests {
 			expectedMax[i] = (int)Math.ceil(pf.size() * (runningSum[i]-runningSum[i-1]) / runningSum[runningSum.length-1]);
 		}
 		for (int i = 0; i < pf.size(); i++) {
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+			assertTrue(counts[i] >= expectedMin[i], "i:"+i+" count:"+counts[i]+" min:"+expectedMin[i]);
+			assertTrue(counts[i] <= expectedMax[i], "i:"+i+" count:"+counts[i]+" max:"+expectedMax[i]);
 		}
 	}
 	
@@ -1051,8 +1049,8 @@ public class SelectionOperatorTests {
 			expectedMax[i] = (int)Math.ceil(pf.size() * (runningSum[i]-runningSum[i-1]) / runningSum[runningSum.length-1]);
 		}
 		for (int i = 0; i < pf.size(); i++) {
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+			assertTrue(counts[i] >= expectedMin[i], "i:"+i+" count:"+counts[i]+" min:"+expectedMin[i]);
+			assertTrue(counts[i] <= expectedMax[i], "i:"+i+" count:"+counts[i]+" max:"+expectedMax[i]);
 		}
 	}
 	
@@ -1070,8 +1068,8 @@ public class SelectionOperatorTests {
 		for (int i = 0; i < pf.size(); i++) {
 			expectedMin[i] = (int)(pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
 			expectedMax[i] = (int)Math.ceil(pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
-			assertTrue("i:"+i+" count:"+counts[i]+" min:"+expectedMin[i], counts[i] >= expectedMin[i]);
-			assertTrue("i:"+i+" count:"+counts[i]+" max:"+expectedMax[i], counts[i] <= expectedMax[i]);
+			assertTrue(counts[i] >= expectedMin[i], "i:"+i+" count:"+counts[i]+" min:"+expectedMin[i]);
+			assertTrue(counts[i] <= expectedMax[i], "i:"+i+" count:"+counts[i]+" max:"+expectedMax[i]);
 		}
 	}
 	

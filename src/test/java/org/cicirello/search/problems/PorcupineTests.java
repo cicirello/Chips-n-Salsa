@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,12 +20,12 @@
  
 package org.cicirello.search.problems;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.representations.BitVector;
 
 /**
- * JUnit 4 test cases for the Porcupine problem.
+ * JUnit test cases for the Porcupine problem.
  */
 public class PorcupineTests {
 	
@@ -71,8 +71,8 @@ public class PorcupineTests {
 		for (int i = 0; i <= 8; i++) {
 			BitVector v = new BitVector(n, bits);
 			int penalty = (n-i)%2 == 1 ? -15 : 0;
-			assertEquals("i:"+i, 10*(n-i)-penalty, problem.cost(v));
-			assertEquals("i:"+i, 10*i+penalty, problem.value(v));
+			assertEquals(10*(n-i)-penalty, problem.cost(v), "i:"+i);
+			assertEquals(10*i+penalty, problem.value(v), "i:"+i);
 			bits[0] = bits[0] | (1 << i); 
 		}
 	}

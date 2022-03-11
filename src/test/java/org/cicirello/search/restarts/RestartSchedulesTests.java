@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,12 +20,12 @@
  
 package org.cicirello.search.restarts;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 /**
- * JUnit 4 test cases for restart schedules.
+ * JUnit test cases for restart schedules.
  */
 public class RestartSchedulesTests {
 	
@@ -245,7 +245,7 @@ public class RestartSchedulesTests {
 		};
 		for (int t = 1; t < 12; t++) {
 			List<ParallelVariableAnnealingLength> r = ParallelVariableAnnealingLength.createRestartSchedules(t);
-			assertEquals("verify number of schedules in parallel schedule", t, r.size());
+			assertEquals(t, r.size());
 			int groupSize = t < 4 ? t : 4;
 			for (int i = 0; i < expected.length; i++) {
 				int j = i % groupSize;
@@ -254,7 +254,7 @@ public class RestartSchedulesTests {
 				}
 			}
 			for (int i = 4; i < r.size(); i++) {
-				assertTrue("verify not same object references", r.get(i) != r.get(i-4));
+				assertTrue(r.get(i) != r.get(i-4));
 			}
 		}
 		int[] expected1 = {
@@ -265,7 +265,7 @@ public class RestartSchedulesTests {
 		};
 		for (int t = 1; t < 12; t++) {
 			List<ParallelVariableAnnealingLength> r = ParallelVariableAnnealingLength.createRestartSchedules(t, 1);
-			assertEquals("verify number of schedules in parallel schedule", t, r.size());
+			assertEquals(t, r.size());
 			int groupSize = t < 4 ? t : 4;
 			for (int i = 0; i < expected1.length; i++) {
 				int j = i % groupSize;
@@ -274,7 +274,7 @@ public class RestartSchedulesTests {
 				}
 			}
 			for (int i = 4; i < r.size(); i++) {
-				assertTrue("verify not same object references", r.get(i) != r.get(i-4));
+				assertTrue(r.get(i) != r.get(i-4));
 			}
 		}
 		IllegalArgumentException thrown = assertThrows( 
@@ -297,7 +297,7 @@ public class RestartSchedulesTests {
 		};
 		for (int t = 1; t < 12; t++) {
 			List<ParallelVariableAnnealingLength> r = ParallelVariableAnnealingLength.createRestartSchedules(t);
-			assertEquals("verify number of schedules in parallel schedule", t, r.size());
+			assertEquals(t, r.size());
 			int groupSize = t < 4 ? t : 4;
 			for (int i = 0; i < expected.length; i++) {
 				if (i==expected.length/2) {
@@ -318,7 +318,7 @@ public class RestartSchedulesTests {
 				}
 			}
 			for (int i = 4; i < r.size(); i++) {
-				assertTrue("verify not same object references", r.get(i) != r.get(i-4));
+				assertTrue(r.get(i) != r.get(i-4));
 			}
 		}
 		int[] expected1 = {
@@ -329,7 +329,7 @@ public class RestartSchedulesTests {
 		};
 		for (int t = 1; t < 12; t++) {
 			List<ParallelVariableAnnealingLength> r = ParallelVariableAnnealingLength.createRestartSchedules(t, 1);
-			assertEquals("verify number of schedules in parallel schedule", t, r.size());
+			assertEquals(t, r.size());
 			int groupSize = t < 4 ? t : 4;
 			for (int i = 0; i < expected1.length; i++) {
 				if (i==expected1.length/2) {
@@ -350,7 +350,7 @@ public class RestartSchedulesTests {
 				}
 			}
 			for (int i = 4; i < r.size(); i++) {
-				assertTrue("verify not same object references", r.get(i) != r.get(i-4));
+				assertTrue(r.get(i) != r.get(i-4));
 			}
 		}
 	}
@@ -378,7 +378,7 @@ public class RestartSchedulesTests {
 				}
 			}
 			for (int i = 4; i < r.size(); i++) {
-				assertTrue("verify not same object references", r.get(i) != r.get(i-4));
+				assertTrue(r.get(i) != r.get(i-4));
 			}
 		}
 	}

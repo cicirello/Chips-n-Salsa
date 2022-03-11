@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,8 +20,8 @@
  
 package org.cicirello.search.restarts;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.Metaheuristic;
 import org.cicirello.search.ReoptimizableMetaheuristic;
 import org.cicirello.search.ProgressTracker;
@@ -31,7 +31,7 @@ import org.cicirello.util.Copyable;
 import java.util.Random;
 
 /**
- * JUnit 4 test cases for search restarter.
+ * JUnit test cases for search restarter.
  */
 public class MultistartSearchTests {
 	

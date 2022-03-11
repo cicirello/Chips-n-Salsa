@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,12 +20,12 @@
 
 package org.cicirello.search;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.util.Copyable;
 
 /**
- * JUnit 4 test cases for the ProgressTracker.
+ * JUnit test cases for the ProgressTracker.
  */
 public class ProgressTrackerTests {
 	
@@ -34,16 +34,16 @@ public class ProgressTrackerTests {
 	@Test
 	public void testTracking() {
 		ProgressTracker<TestCopyable> t = new ProgressTracker<TestCopyable>();
-		assertNull("Initially should contain no solution", t.getSolution());
+		assertNull(t.getSolution());
 		SolutionCostPair<TestCopyable> pair = t.getSolutionCostPair();
-		assertNull("Initially should contain no solution", pair.getSolution());
+		assertNull(pair.getSolution());
 		TestCopyable[] s = {
 			new TestCopyable(5), new TestCopyable(4), new TestCopyable(3), 
 			new TestCopyable(4), new TestCopyable(5), new TestCopyable(1)
 		}; 
 		long initial = t.elapsed();
 		long previousElapsed = initial;
-		assertEquals("Elapsed time should initially be 0.", 0, initial);
+		assertEquals(0, initial);
 		int[] expectedCosts = {5, 4, 3, 3, 3, 1};
 		for (int i = 0; i < s.length; i++) {
 			// testing with int costs
@@ -54,22 +54,22 @@ public class ProgressTrackerTests {
 			pair = t.getSolutionCostPair();
 			assertEquals(expectedCosts[i], pair.getCost());
 			assertEquals(expectedCosts[i], pair.getCostDouble(), EPSILON);
-			assertEquals("solution in pair should be same", solution, pair.getSolution());
+			assertEquals(solution, pair.getSolution());
 			int j = i < 3 ? i : (i < 5 ? 2 : 5);
-			assertTrue("Should be a different object than original", solution != s[j]);
-			assertEquals("Checking returned solution", s[j], solution);
+			assertTrue(solution != s[j]);
+			assertEquals(s[j], solution);
 			long nextElapsed = t.elapsed();
-			assertTrue("time should be nondecreasing", nextElapsed >= previousElapsed);
+			assertTrue(nextElapsed >= previousElapsed);
 			previousElapsed = nextElapsed;
 		}
 		t = new ProgressTracker<TestCopyable>();
-		assertNull("Initially should contain no solution", t.getSolution());
+		assertNull(t.getSolution());
 		pair = t.getSolutionCostPair();
-		assertNull("Initially should contain no solution", pair.getSolution());
+		assertNull(pair.getSolution());
 		
 		initial = t.elapsed();
 		previousElapsed = initial;
-		assertEquals("Elapsed time should initially be 0.", 0, initial);
+		assertEquals(0, initial);
 		double[] expectedCostsD = {5, 4, 3, 3, 3, 1};
 		for (int i = 0; i < s.length; i++) {
 			// testing with double costs
@@ -78,12 +78,12 @@ public class ProgressTrackerTests {
 			TestCopyable solution = t.getSolution();
 			pair = t.getSolutionCostPair();
 			assertEquals(expectedCostsD[i], pair.getCostDouble(), EPSILON);
-			assertEquals("solution in pair should be same", solution, pair.getSolution());
+			assertEquals(solution, pair.getSolution());
 			int j = i < 3 ? i : (i < 5 ? 2 : 5);
-			assertTrue("Should be a different object than original", solution != s[j]);
-			assertEquals("Checking returned solution", s[j], solution);
+			assertTrue(solution != s[j]);
+			assertEquals(s[j], solution);
 			long nextElapsed = t.elapsed();
-			assertTrue("time should be nondecreasing", nextElapsed >= previousElapsed);
+			assertTrue(nextElapsed >= previousElapsed);
 			previousElapsed = nextElapsed;
 		}
 	}
@@ -91,16 +91,16 @@ public class ProgressTrackerTests {
 	@Test
 	public void testTrackingWithSolutionCostPairUpdates() {
 		ProgressTracker<TestCopyable> t = new ProgressTracker<TestCopyable>();
-		assertNull("Initially should contain no solution", t.getSolution());
+		assertNull(t.getSolution());
 		SolutionCostPair<TestCopyable> pair = t.getSolutionCostPair();
-		assertNull("Initially should contain no solution", pair.getSolution());
+		assertNull(pair.getSolution());
 		TestCopyable[] s = {
 			new TestCopyable(5), new TestCopyable(4), new TestCopyable(3), 
 			new TestCopyable(4), new TestCopyable(5), new TestCopyable(1)
 		}; 
 		long initial = t.elapsed();
 		long previousElapsed = initial;
-		assertEquals("Elapsed time should initially be 0.", 0, initial);
+		assertEquals(0, initial);
 		int[] expectedCosts = {5, 4, 3, 3, 3, 1};
 		for (int i = 0; i < s.length; i++) {
 			// testing with int costs
@@ -111,22 +111,22 @@ public class ProgressTrackerTests {
 			pair = t.getSolutionCostPair();
 			assertEquals(expectedCosts[i], pair.getCost());
 			assertEquals(expectedCosts[i], pair.getCostDouble(), EPSILON);
-			assertEquals("solution in pair should be same", solution, pair.getSolution());
+			assertEquals(solution, pair.getSolution());
 			int j = i < 3 ? i : (i < 5 ? 2 : 5);
-			assertTrue("Should be a different object than original", solution != s[j]);
-			assertEquals("Checking returned solution", s[j], solution);
+			assertTrue(solution != s[j]);
+			assertEquals(s[j], solution);
 			long nextElapsed = t.elapsed();
-			assertTrue("time should be nondecreasing", nextElapsed >= previousElapsed);
+			assertTrue(nextElapsed >= previousElapsed);
 			previousElapsed = nextElapsed;
 		}
 		t = new ProgressTracker<TestCopyable>();
-		assertNull("Initially should contain no solution", t.getSolution());
+		assertNull(t.getSolution());
 		pair = t.getSolutionCostPair();
-		assertNull("Initially should contain no solution", pair.getSolution());
+		assertNull(pair.getSolution());
 		
 		initial = t.elapsed();
 		previousElapsed = initial;
-		assertEquals("Elapsed time should initially be 0.", 0, initial);
+		assertEquals(0, initial);
 		double[] expectedCostsD = {5, 4, 3, 3, 3, 1};
 		for (int i = 0; i < s.length; i++) {
 			// testing with double costs
@@ -135,12 +135,12 @@ public class ProgressTrackerTests {
 			TestCopyable solution = t.getSolution();
 			pair = t.getSolutionCostPair();
 			assertEquals(expectedCostsD[i], pair.getCostDouble(), EPSILON);
-			assertEquals("solution in pair should be same", solution, pair.getSolution());
+			assertEquals(solution, pair.getSolution());
 			int j = i < 3 ? i : (i < 5 ? 2 : 5);
-			assertTrue("Should be a different object than original", solution != s[j]);
-			assertEquals("Checking returned solution", s[j], solution);
+			assertTrue(solution != s[j]);
+			assertEquals(s[j], solution);
 			long nextElapsed = t.elapsed();
-			assertTrue("time should be nondecreasing", nextElapsed >= previousElapsed);
+			assertTrue(nextElapsed >= previousElapsed);
 			previousElapsed = nextElapsed;
 		}
 	}

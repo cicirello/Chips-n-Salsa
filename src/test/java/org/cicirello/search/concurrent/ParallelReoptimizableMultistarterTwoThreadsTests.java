@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,8 +20,8 @@
  
 package org.cicirello.search.concurrent;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.ReoptimizableMetaheuristic;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.problems.OptimizationProblem;
@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.SplittableRandom;
 
 /**
- * JUnit 4 tests for ParallelReoptimizableMultistarter using 2 threads.
+ * JUnit tests for ParallelReoptimizableMultistarter using 2 threads.
  */
 public class ParallelReoptimizableMultistarterTwoThreadsTests {
 	
@@ -787,8 +787,8 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests {
 		SolutionCostPair<TestObject> pair = restarter.optimize(re);
 		assertNotNull(pair);
 		assertTrue(pair.getCost()>1);
-		assertTrue("total run length", 2*early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early);
-		assertTrue("num calls to optimize", i >= heur.optCounter);
+		assertTrue(2*early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early, "total run length");
+		assertTrue(i >= heur.optCounter, "num calls to optimize");
 		assertEquals(0, heur.reoptCounter);
 		assertFalse(tracker.didFindBest());
 		assertTrue(tracker.isStopped());
@@ -805,8 +805,8 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests {
 		SolutionCostPair<TestObject> pair = restarter.reoptimize(re);
 		assertNotNull(pair);
 		assertTrue(pair.getCost()>1);
-		assertTrue("total run length", 2*early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early);
-		assertTrue("num calls to reoptimize", i >= heur.reoptCounter);
+		assertTrue(2*early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early, "total run length");
+		assertTrue(i >= heur.reoptCounter, "num calls to reoptimize");
 		assertEquals(0, heur.optCounter);
 		assertFalse(tracker.didFindBest());
 		assertTrue(tracker.isStopped());
@@ -823,8 +823,8 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests {
 		SolutionCostPair<TestObject> pair = restarter.optimize(re);
 		assertNotNull(pair);
 		assertEquals(1, pair.getCost());
-		assertTrue("total run length", 2*early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early);
-		assertTrue("num calls to optimize", i >= heur.optCounter);
+		assertTrue(2*early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early, "total run length");
+		assertTrue(i >= heur.optCounter, "num calls to optimize");
 		assertEquals(0, heur.reoptCounter);
 		assertTrue(tracker.didFindBest());
 		assertFalse(tracker.isStopped());	
@@ -841,8 +841,8 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests {
 		SolutionCostPair<TestObject> pair = restarter.reoptimize(re);
 		assertNotNull(pair);
 		assertEquals(1, pair.getCost());
-		assertTrue("total run length", 2*early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early);
-		assertTrue("num calls to optimize", i >= heur.reoptCounter);
+		assertTrue(2*early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early, "total run length");
+		assertTrue(i >= heur.reoptCounter, "num calls to optimize");
 		assertEquals(0, heur.optCounter);
 		assertTrue(tracker.didFindBest());
 		assertFalse(tracker.isStopped());	

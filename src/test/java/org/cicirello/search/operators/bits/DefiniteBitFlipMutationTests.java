@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,15 +20,14 @@
  
 package org.cicirello.search.operators.bits;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.representations.BitVector;
 import java.util.HashSet;
 import org.cicirello.search.operators.MutationIterator;
 
-
 /**
- * JUnit 4 test cases for DefiniteBitFlipMutation.
+ * JUnit test cases for DefiniteBitFlipMutation.
  */
 public class DefiniteBitFlipMutationTests {
 	
@@ -65,7 +64,7 @@ public class DefiniteBitFlipMutationTests {
 				// mutate it
 				mutation.mutate(v1);
 				int numBitsFlipped = v1.countOnes();
-				assertTrue("verify: 1 <= numFlipped <= b", numBitsFlipped >= 1 && numBitsFlipped <= b);
+				assertTrue(numBitsFlipped >= 1 && numBitsFlipped <= b);
 			}		
 		}
 	}
@@ -100,7 +99,7 @@ public class DefiniteBitFlipMutationTests {
 				// mutate it
 				mutation.mutate(v1);
 				int numBitsFlipped = v1.countOnes();
-				assertTrue("verify: 1 <= numFlipped <= b", numBitsFlipped >= 1 && numBitsFlipped <= b);
+				assertTrue(numBitsFlipped >= 1 && numBitsFlipped <= b);
 			}		
 		}
 	}
@@ -146,8 +145,8 @@ public class DefiniteBitFlipMutationTests {
 					set.add(v1.copy());
 					numIters++;
 				}
-				assertEquals("n,b="+n+","+b, numIters, set.size());
-				assertEquals("expected="+expectedCount[b-1]+"; n,b="+n+","+b, expectedCount[b-1], numIters);
+				assertEquals(numIters, set.size(), "n,b="+n+","+b);
+				assertEquals(expectedCount[b-1], numIters, "expected="+expectedCount[b-1]+"; n,b="+n+","+b);
 			}
 		}
 	}
@@ -185,8 +184,8 @@ public class DefiniteBitFlipMutationTests {
 					iter.rollback();
 					assertEquals(saved, v1);
 					assertFalse(iter.hasNext());
-					assertEquals("n,b="+n+","+b, numIters, set.size());
-					assertEquals("expected="+expectedCount[b-1]+"; n,b="+n+","+b, expectedCount[b-1], numIters);
+					assertEquals(numIters, set.size(), "n,b="+n+","+b);
+					assertEquals(expectedCount[b-1], numIters, "expected="+expectedCount[b-1]+"; n,b="+n+","+b);
 					// an extra rollback should do nothing
 					iter.rollback();
 					assertEquals(saved, v1);

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,8 +20,8 @@
  
 package org.cicirello.search.operators;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.SolutionCostPair;
@@ -31,7 +31,7 @@ import org.cicirello.search.hc.FirstDescentHillClimber;
 import org.cicirello.search.ProgressTracker;
 
 /**
- * JUnit 4 test cases for InitializeBySimpleMetaheuristic.
+ * JUnit test cases for InitializeBySimpleMetaheuristic.
  */
 public class InitializeByHCTests {
 	

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,9 +20,8 @@
  
 package org.cicirello.search.ss;
 
-
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.operators.Initializer;
@@ -34,8 +33,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutionException;
-
-
 
 /**
  * JUnit tests for the IterativeSampling class.
@@ -223,10 +220,10 @@ public class IterativeSamplingTests {
 			double expected = 100 - (i/2);
 			double expectedTracked = expected;
 			if (i%2==1) expected += 1; 
-			assertEquals(message + "; sCost", expected, s.getCostDouble(), 0.0);
-			assertEquals(message + "; pCost", expected, problem.cost(s.getSolution()), 0.0);
-			assertEquals(message + "; tCost", expectedTracked, tracker.getSolutionCostPair().getCostDouble(), 0.0);
-			assertEquals(message + "; ptCost", expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), 0.0);
+			assertEquals(expected, s.getCostDouble(), 0.0, message + "; sCost");
+			assertEquals(expected, problem.cost(s.getSolution()), 0.0, message + "; pCost");
+			assertEquals(expectedTracked, tracker.getSolutionCostPair().getCostDouble(), 0.0, message + "; tCost");
+			assertEquals(expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), 0.0, message + "; ptCost");
 		}
 	}
 	
@@ -240,10 +237,10 @@ public class IterativeSamplingTests {
 			int expected = 100 - (i/2);
 			int expectedTracked = expected;
 			if (i%2==1) expected += 1; 
-			assertEquals(message + "; sCost", expected, s.getCost());
-			assertEquals(message + "; pCost", expected, problem.cost(s.getSolution()));
-			assertEquals(message + "; tCost", expectedTracked, tracker.getSolutionCostPair().getCost());
-			assertEquals(message + "; ptCost", expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()));
+			assertEquals(expected, s.getCost(), message + "; sCost");
+			assertEquals(expected, problem.cost(s.getSolution()), message + "; pCost");
+			assertEquals(expectedTracked, tracker.getSolutionCostPair().getCost(), message + "; tCost");
+			assertEquals(expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), message + "; ptCost");
 		}
 	}
 	
@@ -255,18 +252,18 @@ public class IterativeSamplingTests {
 		String message = which + "; samples="+11;
 		double expected = 95;
 		double expectedTracked = expected;
-		assertEquals(message + "; sCost", expected, s.getCostDouble(), 0.0);
-		assertEquals(message + "; pCost", expected, problem.cost(s.getSolution()), 0.0);
-		assertEquals(message + "; tCost", expectedTracked, tracker.getSolutionCostPair().getCostDouble(), 0.0);
-		assertEquals(message + "; ptCost", expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), 0.0);
+		assertEquals(expected, s.getCostDouble(), 0.0, message + "; sCost");
+		assertEquals(expected, problem.cost(s.getSolution()), 0.0, message + "; pCost");
+		assertEquals(expectedTracked, tracker.getSolutionCostPair().getCostDouble(), 0.0, message + "; tCost");
+		assertEquals(expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), 0.0, message + "; ptCost");
 		s = is.optimize(10);
 		message = which + "; samples="+21;
 		expected = 90;
 		expectedTracked = expected;
-		assertEquals(message + "; sCost", expected, s.getCostDouble(), 0.0);
-		assertEquals(message + "; pCost", expected, problem.cost(s.getSolution()), 0.0);
-		assertEquals(message + "; tCost", expectedTracked, tracker.getSolutionCostPair().getCostDouble(), 0.0);
-		assertEquals(message + "; ptCost", expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), 0.0);
+		assertEquals(expected, s.getCostDouble(), 0.0, message + "; sCost");
+		assertEquals(expected, problem.cost(s.getSolution()), 0.0, message + "; pCost");
+		assertEquals(expectedTracked, tracker.getSolutionCostPair().getCostDouble(), 0.0, message + "; tCost");
+		assertEquals(expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), 0.0, message + "; ptCost");
 	}
 	
 	@SuppressWarnings (value="unchecked")
@@ -277,18 +274,18 @@ public class IterativeSamplingTests {
 		String message = which + "; samples="+11;
 		int expected = 95;
 		int expectedTracked = expected;
-		assertEquals(message + "; sCost", expected, s.getCost());
-		assertEquals(message + "; pCost", expected, problem.cost(s.getSolution()));
-		assertEquals(message + "; tCost", expectedTracked, tracker.getSolutionCostPair().getCost());
-		assertEquals(message + "; ptCost", expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()));
+		assertEquals(expected, s.getCost(), message + "; sCost");
+		assertEquals(expected, problem.cost(s.getSolution()), message + "; pCost");
+		assertEquals(expectedTracked, tracker.getSolutionCostPair().getCost(), message + "; tCost");
+		assertEquals(expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), message + "; ptCost");
 		s = is.optimize(10);
 		message = which + "; samples="+21;
 		expected = 90;
 		expectedTracked = expected;
-		assertEquals(message + "; sCost", expected, s.getCost());
-		assertEquals(message + "; pCost", expected, problem.cost(s.getSolution()));
-		assertEquals(message + "; tCost", expectedTracked, tracker.getSolutionCostPair().getCost());
-		assertEquals(message + "; ptCost", expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()));
+		assertEquals(expected, s.getCost(), message + "; sCost");
+		assertEquals(expected, problem.cost(s.getSolution()), message + "; pCost");
+		assertEquals(expectedTracked, tracker.getSolutionCostPair().getCost(), message + "; tCost");
+		assertEquals(expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), message + "; ptCost");
 	}
 	
 	@SuppressWarnings (value="unchecked")
@@ -303,18 +300,18 @@ public class IterativeSamplingTests {
 		String message = which + "; samples="+11;
 		double expected = 95;
 		double expectedTracked = 92;
-		assertEquals(message + "; sCost", expected, s.getCostDouble(), 0.0);
-		assertEquals(message + "; pCost", expected, problem.cost(s.getSolution()), 0.0);
-		assertEquals(message + "; tCost", expectedTracked, tracker.getSolutionCostPair().getCostDouble(), 0.0);
-		assertEquals(message + "; ptCost", expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), 0.0);
+		assertEquals(expected, s.getCostDouble(), 0.0, message + "; sCost");
+		assertEquals(expected, problem.cost(s.getSolution()), 0.0, message + "; pCost");
+		assertEquals(expectedTracked, tracker.getSolutionCostPair().getCostDouble(), 0.0, message + "; tCost");
+		assertEquals(expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), 0.0, message + "; ptCost");
 		s = isSplit.optimize(10);
 		message = which + "; samples="+21;
 		expected = 90;
 		expectedTracked = expected;
-		assertEquals(message + "; sCost", expected, s.getCostDouble(), 0.0);
-		assertEquals(message + "; pCost", expected, problem.cost(s.getSolution()), 0.0);
-		assertEquals(message + "; tCost", expectedTracked, tracker.getSolutionCostPair().getCostDouble(), 0.0);
-		assertEquals(message + "; ptCost", expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), 0.0);
+		assertEquals(expected, s.getCostDouble(), 0.0, message);
+		assertEquals(expected, problem.cost(s.getSolution()), 0.0, message);
+		assertEquals(expectedTracked, tracker.getSolutionCostPair().getCostDouble(), 0.0, message);
+		assertEquals(expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), 0.0, message);
 	}
 	
 	@SuppressWarnings (value="unchecked")
@@ -329,18 +326,18 @@ public class IterativeSamplingTests {
 		String message = which + "; samples="+11;
 		int expected = 95;
 		int expectedTracked = 92;
-		assertEquals(message + "; sCost", expected, s.getCost());
-		assertEquals(message + "; pCost", expected, problem.cost(s.getSolution()));
-		assertEquals(message + "; tCost", expectedTracked, tracker.getSolutionCostPair().getCost());
-		assertEquals(message + "; ptCost", expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()));
+		assertEquals(expected, s.getCost(), message);
+		assertEquals(expected, problem.cost(s.getSolution()), message);
+		assertEquals(expectedTracked, tracker.getSolutionCostPair().getCost(), message);
+		assertEquals(expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), message);
 		s = isSplit.optimize(10);
 		message = which + "; samples="+21;
 		expected = 90;
 		expectedTracked = expected;
-		assertEquals(message + "; sCost", expected, s.getCost());
-		assertEquals(message + "; pCost", expected, problem.cost(s.getSolution()));
-		assertEquals(message + "; tCost", expectedTracked, tracker.getSolutionCostPair().getCost());
-		assertEquals(message + "; ptCost", expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()));
+		assertEquals(expected, s.getCost(), message);
+		assertEquals(expected, problem.cost(s.getSolution()), message);
+		assertEquals(expectedTracked, tracker.getSolutionCostPair().getCost(), message);
+		assertEquals(expectedTracked, problem.cost(tracker.getSolutionCostPair().getSolution()), message);
 	}
 	
 	private static class TestInitializer implements Initializer<TestObject> {

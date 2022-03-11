@@ -20,8 +20,8 @@
  
 package org.cicirello.search.problems.tsp;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.SplittableRandom;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.SolutionCostPair;

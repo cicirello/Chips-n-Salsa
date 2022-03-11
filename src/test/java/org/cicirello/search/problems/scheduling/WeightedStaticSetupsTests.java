@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,8 +20,8 @@
 
 package org.cicirello.search.problems.scheduling;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import java.io.StringWriter;
 import java.io.StringReader;
@@ -35,7 +35,7 @@ import java.io.File;
  */
 public class WeightedStaticSetupsTests {
 	
-	@BeforeClass 
+	@BeforeAll 
 	public static void createOutputDirectory() {
 		File directory = new File("target/testcasedata");
 		if (!directory.exists()){
@@ -105,13 +105,13 @@ public class WeightedStaticSetupsTests {
 						Scanner lineScanner = new Scanner(line);
 						assertEquals("Problem", lineScanner.next());
 						assertEquals("Instance:", lineScanner.next());
-						assertEquals("Instance number", instance, lineScanner.nextInt());
+						assertEquals(instance, lineScanner.nextInt(), "Instance number");
 						lineScanner.close();
 						line = scan.nextLine();
 						lineScanner = new Scanner(line);
 						assertEquals("Problem", lineScanner.next());
 						assertEquals("Size:", lineScanner.next());
-						assertEquals("Number of jobs", n, lineScanner.nextInt());
+						assertEquals(n, lineScanner.nextInt(), "Number of jobs");
 						lineScanner.close();
 						assertEquals("Begin Generator Parameters", scan.nextLine());
 						assertEquals("End Generator Parameters", scan.nextLine());

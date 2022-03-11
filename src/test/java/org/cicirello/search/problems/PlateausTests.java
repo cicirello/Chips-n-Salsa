@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,12 +20,12 @@
  
 package org.cicirello.search.problems;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.representations.BitVector;
 
 /**
- * JUnit 4 test cases for the Plateaus problem.
+ * JUnit test cases for the Plateaus problem.
  */
 public class PlateausTests {
 	
@@ -66,13 +66,13 @@ public class PlateausTests {
 		// ill-defined to test for n < 4
 		for (int n = 4; n <= 8; n++) {
 			BitVector v = new BitVector(n);
-			assertEquals("n:"+n, 0.0, problem.value(v), 0.0);
-			assertEquals("n:"+n, 10.0*n, problem.cost(v), 0.0);
+			assertEquals(0.0, problem.value(v), 0.0, "n:"+n);
+			assertEquals(10.0*n, problem.cost(v), 0.0, "n:"+n);
 		}
 		for (int n = 124; n <= 132; n++) {
 			BitVector v = new BitVector(n);
-			assertEquals("n:"+n, 0.0, problem.value(v), 0.0);
-			assertEquals("n:"+n, 10.0*n, problem.cost(v), 0.0);
+			assertEquals(0.0, problem.value(v), 0.0, "n:"+n);
+			assertEquals(10.0*n, problem.cost(v), 0.0, "n:"+n);
 		}
 	}
 	
@@ -98,8 +98,8 @@ public class PlateausTests {
 		for (int i = 0; i < cases.length; i++) {
 			int n = length[i];
 			BitVector v = new BitVector(n, cases[i]);
-			assertEquals("i:"+i+" n:"+n, 0.0, problem.value(v), 0.0);
-			assertEquals("i:"+i+" n:"+n, 10.0*n, problem.cost(v), 0.0);
+			assertEquals(0.0, problem.value(v), 0.0, "i:"+i+" n:"+n);
+			assertEquals(10.0*n, problem.cost(v), 0.0, "i:"+i+" n:"+n);
 		}
 	}
 	
@@ -140,8 +140,8 @@ public class PlateausTests {
 		for (int i = 0; i < cases.length; i++) {
 			int n = length[i];
 			BitVector v = new BitVector(n, cases[i]);
-			assertEquals("i:"+i+" n:"+n, 2.5*n, problem.value(v), 0.0);
-			assertEquals("i:"+i+" n:"+n, 7.5*n, problem.cost(v), 0.0);
+			assertEquals(2.5*n, problem.value(v), 0.0, "i:"+i+" n:"+n);
+			assertEquals(7.5*n, problem.cost(v), 0.0, "i:"+i+" n:"+n);
 		}
 	}
 	
@@ -182,8 +182,8 @@ public class PlateausTests {
 		for (int i = 0; i < cases.length; i++) {
 			int n = length[i];
 			BitVector v = new BitVector(n, cases[i]);
-			assertEquals("i:"+i+" n:"+n, 5.0*n, problem.value(v), 0.0);
-			assertEquals("i:"+i+" n:"+n, 5.0*n, problem.cost(v), 0.0);
+			assertEquals(5.0*n, problem.value(v), 0.0, "i:"+i+" n:"+n);
+			assertEquals(5.0*n, problem.cost(v), 0.0, "i:"+i+" n:"+n);
 		}
 	}
 	
@@ -224,9 +224,8 @@ public class PlateausTests {
 		for (int i = 0; i < cases.length; i++) {
 			int n = length[i];
 			BitVector v = new BitVector(n, cases[i]);
-			assertEquals("i:"+i+" n:"+n, 7.5*n, problem.value(v), 0.0);
-			assertEquals("i:"+i+" n:"+n, 2.5*n, problem.cost(v), 0.0);
+			assertEquals(7.5*n, problem.value(v), 0.0, "i:"+i+" n:"+n);
+			assertEquals(2.5*n, problem.cost(v), 0.0, "i:"+i+" n:"+n);
 		}
 	}
-	
 }

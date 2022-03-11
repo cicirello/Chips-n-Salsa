@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,13 +20,12 @@
  
 package org.cicirello.search.operators.bits;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.representations.BitVector;
 
-
 /**
- * JUnit 4 test cases for BitFlipMutation.
+ * JUnit test cases for BitFlipMutation.
  */
 public class BitFlipMutationTests {
 	
@@ -72,7 +71,7 @@ public class BitFlipMutationTests {
 			sum += v1.countOnes();
 		}
 		double average = sum / 100.0;
-		assertTrue("for m=0.25, average bits out of 100 was "+average, average >= 15 && average <= 35);
+		assertTrue(average >= 15 && average <= 35, "for m=0.25, average bits out of 100 was "+average);
 		mutation = new BitFlipMutation(0.5);
 		sum = 0;
 		for (int trial = 0; trial < 100; trial++) {
@@ -83,7 +82,7 @@ public class BitFlipMutationTests {
 			sum += v1.countOnes();
 		}
 		average = sum / 100.0;
-		assertTrue("for m=0.5, average bits out of 100 was "+average, average >= 40 && average <= 60);
+		assertTrue(average >= 40 && average <= 60, "for m=0.5, average bits out of 100 was "+average);
 		mutation = new BitFlipMutation(0.75);
 		sum = 0;
 		for (int trial = 0; trial < 100; trial++) {
@@ -94,7 +93,7 @@ public class BitFlipMutationTests {
 			sum += v1.countOnes();
 		}
 		average = sum / 100.0;
-		assertTrue("for m=0.75, average bits out of 100 was "+average, average >= 65 && average <= 85);
+		assertTrue(average >= 65 && average <= 85, "for m=0.75, average bits out of 100 was "+average);
 	}
 	
 	@Test
@@ -127,7 +126,7 @@ public class BitFlipMutationTests {
 			sum += v1.countOnes();
 		}
 		double average = sum / 100.0;
-		assertTrue("for m=0.25, average bits out of 100 was "+average, average >= 15 && average <= 35);
+		assertTrue(average >= 15 && average <= 35, "for m=0.25, average bits out of 100 was "+average);
 		mutationOriginal = new BitFlipMutation(0.5);
 		mutation = mutationOriginal.split();
 		sum = 0;
@@ -139,7 +138,7 @@ public class BitFlipMutationTests {
 			sum += v1.countOnes();
 		}
 		average = sum / 100.0;
-		assertTrue("for m=0.5, average bits out of 100 was "+average, average >= 40 && average <= 60);
+		assertTrue(average >= 40 && average <= 60, "for m=0.5, average bits out of 100 was "+average);
 		mutationOriginal = new BitFlipMutation(0.75);
 		mutation = mutationOriginal.split();
 		sum = 0;
@@ -151,7 +150,7 @@ public class BitFlipMutationTests {
 			sum += v1.countOnes();
 		}
 		average = sum / 100.0;
-		assertTrue("for m=0.75, average bits out of 100 was "+average, average >= 65 && average <= 85);
+		assertTrue(average >= 65 && average <= 85, "for m=0.75, average bits out of 100 was "+average);
 	}
 	
 	@Test

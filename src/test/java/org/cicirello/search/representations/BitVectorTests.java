@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,12 +20,12 @@
  
 package org.cicirello.search.representations;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 
 /**
- * JUnit 4 test cases for the BitVector class.
+ * JUnit test cases for the BitVector class.
  */
 public class BitVectorTests {
 	
@@ -728,20 +728,20 @@ public class BitVectorTests {
 		for (int n = 1; n <= 64; n++) {
 			BitVector b = new BitVector(n);
 			for (int i = 0; i < n; i++) {
-				assertEquals("all bits should be 0 initially", 0, b.getBit(i));
+				assertEquals(0, b.getBit(i));
 			}
-			assertEquals("first block should be all 0 bits initially", 0, b.get32(0));
-			if (n > 32) assertEquals("second block should be all 0 bits initially", 0, b.get32(1));
+			assertEquals(0, b.get32(0));
+			if (n > 32) assertEquals(0, b.get32(1));
 			b.set32(0, 0x55555555);
 			if (n >= 32) {
-				assertEquals("all even bits should be set in 0th block", 0x55555555, b.get32(0));
+				assertEquals(0x55555555, b.get32(0), "all even bits should be set in 0th block");
 			} else {
-				assertEquals("all even bits should be set in 0th block", 0x55555555 & (0xffffffff >>> (32-n)), b.get32(0));
+				assertEquals(0x55555555 & (0xffffffff >>> (32-n)), b.get32(0), "all even bits should be set in 0th block");
 			}
 			if (n > 32) {
 				b.set32(1, 0xaaaaaaaa);
-				assertEquals("all even bits should still be set in 0th block", 0x55555555, b.get32(0));
-				assertEquals("all odd bits should be set in block 1", 0xaaaaaaaa & (0xffffffff >>> (64-n)), b.get32(1));
+				assertEquals(0x55555555, b.get32(0), "all even bits should still be set in 0th block");
+				assertEquals(0xaaaaaaaa & (0xffffffff >>> (64-n)), b.get32(1), "all odd bits should be set in block 1");
 			}
 		}
 	}
@@ -808,7 +808,7 @@ public class BitVectorTests {
 			}
 			if (n > 0) {
 				for (int i = 0; i <= (n-1)/32; i++) {
-					assertEquals("get32("+i+") with n="+n, 0, b.get32(i));
+					assertEquals(0, b.get32(i), "get32("+i+") with n="+n);
 				}
 			}
 			BitVector b2 = b.copy();
@@ -828,7 +828,7 @@ public class BitVectorTests {
 			}
 			if (n > 0) {
 				for (int i = 0; i <= (n-1)/32; i++) {
-					assertEquals("get32("+i+") with n="+n, 0, b.get32(i));
+					assertEquals(0, b.get32(i), "get32("+i+") with n="+n);
 				}
 			}
 			BitVector b2 = b.copy();
@@ -853,7 +853,7 @@ public class BitVectorTests {
 			}
 			if (n > 0) {
 				for (int i = 0; i <= (n-1)/32; i++) {
-					assertEquals("get32("+i+") with n="+n, 0, b.get32(i));
+					assertEquals(0, b.get32(i), "get32("+i+") with n="+n);
 				}
 			}
 			BitVector b2 = b.copy();
@@ -874,10 +874,10 @@ public class BitVectorTests {
 			}
 			if (n > 0) {
 				for (int i = 0; i <= (n-1)/32 - 1; i++) {
-					assertEquals("get32("+i+") with n="+n, 0xffffffff, b.get32(i));
+					assertEquals(0xffffffff, b.get32(i), "get32("+i+") with n="+n);
 				}
 				int i = (n-1)/32;
-				assertEquals("get32("+i+") with n="+n, 0xffffffff >>> (32 - (n & 0x1f)), b.get32(i));
+				assertEquals(0xffffffff >>> (32 - (n & 0x1f)), b.get32(i), "get32("+i+") with n="+n);
 			}
 			BitVector b2 = b.copy();
 			assertTrue(b != b2);
@@ -950,7 +950,7 @@ public class BitVectorTests {
 				}
 				if (n > 0) {
 					for (int i = 0; i <= (n-1)/32; i++) {
-						assertEquals("get32("+i+") with n="+n, 0, b0.get32(i));
+						assertEquals(0, b0.get32(i), "get32("+i+") with n="+n);
 					}
 				}
 				BitVector b1 = new BitVector(n, ones);
@@ -964,9 +964,9 @@ public class BitVectorTests {
 				}
 				if (n > 0) {
 					for (int i = 0; i < (n-1)/32; i++) {
-						assertEquals("get32("+i+") with n="+n, 0xffffffff, b1.get32(i));
+						assertEquals(0xffffffff, b1.get32(i), "get32("+i+") with n="+n);
 					}
-					assertEquals("get32("+((n-1)/32)+") with n="+n, 0xffffffff >>> (((n-1)/32+1)*32-n), b1.get32((n-1)/32));
+					assertEquals(0xffffffff >>> (((n-1)/32+1)*32-n), b1.get32((n-1)/32), "get32("+((n-1)/32)+") with n="+n);
 				}
 				BitVector b2 = b0.copy();
 				assertEquals(n, b2.length());
@@ -1041,10 +1041,10 @@ public class BitVectorTests {
 					assertEquals(1, x.length);
 					numCalls++;
 					if (iter.hasNext()) {
-						assertEquals("n,k="+n+","+k, counter, x[0]);
+						assertEquals(counter, x[0], "n,k="+n+","+k);
 					} else {
 						int mask = 0xffffffff >>> (32-leftOver);
-						assertEquals("n,k="+n+","+k, counter & mask, x[0]);
+						assertEquals(counter & mask, x[0], "n,k="+n+","+k);
 					}
 					leftOver -= k;
 					counter++;
@@ -1052,7 +1052,7 @@ public class BitVectorTests {
 				}
 				int expectedCalls = n / k;
 				if (n % k != 0) expectedCalls++;
-				assertEquals("verify number of calls", expectedCalls, numCalls);
+				assertEquals(expectedCalls, numCalls);
 				modulus *= 2;
 			}
 		}
@@ -1131,10 +1131,10 @@ public class BitVectorTests {
 					int x = iter.nextBitBlock();
 					numCalls++;
 					if (iter.hasNext()) {
-						assertEquals("n,k="+n+","+k, counter, x);
+						assertEquals(counter, x, "n,k="+n+","+k);
 					} else {
 						int mask = 0xffffffff >>> (32-leftOver);
-						assertEquals("n,k="+n+","+k, counter & mask, x);
+						assertEquals(counter & mask, x, "n,k="+n+","+k);
 					}
 					leftOver -= k;
 					counter++;
@@ -1142,7 +1142,7 @@ public class BitVectorTests {
 				}
 				int expectedCalls = n / k;
 				if (n % k != 0) expectedCalls++;
-				assertEquals("verify number of calls", expectedCalls, numCalls);
+				assertEquals(expectedCalls, numCalls);
 				modulus *= 2;
 			}
 		}
@@ -1178,10 +1178,10 @@ public class BitVectorTests {
 					int x = iter.nextBitBlock(k);
 					numCalls++;
 					if (iter.hasNext()) {
-						assertEquals("n,k="+n+","+k, counter, x);
+						assertEquals(counter, x, "n,k="+n+","+k);
 					} else {
 						int mask = 0xffffffff >>> (32-leftOver);
-						assertEquals("n,k="+n+","+k, counter & mask, x);
+						assertEquals(counter & mask, x, "n,k="+n+","+k);
 					}
 					leftOver -= k;
 					counter++;
@@ -1193,7 +1193,7 @@ public class BitVectorTests {
 				);
 				int expectedCalls = n / k;
 				if (n % k != 0) expectedCalls++;
-				assertEquals("verify number of calls", expectedCalls, numCalls);
+				assertEquals(expectedCalls, numCalls);
 				modulus *= 2;
 			}
 		}
@@ -1229,10 +1229,10 @@ public class BitVectorTests {
 					int x = iter.nextBitBlock(k);
 					numCalls++;
 					if (iter.hasNext()) {
-						assertEquals("n,k="+n+","+k, counter, x);
+						assertEquals(counter, x, "n,k="+n+","+k);
 					} else {
 						int mask = 0xffffffff >>> (32-leftOver);
-						assertEquals("n,k="+n+","+k, counter & mask, x);
+						assertEquals(counter & mask, x, "n,k="+n+","+k);
 					}
 					leftOver -= k;
 					counter++;
@@ -1240,7 +1240,7 @@ public class BitVectorTests {
 				}
 				int expectedCalls = n / k;
 				if (n % k != 0) expectedCalls++;
-				assertEquals("verify number of calls", expectedCalls, numCalls);
+				assertEquals(expectedCalls, numCalls);
 				modulus *= 2;
 			}
 		}
@@ -1262,11 +1262,11 @@ public class BitVectorTests {
 			while (iter.hasNext()) {
 				assertEquals(n-counter, iter.numRemainingBits());
 				int x = iter.nextBit();
-				assertEquals("n="+n, counter % 2, x);
+				assertEquals(counter % 2, x, "n="+n);
 				leftOver--;
 				counter++;
 			}
-			assertEquals("verify number of calls", n, counter);
+			assertEquals(n, counter);
 			assertEquals(0, iter.numRemainingBits());
 		}
 	}
@@ -1285,11 +1285,11 @@ public class BitVectorTests {
 			int leftOver = n;
 			while (iter.hasNext()) {
 				int x = iter.nextBitBlock();
-				assertEquals("n="+n, counter % 2, x);
+				assertEquals(counter % 2, x, "n="+n);
 				leftOver--;
 				counter++;
 			}
-			assertEquals("verify number of calls", n, counter);
+			assertEquals(n, counter);
 			IllegalStateException thrown = assertThrows( 
 				IllegalStateException.class,
 				() -> iter.nextBitBlock()
@@ -1318,8 +1318,8 @@ public class BitVectorTests {
 			BitVector b1copy = new BitVector(n, bits1);
 			BitVector bExpected = new BitVector(n, expected);
 			b0.and(b1);
-			assertEquals("explicit param shouldn't change", b1copy, b1);
-			assertEquals("verify bits ANDed correctly", bExpected, b0);
+			assertEquals(b1copy, b1, "explicit param shouldn't change");
+			assertEquals(bExpected, b0);
 			for (int i = 0; i < n; i++) {
 				assertEquals(bExpected.getBit(i), b0.getBit(i));
 			}
@@ -1337,8 +1337,8 @@ public class BitVectorTests {
 			BitVector b1copy = new BitVector(n, bits1);
 			BitVector bExpected = new BitVector(n, expected);
 			b0.and(b1);
-			assertEquals("explicit param shouldn't change", b1copy, b1);
-			assertEquals("verify bits ANDed correctly", bExpected, b0);
+			assertEquals(b1copy, b1, "explicit param shouldn't change");
+			assertEquals(bExpected, b0);
 			for (int i = 0; i < n; i++) {
 				assertEquals(bExpected.getBit(i), b0.getBit(i));
 			}
@@ -1366,8 +1366,8 @@ public class BitVectorTests {
 			BitVector b1copy = new BitVector(n, bits1);
 			BitVector bExpected = new BitVector(n, expected);
 			b0.or(b1);
-			assertEquals("explicit param shouldn't change", b1copy, b1);
-			assertEquals("verify bits ORed correctly", bExpected, b0);
+			assertEquals(b1copy, b1, "explicit param shouldn't change");
+			assertEquals(bExpected, b0);
 			for (int i = 0; i < n; i++) {
 				assertEquals(bExpected.getBit(i), b0.getBit(i));
 			}
@@ -1385,8 +1385,8 @@ public class BitVectorTests {
 			BitVector b1copy = new BitVector(n, bits1);
 			BitVector bExpected = new BitVector(n, expected);
 			b0.or(b1);
-			assertEquals("explicit param shouldn't change", b1copy, b1);
-			assertEquals("verify bits ORed correctly", bExpected, b0);
+			assertEquals(b1copy, b1, "explicit param shouldn't change");
+			assertEquals(bExpected, b0);
 			for (int i = 0; i < n; i++) {
 				assertEquals(bExpected.getBit(i), b0.getBit(i));
 			}
@@ -1414,8 +1414,8 @@ public class BitVectorTests {
 			BitVector b1copy = new BitVector(n, bits1);
 			BitVector bExpected = new BitVector(n, expected);
 			b0.xor(b1);
-			assertEquals("explicit param shouldn't change", b1copy, b1);
-			assertEquals("verify bits XORed correctly", bExpected, b0);
+			assertEquals(b1copy, b1, "explicit param shouldn't change");
+			assertEquals(bExpected, b0);
 			for (int i = 0; i < n; i++) {
 				assertEquals(bExpected.getBit(i), b0.getBit(i));
 			}
@@ -1433,8 +1433,8 @@ public class BitVectorTests {
 			BitVector b1copy = new BitVector(n, bits1);
 			BitVector bExpected = new BitVector(n, expected);
 			b0.xor(b1);
-			assertEquals("explicit param shouldn't change", b1copy, b1);
-			assertEquals("verify bits XORed correctly", bExpected, b0);
+			assertEquals(b1copy, b1, "explicit param shouldn't change");
+			assertEquals(bExpected, b0);
 			for (int i = 0; i < n; i++) {
 				assertEquals(bExpected.getBit(i), b0.getBit(i));
 			}
@@ -1698,5 +1698,4 @@ public class BitVectorTests {
 			() -> b.set32(1, 0)
 		);
 	}
-	
 }

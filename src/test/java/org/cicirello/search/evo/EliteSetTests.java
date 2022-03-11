@@ -20,8 +20,8 @@
  
 package org.cicirello.search.evo;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.util.Copyable;
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,8 +20,8 @@
  
 package org.cicirello.search.sa;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
@@ -58,7 +58,7 @@ public class SimulatedAnnealingHCTests {
 	private IntegerCostOptimizationProblem<TestObject> pi_unknown;
 	private IntegerCostOptimizationProblem<TestObject> pi_known;
 	
-	@Before
+	@BeforeEach
     public void setUp() {
 		pd_unknown = new TestProblem();
 		pd_known = new TestProblemKnownMin();
@@ -158,7 +158,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: double costs
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = d_unknown.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_unknown.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -174,7 +174,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: int costs
 		elapsed = 0;
 		t = i_unknown.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_unknown.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -190,7 +190,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: double costs
 		elapsed = 0;
 		t = d_known.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_known.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -208,7 +208,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: int costs
 		elapsed = 0;
 		t = i_known.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -229,7 +229,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: double costs
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = d_unknown_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_unknown_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -245,7 +245,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: int costs
 		elapsed = 0;
 		t = i_unknown_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_unknown_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -261,7 +261,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: double costs
 		elapsed = 0;
 		t = d_known_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_known_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -279,7 +279,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: int costs
 		elapsed = 0;
 		t = i_known_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -300,7 +300,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: double costs
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = d_unknown.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_unknown.getTotalRunLength());
 		SolutionCostPair<TestObject> result;
 		for (int i = 1; i <= 15; i++) {
@@ -320,7 +320,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: int costs
 		elapsed = 0;
 		t = i_unknown.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_unknown.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			assertNotNull(result = i_unknown.optimize(100));
@@ -339,7 +339,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: double costs
 		elapsed = 0;
 		t = d_known.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_known.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			assertNotNull(result = d_known.optimize(100));
@@ -359,7 +359,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: int costs
 		elapsed = 0;
 		t = i_known.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			assertNotNull(result = i_known.optimize(100));
@@ -382,7 +382,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: double costs
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = d_unknown_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_unknown_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -398,7 +398,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: int costs
 		elapsed = 0;
 		t = i_unknown_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_unknown_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -414,7 +414,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: double costs
 		elapsed = 0;
 		t = d_known_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_known_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -432,7 +432,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: int costs
 		elapsed = 0;
 		t = i_known_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -455,7 +455,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: double costs
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = d_unknown.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_unknown.getTotalRunLength());
 		SolutionCostPair<TestObject> result;
 		for (int i = 1; i <= 15; i++) {
@@ -475,7 +475,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: int costs
 		elapsed = 0;
 		t = i_unknown.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_unknown.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			assertNotNull(result = i_unknown.optimize(100, start));
@@ -494,7 +494,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: double costs
 		elapsed = 0;
 		t = d_known.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_known.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			assertNotNull(result = d_known.optimize(100, start));
@@ -514,7 +514,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: int costs
 		elapsed = 0;
 		t = i_known.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			assertNotNull(result = i_known.optimize(100, start));
@@ -539,7 +539,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: double costs
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = d_unknown_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_unknown_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -555,7 +555,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with unknown min solution: int costs
 		elapsed = 0;
 		t = i_unknown_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_unknown_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -571,7 +571,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: double costs
 		elapsed = 0;
 		t = d_known_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, d_known_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -589,7 +589,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: int costs
 		elapsed = 0;
 		t = i_known_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -609,7 +609,7 @@ public class SimulatedAnnealingHCTests {
 	public void testSplitNoSA_reopt() {
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = i_known_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -635,7 +635,7 @@ public class SimulatedAnnealingHCTests {
 	public void testSplitNoSA_opt() {
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = i_known_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -664,7 +664,7 @@ public class SimulatedAnnealingHCTests {
 		// Test with known min solution: int costs
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = i_known_hc.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known_hc.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -690,7 +690,7 @@ public class SimulatedAnnealingHCTests {
 	public void testSplitNoHC_reopt() {
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = i_known.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known.getTotalRunLength());
 		for (int i = 1; i <= 15; i++) {
 			SolutionCostPair<TestObject> result;
@@ -726,7 +726,7 @@ public class SimulatedAnnealingHCTests {
 	public void testSplitNoHC_opt() {
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = i_known.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known.getTotalRunLength());
 		SolutionCostPair<TestObject> result;
 		for (int i = 1; i <= 15; i++) {
@@ -759,7 +759,7 @@ public class SimulatedAnnealingHCTests {
 		
 		int elapsed = 0;
 		ProgressTracker<TestObject> t = i_known.getProgressTracker();
-		assertNull("Initial best solution should be null", t.getSolution());
+		assertNull(t.getSolution());
 		assertEquals(elapsed, i_known.getTotalRunLength());
 		SolutionCostPair<TestObject> result;
 		for (int i = 1; i <= 15; i++) {

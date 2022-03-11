@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,8 +20,8 @@
  
 package org.cicirello.search.problems.tsp;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ss.Partial;
 import org.cicirello.search.problems.OptimizationProblem;
@@ -171,7 +171,7 @@ public class TSPHeuristicsTests {
 		for (int i = 0; i < 5; i++) {
 			if (!skip[i]) {
 				assertEquals(expectedNearest[i], inc.nearestRemainingCity[i]);
-				assertEquals("i:"+i, expectedDistance[i], inc.distanceToNearestCity[i], 1E-10);
+				assertEquals(expectedDistance[i], inc.distanceToNearestCity[i], 1E-10, "i:"+i);
 				assertEquals(expectedH[i], h.h(partial, i, inc), 1E-10);
 			}
 		}
@@ -195,7 +195,7 @@ public class TSPHeuristicsTests {
 		for (int i = 0; i < 5; i++) {
 			if (!skip[i]) {
 				assertEquals(expectedNearest[i], inc.nearestRemainingCity[i]);
-				assertEquals("i:"+i, expectedDistance[i], inc.distanceToNearestCity[i], 1E-10);
+				assertEquals(expectedDistance[i], inc.distanceToNearestCity[i], 1E-10, "i:"+i);
 				assertEquals(expectedH[i], h.h(partial, i, inc), 1E-10);
 			}
 		}
@@ -214,7 +214,7 @@ public class TSPHeuristicsTests {
 		expectedH[4] = 1.0 / 8.0;
 		for (int i = 0; i < 5; i++) {
 			if (!skip[i]) {
-				assertEquals("i:"+i, expectedDistance[i], inc.distanceToNearestCity[i], 1E-10);
+				assertEquals(expectedDistance[i], inc.distanceToNearestCity[i], 1E-10, "i:"+i);
 				assertEquals(expectedH[i], h.h(partial, i, inc), 1E-10);
 			}
 		}
@@ -226,7 +226,7 @@ public class TSPHeuristicsTests {
 		assertEquals(1, inc.numRemaining());
 		for (int i = 0; i < 5; i++) {
 			if (!skip[i]) {
-				assertEquals("i:"+i, expectedDistance[i], inc.distanceToNearestCity[i], 1E-10);
+				assertEquals(expectedDistance[i], inc.distanceToNearestCity[i], 1E-10, "i:"+i);
 			}
 		}
 		

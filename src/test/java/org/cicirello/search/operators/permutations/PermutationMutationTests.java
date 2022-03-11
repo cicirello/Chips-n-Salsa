@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,8 +20,8 @@
  
 package org.cicirello.search.operators.permutations;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.operators.MutationIterator;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
- * JUnit 4 test cases for mutation operators on permutations.
+ * JUnit test cases for mutation operators on permutations.
  */
 public class PermutationMutationTests {
 	
@@ -52,9 +52,9 @@ public class PermutationMutationTests {
 				int a, b;
 				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-				assertEquals("Changed indexes should be off by 1", a, b-1);
-				assertEquals("Verify adjacent swap", p.get(a), mutant.get(b));
-				assertEquals("Verify adjacent swap", p.get(b), mutant.get(a));
+				assertEquals(a, b-1);
+				assertEquals(p.get(a), mutant.get(b));
+				assertEquals(p.get(b), mutant.get(a));
 			}
 		}
 		// Check distribution of random indexes
@@ -70,7 +70,7 @@ public class PermutationMutationTests {
 				indexes[a] = true;
 			}
 			for (int i = 0; i < indexes.length; i++) {
-				assertTrue("Failed to swap a specific adjacent pair over many trials.", indexes[i]);
+				assertTrue(indexes[i]);
 			}
 		}
 	}
@@ -92,16 +92,16 @@ public class PermutationMutationTests {
 				for (d = p.length()-1; d >= 0 && p.get(d) == mutant.get(d); d--);
 				for (b = a; b < p.length() && p.get(b) != mutant.get(d); b++);
 				for (c = d; c > b && p.get(c) != mutant.get(a); c--);
-				assertTrue("check for valid block indexes", a <= b && b < c && c <= d);
+				assertTrue(a <= b && b < c && c <= d);
 				int i, j;
 				for (i=a, j=c; j <= d; i++, j++) {
-					assertEquals("left portion of result", p.get(j), mutant.get(i));
+					assertEquals(p.get(j), mutant.get(i));
 				}
 				for (j=b+1; j < c; i++, j++) {
-					assertEquals("middle portion of result", p.get(j), mutant.get(i));
+					assertEquals(p.get(j), mutant.get(i));
 				}
 				for (j=a; j <= b; j++, i++) {
-					assertEquals("right portion of result", p.get(j), mutant.get(i));
+					assertEquals(p.get(j), mutant.get(i));
 				}
 			}
 		}
@@ -146,14 +146,14 @@ public class PermutationMutationTests {
 				int a, b;
 				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-				assertTrue("verify elements changed", a <= b);
+				assertTrue(a <= b);
 				if (mutant.get(b) == p.get(a)) {
 					for (int i = a; i < b; i++) {
-						assertEquals("Verify insertion case: element moved later", p.get(i+1), mutant.get(i));
+						assertEquals(p.get(i+1), mutant.get(i));
 					}
 				} else if (mutant.get(a) == p.get(b)) {
 					for (int i = a+1; i <= b; i++) {
-						assertEquals("Verify insertion case: element moved earlier", p.get(i-1), mutant.get(i));
+						assertEquals(p.get(i-1), mutant.get(i));
 					}
 				} else {
 					fail("Not an insertion.");
@@ -188,9 +188,9 @@ public class PermutationMutationTests {
 				int a, b;
 				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-				assertTrue("verify elements changed", a <= b);
+				assertTrue(a <= b);
 				while (a <= b) {
-					assertEquals("Verify mutation is a reversal", p.get(a), mutant.get(b));
+					assertEquals(p.get(a), mutant.get(b));
 					a++;
 					b--;
 				}
@@ -213,11 +213,11 @@ public class PermutationMutationTests {
 				int a, b;
 				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-				assertTrue("verify elements changed", a <= b);
-				assertEquals("Verify elements swapped", p.get(a), mutant.get(b));
-				assertEquals("Verify elements swapped", p.get(b), mutant.get(a));
+				assertTrue(a <= b);
+				assertEquals(p.get(a), mutant.get(b));
+				assertEquals(p.get(b), mutant.get(a));
 				for (int i = a+1; i < b; i++) {
-					assertEquals("Verify interior elements not changed", p.get(i), mutant.get(i));
+					assertEquals(p.get(i), mutant.get(i));
 				}
 			}
 		}
@@ -341,11 +341,11 @@ public class PermutationMutationTests {
 				int a, b;
 				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-				assertTrue("verify elements changed", a <= b);
-				assertEquals("Verify elements swapped", p.get(a), mutant.get(b));
-				assertEquals("Verify elements swapped", p.get(b), mutant.get(a));
+				assertTrue(a <= b);
+				assertEquals(p.get(a), mutant.get(b));
+				assertEquals(p.get(b), mutant.get(a));
 				for (int i = a+1; i < b; i++) {
-					assertEquals("Verify interior elements not changed", p.get(i), mutant.get(i));
+					assertEquals(p.get(i), mutant.get(i));
 				}
 			}
 		}
@@ -377,7 +377,7 @@ public class PermutationMutationTests {
 				int a, b;
 				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-				assertTrue("verify elements changed", a <= b);
+				assertTrue(a <= b);
 				int c;
 				for (c = a+1; c <= b && p.get(a) != mutant.get(c); c++);
 				// block of p from index a to index (a+b-c) should be same as mutant index c to index b
@@ -768,15 +768,15 @@ public class PermutationMutationTests {
 					int a, b;
 					for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 					for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-					assertTrue("verify elements changed", a <= b);
-					assertTrue("window violation", b-a <= window);
+					assertTrue(a <= b);
+					assertTrue(b-a <= window);
 					if (mutant.get(b) == p.get(a)) {
 						for (int i = a; i < b; i++) {
-							assertEquals("Verify insertion case: element moved later", p.get(i+1), mutant.get(i));
+							assertEquals(p.get(i+1), mutant.get(i));
 						}
 					} else if (mutant.get(a) == p.get(b)) {
 						for (int i = a+1; i <= b; i++) {
-							assertEquals("Verify insertion case: element moved earlier", p.get(i-1), mutant.get(i));
+							assertEquals(p.get(i-1), mutant.get(i));
 						}
 					} else {
 						fail("Not an insertion.");
@@ -811,14 +811,14 @@ public class PermutationMutationTests {
 				int a, b;
 				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-				assertTrue("verify elements changed", a <= b);
+				assertTrue(a <= b);
 				if (mutant.get(b) == p.get(a)) {
 					for (int i = a; i < b; i++) {
-						assertEquals("Verify insertion case: element moved later", p.get(i+1), mutant.get(i));
+						assertEquals(p.get(i+1), mutant.get(i));
 					}
 				} else if (mutant.get(a) == p.get(b)) {
 					for (int i = a+1; i <= b; i++) {
-						assertEquals("Verify insertion case: element moved earlier", p.get(i-1), mutant.get(i));
+						assertEquals(p.get(i-1), mutant.get(i));
 					}
 				} else {
 					fail("Not an insertion.");
@@ -854,10 +854,10 @@ public class PermutationMutationTests {
 					int a, b;
 					for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 					for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-					assertTrue("verify elements changed", a <= b);
-					assertTrue("window violation", b-a <= window);
+					assertTrue(a <= b);
+					assertTrue(b-a <= window);
 					while (a <= b) {
-						assertEquals("Verify mutation is a reversal", p.get(a), mutant.get(b));
+						assertEquals(p.get(a), mutant.get(b));
 						a++;
 						b--;
 					}
@@ -891,9 +891,9 @@ public class PermutationMutationTests {
 				int a, b;
 				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-				assertTrue("verify elements changed", a <= b);
+				assertTrue(a <= b);
 				while (a <= b) {
-					assertEquals("Verify mutation is a reversal", p.get(a), mutant.get(b));
+					assertEquals(p.get(a), mutant.get(b));
 					a++;
 					b--;
 				}
@@ -928,12 +928,12 @@ public class PermutationMutationTests {
 					int a, b;
 					for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 					for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-					assertTrue("verify elements changed", a <= b);
-					assertTrue("window violation", b-a <= window);
-					assertEquals("Verify elements swapped", p.get(a), mutant.get(b));
-					assertEquals("Verify elements swapped", p.get(b), mutant.get(a));
+					assertTrue(a <= b);
+					assertTrue(b-a <= window);
+					assertEquals(p.get(a), mutant.get(b));
+					assertEquals(p.get(b), mutant.get(a));
 					for (int i = a+1; i < b; i++) {
-						assertEquals("Verify interior elements not changed", p.get(i), mutant.get(i));
+						assertEquals(p.get(i), mutant.get(i));
 					}
 				}
 			}
@@ -965,11 +965,11 @@ public class PermutationMutationTests {
 				int a, b;
 				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-				assertTrue("verify elements changed", a <= b);
-				assertEquals("Verify elements swapped", p.get(a), mutant.get(b));
-				assertEquals("Verify elements swapped", p.get(b), mutant.get(a));
+				assertTrue(a <= b);
+				assertEquals(p.get(a), mutant.get(b));
+				assertEquals(p.get(b), mutant.get(a));
 				for (int i = a+1; i < b; i++) {
-					assertEquals("Verify interior elements not changed", p.get(i), mutant.get(i));
+					assertEquals(p.get(i), mutant.get(i));
 				}
 			}
 		}
@@ -1002,8 +1002,8 @@ public class PermutationMutationTests {
 					int a, b;
 					for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 					for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-					assertTrue("verify elements changed", a <= b);
-					assertTrue("window violation", b-a <= window);
+					assertTrue(a <= b);
+					assertTrue(b-a <= window);
 					int c;
 					for (c = a+1; c <= b && p.get(a) != mutant.get(c); c++);
 					// block of p from index a to index (a+b-c) should be same as mutant index c to index b
@@ -1045,7 +1045,7 @@ public class PermutationMutationTests {
 				int a, b;
 				for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 				for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-				assertTrue("verify elements changed", a <= b);
+				assertTrue(a <= b);
 				int c;
 				for (c = a+1; c <= b && p.get(a) != mutant.get(c); c++);
 				// block of p from index a to index (a+b-c) should be same as mutant index c to index b
@@ -1087,8 +1087,8 @@ public class PermutationMutationTests {
 					int a, b;
 					for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 					for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-					assertTrue("verify elements changed", a <= b);
-					assertTrue("window violation", b-a <= window);
+					assertTrue(a <= b);
+					assertTrue(b-a <= window);
 				}
 			}
 		}
@@ -1138,8 +1138,8 @@ public class PermutationMutationTests {
 					int a, b;
 					for (a = 0; a < p.length() && p.get(a) == mutant.get(a); a++);
 					for (b = p.length()-1; b >= 0 && p.get(b) == mutant.get(b); b--);
-					assertTrue("verify elements changed", a <= b);
-					assertTrue("window violation", b-a <= window);
+					assertTrue(a <= b);
+					assertTrue(b-a <= window);
 				}
 			}
 		}
@@ -1204,7 +1204,7 @@ public class PermutationMutationTests {
 				Permutation mutant = new Permutation(p);
 				m.mutate(mutant);
 				m.undo(mutant);
-				assertEquals("mutate followed by undo should revert to original", p, mutant);
+				assertEquals(p, mutant);
 			}
 		}
 	}
@@ -1222,9 +1222,9 @@ public class PermutationMutationTests {
 				// verify mutation produced a valid permutation
 				validate(mutant);
 				if (i < 2) {
-					assertEquals("if length is less than 2, no change should be made", p, mutant);
+					assertEquals(p, mutant);
 				} else {
-					assertNotEquals("confirm that mutate changed the permutation", p, mutant);
+					assertNotEquals(p, mutant);
 				}
 			}
 		}
@@ -1234,17 +1234,17 @@ public class PermutationMutationTests {
 		boolean[] inP = new boolean[p.length()];
 		for (int i = 0; i < inP.length; i++) {
 			int j = p.get(i);
-			assertTrue("validate permutation element", j >= 0 && j < inP.length);
+			assertTrue(j >= 0 && j < inP.length);
 			inP[j] = true;
 		}
 		for (int i = 0; i < inP.length; i++) {
-			assertTrue("confirm no elements are missing", inP[i]);
+			assertTrue(inP[i]);
 		}
 	}
 	
 	private void splitTester(MutationOperator<Permutation> m) {
 		MutationOperator<Permutation> s = m.split();
-		assertEquals("verify that runtime class of split is the same", m.getClass(), s.getClass());
+		assertEquals(m.getClass(), s.getClass());
 		if (m instanceof UndoableMutationOperator) {
 			for (int i = 0; i < 10; i++) {
 				Permutation p1 = new Permutation(10);
@@ -1268,7 +1268,7 @@ public class PermutationMutationTests {
 		for (int i = 0; i < pairs.length; i++) {
 			for (int j = 0; j < pairs.length; j++) {
 				if (i!=j) {
-					assertTrue("failed to generate: (" + i + ", " + j + ")", pairs[i][j]);
+					assertTrue(pairs[i][j], "failed to generate: (" + i + ", " + j + ")");
 				}
 			}
 		}
@@ -1281,9 +1281,9 @@ public class PermutationMutationTests {
 			for (int j = 0; j < pairs.length; j++) {
 				if (i!=j) {
 					if (Math.abs(i-j) <= window) {
-						assertTrue("failed to generate: w=" + window + " pair=(" + i + ", " + j + ")", pairs[i][j]);
+						assertTrue(pairs[i][j], "failed to generate: w=" + window + " pair=(" + i + ", " + j + ")");
 					} else {
-						assertFalse("window violation: w=" + window + " pair=(" + i + ", " + j + ")", pairs[i][j]);
+						assertFalse(pairs[i][j], "window violation: w=" + window + " pair=(" + i + ", " + j + ")");
 					}
 				}
 			}
@@ -1295,7 +1295,7 @@ public class PermutationMutationTests {
 		for (int i = 0; i < triples.length; i++) {
 			for (int j = i+1; j < triples.length; j++) {
 				for (int k = j; k < triples.length; k++) {
-					assertTrue("failed to generate: (" + i + ", " + j + ", " + k + ")", triples[i][j][k]);
+					assertTrue(triples[i][j][k], "failed to generate: (" + i + ", " + j + ", " + k + ")");
 				}
 			}
 		}
@@ -1308,9 +1308,9 @@ public class PermutationMutationTests {
 			for (int j = i+1; j < triples.length; j++) {
 				for (int k = j; k < triples.length; k++) {
 					if (k-i <= window) {
-						assertTrue("failed to generate: w=" + window + " triple=(" + i + ", " + j + ", " + k + ")", triples[i][j][k]);
+						assertTrue(triples[i][j][k], "failed to generate: w=" + window + " triple=(" + i + ", " + j + ", " + k + ")");
 					} else {
-						assertFalse("window violation: w=" + window + " triple=(" + i + ", " + j + ", " + k + ")", triples[i][j][k]);
+						assertFalse(triples[i][j][k], "window violation: w=" + window + " triple=(" + i + ", " + j + ", " + k + ")");
 					}
 				}
 			}
@@ -1323,8 +1323,8 @@ public class PermutationMutationTests {
 		// many trials.
 		for (int i = 0; i < firstPair.length; i++) {
 			for (int j = i; j < firstPair[i].length; j++) {
-				assertTrue("failed to generate left pair: (" + i + ", " + j + ")", firstPair[i][j]);
-				assertTrue("failed to generate right pair: (" + (i+1) + ", " + (j+1) + ")", secondPair[i][j]);
+				assertTrue(firstPair[i][j], "failed to generate left pair: (" + i + ", " + j + ")");
+				assertTrue(secondPair[i][j], "failed to generate right pair: (" + (i+1) + ", " + (j+1) + ")");
 			}
 		}
 	}

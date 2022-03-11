@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,14 +20,14 @@
 
 package org.cicirello.search.evo;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.util.Copyable;
 
 /**
- * JUnit 4 test cases for cost to fitness transformations.
+ * JUnit test cases for cost to fitness transformations.
  */
 public class CostToFitnessTests {
 	

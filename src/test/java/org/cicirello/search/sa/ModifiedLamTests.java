@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,12 +20,12 @@
  
 package org.cicirello.search.sa;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.math.rand.RandomIndexer;
 
 /**
- * JUnit 4 test cases for the Modified Lam annealing schedule.
+ * JUnit test cases for the Modified Lam annealing schedule.
  */
 public class ModifiedLamTests {
 	
@@ -38,73 +38,73 @@ public class ModifiedLamTests {
 		for (int i = 0; i < 10; i++) mOriginal.accept(3, 2);
 		ModifiedLam m = mOriginal.split();
 		m.init(100);
-		assertEquals("target rate at start of run", 1.0, m.getTargetRate(), EPSILON);
+		assertEquals(1.0, m.getTargetRate(), EPSILON);
 		for (int i = 0; i < 15; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 1", 0.441, m.getTargetRate(), EPSILON);
+		assertEquals(0.441, m.getTargetRate(), EPSILON);
 		m.accept(3, 2);
-		assertEquals("target rate start of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		assertEquals(0.44, m.getTargetRate(), EPSILON);
 		for (int i = 16; i < 65; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		assertEquals(0.44, m.getTargetRate(), EPSILON);
 		m.accept(3, 2);
-		assertEquals("target rate start of phase 3", 0.44*Math.pow(440, -1.0/35.0), m.getTargetRate(), EPSILON);
+		assertEquals(0.44*Math.pow(440, -1.0/35.0), m.getTargetRate(), EPSILON);
 		for (int i = 66; i < 100; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 3", 0.001, m.getTargetRate(), EPSILON);
+		assertEquals(0.001, m.getTargetRate(), EPSILON);
 	}
 	
 	@Test
 	public void testTargetRate() {
 		ModifiedLam m = new ModifiedLam();
 		m.init(100);
-		assertEquals("target rate at start of run", 1.0, m.getTargetRate(), EPSILON);
+		assertEquals(1.0, m.getTargetRate(), EPSILON);
 		for (int i = 0; i < 15; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 1", 0.441, m.getTargetRate(), EPSILON);
+		assertEquals(0.441, m.getTargetRate(), EPSILON);
 		m.accept(3, 2);
-		assertEquals("target rate start of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		assertEquals(0.44, m.getTargetRate(), EPSILON);
 		for (int i = 16; i < 65; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		assertEquals(0.44, m.getTargetRate(), EPSILON);
 		m.accept(3, 2);
-		assertEquals("target rate start of phase 3", 0.44*Math.pow(440, -1.0/35.0), m.getTargetRate(), EPSILON);
+		assertEquals(0.44*Math.pow(440, -1.0/35.0), m.getTargetRate(), EPSILON);
 		for (int i = 66; i < 100; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 3", 0.001, m.getTargetRate(), EPSILON);
+		assertEquals(0.001, m.getTargetRate(), EPSILON);
 		// repeating to make sure init resets stuff correctly
 		m.init(100);
-		assertEquals("target rate at start of run", 1.0, m.getTargetRate(), EPSILON);
+		assertEquals(1.0, m.getTargetRate(), EPSILON);
 		for (int i = 0; i < 15; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 1", 0.441, m.getTargetRate(), EPSILON);
+		assertEquals(0.441, m.getTargetRate(), EPSILON);
 		m.accept(3, 2);
-		assertEquals("target rate start of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		assertEquals(0.44, m.getTargetRate(), EPSILON);
 		for (int i = 16; i < 65; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		assertEquals(0.44, m.getTargetRate(), EPSILON);
 		m.accept(3, 2);
-		assertEquals("target rate start of phase 3", 0.44*Math.pow(440, -1.0/35.0), m.getTargetRate(), EPSILON);
+		assertEquals(0.44*Math.pow(440, -1.0/35.0), m.getTargetRate(), EPSILON);
 		for (int i = 66; i < 100; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 3", 0.001, m.getTargetRate(), EPSILON);
+		assertEquals(0.001, m.getTargetRate(), EPSILON);
 		// now repeating with longer run length
 		m.init(1000);
-		assertEquals("target rate at start of run", 1.0, m.getTargetRate(), EPSILON);
+		assertEquals(1.0, m.getTargetRate(), EPSILON);
 		for (int i = 0; i < 150; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 1", 0.441, m.getTargetRate(), EPSILON);
+		assertEquals(0.441, m.getTargetRate(), EPSILON);
 		m.accept(3, 2);
-		assertEquals("target rate start of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		assertEquals(0.44, m.getTargetRate(), EPSILON);
 		for (int i = 151; i < 650; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		assertEquals(0.44, m.getTargetRate(), EPSILON);
 		m.accept(3, 2);
-		assertEquals("target rate start of phase 3", 0.44*Math.pow(440, -1.0/350.0), m.getTargetRate(), EPSILON);
+		assertEquals(0.44*Math.pow(440, -1.0/350.0), m.getTargetRate(), EPSILON);
 		for (int i = 651; i < 1000; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 3", 0.001, m.getTargetRate(), EPSILON);
+		assertEquals(0.001, m.getTargetRate(), EPSILON);
 		// now repeating with an even longer run length
 		m.init(10000);
-		assertEquals("target rate at start of run", 1.0, m.getTargetRate(), EPSILON);
+		assertEquals(1.0, m.getTargetRate(), EPSILON);
 		for (int i = 0; i < 1500; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 1", 0.441, m.getTargetRate(), EPSILON);
+		assertEquals(0.441, m.getTargetRate(), EPSILON);
 		m.accept(3, 2);
-		assertEquals("target rate start of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		assertEquals(0.44, m.getTargetRate(), EPSILON);
 		for (int i = 1501; i < 6500; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 2", 0.44, m.getTargetRate(), EPSILON);
+		assertEquals(0.44, m.getTargetRate(), EPSILON);
 		m.accept(3, 2);
-		assertEquals("target rate start of phase 3", 0.44*Math.pow(440, -1.0/3500.0), m.getTargetRate(), EPSILON);
+		assertEquals(0.44*Math.pow(440, -1.0/3500.0), m.getTargetRate(), EPSILON);
 		for (int i = 6501; i < 10000; i++) m.accept(3, 2);
-		assertEquals("target rate end of phase 3", 0.001, m.getTargetRate(), EPSILON);
+		assertEquals(0.001, m.getTargetRate(), EPSILON);
 	}
 	
 	@Test
@@ -114,28 +114,28 @@ public class ModifiedLamTests {
 		double expected = 0.5;
 		for (int i = 0; i < 1000; i++) {
 			double t0 = m.getTemperature();
-			assertEquals("testing acceptRate estimation", expected, m.getAcceptRate(), EPSILON);
+			assertEquals(expected, m.getAcceptRate(), EPSILON);
 			// force an acceptance with neighbor cost <= current cost
-			assertTrue("Should definitely accept when new cost is <= old", m.accept(i, 999));
+			assertTrue(m.accept(i, 999));
 			double t1 = m.getTemperature();
 			if (m.getAcceptRate() < m.getTargetRate()) 
-				assertTrue("temperature should increase if acceptRate is too low", t1 > t0);
+				assertTrue(t1 > t0);
 			else if (m.getAcceptRate() > m.getTargetRate())
-				assertTrue("temperature should decrease if acceptRate is too low", t1 < t0);
+				assertTrue(t1 < t0);
 			expected = 0.998 * expected + 0.002;
 		}	
 		m.init(1000);
 		expected = 0.5;
 		for (int i = 0; i < 1000; i++) {
 			double t0 = m.getTemperature();
-			assertEquals("testing acceptRate estimation", expected, m.getAcceptRate(), EPSILON);
+			assertEquals(expected, m.getAcceptRate(), EPSILON);
 			// force a rejection with infinite cost neighbor
-			assertFalse("Should definitely reject for infinite cost", m.accept(Double.POSITIVE_INFINITY, 0));
+			assertFalse(m.accept(Double.POSITIVE_INFINITY, 0));
 			double t1 = m.getTemperature();
 			if (m.getAcceptRate() < m.getTargetRate()) 
-				assertTrue("temperature should increase if acceptRate is too low", t1 > t0);
+				assertTrue(t1 > t0);
 			else if (m.getAcceptRate() > m.getTargetRate())
-				assertTrue("temperature should decrease if acceptRate is too low", t1 < t0);
+				assertTrue(t1 < t0);
 			expected = 0.998 * expected;
 		}	
 		final int RUN_LENGTH = 1000;
@@ -146,12 +146,11 @@ public class ModifiedLamTests {
 			if (m.accept(10001 + RandomIndexer.nextInt(5), 10000)) count++;
 			double t1 = m.getTemperature();
 			if (m.getAcceptRate() < m.getTargetRate()) 
-				assertTrue("temperature should increase if acceptRate is too low", t1 > t0);
+				assertTrue(t1 > t0);
 			else if (m.getAcceptRate() > m.getTargetRate())
-				assertTrue("temperature should decrease if acceptRate is too low", t1 < t0);
+				assertTrue(t1 < t0);
 		}
-		assertTrue("Verify accepts some higher cost neighbors", count > 0);
-		assertTrue("Verify rejects some higher cost neighbors", count < RUN_LENGTH);
+		assertTrue(count > 0);
+		assertTrue(count < RUN_LENGTH);
 	}
-	
 }

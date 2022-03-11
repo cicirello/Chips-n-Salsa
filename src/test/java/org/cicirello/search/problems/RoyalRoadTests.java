@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,12 +20,12 @@
  
 package org.cicirello.search.problems;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.representations.BitVector;
 
 /**
- * JUnit 4 test cases for the RoyalRoad problem.
+ * JUnit test cases for the RoyalRoad problem.
  */
 public class RoyalRoadTests {
 	
@@ -79,7 +79,7 @@ public class RoyalRoadTests {
 			for (int n : permutationLengths) {
 				BitVector v = new BitVector(n);
 				v.not();
-				assertEquals("n,m="+n+","+m, numLevels(n,m)*n, problem.value(v));
+				assertEquals(numLevels(n,m)*n, problem.value(v), "n,m="+n+","+m);
 				assertEquals(0, problem.cost(v));
 			}
 		}		
@@ -97,7 +97,7 @@ public class RoyalRoadTests {
 			assertFalse(problem.isMinCost(-1));
 			for (int n : permutationLengths) {
 				BitVector v = new BitVector(n);
-				assertEquals("n,m="+n+","+m, numLevels(n,m)*n, problem.cost(v));
+				assertEquals(numLevels(n,m)*n, problem.cost(v), "n,m="+n+","+m);
 				assertEquals(0, problem.value(v));
 			}
 		}		

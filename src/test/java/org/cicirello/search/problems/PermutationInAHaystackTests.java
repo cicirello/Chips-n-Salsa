@@ -20,8 +20,8 @@
  
 package org.cicirello.search.problems;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.distance.ExactMatchDistance;
 

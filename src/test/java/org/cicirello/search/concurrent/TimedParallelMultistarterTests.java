@@ -20,8 +20,8 @@
  
 package org.cicirello.search.concurrent;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.Metaheuristic;
 import org.cicirello.search.ReoptimizableMetaheuristic;
 import org.cicirello.search.ProgressTracker;
@@ -36,7 +36,6 @@ import org.cicirello.search.restarts.ParallelVariableAnnealingLength;
 import org.cicirello.search.restarts.ConstantRestartSchedule;
 import org.cicirello.search.restarts.Multistarter;
 import org.cicirello.search.restarts.ReoptimizableMultistarter;
-
 
 /**
  * JUnit tests for TimedParallelMultistarter.
@@ -577,8 +576,7 @@ public class TimedParallelMultistarterTests {
 		}
 		assertEquals(solution.getCostDouble(), tracker.getCostDouble(), 0.0);
 		long actualRunTime = time2-time1;
-		assertTrue("verifying runtime, actual="+actualRunTime+" ns, should be at least 80000000 ns", 
-					actualRunTime >= 80000000);
+		assertTrue(actualRunTime >= 80000000, "verifying runtime, actual="+actualRunTime+" ns, should be at least 80000000 ns");
 					
 		// verify can call optimize again
 		solution = tpm.optimize(1);
@@ -588,8 +586,8 @@ public class TimedParallelMultistarterTests {
 			assertEquals(0, search.reoptimizeCalled);
 			assertTrue(search.optimizeCalled > 0);
 			String msg = "trl=" + search.totalRunLength + ", #optCalled=" + search.optimizeCalled;
-			assertTrue(msg, search.totalRunLength >= (search.optimizeCalled-2)*1001);
-			assertTrue(msg, search.totalRunLength <= search.optimizeCalled*1001);
+			assertTrue(search.totalRunLength >= (search.optimizeCalled-2)*1001, msg);
+			assertTrue(search.totalRunLength <= search.optimizeCalled*1001, msg);
 			combinedRun += search.totalRunLength;
 		}
 		assertEquals(combinedRun, tpm.getTotalRunLength());
@@ -648,8 +646,7 @@ public class TimedParallelMultistarterTests {
 		}
 		assertEquals(solution.getCostDouble(), tracker.getCostDouble(), 0.0);
 		long actualRunTime = time2-time1;
-		assertTrue("verifying runtime, actual="+actualRunTime+" ns, should be at least 80000000 ns", 
-					actualRunTime >= 80000000);
+		assertTrue(actualRunTime >= 80000000, "verifying runtime, actual="+actualRunTime+" ns, should be at least 80000000 ns");
 		
 		// verify can call optimize again
 		solution = tpm.optimize(1);
@@ -659,8 +656,8 @@ public class TimedParallelMultistarterTests {
 			assertEquals(0, search.reoptimizeCalled);
 			assertTrue(search.optimizeCalled > 0);
 			String msg = "trl=" + search.totalRunLength + ", #optCalled=" + search.optimizeCalled;
-			assertTrue(msg, search.totalRunLength >= (search.optimizeCalled-2)*1001);
-			assertTrue(msg, search.totalRunLength <= search.optimizeCalled*1001);
+			assertTrue(search.totalRunLength >= (search.optimizeCalled-2)*1001, msg);
+			assertTrue(search.totalRunLength <= search.optimizeCalled*1001, msg);
 			combinedRun += search.totalRunLength;
 		}
 		assertEquals(combinedRun, tpm.getTotalRunLength());
@@ -1012,8 +1009,7 @@ public class TimedParallelMultistarterTests {
 		}
 		assertEquals(solution.getCostDouble(), tracker.getCostDouble(), 0.0);
 		long actualRunTime = time2-time1;
-		assertTrue("verifying runtime, actual="+actualRunTime+" ns, should be at least 80000000 ns", 
-					actualRunTime >= 80000000);
+		assertTrue(actualRunTime >= 80000000, "verifying runtime, actual="+actualRunTime+" ns, should be at least 80000000 ns");
 					
 		// verify can call optimize again
 		solution = tpm.optimize(1);
@@ -1023,8 +1019,8 @@ public class TimedParallelMultistarterTests {
 			assertEquals(0, search.reoptimizeCalled);
 			assertTrue(search.optimizeCalled > 0);
 			String msg = "trl=" + search.totalRunLength + ", #optCalled=" + search.optimizeCalled;
-			assertTrue(msg, search.totalRunLength >= (search.optimizeCalled-2)*1001);
-			assertTrue(msg, search.totalRunLength <= search.optimizeCalled*1001);
+			assertTrue(search.totalRunLength >= (search.optimizeCalled-2)*1001, msg);
+			assertTrue(search.totalRunLength <= search.optimizeCalled*1001, msg);
 			combinedRun += search.totalRunLength;
 		}
 		assertEquals(combinedRun, tpm.getTotalRunLength());
@@ -1083,8 +1079,7 @@ public class TimedParallelMultistarterTests {
 		}
 		assertEquals(solution.getCostDouble(), tracker.getCostDouble(), 0.0);
 		long actualRunTime = time2-time1;
-		assertTrue("verifying runtime, actual="+actualRunTime+" ns, should be at least 80000000 ns", 
-					actualRunTime >= 80000000);
+		assertTrue(actualRunTime >= 80000000, "verifying runtime, actual="+actualRunTime+" ns, should be at least 80000000 ns");
 					
 		// verify can call optimize again
 		tpm.setTimeUnit(20);
@@ -1095,8 +1090,8 @@ public class TimedParallelMultistarterTests {
 			assertEquals(0, search.reoptimizeCalled);
 			assertTrue(search.optimizeCalled > 0);
 			String msg = "trl=" + search.totalRunLength + ", #optCalled=" + search.optimizeCalled;
-			assertTrue(msg, search.totalRunLength >= (search.optimizeCalled-2)*1001);
-			assertTrue(msg, search.totalRunLength <= search.optimizeCalled*1001);
+			assertTrue(search.totalRunLength >= (search.optimizeCalled-2)*1001, msg);
+			assertTrue(search.totalRunLength <= search.optimizeCalled*1001, msg);
 			combinedRun += search.totalRunLength;
 		}
 		assertEquals(combinedRun, tpm.getTotalRunLength());
@@ -1154,8 +1149,7 @@ public class TimedParallelMultistarterTests {
 		}
 		assertEquals(solution.getCostDouble(), tracker.getCostDouble(), 0.0);
 		long actualRunTime = time2-time1;
-		assertTrue("verifying runtime, actual="+actualRunTime+" ns, should be at least 80000000 ns", 
-					actualRunTime >= 80000000);
+		assertTrue(actualRunTime >= 80000000, "verifying runtime, actual="+actualRunTime+" ns, should be at least 80000000 ns");
 					
 		// verify can call reoptimize again
 		solution = tpm.reoptimize(1);
@@ -1165,8 +1159,8 @@ public class TimedParallelMultistarterTests {
 			assertEquals(0, search.optimizeCalled);
 			assertTrue(search.reoptimizeCalled > 0);
 			String msg = "trl=" + search.totalRunLength + ", #optCalled=" + search.reoptimizeCalled;
-			assertTrue(msg, search.totalRunLength >= (search.reoptimizeCalled-2)*1001);
-			assertTrue(msg, search.totalRunLength <= search.reoptimizeCalled*1001);
+			assertTrue(search.totalRunLength >= (search.reoptimizeCalled-2)*1001, msg);
+			assertTrue(search.totalRunLength <= search.reoptimizeCalled*1001, msg);
 			combinedRun += search.totalRunLength;
 		}
 		assertEquals(combinedRun, tpm.getTotalRunLength());
@@ -1227,8 +1221,7 @@ public class TimedParallelMultistarterTests {
 		assertEquals(solution.getCostDouble(), tracker.getCostDouble(), 0.0);
 		long actualRunTime = time2-time1;
 		int minRunTime = timeUnit * reoptCount * 1000000;
-		assertTrue("verifying runtime, actual="+actualRunTime+" ns, should be at least " + minRunTime + " ns", 
-					actualRunTime >= minRunTime);
+		assertTrue(actualRunTime >= minRunTime, "verifying runtime, actual="+actualRunTime+" ns, should be at least " + minRunTime + " ns");
 					
 		// verify can call reoptimize again
 		solution = tpm.reoptimize(1);
@@ -1238,8 +1231,8 @@ public class TimedParallelMultistarterTests {
 			assertEquals(0, search.optimizeCalled);
 			assertTrue(search.reoptimizeCalled > 0);
 			String msg = "trl=" + search.totalRunLength + ", #optCalled=" + search.reoptimizeCalled;
-			assertTrue(msg, search.totalRunLength >= (search.reoptimizeCalled-2)*1001);
-			assertTrue(msg, search.totalRunLength <= search.reoptimizeCalled*1001);
+			assertTrue(search.totalRunLength >= (search.reoptimizeCalled-2)*1001, msg);
+			assertTrue(search.totalRunLength <= search.reoptimizeCalled*1001, msg);
 			combinedRun += search.totalRunLength;
 		}
 		assertEquals(combinedRun, tpm.getTotalRunLength());

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,8 +20,8 @@
  
 package org.cicirello.search.operators.permutations;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
@@ -317,17 +317,17 @@ public class IterableMutationTests {
 		}
 		final MutationIterator iterNoMoreMutantsTest = iter;
 		IllegalStateException thrown = assertThrows( 
-			"verify nextMutant throws exception if no more mutants",
 			IllegalStateException.class,
-			() -> iterNoMoreMutantsTest.nextMutant()
+			() -> iterNoMoreMutantsTest.nextMutant(),
+			"verify nextMutant throws exception if no more mutants"
 		);
 		iter.rollback();
-		assertEquals("verify number of neighbors, n="+p.length(), expectedNeighbors.size(), neighbors.size());
-		assertEquals("verify set of neighbors are as expected, original="+original, expectedNeighbors, neighbors);
-		assertEquals("verify rolled back to original", original, p);
-		assertEquals("verify number of neighbors", expectedNeighbors.size(), count);
+		assertEquals(expectedNeighbors.size(), neighbors.size(), "verify number of neighbors, n="+p.length());
+		assertEquals(expectedNeighbors, neighbors, "verify set of neighbors are as expected, original="+original);
+		assertEquals(original, p, "verify rolled back to original");
+		assertEquals(expectedNeighbors.size(), count);
 		iter.rollback();
-		assertEquals("verify extra rollback does nothing", original, p);
+		assertEquals(original, p, "verify extra rollback does nothing");
 		for (int i = 0; i < count; i++) {
 			iter = mutation.iterator(p);
 			Permutation saved = p.copy();
@@ -341,7 +341,7 @@ public class IterableMutationTests {
 				j++;
 			}
 			iter.rollback();
-			assertEquals("verify rolled back to last savepoint, original="+original+" i="+i, saved, p);
+			assertEquals(saved, p, "verify rolled back to last savepoint, original="+original+" i="+i);
 		}
 		// test rollback immediately after setSavepoint
 		for (int i = 0; i < count; i++) {
@@ -358,14 +358,14 @@ public class IterableMutationTests {
 				j++;
 			}
 			iter.rollback();
-			assertEquals("rollback immediately after setSavepoint, verify rolled back to last savepoint, original="+original+" i="+i, saved, p);
+			assertEquals(saved, p, "rollback immediately after setSavepoint, verify rolled back to last savepoint, original="+original+" i="+i);
 			final MutationIterator iterRolledWithoutIteratingOverAllTest = iter;
 			thrown = assertThrows( 
-				"verify nextMutant throws exception if rolled back",
 				IllegalStateException.class,
-				() -> iterRolledWithoutIteratingOverAllTest.nextMutant()
+				() -> iterRolledWithoutIteratingOverAllTest.nextMutant(),
+				"verify nextMutant throws exception if rolled back"
 			);
-			assertFalse("verify no next if rolled back", iter.hasNext());
+			assertFalse(iter.hasNext());
 		}
 		// test rollback one step after setSavepoint
 		for (int i = 0; i < count-1; i++) {
@@ -383,7 +383,7 @@ public class IterableMutationTests {
 				j++;
 			}
 			iter.rollback();
-			assertEquals("rollback one step after setSavepoint, verify rolled back to last savepoint, original="+original+" i="+i, saved, p);
+			assertEquals(saved, p, "rollback one step after setSavepoint, verify rolled back to last savepoint, original="+original+" i="+i);
 		}
 		// test rollback two steps after setSavepoint
 		for (int i = 0; i < count-1; i++) {
@@ -401,7 +401,7 @@ public class IterableMutationTests {
 				j++;
 			}
 			iter.rollback();
-			assertEquals("rollback two steps after setSavepoint, verify rolled back to last savepoint, original="+original+" i="+i, saved, p);
+			assertEquals(saved, p, "rollback two steps after setSavepoint, verify rolled back to last savepoint, original="+original+" i="+i);
 		}
 		return count;
 	}

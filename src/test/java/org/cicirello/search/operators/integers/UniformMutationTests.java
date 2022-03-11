@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,14 +20,14 @@
  
 package org.cicirello.search.operators.integers;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.representations.SingleInteger;
 import org.cicirello.search.representations.IntegerVector;
 import org.cicirello.search.representations.IntegerValued;
 
 /**
- * JUnit 4 test cases for the classes that implement different variations of
+ * JUnit test cases for the classes that implement different variations of
  * Uniform mutation for mutating integer valued representations.
  */
 public class UniformMutationTests {
@@ -97,58 +97,58 @@ public class UniformMutationTests {
 	@Test
 	public void testUniformMutation1() {
 		UniformMutation<IntegerValued> g1 = UniformMutation.createUniformMutation(1);
-		assertEquals("default radius = 1", 1, g1.get(0));
+		assertEquals(1, g1.get(0));
 		verifyMutate1(g1);
 		
 		UniformMutation<IntegerValued> g5 = UniformMutation.createUniformMutation(5);
-		assertEquals("verifying radius initialized correctly", 5, g5.get(0));
+		assertEquals(5, g5.get(0));
 		verifyMutate1(g5);
 		
 		UndoableUniformMutation<IntegerValued> g1u = UndoableUniformMutation.createUniformMutation(1);
-		assertEquals("verifying radius initialized correctly", 1, g1u.get(0));
+		assertEquals(1, g1u.get(0));
 		verifyMutate1(g1u);
 		verifyUndo(g1u);
 		verifySplitUndo(g1u);
 		
 		UndoableUniformMutation<IntegerValued> g5u = UndoableUniformMutation.createUniformMutation(5);
-		assertEquals("verifying radius initialized correctly", 5, g5u.get(0));
+		assertEquals(5, g5u.get(0));
 		verifyMutate1(g5u);
 		verifyUndo(g5u);
 		verifySplitUndo(g5u);
 		
 		UndoableUniformMutation<IntegerValued> g5copyU = g5u.split();
-		assertEquals("verifying radius initialized correctly", 5, g5copyU.get(0));
-		assertEquals("Verify split", g5u, g5copyU);
-		assertEquals("hashCode of equal objects should be equal", g5u.hashCode(), g5copyU.hashCode());
+		assertEquals(5, g5copyU.get(0));
+		assertEquals(g5u, g5copyU);
+		assertEquals(g5u.hashCode(), g5copyU.hashCode());
 		verifyMutate1(g5copyU);
 		verifyUndo(g5copyU);
 		verifySplitUndo(g5copyU);
 		
 		g5copyU = g5u.copy();
-		assertEquals("verifying radius initialized correctly", 5, g5copyU.get(0));
-		assertEquals("Verify copy method", g5u, g5copyU);
-		assertEquals("hashCode of equal objects should be equal", g5u.hashCode(), g5copyU.hashCode());
+		assertEquals(5, g5copyU.get(0));
+		assertEquals(g5u, g5copyU);
+		assertEquals(g5u.hashCode(), g5copyU.hashCode());
 		verifyMutate1(g5copyU);
 		verifyUndo(g5copyU);
 		verifySplitUndo(g5copyU);
 		
 		UniformMutation<IntegerValued> g5split = g5.split();
-		assertEquals("verifying radius initialized correctly", 5, g5split.get(0));
-		assertEquals("Verify split", g5, g5split);
-		assertTrue("Split should return a new object", g5 != g5split);
-		assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5split.hashCode());
+		assertEquals(5, g5split.get(0));
+		assertEquals(g5, g5split);
+		assertTrue(g5 != g5split);
+		assertEquals(g5.hashCode(), g5split.hashCode());
 		verifyMutate1(g5split);
 		
 		UniformMutation<IntegerValued> g5copyM = g5.copy();
-		assertEquals("verifying radius initialized correctly", 5, g5copyM.get(0));
-		assertEquals("Verify split", g5, g5copyM);
-		assertTrue("Split should return a new object", g5 != g5copyM);
-		assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5copyM.hashCode());
+		assertEquals(5, g5copyM.get(0));
+		assertEquals(g5, g5copyM);
+		assertTrue(g5 != g5copyM);
+		assertEquals(g5.hashCode(), g5copyM.hashCode());
 		verifyMutate1(g5copyM);
 		
 		UniformMutation<IntegerValued> g3 = g5;
 		g3.set(0, 3);
-		assertEquals("verifying radius changed correctly", 3, g3.get(0));
+		assertEquals(3, g3.get(0));
 		verifyMutate1(g3);
 	}
 	
@@ -156,110 +156,110 @@ public class UniformMutationTests {
 	public void testPartialUniformMutation1() {
 		for (int k = 1; k <= 8; k++) {
 			UndoableUniformMutation<IntegerValued> g1 = UndoableUniformMutation.createUniformMutation(1, k);
-			assertEquals("default radius = 1.0", 1, g1.get(0));
+			assertEquals(1, g1.get(0));
 			verifyMutate1(g1, k);
 			verifyUndo(g1);
 			verifySplitUndo(g1);
 			
 			UndoableUniformMutation<IntegerValued> g5 = UndoableUniformMutation.createUniformMutation(5, k);
-			assertEquals("verifying radius initialized correctly", 5, g5.get(0));
+			assertEquals(5, g5.get(0));
 			verifyMutate1(g5, k);
 			verifyUndo(g5);
 			verifySplitUndo(g5);
 			
 			UniformMutation<IntegerValued> g5dis = UniformMutation.createUniformMutation(5, k);
-			assertEquals("verifying radius initialized correctly", 5, g5dis.get(0));
-			assertNotEquals("Verify undo disabled", g5, g5dis);
+			assertEquals(5, g5dis.get(0));
+			assertNotEquals(g5, g5dis);
 			verifyMutate1(g5dis, k);
 			
 			UndoableUniformMutation<IntegerValued> g5copy = g5.copy();
-			assertEquals("verifying radius initialized correctly", 5, g5copy.get(0));
-			assertEquals("Verify copy method", g5, g5copy);
-			assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5copy.hashCode());
+			assertEquals(5, g5copy.get(0));
+			assertEquals(g5, g5copy);
+			assertEquals(g5.hashCode(), g5copy.hashCode());
 			verifyMutate1(g5copy, k);
 			verifyUndo(g5copy);
 			verifySplitUndo(g5copy);
 			
 			UniformMutation<IntegerValued> g5copyDis = g5dis.copy();
-			assertEquals("verifying radius initialized correctly", 5, g5copyDis.get(0));
-			assertEquals("Verify copy method", g5dis, g5copyDis);
-			assertEquals("hashCode of equal objects should be equal", g5dis.hashCode(), g5copyDis.hashCode());
+			assertEquals(5, g5copyDis.get(0));
+			assertEquals(g5dis, g5copyDis);
+			assertEquals(g5dis.hashCode(), g5copyDis.hashCode());
 			verifyMutate1(g5copyDis, k);
 			
 			UndoableUniformMutation<IntegerValued> g5split = g5.split();
-			assertEquals("verifying radius initialized correctly", 5, g5split.get(0));
-			assertEquals("Verify split", g5, g5split);
-			assertTrue("Split should return a new object", g5 != g5split);
-			assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5split.hashCode());
+			assertEquals(5, g5split.get(0));
+			assertEquals(g5, g5split);
+			assertTrue(g5 != g5split);
+			assertEquals(g5.hashCode(), g5split.hashCode());
 			verifyMutate1(g5split, k);
 			verifyUndo(g5split);
 			verifySplitUndo(g5split);
 			
 			UniformMutation<IntegerValued> g5splitDis = g5dis.split();
-			assertEquals("verifying radius initialized correctly", 5, g5splitDis.get(0));
-			assertEquals("Verify split", g5dis, g5splitDis);
-			assertTrue("Split should return a new object", g5dis != g5splitDis);
-			assertEquals("hashCode of equal objects should be equal", g5dis.hashCode(), g5splitDis.hashCode());
+			assertEquals(5, g5splitDis.get(0));
+			assertEquals(g5dis, g5splitDis);
+			assertTrue(g5dis != g5splitDis);
+			assertEquals(g5dis.hashCode(), g5splitDis.hashCode());
 			verifyMutate1(g5splitDis, k);
 			
 			UndoableUniformMutation<IntegerValued> g3 = g5;
 			g3.set(0, 3);
-			assertEquals("verifying radius changed correctly", 3, g3.get(0));
+			assertEquals(3, g3.get(0));
 			verifyMutate1(g3, k);
 			verifyUndo(g3);
 			verifySplitUndo(g3);
 		}
 		for (double k = 0.25; k <= 1.1; k+=0.25) {
 			UndoableUniformMutation<IntegerValued> g1 = UndoableUniformMutation.createUniformMutation(1, k);
-			assertEquals("default radius = 1.0", 1, g1.get(0));
+			assertEquals(1, g1.get(0));
 			verifyMutate1(g1, k);
 			verifyUndo(g1);
 			verifySplitUndo(g1);
 			
 			UndoableUniformMutation<IntegerValued> g5 = UndoableUniformMutation.createUniformMutation(5, k);
-			assertEquals("verifying radius initialized correctly", 5, g5.get(0));
+			assertEquals(5, g5.get(0));
 			verifyMutate1(g5, k);
 			verifyUndo(g5);
 			verifySplitUndo(g5);
 			
 			UniformMutation<IntegerValued> g5dis = UniformMutation.createUniformMutation(5, k);
-			assertEquals("verifying radius initialized correctly", 5, g5dis.get(0));
-			assertNotEquals("Verify undo disabled", g5, g5dis);
+			assertEquals(5, g5dis.get(0));
+			assertNotEquals(g5, g5dis);
 			verifyMutate1(g5dis, k);
 			
 			UndoableUniformMutation<IntegerValued> g5copy = g5.copy();
-			assertEquals("verifying radius initialized correctly", 5, g5copy.get(0));
-			assertEquals("Verify copy constructor", g5, g5copy);
-			assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5copy.hashCode());
+			assertEquals(5, g5copy.get(0));
+			assertEquals(g5, g5copy);
+			assertEquals(g5.hashCode(), g5copy.hashCode());
 			verifyMutate1(g5copy, k);
 			verifyUndo(g5copy);
 			verifySplitUndo(g5copy);
 			
 			UniformMutation<IntegerValued> g5copyDis = g5dis.copy();
-			assertEquals("verifying radius initialized correctly", 5, g5copyDis.get(0));
-			assertEquals("Verify copy method", g5dis, g5copyDis);
-			assertEquals("hashCode of equal objects should be equal", g5dis.hashCode(), g5copyDis.hashCode());
+			assertEquals(5, g5copyDis.get(0));
+			assertEquals(g5dis, g5copyDis);
+			assertEquals(g5dis.hashCode(), g5copyDis.hashCode());
 			verifyMutate1(g5copyDis, k);
 			
 			UndoableUniformMutation<IntegerValued> g5split = g5.split();
-			assertEquals("verifying radius initialized correctly", 5, g5split.get(0));
-			assertEquals("Verify split", g5, g5split);
-			assertTrue("Split should return a new object", g5 != g5split);
-			assertEquals("hashCode of equal objects should be equal", g5.hashCode(), g5split.hashCode());
+			assertEquals(5, g5split.get(0));
+			assertEquals(g5, g5split);
+			assertTrue(g5 != g5split);
+			assertEquals(g5.hashCode(), g5split.hashCode());
 			verifyMutate1(g5split, k);
 			verifyUndo(g5split);
 			verifySplitUndo(g5split);
 			
 			UniformMutation<IntegerValued> g5splitDis = g5dis.split();
-			assertEquals("verifying radius initialized correctly", 5, g5splitDis.get(0));
-			assertEquals("Verify split", g5dis, g5splitDis);
-			assertTrue("Split should return a new object", g5dis != g5splitDis);
-			assertEquals("hashCode of equal objects should be equal", g5dis.hashCode(), g5splitDis.hashCode());
+			assertEquals(5, g5splitDis.get(0));
+			assertEquals(g5dis, g5splitDis);
+			assertTrue(g5dis != g5splitDis);
+			assertEquals(g5dis.hashCode(), g5splitDis.hashCode());
 			verifyMutate1(g5splitDis, k);
 			
 			UndoableUniformMutation<IntegerValued> g3 = g5;
 			g3.set(0, 3);
-			assertEquals("verifying radius changed correctly", 3, g3.get(0));
+			assertEquals(3, g3.get(0));
 			verifyMutate1(g3, k);
 			verifyUndo(g3);
 			verifySplitUndo(g3);
@@ -319,12 +319,12 @@ public class UniformMutationTests {
 		for (int i = 0; i < MAX_TRIALS && (countLow==0 || countHigh==0); i++) {
 			SingleInteger f = new SingleInteger(9);
 			m.mutate(f);
-			assertTrue("Verify mutation within radius", Math.abs(9 - f.get()) <= m.get(0));
+			assertTrue(Math.abs(9 - f.get()) <= m.get(0));
 			if (f.get() < 9) countLow++;
 			else if (f.get() > 9) countHigh++;
 		}
-		assertTrue("Mutation failed to decrease value over large number of trials", countLow > 0);
-		assertTrue("Mutation failed to increase value over large number of trials", countHigh > 0);
+		assertTrue(countLow > 0);
+		assertTrue(countHigh > 0);
 		for (int j = 0; j < 5; j++) {
 			int[] v = new int[j];
 			for (int k = 0; k < j; k++) {
@@ -337,7 +337,7 @@ public class UniformMutationTests {
 				m.mutate(f);
 				boolean done = true;
 				for (int k = 0; k < j; k++) {
-					assertTrue("Verify mutation within radius for multivariate case", Math.abs(v[k] - f.get(k)) <= m.get(0));
+					assertTrue(Math.abs(v[k] - f.get(k)) <= m.get(0));
 					if (f.get(k) < v[k]) low[k]++;
 					if (f.get(k) > v[k]) high[k]++;
 					if (low[k] == 0 || high[k] == 0) done = false;
@@ -345,8 +345,8 @@ public class UniformMutationTests {
 				if (done) break;
 			}
 			for (int k = 0; k < j; k++) {
-				assertTrue("Mutation failed to decrease value at index " + k, low[k] > 0);
-				assertTrue("Mutation failed to increase value at index " + k, high[k] > 0);
+				assertTrue(low[k] > 0);
+				assertTrue(high[k] > 0);
 			}
 		}
 	}
@@ -358,12 +358,12 @@ public class UniformMutationTests {
 		for (int i = 0; i < TRIALS && (countLow==0 || countHigh==0); i++) {
 			SingleInteger f = new SingleInteger(9);
 			m.mutate(f);
-			assertTrue("Verify mutation within radius", Math.abs(9 - f.get()) <= m.get(0));
+			assertTrue(Math.abs(9 - f.get()) <= m.get(0));
 			if (f.get() < 9) countLow++;
 			else if (f.get() > 9) countHigh++;
 		}
-		assertTrue("Mutation failed to decrease value over large number of trials for p="+p, countLow > 0);
-		assertTrue("Mutation failed to increase value over large number of trials for p="+p, countHigh > 0);
+		assertTrue(countLow > 0);
+		assertTrue(countHigh > 0);
 		final int N = m.length() > 3 ? 3 + m.length() : 6;
 		for (int j = 0; j < N; j++) {
 			int[] v = new int[j];
@@ -378,7 +378,7 @@ public class UniformMutationTests {
 				m.mutate(f);
 				boolean done = true;
 				for (int k = 0; k < j; k++) {
-					assertTrue("Verify mutation within radius for multivariate case", Math.abs(v[k] - f.get(k)) <= m.get(0));
+					assertTrue(Math.abs(v[k] - f.get(k)) <= m.get(0));
 					if (f.get(k) < v[k]) low[k]++;
 					if (f.get(k) > v[k]) high[k]++;
 					if (low[k] == 0 || high[k] == 0) done = false; 
@@ -386,8 +386,8 @@ public class UniformMutationTests {
 				if (done) break;
 			}
 			for (int k = 0; k < low.length; k++) {
-				assertTrue("Mutation failed to decrease value at index " + k + " for p="+p, low[k] > 0);
-				assertTrue("Mutation failed to increase value at index " + k + " for p="+p, high[k] > 0);
+				assertTrue(low[k] > 0);
+				assertTrue(high[k] > 0);
 			}
 		}
 	}
@@ -398,12 +398,12 @@ public class UniformMutationTests {
 		for (int i = 0; i < MAX_TRIALS && (countLow==0 || countHigh==0); i++) {
 			SingleInteger f = new SingleInteger(9);
 			m.mutate(f);
-			assertTrue("Verify mutation within radius", Math.abs(9 - f.get()) <= m.get(0));
+			assertTrue(Math.abs(9 - f.get()) <= m.get(0));
 			if (f.get() < 9) countLow++;
 			else if (f.get() > 9) countHigh++;
 		}
-		assertTrue("Mutation failed to decrease value over large number of trials for k="+K, countLow > 0);
-		assertTrue("Mutation failed to increase value over large number of trials for k="+K, countHigh > 0);
+		assertTrue(countLow > 0);
+		assertTrue(countHigh > 0);
 		final int N = m.length() > 3 ? 3 + m.length() : 6;
 		for (int j = 0; j < N; j++) {
 			int[] v = new int[j];
@@ -420,17 +420,17 @@ public class UniformMutationTests {
 				boolean done = true;
 				int kCount = 0;
 				for (int k = 0; k < j; k++) {
-					assertTrue("Verify mutation within radius for multivariate case", Math.abs(v[k] - f.get(k)) <= m.get(0));
+					assertTrue(Math.abs(v[k] - f.get(k)) <= m.get(0));
 					if (f.get(k) < v[k]) { low[k]++; kCount++; }
 					if (f.get(k) > v[k]) { high[k]++; kCount++; }
 					if (low[k] == 0 || high[k] == 0) done = false;				 
 				}
-				assertTrue("Verify valid number of input vars mutated, k="+K+ " count="+kCount, kCount <= K);
+				assertTrue(kCount <= K);
 				if (done) break;
 			}
 			for (int k = 0; k < low.length; k++) {
-				assertTrue("Mutation failed to decrease value at index " + k + " for k="+K, low[k] > 0);
-				assertTrue("Mutation failed to increase value at index " + k + " for k="+K, high[k] > 0);
+				assertTrue(low[k] > 0);
+				assertTrue(high[k] > 0);
 			}
 		}
 	}
@@ -446,9 +446,9 @@ public class UniformMutationTests {
 				changed = true;
 			}
 			m.undo(f);
-			assertEquals("mutate followed by undo should revert to original", f2, f);
+			assertEquals(f2, f);
 		}
-		assertTrue("verifying that mutate changed f at least once out of many trials", changed);
+		assertTrue(changed);
 		for (int j = 0; j < 5; j++) {
 			int[] v = new int[j];
 			for (int k = 0; k < j; k++) {
@@ -463,7 +463,7 @@ public class UniformMutationTests {
 					changed = true;
 				}
 				m.undo(f);
-				assertEquals("mutate followed by undo should revert to original", f2, f);
+				assertEquals(f2, f);
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,9 +20,8 @@
  
 package org.cicirello.search.ss;
 
-
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
@@ -394,11 +393,11 @@ public class AcceptanceBandTests {
 					assertTrue(chosen >= 0);
 					for (int i = 0; i < (k+2)/2; i++) {
 						String message = "increasing, i="+i+", k="+k;
-						assertEquals(message, (k-1)/2+i, eq[i]);
+						assertEquals((k-1)/2+i, eq[i], message);
 					}
 					for (int i = (k+2)/2; i < n; i++) {
 						String message = "increasing, i="+i+", k="+k;
-						assertEquals(message, -1, eq[i]);
+						assertEquals(-1, eq[i], message);
 					}
 				}
 			}
@@ -420,11 +419,11 @@ public class AcceptanceBandTests {
 					assertTrue(chosen >= 0);
 					for (int i = 0; i < (k+2)/2; i++) {
 						String message = "decreasing, i="+i+", k="+k;
-						assertEquals(message, i, eq[i]);
+						assertEquals(i, eq[i], message);
 					}
 					for (int i = (k+2)/2; i < n; i++) {
 						String message = "decreasing, i="+i+", k="+k;
-						assertEquals(message, -1, eq[i]);
+						assertEquals(-1, eq[i], message);
 					}
 				}
 			}

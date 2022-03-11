@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,9 +20,8 @@
  
 package org.cicirello.search.ss;
 
-
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
@@ -345,7 +344,7 @@ public class HBSSTests {
 					int[] indexes = new int[n];
 					for (int i = 0; i < n; i++) indexes[i] = i;
 					String message = "Decreasing: chosenRank:" + chosenRank + " k:" + k;
-					assertEquals(message, chosenRank-1, ch.randomizedSelect(indexes, values, k, chosenRank));
+					assertEquals(chosenRank-1, ch.randomizedSelect(indexes, values, k, chosenRank), message);
 				}
 			}
 			for (int k = 1; k <= n; k++) {
@@ -356,7 +355,7 @@ public class HBSSTests {
 					int[] indexes = new int[n];
 					for (int i = 0; i < n; i++) indexes[i] = i;
 					String message = "Increasing: chosenRank:" + chosenRank + " k:" + k;
-					assertEquals(message, k-chosenRank, ch.randomizedSelect(indexes, values, k, chosenRank));
+					assertEquals(k-chosenRank, ch.randomizedSelect(indexes, values, k, chosenRank), message);
 				}
 			}
 		}

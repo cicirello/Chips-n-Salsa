@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,8 +20,8 @@
  
 package org.cicirello.search.operators;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.util.Copyable;
 import java.util.ArrayList;
 
@@ -121,7 +121,7 @@ public class HybridMutationTests {
 				double v = 1.0*x/n - n;
 				if (!DISABLE_STATISTICAL_TESTS) {
 					// Chi-square at 95% level
-					assertTrue("chi-square test failed, rerun tests since expected to fail 5% of the time", v <= threshold[k-1]);
+					assertTrue(v <= threshold[k-1], "chi-square test failed, rerun tests since expected to fail 5% of the time");
 				}
 			}
 			HybridMutation<TestObject> s = m.split();
@@ -174,7 +174,7 @@ public class HybridMutationTests {
 				double v = 1.0*x/n - n;
 				if (!DISABLE_STATISTICAL_TESTS) {
 					// Chi-square at 95% level
-					assertTrue("chi-square test failed, rerun tests since expected to fail 5% of the time", v <= threshold[k-1]);
+					assertTrue(v <= threshold[k-1], "chi-square test failed, rerun tests since expected to fail 5% of the time");
 				}
 			}
 			HybridUndoableMutation<TestObject> s = m.split();
@@ -250,7 +250,7 @@ public class HybridMutationTests {
 					double v = 1.0*x/n - n;
 					if (!DISABLE_STATISTICAL_TESTS) {
 						// Chi-square at 95% level
-						assertTrue("chi-square test failed, rerun tests since expected to fail 5% of the time", v <= threshold[k-1]);
+						assertTrue(v <= threshold[k-1], "chi-square test failed, rerun tests since expected to fail 5% of the time");
 					}
 				}
 				WeightedHybridMutation<TestObject> s = m.split();
@@ -300,7 +300,7 @@ public class HybridMutationTests {
 		double v = 1.0*x/n - n;
 		if (!DISABLE_STATISTICAL_TESTS) {
 			// Chi-square at 95% level
-			assertTrue("chi-square test failed, rerun tests since expected to fail 5% of the time", v <= threshold[k-1]);
+			assertTrue(v <= threshold[k-1], "chi-square test failed, rerun tests since expected to fail 5% of the time");
 		}
 		WeightedHybridMutation<TestObject> s = m.split();
 		for (int i = 0; i < 10; i++) {
@@ -354,7 +354,7 @@ public class HybridMutationTests {
 					double v = 1.0*x/n - n;
 					if (!DISABLE_STATISTICAL_TESTS) {
 						// Chi-square at 95% level
-						assertTrue("chi-square test failed, rerun tests since expected to fail 5% of the time", v <= threshold[k-1]);
+						assertTrue(v <= threshold[k-1], "chi-square test failed, rerun tests since expected to fail 5% of the time");
 					}
 				}
 				WeightedHybridUndoableMutation<TestObject> s = m.split();
@@ -404,7 +404,7 @@ public class HybridMutationTests {
 		double v = 1.0*x/n - n;
 		if (!DISABLE_STATISTICAL_TESTS) {
 			// Chi-square at 95% level
-			assertTrue("chi-square test failed, rerun tests since expected to fail 5% of the time", v <= threshold[k-1]);
+			assertTrue(v <= threshold[k-1], "chi-square test failed, rerun tests since expected to fail 5% of the time");
 		}
 		WeightedHybridUndoableMutation<TestObject> s = m.split();
 		for (int i = 0; i < 10; i++) {

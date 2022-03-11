@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,13 +20,13 @@
  
 package org.cicirello.search.operators.integers;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.representations.SingleInteger;
 import org.cicirello.search.representations.IntegerVector;
 
 /**
- * JUnit 4 test cases for the classes that implement Initializer for the
+ * JUnit test cases for the classes that implement Initializer for the
  * IntegerValued classes.
  */
 public class IntegerValuedInitializerTests {
@@ -140,40 +140,40 @@ public class IntegerValuedInitializerTests {
 		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			SingleInteger g = f.createCandidateSolution();
-			assertTrue("positive interval", g.get() < b && g.get() >= a);
-			assertEquals("verify runtime class is correct", theClass.getClass(), g.getClass());
+			assertTrue(g.get() < b && g.get() >= a);
+			assertEquals(theClass.getClass(), g.getClass());
 			SingleInteger copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 			g.set(a - 1);
-			assertEquals("verify unbounded set", a-1, g.get());
+			assertEquals(a-1, g.get());
 			g.set(b + 1);
-			assertEquals("verify unbounded set", b+1, g.get());
+			assertEquals(b+1, g.get());
 		}
 		a = -13;
 		b = -2;
 		f = new IntegerValueInitializer(a, b);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			SingleInteger g = f.createCandidateSolution();
-			assertTrue("negative interval", g.get() < b && g.get() >= a);
-			assertEquals("verify runtime class is correct", theClass.getClass(), g.getClass());
+			assertTrue(g.get() < b && g.get() >= a);
+			assertEquals(theClass.getClass(), g.getClass());
 			SingleInteger copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		a = -5;
 		b = 5;
 		f = new IntegerValueInitializer(a, b);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			SingleInteger g = f.createCandidateSolution();
-			assertTrue("interval surrounding 0", g.get() < b && g.get() >= a);
-			assertEquals("verify runtime class is correct", theClass.getClass(), g.getClass());
+			assertTrue(g.get() < b && g.get() >= a);
+			assertEquals(theClass.getClass(), g.getClass());
 			SingleInteger copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
@@ -198,39 +198,39 @@ public class IntegerValuedInitializerTests {
 		IntegerValueInitializer f = new IntegerValueInitializer(a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			SingleInteger g = f.createCandidateSolution();
-			assertTrue("bounds wider than interval", g.get() < b && g.get() >= a);
+			assertTrue(g.get() < b && g.get() >= a);
 			g.set(min - 1);
-			assertEquals("verify lower bound works on set", min, g.get());
+			assertEquals(min, g.get());
 			g.set(max + 1);
-			assertEquals("verify upper bound works on set", max, g.get());
+			assertEquals(max, g.get());
 			g.set(10);
-			assertEquals("verify within bounds set", 10, g.get());
+			assertEquals(10, g.get());
 			SingleInteger copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		min = a;
 		max = b;
 		f = new IntegerValueInitializer(a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			SingleInteger g = f.createCandidateSolution();
-			assertTrue("bounds equal to interval", g.get() < b && g.get() >= a);
+			assertTrue(g.get() < b && g.get() >= a);
 			SingleInteger copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		min = a + 1;
 		max = b - 2;
 		f = new IntegerValueInitializer(a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			SingleInteger g = f.createCandidateSolution();
-			assertTrue("bounds narrower than interval", g.get() <= max && g.get() >= min);
+			assertTrue(g.get() <= max && g.get() >= min);
 			SingleInteger copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 	}
 	
@@ -246,39 +246,39 @@ public class IntegerValuedInitializerTests {
 		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertTrue("positive interval, one var", g.get(0) < b && g.get(0) >= a);
-			assertEquals("verify runtime class is correct", theClass.getClass(), g.getClass());
-			assertEquals("verify number of input variables", n, g.length());
+			assertTrue(g.get(0) < b && g.get(0) >= a);
+			assertEquals(theClass.getClass(), g.getClass());
+			assertEquals(n, g.length());
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		a = -13;
 		b = -2;
 		f = new IntegerVectorInitializer(n, a, b);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertTrue("negative interval, one var", g.get(0) < b && g.get(0) >= a);
-			assertEquals("verify runtime class is correct", theClass.getClass(), g.getClass());
-			assertEquals("verify number of input variables", n, g.length());
+			assertTrue(g.get(0) < b && g.get(0) >= a);
+			assertEquals(theClass.getClass(), g.getClass());
+			assertEquals(n, g.length());
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		a = -5;
 		b = 5;
 		f = new IntegerVectorInitializer(n, a, b);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertTrue("interval surrounding 0, one var", g.get(0) < b && g.get(0) >= a);
-			assertEquals("verify runtime class is correct", theClass.getClass(), g.getClass());
-			assertEquals("verify number of input variables", n, g.length());
+			assertTrue(g.get(0) < b && g.get(0) >= a);
+			assertEquals(theClass.getClass(), g.getClass());
+			assertEquals(n, g.length());
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		n = 10;
 		a = 3;
@@ -286,45 +286,45 @@ public class IntegerValuedInitializerTests {
 		f = new IntegerVectorInitializer(n, a, b);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify runtime class is correct", theClass.getClass(), g.getClass());
-			assertEquals("verify number of input variables", n, g.length());
+			assertEquals(theClass.getClass(), g.getClass());
+			assertEquals(n, g.length());
 			for (int j = 0; j < n; j++) {
-				assertTrue("positive interval, ten vars", g.get(j) < b && g.get(j) >= a);
+				assertTrue(g.get(j) < b && g.get(j) >= a);
 			}
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		a = -13;
 		b = -2;
 		f = new IntegerVectorInitializer(n, a, b);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify runtime class is correct", theClass.getClass(), g.getClass());
-			assertEquals("verify number of input variables", n, g.length());
+			assertEquals(theClass.getClass(), g.getClass());
+			assertEquals(n, g.length());
 			for (int j = 0; j < n; j++) {
-				assertTrue("negative interval, ten vars", g.get(j) < b && g.get(j) >= a);
+				assertTrue(g.get(j) < b && g.get(j) >= a);
 			}
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		a = -5;
 		b = 5;
 		f = new IntegerVectorInitializer(n, a, b);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify runtime class is correct", theClass.getClass(), g.getClass());
-			assertEquals("verify number of input variables", n, g.length());
+			assertEquals(theClass.getClass(), g.getClass());
+			assertEquals(n, g.length());
 			for (int j = 0; j < n; j++) {
-				assertTrue("interval surrounding 0, ten vars", g.get(j) < b && g.get(j) >= a);
+				assertTrue(g.get(j) < b && g.get(j) >= a);
 			}
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		int[] left = {  3, -13, -5, 4};
 		int[] right = {11,  -2,  5, 5};
@@ -332,20 +332,20 @@ public class IntegerValuedInitializerTests {
 		f = new IntegerVectorInitializer(left, right);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify runtime class is correct", theClass.getClass(), g.getClass());
-			assertEquals("verify number of input variables", n, g.length());
+			assertEquals(theClass.getClass(), g.getClass());
+			assertEquals(n, g.length());
 			for (int j = 0; j < n; j++) {
-				assertTrue("four vars different intervals", g.get(j) < right[j] && g.get(j) >= left[j]);
+				assertTrue(g.get(j) < right[j] && g.get(j) >= left[j]);
 			}
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 			for (int j = 0; j < n; j++) {
 				g.set(j, left[j] - 1);
-				assertEquals("verify unbounded set", left[j]-1, g.get(j));
+				assertEquals(left[j]-1, g.get(j));
 				g.set(j, right[j] + 1);
-				assertEquals("verify unbounded set", right[j]+1, g.get(j));
+				assertEquals(right[j]+1, g.get(j));
 			}
 		}
 		IllegalArgumentException thrown = assertThrows( 
@@ -424,42 +424,42 @@ public class IntegerValuedInitializerTests {
 		assertEquals(f, fs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify length", n, g.length());
-			assertTrue("bounds wider than interval", g.get(0) < b && g.get(0) >= a);
+			assertEquals(n, g.length());
+			assertTrue(g.get(0) < b && g.get(0) >= a);
 			g.set(0, min - 1);
-			assertEquals("verify lower bound works on set", min, g.get(0));
+			assertEquals(min, g.get(0));
 			g.set(0, max + 1);
-			assertEquals("verify upper bound works on set", max, g.get(0));
+			assertEquals(max, g.get(0));
 			g.set(0, 10);
-			assertEquals("verify within bounds set", 10, g.get(0));
+			assertEquals(10, g.get(0));
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		min = a;
 		max = b;
 		f = new IntegerVectorInitializer(n, a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify length", n, g.length());
-			assertTrue("bounds equal to interval", g.get(0) < b && g.get(0) >= a);
+			assertEquals(n, g.length());
+			assertTrue(g.get(0) < b && g.get(0) >= a);
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		min = a + 1;
 		max = b - 2;
 		f = new IntegerVectorInitializer(n, a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify length", n, g.length());
-			assertTrue("bounds narrower than interval", g.get(0) <= max && g.get(0) >= min);
+			assertEquals(n, g.length());
+			assertTrue(g.get(0) <= max && g.get(0) >= min);
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		
 		n = 10;
@@ -468,48 +468,48 @@ public class IntegerValuedInitializerTests {
 		f = new IntegerVectorInitializer(n, a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify length", n, g.length());
+			assertEquals(n, g.length());
 			for (int j = 0; j < n; j++) {
-				assertTrue("bounds wider than interval", g.get(j) < b && g.get(j) >= a);
+				assertTrue(g.get(j) < b && g.get(j) >= a);
 				g.set(j, min - 1);
-				assertEquals("verify lower bound works on set", min, g.get(j));
+				assertEquals(min, g.get(j));
 				g.set(j, max + 1);
-				assertEquals("verify upper bound works on set", max, g.get(j));
+				assertEquals(max, g.get(j));
 				g.set(j, 10);
-				assertEquals("verify within bounds set", 10, g.get(j));
+				assertEquals(10, g.get(j));
 			}
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		min = a;
 		max = b;
 		f = new IntegerVectorInitializer(n, a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify length", n, g.length());
+			assertEquals(n, g.length());
 			for (int j = 0; j < n; j++) {
-				assertTrue("bounds equal to interval", g.get(j) < b && g.get(j) >= a);
+				assertTrue(g.get(j) < b && g.get(j) >= a);
 			}
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		min = a + 1;
 		max = b - 1;
 		f = new IntegerVectorInitializer(n, a, b, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify length", n, g.length());
+			assertEquals(n, g.length());
 			for (int j = 0; j < n; j++) {
-				assertTrue("bounds narrower than interval", g.get(j) <= max && g.get(j) >= min);
+				assertTrue(g.get(j) <= max && g.get(j) >= min);
 			}
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		
 		min = 6;
@@ -520,21 +520,21 @@ public class IntegerValuedInitializerTests {
 		f = new IntegerVectorInitializer(left, right, min, max);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify length", n, g.length());
+			assertEquals(n, g.length());
 			for (int j = 0; j < n; j++) {
-				assertTrue("verify in interval, different intervals", g.get(j) < right[j] && g.get(j) >= left[j]);
-				assertTrue("verify in bounds, different intervals", g.get(j) <= max && g.get(j) >= min);
+				assertTrue(g.get(j) < right[j] && g.get(j) >= left[j]);
+				assertTrue(g.get(j) <= max && g.get(j) >= min);
 				g.set(j, min - 1);
-				assertEquals("verify lower bound works on set", min, g.get(j));
+				assertEquals(min, g.get(j));
 				g.set(j, max + 1);
-				assertEquals("verify upper bound works on set", max, g.get(j));
+				assertEquals(max, g.get(j));
 				g.set(j, 10);
-				assertEquals("verify within bounds set", 10, g.get(j));
+				assertEquals(10, g.get(j));
 			}
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 		int[] mins = { 6, -15, -15, -15, 8};
 		int[] maxs = {15,  -6,  15, 15,  8};
@@ -543,22 +543,21 @@ public class IntegerValuedInitializerTests {
 		f = new IntegerVectorInitializer(left, right, mins, maxs);
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			IntegerVector g = f.createCandidateSolution();
-			assertEquals("verify length", n, g.length());
+			assertEquals(n, g.length());
 			for (int j = 0; j < n; j++) {
-				assertTrue("verify in interval, different bounds", g.get(j) < right[j] && g.get(j) >= left[j]);
-				assertTrue("verify in bounds, different bounds", g.get(j) <= maxs[j] && g.get(j) >= mins[j]);
+				assertTrue(g.get(j) < right[j] && g.get(j) >= left[j]);
+				assertTrue(g.get(j) <= maxs[j] && g.get(j) >= mins[j]);
 				g.set(j, mins[j] - 1);
-				assertEquals("verify lower bound works on set", mins[j], g.get(j));
+				assertEquals(mins[j], g.get(j));
 				g.set(j, maxs[j] + 1);
-				assertEquals("verify upper bound works on set", maxs[j], g.get(j));
+				assertEquals(maxs[j], g.get(j));
 				g.set(j, (mins[j]+maxs[j])/2);
-				assertEquals("verify within bounds set", (mins[j]+maxs[j])/2, g.get(j));
+				assertEquals((mins[j]+maxs[j])/2, g.get(j));
 			}
 			IntegerVector copy = g.copy();
-			assertTrue("copy should be new object", copy != g);
-			assertEquals("copy should be identical to original", g, copy);
-			assertEquals("verify runtime class of copy", g.getClass(), copy.getClass());
+			assertTrue(copy != g);
+			assertEquals(g, copy);
+			assertEquals(g.getClass(), copy.getClass());
 		}
 	}
-	
 }

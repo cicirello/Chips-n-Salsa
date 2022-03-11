@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -20,8 +20,8 @@
 
 package org.cicirello.search.problems.scheduling;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import java.io.StringWriter;
 import java.io.StringReader;
@@ -35,7 +35,7 @@ import java.io.File;
  */
 public class CDDTests {
 	
-	@BeforeClass 
+	@BeforeAll 
 	public static void createOutputDirectory() {
 		File directory = new File("target/testcasedata");
 		if (!directory.exists()){
@@ -213,13 +213,13 @@ public class CDDTests {
 			int expected = 0;
 			for (int x = 0; x < n; x++) {
 				expected += s.getProcessingTime(p1.get(x));
-				assertEquals("forward", expected, c1[p1.get(x)]);
+				assertEquals(expected, c1[p1.get(x)], "forward");
 			}
 			int[] c2 = s.getCompletionTimes(p2);
 			expected = 0;
 			for (int x = 0; x < n; x++) {
 				expected += s.getProcessingTime(p2.get(x));
-				assertEquals("backward", expected, c2[p2.get(x)]);
+				assertEquals(expected, c2[p2.get(x)], "backward");
 			}
 			final int nPlus = n + 1;
 			IllegalArgumentException thrown = assertThrows( 
@@ -255,7 +255,7 @@ public class CDDTests {
 			String message = "Forward: earlySum,tardySum="+earlySum+","+tardySum;
 			int notEarlySumOfTardy = tardySum;
 			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			assertTrue(earlySum <= notEarlySumOfTardy, message);
 			assertTrue(onTimeJob >= 0);
 			if (onTimeJob >= 0) {
 				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
@@ -267,7 +267,7 @@ public class CDDTests {
 			int expected = delay;
 			for (int x = 0; x < n; x++) {
 				expected += s.getProcessingTime(p1.get(x));
-				assertEquals("forward", expected, c1[p1.get(x)]);
+				assertEquals(expected, c1[p1.get(x)], "forward");
 			}
 			int[] c2 = s.getCompletionTimes(p2);
 			earlySum = 0;
@@ -281,7 +281,7 @@ public class CDDTests {
 			message = "Backward: earlySum,tardySum,n="+earlySum+","+tardySum+","+n;
 			notEarlySumOfTardy = tardySum;
 			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			assertTrue(earlySum <= notEarlySumOfTardy, message);
 			assertTrue(onTimeJob >= 0);
 			if (onTimeJob >= 0) {
 				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
@@ -293,7 +293,7 @@ public class CDDTests {
 			expected = delay;
 			for (int x = 0; x < n; x++) {
 				expected += s.getProcessingTime(p2.get(x));
-				assertEquals("backward", expected, c2[p2.get(x)]);
+				assertEquals(expected, c2[p2.get(x)], "backward");
 			}
 		}
 	}
@@ -324,17 +324,17 @@ public class CDDTests {
 			String message = "Forward: earlySum,tardySum="+earlySum+","+tardySum;
 			int notEarlySumOfTardy = tardySum;
 			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			assertTrue(earlySum <= notEarlySumOfTardy, message);
 			int delay = c1[p1.get(0)] - s.getProcessingTime(p1.get(0));
 			if (onTimeJob >= 0 && delay > 0) {
 				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
 			} else {
-				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+				assertTrue(delay==0 && earlySum <= tardySum, "case with no ontime jobs"); 
 			}
 			int expected = delay;
 			for (int x = 0; x < n; x++) {
 				expected += s.getProcessingTime(p1.get(x));
-				assertEquals("forward", expected, c1[p1.get(x)]);
+				assertEquals(expected, c1[p1.get(x)], "forward");
 			}
 			int[] c2 = s.getCompletionTimes(p2);
 			earlySum = 0;
@@ -348,17 +348,17 @@ public class CDDTests {
 			message = "Backward: earlySum,tardySum,n="+earlySum+","+tardySum+","+n;
 			notEarlySumOfTardy = tardySum;
 			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			assertTrue(earlySum <= notEarlySumOfTardy, message);
 			delay = c2[p2.get(0)] - s.getProcessingTime(p2.get(0));
 			if (onTimeJob >= 0 && delay > 0) {
 				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
 			} else {
-				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+				assertTrue(delay==0 && earlySum <= tardySum, "case with no ontime jobs"); 
 			}
 			expected = delay;
 			for (int x = 0; x < n; x++) {
 				expected += s.getProcessingTime(p2.get(x));
-				assertEquals("backward", expected, c2[p2.get(x)]);
+				assertEquals(expected, c2[p2.get(x)], "backward");
 			}
 		}
 	}
@@ -389,17 +389,17 @@ public class CDDTests {
 			String message = "Forward: earlySum,tardySum="+earlySum+","+tardySum;
 			int notEarlySumOfTardy = tardySum;
 			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			assertTrue(earlySum <= notEarlySumOfTardy, message);
 			int delay = c1[p1.get(0)] - s.getProcessingTime(p1.get(0));
 			if (onTimeJob >= 0 && delay > 0) {
 				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
 			} else {
-				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+				assertTrue(delay==0 && earlySum <= tardySum, "case with no ontime jobs"); 
 			}
 			int expected = delay;
 			for (int x = 0; x < n; x++) {
 				expected += s.getProcessingTime(p1.get(x));
-				assertEquals("forward", expected, c1[p1.get(x)]);
+				assertEquals(expected, c1[p1.get(x)], "forward");
 			}
 			int[] c2 = s.getCompletionTimes(p2);
 			earlySum = 0;
@@ -413,17 +413,17 @@ public class CDDTests {
 			message = "Backward: earlySum,tardySum,n="+earlySum+","+tardySum+","+n;
 			notEarlySumOfTardy = tardySum;
 			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			assertTrue(earlySum <= notEarlySumOfTardy, message);
 			delay = c2[p2.get(0)] - s.getProcessingTime(p2.get(0));
 			if (onTimeJob >= 0 && delay > 0) {
 				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
 			} else {
-				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+				assertTrue(delay==0 && earlySum <= tardySum, "case with no ontime jobs"); 
 			}
 			expected = delay;
 			for (int x = 0; x < n; x++) {
 				expected += s.getProcessingTime(p2.get(x));
-				assertEquals("backward", expected, c2[p2.get(x)]);
+				assertEquals(expected, c2[p2.get(x)], "backward");
 			}
 		}
 	}
@@ -454,17 +454,17 @@ public class CDDTests {
 			String message = "Forward: earlySum,tardySum="+earlySum+","+tardySum;
 			int notEarlySumOfTardy = tardySum;
 			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			assertTrue(earlySum <= notEarlySumOfTardy, message);
 			int delay = c1[p1.get(0)] - s.getProcessingTime(p1.get(0));
 			if (onTimeJob >= 0 && delay > 0) {
 				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
 			} else {
-				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+				assertTrue(delay==0 && earlySum <= tardySum, "case with no ontime jobs"); 
 			}
 			int expected = delay;
 			for (int x = 0; x < n; x++) {
 				expected += s.getProcessingTime(p1.get(x));
-				assertEquals("forward", expected, c1[p1.get(x)]);
+				assertEquals(expected, c1[p1.get(x)], "forward");
 			}
 			int[] c2 = s.getCompletionTimes(p2);
 			earlySum = 0;
@@ -478,19 +478,18 @@ public class CDDTests {
 			message = "Backward: earlySum,tardySum,n="+earlySum+","+tardySum+","+n;
 			notEarlySumOfTardy = tardySum;
 			if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-			assertTrue(message, earlySum <= notEarlySumOfTardy);
+			assertTrue(earlySum <= notEarlySumOfTardy, message);
 			delay = c2[p2.get(0)] - s.getProcessingTime(p2.get(0));
 			if (onTimeJob >= 0 && delay > 0) {
 				assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
 			} else {
-				assertTrue("case with no ontime jobs", delay==0 && earlySum <= tardySum); 
+				assertTrue(delay==0 && earlySum <= tardySum, "case with no ontime jobs"); 
 			}
 			expected = delay;
 			for (int x = 0; x < n; x++) {
 				expected += s.getProcessingTime(p2.get(x));
-				assertEquals("backward", expected, c2[p2.get(x)]);
+				assertEquals(expected, c2[p2.get(x)], "backward");
 			}
 		}
 	}
-	
 }

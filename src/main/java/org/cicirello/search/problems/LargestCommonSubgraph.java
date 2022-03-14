@@ -24,6 +24,7 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.search.representations.BitVector;
 import java.util.SplittableRandom;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>This class is an implementation of the Largest Common Subgraph
@@ -52,7 +53,7 @@ import java.util.ArrayList;
  */
 public final class LargestCommonSubgraph implements IntegerCostOptimizationProblem<Permutation> {
 	
-	private final ArrayList<Edge> edgesG1;
+	private final ArrayList<InternalEdge> edgesG1;
 	private final BitVector[] adjacencyMatrixG2;
 	private int bound;
 	
@@ -144,8 +145,35 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
 		}
 	}
 	
+	/**
+	 * Constructs a random instance of the largest common subgraph problem.
+	 *
+	 * @param v1 The number of vertexes of graph 1.
+	 * @param v2 The number of vertexes of graph 2.
+	 * @param edges1 A list of the edges for graph 1. Each of the 2 endpoints of each
+	 *        edge in edges1 must be in the interval [0, v1). This list must not contain duplicate
+	 *        edges, and also must not contain both (a, b) and (b, a) since these are the same edge.
+	 *        The behavior of this class is undefined if either of these are violated.
+	 * @param edges2 A list of the edges for graph 2. Each of the 2 endpoints of each
+	 *        edge in edges2 must be in the interval [0, v2). This list must not contain duplicate
+	 *        edges, and also must not contain both (a, b) and (b, a) since these are the same edge.
+	 *        The behavior of this class is undefined if either of these are violated.
+	 *
+	 * @throws IllegalArgumentException if v1 and/or v2 is less than 1.
+	 * @throws IllegalArgumentException if any of the endpoints of the edges in edges1 or edges2
+	 * are out of bounds for the corresponding graph.
+	 */
+	public LargestCommonSubgraph(int v1, int v2, List<Edge> edges1, List<Edge> edges2) {
+		this(v2 > v1 ? v2 : v1);
+		if (v1 < v2 || (v1 == v2 && edges1.size() <= edges2.size())) {
+			initializeInstanceData(v1, v2, edges1, edges2);
+		} else {
+			initializeInstanceData(v2, v1, edges2, edges1);
+		}
+	}
+	
 	private LargestCommonSubgraph(int largerV) {
-		edgesG1 = new ArrayList<Edge>();
+		edgesG1 = new ArrayList<InternalEdge>();
 		adjacencyMatrixG2 = new BitVector[largerV];
 	}
 	
@@ -167,7 +195,7 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
 	@Override
 	public int value(Permutation candidate) {
 		int count = 0;
-		for (Edge e : edgesG1) {
+		for (InternalEdge e : edgesG1) {
 			if (adjacencyMatrixG2[candidate.get(e.x)].isOne(candidate.get(e.y))) {
 				count++;
 			}
@@ -192,6 +220,25 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
 		return bound;
 	}
 	
+	/*
+	 * package private for testing
+	 */
+	final boolean hasEdge1(int u, int v) {
+		for (InternalEdge e : edgesG1) {
+			if (e.x == u && e.y == v || e.x == v && e.y == u) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/*
+	 * package private for testing
+	 */
+	final boolean hasEdge2(int u, int v) {
+		return adjacencyMatrixG2[u].isOne(v);
+	}
+	
 	private void createIsomorphicRandomInstanceData(int v, double density, SplittableRandom gen) {
 		if (v <= 0) {
 			throw new IllegalArgumentException("Graphs must have at least 1 vertex.");
@@ -209,7 +256,7 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
 		for (int i = 0; i < v; i++) {
 			for (int j = i+1; j < v; j++) {
 				if (gen.nextDouble() < density) {
-					edgesG1.add(new Edge(i, j));
+					edgesG1.add(new InternalEdge(i, j));
 					adjacencyMatrixG2[perm.get(i)].flip(perm.get(j));
 					adjacencyMatrixG2[perm.get(j)].flip(perm.get(i));
 				}
@@ -231,7 +278,7 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
 		for (int i = 0; i < v1; i++) {
 			for (int j = i+1; j < v1; j++) {
 				if (gen.nextDouble() < density1) {
-					edgesG1.add(new Edge(i, j));
+					edgesG1.add(new InternalEdge(i, j));
 				}
 			}
 		}
@@ -253,13 +300,91 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
 		}
 	}
 	
-	private class Edge {
-		private int x;
-		private int y;
+	private void initializeInstanceData(int v1, int v2, List<Edge> edges1, List<Edge> edges2) {
+		if (v1 <= 0) {
+			throw new IllegalArgumentException("Graphs must have at least 1 vertex.");
+		}
+		for (Edge e : edges1) {
+			if (e.u >= v1 || e.v >= v1) {
+				throw new IllegalArgumentException("Edge endpoint out of bounds.");
+			}
+			edgesG1.add(new InternalEdge(e));
+		}
+		for (int i = 0; i < v2; i++) {
+			adjacencyMatrixG2[i] = new BitVector(v2);
+		}
+		for (Edge e : edges2) {
+			if (e.u >= v2 || e.v >= v2) {
+				throw new IllegalArgumentException("Edge endpoint out of bounds.");
+			}
+			adjacencyMatrixG2[e.u].flip(e.v);
+			adjacencyMatrixG2[e.v].flip(e.u);
+		}
+		bound = edges1.size() <= edges2.size() ? edges1.size() : edges2.size();
+	}
+	
+	/*
+	 * Private internal class for use within the LargestCommonSubgraph class for representing
+	 * edges.
+	 */
+	private class InternalEdge {
+		private final int x;
+		private final int y;
 		
-		private Edge(int x, int y) {
+		private InternalEdge(int x, int y) {
 			this.x = x;
 			this.y = y;
+		}
+		
+		private InternalEdge(Edge e) {
+			this.x = e.u;
+			this.y = e.v;
+		}
+	}
+	
+	/**
+	 * <p>This class is used to represent edges when specifying
+	 * instances of the {@link LargestCommonSubgraph} problem.
+	 * Instances of this class are immutable. The edges are undirected.</p>
+	 *
+	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+	 */
+	public static final class Edge {
+		
+		private final int u;
+		private final int v;
+		
+		/**
+		 * Constructs an undirected edge.
+		 * @param u An endpoint of the edge.
+		 * @param v The other endpoint of the edge.
+		 */
+		public Edge(int u, int v) {
+			this.u = u;
+			this.v = v;
+		}
+		
+		/**
+		 * Gets one endpoint of the edge. The edge is undirected,
+		 * so there is no meaning behind which endpoint is which.
+		 * Use the {@link getV} method to get the other endpoint.
+		 *
+		 * @return one of the endpoints 
+		 */
+		public int getU() {
+			return u;
+		}
+		
+		/**
+		 * Gets one endpoint of the edge. The edge is undirected,
+		 * so there is no meaning behind which endpoint is which.
+		 * Use the {@link getU} method to get the other endpoint.
+		 *
+		 * @return one of the endpoints 
+		 */
+		public int getV() {
+			return v;
 		}
 	}
 }

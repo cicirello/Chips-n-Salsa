@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import java.util.SplittableRandom;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 /**
  * JUnit test cases for the Largest Common Subgraph Problem.
@@ -145,6 +146,176 @@ public class LCSTests {
 		thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new LargestCommonSubgraph(5, 5, 0.5, 1+1E-10, 42)
+		);
+	}
+	
+	@Test
+	public void testSpecificGraphsCase() {
+		LargestCommonSubgraph.Edge edge = new LargestCommonSubgraph.Edge(5, 7);
+		assertEquals(5, edge.getU());
+		assertEquals(7, edge.getV());
+		
+		ArrayList<LargestCommonSubgraph.Edge> edges1 = new ArrayList<LargestCommonSubgraph.Edge>();
+		edges1.add(new LargestCommonSubgraph.Edge(0, 2));
+		edges1.add(new LargestCommonSubgraph.Edge(0, 4));
+		edges1.add(new LargestCommonSubgraph.Edge(1, 2));
+		edges1.add(new LargestCommonSubgraph.Edge(3, 0));
+		int[][] in1 = { {0, 2}, {0, 4}, {1, 2}, {3, 0}, {2, 0}, {4, 0}, {2, 1}, {0, 3} };
+		int[][] notIn1 = { {0, 1}, {1, 0}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 1}, {3, 2}, {3, 4}, {4, 1}, {4, 2}, {4, 3} };
+		ArrayList<LargestCommonSubgraph.Edge> edges2 = new ArrayList<LargestCommonSubgraph.Edge>();
+		edges2.add(new LargestCommonSubgraph.Edge(0, 3));
+		edges2.add(new LargestCommonSubgraph.Edge(4, 3));
+		edges2.add(new LargestCommonSubgraph.Edge(4, 1));
+		edges2.add(new LargestCommonSubgraph.Edge(1, 3));
+		edges2.add(new LargestCommonSubgraph.Edge(0, 1));
+		int[][] in2 = { {0, 3}, {3, 4}, {4, 1}, {1, 3}, {0, 1}, {3, 0}, {4, 3}, {1, 4}, {3, 1}, {1, 0} };
+		int[][] notIn2 = { {0, 2}, {0, 4}, {1, 2}, {2, 3}, {2, 4}, {2, 0}, {2, 1}, {3, 2}, {4, 0}, {4, 2} };
+		
+		LargestCommonSubgraph lcs = new LargestCommonSubgraph(5, 5, edges1, edges2);
+		for (int[] e : in1) {
+			assertTrue(lcs.hasEdge1(e[0], e[1]));
+			assertTrue(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : in2) {
+			assertTrue(lcs.hasEdge2(e[0], e[1]));
+			assertTrue(lcs.hasEdge2(e[1], e[0]));
+		}
+		for (int[] e : notIn1) {
+			assertFalse(lcs.hasEdge1(e[0], e[1]));
+			assertFalse(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : notIn2) {
+			assertFalse(lcs.hasEdge2(e[0], e[1]));
+			assertFalse(lcs.hasEdge2(e[1], e[0]));
+		}
+		assertEquals(4, lcs.maxValue());
+		assertEquals(5, lcs.size());
+		
+		lcs = new LargestCommonSubgraph(5, 5, edges2, edges1);
+		for (int[] e : in1) {
+			assertTrue(lcs.hasEdge1(e[0], e[1]));
+			assertTrue(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : in2) {
+			assertTrue(lcs.hasEdge2(e[0], e[1]));
+			assertTrue(lcs.hasEdge2(e[1], e[0]));
+		}
+		for (int[] e : notIn1) {
+			assertFalse(lcs.hasEdge1(e[0], e[1]));
+			assertFalse(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : notIn2) {
+			assertFalse(lcs.hasEdge2(e[0], e[1]));
+			assertFalse(lcs.hasEdge2(e[1], e[0]));
+		}
+		assertEquals(4, lcs.maxValue());
+		assertEquals(5, lcs.size());
+		
+		lcs = new LargestCommonSubgraph(5, 6, edges1, edges2);
+		for (int[] e : in1) {
+			assertTrue(lcs.hasEdge1(e[0], e[1]));
+			assertTrue(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : in2) {
+			assertTrue(lcs.hasEdge2(e[0], e[1]));
+			assertTrue(lcs.hasEdge2(e[1], e[0]));
+		}
+		for (int[] e : notIn1) {
+			assertFalse(lcs.hasEdge1(e[0], e[1]));
+			assertFalse(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : notIn2) {
+			assertFalse(lcs.hasEdge2(e[0], e[1]));
+			assertFalse(lcs.hasEdge2(e[1], e[0]));
+		}
+		assertEquals(4, lcs.maxValue());
+		assertEquals(6, lcs.size());
+		
+		lcs = new LargestCommonSubgraph(5, 6, edges2, edges1);
+		for (int[] e : in2) {
+			assertTrue(lcs.hasEdge1(e[0], e[1]));
+			assertTrue(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : in1) {
+			assertTrue(lcs.hasEdge2(e[0], e[1]));
+			assertTrue(lcs.hasEdge2(e[1], e[0]));
+		}
+		for (int[] e : notIn2) {
+			assertFalse(lcs.hasEdge1(e[0], e[1]));
+			assertFalse(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : notIn1) {
+			assertFalse(lcs.hasEdge2(e[0], e[1]));
+			assertFalse(lcs.hasEdge2(e[1], e[0]));
+		}
+		assertEquals(4, lcs.maxValue());
+		assertEquals(6, lcs.size());
+		
+		lcs = new LargestCommonSubgraph(6, 5, edges1, edges2);
+		for (int[] e : in2) {
+			assertTrue(lcs.hasEdge1(e[0], e[1]));
+			assertTrue(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : in1) {
+			assertTrue(lcs.hasEdge2(e[0], e[1]));
+			assertTrue(lcs.hasEdge2(e[1], e[0]));
+		}
+		for (int[] e : notIn2) {
+			assertFalse(lcs.hasEdge1(e[0], e[1]));
+			assertFalse(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : notIn1) {
+			assertFalse(lcs.hasEdge2(e[0], e[1]));
+			assertFalse(lcs.hasEdge2(e[1], e[0]));
+		}
+		assertEquals(4, lcs.maxValue());
+		assertEquals(6, lcs.size());
+		
+		lcs = new LargestCommonSubgraph(6, 5, edges2, edges1);
+		for (int[] e : in1) {
+			assertTrue(lcs.hasEdge1(e[0], e[1]));
+			assertTrue(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : in2) {
+			assertTrue(lcs.hasEdge2(e[0], e[1]));
+			assertTrue(lcs.hasEdge2(e[1], e[0]));
+		}
+		for (int[] e : notIn1) {
+			assertFalse(lcs.hasEdge1(e[0], e[1]));
+			assertFalse(lcs.hasEdge1(e[1], e[0]));
+		}
+		for (int[] e : notIn2) {
+			assertFalse(lcs.hasEdge2(e[0], e[1]));
+			assertFalse(lcs.hasEdge2(e[1], e[0]));
+		}
+		assertEquals(4, lcs.maxValue());
+		assertEquals(6, lcs.size());
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LargestCommonSubgraph(0, 5, edges2, edges1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LargestCommonSubgraph(5, 0, edges2, edges1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LargestCommonSubgraph(4, 5, edges1, edges2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LargestCommonSubgraph(4, 5, edges2, edges1)
+		);
+		edges2.add(new LargestCommonSubgraph.Edge(5, 2));
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LargestCommonSubgraph(5, 5, edges1, edges2)
+		);
+		edges2.set(edges2.size()-1, new LargestCommonSubgraph.Edge(2, 5));
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new LargestCommonSubgraph(5, 5, edges1, edges2)
 		);
 	}
 	

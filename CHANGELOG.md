@@ -7,13 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-03-14
 
 ### Added
-* Factory method QuadraticAssignmentProblem.createInstance for creating QAP instances
-  from specified cost and distance matrices.
-* Constructor for LargestCommonSubgraph class for creating instances from lists of
-  the edges of the two graphs.
 
 ### Changed
-* Migrated all JUnit tests from JUnit 4.13.2 to JUnit Jupiter 5.8.2.
 
 ### Deprecated
 
@@ -24,6 +19,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 ### Other
+
+
+## [4.6.0] - 2022-03-14
+
+### Added
+* Factory method QuadraticAssignmentProblem.createInstance for creating QAP instances
+  from specified cost and distance matrices.
+* Constructor for LargestCommonSubgraph class for creating instances from lists of
+  the edges of the two graphs.
+
+### Changed
+* Migrated all JUnit tests from JUnit 4.13.2 to JUnit Jupiter 5.8.2.
 
 
 ## [4.5.0] - 2022-02-22

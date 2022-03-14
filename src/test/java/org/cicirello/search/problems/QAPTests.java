@@ -30,6 +30,66 @@ import org.cicirello.permutations.Permutation;
 public class QAPTests {
 	
 	@Test
+	public void testCreateFromMatrices() {
+		int[][] cost = {
+			{ 0, 3, 4, 5},
+			{ 6, 0, 7, 8},
+			{9, 10, 0, 11},
+			{12, 13, 2, 0}
+		};
+		int[][] dist = {
+			{ 0, 2, 2, 2},
+			{ 3, 0, 3, 3},
+			{4, 4, 0, 4},
+			{5, 5, 5, 0}
+		};
+		int[][] costExpected = {
+			{ 0, 3, 4, 5},
+			{ 6, 0, 7, 8},
+			{9, 10, 0, 11},
+			{12, 13, 2, 0}
+		};
+		int[][] distExpected = {
+			{ 0, 2, 2, 2},
+			{ 3, 0, 3, 3},
+			{4, 4, 0, 4},
+			{5, 5, 5, 0}
+		};
+		QuadraticAssignmentProblem problem = QuadraticAssignmentProblem.createInstance(cost, dist);
+		assertEquals(0, problem.minCost());
+		assertEquals(4, problem.size());
+		for (int i = 0; i < costExpected.length; i++) {
+			for (int j = 0; j < costExpected.length; j++) {
+				assertEquals(costExpected[i][j], problem.getCost(i,j));
+				assertEquals(distExpected[i][j], problem.getDistance(i,j));
+			}
+		}
+		
+		int expected1 =  12 * 2 + 21 * 3 + 30 * 4 + 27 * 5;
+		Permutation p1 = new Permutation(new int[] {0, 1, 2, 3});
+		assertEquals(expected1, problem.cost(p1));
+		assertEquals(expected1, problem.value(p1));
+		
+		int expected2 =  12 * 5 + 21 * 4 + 30 * 3 + 27 * 2;
+		Permutation p2 = new Permutation(new int[] {3, 2, 1, 0});
+		assertEquals(expected2, problem.cost(p2));
+		assertEquals(expected2, problem.value(p2));
+		
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> QuadraticAssignmentProblem.createInstance(cost, new int[cost.length][cost.length+1])
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> QuadraticAssignmentProblem.createInstance(new int[cost.length][cost.length+1], dist)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> QuadraticAssignmentProblem.createInstance(new int[cost.length+1][cost.length+1], dist)
+		);
+	}
+	
+	@Test
 	public void testQAPInternalConstructor() {
 		int[][] cost = {
 			{ 0, 3, 4, 5},

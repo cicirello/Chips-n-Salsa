@@ -28,10 +28,11 @@ import java.util.SplittableRandom;
  * This class is an implementation of the Quadratic Assignment Problem (QAP), an NP-Hard
  * optimization problem. In this implementation, both the cost and distance matrices
  * are integer-valued. This class uses factory methods, rather than constructors to better
- * support a variety of ways of generating random instances. At the present time, only
- * uniform random instances are directly supported via the 
+ * support a variety of ways of generating random instances. The class supports generating 
+ * uniform random instances via the 
  * {@link #createUniformRandomInstance createUniformRandomInstance}
- * method.
+ * method, as well as creating instances by directly specifying the cost and distance matrices
+ * via the {@link #createInstance createInstance}.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
@@ -106,6 +107,33 @@ public final class QuadraticAssignmentProblem implements IntegerCostOptimization
 	 */
 	public int getDistance(int i, int j) {
 		return distance[i][j];
+	}
+	
+	/**
+	 * Creates an instance of the QAP problem from given cost and distance matrices. Note that
+	 * the {@link #cost cost} and {@link #value value} methods assume that the diagonal is always 0.
+	 *
+	 * @param cost The cost matrix which must be square.
+	 * @param distance The distance matrix which must be square and of the same dimensions as the cost matrix.
+	 *
+	 * @return an instance of the QAP problem from the specified cost and distance matrices
+	 *
+	 * @throws IllegalArgumentException if the cost and distance matrices are not square or not of the same dimensions
+	 */
+	public static QuadraticAssignmentProblem createInstance(int[][] cost, int[][] distance) {
+		if (cost.length != distance.length) {
+			throw new IllegalArgumentException("cost and distance matrices must have same number of rows");
+		}
+		int[][] costPrime = new int[cost.length][];
+		int[][] distancePrime = new int[distance.length][];
+		for (int i = 0; i < cost.length; i++) {
+			if (cost[i].length != cost.length || distance[i].length != cost.length) {
+				throw new IllegalArgumentException("cost and distance matrices must be square");
+			}
+			costPrime[i] = cost[i].clone();
+			distancePrime[i] = distance[i].clone();
+		}
+		return new QuadraticAssignmentProblem(costPrime, distancePrime);
 	}
 	
 	/**

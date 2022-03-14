@@ -35,7 +35,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":9,"i2":9,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+var data = {"i0":10,"i1":9,"i2":9,"i3":9,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -151,10 +151,11 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="block">This class is an implementation of the Quadratic Assignment Problem (QAP), an NP-Hard
  optimization problem. In this implementation, both the cost and distance matrices
  are integer-valued. This class uses factory methods, rather than constructors to better
- support a variety of ways of generating random instances. At the present time, only
- uniform random instances are directly supported via the 
+ support a variety of ways of generating random instances. The class supports generating 
+ uniform random instances via the 
  <a href="#createUniformRandomInstance(int,int,int,int,int)"><code>createUniformRandomInstance</code></a>
- method.</div>
+ method, as well as creating instances by directly specifying the cost and distance matrices
+ via the <a href="#createInstance(int%5B%5D%5B%5D,int%5B%5D%5B%5D)"><code>createInstance</code></a>.</div>
 </li>
 </ul>
 </div>
@@ -184,6 +185,14 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static <a href="QuadraticAssignmentProblem.html" title="class in org.cicirello.search.problems">QuadraticAssignmentProblem</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createInstance(int%5B%5D%5B%5D,int%5B%5D%5B%5D)">createInstance</a></span>&#8203;(int[][]&nbsp;cost,
+              int[][]&nbsp;distance)</code></th>
+<td class="colLast">
+<div class="block">Creates an instance of the QAP problem from given cost and distance matrices.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>static <a href="QuadraticAssignmentProblem.html" title="class in org.cicirello.search.problems">QuadraticAssignmentProblem</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createUniformRandomInstance(int,int,int,int,int)">createUniformRandomInstance</a></span>&#8203;(int&nbsp;size,
                            int&nbsp;minCost,
                            int&nbsp;maxCost,
@@ -194,7 +203,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
  uniformly random integers.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static <a href="QuadraticAssignmentProblem.html" title="class in org.cicirello.search.problems">QuadraticAssignmentProblem</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createUniformRandomInstance(int,int,int,int,int,long)">createUniformRandomInstance</a></span>&#8203;(int&nbsp;size,
                            int&nbsp;minCost,
@@ -207,7 +216,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
  uniformly random integers.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCost(int,int)">getCost</a></span>&#8203;(int&nbsp;i,
        int&nbsp;j)</code></th>
@@ -215,7 +224,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="block">Gets an element of the cost matrix.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDistance(int,int)">getDistance</a></span>&#8203;(int&nbsp;i,
            int&nbsp;j)</code></th>
@@ -223,7 +232,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="block">Gets an element of the distance matrix.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#minCost()">minCost</a></span>()</code></th>
 <td class="colLast">
@@ -231,14 +240,14 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
  to the problem instance, where lower cost implies better solution.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#size()">size</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the size of the instance.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#value(org.cicirello.permutations.Permutation)">value</a></span>&#8203;(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations" class="externalLink">Permutation</a>&nbsp;candidate)</code></th>
 <td class="colLast">
@@ -389,6 +398,27 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IndexOutOfBoundsException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IndexOutOfBoundsException</a></code> - if either i or j is less than 0, or if either i or j is greater than
  or equal to size().</dd>
+</dl>
+</li>
+</ul>
+<a id="createInstance(int[][],int[][])">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createInstance</h4>
+<pre class="methodSignature">public static&nbsp;<a href="QuadraticAssignmentProblem.html" title="class in org.cicirello.search.problems">QuadraticAssignmentProblem</a>&nbsp;createInstance&#8203;(int[][]&nbsp;cost,
+                                                        int[][]&nbsp;distance)</pre>
+<div class="block">Creates an instance of the QAP problem from given cost and distance matrices. Note that
+ the <a href="#cost"><code>cost</code></a> and <a href="#value(org.cicirello.permutations.Permutation)"><code>value</code></a> methods assume that the diagonal is always 0.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>cost</code> - The cost matrix which must be square.</dd>
+<dd><code>distance</code> - The distance matrix which must be square and of the same dimensions as the cost matrix.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>an instance of the QAP problem from the specified cost and distance matrices</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if the cost and distance matrices are not square or not of the same dimensions</dd>
 </dl>
 </li>
 </ul>

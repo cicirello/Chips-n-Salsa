@@ -97,7 +97,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -174,6 +174,32 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="nested.class.summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<table class="memberSummary">
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="LargestCommonSubgraph.Edge.html" title="class in org.cicirello.search.problems">LargestCommonSubgraph.Edge</a></span></code></th>
+<td class="colLast">
+<div class="block">This class is used to represent edges when specifying
+ instances of the <a href="LargestCommonSubgraph.html" title="class in org.cicirello.search.problems"><code>LargestCommonSubgraph</code></a> problem.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section role="region">
 <ul class="blockList">
@@ -219,6 +245,15 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
                      double&nbsp;density1,
                      double&nbsp;density2,
                      long&nbsp;seed)</code></th>
+<td class="colLast">
+<div class="block">Constructs a random instance of the largest common subgraph problem.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int,int,java.util.List,java.util.List)">LargestCommonSubgraph</a></span>&#8203;(int&nbsp;v1,
+                     int&nbsp;v2,
+                     <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html?is-external=true" title="class or interface in java.util" class="externalLink">List</a>&lt;<a href="LargestCommonSubgraph.Edge.html" title="class in org.cicirello.search.problems">LargestCommonSubgraph.Edge</a>&gt;&nbsp;edges1,
+                     <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html?is-external=true" title="class or interface in java.util" class="externalLink">List</a>&lt;<a href="LargestCommonSubgraph.Edge.html" title="class in org.cicirello.search.problems">LargestCommonSubgraph.Edge</a>&gt;&nbsp;edges2)</code></th>
 <td class="colLast">
 <div class="block">Constructs a random instance of the largest common subgraph problem.</div>
 </td>
@@ -386,7 +421,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <a id="&lt;init&gt;(int,int,double,double,long)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>LargestCommonSubgraph</h4>
 <pre>public&nbsp;LargestCommonSubgraph&#8203;(int&nbsp;v1,
@@ -407,6 +442,36 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if v1 and/or v2 is less than 1.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if either density1 or density2 is less than 0.0 or greater than 1.0.</dd>
+</dl>
+</li>
+</ul>
+<a id="&lt;init&gt;(int,int,java.util.List,java.util.List)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>LargestCommonSubgraph</h4>
+<pre>public&nbsp;LargestCommonSubgraph&#8203;(int&nbsp;v1,
+                             int&nbsp;v2,
+                             <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html?is-external=true" title="class or interface in java.util" class="externalLink">List</a>&lt;<a href="LargestCommonSubgraph.Edge.html" title="class in org.cicirello.search.problems">LargestCommonSubgraph.Edge</a>&gt;&nbsp;edges1,
+                             <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html?is-external=true" title="class or interface in java.util" class="externalLink">List</a>&lt;<a href="LargestCommonSubgraph.Edge.html" title="class in org.cicirello.search.problems">LargestCommonSubgraph.Edge</a>&gt;&nbsp;edges2)</pre>
+<div class="block">Constructs a random instance of the largest common subgraph problem.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>v1</code> - The number of vertexes of graph 1.</dd>
+<dd><code>v2</code> - The number of vertexes of graph 2.</dd>
+<dd><code>edges1</code> - A list of the edges for graph 1. Each of the 2 endpoints of each
+        edge in edges1 must be in the interval [0, v1). This list must not contain duplicate
+        edges, and also must not contain both (a, b) and (b, a) since these are the same edge.
+        The behavior of this class is undefined if either of these are violated.</dd>
+<dd><code>edges2</code> - A list of the edges for graph 2. Each of the 2 endpoints of each
+        edge in edges2 must be in the interval [0, v2). This list must not contain duplicate
+        edges, and also must not contain both (a, b) and (b, a) since these are the same edge.
+        The behavior of this class is undefined if either of these are violated.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if v1 and/or v2 is less than 1.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if any of the endpoints of the edges in edges1 or edges2
+ are out of bounds for the corresponding graph.</dd>
 </dl>
 </li>
 </ul>
@@ -563,7 +628,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>

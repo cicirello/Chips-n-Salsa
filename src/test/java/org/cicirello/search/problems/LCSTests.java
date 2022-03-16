@@ -161,7 +161,6 @@ public class LCSTests {
 					assertTrue(lcs.hasEdge1(n+i, n+((i+k)%n)));
 					assertTrue(lcs.hasEdge1(i, n+i));
 				}
-				
 				lcs = LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(n, k, 42);
 				assertEquals(2*n, lcs.size());
 				assertEquals(3*n, lcs.maxValue());

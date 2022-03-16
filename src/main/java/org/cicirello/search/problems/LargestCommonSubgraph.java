@@ -172,6 +172,50 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
 		}
 	}
 	
+	/**
+	 * <p>Creates an instance of the Largest Common Subgraph problem for a pair of isomorphic
+	 * <a href=https://en.wikipedia.org/wiki/Generalized_Petersen_graph target=_top>Generalized Petersen Graphs</a>.
+	 * One of the graphs for this LCS problem instance is the Generalized Petersen Graph G(n, k). The second
+	 * is isomorphic to the first, formed by generating a random relabeling of the vertex indexes.
+	 * The Generalized Petersen Graph G(n, k) consists of 2*n vertexes and 3*n edges.</p>
+	 *
+	 * @param n The parameter n of the Generalized Petersen Graph G(n, k), which must be at least 1. The
+	 *    graph formed will have 2*n vertexes and 3*n edges.
+	 * @param k The parameter k of the Generalized Petersen Graph G(n, k), which must be less than n/2.
+	 *
+	 * @return An instance of the Largest Common Subgraph problem for a pair of isomorphic
+	 * Generalized Petersen Graphs.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if k is not less than n/2 or if k is negative.
+	 */
+	public static LargestCommonSubgraph createInstanceGeneralizedPetersenGraph(int n, int k) {
+		return createInstanceGeneralizedPetersenGraph(n, k, new Permutation(2*n));
+	}
+	
+	/**
+	 * <p>Creates an instance of the Largest Common Subgraph problem for a pair of isomorphic
+	 * <a href=https://en.wikipedia.org/wiki/Generalized_Petersen_graph target=_top>Generalized Petersen Graphs</a>.
+	 * One of the graphs for this LCS problem instance is the Generalized Petersen Graph G(n, k). The second
+	 * is isomorphic to the first, formed by generating a random relabeling of the vertex indexes.
+	 * The Generalized Petersen Graph G(n, k) consists of 2*n vertexes and 3*n edges.</p>
+	 *
+	 * @param n The parameter n of the Generalized Petersen Graph G(n, k), which must be at least 1. The
+	 *    graph formed will have 2*n vertexes and 3*n edges.
+	 * @param k The parameter k of the Generalized Petersen Graph G(n, k), which must be less than n/2.
+	 * @param seed The seed for the random number generator used in generating the randomized vertex index relabeling
+	 *    when generating the second graph of the pair.
+	 *
+	 * @return An instance of the Largest Common Subgraph problem for a pair of isomorphic
+	 * Generalized Petersen Graphs.
+	 *
+	 * @throws IllegalArgumentException if n is less than 1.
+	 * @throws IllegalArgumentException if k is not less than n/2 or if k is negative.
+	 */
+	public static LargestCommonSubgraph createInstanceGeneralizedPetersenGraph(int n, int k, long seed) {
+		return createInstanceGeneralizedPetersenGraph(n, k, new Permutation(2*n, new SplittableRandom(seed)));
+	}
+	
 	private LargestCommonSubgraph(int largerV) {
 		edgesG1 = new ArrayList<InternalEdge>();
 		adjacencyMatrixG2 = new BitVector[largerV];
@@ -321,6 +365,35 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
 			adjacencyMatrixG2[e.v].flip(e.u);
 		}
 		bound = edges1.size() <= edges2.size() ? edges1.size() : edges2.size();
+	}
+	
+	private static LargestCommonSubgraph createInstanceGeneralizedPetersenGraph(int n, int k, Permutation p) {
+		if (n <= 0) {
+			throw new IllegalArgumentException("n must be positive");
+		}
+		if (k > (n-1)/2) {
+			throw new IllegalArgumentException("k must be less than 0.5n");
+		}
+		if (k < 0) {
+			throw new IllegalArgumentException("k must be non-negative");
+		}
+		int[] u = new int[n];
+		int[] v = new int[n];
+		for (int i = 0; i < n; i++) {
+			u[i] = i;
+			v[i] = n+i;
+		}
+		ArrayList<Edge> edges1 = new ArrayList<Edge>();
+		for (int i = 0; i < n; i++) {
+			edges1.add(new Edge(u[i], u[(i+1)%n]));
+			edges1.add(new Edge(v[i], v[(i+k)%n]));
+			edges1.add(new Edge(u[i], v[i]));
+		}
+		ArrayList<Edge> edges2 = new ArrayList<Edge>();
+		for (Edge e : edges1) {
+			edges2.add(new Edge(p.get(e.u), p.get(e.v)));
+		}
+		return new LargestCommonSubgraph(2*n, 2*n, edges1, edges2);
 	}
 	
 	/*

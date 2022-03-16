@@ -150,6 +150,94 @@ public class LCSTests {
 	}
 	
 	@Test
+	public void testPetersenGraphInstance() {
+		for (int n = 1; n <= 7; n++) {
+			for (int k = 0; k < 0.5*n; k++) {
+				LargestCommonSubgraph lcs = LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(n, k);
+				assertEquals(2*n, lcs.size());
+				assertEquals(3*n, lcs.maxValue());
+				for (int i = 0; i < n; i++) {
+					assertTrue(lcs.hasEdge1(i, (i+1)%n));
+					assertTrue(lcs.hasEdge1(n+i, n+((i+k)%n)));
+					assertTrue(lcs.hasEdge1(i, n+i));
+				}
+				lcs = LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(n, k, 42);
+				assertEquals(2*n, lcs.size());
+				assertEquals(3*n, lcs.maxValue());
+				for (int i = 0; i < n; i++) {
+					assertTrue(lcs.hasEdge1(i, (i+1)%n));
+					assertTrue(lcs.hasEdge1(n+i, n+((i+k)%n)));
+					assertTrue(lcs.hasEdge1(i, n+i));
+				}
+			}
+		}
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(1, 1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(2, 1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(3, 2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(4, 2)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(5, 3)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(6, 3)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(1, 1, 42)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(2, 1, 42)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(3, 2, 42)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(4, 2, 42)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(5, 3, 42)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(6, 3, 42)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(5, -1)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(5, -1, 42)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(0, 0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> LargestCommonSubgraph.createInstanceGeneralizedPetersenGraph(0, 0, 42)
+		);
+	}
+	
+	@Test
 	public void testSpecificGraphsCase() {
 		LargestCommonSubgraph.Edge edge = new LargestCommonSubgraph.Edge(5, 7);
 		assertEquals(5, edge.getU());

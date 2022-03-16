@@ -34,7 +34,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/index-all.html</loc>
-<lastmod>2022-03-14T19:54:26+00:00</lastmod>
+<lastmod>2022-03-16T16:23:47+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-tree.html</loc>
@@ -418,7 +418,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/LargestCommonSubgraph.html</loc>
-<lastmod>2022-03-14T19:54:26+00:00</lastmod>
+<lastmod>2022-03-16T16:23:47+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/Mix.html</loc>
@@ -498,7 +498,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/package-use.html</loc>
-<lastmod>2022-03-14T19:54:26+00:00</lastmod>
+<lastmod>2022-03-16T16:23:47+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.BitIterator.html</loc>
@@ -1246,7 +1246,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/class-use/LargestCommonSubgraph.html</loc>
-<lastmod>2022-02-22T21:30:27+00:00</lastmod>
+<lastmod>2022-03-16T16:23:47+00:00</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/class-use/Mix.html</loc>

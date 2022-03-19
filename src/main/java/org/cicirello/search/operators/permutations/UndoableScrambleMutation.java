@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -44,9 +44,8 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.13.2021
  */
-public class UndoableScrambleMutation extends Permutation.Mechanic implements UndoableMutationOperator<Permutation> {
+public class UndoableScrambleMutation implements UndoableMutationOperator<Permutation> {
 
 	private int[] last;
 	private final int[] indexes;
@@ -71,9 +70,9 @@ public class UndoableScrambleMutation extends Permutation.Mechanic implements Un
 	public final void undo(Permutation c) {
 		if (c.length() >= 2) {
 			if (indexes[0] < indexes[1]) {
-				set(c, last, indexes[0], indexes[0], indexes[1]-indexes[0]+1);
+				c.apply(perm -> System.arraycopy(last, indexes[0], perm, indexes[0], indexes[1]-indexes[0]+1));
 			} else {
-				set(c, last, indexes[1], indexes[1], indexes[0]-indexes[1]+1);
+				c.apply(perm -> System.arraycopy(last, indexes[1], perm, indexes[1], indexes[0]-indexes[1]+1));
 			}			
 		} 
 	}

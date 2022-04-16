@@ -302,12 +302,16 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends 
 	}
 	
 	private int select(double[] values, int first, int last, double u) {
-		if (last <= first) {
-			return first;
+		// iterative binary search
+		while (first < last) {
+			int mid = (first + last) >> 1;
+			if (u < values[mid]) {
+				last = mid;
+			} else {
+				first = mid + 1;
+			}
 		}
-		int mid = (first + last) >> 1;
-		if (u < values[mid]) return select(values, first, mid, u);
-		else return select(values, mid+1, last, u);
+		return first;
 	}
 	
 	@Override

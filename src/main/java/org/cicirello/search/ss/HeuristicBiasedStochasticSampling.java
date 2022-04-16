@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -149,7 +149,6 @@ import org.cicirello.util.Copyable;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.13.2021
  */
 public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> extends AbstractStochasticSampler<T> {
 	
@@ -281,8 +280,8 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> exte
 	 *
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
-	 * @version 7.9.2020
 	 */
+	@FunctionalInterface
 	public static interface BiasFunction {
 		
 		/**

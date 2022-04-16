@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -133,6 +133,24 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>> implements Simpl
 
 	@Override
 	public abstract AbstractStochasticSampler<T> split();
+	
+	/*
+	 * package-private: used internally, but want to access from test class for unit testing
+	 */
+	final int select(double[] values, int k, double u) {
+		// iterative binary search
+		int first = 0;
+		int last = k - 1;
+		while (first < last) {
+			int mid = (first + last) >> 1;
+			if (u < values[mid]) {
+				last = mid;
+			} else {
+				first = mid + 1;
+			}
+		}
+		return first;
+	}
 	
 	SolutionCostPair<T> evaluateAndPackageSolution(T complete) {
 		if (pOptInt != null) {

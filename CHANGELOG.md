@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+* Refactored hierarchy and methods of stochastic sampling classes.
 * Refactored exchangeBits methods and related of the BitVector class.
 * Replaced calls to methods deprecated in jpt-3.2.0.
 
@@ -17,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Added missing FunctionalInterface annotation on HeuristicBiasedStochasticSampling.BiasFunction.
+* Added missing FunctionalInterface annotation on ValueBiasedStochasticSampling.BiasFunction.
 
 ### Dependencies
 * Bumped jpt from 3.1.1 to 3.2.0.

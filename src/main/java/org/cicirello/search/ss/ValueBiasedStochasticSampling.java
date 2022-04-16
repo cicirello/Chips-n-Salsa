@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -136,7 +136,6 @@ import org.cicirello.util.Copyable;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.13.2021
  */
 public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends AbstractStochasticSampler<T> {
 	
@@ -262,8 +261,8 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends 
 	 *
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
-	 * @version 7.9.2020
 	 */
+	@FunctionalInterface
 	public static interface BiasFunction {
 		
 		/**
@@ -293,22 +292,6 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends 
 			values[i] = values[i-1] + values[i] / total;
 		}
 		values[k-1] = 1.0;
-	}
-	
-	/*
-	 * package-private: used internally, but want to access from test class for unit testing
-	 */
-	int select(double[] values, int k, double u) {
-		return select(values, 0, k-1, u);
-	}
-	
-	private int select(double[] values, int first, int last, double u) {
-		if (last <= first) {
-			return first;
-		}
-		int mid = (first + last) >> 1;
-		if (u < values[mid]) return select(values, first, mid, u);
-		else return select(values, mid+1, last, u);
 	}
 	
 	@Override

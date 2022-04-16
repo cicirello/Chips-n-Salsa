@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -149,7 +149,6 @@ import org.cicirello.util.Copyable;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.13.2021
  */
 public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> extends AbstractStochasticSampler<T> {
 	
@@ -281,8 +280,8 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> exte
 	 *
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
-	 * @version 7.9.2020
 	 */
+	@FunctionalInterface
 	public static interface BiasFunction {
 		
 		/**
@@ -317,33 +316,23 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> exte
 	/*
 	 * package-private: used internally, but want to access from test class for unit testing
 	 */
-	int select(double[] values, int k, double u) {
-		return select(values, 0, k-1, u);
-	}
-	
-	private int select(double[] values, int first, int last, double u) {
-		if (last <= first) {
-			return first;
-		}
-		int mid = (first + last) >> 1;
-		if (u < values[mid]) return select(values, first, mid, u);
-		else return select(values, mid+1, last, u);
-	}
-	
-	/*
-	 * package-private: used internally, but want to access from test class for unit testing
-	 */
 	int randomizedSelect(int[] indexes, double[] v, int k, int chosenRank) {
-		return randomizedSelect(indexes, v, 0, k-1, chosenRank);
-	}
-	
-	private int randomizedSelect(int[] indexes, double[] v, int first, int last, int chosenRank) {
-		if (first == last) return indexes[first];
-		int pivot = randomizedPartition(indexes, v, first, last);
-		int k = pivot - first + 1;
-		if (chosenRank == k) return indexes[pivot];
-		else if (chosenRank < k) return randomizedSelect(indexes, v, first, pivot-1, chosenRank);
-		else return randomizedSelect(indexes, v, pivot+1, last, chosenRank-k);
+		// iterative rather than recursive randomized select
+		int first = 0;
+		int last = k - 1;
+		while (first != last) {
+			int pivot = randomizedPartition(indexes, v, first, last);
+			int j = pivot - first + 1;
+			if (chosenRank == j) {
+				return indexes[pivot];
+			} else if (chosenRank < j) {
+				last = pivot - 1;
+			} else {
+				first = pivot + 1;
+				chosenRank -= j;
+			}
+		}
+		return indexes[first];
 	}
 	
 	private int randomizedPartition(int[] indexes, double[] v, int first, int last) {

@@ -321,12 +321,20 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> exte
 	}
 	
 	private int randomizedSelect(int[] indexes, double[] v, int first, int last, int chosenRank) {
-		if (first == last) return indexes[first];
-		int pivot = randomizedPartition(indexes, v, first, last);
-		int k = pivot - first + 1;
-		if (chosenRank == k) return indexes[pivot];
-		else if (chosenRank < k) return randomizedSelect(indexes, v, first, pivot-1, chosenRank);
-		else return randomizedSelect(indexes, v, pivot+1, last, chosenRank-k);
+		// iterative rather than recursive randomized select
+		while (first != last) {
+			int pivot = randomizedPartition(indexes, v, first, last);
+			int k = pivot - first + 1;
+			if (chosenRank == k) {
+				return indexes[pivot];
+			} else if (chosenRank < k) {
+				last = pivot - 1;
+			} else {
+				first = pivot + 1;
+				chosenRank = chosenRank-k;
+			}
+		}
+		return indexes[first];
 	}
 	
 	private int randomizedPartition(int[] indexes, double[] v, int first, int last) {

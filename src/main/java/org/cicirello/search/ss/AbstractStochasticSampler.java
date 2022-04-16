@@ -134,6 +134,24 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>> implements Simpl
 	@Override
 	public abstract AbstractStochasticSampler<T> split();
 	
+	/*
+	 * package-private: used internally, but want to access from test class for unit testing
+	 */
+	final int select(double[] values, int k, double u) {
+		// iterative binary search
+		int first = 0;
+		int last = k - 1;
+		while (first < last) {
+			int mid = (first + last) >> 1;
+			if (u < values[mid]) {
+				last = mid;
+			} else {
+				first = mid + 1;
+			}
+		}
+		return first;
+	}
+	
 	SolutionCostPair<T> evaluateAndPackageSolution(T complete) {
 		if (pOptInt != null) {
 			int cost = pOptInt.cost(complete);

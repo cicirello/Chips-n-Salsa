@@ -294,24 +294,6 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends 
 		values[k-1] = 1.0;
 	}
 	
-	/*
-	 * package-private: used internally, but want to access from test class for unit testing
-	 */
-	int select(double[] values, int k, double u) {
-		// iterative binary search
-		int first = 0;
-		int last = k - 1;
-		while (first < last) {
-			int mid = (first + last) >> 1;
-			if (u < values[mid]) {
-				last = mid;
-			} else {
-				first = mid + 1;
-			}
-		}
-		return first;
-	}
-	
 	@Override
 	SolutionCostPair<T> sample() {
 		IncrementalEvaluation<T> incEval = heuristic.createIncrementalEvaluation();

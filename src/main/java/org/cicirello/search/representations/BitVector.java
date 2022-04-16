@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -170,22 +170,19 @@ public final class BitVector implements Copyable<BitVector> {
 				b1.bits[firstBlock] = b2.bits[firstBlock];
 				b2.bits[firstBlock] = temp;
 			} else {
-				int swapMask = ((1 << r) - 1) << (firstIndex & 0x1f);
-				partialBlockSwap(b1, b2, firstBlock, ~swapMask, swapMask);
+				partialBlockSwap(b1, b2, firstBlock, ((1 << r) - 1) << (firstIndex & 0x1f));
 			}
 		} else {
 			int r = firstIndex & 0x1f;
 			if (r != 0) {
 				// Handle first partial block here
-				int keepMask = (1 << r) - 1;
-				partialBlockSwap(b1, b2, firstBlock, keepMask, ~keepMask);
+				partialBlockSwap(b1, b2, firstBlock, ~((1 << r) - 1));
 				firstBlock++;
 			}
 			r = lastIndex & 0x1f;
 			if (r != 31) {
 				// Handle last partial block here
-				int swapMask = (1 << (r+1)) - 1;
-				partialBlockSwap(b1, b2, lastBlock, ~swapMask, swapMask);
+				partialBlockSwap(b1, b2, lastBlock, (1 << (r+1)) - 1);
 				lastBlock--;
 			}
 			// handle the whole block cases
@@ -214,11 +211,12 @@ public final class BitVector implements Copyable<BitVector> {
 			throw new IllegalArgumentException("BitVectors must be same length");
 		}
 		for (int i = 0; i < mask.bits.length; i++) {
-			partialBlockSwap(b1, b2, i, ~mask.bits[i], mask.bits[i]);
+			partialBlockSwap(b1, b2, i, mask.bits[i]);
 		}
 	}
 	
-	private static void partialBlockSwap(BitVector b1, BitVector b2, int index, int keepMask, int swapMask) {
+	private static void partialBlockSwap(BitVector b1, BitVector b2, int index, int swapMask) {
+		int keepMask = ~swapMask;
 		int temp = (b1.bits[index] & swapMask) | (b2.bits[index] & keepMask);
 		b1.bits[index] = (b2.bits[index] & swapMask) | (b1.bits[index] & keepMask);
 		b2.bits[index] = temp;

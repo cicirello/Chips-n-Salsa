@@ -317,21 +317,19 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> exte
 	 * package-private: used internally, but want to access from test class for unit testing
 	 */
 	int randomizedSelect(int[] indexes, double[] v, int k, int chosenRank) {
-		return randomizedSelect(indexes, v, 0, k-1, chosenRank);
-	}
-	
-	private int randomizedSelect(int[] indexes, double[] v, int first, int last, int chosenRank) {
 		// iterative rather than recursive randomized select
+		int first = 0;
+		int last = k - 1;
 		while (first != last) {
 			int pivot = randomizedPartition(indexes, v, first, last);
-			int k = pivot - first + 1;
-			if (chosenRank == k) {
+			int j = pivot - first + 1;
+			if (chosenRank == j) {
 				return indexes[pivot];
-			} else if (chosenRank < k) {
+			} else if (chosenRank < j) {
 				last = pivot - 1;
 			} else {
 				first = pivot + 1;
-				chosenRank = chosenRank-k;
+				chosenRank -= j;
 			}
 		}
 		return indexes[first];

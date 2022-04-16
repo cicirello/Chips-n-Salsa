@@ -317,16 +317,18 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>> exte
 	 * package-private: used internally, but want to access from test class for unit testing
 	 */
 	int select(double[] values, int k, double u) {
-		return select(values, 0, k-1, u);
-	}
-	
-	private int select(double[] values, int first, int last, double u) {
-		if (last <= first) {
-			return first;
+		// iterative binary search
+		int first = 0;
+		int last = k - 1;
+		while (first < last) {
+			int mid = (first + last) >> 1;
+			if (u < values[mid]) {
+				last = mid;
+			} else {
+				first = mid + 1;
+			}
 		}
-		int mid = (first + last) >> 1;
-		if (u < values[mid]) return select(values, first, mid, u);
-		else return select(values, mid+1, last, u);
+		return first;
 	}
 	
 	/*

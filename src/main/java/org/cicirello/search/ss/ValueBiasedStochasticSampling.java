@@ -298,11 +298,9 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>> extends 
 	 * package-private: used internally, but want to access from test class for unit testing
 	 */
 	int select(double[] values, int k, double u) {
-		return select(values, 0, k-1, u);
-	}
-	
-	private int select(double[] values, int first, int last, double u) {
 		// iterative binary search
+		int first = 0;
+		int last = k - 1;
 		while (first < last) {
 			int mid = (first + last) >> 1;
 			if (u < values[mid]) {

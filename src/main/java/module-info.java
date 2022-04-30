@@ -125,11 +125,14 @@ module org.cicirello.chips_n_salsa {
 	exports org.cicirello.search.sa;
 	exports org.cicirello.search.ss;
 	
-	// This needs to be transitive since 
-	// searches over space of Permutations may
-	// return Permutation objects, defined in this
-	// module.
+	// This needs to be transitive since searches over
+	// space of Permutations may return Permutation
+	// objects, defined in this module.
 	requires transitive org.cicirello.jpt;
+	
 	requires org.cicirello.rho_mu;
-	requires org.cicirello.core;
+	
+	// This needs to be transitive due to how Copyable interface
+	// is used.
+	requires transitive org.cicirello.core;
 }

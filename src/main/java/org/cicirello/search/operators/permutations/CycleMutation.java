@@ -88,6 +88,8 @@ public final class CycleMutation implements UndoableMutationOperator<Permutation
 				(int[])null
 			);
 			if (indexes.length > 2) {
+				// randomize order of indexes if there are more than 2 of them
+				// (no need to randomize order if only 2 indexes)
 				for (int j = indexes.length - 1; j > 0; j--) {
 					int i = RandomIndexer.nextInt(j+1);
 					if (i != j) {

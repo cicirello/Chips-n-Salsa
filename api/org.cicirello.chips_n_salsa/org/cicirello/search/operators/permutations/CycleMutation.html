@@ -148,7 +148,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public final class <span class="typeNameLabel">CycleMutation</span>
 extends <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html?is-external=true" title="class or interface in java.lang" class="externalLink">Object</a>
 implements <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html?is-external=true" title="class or interface in org.cicirello.permutations" class="externalLink">Permutation</a>&gt;</pre>
-<div class="block"><p>This class implements a cycle mutation on permutations, where one mutation
+<div class="block"><p>This class implements the Cycle(kmax) form of cycle mutation on permutations, where one mutation
  generates a random permutation cycle. Given the original parent permutation and
  its mutant, a permutation cycle can be defined as follows. Imagine a graph with
  n vertexes, where n is the permutation length. Now consider that for each index
@@ -164,18 +164,24 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
  hypothetical graph described above, there would be an edges from 1 to 4, 4 to 3, and 3 to 1,
  a cycle of length 3.</p>
 
- <p>This mutation operator is configured with a parameter to specify the maximum
- cycle size. A call to the <a href="#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a> method chooses the cycle size
- k uniformly at random from [2, max], and then creates a random k-element cycle.
- The combination of k elements is chosen uniformly at random from all possible combinations
- of k elements. Note that a 2-cycle is simply a swap.</p>
+ <p>The Cycle(kmax) version of cycle mutation chooses the cycle size
+ k uniformly at random from [2, kmax], and then creates a random k-element cycle. The kmax is
+ a parameter allowing the evolutionary algorithm implementer the ability to control
+ the allowed range of cycle sizes. The combination of k elements is chosen uniformly 
+ at random from all possible combinations of k elements. Note that a 2-cycle is simply a swap.</p>
 
  <p>The runtime of
- the <a href="#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a> method is O(min(n, max<sup>2</sup>)), and derives
+ the <a href="#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a> method is O(min(n, kmax<sup>2</sup>)), and derives
  from the combination of algorithms utilized by the <a href="https://rho-mu.cicirello.org/api/org.cicirello.rho_mu/org/cicirello/math/rand/RandomIndexer.html?is-external=true" title="class or interface in org.cicirello.math.rand" class="externalLink"><code>RandomIndexer</code></a>
- class in sampling k random integers. For small values of max, the runtime is essentially
+ class in sampling k random integers. For small values of kmax, the runtime is essentially
  constant. The runtime of the <a href="#undo(org.cicirello.permutations.Permutation)"><code>undo</code></a> method is
- O(max).</p></div>
+ O(kmax).</p>
+
+ <p>Cycle mutation in both of its forms, including Cycle(kmax), was introduced in the following article:</p>
+
+ <p>Vincent A. Cicirello. 2022. <a href="https://www.cicirello.org/publications/applsci-12-05506.pdf">Cycle 
+ Mutation: Evolving Permutations via Cycle Induction</a>, <i>Applied Sciences</i>, 12(11), Article 5506 (June 2022). 
+ doi:<a href="https://doi.org/10.3390/app12115506">10.3390/app12115506</a></p></div>
 </li>
 </ul>
 </div>
@@ -196,7 +202,7 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int)">CycleMutation</a></span>&#8203;(int&nbsp;maxCycleLength)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int)">CycleMutation</a></span>&#8203;(int&nbsp;kmax)</code></th>
 <td class="colLast">
 <div class="block">Constructs an CycleMutation mutation operator.</div>
 </td>
@@ -272,14 +278,14 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <ul class="blockListLast">
 <li class="blockList">
 <h4>CycleMutation</h4>
-<pre>public&nbsp;CycleMutation&#8203;(int&nbsp;maxCycleLength)</pre>
+<pre>public&nbsp;CycleMutation&#8203;(int&nbsp;kmax)</pre>
 <div class="block">Constructs an CycleMutation mutation operator.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>maxCycleLength</code> - The maximum length cycle to generate,
+<dd><code>kmax</code> - The maximum length cycle to generate,
  which must be at least 2.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if maxCycleLength &lt; 2.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang" class="externalLink">IllegalArgumentException</a></code> - if kmax &lt; 2.</dd>
 </dl>
 </li>
 </ul>

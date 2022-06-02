@@ -749,13 +749,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/CycleMutation.html" title="class in org.cicirello.search.operators.permutations">CycleMutation</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/CycleAlphaMutation.html" title="class in org.cicirello.search.operators.permutations">CycleAlphaMutation</a></span></code></th>
 <td class="colLast">
-<div class="block">This class implements a cycle mutation on permutations, where one mutation
+<div class="block">This class implements the Cycle(&alpha;) form of cycle mutation on permutations, where one mutation
  generates a random permutation cycle.</div>
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/CycleMutation.html" title="class in org.cicirello.search.operators.permutations">CycleMutation</a></span></code></th>
+<td class="colLast">
+<div class="block">This class implements the Cycle(kmax) form of cycle mutation on permutations, where one mutation
+ generates a random permutation cycle.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/InsertionMutation.html" title="class in org.cicirello.search.operators.permutations">InsertionMutation</a></span></code></th>
 <td class="colLast">
@@ -764,7 +772,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  at a different randomly chosen location.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/ReversalMutation.html" title="class in org.cicirello.search.operators.permutations">ReversalMutation</a></span></code></th>
 <td class="colLast">
@@ -772,7 +780,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  consists in reversing the order of a randomly selected subpermutation.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/RotationMutation.html" title="class in org.cicirello.search.operators.permutations">RotationMutation</a></span></code></th>
 <td class="colLast">
@@ -780,7 +788,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  consists in a random circular rotation of the permutation.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/ScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">ScrambleMutation</a></span></code></th>
 <td class="colLast">
@@ -788,7 +796,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  consists in randomizing the order of a randomly selected subpermutation.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/SwapMutation.html" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></span></code></th>
 <td class="colLast">
@@ -796,7 +804,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  selects two elements uniformly at random and swaps their locations.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/ThreeOptMutation.html" title="class in org.cicirello.search.operators.permutations">ThreeOptMutation</a></span></code></th>
 <td class="colLast">
@@ -804,7 +812,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  for permutations.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/TwoChangeMutation.html" title="class in org.cicirello.search.operators.permutations">TwoChangeMutation</a></span></code></th>
 <td class="colLast">
@@ -812,7 +820,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  for permutations.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/UndoableScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableScrambleMutation</a></span></code></th>
 <td class="colLast">
@@ -820,7 +828,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  consists in randomizing the order of a randomly selected subpermutation.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/UndoableUniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableUniformScrambleMutation</a></span></code></th>
 <td class="colLast">
@@ -829,7 +837,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  elements.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/UniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UniformScrambleMutation</a></span></code></th>
 <td class="colLast">
@@ -838,7 +846,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  elements.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/WindowLimitedBlockMoveMutation.html" title="class in org.cicirello.search.operators.permutations">WindowLimitedBlockMoveMutation</a></span></code></th>
 <td class="colLast">
@@ -846,7 +854,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <a href="../permutations/BlockMoveMutation.html" title="class in org.cicirello.search.operators.permutations"><code>BlockMoveMutation</code></a> mutation operator on permutations.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/WindowLimitedInsertionMutation.html" title="class in org.cicirello.search.operators.permutations">WindowLimitedInsertionMutation</a></span></code></th>
 <td class="colLast">
@@ -854,7 +862,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <a href="../permutations/InsertionMutation.html" title="class in org.cicirello.search.operators.permutations"><code>InsertionMutation</code></a> mutation operator on permutations.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/WindowLimitedReversalMutation.html" title="class in org.cicirello.search.operators.permutations">WindowLimitedReversalMutation</a></span></code></th>
 <td class="colLast">
@@ -862,7 +870,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <a href="../permutations/ReversalMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ReversalMutation</code></a> mutation operator on permutations.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/WindowLimitedScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">WindowLimitedScrambleMutation</a></span></code></th>
 <td class="colLast">
@@ -870,7 +878,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <a href="../permutations/ScrambleMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ScrambleMutation</code></a> mutation operator on permutations.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/WindowLimitedSwapMutation.html" title="class in org.cicirello.search.operators.permutations">WindowLimitedSwapMutation</a></span></code></th>
 <td class="colLast">
@@ -878,7 +886,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  <a href="../permutations/SwapMutation.html" title="class in org.cicirello.search.operators.permutations"><code>SwapMutation</code></a> mutation operator on permutations.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="../permutations/WindowLimitedUndoableScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">WindowLimitedUndoableScrambleMutation</a></span></code></th>
 <td class="colLast">

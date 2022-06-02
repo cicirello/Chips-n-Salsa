@@ -157,13 +157,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="class-use/CycleMutation.html#org.cicirello.search.operators.permutations">CycleMutation</a></th>
+<th class="colFirst" scope="row"><a href="class-use/CycleAlphaMutation.html#org.cicirello.search.operators.permutations">CycleAlphaMutation</a></th>
 <td class="colLast">
-<div class="block">This class implements a cycle mutation on permutations, where one mutation
+<div class="block">This class implements the Cycle(&alpha;) form of cycle mutation on permutations, where one mutation
  generates a random permutation cycle.</div>
 </td>
 </tr>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="class-use/CycleMutation.html#org.cicirello.search.operators.permutations">CycleMutation</a></th>
+<td class="colLast">
+<div class="block">This class implements the Cycle(kmax) form of cycle mutation on permutations, where one mutation
+ generates a random permutation cycle.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="class-use/InsertionMutation.html#org.cicirello.search.operators.permutations">InsertionMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements an insertion mutation on permutations, where one mutation
@@ -171,7 +178,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  at a different randomly chosen location.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="class-use/PermutationInitializer.html#org.cicirello.search.operators.permutations">PermutationInitializer</a></th>
 <td class="colLast">
 <div class="block">The PermutationInitializer provides metaheuristic implementations, such
@@ -179,56 +186,56 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  to a problem, as well as a way to make copies of current solution configurations.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="class-use/ReversalMutation.html#org.cicirello.search.operators.permutations">ReversalMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a reversal mutation on permutations, where one mutation
  consists in reversing the order of a randomly selected subpermutation.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="class-use/RotationMutation.html#org.cicirello.search.operators.permutations">RotationMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a rotation mutation on permutations, where one mutation
  consists in a random circular rotation of the permutation.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="class-use/ScrambleMutation.html#org.cicirello.search.operators.permutations">ScrambleMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation
  consists in randomizing the order of a randomly selected subpermutation.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="class-use/SwapMutation.html#org.cicirello.search.operators.permutations">SwapMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a swap mutation on permutations, where one mutation
  selects two elements uniformly at random and swaps their locations.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="class-use/ThreeOptMutation.html#org.cicirello.search.operators.permutations">ThreeOptMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements the classic 3-Opt neighborhood as a mutation operator 
  for permutations.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="class-use/TwoChangeMutation.html#org.cicirello.search.operators.permutations">TwoChangeMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements the classic two-change operator as a mutation operator 
  for permutations.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="class-use/UndoableScrambleMutation.html#org.cicirello.search.operators.permutations">UndoableScrambleMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation
  consists in randomizing the order of a randomly selected subpermutation.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="class-use/UndoableUniformScrambleMutation.html#org.cicirello.search.operators.permutations">UndoableUniformScrambleMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation
@@ -236,7 +243,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  elements.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="class-use/UniformScrambleMutation.html#org.cicirello.search.operators.permutations">UniformScrambleMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation
@@ -244,42 +251,42 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  elements.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="class-use/WindowLimitedBlockMoveMutation.html#org.cicirello.search.operators.permutations">WindowLimitedBlockMoveMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a window-limited version of the 
  <a href="BlockMoveMutation.html" title="class in org.cicirello.search.operators.permutations"><code>BlockMoveMutation</code></a> mutation operator on permutations.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="class-use/WindowLimitedInsertionMutation.html#org.cicirello.search.operators.permutations">WindowLimitedInsertionMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a window-limited version of the 
  <a href="InsertionMutation.html" title="class in org.cicirello.search.operators.permutations"><code>InsertionMutation</code></a> mutation operator on permutations.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="class-use/WindowLimitedReversalMutation.html#org.cicirello.search.operators.permutations">WindowLimitedReversalMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a window-limited version of the 
  <a href="ReversalMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ReversalMutation</code></a> mutation operator on permutations.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="class-use/WindowLimitedScrambleMutation.html#org.cicirello.search.operators.permutations">WindowLimitedScrambleMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a window-limited version of the 
  <a href="ScrambleMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ScrambleMutation</code></a> mutation operator on permutations.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="class-use/WindowLimitedSwapMutation.html#org.cicirello.search.operators.permutations">WindowLimitedSwapMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a window-limited version of the 
  <a href="SwapMutation.html" title="class in org.cicirello.search.operators.permutations"><code>SwapMutation</code></a> mutation operator on permutations.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="class-use/WindowLimitedUndoableScrambleMutation.html#org.cicirello.search.operators.permutations">WindowLimitedUndoableScrambleMutation</a></th>
 <td class="colLast">
 <div class="block">This class implements a window-limited version of the 

@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added missing FunctionalInterface annotation on ValueBiasedStochasticSampling.BiasFunction.
 
 ### Dependencies
-* Bumped jpt from 3.1.1 to 3.2.0.
+* Bumped jpt from 3.1.1 to 3.3.0.
 
 ### CI/CD
 

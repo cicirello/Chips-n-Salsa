@@ -4,7 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-05-30
+## [Unreleased] - 2022-06-02
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Dependencies
+
+### CI/CD
+
+### Other
+
+
+## [4.8.0] - 2022-06-02
 
 ### Added
 * CycleAlphaMutation: an implementation of the Cycle(alpha) form of cycle mutation.
@@ -14,20 +33,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored exchangeBits methods and related of the BitVector class.
 * Replaced calls to methods deprecated in jpt-3.2.0.
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 * Added missing FunctionalInterface annotation on HeuristicBiasedStochasticSampling.BiasFunction.
 * Added missing FunctionalInterface annotation on ValueBiasedStochasticSampling.BiasFunction.
 
 ### Dependencies
 * Bumped jpt from 3.1.1 to 3.3.0.
-
-### CI/CD
-
-### Other
 
 
 ## [4.7.0] - 2022-03-16

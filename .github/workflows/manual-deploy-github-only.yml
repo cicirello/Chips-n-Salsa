@@ -18,11 +18,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up JDK 11 for deploy to github packages
+    - name: Set up JDK 17 for deploy to github packages
       uses: actions/setup-java@v3
       with:
         distribution: 'adopt'
-        java-version: '11'
+        java-version: '17'
         server-id: github
 
     - name: Build with Maven

@@ -23,6 +23,7 @@ package org.cicirello.search.problems.scheduling;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 import java.util.SplittableRandom;
+import java.util.random.RandomGenerator;
 import java.util.Scanner;
 import java.io.InputStreamReader;
 import java.io.FileInputStream;
@@ -173,7 +174,7 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
 		this(new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8), n, instanceNumber);
 	}
 	
-	private WeightedStaticScheduling(int n, double rdd, double tf, SplittableRandom rand) {
+	private WeightedStaticScheduling(int n, double rdd, double tf, RandomGenerator rand) {
 		if (n <= 0) throw new IllegalArgumentException("n must be positive");
 		if (rdd <= 0.0 || rdd > 1.0) throw new IllegalArgumentException("rdd must be in (0.0, 1.0]");
 		if (tf < 0.0 || tf > 1.0) throw new IllegalArgumentException("tf must be in [0.0, 1.0]");

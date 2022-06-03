@@ -21,6 +21,7 @@
 package org.cicirello.search.problems.tsp;
 
 import java.util.SplittableRandom;
+import java.util.random.RandomGenerator;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.permutations.Permutation;
@@ -54,7 +55,7 @@ public abstract class TSP extends BaseTSP {
 	final TSPEdgeDistance d;
 	
 	/* package-private constructor */
-	TSP(int n, double w, SplittableRandom gen) {
+	TSP(int n, double w, RandomGenerator gen) {
 		this(
 			n,
 			w,
@@ -68,7 +69,7 @@ public abstract class TSP extends BaseTSP {
 	}
 	
 	/* package-private constructor */
-	TSP(int n, double w, TSPEdgeDistance distance, SplittableRandom gen) {
+	TSP(int n, double w, TSPEdgeDistance distance, RandomGenerator gen) {
 		if (n < 2) {
 			throw new IllegalArgumentException("Must be at least 2 cities.");
 		}

@@ -23,6 +23,7 @@ package org.cicirello.search.problems.scheduling;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 import java.util.SplittableRandom;
+import java.util.random.RandomGenerator;
 import java.util.Scanner;
 import java.io.InputStreamReader;
 import java.io.FileInputStream;
@@ -210,7 +211,7 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
 	 * the description of the the instance generator used to generate the instances
 	 * in the OR-Library.
 	 */
-	private CommonDuedateScheduling(int n, double h, SplittableRandom generator) {
+	private CommonDuedateScheduling(int n, double h, RandomGenerator generator) {
 		if (n < 0) throw new IllegalArgumentException("n must be nonnegative");
 		if (h < 0 || h > 1) throw new IllegalArgumentException("h must be in [0.0, 1.0]");
 		process = new int[n];

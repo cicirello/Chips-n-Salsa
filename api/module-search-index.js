@@ -1,1 +1,1 @@
-moduleSearchIndex = [{"l":"org.cicirello.chips_n_salsa"}]
+moduleSearchIndex = [{"l":"org.cicirello.chips_n_salsa"}];updateSearchResults();

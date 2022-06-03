@@ -21,6 +21,7 @@ the minimum supported Java to Java 17. See details below for other breaking chan
 ### Fixed
 
 ### Dependencies
+* Bumped core from 1.1.0 to 2.1.0 (breaking change).
 
 ### CI/CD
 

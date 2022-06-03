@@ -6,14 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2022-06-03
 
-**BREAKING CHANGES:** This release includes breaking changes, including increasing
-the minimum supported Java to Java 17. See details below for other breaking changes.
-
 ### Added
 
 ### Changed
-* Minimum supported Java bumped to Java 17 (breaking change).
-* Utilize Java 17's new RandomGenerator interface where relevant.
 
 ### Deprecated
 
@@ -22,13 +17,25 @@ the minimum supported Java to Java 17. See details below for other breaking chan
 ### Fixed
 
 ### Dependencies
-* Bumped core from 1.1.0 to 2.1.0 (breaking change).
-* Bumped rho-mu from 1.2.0 to 2.3.0 (breaking change).
-* Bumped jpt from 3.3.0 to 4.0.0 (breaking change).
 
 ### CI/CD
 
 ### Other
+
+
+## [5.0.0] - 2022-06-03
+
+**BREAKING CHANGES:** This release includes breaking changes, including increasing
+the minimum supported Java to Java 17. See details below for other breaking changes.
+
+### Changed
+* Minimum supported Java bumped to Java 17 (breaking change).
+* Utilize Java 17's new RandomGenerator interface where relevant.
+
+### Dependencies
+* Bumped core from 1.1.0 to 2.1.0 (breaking change).
+* Bumped rho-mu from 1.2.0 to 2.3.0 (breaking change).
+* Bumped jpt from 3.3.0 to 4.0.0 (breaking change).
 
 
 ## [4.8.0] - 2022-06-02

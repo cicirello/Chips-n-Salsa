@@ -23,6 +23,7 @@ package org.cicirello.search.problems;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.representations.BitVector;
 import java.util.SplittableRandom;
+import java.util.random.RandomGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -283,7 +284,7 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
 		return adjacencyMatrixG2[u].isOne(v);
 	}
 	
-	private void createIsomorphicRandomInstanceData(int v, double density, SplittableRandom gen) {
+	private void createIsomorphicRandomInstanceData(int v, double density, RandomGenerator gen) {
 		if (v <= 0) {
 			throw new IllegalArgumentException("Graphs must have at least 1 vertex.");
 		}
@@ -309,7 +310,7 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
 		bound = edgesG1.size();
 	}
 	
-	private void createRandomInstanceData(int v1, int v2, double density1, double density2, SplittableRandom gen) {
+	private void createRandomInstanceData(int v1, int v2, double density1, double density2, RandomGenerator gen) {
 		if (v1 <= 0) {
 			throw new IllegalArgumentException("Graphs must have at least 1 vertex.");
 		}

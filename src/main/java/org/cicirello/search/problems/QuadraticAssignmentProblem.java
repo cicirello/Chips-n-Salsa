@@ -23,6 +23,7 @@ package org.cicirello.search.problems;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 import java.util.SplittableRandom;
+import java.util.random.RandomGenerator;
 
 /**
  * This class is an implementation of the Quadratic Assignment Problem (QAP), an NP-Hard
@@ -173,14 +174,14 @@ public final class QuadraticAssignmentProblem implements IntegerCostOptimization
 		return createUniformRandomInstance(size, minCost, maxCost, minDistance, maxDistance, new SplittableRandom(seed));
 	}
 	
-	private static QuadraticAssignmentProblem createUniformRandomInstance(int size, int minCost, int maxCost, int minDistance, int maxDistance, SplittableRandom gen) {
+	private static QuadraticAssignmentProblem createUniformRandomInstance(int size, int minCost, int maxCost, int minDistance, int maxDistance, RandomGenerator gen) {
 		if (size < 1) throw new IllegalArgumentException("size must be at least 1");
 		if (maxCost < minCost) throw new IllegalArgumentException("maxCost must be at least minCost");
 		if (maxDistance < minDistance) throw new IllegalArgumentException("maxDistance must be at least minDistance");
 		return new QuadraticAssignmentProblem(createRandomMatrix(size, minCost, maxCost, gen), createRandomMatrix(size, minDistance, maxDistance, gen));
 	}
 	
-	private static int[][] createRandomMatrix(int size, int min, int max, SplittableRandom gen) {
+	private static int[][] createRandomMatrix(int size, int min, int max, RandomGenerator gen) {
 		int[][] matrix = new int[size][size];
 		int bound = max - min + 1;
 		for (int i = 0; i < size; i++) {

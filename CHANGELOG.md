@@ -13,6 +13,7 @@ the minimum supported Java to Java 17. See details below for other breaking chan
 
 ### Changed
 * Minimum supported Java bumped to Java 17 (breaking change).
+* Utilize Java 17's new RandomGenerator interface where relevant.
 
 ### Deprecated
 

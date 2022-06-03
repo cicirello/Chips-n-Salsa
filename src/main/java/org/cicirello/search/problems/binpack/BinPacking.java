@@ -21,6 +21,7 @@
 package org.cicirello.search.problems.binpack;
 
 import java.util.SplittableRandom;
+import java.util.random.RandomGenerator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
@@ -209,7 +210,7 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
 			super(capacity, createItems(numItems, minSize, maxSize, new SplittableRandom(seed)));
 		}
 		
-		private static int[] createItems(int numItems, int minSize, int maxSize, SplittableRandom gen) {
+		private static int[] createItems(int numItems, int minSize, int maxSize, RandomGenerator gen) {
 			if (minSize > maxSize) throw new IllegalArgumentException("min and max sizes are inconsistent");
 			int[] items = new int[numItems];
 			int bound = maxSize - minSize + 1;
@@ -270,7 +271,7 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
 			super(CAPACITY, createItems(numItemTriplets, new SplittableRandom(seed)));
 		}
 		
-		private static int[] createItems(int numItemTriplets, SplittableRandom gen) {
+		private static int[] createItems(int numItemTriplets, RandomGenerator gen) {
 			int[] items = new int[numItemTriplets * 3];
 			int i = 0;
 			for (int t = 0; t < numItemTriplets; t++) {
@@ -288,7 +289,7 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
 			return items;
 		}
 		
-		private static void shuffle(int[] items, SplittableRandom gen) {
+		private static void shuffle(int[] items, RandomGenerator gen) {
 			for (int bound = items.length; bound > 1; bound--) {
 				int j = RandomIndexer.nextInt(bound, gen);
 				int i = bound - 1;

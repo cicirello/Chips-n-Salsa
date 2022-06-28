@@ -23,16 +23,21 @@ body { background-color: #f6f0bb; font-family: Arial, Helvetica, sans-serif; }
 #siteheader, aside, footer { background-color: #bfd9bf; }
 #siteheader, aside, footer, article { border: 2px solid #4CAF50; border-radius: 25px; margin: 10px; padding: 10px; }
 h1, h2, h3, h4, h5, h6, strong { color: #862d2d; }
-h2, h3, div.sponsor-badges, nav { text-align:center; }
+h2, h3, div.sponsor-badges { text-align:center; }
 div.sponsor-badges amp-img { margin-top: 8px; }
 a { color: #005500; }
 a:visited { color:#862d2d; }
-nav ul { list-style-type: none; margin: 0px; padding: 0; overflow: hidden; display: inline-block; }
-nav li { float: left; margin: 3px 8px 3px 0px; }
-nav li a { display: block; background-color: #f6f0bb; border: 2px solid #4CAF50; text-decoration: none; text-align: center; color: #1c2833; border-bottom: none; border-radius: 12px 12px 0px 0px; padding: 6px 12px;}
-nav li a:visited { color: #1c2833; }
-nav li a:hover:not(.active) { background-color: #305030; color: white; }
-nav li a.active { background-color: #4CAF50; }
+#toggle { position: absolute; left: -100vw; display: none; }
+nav { margin: 0px; padding: 0; overflow: hidden; display: inline-block; }
+nav div, #menu-icon { float: left; margin-right: 8px; }
+nav div a, #menu-icon { display: block; background-color: #f6f0bb; border: 2px solid #4CAF50; text-decoration: none; text-align: center; color: #1c2833; }
+nav div a { border-bottom: none; border-radius: 12px 12px 0px 0px; padding: 6px 12px; }
+nav div a:visited { color: #1c2833; }
+nav div a:hover:not(.active), #menu-icon:hover:not(.active) { background-color: #305030; color: white; }
+nav div a.active { background-color: #4CAF50; }
+nav div a:not(.active) { display: none; }
+#toggle:checked ~ div a:not(.active) { display: block; }
+#menu-icon { cursor: pointer; display: block; padding: 3px 7px 3px 7px; border-radius: 4px; }
 article li { margin-bottom: 8px; margin-top: 8px; }
 .publist li { margin-bottom: 16px; }
 .publist ul { margin-bottom: 32px; }
@@ -133,14 +138,14 @@ amp-img.contain img { object-fit: contain; }
 </a>
 </h1>
 <nav>
-<ul>
-<li><a href="https://github.com/cicirello/Chips-n-Salsa">Source Code</a></li>
-<li><a href="api/">API Docs</a></li>
-<li><a href="https://search.maven.org/artifact/org.cicirello/chips-n-salsa">Maven Central</a></li>
-<li><a href="https://github.com/cicirello/chips-n-salsa-examples">Example Programs</a></li>
-<li><a href="https://github.com/cicirello/Chips-n-Salsa/issues">Issue Tracker</a></li>
-<li><a href="https://github.com/cicirello/Chips-n-Salsa/blob/master/CHANGELOG.md">ChangeLog</a></li>
-</ul>
+<input type="checkbox" id="toggle">
+<label for="toggle" id="menu-icon">&#9776;</label>
+<div><a href="https://github.com/cicirello/Chips-n-Salsa">Source Code</a></div>
+<div><a href="api/">API Docs</a></div>
+<div><a href="https://search.maven.org/artifact/org.cicirello/chips-n-salsa">Maven Central</a></div>
+<div><a href="https://github.com/cicirello/chips-n-salsa-examples">Example Programs</a></div>
+<div><a href="https://github.com/cicirello/Chips-n-Salsa/issues">Issue Tracker</a></div>
+<div><a href="https://github.com/cicirello/Chips-n-Salsa/blob/master/CHANGELOG.md">ChangeLog</a></div>
 </nav>
 </div>
 <div class="sponsor-badges">

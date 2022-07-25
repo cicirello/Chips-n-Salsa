@@ -64,3 +64,9 @@ jobs:
         gh release upload ${TAG} target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-jar-with-dependencies.jar 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Request release from JitPack to trigger build
+      run: |
+        JITPACK_URL="https://jitpack.io/org/cicirello/chips-n-salsa/${{ steps.get_version.outputs.VERSION }}/"
+        # timeout in 30 seconds to avoid waiting for build
+        curl -s -m 30 ${JITPACK_URL} || true

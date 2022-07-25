@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-07-24
+## [Unreleased] - 2022-07-25
 
 ### Added
 
@@ -17,12 +17,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Dependencies
-* Bump core from 2.1.0 to 2.2.2
-* Bump rho-mu from 2.3.0 to 2.3.2
 
 ### CI/CD
 
 ### Other
+
+
+## [5.0.1] - 2022-07-25
+
+### Dependencies
+* Bump core from 2.1.0 to 2.2.2
+* Bump rho-mu from 2.3.0 to 2.3.2
+
+### Other
+* First release available via JitPack after configuring builds. In addition to Maven Central and GitHub Packages, 
+  the library can now be imported from JitPack as a fall-back option, as well as a source of snapshot artifacts 
+  built from the current default branch or specific commit hashes.
 
 
 ## [5.0.0] - 2022-06-03

@@ -6,7 +6,7 @@
  
 	<groupId>org.cicirello</groupId>
 	<artifactId>chips-n-salsa</artifactId>
-	<version>5.0.0</version>
+	<version>5-SNAPSHOT</version>
 	<packaging>jar</packaging>
   
 	<name>Chips-n-Salsa</name>

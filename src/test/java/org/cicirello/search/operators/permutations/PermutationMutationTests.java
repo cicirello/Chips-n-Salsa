@@ -35,7 +35,7 @@ import java.util.HashSet;
 public class PermutationMutationTests {
 	
 	// For tests involving randomness, number of trials to include in test case.
-	private static final int NUM_RAND_TESTS = 20;
+	private static final int NUM_RAND_TESTS = 40;
 	
 	@Test
 	public void testAdjacentSwap() {

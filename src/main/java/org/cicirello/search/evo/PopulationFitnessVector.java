@@ -48,6 +48,60 @@ public interface PopulationFitnessVector {
 		 * @return the fitness of population member i.
 		 */
 		int getFitness(int i);
+		
+		/**
+		 * Creates a PopulationFitnessVector.Integer wrapping a primitive int array.
+		 *
+		 * @param f The int array to wrap, returned object holds a reference to f and does not clone it.
+		 *
+		 * @return a PopulationFitnessVector.Integer wrapping f
+		 */
+		static PopulationFitnessVector.Integer of(int[] f) {
+			class IntegerArrayAsFitnessVector implements PopulationFitnessVector.Integer {		
+				private final int[] f;
+			
+				public IntegerArrayAsFitnessVector(int[] f) {
+					this.f = f;
+				}
+				
+				@Override
+				public int size() { 
+					return f.length; 
+				}
+				
+				@Override
+				public int getFitness(int i) {
+					return f[i];
+				}
+			};
+			return new IntegerArrayAsFitnessVector(f);
+		}
+		
+		/**
+		 * Creates a new array of ints containing the elements of this PopulationFitnessVector.Integer.
+		 *
+		 * @return an array of ints
+		 */
+		default int[] toIntArray() {
+			int[] f = new int[size()];
+			for (int i = 0; i < f.length; i++) {
+				f[i] = getFitness(i);
+			}
+			return f;
+		}
+		
+		/**
+		 * Creates a new array of doubles containing the elements of this PopulationFitnessVector.Integer.
+		 *
+		 * @return an array of doubles
+		 */
+		default double[] toDoubleArray() {
+			double[] f = new double[size()];
+			for (int i = 0; i < f.length; i++) {
+				f[i] = getFitness(i);
+			}
+			return f;
+		}
 	}
 	
 	/**
@@ -64,5 +118,46 @@ public interface PopulationFitnessVector {
 		 * @return the fitness of population member i.
 		 */
 		double getFitness(int i);
+		
+		/**
+		 * Creates a PopulationFitnessVector.Double wrapping a primitive double array.
+		 *
+		 * @param f The double array to wrap, returned object holds a reference to f and does not clone it.
+		 *
+		 * @return a PopulationFitnessVector.Double wrapping f
+		 */
+		static PopulationFitnessVector.Double of(double[] f) {
+			class DoubleArrayAsFitnessVector implements PopulationFitnessVector.Double {		
+				private final double[] f;
+			
+				public DoubleArrayAsFitnessVector(double[] f) {
+					this.f = f;
+				}
+				
+				@Override
+				public int size() { 
+					return f.length; 
+				}
+				
+				@Override
+				public double getFitness(int i) {
+					return f[i];
+				}
+			};
+			return new DoubleArrayAsFitnessVector(f);
+		}
+		
+		/**
+		 * Creates a new array of doubles containing the elements of this PopulationFitnessVector.Double.
+		 *
+		 * @return an array of doubles
+		 */
+		default double[] toDoubleArray() {
+			double[] d = new double[size()];
+			for (int i = 0; i < d.length; i++) {
+				d[i] = getFitness(i);
+			}
+			return d;
+		}
 	}
 }

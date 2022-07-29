@@ -7,17 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-07-29
 
 ### Added
-* SigmaScaling class, implementing sigma scaling.
-* FitnessShifter class for use in combination with fitness-weighted selection operators to shift all fitnesses
-  such that minimum fitness is 1 at the time of selection (e.g., deals with negative fitnesses, etc).
 
 ### Changed
 
 ### Deprecated
-* ShiftedFitnessProportionalSelection, replaced by combination of FitnessShifter with FitnessProportionalSelection.
-* ShiftedStochasticUniversalSampling, replaced by combination of FitnessShifter with StochasticUniversalSampling.
-* BiasedShiftedFitnessProportionalSelection, replaced by combination of FitnessShifter with BiasedFitnessProportionalSelection.
-* BiasedShiftedStochasticUniversalSampling, replaced by combination of FitnessShifter with BiasedStochasticUniversalSampling.
 
 ### Removed
 
@@ -29,6 +22,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Other
 
+
+## [5.1.0] - 2022-07-29
+
+### Added
+* SigmaScaling class, implementing sigma scaling.
+* FitnessShifter class for use in combination with fitness-weighted selection operators to shift all fitnesses
+  such that minimum fitness is 1 at the time of selection (e.g., deals with negative fitnesses, etc).
+  
+### Deprecated
+* ShiftedFitnessProportionalSelection, replaced by combination of FitnessShifter with FitnessProportionalSelection.
+* ShiftedStochasticUniversalSampling, replaced by combination of FitnessShifter with StochasticUniversalSampling.
+* BiasedShiftedFitnessProportionalSelection, replaced by combination of FitnessShifter with BiasedFitnessProportionalSelection.
+* BiasedShiftedStochasticUniversalSampling, replaced by combination of FitnessShifter with BiasedStochasticUniversalSampling.
+  
 
 ## [5.0.1] - 2022-07-25
 

@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Deprecated
+* ShiftedFitnessProportionalSelection, replaced by combination of FitnessShifter with FitnessProportionalSelection.
+* ShiftedStochasticUniversalSampling, replaced by combination of FitnessShifter with StochasticUniversalSampling.
+* BiasedShiftedFitnessProportionalSelection, replaced by combination of FitnessShifter with BiasedFitnessProportionalSelection.
+* BiasedShiftedStochasticUniversalSampling, replaced by combination of FitnessShifter with BiasedStochasticUniversalSampling.
 
 ### Removed
 

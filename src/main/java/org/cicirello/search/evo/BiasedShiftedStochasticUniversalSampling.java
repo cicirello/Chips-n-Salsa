@@ -58,9 +58,13 @@ package org.cicirello.search.evo;
  * O(N + M), which includes the need to generate only a single random double, and O(M) ints. This assumes
  * that the bias function has a constant runtime.</p>
  *
+ * @deprecated Instead of this class, you should use a combination of {@link FitnessShifter} and 
+ * {@link BiasedStochasticUniversalSampling}. This class is scheduled for removal in release 6.0.0.
+ *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
+@Deprecated
 public final class BiasedShiftedStochasticUniversalSampling extends StochasticUniversalSampling {
 	
 	private final FitnessBiasFunction bias;

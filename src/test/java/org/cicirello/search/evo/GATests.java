@@ -50,7 +50,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 			0.0,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -73,7 +73,7 @@ public class GATests {
 				0.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -86,7 +86,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -111,7 +111,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.0,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -134,7 +134,7 @@ public class GATests {
 				1.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -147,7 +147,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -160,7 +160,7 @@ public class GATests {
 				M,
 				null,
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -173,7 +173,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -186,7 +186,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -212,7 +212,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				null
 			)
 		);
@@ -232,7 +232,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.0,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -255,7 +255,7 @@ public class GATests {
 				0.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -268,7 +268,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -293,7 +293,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.0,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -316,7 +316,7 @@ public class GATests {
 				1.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -329,7 +329,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -342,7 +342,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -355,7 +355,7 @@ public class GATests {
 				M,
 				null,
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -368,7 +368,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -394,7 +394,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				null
 			)
 		);
@@ -415,7 +415,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.0,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -437,7 +437,7 @@ public class GATests {
 				0.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -449,7 +449,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 	}
@@ -467,7 +467,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.0,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -489,7 +489,7 @@ public class GATests {
 				1.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -501,7 +501,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		NullPointerException thrownNull = assertThrows( 
@@ -513,7 +513,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -525,7 +525,7 @@ public class GATests {
 				M,
 				null,
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -537,7 +537,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -567,7 +567,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.0,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -589,7 +589,7 @@ public class GATests {
 				0.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -601,7 +601,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 	}
@@ -619,7 +619,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.0,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -641,7 +641,7 @@ public class GATests {
 				1.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -653,7 +653,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		NullPointerException thrownNull = assertThrows( 
@@ -665,7 +665,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -677,7 +677,7 @@ public class GATests {
 				M,
 				null,
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -689,7 +689,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -722,7 +722,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.0,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -744,7 +744,7 @@ public class GATests {
 				0.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -757,7 +757,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -770,7 +770,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -796,7 +796,7 @@ public class GATests {
 				M,
 				null,
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -809,7 +809,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				null
 			)
 		);
@@ -829,7 +829,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.0,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -851,7 +851,7 @@ public class GATests {
 				0.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -864,7 +864,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -877,7 +877,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -903,7 +903,7 @@ public class GATests {
 				M,
 				null,
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -916,7 +916,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				null
 			)
 		);
@@ -937,7 +937,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.0,
-			new ShiftedFitnessProportionalSelection()	
+			new FitnessShifter(new FitnessProportionalSelection())	
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -958,7 +958,7 @@ public class GATests {
 				0.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -970,7 +970,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		NullPointerException thrownNull = assertThrows( 
@@ -982,7 +982,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -1006,7 +1006,7 @@ public class GATests {
 				M,
 				null,
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 	}
@@ -1024,7 +1024,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.0,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -1045,7 +1045,7 @@ public class GATests {
 				0.0,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -1057,7 +1057,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		NullPointerException thrownNull = assertThrows( 
@@ -1069,7 +1069,7 @@ public class GATests {
 				M,
 				new SinglePointCrossover(),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -1081,7 +1081,7 @@ public class GATests {
 				M,
 				null,
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -1114,7 +1114,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.5,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -1142,7 +1142,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.5,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -1169,7 +1169,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.5,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -1195,7 +1195,7 @@ public class GATests {
 			M,
 			new SinglePointCrossover(),
 				0.5,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());

@@ -46,6 +46,7 @@ loadScripts(document, 'script');</script>
 <li class="nav-bar-cell1-rev">Class</li>
 <li><a href="class-use/PopulationFitnessVector.Integer.html">Use</a></li>
 <li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
 <li><a href="../../../../../index-all.html">Index</a></li>
 <li><a href="../../../../../help-doc.html#class">Help</a></li>
 </ul>
@@ -112,7 +113,7 @@ extends <a href="PopulationFitnessVector.html" title="interface in org.cicirello
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab3" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab3', 3)" class="table-tab">Abstract Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab3" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab3', 3)" class="table-tab">Abstract Methods</button><button id="method-summary-table-tab5" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab5', 3)" class="table-tab">Default Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel">
 <div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
 <div class="table-header col-first">Modifier and Type</div>
@@ -122,6 +123,21 @@ extends <a href="PopulationFitnessVector.html" title="interface in org.cicirello
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getFitness(int)" class="member-name-link">getFitness</a><wbr>(int&nbsp;i)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Gets the fitness of a population member.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static <a href="PopulationFitnessVector.Integer.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Integer</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#of(int%5B%5D)" class="member-name-link">of</a><wbr>(int[]&nbsp;f)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
+<div class="block">Creates a PopulationFitnessVector.Integer wrapping a primitive int array.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default double[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#toDoubleArray()" class="member-name-link">toDoubleArray</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Creates a new array of doubles containing the elements of this PopulationFitnessVector.Integer.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default int[]</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#toIntArray()" class="member-name-link">toIntArray</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Creates a new array of ints containing the elements of this PopulationFitnessVector.Integer.</div>
 </div>
 </div>
 </div>
@@ -150,6 +166,41 @@ extends <a href="PopulationFitnessVector.html" title="interface in org.cicirello
 <dd><code>i</code> - The index into the population, which must be in the interval [0, size()).</dd>
 <dt>Returns:</dt>
 <dd>the fitness of population member i.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="of(int[])">
+<h3>of</h3>
+<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="return-type"><a href="PopulationFitnessVector.Integer.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Integer</a></span>&nbsp;<span class="element-name">of</span><wbr><span class="parameters">(int[]&nbsp;f)</span></div>
+<div class="block">Creates a PopulationFitnessVector.Integer wrapping a primitive int array.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>f</code> - The int array to wrap, returned object holds a reference to f and does not clone it.</dd>
+<dt>Returns:</dt>
+<dd>a PopulationFitnessVector.Integer wrapping f</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toIntArray()">
+<h3>toIntArray</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">int[]</span>&nbsp;<span class="element-name">toIntArray</span>()</div>
+<div class="block">Creates a new array of ints containing the elements of this PopulationFitnessVector.Integer.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>an array of ints</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toDoubleArray()">
+<h3>toDoubleArray</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">double[]</span>&nbsp;<span class="element-name">toDoubleArray</span>()</div>
+<div class="block">Creates a new array of doubles containing the elements of this PopulationFitnessVector.Integer.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>an array of doubles</dd>
 </dl>
 </section>
 </li>

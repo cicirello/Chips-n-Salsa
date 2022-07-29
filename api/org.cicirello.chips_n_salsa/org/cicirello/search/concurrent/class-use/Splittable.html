@@ -42,6 +42,7 @@ loadScripts(document, 'script');</script>
 <li><a href="../Splittable.html" title="interface in org.cicirello.search.concurrent">Class</a></li>
 <li class="nav-bar-cell1-rev">Use</li>
 <li><a href="../package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
 <li><a href="../../../../../../index-all.html">Index</a></li>
 <li><a href="../../../../../../help-doc.html#use">Help</a></li>
 </ul>
@@ -282,17 +283,18 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../../evo/BiasedShiftedFitnessProportionalSelection.html" class="type-name-link" title="class in org.cicirello.search.evo">BiasedShiftedFitnessProportionalSelection</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class implements a variation of fitness proportional selection that 
- uses shifted fitness values and applies
- a bias function to further transform the shifted fitness values.</div>
+<div class="block"><span class="deprecated-label">Deprecated.</span>
+<div class="deprecation-comment">Instead of this class, you should use a combination of <a href="../../evo/FitnessShifter.html" title="class in org.cicirello.search.evo"><code>FitnessShifter</code></a> and 
+ <a href="../../evo/BiasedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>BiasedFitnessProportionalSelection</code></a>.</div>
+</div>
 </div>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../../evo/BiasedShiftedStochasticUniversalSampling.html" class="type-name-link" title="class in org.cicirello.search.evo">BiasedShiftedStochasticUniversalSampling</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">This class implements a variation of Stochastic Universal Sampling (SUS) that we call
- Biased Shifted Stochastic Universal Sampling (Biased Shifted SUS), which uses shifted fitness values
- and integrates the use of a bias function
- with SUS to enable transforming the shifted fitness values prior to the stochastic selection decisions.</div>
+<div class="block"><span class="deprecated-label">Deprecated.</span>
+<div class="deprecation-comment">Instead of this class, you should use a combination of <a href="../../evo/FitnessShifter.html" title="class in org.cicirello.search.evo"><code>FitnessShifter</code></a> and 
+ <a href="../../evo/BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>BiasedStochasticUniversalSampling</code></a>.</div>
+</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../../evo/BiasedStochasticUniversalSampling.html" class="type-name-link" title="class in org.cicirello.search.evo">BiasedStochasticUniversalSampling</a></code></div>
@@ -317,74 +319,91 @@ loadScripts(document, 'script');</script>
 <div class="block">This class implements fitness proportional selection, sometimes referred to as weighted 
  roulette wheel, for evolutionary algorithms.</div>
 </div>
-<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../evo/GenerationalEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../evo/FitnessShifter.html" class="type-name-link" title="class in org.cicirello.search.evo">FitnessShifter</a></code></div>
 <div class="col-last odd-row-color">
+<div class="block">FitnessShifter wraps another SelectionOperator, shifting all 
+ fitness values by the minimum fitness minus one, such that the least fit population member's
+ transformed fitness is equal to 1, with the wrapped SelectionOperator than performing
+ selection using the transformed fitnesses.</div>
+</div>
+<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../evo/GenerationalEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements an evolutionary algorithm with a generational
  model, such as is commonly used in genetic algorithms, where a
  population of children are formed by applying genetic operators to
  members of the parent population, and where the children replace the 
  parents in the next generation.</div>
 </div>
-<div class="col-first even-row-color"><code>class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../evo/GenerationalMutationOnlyEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalMutationOnlyEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../evo/GenerationalMutationOnlyEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalMutationOnlyEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements an evolutionary algorithm (EA) with a generational
  model, such as is commonly used in genetic algorithms, where a
  population of children are formed by applying mutation to
  members of the parent population, and where the children replace the 
  parents in the next generation.</div>
 </div>
-<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../evo/GenerationalNANDOperatorsEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalNANDOperatorsEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../evo/GenerationalNANDOperatorsEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalNANDOperatorsEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements an evolutionary algorithm (EA) with a generational
  model, where a population of children are formed by applying genetic operators to
  members of the parent population, and where the children replace the 
  parents in the next generation.</div>
 </div>
-<div class="col-first even-row-color"><code>class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../evo/GeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../evo/GeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class is an implementation of a genetic algorithm (GA) with the common
  bit vector representation of solutions to optimization problems, and the
  generational model where children replace their parents each generation.</div>
 </div>
-<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../evo/LinearRankSelection.html" class="type-name-link" title="class in org.cicirello.search.evo">LinearRankSelection</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../evo/LinearRankSelection.html" class="type-name-link" title="class in org.cicirello.search.evo">LinearRankSelection</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements linear rank selection.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../evo/LinearRankStochasticUniversalSampling.html" class="type-name-link" title="class in org.cicirello.search.evo">LinearRankStochasticUniversalSampling</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../evo/LinearRankStochasticUniversalSampling.html" class="type-name-link" title="class in org.cicirello.search.evo">LinearRankStochasticUniversalSampling</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements linear rank selection using Stochastic Universal Sampling (SUS).</div>
 </div>
-<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../evo/MutationOnlyGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../evo/MutationOnlyGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">This class is an implementation of a mutation-only genetic algorithm (GA) with the common
  bit vector representation of solutions to optimization problems, and the
  generational model where children replace their parents each generation.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../evo/RandomSelection.html" class="type-name-link" title="class in org.cicirello.search.evo">RandomSelection</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../evo/RandomSelection.html" class="type-name-link" title="class in org.cicirello.search.evo">RandomSelection</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a simple random selection operator that selects
  members of the population uniformly at random, independent of fitness
  values.</div>
 </div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../evo/ShiftedFitnessProportionalSelection.html" class="type-name-link" title="class in org.cicirello.search.evo">ShiftedFitnessProportionalSelection</a></code></div>
+<div class="col-last even-row-color">
+<div class="block"><span class="deprecated-label">Deprecated.</span>
+<div class="deprecation-comment">Instead of this class, you should use a combination of <a href="../../evo/FitnessShifter.html" title="class in org.cicirello.search.evo"><code>FitnessShifter</code></a> and 
+ <a href="../../evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a>.</div>
+</div>
+</div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../evo/ShiftedFitnessProportionalSelection.html" class="type-name-link" title="class in org.cicirello.search.evo">ShiftedFitnessProportionalSelection</a></code></div>
+<div class="col-second odd-row-color"><code><a href="../../evo/ShiftedStochasticUniversalSampling.html" class="type-name-link" title="class in org.cicirello.search.evo">ShiftedStochasticUniversalSampling</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class implements a variation of fitness proportional selection that uses
- shifted fitness values.</div>
+<div class="block"><span class="deprecated-label">Deprecated.</span>
+<div class="deprecation-comment">Instead of this class, you should use a combination of <a href="../../evo/FitnessShifter.html" title="class in org.cicirello.search.evo"><code>FitnessShifter</code></a> and 
+ <a href="../../evo/StochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>StochasticUniversalSampling</code></a>.</div>
+</div>
 </div>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../evo/ShiftedStochasticUniversalSampling.html" class="type-name-link" title="class in org.cicirello.search.evo">ShiftedStochasticUniversalSampling</a></code></div>
+<div class="col-second even-row-color"><code><a href="../../evo/SigmaScaling.html" class="type-name-link" title="class in org.cicirello.search.evo">SigmaScaling</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">This class implements a variation of Stochastic Universal Sampling (SUS) that uses
- shifted fitness values.</div>
+<div class="block">Implements sigma scaling by wrapping your chosen selection operator.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../../evo/SimpleGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></code></div>

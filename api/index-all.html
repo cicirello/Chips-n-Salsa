@@ -42,6 +42,7 @@ loadScripts(document, 'script');</script>
 <li>Class</li>
 <li>Use</li>
 <li><a href="overview-tree.html">Tree</a></li>
+<li><a href="deprecated-list.html">Deprecated</a></li>
 <li class="nav-bar-cell1-rev">Index</li>
 <li><a href="help-doc.html#index">Help</a></li>
 </ul>
@@ -228,23 +229,26 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedFitnessProportionalSelection.html" class="type-name-link" title="class in org.cicirello.search.evo">BiasedShiftedFitnessProportionalSelection</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
 <dd>
-<div class="block">This class implements a variation of fitness proportional selection that 
- uses shifted fitness values and applies
- a bias function to further transform the shifted fitness values.</div>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>
+<div class="deprecation-comment">Instead of this class, you should use a combination of <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html" title="class in org.cicirello.search.evo"><code>FitnessShifter</code></a> and 
+ <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>BiasedFitnessProportionalSelection</code></a>. This class is scheduled for removal in release 6.0.0.</div>
+</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedFitnessProportionalSelection.html#%3Cinit%3E(org.cicirello.search.evo.FitnessBiasFunction)" class="member-name-link">BiasedShiftedFitnessProportionalSelection(FitnessBiasFunction)</a> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">BiasedShiftedFitnessProportionalSelection</a></dt>
 <dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
 <div class="block">Construct a biased shifted fitness proportional selection operator.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedStochasticUniversalSampling.html" class="type-name-link" title="class in org.cicirello.search.evo">BiasedShiftedStochasticUniversalSampling</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
 <dd>
-<div class="block">This class implements a variation of Stochastic Universal Sampling (SUS) that we call
- Biased Shifted Stochastic Universal Sampling (Biased Shifted SUS), which uses shifted fitness values
- and integrates the use of a bias function
- with SUS to enable transforming the shifted fitness values prior to the stochastic selection decisions.</div>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>
+<div class="deprecation-comment">Instead of this class, you should use a combination of <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html" title="class in org.cicirello.search.evo"><code>FitnessShifter</code></a> and 
+ <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>BiasedStochasticUniversalSampling</code></a>. This class is scheduled for removal in release 6.0.0.</div>
+</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedStochasticUniversalSampling.html#%3Cinit%3E(org.cicirello.search.evo.FitnessBiasFunction)" class="member-name-link">BiasedShiftedStochasticUniversalSampling(FitnessBiasFunction)</a> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BiasedShiftedStochasticUniversalSampling</a></dt>
 <dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
 <div class="block">Construct a biased shifted stochastic universal sampling operator.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html" class="type-name-link" title="class in org.cicirello.search.evo">BiasedStochasticUniversalSampling</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
@@ -1389,6 +1393,18 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Construct a fitness proportional selection operator.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html" class="type-name-link" title="class in org.cicirello.search.evo">FitnessShifter</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">FitnessShifter wraps another SelectionOperator, shifting all 
+ fitness values by the minimum fitness minus one, such that the least fit population member's
+ transformed fitness is equal to 1, with the wrapped SelectionOperator than performing
+ selection using the transformed fitnesses.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html#%3Cinit%3E(org.cicirello.search.evo.SelectionOperator)" class="member-name-link">FitnessShifter(SelectionOperator)</a> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html" title="class in org.cicirello.search.evo">FitnessShifter</a></dt>
+<dd>
+<div class="block">Constructs a new FitnessShifter object, to transform fitness values so that minumum
+ fitness is 1.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html#flip(int)" class="member-name-link">flip(int)</a> - Method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
 <dd>
 <div class="block">Flips the value of the bit at the specified index (e.g., if it is a 0, then
@@ -2366,11 +2382,15 @@ loadScripts(document, 'script');</script>
  as the solution is heuristically assembled,
  to problem and/or heuristic data utilized by the heuristic.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html#init(int)" class="member-name-link">init(int)</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html" title="class in org.cicirello.search.evo">FitnessShifter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SelectionOperator.html#init(int)" class="member-name-link">init(int)</a> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></dt>
 <dd>
 <div class="block">Perform any initialization necessary for the selection operator at the start
  of the run of the evolutionary algorithm.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html#init(int)" class="member-name-link">init(int)</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html" title="class in org.cicirello.search.evo">SigmaScaling</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/AcceptanceTracker.html#init(int)" class="member-name-link">init(int)</a> - Method in class org.cicirello.search.sa.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/AcceptanceTracker.html" title="class in org.cicirello.search.sa">AcceptanceTracker</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/AnnealingSchedule.html#init(int)" class="member-name-link">init(int)</a> - Method in interface org.cicirello.search.sa.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/AnnealingSchedule.html" title="interface in org.cicirello.search.sa">AnnealingSchedule</a></dt>
@@ -3034,6 +3054,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Defines the minimum process times.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html#MIN_SCALED_FITNESS" class="member-name-link">MIN_SCALED_FITNESS</a> - Static variable in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html" title="class in org.cicirello.search.evo">SigmaScaling</a></dt>
+<dd>
+<div class="block">The minimum scaled fitness, such that any fitnesses that lead to scaled fitness less than
+ this value, are reset to this value.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#MIN_TARDINESS_WEIGHT" class="member-name-link">MIN_TARDINESS_WEIGHT</a> - Static variable in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
 <dd>
 <div class="block">Defines the minimum tardiness weight.</div>
@@ -3503,6 +3528,14 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:O">O</h2>
 <dl class="index">
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Double.html#of(double%5B%5D)" class="member-name-link">of(double[])</a> - Static method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Double.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Double</a></dt>
+<dd>
+<div class="block">Creates a PopulationFitnessVector.Double wrapping a primitive double array.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Integer.html#of(int%5B%5D)" class="member-name-link">of(int[])</a> - Static method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Integer.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Integer</a></dt>
+<dd>
+<div class="block">Creates a PopulationFitnessVector.Integer wrapping a primitive int array.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/OneMax.html" class="type-name-link" title="class in org.cicirello.search.problems">OneMax</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/package-summary.html">org.cicirello.search.problems</a></dt>
 <dd>
 <div class="block">The OneMax class is an implementation of 
@@ -4256,17 +4289,23 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Double, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankSelection.html" title="class in org.cicirello.search.evo">ExponentialRankSelection</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Double, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html" title="class in org.cicirello.search.evo">FitnessShifter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Double, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html" title="class in org.cicirello.search.evo">RandomSelection</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Double, int[])</a> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></dt>
 <dd>
 <div class="block">Selects a set of members of the population based on fitness.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Double, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html" title="class in org.cicirello.search.evo">SigmaScaling</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Double, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html" title="class in org.cicirello.search.evo">TournamentSelection</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Double, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html" title="class in org.cicirello.search.evo">TruncationSelection</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Integer, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankSelection.html" title="class in org.cicirello.search.evo">ExponentialRankSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Integer, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html" title="class in org.cicirello.search.evo">FitnessShifter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Integer, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html" title="class in org.cicirello.search.evo">RandomSelection</a></dt>
 <dd>&nbsp;</dd>
@@ -4274,6 +4313,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Selects a set of members of the population based on fitness.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Integer, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html" title="class in org.cicirello.search.evo">SigmaScaling</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Integer, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html" title="class in org.cicirello.search.evo">TournamentSelection</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)" class="member-name-link">select(PopulationFitnessVector.Integer, int[])</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TruncationSelection.html" title="class in org.cicirello.search.evo">TruncationSelection</a></dt>
@@ -4388,20 +4429,26 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedFitnessProportionalSelection.html" class="type-name-link" title="class in org.cicirello.search.evo">ShiftedFitnessProportionalSelection</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
 <dd>
-<div class="block">This class implements a variation of fitness proportional selection that uses
- shifted fitness values.</div>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>
+<div class="deprecation-comment">Instead of this class, you should use a combination of <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html" title="class in org.cicirello.search.evo"><code>FitnessShifter</code></a> and 
+ <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a>. This class is scheduled for removal in release 6.0.0.</div>
+</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedFitnessProportionalSelection.html#%3Cinit%3E()" class="member-name-link">ShiftedFitnessProportionalSelection()</a> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">ShiftedFitnessProportionalSelection</a></dt>
 <dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
 <div class="block">Construct a shifted fitness proportional selection operator.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedStochasticUniversalSampling.html" class="type-name-link" title="class in org.cicirello.search.evo">ShiftedStochasticUniversalSampling</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
 <dd>
-<div class="block">This class implements a variation of Stochastic Universal Sampling (SUS) that uses
- shifted fitness values.</div>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>
+<div class="deprecation-comment">Instead of this class, you should use a combination of <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html" title="class in org.cicirello.search.evo"><code>FitnessShifter</code></a> and 
+ <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/StochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>StochasticUniversalSampling</code></a>. This class is scheduled for removal in release 6.0.0.</div>
+</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedStochasticUniversalSampling.html#%3Cinit%3E()" class="member-name-link">ShiftedStochasticUniversalSampling()</a> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">ShiftedStochasticUniversalSampling</a></dt>
 <dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
 <div class="block">Construct a shifted stochastic universal sampling operator.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html#shiftLeft(int)" class="member-name-link">shiftLeft(int)</a> - Method in class org.cicirello.search.representations.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></dt>
@@ -4440,6 +4487,20 @@ loadScripts(document, 'script');</script>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/ShortestProcessingTime.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblem)" class="member-name-link">ShortestProcessingTime(SingleMachineSchedulingProblem)</a> - Constructor for class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/ShortestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling">ShortestProcessingTime</a></dt>
 <dd>
 <div class="block">Constructs an ShortestProcessingTime heuristic.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html" class="type-name-link" title="class in org.cicirello.search.evo">SigmaScaling</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
+<dd>
+<div class="block">Implements sigma scaling by wrapping your chosen selection operator.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html#%3Cinit%3E(org.cicirello.search.evo.SelectionOperator)" class="member-name-link">SigmaScaling(SelectionOperator)</a> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html" title="class in org.cicirello.search.evo">SigmaScaling</a></dt>
+<dd>
+<div class="block">Constructs a new SigmaScaling object, to transform fitness values via sigma scaling
+ prior to selection by a wrapped selection operator.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html#%3Cinit%3E(org.cicirello.search.evo.SelectionOperator,double)" class="member-name-link">SigmaScaling(SelectionOperator, double)</a> - Constructor for class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html" title="class in org.cicirello.search.evo">SigmaScaling</a></dt>
+<dd>
+<div class="block">Constructs a new SigmaScaling object, to transform fitness values via sigma scaling
+ prior to selection by a wrapped selection operator.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
 <dd>
@@ -4749,9 +4810,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedFitnessProportionalSelection.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">BiasedFitnessProportionalSelection</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedFitnessProportionalSelection.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">BiasedShiftedFitnessProportionalSelection</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedStochasticUniversalSampling.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BiasedShiftedStochasticUniversalSampling</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BiasedStochasticUniversalSampling</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankSelection.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankSelection.html" title="class in org.cicirello.search.evo">ExponentialRankSelection</a></dt>
@@ -4759,6 +4824,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankStochasticUniversalSampling.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ExponentialRankStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">ExponentialRankStochasticUniversalSampling</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessProportionalSelection.html" title="class in org.cicirello.search.evo">FitnessProportionalSelection</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/FitnessShifter.html" title="class in org.cicirello.search.evo">FitnessShifter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a></dt>
 <dd>&nbsp;</dd>
@@ -4777,8 +4844,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/RandomSelection.html" title="class in org.cicirello.search.evo">RandomSelection</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedFitnessProportionalSelection.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo">ShiftedFitnessProportionalSelection</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedStochasticUniversalSampling.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/ShiftedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">ShiftedStochasticUniversalSampling</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SigmaScaling.html" title="class in org.cicirello.search.evo">SigmaScaling</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html#split()" class="member-name-link">split()</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></dt>
 <dd>&nbsp;</dd>
@@ -5171,6 +5244,14 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/PartialPermutation.html#toComplete()" class="member-name-link">toComplete()</a> - Method in class org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Double.html#toDoubleArray()" class="member-name-link">toDoubleArray()</a> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Double.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Double</a></dt>
+<dd>
+<div class="block">Creates a new array of doubles containing the elements of this PopulationFitnessVector.Double.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Integer.html#toDoubleArray()" class="member-name-link">toDoubleArray()</a> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Integer.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Integer</a></dt>
+<dd>
+<div class="block">Creates a new array of doubles containing the elements of this PopulationFitnessVector.Integer.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html#toFile(java.lang.String)" class="member-name-link">toFile(String)</a> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/CommonDuedateScheduling.html" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></dt>
 <dd>
 <div class="block">Outputs a description of the instance in the format
@@ -5194,6 +5275,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Outputs a description of the instance data in the format
  based on that described in:</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Integer.html#toIntArray()" class="member-name-link">toIntArray()</a> - Method in interface org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/PopulationFitnessVector.Integer.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Integer</a></dt>
+<dd>
+<div class="block">Creates a new array of ints containing the elements of this PopulationFitnessVector.Integer.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/PermutationToBitVectorProblem.html#toPermutation(org.cicirello.search.representations.BitVector)" class="member-name-link">toPermutation(BitVector)</a> - Method in class org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/PermutationToBitVectorProblem.html" title="class in org.cicirello.search.problems">PermutationToBitVectorProblem</a></dt>
 <dd>

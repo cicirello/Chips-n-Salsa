@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-07-29
 
 ### Added
+* OnePlusOneEvolutionaryAlgorithm, an implementation of a (1+1)-EA.
 
 ### Changed
 

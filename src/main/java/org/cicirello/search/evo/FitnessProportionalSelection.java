@@ -33,7 +33,8 @@ package org.cicirello.search.evo;
  *
  * <p><b>This selection operator requires positive fitness values. Behavior is undefined if any 
  * fitness values are less than or equal to 0.</b> If your fitness values may be negative,
- * use {@link ShiftedFitnessProportionalSelection} instead.</p>
+ * you can use {@link FitnessShifter}, which transforms fitness values such that minimum fitness
+ * equals 1.</p>
  *
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M lg N).</p>

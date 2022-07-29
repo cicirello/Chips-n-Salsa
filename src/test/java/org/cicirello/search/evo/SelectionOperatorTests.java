@@ -328,6 +328,7 @@ public class SelectionOperatorTests {
 	}
 	
 	@Test
+	@SuppressWarnings("deprecation")
 	public void testShiftedFitnessProportionalSelection() {
 		ShiftedFitnessProportionalSelection selection = new ShiftedFitnessProportionalSelection();
 		validateIndexes_Double(selection);
@@ -360,6 +361,7 @@ public class SelectionOperatorTests {
 	}
 	
 	@Test
+	@SuppressWarnings("deprecation")
 	public void testBiasedShiftedFitnessProportionalSelection() {
 		BiasedShiftedFitnessProportionalSelection selection = new BiasedShiftedFitnessProportionalSelection(x -> x*x);
 		validateIndexes_Double(selection);
@@ -402,6 +404,7 @@ public class SelectionOperatorTests {
 	}
 	
 	@Test
+	@SuppressWarnings("deprecation")
 	public void testShiftedSUS() {
 		ShiftedStochasticUniversalSampling selection = new ShiftedStochasticUniversalSampling();
 		validateIndexes_Double(selection);
@@ -454,6 +457,7 @@ public class SelectionOperatorTests {
 	}
 	
 	@Test
+	@SuppressWarnings("deprecation")
 	public void testBiasedShiftedSUS() {
 		BiasedShiftedStochasticUniversalSampling selection = new BiasedShiftedStochasticUniversalSampling(x -> x*x);
 		validateIndexes_Double(selection);

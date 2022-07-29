@@ -47,7 +47,7 @@ public class MutationOnlyGATests {
 			new AllZerosInitializer(L),
 			new InverseCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -68,7 +68,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new InverseCostFitnessFunction<BitVector>(problem),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -79,7 +79,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new InverseCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -102,7 +102,7 @@ public class MutationOnlyGATests {
 			new AllZerosInitializer(L),
 			new InverseCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -123,7 +123,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new InverseCostFitnessFunction<BitVector>(problem),
 				1.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -134,7 +134,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new InverseCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -145,7 +145,7 @@ public class MutationOnlyGATests {
 				null,
 				new InverseCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -156,7 +156,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				(FitnessFunction.Double<BitVector>)null,
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -178,7 +178,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new InverseCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				null
 			)
 		);
@@ -196,7 +196,7 @@ public class MutationOnlyGATests {
 			new AllZerosInitializer(L),
 			new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -217,7 +217,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -228,7 +228,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -251,7 +251,7 @@ public class MutationOnlyGATests {
 			new AllZerosInitializer(L),
 			new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -272,7 +272,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				1.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -283,7 +283,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -294,7 +294,7 @@ public class MutationOnlyGATests {
 				null,
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -305,7 +305,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				(FitnessFunction.Integer<BitVector>)null,
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -327,7 +327,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				null
 			)
 		);
@@ -346,7 +346,7 @@ public class MutationOnlyGATests {
 			new AllZerosInitializer(L),
 			new InverseCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -366,7 +366,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new InverseCostFitnessFunction<BitVector>(problem),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -376,7 +376,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new InverseCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 	}
@@ -392,7 +392,7 @@ public class MutationOnlyGATests {
 			new AllZerosInitializer(L),
 			new InverseCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -412,7 +412,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new InverseCostFitnessFunction<BitVector>(problem),
 				1.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -422,7 +422,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new InverseCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		NullPointerException thrownNull = assertThrows( 
@@ -432,7 +432,7 @@ public class MutationOnlyGATests {
 				null,
 				new InverseCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -442,7 +442,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				(FitnessFunction.Double<BitVector>)null,
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -468,7 +468,7 @@ public class MutationOnlyGATests {
 			new AllZerosInitializer(L),
 			new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -488,7 +488,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -498,7 +498,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 	}
@@ -514,7 +514,7 @@ public class MutationOnlyGATests {
 			new AllZerosInitializer(L),
 			new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -534,7 +534,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				1.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -544,7 +544,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		NullPointerException thrownNull = assertThrows( 
@@ -554,7 +554,7 @@ public class MutationOnlyGATests {
 				null,
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -564,7 +564,7 @@ public class MutationOnlyGATests {
 				new AllZerosInitializer(L),
 				(FitnessFunction.Integer<BitVector>)null,
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -593,7 +593,7 @@ public class MutationOnlyGATests {
 			L,
 			new InverseCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -613,7 +613,7 @@ public class MutationOnlyGATests {
 				L,
 				new InverseCostFitnessFunction<BitVector>(problem),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -624,7 +624,7 @@ public class MutationOnlyGATests {
 				L,
 				new InverseCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -635,7 +635,7 @@ public class MutationOnlyGATests {
 				L,
 				(FitnessFunction.Double<BitVector>)null,
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -657,7 +657,7 @@ public class MutationOnlyGATests {
 				L,
 				new InverseCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				null
 			)
 		);
@@ -675,7 +675,7 @@ public class MutationOnlyGATests {
 			L,
 			new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection(),
+			new FitnessShifter(new FitnessProportionalSelection()),
 			tracker
 		);
 		assertTrue(tracker == ga.getProgressTracker());
@@ -695,7 +695,7 @@ public class MutationOnlyGATests {
 				L,
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				0.0,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -706,7 +706,7 @@ public class MutationOnlyGATests {
 				L,
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -717,7 +717,7 @@ public class MutationOnlyGATests {
 				L,
 				(FitnessFunction.Integer<BitVector>)null,
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				tracker
 			)
 		);
@@ -739,7 +739,7 @@ public class MutationOnlyGATests {
 				L,
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection(),
+				new FitnessShifter(new FitnessProportionalSelection()),
 				null
 			)
 		);
@@ -758,7 +758,7 @@ public class MutationOnlyGATests {
 			L,
 			new InverseCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection()	
+			new FitnessShifter(new FitnessProportionalSelection())	
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -777,7 +777,7 @@ public class MutationOnlyGATests {
 				L,
 				new InverseCostFitnessFunction<BitVector>(problem),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -787,7 +787,7 @@ public class MutationOnlyGATests {
 				L,
 				new InverseCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		NullPointerException thrownNull = assertThrows( 
@@ -797,7 +797,7 @@ public class MutationOnlyGATests {
 				L,
 				(FitnessFunction.Double<BitVector>)null,
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 
@@ -823,7 +823,7 @@ public class MutationOnlyGATests {
 			L,
 			new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 			M,
-			new ShiftedFitnessProportionalSelection()
+			new FitnessShifter(new FitnessProportionalSelection())
 		);
 		ProgressTracker<BitVector> tracker = ga.getProgressTracker();
 		assertTrue(problem == ga.getProblem());
@@ -842,7 +842,7 @@ public class MutationOnlyGATests {
 				L,
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				0.0,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownIllegal = assertThrows( 
@@ -852,7 +852,7 @@ public class MutationOnlyGATests {
 				L,
 				new NegativeIntegerCostFitnessFunction<BitVector>(problem),
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		NullPointerException thrownNull = assertThrows( 
@@ -862,7 +862,7 @@ public class MutationOnlyGATests {
 				L,
 				(FitnessFunction.Integer<BitVector>)null,
 				M,
-				new ShiftedFitnessProportionalSelection()
+				new FitnessShifter(new FitnessProportionalSelection())
 			)
 		);
 		thrownNull = assertThrows( 

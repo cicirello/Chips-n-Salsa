@@ -42,9 +42,13 @@ package org.cicirello.search.evo;
  * <p>The runtime to select M population members from a population of size N is
  * O(N + M lg N).</p>
  *
+ * @deprecated Instead of this class, you should use a combination of {@link FitnessShifter} and 
+ * {@link FitnessProportionalSelection}. This class is scheduled for removal in release 6.0.0.
+ *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
+@Deprecated
 public final class ShiftedFitnessProportionalSelection extends FitnessProportionalSelection {
 	
 	/**

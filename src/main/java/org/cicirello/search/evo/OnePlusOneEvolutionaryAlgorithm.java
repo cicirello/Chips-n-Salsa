@@ -130,10 +130,10 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>> implements S
 	}
 	
 	/*
-	 * private copy constructor in support of the split method.
+	 * package-private copy constructor in support of the split method, and so subclass can also use.
 	 * note: copies references to thread-safe components, and splits potentially non-threadsafe components 
 	 */
-	private OnePlusOneEvolutionaryAlgorithm(OnePlusOneEvolutionaryAlgorithm<T> other) {
+	OnePlusOneEvolutionaryAlgorithm(OnePlusOneEvolutionaryAlgorithm<T> other) {
 		// these are threadsafe, so just copy references
 		pOpt = other.pOpt;
 		pOptInt = other.pOptInt;

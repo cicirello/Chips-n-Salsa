@@ -51,7 +51,8 @@ public final class OnePlusOneGeneticAlgorithm extends OnePlusOneEvolutionaryAlgo
 	 *        and less than 1.0.
 	 * @param bitLength The length of BitVectors required to represent solutions to the problem.
 	 *
-	 * @throws IllegalArgumentException if m &le; 0 or m &ge; 1.
+	 * @throws IllegalArgumentException if m &le; 0 or m &ge; 1 or if bitLength is negative.
+	 * @throws NullPointerException if problem is null.
 	 */
 	public OnePlusOneGeneticAlgorithm(OptimizationProblem<BitVector> problem, double m, int bitLength) {
 		this(problem, m, bitLength, new ProgressTracker<BitVector>());
@@ -66,7 +67,8 @@ public final class OnePlusOneGeneticAlgorithm extends OnePlusOneEvolutionaryAlgo
 	 *        and less than 1.0.
 	 * @param bitLength The length of BitVectors required to represent solutions to the problem.
 	 *
-	 * @throws IllegalArgumentException if m &le; 0 or m &ge; 1.
+	 * @throws IllegalArgumentException if m &le; 0 or m &ge; 1 or if bitLength is negative.
+	 * @throws NullPointerException if problem is null.
 	 */
 	public OnePlusOneGeneticAlgorithm(IntegerCostOptimizationProblem<BitVector> problem, double m, int bitLength) {
 		this(problem, m, bitLength, new ProgressTracker<BitVector>());
@@ -82,7 +84,8 @@ public final class OnePlusOneGeneticAlgorithm extends OnePlusOneEvolutionaryAlgo
 	 * @param tracker A ProgressTracker object, which is used to keep track of the best
 	 * solution found during the run, the time when it was found, and other related data.
 	 *
-	 * @throws IllegalArgumentException if m &le; 0 or m &ge; 1.
+	 * @throws IllegalArgumentException if m &le; 0 or m &ge; 1 or if bitLength is negative.
+	 * @throws NullPointerException if problem is null or if tracker is null.
 	 */
 	public OnePlusOneGeneticAlgorithm(OptimizationProblem<BitVector> problem, double m, int bitLength, ProgressTracker<BitVector> tracker) {
 		super(problem, new BitFlipMutation(m), new BitVectorInitializer(bitLength), tracker);
@@ -98,7 +101,8 @@ public final class OnePlusOneGeneticAlgorithm extends OnePlusOneEvolutionaryAlgo
 	 * @param tracker A ProgressTracker object, which is used to keep track of the best
 	 * solution found during the run, the time when it was found, and other related data.
 	 *
-	 * @throws IllegalArgumentException if m &le; 0 or m &ge; 1.
+	 * @throws IllegalArgumentException if m &le; 0 or m &ge; 1 or if bitLength is negative.
+	 * @throws NullPointerException if problem is null or if tracker is null.
 	 */
 	public OnePlusOneGeneticAlgorithm(IntegerCostOptimizationProblem<BitVector> problem, double m, int bitLength, ProgressTracker<BitVector> tracker) {
 		super(problem, new BitFlipMutation(m), new BitVectorInitializer(bitLength), tracker);

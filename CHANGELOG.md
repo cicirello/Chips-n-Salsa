@@ -4,10 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-07-29
+## [Unreleased] - 2022-08-01
 
 ### Added
 * OnePlusOneEvolutionaryAlgorithm, an implementation of a (1+1)-EA.
+* OnePlusOneGeneticAlgorithm, an implementation of a (1+1)-GA, a subclass of OnePlusOneEvolutionaryAlgorithm
+  for the special case of optimizing a BitVector representation.
 
 ### Changed
 

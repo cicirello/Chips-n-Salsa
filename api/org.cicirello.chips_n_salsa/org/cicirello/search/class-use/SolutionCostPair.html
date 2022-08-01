@@ -76,25 +76,30 @@ loadScripts(document, 'script');</script>
 <div class="block">This package includes multithreaded search implementations, as well as
  classes and interfaces related to implementing multithreaded metaheuristics.</div>
 </div>
-<div class="col-first even-row-color"><a href="#org.cicirello.search.problems">org.cicirello.search.problems</a></div>
+<div class="col-first even-row-color"><a href="#org.cicirello.search.evo">org.cicirello.search.evo</a></div>
 <div class="col-last even-row-color">
+<div class="block">This package includes classes and interfaces directly related to implementing
+ evolutionary algorithms.</div>
+</div>
+<div class="col-first odd-row-color"><a href="#org.cicirello.search.problems">org.cicirello.search.problems</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Package of classes and interfaces related to representing
  computational problems, as well as classes implementing
  a variety of specific computational problems.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#org.cicirello.search.restarts">org.cicirello.search.restarts</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="#org.cicirello.search.restarts">org.cicirello.search.restarts</a></div>
+<div class="col-last even-row-color">
 <div class="block">This package includes classes and interfaces related to implementing multistart
  metaheuristics (i.e., metaheuristics that periodically restart, and return the best
  solution across a number of such restarts).</div>
 </div>
-<div class="col-first even-row-color"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This package includes classes and interfaces directly related to implementing
  simulated annealing.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#org.cicirello.search.ss">org.cicirello.search.ss</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="#org.cicirello.search.ss">org.cicirello.search.ss</a></div>
+<div class="col-last even-row-color">
 <div class="block">This package includes classes and interfaces directly related to implementing
  stochastic sampling algorithms.</div>
 </div>
@@ -204,6 +209,34 @@ loadScripts(document, 'script');</script>
 <div class="block">Gets a list of the best solution stored in this search's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>
  at each time interval of the most recent call to the <a href="../concurrent/TimedParallelMultistarter.html#optimize(int)"><code>TimedParallelMultistarter.optimize(int)</code></a> 
  method, or null if <a href="../concurrent/TimedParallelMultistarter.html#optimize(int)"><code>TimedParallelMultistarter.optimize(int)</code></a> has not been called.</div>
+</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="org.cicirello.search.evo">
+<h2>Uses of <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a> in <a href="../evo/package-summary.html">org.cicirello.search.evo</a></h2>
+<div class="caption"><span>Methods in <a href="../evo/package-summary.html">org.cicirello.search.evo</a> that return <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Method</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>final <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">OnePlusOneEvolutionaryAlgorithm.</span><code><a href="../evo/OnePlusOneEvolutionaryAlgorithm.html#optimize(int)" class="member-name-link">optimize</a><wbr>(int&nbsp;maxEvals)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Runs the EA beginning at a random initial solution.</div>
+</div>
+<div class="col-first odd-row-color"><code>final <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">OnePlusOneEvolutionaryAlgorithm.</span><code><a href="../evo/OnePlusOneEvolutionaryAlgorithm.html#optimize(int,T)" class="member-name-link">optimize</a><wbr>(int&nbsp;maxEvals,
+ <a href="../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&nbsp;start)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Runs the EA beginning at a specified initial solution.</div>
+</div>
+<div class="col-first even-row-color"><code>final <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">OnePlusOneEvolutionaryAlgorithm.</span><code><a href="../evo/OnePlusOneEvolutionaryAlgorithm.html#reoptimize(int)" class="member-name-link">reoptimize</a><wbr>(int&nbsp;maxEvals)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Continues optimizing starting from the previous best found solution contained
+ in the tracker object, rather than from a random one.</div>
 </div>
 </div>
 </section>

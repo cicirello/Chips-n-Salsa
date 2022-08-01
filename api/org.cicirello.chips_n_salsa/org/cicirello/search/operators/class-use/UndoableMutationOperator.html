@@ -65,43 +65,89 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Package</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><a href="#org.cicirello.search.operators">org.cicirello.search.operators</a></div>
+<div class="col-first even-row-color"><a href="#org.cicirello.search.evo">org.cicirello.search.evo</a></div>
 <div class="col-last even-row-color">
+<div class="block">This package includes classes and interfaces directly related to implementing
+ evolutionary algorithms.</div>
+</div>
+<div class="col-first odd-row-color"><a href="#org.cicirello.search.operators">org.cicirello.search.operators</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This package includes classes and interfaces for defining various operators
  required by simulated annealing and other metaheuristics, such as 
  mutation operators, along with
  other related classes and interfaces.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#org.cicirello.search.operators.bits">org.cicirello.search.operators.bits</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="#org.cicirello.search.operators.bits">org.cicirello.search.operators.bits</a></div>
+<div class="col-last even-row-color">
 <div class="block">This package includes classes that implement operators that create, mutate, etc,
  BitVectors.</div>
 </div>
-<div class="col-first even-row-color"><a href="#org.cicirello.search.operators.integers">org.cicirello.search.operators.integers</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="#org.cicirello.search.operators.integers">org.cicirello.search.operators.integers</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This package includes classes that implement operators that create, mutate, etc,
  integer valued representations.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#org.cicirello.search.operators.permutations">org.cicirello.search.operators.permutations</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="#org.cicirello.search.operators.permutations">org.cicirello.search.operators.permutations</a></div>
+<div class="col-last even-row-color">
 <div class="block">This package includes classes that implement mutation operators for permutations, and other
  operators required by simulated annealing and other related metaheuristics.</div>
 </div>
-<div class="col-first even-row-color"><a href="#org.cicirello.search.operators.reals">org.cicirello.search.operators.reals</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="#org.cicirello.search.operators.reals">org.cicirello.search.operators.reals</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This package includes classes that implement operators that create, mutate, etc, the
  the inputs to functions with real-valued input parameters (represented with type double), 
  such as is required to solve function optimization
  problems using simulated annealing or other metaheuristics.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></div>
+<div class="col-last even-row-color">
 <div class="block">This package includes classes and interfaces directly related to implementing
  simulated annealing.</div>
 </div>
 </div>
 <section class="class-uses">
 <ul class="block-list">
+<li>
+<section class="detail" id="org.cicirello.search.evo">
+<h2>Uses of <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a> in <a href="../../evo/package-summary.html">org.cicirello.search.evo</a></h2>
+<div class="caption"><span>Constructors in <a href="../../evo/package-summary.html">org.cicirello.search.evo</a> with parameters of type <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier</div>
+<div class="table-header col-second">Constructor</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer)" class="member-name-link">OnePlusOneEvolutionaryAlgorithm</a><wbr>(<a href="../../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;problem,
+ <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;mutation,
+ <a href="../Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;initializer)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates a OnePlusOneEvolutionaryAlgorithm instance for integer-valued optimization problems.</div>
+</div>
+<div class="col-first odd-row-color"><code>&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.ProgressTracker)" class="member-name-link">OnePlusOneEvolutionaryAlgorithm</a><wbr>(<a href="../../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;problem,
+ <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;mutation,
+ <a href="../Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;initializer,
+ <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;tracker)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Creates a OnePlusOneEvolutionaryAlgorithm instance for integer-valued optimization problems.</div>
+</div>
+<div class="col-first even-row-color"><code>&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer)" class="member-name-link">OnePlusOneEvolutionaryAlgorithm</a><wbr>(<a href="../../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;problem,
+ <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;mutation,
+ <a href="../Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;initializer)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates a OnePlusOneEvolutionaryAlgorithm instance for real-valued optimization problems.</div>
+</div>
+<div class="col-first odd-row-color"><code>&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,org.cicirello.search.operators.UndoableMutationOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.ProgressTracker)" class="member-name-link">OnePlusOneEvolutionaryAlgorithm</a><wbr>(<a href="../../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;problem,
+ <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;mutation,
+ <a href="../Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;initializer,
+ <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;tracker)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Creates a OnePlusOneEvolutionaryAlgorithm instance for real-valued optimization problems.</div>
+</div>
+</div>
+</section>
+</li>
 <li>
 <section class="detail" id="org.cicirello.search.operators">
 <h2>Uses of <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a> in <a href="../package-summary.html">org.cicirello.search.operators</a></h2>

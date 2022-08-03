@@ -41,7 +41,7 @@ import org.cicirello.math.rand.RandomIndexer;
  * <p>The CX operator was introduced in the following paper:<br>
  * Oliver, I.M., Smith, D.J., and Holland, J.R.C. A study of permutation crossover operators 
  * on the traveling salesman problem. <i>Proceedings of the 2nd International Conference on 
- * Genetic Algorithms</i>, 1987; pp. 224-230.</p>
+ * Genetic Algorithms</i>, 1987, pp. 224-230.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

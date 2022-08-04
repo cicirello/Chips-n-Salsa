@@ -78,26 +78,28 @@ public final class OrderCrossover implements CrossoverOperator<Permutation> {
 					in2[raw2[k]] = true;
 				}
 				final int orderedCount = raw1.length - (j - i + 1);
-				IntegerList list1 = new IntegerList(orderedCount);
-				IntegerList list2 = new IntegerList(orderedCount);
-				for (int k = 0; k < raw1.length; k++) {
-					if (!in2[raw1[k]]) {
-						list1.add(raw1[k]);
+				if (orderedCount > 0) {
+					IntegerList list1 = new IntegerList(orderedCount);
+					IntegerList list2 = new IntegerList(orderedCount);
+					for (int k = 0; k < raw1.length; k++) {
+						if (!in2[raw1[k]]) {
+							list1.add(raw1[k]);
+						}
+						if (!in1[raw2[k]]) {
+							list2.add(raw2[k]);
+						}
 					}
-					if (!in1[raw2[k]]) {
-						list2.add(raw2[k]);
+					int w = 0;
+					for (int k = j+1; k < raw1.length; k++) {
+						raw1[k] = list2.get(w);
+						raw2[k] = list1.get(w);
+						w++;
 					}
-				}
-				int w = 0;
-				for (int k = j+1; k < raw1.length; k++) {
-					raw1[k] = list2.get(w);
-					raw2[k] = list1.get(w);
-					w++;
-				}
-				for (int k = 0; k < i; k++) {
-					raw1[k] = list2.get(w);
-					raw2[k] = list1.get(w);
-					w++;
+					for (int k = 0; k < i; k++) {
+						raw1[k] = list2.get(w);
+						raw2[k] = list1.get(w);
+						w++;
+					}
 				}
 			},
 			c2

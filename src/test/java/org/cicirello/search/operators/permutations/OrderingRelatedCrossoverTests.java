@@ -49,6 +49,25 @@ public class OrderingRelatedCrossoverTests {
 		}
 	}
 	
+	@Test
+	public void testNWOX() {
+		NonWrappingOrderCrossover nwox = new NonWrappingOrderCrossover();
+		for (int n = 1; n <= 32; n *= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			nwox.cross(parent1, parent2);
+			assertTrue(validPermutation(parent1));
+			assertTrue(validPermutation(parent2));
+			boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
+			int[] startAndEnd = findStartAndEnd(fixedPoints);
+			validateOrderingNWOX(parent1, p2, startAndEnd);
+			validateOrderingNWOX(parent2, p1, startAndEnd);
+			assertSame(nwox, nwox.split());
+		}
+	}
+	
 	
 	private void validateOrderingOX(Permutation child, Permutation order, int[] startAndEnd) {
 		int[] inv = order.getInverse();
@@ -60,6 +79,19 @@ public class OrderingRelatedCrossoverTests {
 		}
 		if (0 < startAndEnd[0] && inv.length-1 > startAndEnd[1]) {
 			assertTrue(inv[child.get(0)] > inv[child.get(inv.length-1)]);
+		}
+	}
+	
+	private void validateOrderingNWOX(Permutation child, Permutation order, int[] startAndEnd) {
+		int[] inv = order.getInverse();
+		for (int i = 1; i < startAndEnd[0]; i++) {
+			assertTrue(inv[child.get(i)] > inv[child.get(i-1)]);
+		}
+		for (int i = startAndEnd[1] + 2; i < inv.length; i++) {
+			assertTrue(inv[child.get(i)] > inv[child.get(i-1)]);
+		}
+		if (startAndEnd[0] - 1 >= 0 && startAndEnd[1] + 1 < inv.length) {
+			assertTrue(inv[child.get(startAndEnd[1] + 1)] > inv[child.get(startAndEnd[0] - 1)]);
 		}
 	}
 	

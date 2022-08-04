@@ -33,7 +33,7 @@ public class OrderingRelatedCrossoverTests {
 	@Test
 	public void testOX() {
 		OrderCrossover ox = new OrderCrossover();
-		for (int n = 1; n <= 32; n *= 2) {
+		for (int n = 1; n <= 64; n *= 2) {
 			Permutation p1 = new Permutation(n);
 			Permutation p2 = new Permutation(n);
 			Permutation parent1 = new Permutation(p1);
@@ -41,10 +41,12 @@ public class OrderingRelatedCrossoverTests {
 			ox.cross(parent1, parent2);
 			assertTrue(validPermutation(parent1));
 			assertTrue(validPermutation(parent2));
-			boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
-			int[] startAndEnd = findStartAndEnd(fixedPoints);
-			validateOrderingOX(parent1, p2, startAndEnd);
-			validateOrderingOX(parent2, p1, startAndEnd);
+			if (n >= 32) {
+				boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
+				int[] startAndEnd = findStartAndEnd(fixedPoints);
+				validateOrderingOX(parent1, p2, startAndEnd);
+				validateOrderingOX(parent2, p1, startAndEnd);
+			}
 			assertSame(ox, ox.split());
 		}
 	}
@@ -52,7 +54,7 @@ public class OrderingRelatedCrossoverTests {
 	@Test
 	public void testNWOX() {
 		NonWrappingOrderCrossover nwox = new NonWrappingOrderCrossover();
-		for (int n = 1; n <= 32; n *= 2) {
+		for (int n = 1; n <= 64; n *= 2) {
 			Permutation p1 = new Permutation(n);
 			Permutation p2 = new Permutation(n);
 			Permutation parent1 = new Permutation(p1);
@@ -60,10 +62,12 @@ public class OrderingRelatedCrossoverTests {
 			nwox.cross(parent1, parent2);
 			assertTrue(validPermutation(parent1));
 			assertTrue(validPermutation(parent2));
-			boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
-			int[] startAndEnd = findStartAndEnd(fixedPoints);
-			validateOrderingNWOX(parent1, p2, startAndEnd);
-			validateOrderingNWOX(parent2, p1, startAndEnd);
+			if (n >= 32) {
+				boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
+				int[] startAndEnd = findStartAndEnd(fixedPoints);
+				validateOrderingNWOX(parent1, p2, startAndEnd);
+				validateOrderingNWOX(parent2, p1, startAndEnd);
+			}
 			assertSame(nwox, nwox.split());
 		}
 	}

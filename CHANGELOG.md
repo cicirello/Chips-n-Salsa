@@ -8,8 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * Crossover operators for permutations:
-  * Cycle Crossover (CX).
-  * Order Crossover (OX).
+  * Cycle Crossover (CX)
+  * Order Crossover (OX)
+  * Non-Wrapping Order Crossover (NWOX)
 
 ### Changed
 

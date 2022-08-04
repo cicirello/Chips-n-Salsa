@@ -72,6 +72,122 @@ public class OrderingRelatedCrossoverTests {
 		}
 	}
 	
+	@Test
+	public void testUOBXIdenticalParents() {
+		UniformOrderBasedCrossover uobx = new UniformOrderBasedCrossover();
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(p1);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			uobx.cross(parent1, parent2);
+			assertEquals(p1, parent1);
+			assertEquals(p2, parent2);
+		}
+		assertSame(uobx, uobx.split());
+	}
+	
+	@Test
+	public void testUOBXNear0U() {
+		UniformOrderBasedCrossover uobx = new UniformOrderBasedCrossover(Math.ulp(0.0));
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			uobx.cross(parent1, parent2);
+			// the near 0 u should essentially swap the parents
+			// other than a low probability statistical anomaly
+			assertEquals(p2, parent1);
+			assertEquals(p1, parent2);
+		}
+	}
+	
+	@Test
+	public void testUOBXNear1U() {
+		UniformOrderBasedCrossover uobx = new UniformOrderBasedCrossover(1.0-Math.ulp(1.0));
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			uobx.cross(parent1, parent2);
+			// the near 1.0 u should essentially keep all of the parents
+			// other than a low probability statistical anomaly
+			assertEquals(p1, parent1);
+			assertEquals(p2, parent2);
+		}
+	}
+	
+	@Test
+	public void testUOBXTypicalCase() {
+		UniformOrderBasedCrossover uobx = new UniformOrderBasedCrossover();
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			uobx.cross(parent1, parent2);
+			assertTrue(validPermutation(parent1));
+			assertTrue(validPermutation(parent2));
+			boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
+			validateOrderingUOBX(parent1, p2, fixedPoints);
+			validateOrderingUOBX(parent2, p1, fixedPoints);
+		}
+		
+		uobx = new UniformOrderBasedCrossover(0.25);
+		for (int n = 8; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			uobx.cross(parent1, parent2);
+			assertTrue(validPermutation(parent1));
+			assertTrue(validPermutation(parent2));
+			boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
+			validateOrderingUOBX(parent1, p2, fixedPoints);
+			validateOrderingUOBX(parent2, p1, fixedPoints);
+		}
+		
+		uobx = new UniformOrderBasedCrossover(0.75);
+		for (int n = 8; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			uobx.cross(parent1, parent2);
+			assertTrue(validPermutation(parent1));
+			assertTrue(validPermutation(parent2));
+			boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
+			validateOrderingUOBX(parent1, p2, fixedPoints);
+			validateOrderingUOBX(parent2, p1, fixedPoints);
+		}
+	}
+	
+	@Test
+	public void testExceptionsUOBX() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new UniformOrderBasedCrossover(0.0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new UniformOrderBasedCrossover(1.0)
+		);
+	}
+	
+	private void validateOrderingUOBX(Permutation child, Permutation order, boolean[] fixedPoints) {
+		int[] inv = order.getInverse();
+		int last = -1;
+		for (int i = 0; i < fixedPoints.length; i++) {
+			if (!fixedPoints[i]) {
+				if (last >= 0) {
+					assertTrue(inv[child.get(i)] > inv[child.get(last)]);
+				}
+				last = i;
+			}
+		}
+	}
 	
 	private void validateOrderingOX(Permutation child, Permutation order, int[] startAndEnd) {
 		int[] inv = order.getInverse();

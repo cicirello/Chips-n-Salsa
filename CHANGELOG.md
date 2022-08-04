@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Cycle Crossover (CX)
   * Order Crossover (OX)
   * Non-Wrapping Order Crossover (NWOX)
+  * Uniform Order-Based Crossover (UOBX)
 
 ### Changed
 

@@ -52,8 +52,8 @@ import org.cicirello.math.rand.RandomIndexer;
  * and since on average there is a linear number of these, PMX as originally described required O(n<sup>2</sup>) time.
  * However, the implementation here in Chips-n-Salsa computes the inverse of each permutation in linear time, which is then used
  * as a lookup table for the indexes of the elements to swap. Each swap is constant time, and also involves a constant time
- * update to the lookup table of indexes. Thus, this implementation has an average case and worse case runtime O(n), where
- * n is permutation length.</p>
+ * update to the lookup table of indexes. Thus, this implementation, the {@link #cross cross} method, has an average case 
+ * and worst case runtime of O(n), where n is permutation length.</p>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

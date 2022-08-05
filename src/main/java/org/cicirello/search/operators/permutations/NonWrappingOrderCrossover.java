@@ -48,6 +48,9 @@ import org.cicirello.util.IntegerList;
  * 1, 2, 3, 4, 7. After filling these in the given order, from the left-most open index to the
  * right-most, we end up with c2 = [1, 2, 0, 5, 6, 3, 4, 7].</p>
  *
+ * <p>The worst case runtime of a call to {@link #cross cross} is O(n), where n is the length of the
+ * permutations.</p>
+ *
  * <p>NWOX was introduced in the following paper:</p>
  *
  * <p>Vincent A. Cicirello. <a href="https://www.cicirello.org/publications/cicirello2006gecco.html">Non-Wrapping 

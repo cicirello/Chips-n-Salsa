@@ -44,6 +44,9 @@ import org.cicirello.util.IntegerList;
  * Its missing elements, 0, 2, 5, and 6 will get relative order from p1, and thus will be ordered
  * 0, 6, 2, 5 to derive c2 = [7, 0, 6, 4, 3, 2, 1, 5].</p>
  *
+ * <p>The worst case runtime of a call to {@link #cross cross} is O(n), where n is the length of the
+ * permutations.</p>
+ *
  * <p>UOBX was introduced in the following paper:<br>
  * Syswerda, G. Schedule Optimization using Genetic Algorithms. <i>Handbook of Genetic Algorithms</i>, 1991.</p>
  *

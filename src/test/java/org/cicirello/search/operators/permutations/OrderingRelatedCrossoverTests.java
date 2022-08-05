@@ -30,22 +30,26 @@ import org.cicirello.permutations.Permutation;
  */
 public class OrderingRelatedCrossoverTests {
 	
+	private final static int NUM_SAMPLES = 5;
+	
 	@Test
 	public void testOX() {
 		OrderCrossover ox = new OrderCrossover();
 		for (int n = 1; n <= 64; n *= 2) {
-			Permutation p1 = new Permutation(n);
-			Permutation p2 = new Permutation(n);
-			Permutation parent1 = new Permutation(p1);
-			Permutation parent2 = new Permutation(p2);
-			ox.cross(parent1, parent2);
-			assertTrue(validPermutation(parent1));
-			assertTrue(validPermutation(parent2));
-			if (n >= 32) {
-				boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
-				int[] startAndEnd = findStartAndEnd(fixedPoints);
-				validateOrderingOX(parent1, p2, startAndEnd);
-				validateOrderingOX(parent2, p1, startAndEnd);
+			for (int s = 0; s < NUM_SAMPLES; s++) {
+				Permutation p1 = new Permutation(n);
+				Permutation p2 = new Permutation(n);
+				Permutation parent1 = new Permutation(p1);
+				Permutation parent2 = new Permutation(p2);
+				ox.cross(parent1, parent2);
+				assertTrue(validPermutation(parent1));
+				assertTrue(validPermutation(parent2));
+				if (n >= 32) {
+					boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
+					int[] startAndEnd = findStartAndEnd(fixedPoints);
+					validateOrderingOX(parent1, p2, startAndEnd);
+					validateOrderingOX(parent2, p1, startAndEnd);
+				}
 			}
 			assertSame(ox, ox.split());
 		}
@@ -55,21 +59,38 @@ public class OrderingRelatedCrossoverTests {
 	public void testNWOX() {
 		NonWrappingOrderCrossover nwox = new NonWrappingOrderCrossover();
 		for (int n = 1; n <= 64; n *= 2) {
-			Permutation p1 = new Permutation(n);
-			Permutation p2 = new Permutation(n);
-			Permutation parent1 = new Permutation(p1);
-			Permutation parent2 = new Permutation(p2);
-			nwox.cross(parent1, parent2);
-			assertTrue(validPermutation(parent1));
-			assertTrue(validPermutation(parent2));
-			if (n >= 32) {
-				boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
-				int[] startAndEnd = findStartAndEnd(fixedPoints);
-				validateOrderingNWOX(parent1, p2, startAndEnd);
-				validateOrderingNWOX(parent2, p1, startAndEnd);
+			for (int s = 0; s < NUM_SAMPLES; s++) {
+				Permutation p1 = new Permutation(n);
+				Permutation p2 = new Permutation(n);
+				Permutation parent1 = new Permutation(p1);
+				Permutation parent2 = new Permutation(p2);
+				nwox.cross(parent1, parent2);
+				assertTrue(validPermutation(parent1));
+				assertTrue(validPermutation(parent2));
+				if (n >= 32) {
+					boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
+					int[] startAndEnd = findStartAndEnd(fixedPoints);
+					validateOrderingNWOX(parent1, p2, startAndEnd);
+					validateOrderingNWOX(parent2, p1, startAndEnd);
+				}
 			}
 			assertSame(nwox, nwox.split());
 		}
+	}
+	
+	@Test
+	public void testNWOXIdenticalParents() {
+		NonWrappingOrderCrossover nwox = new NonWrappingOrderCrossover();
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(p1);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			nwox.cross(parent1, parent2);
+			assertEquals(p1, parent1);
+			assertEquals(p2, parent2);
+		}
+		assertSame(nwox, nwox.split());
 	}
 	
 	@Test

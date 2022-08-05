@@ -67,8 +67,8 @@ public class OrderingRelatedCrossoverTests {
 		// This is due to the above findStartAndEnd heuristically guessing what
 		// the random cross region was. I believe the probability of a false
 		// failure is approximately 1/n. Rerun if fails.
-		validateOrderingOX(parent1, p2, startAndEnd);
-		validateOrderingOX(parent2, p1, startAndEnd);
+		assertTrue(validateOrderingOX(parent1, p2, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+		assertTrue(validateOrderingOX(parent2, p1, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
 	}
 	
 	@Test
@@ -107,8 +107,8 @@ public class OrderingRelatedCrossoverTests {
 		// This is due to the above findStartAndEnd heuristically guessing what
 		// the random cross region was. I believe the probability of a false
 		// failure is approximately 1/n. Rerun if fails.
-		validateOrderingNWOX(parent1, p2, startAndEnd);
-		validateOrderingNWOX(parent2, p1, startAndEnd);
+		assertTrue(validateOrderingNWOX(parent1, p2, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+		assertTrue(validateOrderingNWOX(parent2, p1, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
 	}
 	
 	@Test
@@ -243,30 +243,40 @@ public class OrderingRelatedCrossoverTests {
 		}
 	}
 	
-	private void validateOrderingOX(Permutation child, Permutation order, int[] startAndEnd) {
+	private boolean validateOrderingOX(Permutation child, Permutation order, int[] startAndEnd) {
 		int[] inv = order.getInverse();
+		boolean result = true;
 		for (int i = startAndEnd[1] + 2; i < inv.length; i++) {
-			assertTrue(inv[child.get(i)] > inv[child.get(i-1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+			result = result && inv[child.get(i)] > inv[child.get(i-1)];
+			//assertTrue(inv[child.get(i)] > inv[child.get(i-1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
 		}
 		for (int i = 1; i < startAndEnd[0]; i++) {
-			assertTrue(inv[child.get(i)] > inv[child.get(i-1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+			result = result && inv[child.get(i)] > inv[child.get(i-1)];
+			//assertTrue(inv[child.get(i)] > inv[child.get(i-1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
 		}
 		if (0 < startAndEnd[0] && inv.length-1 > startAndEnd[1]) {
-			assertTrue(inv[child.get(0)] > inv[child.get(inv.length-1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+			result = result && inv[child.get(0)] > inv[child.get(inv.length-1)];
+			//assertTrue(inv[child.get(0)] > inv[child.get(inv.length-1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
 		}
+		return result;
 	}
 	
-	private void validateOrderingNWOX(Permutation child, Permutation order, int[] startAndEnd) {
+	private boolean validateOrderingNWOX(Permutation child, Permutation order, int[] startAndEnd) {
 		int[] inv = order.getInverse();
+		boolean result = true;
 		for (int i = 1; i < startAndEnd[0]; i++) {
-			assertTrue(inv[child.get(i)] > inv[child.get(i-1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+			result = result && inv[child.get(i)] > inv[child.get(i-1)];
+			//assertTrue(inv[child.get(i)] > inv[child.get(i-1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
 		}
 		for (int i = startAndEnd[1] + 2; i < inv.length; i++) {
-			assertTrue(inv[child.get(i)] > inv[child.get(i-1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+			result = result && inv[child.get(i)] > inv[child.get(i-1)];
+			//assertTrue(inv[child.get(i)] > inv[child.get(i-1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
 		}
 		if (startAndEnd[0] - 1 >= 0 && startAndEnd[1] + 1 < inv.length) {
-			assertTrue(inv[child.get(startAndEnd[1] + 1)] > inv[child.get(startAndEnd[0] - 1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+			result = result && inv[child.get(startAndEnd[1] + 1)] > inv[child.get(startAndEnd[0] - 1)];
+			//assertTrue(inv[child.get(startAndEnd[1] + 1)] > inv[child.get(startAndEnd[0] - 1)], "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
 		}
+		return result;
 	}
 	
 	private int[] findStartAndEnd(boolean[] fixedPoints) {

@@ -53,7 +53,7 @@ public class OrderingRelatedCrossoverTests {
 			}
 		}
 		assertSame(ox, ox.split());
-		final int n = 1000;
+		final int n = 2000;
 		Permutation p1 = new Permutation(n);
 		Permutation p2 = new Permutation(n);
 		Permutation parent1 = new Permutation(p1);
@@ -93,7 +93,7 @@ public class OrderingRelatedCrossoverTests {
 			}
 		}
 		assertSame(nwox, nwox.split());
-		final int n = 1000;
+		final int n = 2000;
 		Permutation p1 = new Permutation(n);
 		Permutation p2 = new Permutation(n);
 		Permutation parent1 = new Permutation(p1);

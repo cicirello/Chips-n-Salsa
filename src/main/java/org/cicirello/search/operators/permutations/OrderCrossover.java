@@ -46,6 +46,9 @@ import org.cicirello.util.IntegerList;
  * 1, 2, 3, 4, 7. After filling these in the given order, we end up 
  * with c2 = [4, 7, 0, 5, 6, 1, 2, 3].</p>
  *
+ * <p>The worst case runtime of a call to {@link #cross cross} is O(n), where n is the length of the
+ * permutations.</p>
+ *
  * <p>OX was introduced in the following paper:<br>
  * Davis, L. Applying Adaptive Algorithms to Epistatic Domains. <i>Proceedings of the International 
  * Joint Conference on Artificial Intelligence</i>, 1985, pp. 162-164.</p>

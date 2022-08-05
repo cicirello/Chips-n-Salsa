@@ -38,6 +38,9 @@ import org.cicirello.math.rand.RandomIndexer;
  * between the parents to form the children. Thus, the children are c1 = [0, 1, 2, 5, 4, 7, 6, 3]
  * and c2 = [1, 2, 0, 3, 6, 5, 4, 7].</p>
  *
+ * <p>The worst case runtime of a call to {@link #cross cross} is O(n), where n is the length of the
+ * permutations.</p>
+ *
  * <p>The CX operator was introduced in the following paper:<br>
  * Oliver, I.M., Smith, D.J., and Holland, J.R.C. A study of permutation crossover operators 
  * on the traveling salesman problem. <i>Proceedings of the 2nd International Conference on 

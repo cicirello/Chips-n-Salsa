@@ -78,19 +78,16 @@ public final class UniformOrderBasedCrossover implements CrossoverOperator<Permu
 	public void cross(Permutation c1, Permutation c2) {
 		c1.apply( 
 			(raw1, raw2) -> {
-				boolean[] mask = RandomIndexer.arrayMask(raw1.length, u);
+				int[] indexes = RandomIndexer.sample(raw1.length, u);
+				boolean[] mask = new boolean[raw1.length];
 				boolean[] in1 = new boolean[raw1.length];
 				boolean[] in2 = new boolean[raw1.length];
-				int orderedCount = 0;
-				for (int k = 0; k < mask.length; k++) {
-					if (mask[k]) {
-						in1[raw1[k]] = true;
-						in2[raw2[k]] = true;
-					} else {
-						orderedCount++;
-					}
+				for (int k : indexes) {
+					mask[k] = true;
+					in1[raw1[k]] = true;
+					in2[raw2[k]] = true;
 				}
-				
+				final int orderedCount = raw1.length - indexes.length;
 				if (orderedCount > 0) {
 					IntegerList list1 = new IntegerList(orderedCount);
 					IntegerList list2 = new IntegerList(orderedCount);

@@ -54,21 +54,27 @@ public class OrderingRelatedCrossoverTests {
 		}
 		assertSame(ox, ox.split());
 		final int n = 2000;
-		Permutation p1 = new Permutation(n);
-		Permutation p2 = new Permutation(n);
-		Permutation parent1 = new Permutation(p1);
-		Permutation parent2 = new Permutation(p2);
-		ox.cross(parent1, parent2);
-		assertTrue(validPermutation(parent1));
-		assertTrue(validPermutation(parent2));
-		boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
-		int[] startAndEnd = findStartAndEnd(fixedPoints);
+		final int RUNS = 4;
+		boolean passed = false;
+		for (int run = 0; run < RUNS && !passed; run++) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			ox.cross(parent1, parent2);
+			assertTrue(validPermutation(parent1));
+			assertTrue(validPermutation(parent2));
+			boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
+			int[] startAndEnd = findStartAndEnd(fixedPoints);
+			passed = validateOrderingOX(parent1, p2, startAndEnd) && validateOrderingOX(parent2, p1, startAndEnd);
+		}
 		// The following may on infrequent occasions exhibit a false failure.
 		// This is due to the above findStartAndEnd heuristically guessing what
 		// the random cross region was. I believe the probability of a false
-		// failure is approximately 1/n. Rerun if fails.
-		assertTrue(validateOrderingOX(parent1, p2, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
-		assertTrue(validateOrderingOX(parent2, p1, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+		// failure is very approximately (2/n)^RUNS, which for 3 runs of n=2000 is about 1 in 1000000000. Rerun if fails.
+		assertTrue(passed, "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+		//assertTrue(validateOrderingOX(parent1, p2, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+		//assertTrue(validateOrderingOX(parent2, p1, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
 	}
 	
 	@Test
@@ -94,21 +100,27 @@ public class OrderingRelatedCrossoverTests {
 		}
 		assertSame(nwox, nwox.split());
 		final int n = 2000;
-		Permutation p1 = new Permutation(n);
-		Permutation p2 = new Permutation(n);
-		Permutation parent1 = new Permutation(p1);
-		Permutation parent2 = new Permutation(p2);
-		nwox.cross(parent1, parent2);
-		assertTrue(validPermutation(parent1));
-		assertTrue(validPermutation(parent2));
-		boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
-		int[] startAndEnd = findStartAndEnd(fixedPoints);
+		final int RUNS = 4;
+		boolean passed = false;
+		for (int run = 0; run < RUNS && !passed; run++) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			nwox.cross(parent1, parent2);
+			assertTrue(validPermutation(parent1));
+			assertTrue(validPermutation(parent2));
+			boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
+			int[] startAndEnd = findStartAndEnd(fixedPoints);
+			passed = validateOrderingNWOX(parent1, p2, startAndEnd) && validateOrderingNWOX(parent2, p1, startAndEnd);
+		}
 		// The following may on infrequent occasions exhibit a false failure.
 		// This is due to the above findStartAndEnd heuristically guessing what
 		// the random cross region was. I believe the probability of a false
-		// failure is approximately 1/n. Rerun if fails.
-		assertTrue(validateOrderingNWOX(parent1, p2, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
-		assertTrue(validateOrderingNWOX(parent2, p1, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+		// failure is very approximately (2/n)^RUNS, which for 3 runs of n=2000 is about 1 in 1000000000. Rerun if fails.
+		assertTrue(passed, "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+		//assertTrue(validateOrderingNWOX(parent1, p2, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+		//assertTrue(validateOrderingNWOX(parent2, p1, startAndEnd), "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
 	}
 	
 	@Test

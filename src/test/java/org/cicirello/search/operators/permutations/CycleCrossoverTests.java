@@ -30,6 +30,26 @@ import org.cicirello.permutations.distance.CycleDistance;
  */
 public class CycleCrossoverTests {
 	
+	// Insert @Test here to activate during testing to visually inspect cross results
+	public void visuallyInspectCrossResult() {
+		int reps = 3;
+		CycleCrossover cx = new CycleCrossover();
+		for (int i = 0; i < reps; i++) {
+			Permutation p1 = new Permutation(10);
+			Permutation p2 = new Permutation(10);
+			
+			Permutation child1 = new Permutation(p1);
+			Permutation child2 = new Permutation(p2);
+			cx.cross(child1, child2);
+			System.out.println("CX Result");
+			System.out.println("Parent 1: " + p1);
+			System.out.println("Parent 2: " + p2);
+			System.out.println("Child 1 : " + child1);
+			System.out.println("Child 2 : " + child2);
+			System.out.println();
+		}			
+	}
+	
 	@Test
 	public void testIdenticalPermutations() {
 		CycleCrossover cross = new CycleCrossover();

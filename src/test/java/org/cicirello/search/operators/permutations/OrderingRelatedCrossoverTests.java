@@ -32,6 +32,48 @@ public class OrderingRelatedCrossoverTests {
 	
 	private final static int NUM_SAMPLES = 5;
 	
+	// Insert @Test here to activate during testing to visually inspect cross results
+	public void visuallyInspectCrossResult() {
+		int reps = 3;
+		OrderCrossover ox = new OrderCrossover();
+		NonWrappingOrderCrossover nwox = new NonWrappingOrderCrossover();
+		UniformOrderBasedCrossover uobx = new UniformOrderBasedCrossover();
+		for (int i = 0; i < reps; i++) {
+			Permutation p1 = new Permutation(10);
+			Permutation p2 = new Permutation(10);
+			
+			Permutation child1 = new Permutation(p1);
+			Permutation child2 = new Permutation(p2);
+			ox.cross(child1, child2);
+			System.out.println("OX Result");
+			System.out.println("Parent 1: " + p1);
+			System.out.println("Parent 2: " + p2);
+			System.out.println("Child 1 : " + child1);
+			System.out.println("Child 2 : " + child2);
+			System.out.println();
+			
+			child1 = new Permutation(p1);
+			child2 = new Permutation(p2);
+			nwox.cross(child1, child2);
+			System.out.println("NWOX Result");
+			System.out.println("Parent 1: " + p1);
+			System.out.println("Parent 2: " + p2);
+			System.out.println("Child 1 : " + child1);
+			System.out.println("Child 2 : " + child2);
+			System.out.println();
+			
+			child1 = new Permutation(p1);
+			child2 = new Permutation(p2);
+			uobx.cross(child1, child2);
+			System.out.println("UOBX Result");
+			System.out.println("Parent 1: " + p1);
+			System.out.println("Parent 2: " + p2);
+			System.out.println("Child 1 : " + child1);
+			System.out.println("Child 2 : " + child2);
+			System.out.println();
+		}			
+	}
+	
 	@Test
 	public void testOX() {
 		OrderCrossover ox = new OrderCrossover();

@@ -47,6 +47,22 @@ public class PMXAndRelatedTests {
 			System.out.println("Child 2 : " + child2);
 			System.out.println();
 		}			
+		
+		UniformPartiallyMatchedCrossover upmx = new UniformPartiallyMatchedCrossover();
+		for (int i = 0; i < reps; i++) {
+			Permutation p1 = new Permutation(10);
+			Permutation p2 = new Permutation(10);
+			
+			Permutation child1 = new Permutation(p1);
+			Permutation child2 = new Permutation(p2);
+			upmx.cross(child1, child2);
+			System.out.println("UPMX Result");
+			System.out.println("Parent 1: " + p1);
+			System.out.println("Parent 2: " + p2);
+			System.out.println("Child 1 : " + child1);
+			System.out.println("Child 2 : " + child2);
+			System.out.println();
+		}			
 	}
 	
 	@Test
@@ -120,6 +136,124 @@ public class PMXAndRelatedTests {
 			assertTrue(validPermutation(child2));
 		}
 		assertSame(pmx, pmx.split());
+	}
+	
+	@Test
+	public void testUPMXIdentical() {
+		UniformPartiallyMatchedCrossover upmx = new UniformPartiallyMatchedCrossover();
+		for (int n = 1; n <= 32; n *= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(p1);
+			Permutation child1 = new Permutation(p1);
+			Permutation child2 = new Permutation(p2);
+			upmx.cross(child1, child2);
+			assertEquals(p1, child1);
+			assertEquals(p2, child2);
+		}
+		assertSame(upmx, upmx.split());
+	}
+	
+	@Test
+	public void testUPMXNear0U() {
+		UniformPartiallyMatchedCrossover upmx = new UniformPartiallyMatchedCrossover(Math.ulp(0.0));
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			upmx.cross(parent1, parent2);
+			// the near 0 u should essentially keep all of the parents
+			// other than a low probability statistical anomaly
+			assertEquals(p1, parent1);
+			assertEquals(p2, parent2);
+		}
+	}
+	
+	@Test
+	public void testUPMXNear1U() {
+		UniformPartiallyMatchedCrossover upmx = new UniformPartiallyMatchedCrossover(1.0-Math.ulp(1.0));
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			upmx.cross(parent1, parent2);
+			// the near 1.0 u should essentially swap the parents
+			// other than a low probability statistical anomaly
+			assertEquals(p2, parent1);
+			assertEquals(p1, parent2);
+		}
+	}
+	
+	@Test
+	public void testUPMXInternalCross() {
+		UniformPartiallyMatchedCrossover upmx = new UniformPartiallyMatchedCrossover();
+		Permutation p1 = new Permutation(new int[] {7, 6, 5, 4, 3, 2, 1, 0});
+		Permutation p2 = new Permutation(new int[] {1, 2, 0, 5, 6, 4, 7, 3});
+		int[][] indexes = {
+			{3},                      // 4, 5
+			{3, 1},                   // 6, 2
+			{3, 1, 6},                // 1, 7
+			{3, 1, 6, 0},             // 7, 1
+			{3, 1, 6, 0, 2},          // 5, 0
+			{3, 1, 6, 0, 2, 5},       // 2, 4
+			{3, 1, 6, 0, 2, 5, 4},    // 3, 6
+			{3, 1, 6, 0, 2, 5, 4, 7}  // 0, 3
+		};
+		Permutation[][] expected = {
+			{ new Permutation(new int[] {7, 6, 4, 5, 3, 2, 1, 0}), new Permutation(new int[] {1, 2, 0, 4, 6, 5, 7, 3}) },
+			{ new Permutation(new int[] {7, 2, 4, 5, 3, 6, 1, 0}), new Permutation(new int[] {1, 6, 0, 4, 2, 5, 7, 3}) },
+			{ new Permutation(new int[] {1, 2, 4, 5, 3, 6, 7, 0}), new Permutation(new int[] {7, 6, 0, 4, 2, 5, 1, 3}) },
+			{ new Permutation(new int[] {1, 2, 4, 5, 3, 6, 7, 0}), new Permutation(new int[] {7, 6, 0, 4, 2, 5, 1, 3}) },
+			{ new Permutation(new int[] {1, 2, 0, 5, 3, 6, 7, 4}), new Permutation(new int[] {7, 6, 5, 4, 2, 0, 1, 3}) },
+			{ new Permutation(new int[] {1, 2, 0, 5, 3, 4, 7, 6}), new Permutation(new int[] {7, 6, 5, 4, 0, 2, 1, 3}) },
+			{ new Permutation(new int[] {1, 2, 0, 5, 6, 4, 7, 3}), new Permutation(new int[] {7, 6, 5, 4, 3, 2, 1, 0}) },
+			{ new Permutation(new int[] {1, 2, 0, 5, 6, 4, 7, 3}), new Permutation(new int[] {7, 6, 5, 4, 3, 2, 1, 0}) }
+		};
+		for (int k = 0; k < indexes.length; k++) {
+			Permutation child1 = new Permutation(p1);
+			Permutation child2 = new Permutation(p2);
+			upmx.internalCross(child1, child2, indexes[k]);
+			assertEquals(expected[k][0], child1);
+			assertEquals(expected[k][1], child2);
+		}
+	}
+	
+	@Test
+	public void testUPMXValidPermutations() {
+		UniformPartiallyMatchedCrossover upmx = new UniformPartiallyMatchedCrossover();
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			upmx.cross(parent1, parent2);
+			assertTrue(validPermutation(parent1));
+			assertTrue(validPermutation(parent2));
+		}
+		
+		upmx = new UniformPartiallyMatchedCrossover(0.5);
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			upmx.cross(parent1, parent2);
+			assertTrue(validPermutation(parent1));
+			assertTrue(validPermutation(parent2));
+		}
+	}
+	
+	@Test
+	public void testExceptionsUPMX() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new UniformPartiallyMatchedCrossover(0.0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new UniformPartiallyMatchedCrossover(1.0)
+		);
 	}
 	
 	private boolean validPermutation(Permutation p) {

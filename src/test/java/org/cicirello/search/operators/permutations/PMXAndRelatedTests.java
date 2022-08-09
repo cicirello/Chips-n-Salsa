@@ -47,6 +47,22 @@ public class PMXAndRelatedTests {
 			System.out.println("Child 2 : " + child2);
 			System.out.println();
 		}			
+		
+		UniformPartiallyMatchedCrossover upmx = new UniformPartiallyMatchedCrossover();
+		for (int i = 0; i < reps; i++) {
+			Permutation p1 = new Permutation(10);
+			Permutation p2 = new Permutation(10);
+			
+			Permutation child1 = new Permutation(p1);
+			Permutation child2 = new Permutation(p2);
+			upmx.cross(child1, child2);
+			System.out.println("UPMX Result");
+			System.out.println("Parent 1: " + p1);
+			System.out.println("Parent 2: " + p2);
+			System.out.println("Child 1 : " + child1);
+			System.out.println("Child 2 : " + child2);
+			System.out.println();
+		}			
 	}
 	
 	@Test

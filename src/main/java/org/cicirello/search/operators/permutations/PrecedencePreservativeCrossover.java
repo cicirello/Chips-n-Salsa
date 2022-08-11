@@ -27,7 +27,8 @@ import org.cicirello.math.rand.RandomIndexer;
 /**
  * <p>Implementation of Precedence Preservative Crossover (PPX), the two-point version. The paper 
  * by Bierwirth et al, which introduced PPX, described two versions of the operator, including the
- * two-point version that is implemented by this class, and a uniform version. They referred to both
+ * two-point version that is implemented by this class, and a uniform version, implemented in the
+ * {@link UniformPrecedencePreservativeCrossover} class. They referred to both
  * simply as PPX in that paper, but these are essentially two very similar, closely related crossover
  * operators.</p>
  *

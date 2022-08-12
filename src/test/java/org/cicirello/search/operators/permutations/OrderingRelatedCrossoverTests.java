@@ -26,7 +26,7 @@ import org.cicirello.permutations.Permutation;
 
 /**
  * JUnit test cases for ordering related crossover operators,
- * such as OX, NWOX, UOBX.
+ * such as OX, NWOX, UOBX, OX2.
  */
 public class OrderingRelatedCrossoverTests {
 	
@@ -38,6 +38,7 @@ public class OrderingRelatedCrossoverTests {
 		OrderCrossover ox = new OrderCrossover();
 		NonWrappingOrderCrossover nwox = new NonWrappingOrderCrossover();
 		UniformOrderBasedCrossover uobx = new UniformOrderBasedCrossover();
+		OrderCrossoverTwo ox2 = new OrderCrossoverTwo();
 		for (int i = 0; i < reps; i++) {
 			Permutation p1 = new Permutation(10);
 			Permutation p2 = new Permutation(10);
@@ -66,6 +67,16 @@ public class OrderingRelatedCrossoverTests {
 			child2 = new Permutation(p2);
 			uobx.cross(child1, child2);
 			System.out.println("UOBX Result");
+			System.out.println("Parent 1: " + p1);
+			System.out.println("Parent 2: " + p2);
+			System.out.println("Child 1 : " + child1);
+			System.out.println("Child 2 : " + child2);
+			System.out.println();
+			
+			child1 = new Permutation(p1);
+			child2 = new Permutation(p2);
+			ox2.cross(child1, child2);
+			System.out.println("OX2 Result");
 			System.out.println("Parent 1: " + p1);
 			System.out.println("Parent 2: " + p2);
 			System.out.println("Child 1 : " + child1);
@@ -281,6 +292,145 @@ public class OrderingRelatedCrossoverTests {
 		thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new UniformOrderBasedCrossover(1.0)
+		);
+	}
+	
+	@Test
+	public void testOX2IdenticalParents() {
+		OrderCrossoverTwo ox2 = new OrderCrossoverTwo();
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(p1);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			ox2.cross(parent1, parent2);
+			assertEquals(p1, parent1);
+			assertEquals(p2, parent2);
+		}
+		assertSame(ox2, ox2.split());
+	}
+	
+	@Test
+	public void testOX2Near0U() {
+		OrderCrossoverTwo ox2 = new OrderCrossoverTwo(Math.ulp(0.0));
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			ox2.cross(parent1, parent2);
+			// the near 0 u should essentially keep all of the parents
+			// other than a low probability statistical anomaly
+			assertEquals(p1, parent1);
+			assertEquals(p2, parent2);
+		}
+	}
+	
+	@Test
+	public void testOX2Near1U() {
+		OrderCrossoverTwo ox2 = new OrderCrossoverTwo(1.0-Math.ulp(1.0));
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			ox2.cross(parent1, parent2);
+			// the near 1.0 u should essentially swap the parents
+			// other than a low probability statistical anomaly
+			assertEquals(p2, parent1);
+			assertEquals(p1, parent2);
+		}
+	}
+	
+	@Test
+	public void testOX2Validity() {
+		// Validates children as valid permutations only.
+		// Does not validate behavior of the OX2.
+		
+		OrderCrossoverTwo ox2 = new OrderCrossoverTwo();
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			ox2.cross(parent1, parent2);
+			assertTrue(validPermutation(parent1));
+			assertTrue(validPermutation(parent2));
+		}
+		
+		ox2 = new OrderCrossoverTwo(0.25);
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			ox2.cross(parent1, parent2);
+			assertTrue(validPermutation(parent1));
+			assertTrue(validPermutation(parent2));
+		}
+		
+		ox2 = new OrderCrossoverTwo(0.75);
+		for (int n = 1; n <= 32; n*= 2) {
+			Permutation p1 = new Permutation(n);
+			Permutation p2 = new Permutation(n);
+			Permutation parent1 = new Permutation(p1);
+			Permutation parent2 = new Permutation(p2);
+			ox2.cross(parent1, parent2);
+			assertTrue(validPermutation(parent1));
+			assertTrue(validPermutation(parent2));
+		}
+	}
+	
+	@Test
+	public void testInternalCrossOX2() {
+		OrderCrossoverTwo ox2 = new OrderCrossoverTwo();
+		{
+			Permutation c1 = new Permutation(new int[] {1, 0, 3, 2, 5, 4, 7, 6});
+			Permutation c2 = new Permutation(new int[] {6, 7, 4, 5, 2, 3, 0, 1});
+			boolean[] mask = {false, true, false, true, false, true, false, true};
+			Permutation expected1 = new Permutation(new int[] {7, 0, 5, 2, 3, 4, 1, 6});
+			Permutation expected2 = new Permutation(new int[] {0, 7, 2, 5, 4, 3, 6, 1});
+			final int[][] raw = new int[2][];
+			c1.apply((r1, r2) -> { raw[0] = r1; raw[1] = r2; }, c2);
+			ox2.internalCross(raw[0], raw[1], c1, c2, mask);
+			assertEquals(expected1, c1);
+			assertEquals(expected2, c2);
+		}
+		{
+			Permutation c1 = new Permutation(new int[] {1, 0, 3, 2, 5, 4, 7, 6});
+			Permutation c2 = new Permutation(new int[] {6, 7, 4, 5, 2, 3, 0, 1});
+			boolean[] mask = {true, false, true, false, true, false, true, false};
+			Permutation expected1 = new Permutation(new int[] {1, 6, 3, 4, 5, 2, 7, 0});
+			Permutation expected2 = new Permutation(new int[] {6, 1, 4, 3, 2, 5, 0, 7});
+			final int[][] raw = new int[2][];
+			c1.apply((r1, r2) -> { raw[0] = r1; raw[1] = r2; }, c2);
+			ox2.internalCross(raw[0], raw[1], c1, c2, mask);
+			assertEquals(expected1, c1);
+			assertEquals(expected2, c2);
+		}
+		{
+			Permutation c1 = new Permutation(new int[] {1, 0, 3, 2, 5, 4, 7, 6});
+			Permutation c2 = new Permutation(new int[] {6, 7, 4, 5, 2, 3, 0, 1});
+			boolean[] mask = {false, true, true, false, false, false, true, true};
+			Permutation expected1 = new Permutation(new int[] {7, 4, 3, 2, 5, 0, 1, 6});
+			Permutation expected2 = new Permutation(new int[] {0, 3, 4, 5, 2, 7, 6, 1});
+			final int[][] raw = new int[2][];
+			c1.apply((r1, r2) -> { raw[0] = r1; raw[1] = r2; }, c2);
+			ox2.internalCross(raw[0], raw[1], c1, c2, mask);
+			assertEquals(expected1, c1);
+			assertEquals(expected2, c2);
+		}
+	}
+	
+	@Test
+	public void testExceptionsOX2() {
+		IllegalArgumentException thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new OrderCrossoverTwo(0.0)
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new OrderCrossoverTwo(1.0)
 		);
 	}
 	

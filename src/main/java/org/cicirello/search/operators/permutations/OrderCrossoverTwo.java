@@ -25,7 +25,45 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.util.IntegerList;
 
-
+/**
+ * <p>Implementation of the crossover operator for permutations that is often referred to as Order Crossover 2 (OX2). It is 
+ * rather different in function than the original Order Crossover (OX), implemented in class {@link OrderCrossover}. OX2, which
+ * was introduced by Syswerda (see reference below), is very nearly identical to Uniform Order Based Crossover (UOBX) also
+ * introduced by Syswerda in the same paper. UOBX is implemented in the {@link UniformOrderBasedCrossover} class. Each child 
+ * produced by OX2 from a given pair of parents can be produced by UOBX from
+ * the same pair of parents. Likewise each child produced by UOBX from a given pair of parents can be produced by OX2 from the
+ * same pair of parents. However, the pair of children produced by OX2 from a given pair of parents will typically differ from
+ * the pair of children produced by UOBX and vice versa. Therefore, OX2 and UOBX are not exactly equivalent. However, it is not
+ * clear whether there is ever an occasion when either one will lead to significantly different performance relative to the other.
+ * The Chips-n-Salsa library includes both operators in the interest of comprehensiveness with respect to commonly encountered
+ * permutation crossover operators.</p>
+ *
+ * <p>OX2 begins by selecting a random set of indexes. The original description implied each index equally likely chosen as not
+ * chosen. However, in our implementation, we provide a parameter u, which is the probability that an index is chosen, much like
+ * the parameter of a uniform crossover for bit-strings. We provide a constructor with a default of u=0.5. The elements at those
+ * indexes in parent p2 are found in parent p1. Child c1 is then a copy of p1 but with those elements rearranged into the relative
+ * order from p2. In a similar way, the elements at the chosen indexes in parent p1 are found in parent p2. Child c2 is then a copy 
+ * of p2 but with those elements rearranged into the relative order from p1.</p>
+ *
+ * <p>Consider this example. Let p1 = [1, 0, 3, 2, 5, 4, 7, 6] and p2 = [6, 7, 4, 5, 2, 3, 0, 1]. Let the random indexes include: 1, 2, 6, 
+ * and 7. The elements at those indexes in p2, ordered as in p2, are: 7, 4, 0, 1. These are therefore rearranged within p1 to produce
+ * c1 = [7, 4, 3, 2, 5, 0, 1, 6]. The elements at the random indexes in p1, ordered as in p1, are: 0, 3, 7, 6. These are therefore 
+ * rearranged within p2 to produce c2 = [0, 3, 4, 5, 2, 7, 6, 1].</p>
+ *
+ * <p>The worst case runtime of a call to {@link #cross cross} is O(n), where n is the length of the
+ * permutations.</p>
+ *
+ * <p>OX2 was introduced in the following paper:<br>
+ * Syswerda, G. Schedule Optimization using Genetic Algorithms. <i>Handbook of Genetic Algorithms</i>, 1991.</p>
+ *
+ * <p>Although it got its name Order Crossover 2 (OX2) from others in order to distinguish it from
+ * the original OX, such as this paper:<br>
+ * T. Starkweather, S McDaniel, K Mathias, D Whitley, and C Whitley. A Comparison of Genetic Sequencing Operators.
+ * <i>Proceedings of the Fourth International Conference on Genetic Algorithms</i>, pages 69-76, 1991.</p>
+ *
+ * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+ * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ */
 public final class OrderCrossoverTwo implements CrossoverOperator<Permutation> {
 	
 	private final double u;

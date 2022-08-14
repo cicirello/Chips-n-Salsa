@@ -220,11 +220,30 @@ public final class EdgeRecombination implements CrossoverOperator<Permutation> {
 		}
 		
 		final int anyRemaining() {
-			// This might not be necessary. See other comments.
-			// If it is necessary should probably find element with fewest adjacent among the not done ones,
-			// picking randomly if ties.
+			int[] minIndexes = new int[adj.length];
+			int num = 0;
 			for (int i = 0; i < done.length; i++) {
-				if (!done[i]) return i;
+				if (!done[i]) {
+					if (num == 0) {
+						minIndexes[0] = i;
+						num = 1;
+					} else if (count[i] == count[minIndexes[0]]) {
+						minIndexes[num] = i;
+						num++;
+					} else if (count[i] < count[minIndexes[0]]) {
+						minIndexes[0] = i;
+						num = 1;
+					}
+				}
+			}
+			if (num > 1) {
+				// The num should be very small, so nextBiasedInt's lack of rejection sampling
+				// should introduce an extremely negligible bias away from uniformity. In fact, this
+				// case is believed extremely statistically rare.
+				return minIndexes[RandomIndexer.nextBiasedInt(num)];
+			} 
+			if (num == 1) {
+				return minIndexes[0];
 			}
 			return -1;
 		}

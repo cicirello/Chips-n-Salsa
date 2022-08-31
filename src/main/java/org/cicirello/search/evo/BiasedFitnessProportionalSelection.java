@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -48,7 +48,7 @@ package org.cicirello.search.evo;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class BiasedFitnessProportionalSelection extends FitnessProportionalSelection {
+public class BiasedFitnessProportionalSelection extends FitnessProportionalSelection {
 	
 	private final FitnessBiasFunction bias;
 	
@@ -69,7 +69,7 @@ public final class BiasedFitnessProportionalSelection extends FitnessProportiona
 	}
 	
 	@Override
-	final double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
+	double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
 		double[] p = new double[fitnesses.size()];
 		p[0] = bias.bias(fitnesses.getFitness(0));
 		for (int i = 1; i < p.length; i++) {
@@ -79,7 +79,7 @@ public final class BiasedFitnessProportionalSelection extends FitnessProportiona
 	}
 	
 	@Override
-	final double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
+	double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
 		double[] p = new double[fitnesses.size()];
 		p[0] = bias.bias(fitnesses.getFitness(0));
 		for (int i = 1; i < p.length; i++) {

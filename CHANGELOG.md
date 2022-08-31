@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Precedence Preservative Crossover (PPX): uniform version
   * Edge Recombination
   * Enhanced Edge Recombination
+* Boltzmann selection with 3 temperature schedules: constant, linear cooling, exponential cooling
 
 ### Changed
 

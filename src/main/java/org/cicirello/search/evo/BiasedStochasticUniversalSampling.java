@@ -61,7 +61,7 @@ package org.cicirello.search.evo;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class BiasedStochasticUniversalSampling extends StochasticUniversalSampling {
+public class BiasedStochasticUniversalSampling extends StochasticUniversalSampling {
 	
 	private final FitnessBiasFunction bias;
 	
@@ -82,7 +82,7 @@ public final class BiasedStochasticUniversalSampling extends StochasticUniversal
 	}
 	
 	@Override
-	final double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
+	double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
 		double[] p = new double[fitnesses.size()];
 		p[0] = bias.bias(fitnesses.getFitness(0));
 		for (int i = 1; i < p.length; i++) {
@@ -92,7 +92,7 @@ public final class BiasedStochasticUniversalSampling extends StochasticUniversal
 	}
 	
 	@Override
-	final double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
+	double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
 		double[] p = new double[fitnesses.size()];
 		p[0] = bias.bias(fitnesses.getFitness(0));
 		for (int i = 1; i < p.length; i++) {

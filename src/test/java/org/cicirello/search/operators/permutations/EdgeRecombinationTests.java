@@ -47,6 +47,22 @@ public class EdgeRecombinationTests {
 	}
 	
 	@Test
+	public void testEdgeMapAnyRemainingWithCommonEdges() {
+		int[] raw1 = {0, 1, 2, 3, 4, 5, 6, 7};
+		int[] raw2 = {7, 2, 3, 4, 0, 5, 1, 6};
+		boolean[] used = new boolean[raw1.length];
+		EdgeRecombination.EdgeMap map = new EdgeRecombination.EdgeMap(raw1, raw2);
+		for (int i = 0; i < raw1.length; i++) {
+			int element = map.anyRemaining();
+			assertFalse(used[element]);
+			map.used(element);
+			used[element] = true;
+		}
+		assertEquals(-1, map.anyRemaining());
+	}
+	
+	
+	@Test
 	public void testEdgeMapPick() {
 		int[] raw1 = {0, 1, 2, 3, 4, 5, 6, 7};
 		int[] raw2 = {2, 7, 3, 6, 0, 5, 1, 4};

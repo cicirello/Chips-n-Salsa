@@ -28,27 +28,27 @@ package org.cicirello.search.evo;
  */
 final class ConstantBoltzmannBiasFunction extends BoltzmannBiasFunction {
 		
-	private final double t;
+	private final double t0;
 	
 	/**
 	 * Initializes a constant temperature t.
 	 *
-	 * @param t The temperature.
+	 * @param t0 The temperature.
 	 */ 
-	public ConstantBoltzmannBiasFunction(double t) {
-		this.t = t;
+	public ConstantBoltzmannBiasFunction(double t0) {
+		super(t0);
+		this.t0 = t0;
 	}
 	
 	@Override
-	public double bias(double fitness) {
-		return Math.exp(fitness / t);
+	public double getT0() {
+		return t0;
 	}
 	
 	@Override
-	public void init() {}
-	
-	@Override
-	public void update() {}
+	public double nextT(double t) {
+		return t0;
+	}
 	
 	@Override
 	public ConstantBoltzmannBiasFunction split() {

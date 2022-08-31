@@ -30,15 +30,48 @@ import org.cicirello.search.concurrent.Splittable;
  */
 abstract class BoltzmannBiasFunction implements FitnessBiasFunction, Splittable<BoltzmannBiasFunction> {
 	
+	private double t;
+	
 	/**
 	 * Constructor for base class.
+	 *
+	 * @param t initial temperatire
 	 */
-	public BoltzmannBiasFunction() {}
+	public BoltzmannBiasFunction(double t) {
+		this.t = t;
+	}
+	
+	@Override
+	final public double bias(double fitness) {
+		return Math.exp(fitness / t);
+	}
 		
 	@Override
 	abstract public BoltzmannBiasFunction split();
 	
-	abstract public void init();
+	/**
+	 * Initializes the cooling schedule.
+	 */
+	final public void init() {
+		t = getT0();
+	}
 	
-	abstract public void update();
+	/**
+	 * Updates the cooling schedule.
+	 */
+	final public void update() {
+		t = nextT(t);
+	}
+	
+	/**
+	 * Gets the initial temperature for the schedule.
+	 */
+	abstract public double getT0();
+	
+	/**
+	 * Gets the next temperature for the schedule.
+	 *
+	 * @param t The current temperature.
+	 */
+	abstract public double nextT(double t);
 }

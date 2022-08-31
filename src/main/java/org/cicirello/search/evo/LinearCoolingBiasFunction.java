@@ -28,7 +28,6 @@ package org.cicirello.search.evo;
  */
 final class LinearCoolingBiasFunction extends BoltzmannBiasFunction {
 		
-	private double t;
 	private final double t0;
 	private final double r;
 	private final double tMin;
@@ -41,27 +40,21 @@ final class LinearCoolingBiasFunction extends BoltzmannBiasFunction {
 	 * @param tMin The minimum temperature
 	 */
 	public LinearCoolingBiasFunction(double t0, double r, double tMin) {
-		t = this.t0 = t0;
+		super(t0);
+		this.t0 = t0;
 		this.r = r;
 		this.tMin = tMin;
 	}
 	
 	@Override
-	public void init() {
-		t = t0;
+	public double getT0() {
+		return t0;
 	}
 	
 	@Override
-	public void update() {
+	public double nextT(double t) {
 		t -= r;
-		if (t < tMin) {
-			t = tMin;
-		}
-	}
-	
-	@Override
-	public double bias(double fitness) {
-		return Math.exp(fitness / t);
+		return t < tMin ? tMin : t;
 	}
 	
 	@Override

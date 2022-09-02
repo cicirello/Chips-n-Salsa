@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2022-09-02
 
-**BREAKING CHANGES:** The next release includes breaking changes.
+**BREAKING CHANGES:** The next release includes breaking changes (see Removed and Changed sections).
 
 ### Added
 * Crossover operators for permutations:
@@ -32,6 +32,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 ### Removed
+* The following classes, previously deprecated in 5.1.0:
+  * ShiftedFitnessProportionalSelection, replaced by combination of FitnessShifter with FitnessProportionalSelection.
+  * ShiftedStochasticUniversalSampling, replaced by combination of FitnessShifter with StochasticUniversalSampling.
+  * BiasedShiftedFitnessProportionalSelection, replaced by combination of FitnessShifter with BiasedFitnessProportionalSelection.
+  * BiasedShiftedStochasticUniversalSampling, replaced by combination of FitnessShifter with BiasedStochasticUniversalSampling.
 
 ### Fixed
 

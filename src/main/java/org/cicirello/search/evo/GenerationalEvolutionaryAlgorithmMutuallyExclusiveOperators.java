@@ -56,7 +56,7 @@ import org.cicirello.math.rand.RandomVariates;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T>> extends AbstractEvolutionaryAlgorithm<T> {
+public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T extends Copyable<T>> extends AbstractEvolutionaryAlgorithm<T> {
 	
 	private final MutationOperator<T> mutation;
 	private final double M_PRIME;
@@ -91,7 +91,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
-	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, int eliteCount, ProgressTracker<T> tracker) {
+	public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, int eliteCount, ProgressTracker<T> tracker) {
 		this(new BasePopulation.Double<T>(n, initializer, f, selection, tracker, eliteCount), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
 	}
 	
@@ -123,7 +123,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
-	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, int eliteCount, ProgressTracker<T> tracker) {
+	public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, int eliteCount, ProgressTracker<T> tracker) {
 		this(new BasePopulation.Integer<T>(n, initializer, f, selection, tracker, eliteCount), f.getProblem(), mutation, mutationRate, crossover, crossoverRate);
 	}
 	
@@ -153,7 +153,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws IllegalArgumentException if mutationRate + crossoverRate &gt; 1.0.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
-	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+	public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
 		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, 0, tracker);
 	}
 	
@@ -183,7 +183,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws IllegalArgumentException if mutationRate + crossoverRate &gt; 1.0.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or tracker are null.
 	 */
-	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
+	public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker) {
 		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, 0, tracker);
 	}
 	
@@ -214,7 +214,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
 	 */
-	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, int eliteCount) {
+	public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, int eliteCount) {
 		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, eliteCount, new ProgressTracker<T>());
 	}
 	
@@ -245,7 +245,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws IllegalArgumentException if eliteCount is greater than or equal to n.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
 	 */
-	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, int eliteCount) {
+	public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, int eliteCount) {
 		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, eliteCount, new ProgressTracker<T>());
 	}
 	
@@ -274,7 +274,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws IllegalArgumentException if mutationRate + crossoverRate &gt; 1.0.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
 	 */
-	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
+	public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection) {
 		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, new ProgressTracker<T>());
 	}
 	
@@ -303,7 +303,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * @throws IllegalArgumentException if mutationRate + crossoverRate &gt; 1.0.
 	 * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are null.
 	 */
-	public GenerationalNANDOperatorsEvolutionaryAlgorithm(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection) {
+	public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(int n, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection) {
 		this(n, mutation, mutationRate, crossover, crossoverRate, initializer, f, selection, new ProgressTracker<T>());
 	}
 	
@@ -312,7 +312,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	/*
 	 * Internal helper constructor for standard EAs with full generation (both crossover and mutation).
 	 */
-	private GenerationalNANDOperatorsEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate) {
+	private GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate) {
 		super(pop, problem);
 		if (mutation == null) {
 			throw new NullPointerException("mutation must be non-null");
@@ -339,7 +339,7 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	 * Internal constructor for use by split method.
 	 * package private so subclasses in same package can use it for initialization for their own split methods.
 	 */
-	GenerationalNANDOperatorsEvolutionaryAlgorithm(GenerationalNANDOperatorsEvolutionaryAlgorithm<T> other) {
+	GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T> other) {
 		super(other);
 		
 		// Must be split
@@ -352,8 +352,8 @@ public class GenerationalNANDOperatorsEvolutionaryAlgorithm<T extends Copyable<T
 	}
 	
 	@Override
-	public GenerationalNANDOperatorsEvolutionaryAlgorithm<T> split() {
-		return new GenerationalNANDOperatorsEvolutionaryAlgorithm<T>(this);
+	public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T> split() {
+		return new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T>(this);
 	}
 		
 	@Override

@@ -37,7 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Dependencies
 * Bump jpt from 4.0.0 to 4.2.0
-* Bump rho-mu from 2.3.2 to 2.4.1
+* Bump rho-mu from 2.3.2 to 2.4.2
 
 ### CI/CD
 

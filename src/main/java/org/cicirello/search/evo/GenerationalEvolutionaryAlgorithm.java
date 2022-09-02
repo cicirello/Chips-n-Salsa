@@ -49,7 +49,7 @@ import org.cicirello.math.rand.RandomVariates;
  *
  * <p>The library also includes a class for mutation-only generational EAs
  * (see {@link GenerationalMutationOnlyEvolutionaryAlgorithm}). It also includes
- * a variation of the generation structure in the class {@link GenerationalNANDOperatorsEvolutionaryAlgorithm},
+ * a variation of the generation structure in the class {@link GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators},
  * where crossover and mutation are treated as mutually exclusive operators such that a child
  * in a generation may be the result of crossover, or mutation, or an identical copy, but never
  * the result of both crossover and mutation.</p>

@@ -34,7 +34,7 @@ import org.cicirello.search.operators.CrossoverOperator;
 
 /**
  * JUnit test cases for GenerationalEvolutionaryAlgorithm,
- * GenerationalNANDOperatorsEvolutionaryAlgorithm, and
+ * GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators, and
  * GenerationalMutationOnlyEvolutionaryAlgorithm, cases with constructors 
  * without ProgressTracker parameter, but with elitism.
  */
@@ -124,7 +124,7 @@ public class GenerationalEAWithElitismTests {
 		);
 		thrownNull = assertThrows( 
 			NullPointerException.class,
-			() -> new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 				5, 
 				null, 
 				0.5, 
@@ -138,7 +138,7 @@ public class GenerationalEAWithElitismTests {
 		);
 		thrownNull = assertThrows( 
 			NullPointerException.class,
-			() -> new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 				5, 
 				null, 
 				0.5,
@@ -152,7 +152,7 @@ public class GenerationalEAWithElitismTests {
 		);
 		thrownNull = assertThrows( 
 			NullPointerException.class,
-			() -> new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 				5, 
 				new CountMutationCalls(), 
 				0.5, 
@@ -166,7 +166,7 @@ public class GenerationalEAWithElitismTests {
 		);
 		thrownNull = assertThrows( 
 			NullPointerException.class,
-			() -> new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 				5, 
 				new CountMutationCalls(), 
 				0.5,
@@ -260,7 +260,7 @@ public class GenerationalEAWithElitismTests {
 		);
 		thrownIllegal = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 				5, 
 				new CountMutationCalls(), 
 				0.5, 
@@ -274,7 +274,7 @@ public class GenerationalEAWithElitismTests {
 		);
 		thrownIllegal = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 				5, 
 				new CountMutationCalls(), 
 				1E-10, 
@@ -288,7 +288,7 @@ public class GenerationalEAWithElitismTests {
 		);
 		thrownIllegal = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 				5, 
 				new CountMutationCalls(), 
 				1E-10, 
@@ -302,7 +302,7 @@ public class GenerationalEAWithElitismTests {
 		);
 		thrownIllegal = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 				5, 
 				new CountMutationCalls(), 
 				-1E-10, 
@@ -316,7 +316,7 @@ public class GenerationalEAWithElitismTests {
 		);
 		thrownIllegal = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 				5, 
 				new CountMutationCalls(), 
 				-1E-10, 
@@ -344,7 +344,7 @@ public class GenerationalEAWithElitismTests {
 		);
 		thrownIllegal = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+			() -> new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 				5, 
 				new CountMutationCalls(), 
 				0.5,
@@ -848,7 +848,7 @@ public class GenerationalEAWithElitismTests {
 		final int N = 100;
 		final int E = 3;
 		
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea = new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea = new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 			N+E, 
 			mutation, 
 			0.25,
@@ -882,7 +882,7 @@ public class GenerationalEAWithElitismTests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		int oldMutationCount = mutation.count;
@@ -951,7 +951,7 @@ public class GenerationalEAWithElitismTests {
 		final int N = 101;
 		final int E = 3;
 		
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea = new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea = new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 			N+E, 
 			mutation, 
 			0.5, 
@@ -983,7 +983,7 @@ public class GenerationalEAWithElitismTests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		solution = ea.reoptimize(5);
@@ -1044,7 +1044,7 @@ public class GenerationalEAWithElitismTests {
 		final int N = 100;
 		final int E = 3;
 		
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea = new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea = new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 			N+E, 
 			mutation, 
 			0.0, 
@@ -1077,7 +1077,7 @@ public class GenerationalEAWithElitismTests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		solution = ea.reoptimize(5);
@@ -1140,7 +1140,7 @@ public class GenerationalEAWithElitismTests {
 		final int N = 100;
 		final int E = 3;
 		
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea = new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea = new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 			N+E, 
 			mutation, 
 			Math.ulp(1.0), 
@@ -1173,7 +1173,7 @@ public class GenerationalEAWithElitismTests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		solution = ea.reoptimize(5);
@@ -1701,7 +1701,7 @@ public class GenerationalEAWithElitismTests {
 		final int N = 100;
 		final int E = 3;
 		
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea = new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea = new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 			N+E, 
 			mutation, 
 			0.25,
@@ -1735,7 +1735,7 @@ public class GenerationalEAWithElitismTests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		int oldMutationCount = mutation.count;
@@ -1804,7 +1804,7 @@ public class GenerationalEAWithElitismTests {
 		final int N = 101;
 		final int E = 3;
 		
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea = new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea = new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 			N+E, 
 			mutation, 
 			0.5, 
@@ -1836,7 +1836,7 @@ public class GenerationalEAWithElitismTests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		solution = ea.reoptimize(5);
@@ -1897,7 +1897,7 @@ public class GenerationalEAWithElitismTests {
 		final int N = 100;
 		final int E = 3;
 		
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea = new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea = new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 			N+E, 
 			mutation, 
 			0.0, 
@@ -1930,7 +1930,7 @@ public class GenerationalEAWithElitismTests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		solution = ea.reoptimize(5);
@@ -1993,7 +1993,7 @@ public class GenerationalEAWithElitismTests {
 		final int N = 100;
 		final int E = 3;
 		
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea = new GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject>(
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea = new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
 			N+E, 
 			mutation, 
 			Math.ulp(1.0), 
@@ -2026,7 +2026,7 @@ public class GenerationalEAWithElitismTests {
 		assertEquals(1, selection.initCount);
 		
 		// split it
-		GenerationalNANDOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
 		
 		// reoptimize
 		solution = ea.reoptimize(5);

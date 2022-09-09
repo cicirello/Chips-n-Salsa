@@ -1,6 +1,6 @@
-# Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms
-
 [![Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel, stochastic, and self-adaptive local search algorithms](https://chips-n-salsa.cicirello.org/images/chips-n-salsa640.png)](#chips-n-salsa---a-java-library-of-customizable-hybridizable-iterative-parallel-stochastic-and-self-adaptive-local-search-algorithms)
+
+# Chips-n-Salsa
 
 Copyright (C) 2002-2022 [Vincent A. Cicirello](https://www.cicirello.org/).
 

@@ -27,6 +27,9 @@
  * <p><a href="https://doi.org/10.21105/joss.02448"><img 
  * src="https://joss.theoj.org/papers/10.21105/joss.02448/status.svg" 
  * alt="DOI:10.21105/joss.02448" height="20" width="168"></a>
+ * <a href="https://github.com/josephmisiti/awesome-machine-learning"><img 
+ * src="https://awesome.re/mentioned-badge.svg" 
+ * alt="Mentioned in Awesome Machine Learning" width="110" height="20"></a>
  * <a href="https://search.maven.org/artifact/org.cicirello/chips-n-salsa"><img 
  * src="https://img.shields.io/maven-central/v/org.cicirello/chips-n-salsa.svg?logo=apachemaven" 
  * alt="Maven Central" height="20" width="153"></a>

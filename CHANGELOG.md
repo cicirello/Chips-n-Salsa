@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-09-19
 
 ### Added
+* A factory method in the GaussianMutation class for creating a GaussianMutation that constrains
+  result to an interval, such as relevant if mutating a crossover or mutation rate since such rates
+  constrained in [0.0, 1.0].
 
 ### Changed
 

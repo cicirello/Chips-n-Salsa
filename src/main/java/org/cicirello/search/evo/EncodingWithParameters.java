@@ -40,7 +40,7 @@ final class EncodingWithParameters<T extends Copyable<T>> implements Copyable<En
 	final T candidate;
 	private final RealVector params;
 	private final GaussianMutation<RealVector> mutator;
-	private final GaussianMutation<GaussianMutation> mutationMutator;
+	private final static GaussianMutation<GaussianMutation> mutationMutator = GaussianMutation.createGaussianMutation(0.01, 0.01, 0.2);
 	
 	EncodingWithParameters(T candidate, int numParams) {
 		this(candidate, numParams, 0.1, 1.0);
@@ -54,16 +54,12 @@ final class EncodingWithParameters<T extends Copyable<T>> implements Copyable<En
 		}
 		params = new RealVector(initial);
 		mutator = GaussianMutation.createGaussianMutation(ThreadLocalRandom.current().nextDouble(0.05, 0.15), minRate, maxRate);
-		mutationMutator = GaussianMutation.createGaussianMutation(0.01, 0.01, 0.2);
 	}
 	
 	private EncodingWithParameters(EncodingWithParameters<T> other) {
 		candidate = other.candidate.copy();
 		params = other.params.copy();
 		mutator = other.mutator.copy();
-		
-		// This one is safe to share
-		mutationMutator = other.mutationMutator;
 	}
 	
 	/**

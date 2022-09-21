@@ -28,73 +28,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * The Population interface represents a population of candidate solutions
- * to a problem for use by implementations of genetic algorithms and other
- * evolutionary algorithms. It assumes the common generational model, with a 
- * constant population size, and with offspring (from one or both of crossover 
- * and mutation) replacing the parents in the next generation. 
- *
- * @param <T> The type of object under optimization.
+ * The nested classes are for simple populations with double-valued and int-valued fitnesses.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
+abstract class BasePopulation {
 	
-	private ProgressTracker<T> tracker;
-	private SolutionCostPair<T> mostFit;
-		
-	/**
-	 * package-private for use by subclasses in this package only.
-	 */
-	BasePopulation(ProgressTracker<T> tracker) {
-		this.tracker = tracker;
-		mostFit = null;
-	}
-	
-	/**
-	 * package-private for use by subclasses in this package only.
-	 */
-	BasePopulation(BasePopulation<T> other) {
-		// These must be shared, so just copy reference.
-		tracker = other.tracker;
-		
-		// Must have its own.
-		mostFit = null;
-	}
-	
-	@Override
-	public void init() {
-		mostFit = null;
-	}
-	
-	@Override
-	public final SolutionCostPair<T> getMostFit() {
-		return mostFit;
-	}
-	
-	@Override
-	public boolean evolutionIsPaused() {
-		return tracker.didFindBest() || tracker.isStopped();
-	}
-	
-	@Override
-	public final ProgressTracker<T> getProgressTracker() {
-		return tracker;
-	}
-	
-	@Override
-	public final void setProgressTracker(ProgressTracker<T> tracker) {
-		this.tracker = tracker;
-	}
-	
-	final void setMostFit(SolutionCostPair<T> mostFit) {
-		this.mostFit = mostFit;
-		tracker.update(mostFit);
-	}
-	
-	@Override
-	abstract public BasePopulation<T> split();
+	private BasePopulation() {}
 	
 	/**
 	 * The Population for an evolutionary algorithm where fitness values are type double. 
@@ -104,7 +45,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	static final class Double<T extends Copyable<T>> extends BasePopulation<T> implements PopulationFitnessVector.Double {
+	static final class Double<T extends Copyable<T>> extends AbstractPopulation<T> implements PopulationFitnessVector.Double {
 		
 		private final Initializer<T> initializer;
 		private final SelectionOperator selection;
@@ -296,7 +237,7 @@ abstract class BasePopulation<T extends Copyable<T>> implements Population<T> {
 	 * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
 	 * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
 	 */
-	static final class Integer<T extends Copyable<T>> extends BasePopulation<T> implements PopulationFitnessVector.Integer {
+	static final class Integer<T extends Copyable<T>> extends AbstractPopulation<T> implements PopulationFitnessVector.Integer {
 		
 		private final Initializer<T> initializer;
 		private final SelectionOperator selection;

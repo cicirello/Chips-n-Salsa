@@ -64,6 +64,8 @@ abstract class EvolvableParametersPopulation {
 		
 		private double bestFitness;
 		
+		private final int numParams;
+		
 		/**
 		 * Constructs the Population.
 		 *
@@ -75,7 +77,7 @@ abstract class EvolvableParametersPopulation {
 		 * @param tracker A ProgressTracker.
 		 * @param numElite the number of elite members of the population.
 		 */
-		public Double(int n, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker, int numElite) {
+		public Double(int n, Initializer<T> initializer, FitnessFunction.Double<T> f, SelectionOperator selection, ProgressTracker<T> tracker, int numElite, int numParams) {
 			super(tracker);
 			if (n < 1) throw new IllegalArgumentException("population size n must be positive");
 			if (numElite >= n) throw new IllegalArgumentException("number of elite population members must be less than population size");
@@ -86,6 +88,8 @@ abstract class EvolvableParametersPopulation {
 			this.selection = selection;
 			
 			elite = numElite > 0 ? new EliteSet.DoubleFitness<EncodingWithParameters<T>>(numElite) : null;
+			
+			this.numParams = numParams;
 			
 			this.f = f;
 			if (numElite > 0) {
@@ -111,6 +115,7 @@ abstract class EvolvableParametersPopulation {
 			f = other.f;
 			MU = other.MU;
 			LAMBDA = other.LAMBDA;
+			numParams = other.numParams;
 			
 			// split these: not threadsafe
 			initializer = other.initializer.split();
@@ -216,7 +221,7 @@ abstract class EvolvableParametersPopulation {
 			for (int i = 0; i < MU; i++ ) {
 				T c = initializer.createCandidateSolution();
 				double fit = f.fitness(c);
-				pop.add(new PopulationMember.DoubleFitness<EncodingWithParameters<T>>(new EncodingWithParameters<T>(c, 2), fit));
+				pop.add(new PopulationMember.DoubleFitness<EncodingWithParameters<T>>(new EncodingWithParameters<T>(c, numParams), fit));
 				if (fit > bestFitness) {
 					bestFitness = fit;
 					newBest = c;
@@ -258,6 +263,8 @@ abstract class EvolvableParametersPopulation {
 		
 		private int bestFitness;
 		
+		private final int numParams;
+		
 		/**
 		 * Constructs the Population.
 		 *
@@ -269,7 +276,7 @@ abstract class EvolvableParametersPopulation {
 		 * @param tracker A ProgressTracker.
 		 * @param numElite the number of elite members of the population.
 		 */
-		public Integer(int n, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker, int numElite) {
+		public Integer(int n, Initializer<T> initializer, FitnessFunction.Integer<T> f, SelectionOperator selection, ProgressTracker<T> tracker, int numElite, int numParams) {
 			super(tracker);
 			if (n < 1) throw new IllegalArgumentException("population size n must be positive");
 			if (numElite >= n) throw new IllegalArgumentException("number of elite population members must be less than population size");
@@ -280,6 +287,8 @@ abstract class EvolvableParametersPopulation {
 			this.selection = selection;
 			
 			elite = numElite > 0 ? new EliteSet.IntegerFitness<EncodingWithParameters<T>>(numElite) : null;
+			
+			this.numParams = numParams;
 			
 			this.f = f;
 			if (numElite > 0) {
@@ -305,6 +314,7 @@ abstract class EvolvableParametersPopulation {
 			f = other.f;
 			MU = other.MU;
 			LAMBDA = other.LAMBDA;
+			numParams = other.numParams;
 			
 			// split these: not threadsafe
 			initializer = other.initializer.split();
@@ -410,7 +420,7 @@ abstract class EvolvableParametersPopulation {
 			for (int i = 0; i < MU; i++ ) {
 				T c = initializer.createCandidateSolution();
 				int fit = f.fitness(c);
-				pop.add(new PopulationMember.IntegerFitness<EncodingWithParameters<T>>(new EncodingWithParameters<T>(c, 2), fit));
+				pop.add(new PopulationMember.IntegerFitness<EncodingWithParameters<T>>(new EncodingWithParameters<T>(c, numParams), fit));
 				if (fit > bestFitness) {
 					bestFitness = fit;
 					newBest = c;

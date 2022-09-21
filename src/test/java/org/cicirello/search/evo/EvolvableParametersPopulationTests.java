@@ -41,53 +41,53 @@ public class EvolvableParametersPopulationTests {
 	public void testExceptions() {
 		NullPointerException thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new EvolvableParametersPopulation.Double<TestObject>(10, null, new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(10, null, new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), null, new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), null, new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), null, 0)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), null, 0, 2)
 		);
 		
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, null, new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, null, new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), null, new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), null, new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), null, 0)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), null, 0, 2)
 		);
 		
 		IllegalArgumentException thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new EvolvableParametersPopulation.Double<TestObject>(0, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(0, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new EvolvableParametersPopulation.Integer<TestObject>(0, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(0, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 10)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 10, 2)
 		);
 		thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 10)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 10, 2)
 		);
 	}
 	
@@ -103,7 +103,8 @@ public class EvolvableParametersPopulationTests {
 			f,
 			selection,
 			tracker, 
-			3
+			3, 
+			2
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -208,7 +209,8 @@ public class EvolvableParametersPopulationTests {
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -312,7 +314,8 @@ public class EvolvableParametersPopulationTests {
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		pop.init();
 		pop.select();
@@ -344,7 +347,8 @@ public class EvolvableParametersPopulationTests {
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -444,7 +448,8 @@ public class EvolvableParametersPopulationTests {
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		pop.init();
 		pop.select();
@@ -476,7 +481,8 @@ public class EvolvableParametersPopulationTests {
 			f,
 			selection,
 			tracker, 
-			3
+			3, 
+			2
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -572,7 +578,8 @@ public class EvolvableParametersPopulationTests {
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -676,7 +683,8 @@ public class EvolvableParametersPopulationTests {
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		pop.init();
 		pop.select();

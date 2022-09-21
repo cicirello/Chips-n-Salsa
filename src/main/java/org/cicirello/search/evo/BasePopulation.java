@@ -22,7 +22,6 @@ package org.cicirello.search.evo;
 
 import org.cicirello.util.Copyable;
 import org.cicirello.search.operators.Initializer;
-import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
 import java.util.ArrayList;
 import java.util.Arrays;

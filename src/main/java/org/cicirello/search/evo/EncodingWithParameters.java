@@ -23,7 +23,7 @@ package org.cicirello.search.evo;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.cicirello.util.Copyable;
-import org.cicirello.search.representations.RealVector;
+import org.cicirello.search.representations.SingleReal;
 import org.cicirello.search.operators.reals.GaussianMutation;
 
 /**
@@ -38,8 +38,8 @@ import org.cicirello.search.operators.reals.GaussianMutation;
 final class EncodingWithParameters<T extends Copyable<T>> implements Copyable<EncodingWithParameters<T>> {
 	
 	final T candidate;
-	private final RealVector params;
-	private final GaussianMutation<RealVector> mutator;
+	private final SingleReal[] params;
+	private final GaussianMutation<SingleReal> mutator;
 	private final static GaussianMutation<GaussianMutation> mutationMutator = GaussianMutation.createGaussianMutation(0.01, 0.01, 0.2);
 	
 	EncodingWithParameters(T candidate, int numParams) {
@@ -48,17 +48,19 @@ final class EncodingWithParameters<T extends Copyable<T>> implements Copyable<En
 	
 	EncodingWithParameters(T candidate, int numParams, double minRate, double maxRate) {
 		this.candidate = candidate;
-		double[] initial = new double[numParams];
+		params = new SingleReal[numParams];
 		for (int i = 0; i < numParams; i++) {
-			initial[i] = ThreadLocalRandom.current().nextDouble(minRate, maxRate);
+			params[i] = new SingleReal(ThreadLocalRandom.current().nextDouble(minRate, maxRate));
 		}
-		params = new RealVector(initial);
 		mutator = GaussianMutation.createGaussianMutation(ThreadLocalRandom.current().nextDouble(0.05, 0.15), minRate, maxRate);
 	}
 	
 	private EncodingWithParameters(EncodingWithParameters<T> other) {
 		candidate = other.candidate.copy();
-		params = other.params.copy();
+		params = new SingleReal[other.params.length]; 
+		for (int i = 0; i < params.length; i++) {
+			params[i] = other.params[i].copy();
+		}
 		mutator = other.mutator.copy();
 	}
 	
@@ -66,7 +68,9 @@ final class EncodingWithParameters<T extends Copyable<T>> implements Copyable<En
 	 * Mutates the parameters.
 	 */
 	public final void mutate() {
-		mutator.mutate(params);
+		for (SingleReal p : params) {
+			mutator.mutate(p);
+		}
 		mutationMutator.mutate(mutator);
 	}
 	
@@ -80,10 +84,19 @@ final class EncodingWithParameters<T extends Copyable<T>> implements Copyable<En
 	
 	/**
 	 * Gets the vector of parameters.
+	 * @param i Index of parameter to get
 	 * @return the vector of parameters
 	 */
-	public final RealVector getParameters() {
-		return params;
+	public final SingleReal getParameter(int i) {
+		return params[i];
+	}
+	
+	/**
+	 * Gets number of parameters.
+	 * @return number of parameters
+	 */
+	public final int length() {
+		return params.length;
 	}
 	
 	@Override

@@ -35,15 +35,14 @@ public class EncodingWithParametersTests {
 		TestObject obj = new TestObject(5);
 		EncodingWithParameters<TestObject> ewp = new EncodingWithParameters<TestObject>(obj, 3, 0.4, 0.4 + Math.ulp(0.4));
 		assertSame(obj, ewp.getCandidate());
-		RealVector params = ewp.getParameters();
-		assertEquals(3, params.length());
+		assertEquals(3, ewp.length());
 		for (int i = 0; i < 3; i++) {
-			assertEquals(0.4, params.get(i));
+			assertEquals(0.4, ewp.getParameter(i).get());
 		}
 		for (int j = 0; j < 3; j++) {
 			ewp.mutate();
 			for (int i = 0; i < 3; i++) {
-				assertTrue(0.4 <= params.get(i) && params.get(i) <= 0.4 + Math.ulp(0.4));
+				assertTrue(0.4 <= ewp.getParameter(i).get() && ewp.getParameter(i).get() <= 0.4 + Math.ulp(0.4));
 			}
 		}
 	}
@@ -53,25 +52,24 @@ public class EncodingWithParametersTests {
 		TestObject obj = new TestObject(5);
 		EncodingWithParameters<TestObject> ewp = new EncodingWithParameters<TestObject>(obj, 3);
 		assertSame(obj, ewp.getCandidate());
-		RealVector params = ewp.getParameters();
-		assertEquals(3, params.length());
+		assertEquals(3, ewp.length());
 		double[] beforeMutate = new double[3];
 		for (int i = 0; i < 3; i++) {
-			beforeMutate[i] = params.get(i); 
-			assertTrue(params.get(i) >= 0.1 && params.get(i) <= 1.0);
+			beforeMutate[i] = ewp.getParameter(i).get(); 
+			assertTrue(ewp.getParameter(i).get() >= 0.1 && ewp.getParameter(i).get() <= 1.0);
 		}
 		boolean[] changed = new boolean[3];
 		ewp.mutate();
 		for (int i = 0; i < 3; i++) {
-			assertTrue(params.get(i) >= 0.1 && params.get(i) <= 1.0);
-			changed[i] = params.get(i) != beforeMutate[i];
+			assertTrue(ewp.getParameter(i).get() >= 0.1 && ewp.getParameter(i).get() <= 1.0);
+			changed[i] = ewp.getParameter(i).get() != beforeMutate[i];
 		}
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 5 && !changed[i]; j++) {
 				ewp.mutate();
 				for (int k = i; k < 3; k++) {
-					assertTrue(params.get(k) >= 0.1 && params.get(k) <= 1.0);
-					changed[k] = params.get(k) != beforeMutate[k];
+					assertTrue(ewp.getParameter(k).get() >= 0.1 && ewp.getParameter(k).get() <= 1.0);
+					changed[k] = ewp.getParameter(k).get() != beforeMutate[k];
 				}
 			}
 			assertTrue(changed[i]);
@@ -84,11 +82,11 @@ public class EncodingWithParametersTests {
 		TestObject obj2 = new TestObject(5);
 		EncodingWithParameters<TestObject> ewp1 = new EncodingWithParameters<TestObject>(obj1, 3);
 		EncodingWithParameters<TestObject> ewp2 = new EncodingWithParameters<TestObject>(obj2, 3);
-		for (int i = 0; i < 3 && ewp1.getParameters().equals(ewp2.getParameters()); i++) {
+		for (int i = 0; i < 3 && parametersAreEqual(ewp1, ewp2); i++) {
 			ewp2 = new EncodingWithParameters<TestObject>(obj2, 3);
 		}
 		EncodingWithParameters<TestObject> ewp3 = new EncodingWithParameters<TestObject>(obj1, 3);
-		for (int i = 0; i < 3 && ewp1.getParameters().equals(ewp3.getParameters()); i++) {
+		for (int i = 0; i < 3 && parametersAreEqual(ewp1, ewp3); i++) {
 			ewp3 = new EncodingWithParameters<TestObject>(obj1, 3);
 		}
 		EncodingWithParameters<TestObject> ewp4 = new EncodingWithParameters<TestObject>(obj2, 2);
@@ -141,10 +139,24 @@ public class EncodingWithParametersTests {
 		assertNotSame(obj, copy.getCandidate());
 		assertEquals(obj, copy.getCandidate());
 		assertEquals(ewp.hashCode(), copy.hashCode());
-		assertEquals(ewp.getParameters(), copy.getParameters());
-		assertNotSame(ewp.getParameters(), copy.getParameters());
+		assertTrue(parametersAreEqual(ewp, copy));
+		assertFalse(anyParametersAreSame(ewp, copy));
 	}
 	
+	private boolean parametersAreEqual(EncodingWithParameters<TestObject> ewp1, EncodingWithParameters<TestObject> ewp2) {
+		if (ewp1.length() != ewp2.length()) return false;
+		for (int i = 0; i < ewp1.length(); i++) {
+			if (!ewp1.getParameter(i).equals(ewp2.getParameter(i))) return false;
+		}
+		return true;
+	}
+	
+	private boolean anyParametersAreSame(EncodingWithParameters<TestObject> ewp1, EncodingWithParameters<TestObject> ewp2) {
+		for (int i = 0; i < ewp1.length(); i++) {
+			if (ewp1.getParameter(i) == ewp2.getParameter(i)) return true; 
+		}
+		return false;
+	}
 	
 	private static class TestObject implements Copyable<TestObject> {
 		

@@ -26,7 +26,6 @@ import org.cicirello.search.problems.Problem;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.operators.CrossoverOperator;
-import org.cicirello.math.rand.RandomVariates;
 
 /**
  * <p>This class implements an evolutionary algorithm (EA) with a generational

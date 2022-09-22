@@ -262,7 +262,13 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
 	 * Internal helper constructor for Mutation-Only EAs.
 	 */
 	private GenerationalMutationOnlyEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate) {
-		super(pop, problem, new OnlyMutateGeneration<T>(mutation, mutationRate));
+		super(
+			pop, 
+			problem, 
+			mutationRate >= 1.0 ?
+				new OnlyAlwaysMutateGeneration<T>(mutation)
+				: new OnlyMutateGeneration<T>(mutation, mutationRate)
+		);
 	}
 	
 	/*

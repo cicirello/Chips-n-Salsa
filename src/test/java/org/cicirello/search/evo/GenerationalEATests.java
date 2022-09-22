@@ -67,6 +67,30 @@ public class GenerationalEATests {
 		);
 		thrownNull = assertThrows( 
 			NullPointerException.class,
+			() -> new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
+				5, 
+				null, 
+				1.0, 
+				new TestInitializer(), 
+				new TestFitnessDouble(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
+				5, 
+				null, 
+				1.0, 
+				new TestInitializer(), 
+				new TestFitnessInteger(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
 			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
 				5, 
 				null, 

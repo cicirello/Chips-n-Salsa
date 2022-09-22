@@ -23,50 +23,41 @@ package org.cicirello.search.evo;
 import org.cicirello.util.Copyable;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.operators.CrossoverOperator;
-import org.cicirello.math.rand.RandomVariates;
 
 /**
- * An OnlyMutateGeneration is for mutation-only EAs.
+ * An OnlyAlwaysMutateGeneration is for mutation-only EAs that apply one mutation to each member
+ * of population every generation.
  *
  * @param <T> The type of object under optimization.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-final class OnlyMutateGeneration<T extends Copyable<T>> implements Generation<T> {
+final class OnlyAlwaysMutateGeneration<T extends Copyable<T>> implements Generation<T> {
 	
 	private final MutationOperator<T> mutation;
-	private final double M;
 	
-	OnlyMutateGeneration(MutationOperator<T> mutation, double mutationRate) {
+	OnlyAlwaysMutateGeneration(MutationOperator<T> mutation) {
 		if (mutation == null) {
 			throw new NullPointerException("mutation must be non-null");
 		}
-		if (mutationRate < 0.0) {
-			throw new IllegalArgumentException("mutationRate must not be negative");
-		}
 		this.mutation = mutation;
-		// no need to check if > 1 because would use OnlyAlwaysMutateGeneration in that case
-		M = mutationRate;
 	}
 	
-	OnlyMutateGeneration(OnlyMutateGeneration<T> other) {
+	OnlyAlwaysMutateGeneration(OnlyAlwaysMutateGeneration<T> other) {
 		// Must be split
 		mutation = other.mutation.split();
-		
-		// primitives
-		M = other.M;
 	}
 	
 	@Override
-	public OnlyMutateGeneration<T> split() {
-		return new OnlyMutateGeneration<T>(this);
+	public OnlyAlwaysMutateGeneration<T> split() {
+		return new OnlyAlwaysMutateGeneration<T>(this);
 	}
 	
 	@Override
 	public int apply(Population<T> pop) {
 		pop.select();
-		final int count = RandomVariates.nextBinomial(pop.mutableSize(), M);
+		final int count = pop.mutableSize();
 		// Since select() randomizes ordering, just use a binomial
 		// to get count of how many to mutate and mutate the first count individuals.
 		// Although if M is 1.0 just mutate them all without computing the binomial.

@@ -67,6 +67,30 @@ public class GenerationalEATests {
 		);
 		thrownNull = assertThrows( 
 			NullPointerException.class,
+			() -> new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
+				5, 
+				null, 
+				1.0, 
+				new TestInitializer(), 
+				new TestFitnessDouble(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new GenerationalMutationOnlyEvolutionaryAlgorithm<TestObject>(
+				5, 
+				null, 
+				1.0, 
+				new TestInitializer(), 
+				new TestFitnessInteger(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
 			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
 				5, 
 				null, 
@@ -85,6 +109,34 @@ public class GenerationalEATests {
 				5, 
 				null, 
 				0.5,
+				new CountCrossoverCalls(),
+				0.5,
+				new TestInitializer(), 
+				new TestFitnessInteger(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+				5, 
+				null, 
+				1.0, 
+				new CountCrossoverCalls(),
+				0.5,
+				new TestInitializer(), 
+				new TestFitnessDouble(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+				5, 
+				null, 
+				1.0,
 				new CountCrossoverCalls(),
 				0.5,
 				new TestInitializer(), 
@@ -221,6 +273,34 @@ public class GenerationalEATests {
 				5, 
 				new CountMutationCalls(), 
 				1E-10, 
+				new CountCrossoverCalls(),
+				-1E-10,
+				new TestInitializer(), 
+				new TestFitnessInteger(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownIllegal = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+				5, 
+				new CountMutationCalls(), 
+				1.0, 
+				new CountCrossoverCalls(),
+				-1E-10,
+				new TestInitializer(), 
+				new TestFitnessDouble(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownIllegal = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+				5, 
+				new CountMutationCalls(), 
+				1.0, 
 				new CountCrossoverCalls(),
 				-1E-10,
 				new TestInitializer(), 
@@ -673,6 +753,104 @@ public class GenerationalEATests {
 	}
 	
 	@Test
+	public void testBothOps_CrossOnly_DoubleFitness() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessDouble f = new TestFitnessDouble();
+		TestInitializer initializer = new TestInitializer();
+		CountMutationCalls mutation = new CountMutationCalls();
+		CountCrossoverCalls crossover = new CountCrossoverCalls();
+		
+		// Deliberately odd compared to other tests.
+		final int N = 101;
+		
+		GenerationalEvolutionaryAlgorithm<TestObject> ea = new GenerationalEvolutionaryAlgorithm<TestObject>(
+			N, 
+			mutation, 
+			0.0, 
+			crossover,
+			1.0,
+			initializer, 
+			f, 
+			selection, 
+			tracker
+		);
+		
+		assertTrue(tracker == ea.getProgressTracker());
+		tracker = new ProgressTracker<TestObject>();
+		ea.setProgressTracker(tracker);
+		assertTrue(tracker == ea.getProgressTracker());
+		assertTrue(f.getProblem() == ea.getProblem());
+		
+		assertEquals(0L, ea.getTotalRunLength());
+		
+		assertEquals(0, selection.initCount);
+		
+		// optimize
+		SolutionCostPair<TestObject> solution = ea.optimize(3);
+		assertEquals(N, initializer.count);
+		assertEquals(0, mutation.count);
+		assertEquals(3*N-3, crossover.count);
+		assertEquals(f.count, N + mutation.count + crossover.count);
+		assertEquals((long)f.count, ea.getTotalRunLength());
+		assertEquals(3, selection.calledCount);
+		assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
+		assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+		assertEquals(1, selection.initCount);
+		
+		// split it
+		GenerationalEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+		
+		// reoptimize
+		solution = ea.reoptimize(5);
+		assertNotNull(solution);
+		assertEquals(N, initializer.count);
+		assertEquals(0, mutation.count);
+		assertEquals(8*N-8, crossover.count);
+		assertEquals(f.count, N + mutation.count + crossover.count);
+		assertEquals((long)f.count, ea.getTotalRunLength());
+		assertEquals(8, selection.calledCount);
+		assertEquals(2, selection.initCount);
+		
+		// another optimize
+		solution = ea.optimize(2);
+		assertNotNull(solution);
+		assertEquals(2*N, initializer.count);
+		assertEquals(0, mutation.count);
+		assertEquals(10*N-10, crossover.count);
+		assertEquals(f.count, 2*N + mutation.count + crossover.count);
+		assertEquals((long)f.count, ea.getTotalRunLength());
+		assertEquals(10, selection.calledCount);
+		assertEquals(3, selection.initCount);
+		
+		tracker.stop();
+		assertNull(ea.optimize(2));
+		assertNull(ea.reoptimize(2));
+		assertEquals(3, selection.initCount);
+		
+		// Try the split version
+		assertEquals(0L, ea2.getTotalRunLength());
+		assertNull(ea2.optimize(2));
+		assertNull(ea2.reoptimize(2));
+		tracker.start();
+		int oldMutationCount = mutation.count;
+		int oldCrossoverCount = crossover.count;
+		int oldFCount = f.count;
+		solution = ea2.optimize(1);
+		assertEquals((long)(f.count-oldFCount), ea2.getTotalRunLength());
+		assertNotNull(solution);
+		// These should change since it should have been split.
+		assertEquals(2*N, initializer.count);
+		assertEquals(0, mutation.count);
+		assertEquals(oldCrossoverCount, crossover.count);
+		// This can be shared so should increase
+		assertTrue(f.count > oldFCount);
+		
+		assertEquals(3, selection.initCount);
+	}
+	
+	@Test
 	public void testMutationOnlyDoubleFitness() {
 		TestObject.reinit();
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
@@ -1060,7 +1238,7 @@ public class GenerationalEATests {
 		CountMutationCalls mutation = new CountMutationCalls();
 		CountCrossoverCalls crossover = new CountCrossoverCalls();
 		
-		// Deliberately odd compared to other tests.
+		// Deliberately even compared to other tests.
 		final int N = 100;
 		
 		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea = new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
@@ -1116,6 +1294,104 @@ public class GenerationalEATests {
 		assertNotNull(solution);
 		assertEquals(2*N, initializer.count);
 		assertEquals(10*N, crossover.count);
+		assertEquals(0, mutation.count);
+		assertEquals(f.count, 2*N + mutation.count + crossover.count);
+		assertEquals((long)f.count, ea.getTotalRunLength());
+		assertEquals(10, selection.calledCount);
+		assertEquals(3, selection.initCount);
+		
+		tracker.stop();
+		assertNull(ea.optimize(2));
+		assertNull(ea.reoptimize(2));
+		assertEquals(3, selection.initCount);
+		
+		// Try the split version
+		assertEquals(0L, ea2.getTotalRunLength());
+		assertNull(ea2.optimize(2));
+		assertNull(ea2.reoptimize(2));
+		tracker.start();
+		int oldMutationCount = mutation.count;
+		int oldCrossoverCount = crossover.count;
+		int oldFCount = f.count;
+		solution = ea2.optimize(1);
+		assertEquals((long)(f.count-oldFCount), ea2.getTotalRunLength());
+		assertNotNull(solution);
+		// These should change since it should have been split.
+		assertEquals(2*N, initializer.count);
+		assertEquals(oldMutationCount, mutation.count);
+		assertEquals(oldCrossoverCount, crossover.count);
+		// This can be shared so should increase
+		assertTrue(f.count > oldFCount);
+		
+		assertEquals(3, selection.initCount);
+	}
+	
+	@Test
+	public void testBothOps_MutualAllCross_odd_DoubleFitness() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessDouble f = new TestFitnessDouble();
+		TestInitializer initializer = new TestInitializer();
+		CountMutationCalls mutation = new CountMutationCalls();
+		CountCrossoverCalls crossover = new CountCrossoverCalls();
+		
+		// Deliberately odd compared to other tests.
+		final int N = 101;
+		
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea = new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+			N, 
+			mutation, 
+			0.0, 
+			crossover,
+			1.0,
+			initializer, 
+			f, 
+			selection, 
+			tracker
+		);
+		
+		assertTrue(tracker == ea.getProgressTracker());
+		tracker = new ProgressTracker<TestObject>();
+		ea.setProgressTracker(tracker);
+		assertTrue(tracker == ea.getProgressTracker());
+		assertTrue(f.getProblem() == ea.getProblem());
+		
+		assertEquals(0L, ea.getTotalRunLength());
+		
+		assertEquals(0, selection.initCount);
+		
+		// optimize
+		SolutionCostPair<TestObject> solution = ea.optimize(3);
+		assertEquals(N, initializer.count);
+		assertEquals(3*(N-1), crossover.count);
+		assertEquals(0, mutation.count);
+		assertEquals(f.count, N + mutation.count + crossover.count);
+		assertEquals((long)f.count, ea.getTotalRunLength());
+		assertEquals(3, selection.calledCount);
+		assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
+		assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+		assertEquals(1, selection.initCount);
+		
+		// split it
+		GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+		
+		// reoptimize
+		solution = ea.reoptimize(5);
+		assertNotNull(solution);
+		assertEquals(N, initializer.count);
+		assertEquals(8*(N-1), crossover.count);
+		assertEquals(0, mutation.count);
+		assertEquals(f.count, N + mutation.count + crossover.count);
+		assertEquals((long)f.count, ea.getTotalRunLength());
+		assertEquals(8, selection.calledCount);
+		assertEquals(2, selection.initCount);
+		
+		// another optimize
+		solution = ea.optimize(2);
+		assertNotNull(solution);
+		assertEquals(2*N, initializer.count);
+		assertEquals(10*(N-1), crossover.count);
 		assertEquals(0, mutation.count);
 		assertEquals(f.count, 2*N + mutation.count + crossover.count);
 		assertEquals((long)f.count, ea.getTotalRunLength());

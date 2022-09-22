@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -98,6 +98,22 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	}
 	
 	/**
+	 * Creates a Gaussian mutation operator, such that the mutate method
+	 * constrains each mutated real value to lie in the interval [lowerBound, upperBound].
+	 *
+	 * @param sigma The standard deviation of the Gaussian.
+	 * @param lowerBound A lower bound on the result of a mutation.
+	 * @param upperBound An upper bound on the result of a mutation.
+	 *
+	 * @param <T> The specific RealValued type.
+	 * @return A Gaussian mutation operator.
+	 */
+	public static <T extends RealValued> GaussianMutation<T> createGaussianMutation(double sigma, double lowerBound, double upperBound) {
+		if (upperBound < lowerBound) throw new IllegalArgumentException("upperBound must be at least lowerBound");
+		return new ConstrainedGaussianMutation<T>(sigma, lowerBound, upperBound);
+	}
+	
+	/**
 	 * Create a Gaussian mutation operator.  
 	 * @param sigma The standard deviation of the Gaussian mutation.
 	 * @param k The number of input variables that the {@link #mutate} 
@@ -135,7 +151,7 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	public void mutate(T c) {
 		final int n = c.length();
 		for (int i = 0; i < n; i++) {
-			c.set(i, c.get(i) + RandomVariates.nextGaussian(sigma));
+			c.set(i, nextValue(c.get(i)));
 		}
 	}
 	
@@ -220,6 +236,13 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 		sigma = value;
 	}
 	
+	/*
+	 * package access for overriding
+	 */
+	double nextValue(double old) {
+		return old + RandomVariates.nextGaussian(sigma);
+	}
+	
 	final void internalMutate(T c, double[] old) {
 		for (int i = 0; i < old.length; i++) {
 			c.set(i, old[i] + RandomVariates.nextGaussian(sigma));
@@ -240,6 +263,60 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	final void internalPartialMutation(T c, int[] indexes, double[] old) {
 		for (int j = 0; j < indexes.length; j++) {
 			c.set(indexes[j], old[j] + RandomVariates.nextGaussian(sigma));
+		}
+	}
+	
+	private static final class ConstrainedGaussianMutation<T extends RealValued> extends GaussianMutation<T> {
+		
+		private final double lowerBound;
+		private final double upperBound;
+		
+		ConstrainedGaussianMutation(double sigma, double lowerBound, double upperBound) {
+			super(sigma);
+			this.lowerBound = lowerBound;
+			this.upperBound = upperBound;
+		}
+		
+		ConstrainedGaussianMutation(ConstrainedGaussianMutation<T> other) {
+			super(other);
+			lowerBound = other.lowerBound;
+			upperBound = other.upperBound;
+		}
+		
+		@Override
+		public int hashCode() {
+			return 31 * (31 * super.hashCode() + Double.hashCode(lowerBound)) + Double.hashCode(upperBound);
+		}
+		
+		@Override
+		public boolean equals(Object other) {
+			if (other instanceof ConstrainedGaussianMutation) {
+				ConstrainedGaussianMutation casted = (ConstrainedGaussianMutation)other;
+				return lowerBound == casted.lowerBound && upperBound == casted.upperBound && super.equals(other);
+			}
+			return super.equals(other);
+		}
+		
+		@Override
+		final double nextValue(double old) {
+			double next = super.nextValue(old);
+			if (next <= lowerBound) {
+				return lowerBound;
+			}
+			if (next >= upperBound) {
+				return upperBound;
+			}
+			return next;
+		}
+		
+		@Override
+		public ConstrainedGaussianMutation<T> split() {
+			return new ConstrainedGaussianMutation<T>(this);
+		}
+		
+		@Override
+		public ConstrainedGaussianMutation<T> copy() {
+			return new ConstrainedGaussianMutation<T>(this);
 		}
 	}
 	

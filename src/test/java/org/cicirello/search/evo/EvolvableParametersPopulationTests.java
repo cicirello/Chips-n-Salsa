@@ -31,9 +31,9 @@ import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 
 /**
- * JUnit test cases for BasePopulation.
+ * JUnit test cases for EvolvableParametersPopulation.
  */
-public class BasePopulationTests {
+public class EvolvableParametersPopulationTests {
 	
 	private static final double EPSILON = 1e-10;
 	
@@ -41,80 +41,200 @@ public class BasePopulationTests {
 	public void testExceptions() {
 		NullPointerException thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, null, new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(10, null, new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), null, new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), null, new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), null, 0)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), null, 0, 2)
 		);
 		
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, null, new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, null, new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), null, new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), null, new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), null, new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown = assertThrows( 
 			NullPointerException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), null, 0)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), null, 0, 2)
 		);
 		
 		IllegalArgumentException thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new BasePopulation.Double<TestObject>(0, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(0, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new BasePopulation.Integer<TestObject>(0, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(0, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0, 2)
 		);
 		thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new BasePopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 10)
+			() -> new EvolvableParametersPopulation.Double<TestObject>(10, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 10, 2)
 		);
 		thrown2 = assertThrows( 
 			IllegalArgumentException.class,
-			() -> new BasePopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 10)
-		);
-		
-		final Population pop1 = new BasePopulation.Double<TestObject>(3, new TestInitializer(), new TestFitnessDouble(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0);
-		UnsupportedOperationException thrown3 = assertThrows( 
-			UnsupportedOperationException.class,
-			() -> pop1.getParameter(0, 0)
-		);
-		final Population pop2 = new BasePopulation.Integer<TestObject>(3, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 0);
-		thrown3 = assertThrows( 
-			UnsupportedOperationException.class,
-			() -> pop2.getParameter(0, 0)
+			() -> new EvolvableParametersPopulation.Integer<TestObject>(10, new TestInitializer(), new TestFitnessInteger(), new TestSelectionOp(), new ProgressTracker<TestObject>(), 10, 2)
 		);
 	}
 	
 	@Test
-	public void testBasePopulationElitismDouble() {
+	public void testEvolvableParametersPopulation_getParameter_Double() {
 		TestObject.reinit();
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
-		BasePopulation.Double<TestObject> pop = new BasePopulation.Double<TestObject>(
+		EvolvableParametersPopulation.Double<TestObject> pop = new EvolvableParametersPopulation.Double<TestObject>(
 			10,
 			new TestInitializer(),
 			f,
 			selection,
 			tracker, 
-			3
+			0, 
+			2
+		);
+		pop.init();
+		pop.select();
+		boolean allSame0 = true;
+		boolean allSame1 = true;
+		double last0 = -1;
+		double last1 = -1;
+		for (int i = 0; i < 10; i++) {
+			double param0 = pop.getParameter(i, 0).get();
+			double param1 = pop.getParameter(i, 1).get();
+			assertTrue(param0 >= 0.0 && param0 <= 1.0);
+			assertTrue(param1 >= 0.0 && param1 <= 1.0);
+			if (i > 0) {
+				if (allSame0) {
+					allSame0 = param0 == last0;
+				}
+				if (allSame1) {
+					allSame1 = param1 == last1;
+				}
+			}
+			last0 = param0;
+			last1 = param1;
+		}
+		assertFalse(allSame0);
+		assertFalse(allSame1);
+		
+		pop = new EvolvableParametersPopulation.Double<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker, 
+			0, 
+			1
+		);
+		pop.init();
+		pop.select();
+		allSame0 = true;
+		for (int i = 0; i < 10; i++) {
+			double param0 = pop.getParameter(i, 0).get();
+			assertTrue(param0 >= 0.0 && param0 <= 1.0);
+			if (i > 0) {
+				if (allSame0) {
+					allSame0 = param0 == last0;
+				}
+			}
+			last0 = param0;
+		}
+		assertFalse(allSame0);
+	}
+	
+	@Test
+	public void testEvolvableParametersPopulation_getParameter_Integer() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessInteger f = new TestFitnessInteger();
+		EvolvableParametersPopulation.Integer<TestObject> pop = new EvolvableParametersPopulation.Integer<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker, 
+			0, 
+			2
+		);
+		pop.init();
+		pop.select();
+		boolean allSame0 = true;
+		boolean allSame1 = true;
+		double last0 = -1;
+		double last1 = -1;
+		for (int i = 0; i < 10; i++) {
+			double param0 = pop.getParameter(i, 0).get();
+			double param1 = pop.getParameter(i, 1).get();
+			assertTrue(param0 >= 0.0 && param0 <= 1.0);
+			assertTrue(param1 >= 0.0 && param1 <= 1.0);
+			if (i > 0) {
+				if (allSame0) {
+					allSame0 = param0 == last0;
+				}
+				if (allSame1) {
+					allSame1 = param1 == last1;
+				}
+			}
+			last0 = param0;
+			last1 = param1;
+		}
+		assertFalse(allSame0);
+		assertFalse(allSame1);
+		
+		pop = new EvolvableParametersPopulation.Integer<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker, 
+			0, 
+			1
+		);
+		pop.init();
+		pop.select();
+		allSame0 = true;
+		for (int i = 0; i < 10; i++) {
+			double param0 = pop.getParameter(i, 0).get();
+			assertTrue(param0 >= 0.0 && param0 <= 1.0);
+			if (i > 0) {
+				if (allSame0) {
+					allSame0 = param0 == last0;
+				}
+			}
+			last0 = param0;
+		}
+		assertFalse(allSame0);
+	}
+	
+	@Test
+	public void testEvolvableParametersPopulationElitismDouble() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessDouble f = new TestFitnessDouble();
+		EvolvableParametersPopulation.Double<TestObject> pop = new EvolvableParametersPopulation.Double<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker, 
+			3, 
+			2
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -180,7 +300,7 @@ public class BasePopulationTests {
 		}
 		
 		f.changeFitness(12);
-		BasePopulation.Double<TestObject> pop2 = pop.split();
+		EvolvableParametersPopulation.Double<TestObject> pop2 = pop.split();
 		
 		// original should be same after split
 		for (int i = 0; i < 10; i++) {
@@ -201,21 +321,26 @@ public class BasePopulationTests {
 		for (int i = 0; i < 10; i++) {
 			assertEquals(andNowFitness[i], pop.getFitness(i), EPSILON, "index i="+i);
 		}
+		
+		assertEquals(0, selection.initCalledWith);
+		pop.initOperators(987);
+		assertEquals(987, selection.initCalledWith);
 	}
 	
 	@Test
-	public void testBasePopulationDouble() {
+	public void testEvolvableParametersPopulationDouble() {
 		TestObject.reinit();
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
-		BasePopulation.Double<TestObject> pop = new BasePopulation.Double<TestObject>(
+		EvolvableParametersPopulation.Double<TestObject> pop = new EvolvableParametersPopulation.Double<TestObject>(
 			10,
 			new TestInitializer(),
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -271,7 +396,7 @@ public class BasePopulationTests {
 		assertEquals(1.0/3.0, pop.getMostFit().getCostDouble(), EPSILON);
 		
 		f.changeFitness(12);
-		BasePopulation.Double<TestObject> pop2 = pop.split();
+		EvolvableParametersPopulation.Double<TestObject> pop2 = pop.split();
 		
 		// orginal should be same
 		assertEquals(expected[9]+0.4+1, pop.getFitness(0), EPSILON);
@@ -301,21 +426,26 @@ public class BasePopulationTests {
 		tracker.update(0.0, new TestObject(), true);
 		assertTrue(pop.evolutionIsPaused());
 		assertTrue(pop2.evolutionIsPaused());
+		
+		assertEquals(0, selection.initCalledWith);
+		pop.initOperators(987);
+		assertEquals(987, selection.initCalledWith);
 	}
 	
 	@Test
-	public void testBasePopulationDouble_SelectCopies() {
+	public void testEvolvableParametersPopulationDouble_SelectCopies() {
 		TestObject.reinit();
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDouble f = new TestFitnessDouble();
-		BasePopulation.Double<TestObject> pop = new BasePopulation.Double<TestObject>(
+		EvolvableParametersPopulation.Double<TestObject> pop = new EvolvableParametersPopulation.Double<TestObject>(
 			10,
 			new TestInitializer(),
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		pop.init();
 		pop.select();
@@ -336,18 +466,19 @@ public class BasePopulationTests {
 	}
 	
 	@Test
-	public void testBasePopulationDoubleIntCost() {
+	public void testEvolvableParametersPopulationDoubleIntCost() {
 		TestObject.reinit();
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
-		BasePopulation.Double<TestObject> pop = new BasePopulation.Double<TestObject>(
+		EvolvableParametersPopulation.Double<TestObject> pop = new EvolvableParametersPopulation.Double<TestObject>(
 			10,
 			new TestInitializer(),
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -403,7 +534,7 @@ public class BasePopulationTests {
 		assertEquals(98, pop.getMostFit().getCost());
 		
 		f.changeFitness(12);
-		BasePopulation.Double<TestObject> pop2 = pop.split();
+		EvolvableParametersPopulation.Double<TestObject> pop2 = pop.split();
 		
 		// orginal should be same
 		assertEquals(expected[9]+10.0+1, pop.getFitness(0), EPSILON);
@@ -436,18 +567,19 @@ public class BasePopulationTests {
 	}
 	
 	@Test
-	public void testBasePopulationDoubleIntCost_SelectCopies() {
+	public void testEvolvableParametersPopulationDoubleIntCost_SelectCopies() {
 		TestObject.reinit();
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
-		BasePopulation.Double<TestObject> pop = new BasePopulation.Double<TestObject>(
+		EvolvableParametersPopulation.Double<TestObject> pop = new EvolvableParametersPopulation.Double<TestObject>(
 			10,
 			new TestInitializer(),
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		pop.init();
 		pop.select();
@@ -468,18 +600,19 @@ public class BasePopulationTests {
 	}
 	
 	@Test
-	public void testBasePopulationElitismInteger() {
+	public void testEvolvableParametersPopulationElitismInteger() {
 		TestObject.reinit();
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
-		BasePopulation.Integer<TestObject> pop = new BasePopulation.Integer<TestObject>(
+		EvolvableParametersPopulation.Integer<TestObject> pop = new EvolvableParametersPopulation.Integer<TestObject>(
 			10,
 			new TestInitializer(),
 			f,
 			selection,
 			tracker, 
-			3
+			3, 
+			2
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -532,7 +665,7 @@ public class BasePopulationTests {
 		assertEquals(3, pop.getMostFit().getSolution().id);
 		
 		f.changeFitness(12);
-		BasePopulation.Integer<TestObject> pop2 = pop.split();
+		EvolvableParametersPopulation.Integer<TestObject> pop2 = pop.split();
 		
 		// original should be same after split
 		for (int i = 0; i < 10; i++) {
@@ -564,18 +697,19 @@ public class BasePopulationTests {
 	}
 	
 	@Test
-	public void testBasePopulationInteger() {
+	public void testEvolvableParametersPopulationInteger() {
 		TestObject.reinit();
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
-		BasePopulation.Integer<TestObject> pop = new BasePopulation.Integer<TestObject>(
+		EvolvableParametersPopulation.Integer<TestObject> pop = new EvolvableParametersPopulation.Integer<TestObject>(
 			10,
 			new TestInitializer(),
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		assertTrue(tracker == pop.getProgressTracker());
 		tracker = new ProgressTracker<TestObject>();
@@ -631,7 +765,7 @@ public class BasePopulationTests {
 		assertEquals(98, pop.getMostFit().getCost());
 		
 		f.changeFitness(12);
-		BasePopulation.Integer<TestObject> pop2 = pop.split();
+		EvolvableParametersPopulation.Integer<TestObject> pop2 = pop.split();
 		
 		// orginal should be same
 		assertEquals(expected[9]+10+1, pop.getFitness(0));
@@ -661,21 +795,26 @@ public class BasePopulationTests {
 		tracker.update(0, new TestObject(), true);
 		assertTrue(pop.evolutionIsPaused());
 		assertTrue(pop2.evolutionIsPaused());	
+		
+		assertEquals(0, selection.initCalledWith);
+		pop.initOperators(987);
+		assertEquals(987, selection.initCalledWith);
 	}
 	
 	@Test
-	public void testBasePopulationInteger_SelectCopies() {
+	public void testEvolvableParametersPopulationInteger_SelectCopies() {
 		TestObject.reinit();
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
 		TestSelectionOp selection = new TestSelectionOp();
 		TestFitnessInteger f = new TestFitnessInteger();
-		BasePopulation.Integer<TestObject> pop = new BasePopulation.Integer<TestObject>(
+		EvolvableParametersPopulation.Integer<TestObject> pop = new EvolvableParametersPopulation.Integer<TestObject>(
 			10,
 			new TestInitializer(),
 			f,
 			selection,
 			tracker, 
-			0
+			0, 
+			2
 		);
 		pop.init();
 		pop.select();
@@ -699,6 +838,8 @@ public class BasePopulationTests {
 	private static class TestSelectionOp implements SelectionOperator {
 		
 		boolean called;
+		int initCalledWith;
+		
 		public TestSelectionOp() {
 			called = false;
 		}
@@ -720,9 +861,15 @@ public class BasePopulationTests {
 			}
 			called = true;
 		}
+		
 		@Override
 		public TestSelectionOp split() {
 			return new TestSelectionOp();
+		}
+		
+		@Override
+		public void init(int generations) {
+			initCalledWith = generations;
 		}
 	}
 	

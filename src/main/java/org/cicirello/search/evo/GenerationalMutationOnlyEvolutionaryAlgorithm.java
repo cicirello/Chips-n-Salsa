@@ -25,7 +25,6 @@ import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.MutationOperator;
-import org.cicirello.math.rand.RandomVariates;
 
 /**
  * <p>This class implements an evolutionary algorithm (EA) with a generational
@@ -58,9 +57,6 @@ import org.cicirello.math.rand.RandomVariates;
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
 public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>> extends AbstractEvolutionaryAlgorithm<T> {
-	
-	private final MutationOperator<T> mutation;
-	private final double M;
 	
 	/**
 	 * Constructs and initializes the evolutionary algorithm with mutation only. This constructor supports fitness functions
@@ -265,16 +261,13 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
 	 * Internal helper constructor for Mutation-Only EAs.
 	 */
 	private GenerationalMutationOnlyEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate) {
-		super(pop, problem);
-		if (mutation == null) {
-			throw new NullPointerException("mutation must be non-null");
-		}
-		if (mutationRate < 0.0) {
-			throw new IllegalArgumentException("mutationRate must not be negative");
-		}
-		this.mutation = mutation;
-		
-		M = mutationRate < 1.0 ? mutationRate : 1.0;
+		super(
+			pop, 
+			problem, 
+			mutationRate >= 1.0 ?
+				new OnlyAlwaysMutateGeneration<T>(mutation)
+				: new OnlyMutateGeneration<T>(mutation, mutationRate)
+		);
 	}
 	
 	/*
@@ -283,34 +276,10 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
 	 */
 	GenerationalMutationOnlyEvolutionaryAlgorithm(GenerationalMutationOnlyEvolutionaryAlgorithm<T> other) {
 		super(other);
-		
-		// Must be split
-		mutation = other.mutation.split();
-		
-		// Threadsafe so just copy reference or values
-		M = other.M;
 	}
 	
 	@Override
 	public GenerationalMutationOnlyEvolutionaryAlgorithm<T> split() {
 		return new GenerationalMutationOnlyEvolutionaryAlgorithm<T>(this);
-	}
-	
-	@Override
-	final int oneGeneration(Population<T> pop) {
-		pop.select();
-		final int count = 
-			M == 1.0 ?
-				pop.mutableSize()
-				: RandomVariates.nextBinomial(pop.mutableSize(), M);
-		// Since select() randomizes ordering, just use a binomial
-		// to get count of how many to mutate and mutate the first count individuals.
-		// Although if M is 1.0 just mutate them all without computing the binomial.
-		for (int j = 0; j < count; j++) {
-			mutation.mutate(pop.get(j));
-			pop.updateFitness(j);
-		}
-		pop.replace();
-		return count;
 	}
 }

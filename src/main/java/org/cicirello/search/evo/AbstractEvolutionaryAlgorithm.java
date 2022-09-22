@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -38,15 +38,17 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>> implements R
 	
 	private final Population<T> pop;
 	private final Problem<T> problem;
+	private final Generation<T> generation;
 	private long numFitnessEvals;
 	
 	/*
 	 * Internal constructor for use by subclasses in same package.
 	 * Initializes the base class. 
 	 */
-	AbstractEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem) {
+	AbstractEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, Generation<T> generation) {
 		this.pop = pop;
 		this.problem = problem;
+		this.generation = generation;
 	}
 	
 	/*
@@ -56,6 +58,7 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>> implements R
 	AbstractEvolutionaryAlgorithm(AbstractEvolutionaryAlgorithm<T> other) {
 		// Must be split
 		pop = other.pop.split();
+		generation = other.generation.split();
 		
 		// Threadsafe so just copy reference or values
 		problem = other.problem;
@@ -134,19 +137,12 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>> implements R
 		return numFitnessEvals;
 	}
 	
-	private void internalOptimize(int numGenerations) {
-		for (int i = 0; i < numGenerations && !pop.evolutionIsPaused(); i++) {
-			numFitnessEvals = numFitnessEvals + oneGeneration(pop);
-		}
-	}
-	
-	/**
-	 * Logic for single generation.
-	 * @param pop The population.
-	 * @return number of fitness evaluations during this generation.
-	 */
-	abstract int oneGeneration(Population<T> pop);
-	
 	@Override
 	public abstract AbstractEvolutionaryAlgorithm<T> split();
+	
+	private void internalOptimize(int numGenerations) {
+		for (int i = 0; i < numGenerations && !pop.evolutionIsPaused(); i++) {
+			numFitnessEvals = numFitnessEvals + generation.apply(pop);
+		}
+	}
 }

@@ -92,6 +92,136 @@ public class EvolvableParametersPopulationTests {
 	}
 	
 	@Test
+	public void testEvolvableParametersPopulation_getParameter_Double() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessDouble f = new TestFitnessDouble();
+		EvolvableParametersPopulation.Double<TestObject> pop = new EvolvableParametersPopulation.Double<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker, 
+			0, 
+			2
+		);
+		pop.init();
+		pop.select();
+		boolean allSame0 = true;
+		boolean allSame1 = true;
+		double last0 = -1;
+		double last1 = -1;
+		for (int i = 0; i < 10; i++) {
+			double param0 = pop.getParameter(i, 0).get();
+			double param1 = pop.getParameter(i, 1).get();
+			assertTrue(param0 >= 0.0 && param0 <= 1.0);
+			assertTrue(param1 >= 0.0 && param1 <= 1.0);
+			if (i > 0) {
+				if (allSame0) {
+					allSame0 = param0 == last0;
+				}
+				if (allSame1) {
+					allSame1 = param1 == last1;
+				}
+			}
+			last0 = param0;
+			last1 = param1;
+		}
+		assertFalse(allSame0);
+		assertFalse(allSame1);
+		
+		pop = new EvolvableParametersPopulation.Double<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker, 
+			0, 
+			1
+		);
+		pop.init();
+		pop.select();
+		allSame0 = true;
+		for (int i = 0; i < 10; i++) {
+			double param0 = pop.getParameter(i, 0).get();
+			assertTrue(param0 >= 0.0 && param0 <= 1.0);
+			if (i > 0) {
+				if (allSame0) {
+					allSame0 = param0 == last0;
+				}
+			}
+			last0 = param0;
+		}
+		assertFalse(allSame0);
+	}
+	
+	@Test
+	public void testEvolvableParametersPopulation_getParameter_Integer() {
+		TestObject.reinit();
+		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+		TestSelectionOp selection = new TestSelectionOp();
+		TestFitnessInteger f = new TestFitnessInteger();
+		EvolvableParametersPopulation.Integer<TestObject> pop = new EvolvableParametersPopulation.Integer<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker, 
+			0, 
+			2
+		);
+		pop.init();
+		pop.select();
+		boolean allSame0 = true;
+		boolean allSame1 = true;
+		double last0 = -1;
+		double last1 = -1;
+		for (int i = 0; i < 10; i++) {
+			double param0 = pop.getParameter(i, 0).get();
+			double param1 = pop.getParameter(i, 1).get();
+			assertTrue(param0 >= 0.0 && param0 <= 1.0);
+			assertTrue(param1 >= 0.0 && param1 <= 1.0);
+			if (i > 0) {
+				if (allSame0) {
+					allSame0 = param0 == last0;
+				}
+				if (allSame1) {
+					allSame1 = param1 == last1;
+				}
+			}
+			last0 = param0;
+			last1 = param1;
+		}
+		assertFalse(allSame0);
+		assertFalse(allSame1);
+		
+		pop = new EvolvableParametersPopulation.Integer<TestObject>(
+			10,
+			new TestInitializer(),
+			f,
+			selection,
+			tracker, 
+			0, 
+			1
+		);
+		pop.init();
+		pop.select();
+		allSame0 = true;
+		for (int i = 0; i < 10; i++) {
+			double param0 = pop.getParameter(i, 0).get();
+			assertTrue(param0 >= 0.0 && param0 <= 1.0);
+			if (i > 0) {
+				if (allSame0) {
+					allSame0 = param0 == last0;
+				}
+			}
+			last0 = param0;
+		}
+		assertFalse(allSame0);
+	}
+	
+	@Test
 	public void testEvolvableParametersPopulationElitismDouble() {
 		TestObject.reinit();
 		ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();

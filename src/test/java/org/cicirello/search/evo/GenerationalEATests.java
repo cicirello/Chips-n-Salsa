@@ -97,6 +97,34 @@ public class GenerationalEATests {
 			NullPointerException.class,
 			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
 				5, 
+				null, 
+				1.0, 
+				new CountCrossoverCalls(),
+				0.5,
+				new TestInitializer(), 
+				new TestFitnessDouble(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+				5, 
+				null, 
+				1.0,
+				new CountCrossoverCalls(),
+				0.5,
+				new TestInitializer(), 
+				new TestFitnessInteger(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownNull = assertThrows( 
+			NullPointerException.class,
+			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+				5, 
 				new CountMutationCalls(), 
 				0.5, 
 				null,
@@ -221,6 +249,34 @@ public class GenerationalEATests {
 				5, 
 				new CountMutationCalls(), 
 				1E-10, 
+				new CountCrossoverCalls(),
+				-1E-10,
+				new TestInitializer(), 
+				new TestFitnessInteger(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownIllegal = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+				5, 
+				new CountMutationCalls(), 
+				1.0, 
+				new CountCrossoverCalls(),
+				-1E-10,
+				new TestInitializer(), 
+				new TestFitnessDouble(), 
+				new TestSelectionOp(), 
+				new ProgressTracker<TestObject>()
+			)
+		);
+		thrownIllegal = assertThrows( 
+			IllegalArgumentException.class,
+			() -> new GenerationalEvolutionaryAlgorithm<TestObject>(
+				5, 
+				new CountMutationCalls(), 
+				1.0, 
 				new CountCrossoverCalls(),
 				-1E-10,
 				new TestInitializer(), 

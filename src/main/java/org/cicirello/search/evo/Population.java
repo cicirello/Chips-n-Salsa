@@ -110,5 +110,5 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 	void setProgressTracker(ProgressTracker<T> tracker);
 	
 	@Override
-	abstract public Population<T> split();
+	Population<T> split();
 }

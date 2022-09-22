@@ -58,11 +58,6 @@ import org.cicirello.math.rand.RandomVariates;
  */
 public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T extends Copyable<T>> extends AbstractEvolutionaryAlgorithm<T> {
 	
-	private final MutationOperator<T> mutation;
-	private final double M_PRIME;
-	private final CrossoverOperator<T> crossover;
-	private final double C;
-	
 	/**
 	 * Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover operator
 	 * and a mutation operator, such that the genetic operators follow a mutually exclusive 
@@ -313,26 +308,7 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
 	 * Internal helper constructor for standard EAs with full generation (both crossover and mutation).
 	 */
 	private GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate, CrossoverOperator<T> crossover, double crossoverRate) {
-		super(pop, problem);
-		if (mutation == null) {
-			throw new NullPointerException("mutation must be non-null");
-		}
-		if (crossover == null) {
-			throw new NullPointerException("crossover must be non-null");
-		}
-		if (mutationRate < 0.0) {
-			throw new IllegalArgumentException("mutationRate must not be negative");
-		}
-		if (crossoverRate < 0.0) {
-			throw new IllegalArgumentException("crossoverRate must not be negative");
-		}
-		if (mutationRate + crossoverRate > 1.0) {
-			throw new IllegalArgumentException("mutually exclusive operators requires mutationRate + crossoverRate <= 1.0");
-		}
-		C = crossoverRate;
-		M_PRIME = C < 1.0 ? mutationRate / (1.0 - C) : 0.0;
-		this.mutation = mutation;
-		this.crossover = crossover;
+		super(pop, problem, new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate));
 	}
 	
 	/*
@@ -341,46 +317,10 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
 	 */
 	GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T> other) {
 		super(other);
-		
-		// Must be split
-		mutation = other.mutation.split();
-		crossover = other.crossover.split(); 
-		
-		// Threadsafe so just copy reference or values
-		M_PRIME = other.M_PRIME;
-		C = other.C;
 	}
 	
 	@Override
 	public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T> split() {
 		return new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T>(this);
-	}
-		
-	@Override
-	final int oneGeneration(Population<T> pop) {
-		pop.select();
-		// Since select() above randomizes ordering, just use a binomial
-		// to get count of number of pairs of parents to cross and cross the first 
-		// count pairs of parents. Pair up parents with indexes: first and (first + count).
-		final int count = C < 1.0 ? RandomVariates.nextBinomial(pop.mutableSize()/2, C) : pop.mutableSize()/2;
-		for (int first = 0; first < count; first++) {
-			int second = first + count;
-			crossover.cross(pop.get(first), pop.get(second));
-			pop.updateFitness(first);
-			pop.updateFitness(second);
-		}
-		final int crossed = count << 1;
-		int mutateCount = 0;
-		if (C < 1.0) {
-			mutateCount = crossed < pop.mutableSize() ? 
-				(M_PRIME < 1.0 ? RandomVariates.nextBinomial(pop.mutableSize()-crossed, M_PRIME) : pop.mutableSize()-crossed) 
-				: 0;
-			for (int j = crossed + mutateCount - 1; j >= crossed; j--) {
-				mutation.mutate(pop.get(j));
-				pop.updateFitness(j);
-			}
-		}
-		pop.replace();
-		return crossed + mutateCount;
 	}
 }

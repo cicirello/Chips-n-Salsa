@@ -23,6 +23,7 @@ package org.cicirello.search.evo;
 import org.cicirello.util.Copyable;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.ProgressTracker;
+import org.cicirello.search.representations.SingleReal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -138,6 +139,11 @@ abstract class EvolvableParametersPopulation {
 		@Override
 		public T get(int i) {
 			return nextPop.get(i).getCandidate().getCandidate();
+		}
+		
+		@Override
+		public SingleReal getParameter(int indexPop, int indexParam) {
+			return nextPop.get(indexPop).getCandidate().getParameter(indexParam);
 		}
 		
 		@Override
@@ -337,6 +343,11 @@ abstract class EvolvableParametersPopulation {
 		@Override
 		public T get(int i) {
 			return nextPop.get(i).getCandidate().getCandidate();
+		}
+		
+		@Override
+		public SingleReal getParameter(int indexPop, int indexParam) {
+			return nextPop.get(indexPop).getCandidate().getParameter(indexParam);
 		}
 		
 		@Override

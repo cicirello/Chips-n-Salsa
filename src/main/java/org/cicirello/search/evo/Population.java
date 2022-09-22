@@ -24,6 +24,7 @@ import org.cicirello.search.concurrent.Splittable;
 import org.cicirello.util.Copyable;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.ProgressTracker;
+import org.cicirello.search.representations.SingleReal;
 
 /**
  * The Population interface represents a population of candidate solutions
@@ -46,6 +47,21 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>>, P
 	 * @throws ArrayIndexOutOfBoundsException if i is outside the interval [0, mutableSize()).
 	 */
 	T get(int i);
+	
+	/**
+	 * Optional method that should be implemented by Population classes that evolve
+	 * control parameters along with the solution. Gets a parameter value from a
+	 * member of the population.
+	 *
+	 * @param indexPop Index into the population.
+	 *
+	 * @param indexParam Index into the parameters of that population member.
+	 *
+	 * @throws UnsupportedOperationException by default. You must override to support adaptive control parameters.
+	 */
+	default SingleReal getParameter(int indexPop, int indexParam) {
+		throw new UnsupportedOperationException("This population class doesn't encode control parameters.");
+	}
 	
 	/**
 	 * Gets the number of candidate solutions subject to genetic operators.

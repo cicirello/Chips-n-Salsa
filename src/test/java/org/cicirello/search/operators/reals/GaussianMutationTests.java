@@ -64,6 +64,11 @@ public class GaussianMutationTests {
 		assertNotEquals(p4, p5);
 		assertNotEquals(p1, g1);
 		assertNotEquals(p1, g3);
+		assertNotEquals(p2, p1);
+		assertNotEquals(p3, p1);
+		assertNotEquals(p5, p4);
+		assertNotEquals(g1, p1);
+		assertNotEquals(g3, p1);
 		assertFalse(p1.equals(null));
 		p1 = UndoableGaussianMutation.createGaussianMutation(1, 1);
 		p2 = UndoableGaussianMutation.createGaussianMutation(2, 1);
@@ -73,8 +78,14 @@ public class GaussianMutationTests {
 		assertNotEquals(p1, p2);
 		assertNotEquals(p1, p3);
 		assertNotEquals(p4, p5);
+		assertNotEquals(p4, p1);
 		assertNotEquals(p1, g1);
 		assertNotEquals(p1, g3);
+		assertNotEquals(p2, p1);
+		assertNotEquals(p3, p1);
+		assertNotEquals(p5, p4);
+		assertNotEquals(g1, p1);
+		assertNotEquals(g3, p1);
 		assertFalse(p1.equals(null));
 		GaussianMutation<RealValued> b1 = GaussianMutation.createGaussianMutation(1.0, 1.0, 5.0);
 		GaussianMutation<RealValued> b2 = GaussianMutation.createGaussianMutation(1.01, 1.0, 5.0);
@@ -84,9 +95,12 @@ public class GaussianMutationTests {
 		assertEquals(b1, b1Copy);
 		assertEquals(b1.hashCode(), b1Copy.hashCode());
 		assertNotEquals(b1, b2);
-		assertNotEquals(b1, b2);
 		assertNotEquals(b1, b3);
 		assertNotEquals(b1, b4);
+		assertNotEquals(b2, b1);
+		assertNotEquals(b3, b1);
+		assertNotEquals(b4, b1);
+		assertNotEquals(b1, p1);
 		assertFalse(b1.equals(null));
 	}
 	
@@ -128,6 +142,10 @@ public class GaussianMutationTests {
 		thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> GaussianMutation.createGaussianMutation(1.0, 2.0, 2.0 - Math.ulp(2.0))
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> UndoableGaussianMutation.createGaussianMutation(1.0, 2.0, 2.0 - Math.ulp(2.0))
 		);
 	}
 	
@@ -269,6 +287,37 @@ public class GaussianMutationTests {
 			for (int i = 0; i < 7; i++) {
 				assertEquals(4.0, r.get(i));
 			}
+		}
+	}
+	
+	@Test
+	public void testUndoableConstrainedGaussianMutation() {
+		UndoableGaussianMutation<RealValued> g1 = UndoableGaussianMutation.createGaussianMutation(1.0, -10.0, 10.0);
+		assertEquals(1.0, g1.get(0));
+		verifyMutate1(g1);
+		verifyUndo(g1);
+		
+		UndoableGaussianMutation<RealValued> g5 = UndoableGaussianMutation.createGaussianMutation(5.0, -10.0, 10.0);
+		assertEquals(5.0, g5.get(0));
+		verifyMutate1(g5);
+		verifyUndo(g5);
+		
+		UndoableGaussianMutation<RealValued> g = UndoableGaussianMutation.createGaussianMutation(1.0, 2.0, 5.0);
+		RealVector r = new RealVector(new double[] {-1000, -100, -50, 0.0, 3.0, 50, 100, 1000});
+		g.mutate(r);
+		assertEquals(2.0, r.get(0));
+		assertEquals(2.0, r.get(1));
+		assertEquals(2.0, r.get(2));
+		assertTrue(r.get(3) >= 2.0 && r.get(3) <= 5.0);
+		assertTrue(r.get(4) >= 2.0 && r.get(4) <= 5.0);
+		assertEquals(5.0, r.get(5));
+		assertEquals(5.0, r.get(6));
+		assertEquals(5.0, r.get(7));
+		g = UndoableGaussianMutation.createGaussianMutation(1.0, 4.0, 4.0);
+		r = new RealVector(new double[] {-1000, -100, -50, 0.0, 3.0, 50, 100, 1000});
+		g.mutate(r);
+		for (int i = 0; i < 7; i++) {
+			assertEquals(4.0, r.get(i));
 		}
 	}
 	

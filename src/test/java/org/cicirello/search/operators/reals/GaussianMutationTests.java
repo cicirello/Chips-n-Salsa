@@ -64,6 +64,11 @@ public class GaussianMutationTests {
 		assertNotEquals(p4, p5);
 		assertNotEquals(p1, g1);
 		assertNotEquals(p1, g3);
+		assertNotEquals(p2, p1);
+		assertNotEquals(p3, p1);
+		assertNotEquals(p5, p4);
+		assertNotEquals(g1, p1);
+		assertNotEquals(g3, p1);
 		assertFalse(p1.equals(null));
 		p1 = UndoableGaussianMutation.createGaussianMutation(1, 1);
 		p2 = UndoableGaussianMutation.createGaussianMutation(2, 1);
@@ -73,8 +78,14 @@ public class GaussianMutationTests {
 		assertNotEquals(p1, p2);
 		assertNotEquals(p1, p3);
 		assertNotEquals(p4, p5);
+		assertNotEquals(p4, p1);
 		assertNotEquals(p1, g1);
 		assertNotEquals(p1, g3);
+		assertNotEquals(p2, p1);
+		assertNotEquals(p3, p1);
+		assertNotEquals(p5, p4);
+		assertNotEquals(g1, p1);
+		assertNotEquals(g3, p1);
 		assertFalse(p1.equals(null));
 		GaussianMutation<RealValued> b1 = GaussianMutation.createGaussianMutation(1.0, 1.0, 5.0);
 		GaussianMutation<RealValued> b2 = GaussianMutation.createGaussianMutation(1.01, 1.0, 5.0);
@@ -84,9 +95,12 @@ public class GaussianMutationTests {
 		assertEquals(b1, b1Copy);
 		assertEquals(b1.hashCode(), b1Copy.hashCode());
 		assertNotEquals(b1, b2);
-		assertNotEquals(b1, b2);
 		assertNotEquals(b1, b3);
 		assertNotEquals(b1, b4);
+		assertNotEquals(b2, b1);
+		assertNotEquals(b3, b1);
+		assertNotEquals(b4, b1);
+		assertNotEquals(b1, p1);
 		assertFalse(b1.equals(null));
 	}
 	

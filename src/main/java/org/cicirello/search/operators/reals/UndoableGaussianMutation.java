@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -55,10 +55,10 @@ import org.cicirello.math.rand.RandomIndexer;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class UndoableGaussianMutation<T extends RealValued> extends GaussianMutation<T> implements UndoableMutationOperator<T> {
+public final class UndoableGaussianMutation<T extends RealValued> extends GaussianMutation<T> implements UndoableMutationOperator<T> {
 	
-	double[] previous;
-	double old;
+	private double[] previous;
+	private double old;
 	
 	/*
 	 * Internal constructor.  Constructs a Gaussian mutation operator supporting the undo operation.
@@ -67,6 +67,16 @@ public class UndoableGaussianMutation<T extends RealValued> extends GaussianMuta
 	 */
 	UndoableGaussianMutation(double sigma) { 
 		super(sigma);
+	}
+	
+	/*
+	 * Internal constructor.  Constructs a Gaussian mutation operator.
+	 * Otherwise, must use the factory methods.
+	 * @param sigma The standard deviation of the Gaussian.
+	 * @param m The internal mutator
+	 */
+	UndoableGaussianMutation(double sigma, InternalMutator<T> m) { 
+		super(sigma, m);
 	}
 	
 	/*
@@ -109,7 +119,7 @@ public class UndoableGaussianMutation<T extends RealValued> extends GaussianMuta
 	 */
 	public static <T extends RealValued> UndoableGaussianMutation<T> createGaussianMutation(double sigma, int k) {
 		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
-		return new UndoablePartialGaussianMutation<T>(sigma, k);
+		return new UndoableGaussianMutation<T>(sigma, new PartialK<T>(k));
 	}
 	
 	/**
@@ -125,15 +135,17 @@ public class UndoableGaussianMutation<T extends RealValued> extends GaussianMuta
 	 */
 	public static <T extends RealValued> UndoableGaussianMutation<T> createGaussianMutation(double sigma, double p) {
 		if (p <= 0) throw new IllegalArgumentException("p must be positive");
-		return p >= 1
-			? new UndoableGaussianMutation<T>(sigma)
-			: new UndoablePartialGaussianMutation<T>(sigma, p);
+		if (p >= 1) {
+			return new UndoableGaussianMutation<T>(sigma);
+		}
+		return new UndoableGaussianMutation<T>(sigma, new PartialP<T>(p));
 	}
 	
 	@Override
 	public void mutate(T c) {
-		if (c.length() > 1) internalMutate(c, previous = c.toArray(previous));
-		else if (c.length() == 1) internalMutate(c, old = c.get(0));
+		if (c.length() > 1) previous = c.toArray(previous);
+		else if (c.length() == 1) old = c.get(0);
+		super.mutate(c);
 	}
 	
 	@Override
@@ -165,106 +177,4 @@ public class UndoableGaussianMutation<T extends RealValued> extends GaussianMuta
 	public boolean equals(Object other) {
 		return super.equals(other) && other instanceof UndoableGaussianMutation;
 	}
-	
-	private static final class UndoablePartialGaussianMutation<T extends RealValued> extends UndoableGaussianMutation<T> {
-		
-		private final int k;
-		private final double p;
-		private int[] indexes;
-		
-		UndoablePartialGaussianMutation(double sigma, int k) {
-			super(sigma);
-			this.k = k;
-			p = -1;
-		}
-		
-		UndoablePartialGaussianMutation(double sigma, double p) {
-			super(sigma);
-			this.p = p;
-			k = 0;
-		}
-		
-		UndoablePartialGaussianMutation(UndoablePartialGaussianMutation<T> other) {
-			super(other);
-			k = other.k;
-			p = other.p;
-		}
-		
-		@Override
-		public void mutate(T c) {
-			if (k >= c.length()) {
-				super.mutate(c);
-			} else {
-				indexes = p < 0 
-					? RandomIndexer.sample(c.length(), k, indexes) 
-					: RandomIndexer.sample(c.length(), p);
-				if (previous == null || previous.length < indexes.length) {
-					previous = new double[indexes.length];
-				}
-				for (int i = 0; i < indexes.length; i++) {
-					previous[i] = c.get(indexes[i]);
-				}
-				internalPartialMutation(c, indexes, previous);
-			}
-		}
-		
-		@Override
-		public void undo(T c) {
-			if (k >= c.length()) {
-				super.undo(c);
-			} else {
-				for (int i = 0; i < indexes.length; i++) {
-					c.set(indexes[i], previous[i]);
-				}
-			}
-		}
-		
-		/**
-		 * Indicates whether some other object is equal to this one.
-		 * The objects are equal if they are the same type of operator
-		 * with the same parameters.
-		 * @param other the object with which to compare
-		 * @return true if and only if the objects are equal
-		 */
-		@Override
-		public boolean equals(Object other) {
-			if (other==null || !(other instanceof UndoablePartialGaussianMutation)) {
-				return false;
-			}
-			if (!super.equals(other)) {
-				return false;
-			}
-			UndoablePartialGaussianMutation g = (UndoablePartialGaussianMutation)other;
-			return k==g.k && p==g.p;
-		}
-		
-		/**
-		 * Returns a hash code value for the object.
-		 * This method is supported for the benefit of hash 
-		 * tables such as those provided by HashMap.
-		 * @return a hash code value for this object
-		 */
-		@Override
-		public int hashCode() {
-			return 31 * super.hashCode() + (p < 0 ? k : Double.hashCode(p));
-		}
-		
-		@Override
-		public UndoablePartialGaussianMutation<T> split() {
-			return new UndoablePartialGaussianMutation<T>(this);
-		}
-		
-		/**
-		 * Creates an identical copy of this object.
-		 * @return an identical copy of this object
-		 */
-		@Override
-		public UndoablePartialGaussianMutation<T> copy() {
-			return new UndoablePartialGaussianMutation<T>(this);
-		}
-	}
-	
-	
-	
-	
 }

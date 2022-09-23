@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * A factory method in the GaussianMutation class for creating a GaussianMutation that constrains
   result to an interval, such as relevant if mutating a crossover or mutation rate since such rates
   constrained in [0.0, 1.0].
+* A set(int[]) method to the IntegerValued interface along with implementations in corresponding classes.
+* A set(double[]) method to the RealValued interface along with implementations in corresponding classes.
 
 ### Changed
 * Refactored evolutionary algorithm classes to improve maintainability, as well as a few minor optimizations.

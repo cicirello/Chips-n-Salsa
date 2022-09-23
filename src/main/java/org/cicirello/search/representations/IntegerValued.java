@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -61,4 +61,15 @@ public interface IntegerValued {
 	 * @throws ArrayIndexOutOfBoundsException if i &lt; 0 or i &ge; length().
 	 */
 	void set(int i, int value);
+	
+	/**
+	 * Sets all values from an array (copies values from the array).
+	 *
+	 * @param values an array of new values
+	 */
+	default void set(int[] values) {
+		for (int i = 0; i < values.length; i++) {
+			set(i, values[i]);
+		}
+	}
 }

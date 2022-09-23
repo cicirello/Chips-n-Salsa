@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -115,6 +115,24 @@ public class SingleReal implements RealValued, Copyable<SingleReal> {
 	@Override
 	public final void set(int i, double x) {
 		set(x);
+	}
+	
+	/**
+	 * <p>Sets this function input to a specified value.
+	 * This method originates with the {@link RealValued} interface.
+	 * Since this is a univariate function, there is only 1 input variable by
+	 * definition. Rather than throw an exception for values.length greater than 1,
+	 * this method simply uses values[0] and ignores any extra values.</p>
+	 *
+	 * <p>This method delegates work to the {@link #set(double)} method, so the
+	 * behavior of this method will be consistent with any subclasses that override 
+	 * {@link #set(double)}.</p>
+	 *
+	 * @param values The values to set.
+	 */
+	@Override
+	public final void set(double[] values) {
+		set(values[0]);
 	}
 	
 	/**

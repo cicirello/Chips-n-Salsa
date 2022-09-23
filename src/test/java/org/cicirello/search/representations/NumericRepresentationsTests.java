@@ -32,6 +32,54 @@ public class NumericRepresentationsTests {
 	private final double EPSILON = 1e-10;
 	
 	@Test
+	public void testDefaultSetIntArray() {
+		class Vector implements IntegerValued {
+			
+			private int[] a;
+			
+			Vector(int[] a) { this.a = a.clone(); }
+			
+			@Override public int length() { return a.length; }
+			
+			@Override public int get(int i) { return a[i]; }
+			
+			@Override public int[] toArray(int[] values) {
+				//not correct in general (shouldn't expose internals, but this is for testing
+				return a;
+			}
+			
+			@Override public void set(int i, int value) { a[i] = value; }
+		}
+		Vector v = new Vector(new int[] {4, 5, 6});
+		v.set(new int[] {7, 8, 9});
+		assertArrayEquals(new int[] {7, 8, 9}, v.toArray(null));
+	}
+	
+	@Test
+	public void testDefaultSetDoubleArray() {
+		class Vector implements RealValued {
+			
+			private double[] a;
+			
+			Vector(double[] a) { this.a = a.clone(); }
+			
+			@Override public int length() { return a.length; }
+			
+			@Override public double get(int i) { return a[i]; }
+			
+			@Override public double[] toArray(double[] values) {
+				//not correct in general (shouldn't expose internals, but this is for testing
+				return a;
+			}
+			
+			@Override public void set(int i, double value) { a[i] = value; }
+		}
+		Vector v = new Vector(new double[] {4, 5, 6});
+		v.set(new double[] {7, 8, 9});
+		assertArrayEquals(new double[] {7, 8, 9}, v.toArray(null));
+	}
+	
+	@Test
 	public void testExchangeIntegerVector() {
 		for (int n = 1; n <= 8; n*=2) {
 			for (int first = 0; first < n; first++) {
@@ -361,6 +409,8 @@ public class NumericRepresentationsTests {
 		assertEquals(10.0, f0.get(), EPSILON);
 		f0.set(0, 8);
 		assertEquals(8.0, f0.get(0), EPSILON);
+		f0.set(new double[] {42});
+		assertEquals(42.0, f0.get());
 		
 		assertEquals(f5, copy);
 		assertEquals(f5, copy2);
@@ -406,6 +456,8 @@ public class NumericRepresentationsTests {
 		assertEquals(10, f0.get());
 		f0.set(0, 8);
 		assertEquals(8, f0.get(0));
+		f0.set(new int[] {42});
+		assertEquals(42, f0.get());
 		
 		assertEquals(f5, copy);
 		assertEquals(f5, copy2);
@@ -454,6 +506,12 @@ public class NumericRepresentationsTests {
 				f3.set(i, 100.0);
 				assertNotEquals(f2, f3);
 			}
+			double[] changed = new double[initial.length];
+			for (int i = 0; i < changed.length; i++) {
+				changed[i] = (i+1)*5;
+			}
+			f3.set(changed.clone());
+			assertArrayEquals(changed, f3.toArray(null));
 			assertEquals(f2, f);
 			assertEquals(f2.hashCode(), f.hashCode());
 			RealVector copy = new RealVector(f2);
@@ -505,6 +563,12 @@ public class NumericRepresentationsTests {
 				f3.set(i, 100);
 				assertNotEquals(f2, f3);
 			}
+			int[] changed = new int[initial.length];
+			for (int i = 0; i < changed.length; i++) {
+				changed[i] = (i+1)*5;
+			}
+			f3.set(changed.clone());
+			assertArrayEquals(changed, f3.toArray(null));
 			assertEquals(f2, f);
 			assertEquals(f2.hashCode(), f.hashCode());
 			IntegerVector copy = new IntegerVector(f2);
@@ -592,7 +656,12 @@ public class NumericRepresentationsTests {
 		IllegalArgumentException thrown = assertThrows( 
 			IllegalArgumentException.class,
 			() -> new BoundedIntegerVector(values, 2, 1)
-		);		
+		);
+		
+		int[] changed = {0, 4, 8, 12};
+		f3.set(changed);
+		int[] expected = {1, 4, 8, 9};
+		assertArrayEquals(expected, f3.toArray(null));
 	}
 	
 	@Test
@@ -667,6 +736,10 @@ public class NumericRepresentationsTests {
 			IllegalArgumentException.class,
 			() -> new BoundedRealVector(values, 1.0001, 1)
 		);
-	}
-	
+		
+		double[] changed = {0, 4, 8, 12};
+		f3.set(changed);
+		double[] expected = {1, 4, 8, 9};
+		assertArrayEquals(expected, f3.toArray(null));
+	}	
 }

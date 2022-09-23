@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -80,6 +80,11 @@ public class RealVector implements RealValued, Copyable<RealVector> {
 	@Override
 	public void set(int i, double value) {
 		this.x[i] = value;
+	}
+	
+	@Override
+	public void set(double[] values) {
+		System.arraycopy(values, 0, x, 0, x.length);
 	}
 	
 	/**

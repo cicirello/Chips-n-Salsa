@@ -167,6 +167,9 @@ public class CauchyMutationTests {
 		g3.set(0, 3.0);
 		assertEquals(3.0, g3.get(0), EPSILON);
 		verifyMutate1(g3);
+		
+		g3.set(new double[] {7} );
+		assertEquals(7.0, g3.get(0));
 	}
 	
 	@Test

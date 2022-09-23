@@ -246,6 +246,15 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 		sigma = value;
 	}
 	
+	/**
+	 * Sets sigma to a specified value.
+	 * @param values The new value for sigma is in values[0], the rest is ignored.
+	 */
+	@Override
+	public final void set(double[] values) {
+		sigma = values[0];
+	}
+	
 	/*
 	 * package private so subclasses in same package can access
 	 */

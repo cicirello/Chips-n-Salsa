@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -78,6 +78,22 @@ public final class BoundedIntegerVector extends IntegerVector {
 		if (value < min) super.set(i, min);
 		else if (value > max) super.set(i, max);
 		else super.set(i, value);
+	}
+	
+	/**
+	 * Sets from an array, subject to the
+	 * lower and upper bounds for this vector. If a specified
+	 * new value is less than the min, then it is set to
+	 * the min.  If the specified new value is greater than the max, then
+	 * the it is set to the max. Otherwise, it
+	 * is set to the specified value.
+	 * @param values The values to set.
+	 */
+	@Override
+	public final void set(int[] values) {
+		for (int i = 0; i < values.length; i++) {
+			set(i, values[i]);
+		}
 	}
 	
 	/**

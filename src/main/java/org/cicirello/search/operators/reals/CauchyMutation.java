@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -219,6 +219,15 @@ public class CauchyMutation<T extends RealValued> implements MutationOperator<T>
 	@Override
 	public final void set(int i, double value) {
 		scale = value;
+	}
+	
+	/**
+	 * Sets scale to a specified value.
+	 * @param values The new value for scale is in values[0], the rest is ignored.
+	 */
+	@Override
+	public final void set(double[] values) {
+		scale = values[0];
 	}
 	
 	final void internalMutate(T c, double[] old) {

@@ -107,6 +107,22 @@ public final class UndoableGaussianMutation<T extends RealValued> extends Gaussi
 	}
 	
 	/**
+	 * Creates a Gaussian mutation operator that supports the undo operation, such that the mutate method
+	 * constrains each mutated real value to lie in the interval [lowerBound, upperBound].
+	 *
+	 * @param sigma The standard deviation of the Gaussian.
+	 * @param lowerBound A lower bound on the result of a mutation.
+	 * @param upperBound An upper bound on the result of a mutation.
+	 *
+	 * @param <T> The specific RealValued type.
+	 * @return A Gaussian mutation operator.
+	 */
+	public static <T extends RealValued> UndoableGaussianMutation<T> createGaussianMutation(double sigma, double lowerBound, double upperBound) {
+		if (upperBound < lowerBound) throw new IllegalArgumentException("upperBound must be at least lowerBound");
+		return new UndoableGaussianMutation<T>(sigma, new ConstrainedMutator<T>(lowerBound, upperBound));
+	}
+	
+	/**
 	 * Create a Gaussian mutation operator that supports the undo operation.  
 	 * @param sigma The standard deviation of the Gaussian mutation.
 	 * @param k The number of input variables that the {@link #mutate} 

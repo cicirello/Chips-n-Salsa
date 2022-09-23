@@ -356,7 +356,7 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 		private final double lowerBound;
 		private final double upperBound;
 		
-		private ConstrainedMutator(double lowerBound, double upperBound) {
+		ConstrainedMutator(double lowerBound, double upperBound) {
 			this.lowerBound = lowerBound;
 			this.upperBound = upperBound;
 		}

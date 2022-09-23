@@ -167,9 +167,7 @@ public final class UndoableGaussianMutation<T extends RealValued> extends Gaussi
 	@Override
 	public void undo(T c) {
 		if (c.length() > 1) {
-			for (int i = 0; i < c.length(); i++) {
-				c.set(i, previous[i]);
-			}
+			c.set(previous);
 		} else if (c.length() == 1) {
 			c.set(0, old);
 		}

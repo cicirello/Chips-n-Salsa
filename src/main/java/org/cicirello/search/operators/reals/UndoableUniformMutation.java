@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -134,9 +134,7 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 	@Override
 	public void undo(T c) {
 		if (c.length() > 1) {
-			for (int i = 0; i < c.length(); i++) {
-				c.set(i, previous[i]);
-			}
+			c.set(previous);
 		} else if (c.length() == 1) {
 			c.set(0, old);
 		}

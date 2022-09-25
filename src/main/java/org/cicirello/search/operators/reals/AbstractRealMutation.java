@@ -1,0 +1,244 @@
+/*
+ * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
+ *
+ * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
+ * 
+ * Chips-n-Salsa is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Chips-n-Salsa is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+ 
+package org.cicirello.search.operators.reals;
+
+import org.cicirello.search.operators.MutationOperator;
+import org.cicirello.search.representations.RealValued;
+import org.cicirello.util.Copyable;
+
+/**
+ * Internal abstract base class for mutation operators on real-valued representations.
+ *
+ * @param <T> The specific RealValued type.
+ *
+ * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
+ * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
+ */
+abstract class AbtractRealMutation<T extends RealValued> implements MutationOperator<T>, RealValued, Copyable<AbtractRealMutation<T>> {
+	
+	private double param;
+	private final InternalMutator<T> m;
+	
+	/**
+	 * Constructs the mutation operator.
+	 *
+	 * @param param The parameter to the mutation operator, such as sigma for a Gaussian,
+	 * scale for a Cauchy, radius for a uniform, etc.
+	 *
+	 * @param transformer The functional transformation of the mutation.
+	 */
+	AbtractRealMutation(double param, Transformation transformer) {
+		this.param = param;
+		m = new InternalTotalMutator<T>(transformer);
+	}
+	
+	/**
+	 * Constructs the mutation operator.
+	 *
+	 * @param param The parameter to the mutation operator, such as sigma for a Gaussian,
+	 * scale for a Cauchy, radius for a uniform, etc.
+	 *
+	 * @param transformer The functional transformation of the mutation.
+	 *
+	 * @param selector Chooses the indexes for a partial mutation.
+	 */
+	AbtractRealMutation(double param, Transformation transformer, Selector selector) {
+		this.param = param;
+		m = new InternalPartialMutator<T>(transformer, selector);
+	}
+	
+	AbtractRealMutation(AbtractRealMutation<T> other) {
+		param = other.param;
+		m = other.m;
+	}
+	
+	@Override
+	public final void mutate(T c) {
+		m.mutate(c, param);
+	}
+	
+	@Override
+	public final int length() {
+		return 1;
+	}
+	
+	/**
+	 * Accesses the current value of the mutation parameter.
+	 * @param i Ignored.
+	 * @return The current value of the mutation parameter.
+	 */
+	@Override
+	public final double get(int i) {
+		return param;
+	}
+	
+	/**
+	 * Accesses the current value of the mutation parameter as an array.  This method implemented
+	 * strictly to meet implementation requirements of RealValued interface.
+	 * @param values An array to hold the result.  If values is null or
+	 * if values.length is not equal 1, then a new array 
+	 * is constructed for the result.
+	 * @return An array containing the current value of the mutation parameter.
+	 */
+	@Override
+	public final double[] toArray(double[] values) {
+		if (values == null || values.length != 1) values = new double[1];
+		values[0] = param;
+		return values;
+	}
+	
+	/**
+	 * Sets the mutation parameter to a specified value.
+	 * @param i Ignored.
+	 * @param value The new value for the mutation parameter.
+	 */
+	@Override
+	public final void set(int i, double value) {
+		param = value;
+	}
+	
+	/**
+	 * Sets the mutation parameter to a specified value.
+	 * @param values The new value for the mutation parameter is in values[0], the rest is ignored.
+	 */
+	@Override
+	public final void set(double[] values) {
+		param = values[0];
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof AbtractRealMutation) {
+			AbtractRealMutation g = (AbtractRealMutation)other;
+			return param==g.param && m.equals(g.m);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Double.hashCode(param) + 31 * m.hashCode();
+	}
+	
+	@Override
+	abstract public AbtractRealMutation<T> split();
+	
+	@Override
+	abstract public AbtractRealMutation<T> copy();
+	
+	@FunctionalInterface
+	static interface Transformation {
+		
+		/**
+		 * Mutates a value.
+		 *
+		 * @param double The old value.
+		 * @param param The current value of the mutator's parameter (e.g., sigma for Gaussian,
+		 * or scale for a Cauchy or radius for a uniform.
+		 *
+		 * @return The new value.
+		 */
+		double mutate(double old, double param);
+	}
+	
+	@FunctionalInterface
+	static interface Selector {
+		
+		/**
+		 * Chooses which indexes to mutate for a partial mutation where
+		 * only some elements of a real vector are mutated.
+		 *
+		 * @param n Length of the vector.
+		 *
+		 * @return An array of indexes to mutate.
+		 */
+		int[] chooseIndexes(int n);
+	}
+	
+	private static interface InternalMutator<T1 extends RealValued> {
+		
+		void mutate(T1 c, double param);
+	}
+	
+	private static class InternalTotalMutator<T1 extends RealValued> implements InternalMutator<T1> {
+		
+		private final Transformation mutator;
+		
+		private InternalTotalMutator(Transformation mutator) {
+			this.mutator = mutator;
+		}
+		
+		@Override
+		public void mutate(T1 c, double param) {
+			final int n = c.length();
+			for (int i = 0; i < n; i++) {
+				c.set(i, mutator.mutate(c.get(i), param));
+			}
+		}
+		
+		@Override
+		public boolean equals(Object other) {
+			if (other instanceof InternalTotalMutator) {
+				InternalTotalMutator casted = (InternalTotalMutator)other;
+				return mutator.equals(casted.mutator);
+			}
+			return false;
+		}
+		
+		@Override
+		public int hashCode() {
+			return mutator.hashCode();
+		}
+	}
+	
+	private static class InternalPartialMutator<T1 extends RealValued> implements InternalMutator<T1> {
+		
+		private final Transformation mutator;
+		private final Selector selector;
+		
+		private InternalPartialMutator(Transformation mutator, Selector selector) {
+			this.mutator = mutator;
+			this.selector = selector;
+		}
+		
+		@Override
+		public void mutate(T1 c, double param) {
+			int[] indexes = selector.chooseIndexes(c.length());
+			for (int i = 0; i < indexes.length; i++) {
+				c.set(i, mutator.mutate(c.get(indexes[i]), param));
+			}
+		}
+		
+		@Override
+		public boolean equals(Object other) {
+			if (other instanceof InternalPartialMutator) {
+				InternalPartialMutator casted = (InternalPartialMutator)other;
+				return mutator.equals(casted.mutator) && selector.equals(casted.selector);
+			}
+			return false;
+		}
+		
+		@Override
+		public int hashCode() {
+			return 31*mutator.hashCode() + selector.hashCode();
+		}
+	}
+}

@@ -20,9 +20,10 @@
  
 package org.cicirello.search.operators.reals;
 
-import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.search.representations.RealValued;
 import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomVariates;
+import org.cicirello.util.Copyable;
 
 /**
  * <p>This class implements Gaussian
@@ -55,60 +56,71 @@ import org.cicirello.math.rand.RandomIndexer;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class UndoableGaussianMutation<T extends RealValued> extends GaussianMutation<T> implements UndoableMutationOperator<T> {
-	
-	private double[] previous;
-	private double old;
+public final class UndoableGaussianMutation<T extends RealValued> extends AbstractUndoableRealMutation<T> implements Copyable<UndoableGaussianMutation<T>> {
 	
 	/*
-	 * Internal constructor.  Constructs a Gaussian mutation operator supporting the undo operation.
+	 * Internal constructor.  Constructs a Gaussian mutation operator.
 	 * Otherwise, must use the factory methods.
+	 *
 	 * @param sigma The standard deviation of the Gaussian.
+	 *
+	 * @param transformer The functional transformation of the mutation.
 	 */
-	UndoableGaussianMutation(double sigma) { 
-		super(sigma);
+	UndoableGaussianMutation(double sigma, Transformation transformer) { 
+		super(sigma, transformer);
 	}
 	
 	/*
 	 * Internal constructor.  Constructs a Gaussian mutation operator.
 	 * Otherwise, must use the factory methods.
+	 *
 	 * @param sigma The standard deviation of the Gaussian.
-	 * @param m The internal mutator
+	 * 
+	 * @param transformer The functional transformation of the mutation.
+	 *
+	 * @param selector Chooses the indexes for a partial mutation.
 	 */
-	UndoableGaussianMutation(double sigma, InternalMutator<T> m) { 
-		super(sigma, m);
+	UndoableGaussianMutation(double sigma, Transformation transformer, Selector selector) { 
+		super(sigma, transformer, selector);
 	}
 	
 	/*
-	 * internal copy constructor: not a true copy... doesn't copy state related to undo method
+	 * internal copy constructor
 	 */
 	UndoableGaussianMutation(UndoableGaussianMutation<T> other) {
 		super(other);
 	}
 	
 	/**
-	 * Creates a Gaussian mutation operator with standard deviation equal to 1
-	 * that supports the undo operation.
+	 * Creates a Gaussian mutation operator with standard deviation equal to 1,
+	 * and which supports the {@link #undo} method.
+	 *
 	 * @param <T> The specific RealValued type.
 	 * @return A Gaussian mutation operator.
 	 */
 	public static <T extends RealValued> UndoableGaussianMutation<T> createGaussianMutation() {
-		return new UndoableGaussianMutation<T>(1.0);
+		return createGaussianMutation(1.0);
 	}
 	
 	/**
-	 * Creates a Gaussian mutation operator that supports the undo operation.
+	 * Creates a Gaussian mutation operator,
+	 * and which supports the {@link #undo} method.
+	 *
 	 * @param sigma The standard deviation of the Gaussian.
 	 * @param <T> The specific RealValued type.
 	 * @return A Gaussian mutation operator.
 	 */
 	public static <T extends RealValued> UndoableGaussianMutation<T> createGaussianMutation(double sigma) {
-		return new UndoableGaussianMutation<T>(sigma);
+		return new UndoableGaussianMutation<T>(
+			sigma,
+			(old, param) -> old + RandomVariates.nextGaussian(param)
+		);
 	}
 	
 	/**
-	 * Creates a Gaussian mutation operator that supports the undo operation, such that the mutate method
-	 * constrains each mutated real value to lie in the interval [lowerBound, upperBound].
+	 * Creates a Gaussian mutation operator, such that the mutate method
+	 * constrains each mutated real value to lie in the interval [lowerBound, upperBound],
+	 * and which supports the {@link #undo} method.
 	 *
 	 * @param sigma The standard deviation of the Gaussian.
 	 * @param lowerBound A lower bound on the result of a mutation.
@@ -119,11 +131,21 @@ public final class UndoableGaussianMutation<T extends RealValued> extends Gaussi
 	 */
 	public static <T extends RealValued> UndoableGaussianMutation<T> createGaussianMutation(double sigma, double lowerBound, double upperBound) {
 		if (upperBound < lowerBound) throw new IllegalArgumentException("upperBound must be at least lowerBound");
-		return new UndoableGaussianMutation<T>(sigma, new ConstrainedMutator<T>(lowerBound, upperBound));
+		return new UndoableGaussianMutation<T>(
+			sigma,
+			(old, param) -> {
+				double mutated = old + RandomVariates.nextGaussian(param);
+				if (mutated <= lowerBound) return lowerBound;
+				if (mutated >= upperBound) return upperBound;
+				return mutated;
+			}
+		);
 	}
 	
 	/**
-	 * Create a Gaussian mutation operator that supports the undo operation.  
+	 * Create a Gaussian mutation operator,
+	 * and which supports the {@link #undo} method.
+	 *  
 	 * @param sigma The standard deviation of the Gaussian mutation.
 	 * @param k The number of input variables that the {@link #mutate} 
 	 * method changes when called.
@@ -135,11 +157,17 @@ public final class UndoableGaussianMutation<T extends RealValued> extends Gaussi
 	 */
 	public static <T extends RealValued> UndoableGaussianMutation<T> createGaussianMutation(double sigma, int k) {
 		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
-		return new UndoableGaussianMutation<T>(sigma, new PartialK<T>(k));
+		return new UndoableGaussianMutation<T>(
+			sigma,
+			(old, param) -> old + RandomVariates.nextGaussian(param),
+			n -> RandomIndexer.sample(n, k < n ? k : n, (int[])null)
+		);
 	}
 	
 	/**
-	 * Create a Gaussian mutation operator that supports the undo operation.  
+	 * Create a Gaussian mutation operator,
+	 * and which supports the {@link #undo} method.
+	 *  
 	 * @param sigma The standard deviation of the Gaussian mutation.
 	 * @param p The probability that the {@link #mutate} 
 	 * method changes an input variable.
@@ -152,25 +180,13 @@ public final class UndoableGaussianMutation<T extends RealValued> extends Gaussi
 	public static <T extends RealValued> UndoableGaussianMutation<T> createGaussianMutation(double sigma, double p) {
 		if (p <= 0) throw new IllegalArgumentException("p must be positive");
 		if (p >= 1) {
-			return new UndoableGaussianMutation<T>(sigma);
+			return createGaussianMutation(sigma);
 		}
-		return new UndoableGaussianMutation<T>(sigma, new PartialP<T>(p));
-	}
-	
-	@Override
-	public void mutate(T c) {
-		if (c.length() > 1) previous = c.toArray(previous);
-		else if (c.length() == 1) old = c.get(0);
-		super.mutate(c);
-	}
-	
-	@Override
-	public void undo(T c) {
-		if (c.length() > 1) {
-			c.set(previous);
-		} else if (c.length() == 1) {
-			c.set(0, old);
-		}
+		return new UndoableGaussianMutation<T>(
+			sigma, 
+			(old, param) -> old + RandomVariates.nextGaussian(param),
+			n -> RandomIndexer.sample(n, p)
+		);
 	}
 	
 	@Override
@@ -185,10 +201,5 @@ public final class UndoableGaussianMutation<T extends RealValued> extends Gaussi
 	@Override
 	public UndoableGaussianMutation<T> copy() {
 		return new UndoableGaussianMutation<T>(this);
-	}
-	
-	@Override
-	public boolean equals(Object other) {
-		return super.equals(other) && other instanceof UndoableGaussianMutation;
 	}
 }

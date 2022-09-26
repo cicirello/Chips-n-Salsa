@@ -21,11 +21,9 @@
 package org.cicirello.search.operators.reals;
 
 import org.cicirello.math.rand.RandomVariates;
-import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.representations.RealValued;
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.util.Copyable;
-import org.cicirello.search.concurrent.Splittable;
 
 /**
  * <p>This class implements Gaussian
@@ -58,36 +56,39 @@ import org.cicirello.search.concurrent.Splittable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class GaussianMutation<T extends RealValued> implements MutationOperator<T>, RealValued, Copyable<GaussianMutation<T>> {
-	
-	private double sigma;
-	private final InternalMutator<T> m;
+public class GaussianMutation<T extends RealValued> extends AbstractRealMutation<T> implements Copyable<GaussianMutation<T>> {
 	
 	/*
 	 * Internal constructor.  Constructs a Gaussian mutation operator.
 	 * Otherwise, must use the factory methods.
+	 *
 	 * @param sigma The standard deviation of the Gaussian.
+	 *
+	 * @param transformer The functional transformation of the mutation.
 	 */
-	GaussianMutation(double sigma) { 
-		this(sigma, new InternalMutator<T>());
+	GaussianMutation(double sigma, Transformation transformer) { 
+		super(sigma, transformer);
 	}
 	
 	/*
 	 * Internal constructor.  Constructs a Gaussian mutation operator.
 	 * Otherwise, must use the factory methods.
+	 *
 	 * @param sigma The standard deviation of the Gaussian.
-	 * @param m The internal mutator
+	 * 
+	 * @param transformer The functional transformation of the mutation.
+	 *
+	 * @param selector Chooses the indexes for a partial mutation.
 	 */
-	GaussianMutation(double sigma, InternalMutator<T> m) { 
-		this.sigma = sigma;
-		this.m = m;
+	GaussianMutation(double sigma, Transformation transformer, Selector selector) { 
+		super(sigma, transformer, selector);
 	}
 	
 	/*
 	 * internal copy constructor
 	 */
 	GaussianMutation(GaussianMutation<T> other) {
-		this(other.sigma, other.m.split());
+		super(other);
 	}
 	
 	/**
@@ -96,7 +97,7 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	 * @return A Gaussian mutation operator.
 	 */
 	public static <T extends RealValued> GaussianMutation<T> createGaussianMutation() {
-		return new GaussianMutation<T>(1.0);
+		return createGaussianMutation(1.0);
 	}
 	
 	/**
@@ -106,7 +107,10 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	 * @return A Gaussian mutation operator.
 	 */
 	public static <T extends RealValued> GaussianMutation<T> createGaussianMutation(double sigma) {
-		return new GaussianMutation<T>(sigma);
+		return new GaussianMutation<T>(
+			sigma,
+			(old, param) -> old + RandomVariates.nextGaussian(param)
+		);
 	}
 	
 	/**
@@ -122,7 +126,15 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	 */
 	public static <T extends RealValued> GaussianMutation<T> createGaussianMutation(double sigma, double lowerBound, double upperBound) {
 		if (upperBound < lowerBound) throw new IllegalArgumentException("upperBound must be at least lowerBound");
-		return new GaussianMutation<T>(sigma, new ConstrainedMutator<T>(lowerBound, upperBound));
+		return new GaussianMutation<T>(
+			sigma,
+			(old, param) -> {
+				double mutated = old + RandomVariates.nextGaussian(param);
+				if (mutated <= lowerBound) return lowerBound;
+				if (mutated >= upperBound) return upperBound;
+				return mutated;
+			}
+		);
 	}
 	
 	/**
@@ -138,7 +150,11 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	 */
 	public static <T extends RealValued> GaussianMutation<T> createGaussianMutation(double sigma, int k) {
 		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
-		return new GaussianMutation<T>(sigma, new PartialK<T>(k));
+		return new GaussianMutation<T>(
+			sigma,
+			(old, param) -> old + RandomVariates.nextGaussian(param),
+			n -> RandomIndexer.sample(n, k < n ? k : n, (int[])null)
+		);
 	}
 	
 	/**
@@ -155,14 +171,13 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	public static <T extends RealValued> GaussianMutation<T> createGaussianMutation(double sigma, double p) {
 		if (p <= 0) throw new IllegalArgumentException("p must be positive");
 		if (p >= 1) {
-			return new GaussianMutation<T>(sigma);
+			return createGaussianMutation(sigma);
 		}
-		return new GaussianMutation<T>(sigma, new PartialP<T>(p));
-	}
-	
-	@Override
-	public void mutate(T c) {
-		m.mutate(c, sigma);
+		return new GaussianMutation<T>(
+			sigma, 
+			(old, param) -> old + RandomVariates.nextGaussian(param),
+			n -> RandomIndexer.sample(n, p)
+		);
 	}
 	
 	@Override
@@ -177,230 +192,5 @@ public class GaussianMutation<T extends RealValued> implements MutationOperator<
 	@Override
 	public GaussianMutation<T> copy() {
 		return new GaussianMutation<T>(this);
-	}
-	
-	/**
-	 * Indicates whether some other object is equal to this one.
-	 * The objects are equal if they are the same type of operator
-	 * with the same parameters.
-	 * @param other the object with which to compare
-	 * @return true if and only if the objects are equal
-	 */
-	@Override
-	public boolean equals(Object other) {
-		if (other == null || !(other instanceof GaussianMutation)) {
-			return false;
-		}
-		GaussianMutation g = (GaussianMutation)other;
-		return sigma==g.sigma && m.equals(g.m);
-	}
-	
-	/**
-	 * Returns a hash code value for the object.
-	 * This method is supported for the benefit of hash 
-	 * tables such as those provided by HashMap.
-	 * @return a hash code value for this object
-	 */
-	@Override
-	public int hashCode() {
-		return Double.hashCode(sigma) + 31 * m.hashCode();
-	}
-	
-	@Override
-	public final int length() {
-		return 1;
-	}
-	
-	/**
-	 * Accesses the current value of sigma.
-	 * @param i Ignored.
-	 * @return The current value of sigma.
-	 */
-	@Override
-	public final double get(int i) {
-		return sigma;
-	}
-	
-	/**
-	 * Accesses the current value of sigma as an array.  This method implemented
-	 * strictly to meet implementation requirements of RealValued interface.
-	 * @param values An array to hold the result.  If values is null or
-	 * if values.length is not equal 1, then a new array 
-	 * is constructed for the result.
-	 * @return An array containing the current value of sigma.
-	 */
-	@Override
-	public final double[] toArray(double[] values) {
-		if (values == null || values.length != 1) values = new double[1];
-		values[0] = sigma;
-		return values;
-	}
-	
-	/**
-	 * Sets sigma to a specified value.
-	 * @param i Ignored.
-	 * @param value The new value for sigma.
-	 */
-	@Override
-	public final void set(int i, double value) {
-		sigma = value;
-	}
-	
-	/**
-	 * Sets sigma to a specified value.
-	 * @param values The new value for sigma is in values[0], the rest is ignored.
-	 */
-	@Override
-	public final void set(double[] values) {
-		sigma = values[0];
-	}
-	
-	/*
-	 * package private so subclasses in same package can access
-	 */
-	static class InternalMutator<T1 extends RealValued> implements Splittable<InternalMutator<T1>> {
-		
-		public void mutate(T1 c, double sigma) {
-			final int n = c.length();
-			for (int i = 0; i < n; i++) {
-				c.set(i, c.get(i) + RandomVariates.nextGaussian(sigma));
-			}
-		}
-		
-		public void partialMutate(T1 c, double sigma, int[] indexes) {
-			for (int i : indexes) {
-				c.set(i, c.get(i) + RandomVariates.nextGaussian(sigma));
-			}
-		}
-		
-		@Override
-		public InternalMutator<T1> split() {
-			return this;
-		}
-		
-		@Override
-		public boolean equals(Object other) {
-			// impossible for other to be null
-			return other.getClass() == getClass();
-		}
-		
-		@Override
-		public int hashCode() {
-			return 100003;
-		}
-	}
-	
-	static final class PartialP<T1 extends RealValued> extends InternalMutator<T1> {
-			
-		private final double p;
-		
-		PartialP(double p) {
-			this.p = p;
-		}
-		
-		@Override
-		public void mutate(T1 c, double sigma) {
-			partialMutate(c, sigma, RandomIndexer.sample(c.length(), p));
-		}
-		
-		@Override
-		public PartialP<T1> split() {
-			// no mutable state so should be safe to return this
-			return this;
-		}
-		
-		@Override
-		public boolean equals(Object other) {
-			if (other instanceof PartialP) {
-				return ((PartialP)other).p == p;
-			}
-			return false;
-		}
-		
-		@Override
-		public int hashCode() {
-			return Double.hashCode(p);
-		}
-	}
-	
-	static final class PartialK<T1 extends RealValued> extends InternalMutator<T1> {
-			
-		private final int k;
-		
-		PartialK(int k) {
-			this.k = k;
-		}
-		
-		@Override
-		public void mutate(T1 c, double sigma) {
-			if (k >= c.length()) {
-				super.mutate(c, sigma);
-			} else {
-				partialMutate(c, sigma, RandomIndexer.sample(c.length(), k, (int[])null));
-			}
-		}
-		
-		@Override
-		public PartialK<T1> split() {
-			// no mutable state so should be safe to return this
-			return this;
-		}
-		
-		@Override
-		public boolean equals(Object other) {
-			if (other instanceof PartialK) {
-				return ((PartialK)other).k == k;
-			}
-			return false;
-		}
-		
-		@Override
-		public int hashCode() {
-			return k;
-		}
-	}
-	
-	static final class ConstrainedMutator<T1 extends RealValued> extends InternalMutator<T1> {
-		
-		private final double lowerBound;
-		private final double upperBound;
-		
-		ConstrainedMutator(double lowerBound, double upperBound) {
-			this.lowerBound = lowerBound;
-			this.upperBound = upperBound;
-		}
-		
-		@Override
-		public void mutate(T1 c, double sigma) {
-			super.mutate(c, sigma);
-			final int n = c.length();
-			for (int i = 0; i < n; i++) {
-				if (c.get(i) < lowerBound) {
-					c.set(i, lowerBound);
-				} else if (c.get(i) > upperBound) {
-					c.set(i, upperBound);
-				}
-			}
-		}
-		
-		@Override
-		public ConstrainedMutator<T1> split() {
-			// no mutable state so should be safe to return this
-			return this;
-		}
-		
-		@Override
-		public boolean equals(Object other) {
-			if (other instanceof ConstrainedMutator) {
-				ConstrainedMutator casted = (ConstrainedMutator)other;
-				return casted.lowerBound == lowerBound && casted.upperBound == upperBound;
-			}
-			return false;
-		}
-		
-		@Override
-		public int hashCode() {
-			return 31 * Double.hashCode(lowerBound) + Double.hashCode(upperBound);
-		}
 	}
 }

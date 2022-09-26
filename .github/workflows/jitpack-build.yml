@@ -18,4 +18,4 @@ jobs:
     - name: Request master-SNAPSHOT from JitPack
       run: |
         # timeout in 30 seconds to avoid waiting for build
-        curl -s -m 30 https://jitpack.io/org/cicirello/chips-n-salsa/master-SNAPSHOT/ || true
+        curl -s -m 30 https://jitpack.io/org/cicirello/chips-n-salsa/master-SNAPSHOT/maven-metadata.xml || true

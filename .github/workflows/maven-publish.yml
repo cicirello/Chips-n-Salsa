@@ -67,6 +67,6 @@ jobs:
 
     - name: Request release from JitPack to trigger build
       run: |
-        JITPACK_URL="https://jitpack.io/org/cicirello/chips-n-salsa/${{ steps.get_version.outputs.VERSION }}/"
+        JITPACK_URL="https://jitpack.io/org/cicirello/chips-n-salsa/${{ steps.get_version.outputs.VERSION }}/maven-metadata.xml"
         # timeout in 30 seconds to avoid waiting for build
         curl -s -m 30 ${JITPACK_URL} || true

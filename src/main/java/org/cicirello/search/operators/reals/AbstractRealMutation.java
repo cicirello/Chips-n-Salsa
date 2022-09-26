@@ -125,20 +125,6 @@ abstract class AbtractRealMutation<T extends RealValued> implements MutationOper
 	}
 	
 	@Override
-	public boolean equals(Object other) {
-		if (other instanceof AbtractRealMutation) {
-			AbtractRealMutation g = (AbtractRealMutation)other;
-			return param==g.param && m.equals(g.m);
-		}
-		return false;
-	}
-	
-	@Override
-	public int hashCode() {
-		return Double.hashCode(param) + 31 * m.hashCode();
-	}
-	
-	@Override
 	abstract public AbtractRealMutation<T> split();
 	
 	@Override
@@ -173,8 +159,15 @@ abstract class AbtractRealMutation<T extends RealValued> implements MutationOper
 		int[] chooseIndexes(int n);
 	}
 	
+	@FunctionalInterface
 	private static interface InternalMutator<T1 extends RealValued> {
 		
+		/**
+		 * Mutates a real-valued candidate solution.
+		 *
+		 * @param c The real-valued candidate solution
+		 * @param param The mutation parameter
+		 */
 		void mutate(T1 c, double param);
 	}
 	
@@ -193,20 +186,6 @@ abstract class AbtractRealMutation<T extends RealValued> implements MutationOper
 				c.set(i, mutator.mutate(c.get(i), param));
 			}
 		}
-		
-		@Override
-		public boolean equals(Object other) {
-			if (other instanceof InternalTotalMutator) {
-				InternalTotalMutator casted = (InternalTotalMutator)other;
-				return mutator.equals(casted.mutator);
-			}
-			return false;
-		}
-		
-		@Override
-		public int hashCode() {
-			return mutator.hashCode();
-		}
 	}
 	
 	private static class InternalPartialMutator<T1 extends RealValued> implements InternalMutator<T1> {
@@ -222,23 +201,9 @@ abstract class AbtractRealMutation<T extends RealValued> implements MutationOper
 		@Override
 		public void mutate(T1 c, double param) {
 			int[] indexes = selector.chooseIndexes(c.length());
-			for (int i = 0; i < indexes.length; i++) {
-				c.set(i, mutator.mutate(c.get(indexes[i]), param));
+			for (int i: indexes) {
+				c.set(i, mutator.mutate(c.get(i), param));
 			}
-		}
-		
-		@Override
-		public boolean equals(Object other) {
-			if (other instanceof InternalPartialMutator) {
-				InternalPartialMutator casted = (InternalPartialMutator)other;
-				return mutator.equals(casted.mutator) && selector.equals(casted.selector);
-			}
-			return false;
-		}
-		
-		@Override
-		public int hashCode() {
-			return 31*mutator.hashCode() + selector.hashCode();
 		}
 	}
 }

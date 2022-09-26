@@ -22,7 +22,6 @@ package org.cicirello.search.operators.reals;
 
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.representations.RealValued;
-import org.cicirello.util.Copyable;
 
 /**
  * Internal abstract base class for mutation operators on real-valued representations.
@@ -32,7 +31,7 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-abstract class AbtractRealMutation<T extends RealValued> implements MutationOperator<T>, RealValued, Copyable<AbtractRealMutation<T>> {
+abstract class AbstractRealMutation<T extends RealValued> implements MutationOperator<T>, RealValued {
 	
 	private double param;
 	private final InternalMutator<T> m;
@@ -45,7 +44,7 @@ abstract class AbtractRealMutation<T extends RealValued> implements MutationOper
 	 *
 	 * @param transformer The functional transformation of the mutation.
 	 */
-	AbtractRealMutation(double param, Transformation transformer) {
+	AbstractRealMutation(double param, Transformation transformer) {
 		this.param = param;
 		m = new InternalTotalMutator<T>(transformer);
 	}
@@ -60,18 +59,18 @@ abstract class AbtractRealMutation<T extends RealValued> implements MutationOper
 	 *
 	 * @param selector Chooses the indexes for a partial mutation.
 	 */
-	AbtractRealMutation(double param, Transformation transformer, Selector selector) {
+	AbstractRealMutation(double param, Transformation transformer, Selector selector) {
 		this.param = param;
 		m = new InternalPartialMutator<T>(transformer, selector);
 	}
 	
-	AbtractRealMutation(AbtractRealMutation<T> other) {
+	AbstractRealMutation(AbstractRealMutation<T> other) {
 		param = other.param;
 		m = other.m;
 	}
 	
 	@Override
-	public final void mutate(T c) {
+	public void mutate(T c) {
 		m.mutate(c, param);
 	}
 	
@@ -125,10 +124,7 @@ abstract class AbtractRealMutation<T extends RealValued> implements MutationOper
 	}
 	
 	@Override
-	abstract public AbtractRealMutation<T> split();
-	
-	@Override
-	abstract public AbtractRealMutation<T> copy();
+	abstract public AbstractRealMutation<T> split();
 	
 	@FunctionalInterface
 	static interface Transformation {

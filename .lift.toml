@@ -1,10 +1,5 @@
 jdkVersion = "17"
 
-# don't run eslint... it is for js and will detect false positives 
-# in javadoc directories.
-
-disableTools = ["eslint"]
-
 # Ignore warnings not relevant to this specific project:
 #
 # 1) FindSecBugs identifies our use of ThreadLocalRandom as predictable.
@@ -26,11 +21,3 @@ disableTools = ["eslint"]
 # and we are ignoring them for the same reason.
 
 ignoreRules = ["PREDICTABLE_RANDOM", "PATH_TRAVERSAL_IN", "PATH_TRAVERSAL_OUT"]
-
-# Ignore results from these directories
-
-ignoreFiles = """
-docs/api/jquery/
-src/test/
-*.js
-"""

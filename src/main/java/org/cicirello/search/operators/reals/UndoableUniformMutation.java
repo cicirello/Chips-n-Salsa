@@ -111,6 +111,30 @@ public class UndoableUniformMutation<T extends RealValued> extends AbstractUndoa
 	}
 	
 	/**
+	 * Creates a Uniform mutation operator, such that the mutate method
+	 * constrains each mutated real value to lie in the interval [lowerBound, upperBound].
+	 *
+	 * @param radius The radius parameter of the Uniform.
+	 * @param lowerBound A lower bound on the result of a mutation.
+	 * @param upperBound An upper bound on the result of a mutation.
+	 *
+	 * @param <T> The specific RealValued type.
+	 * @return A Uniform mutation operator.
+	 */
+	public static <T extends RealValued> UndoableUniformMutation<T> createUniformMutation(double radius, double lowerBound, double upperBound) {
+		if (upperBound < lowerBound) throw new IllegalArgumentException("upperBound must be at least lowerBound");
+		return new UndoableUniformMutation<T>(
+			radius,
+			(old, param) -> {
+				double mutated = old + ThreadLocalRandom.current().nextDouble(-param, param);
+				if (mutated <= lowerBound) return lowerBound;
+				if (mutated >= upperBound) return upperBound;
+				return mutated;
+			}
+		);
+	}
+	
+	/**
 	 * Create a Uniform mutation operator that supports the undo operation.  
 	 * @param radius The radius parameter of the Uniform mutation.
 	 * @param k The number of input variables that the {@link #mutate} 

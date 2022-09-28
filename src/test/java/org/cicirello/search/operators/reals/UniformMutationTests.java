@@ -215,5 +215,131 @@ public class UniformMutationTests extends SharedTestRealMutationOps {
 			IllegalArgumentException.class,
 			() -> UndoableUniformMutation.createUniformMutation(1.0, 0.0)
 		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> UniformMutation.createUniformMutation(1.0, 2.0, 2.0 - Math.ulp(2.0))
+		);
+		thrown = assertThrows( 
+			IllegalArgumentException.class,
+			() -> UndoableUniformMutation.createUniformMutation(1.0, 2.0, 2.0 - Math.ulp(2.0))
+		);
+	}
+	
+	@Test
+	public void testConstrainedUniformMutation() {
+		{
+			UniformMutation<RealValued> g1 = UniformMutation.createUniformMutation(1.0, -10.0, 10.0);
+			assertEquals(1.0, g1.get(0));
+			verifyMutate1(g1);
+			
+			UniformMutation<RealValued> g5 = UniformMutation.createUniformMutation(5.0, -10.0, 10.0);
+			assertEquals(5.0, g5.get(0));
+			verifyMutate1(g5);
+			
+			UniformMutation<RealValued> g = UniformMutation.createUniformMutation(1.0, 2.0, 5.0);
+			RealVector r = new RealVector(new double[] {-1000, -100, -50, 0.0, 3.0, 50, 100, 1000});
+			g.mutate(r);
+			assertEquals(2.0, r.get(0));
+			assertEquals(2.0, r.get(1));
+			assertEquals(2.0, r.get(2));
+			assertTrue(r.get(3) >= 2.0 && r.get(3) <= 5.0);
+			assertTrue(r.get(4) >= 2.0 && r.get(4) <= 5.0);
+			assertEquals(5.0, r.get(5));
+			assertEquals(5.0, r.get(6));
+			assertEquals(5.0, r.get(7));
+			g = UniformMutation.createUniformMutation(1.0, 4.0, 4.0);
+			r = new RealVector(new double[] {-1000, -100, -50, 0.0, 3.0, 50, 100, 1000});
+			g.mutate(r);
+			for (int i = 0; i < 7; i++) {
+				assertEquals(4.0, r.get(i));
+			}
+		}
+		// copy
+		{
+			UniformMutation<RealValued> g1 = UniformMutation.createUniformMutation(1.0, -10.0, 10.0).copy();
+			assertEquals(1.0, g1.get(0));
+			verifyMutate1(g1);
+			
+			UniformMutation<RealValued> g5 = UniformMutation.createUniformMutation(5.0, -10.0, 10.0).copy();
+			assertEquals(5.0, g5.get(0));
+			verifyMutate1(g5);
+			
+			UniformMutation<RealValued> g = UniformMutation.createUniformMutation(1.0, 2.0, 5.0).copy();
+			RealVector r = new RealVector(new double[] {-1000, -100, -50, 0.0, 3.0, 50, 100, 1000});
+			g.mutate(r);
+			assertEquals(2.0, r.get(0));
+			assertEquals(2.0, r.get(1));
+			assertEquals(2.0, r.get(2));
+			assertTrue(r.get(3) >= 2.0 && r.get(3) <= 5.0);
+			assertTrue(r.get(4) >= 2.0 && r.get(4) <= 5.0);
+			assertEquals(5.0, r.get(5));
+			assertEquals(5.0, r.get(6));
+			assertEquals(5.0, r.get(7));
+			g = UniformMutation.createUniformMutation(1.0, 4.0, 4.0).copy();
+			r = new RealVector(new double[] {-1000, -100, -50, 0.0, 3.0, 50, 100, 1000});
+			g.mutate(r);
+			for (int i = 0; i < 7; i++) {
+				assertEquals(4.0, r.get(i));
+			}
+		}
+		// split
+		{
+			UniformMutation<RealValued> g1 = UniformMutation.createUniformMutation(1.0, -10.0, 10.0).split();
+			assertEquals(1.0, g1.get(0));
+			verifyMutate1(g1);
+			
+			UniformMutation<RealValued> g5 = UniformMutation.createUniformMutation(5.0, -10.0, 10.0).split();
+			assertEquals(5.0, g5.get(0));
+			verifyMutate1(g5);
+			
+			UniformMutation<RealValued> g = UniformMutation.createUniformMutation(1.0, 2.0, 5.0).split();
+			RealVector r = new RealVector(new double[] {-1000, -100, -50, 0.0, 3.0, 50, 100, 1000});
+			g.mutate(r);
+			assertEquals(2.0, r.get(0));
+			assertEquals(2.0, r.get(1));
+			assertEquals(2.0, r.get(2));
+			assertTrue(r.get(3) >= 2.0 && r.get(3) <= 5.0);
+			assertTrue(r.get(4) >= 2.0 && r.get(4) <= 5.0);
+			assertEquals(5.0, r.get(5));
+			assertEquals(5.0, r.get(6));
+			assertEquals(5.0, r.get(7));
+			g = UniformMutation.createUniformMutation(1.0, 4.0, 4.0).split();
+			r = new RealVector(new double[] {-1000, -100, -50, 0.0, 3.0, 50, 100, 1000});
+			g.mutate(r);
+			for (int i = 0; i < 7; i++) {
+				assertEquals(4.0, r.get(i));
+			}
+		}
+	}
+	
+	@Test
+	public void testUndoableConstrainedUniformMutation() {
+		UndoableUniformMutation<RealValued> g1 = UndoableUniformMutation.createUniformMutation(1.0, -10.0, 10.0);
+		assertEquals(1.0, g1.get(0));
+		verifyMutate1(g1);
+		verifyUndo(g1);
+		
+		UndoableUniformMutation<RealValued> g5 = UndoableUniformMutation.createUniformMutation(5.0, -10.0, 10.0);
+		assertEquals(5.0, g5.get(0));
+		verifyMutate1(g5);
+		verifyUndo(g5);
+		
+		UndoableUniformMutation<RealValued> g = UndoableUniformMutation.createUniformMutation(1.0, 2.0, 5.0);
+		RealVector r = new RealVector(new double[] {-1000, -100, -50, 0.0, 3.0, 50, 100, 1000});
+		g.mutate(r);
+		assertEquals(2.0, r.get(0));
+		assertEquals(2.0, r.get(1));
+		assertEquals(2.0, r.get(2));
+		assertTrue(r.get(3) >= 2.0 && r.get(3) <= 5.0);
+		assertTrue(r.get(4) >= 2.0 && r.get(4) <= 5.0);
+		assertEquals(5.0, r.get(5));
+		assertEquals(5.0, r.get(6));
+		assertEquals(5.0, r.get(7));
+		g = UndoableUniformMutation.createUniformMutation(1.0, 4.0, 4.0);
+		r = new RealVector(new double[] {-1000, -100, -50, 0.0, 3.0, 50, 100, 1000});
+		g.mutate(r);
+		for (int i = 0; i < 7; i++) {
+			assertEquals(4.0, r.get(i));
+		}
 	}
 }

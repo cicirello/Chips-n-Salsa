@@ -40,11 +40,18 @@ class SharedTestRealMutationOps {
 	static final int MAX_TRIALS = 100;
 	
 	void verifyMutate1(AbstractRealMutation<RealValued> m) {
+		verifyMutate1(m, false);
+	}
+	
+	void verifyMutate1(AbstractRealMutation<RealValued> m, boolean assertInterval) {
 		int countLow = 0;
 		int countHigh = 0;
 		for (int i = 0; i < MAX_TRIALS && (countLow==0 || countHigh==0); i++) {
 			SingleReal f = new SingleReal(9.0);
 			m.mutate(f);
+			if (assertInterval) {
+				assertTrue(Math.abs(9.0 - f.get()) <= m.get(0));
+			}
 			if (f.get() < 9.0) countLow++;
 			else if (f.get() > 9.0) countHigh++;
 		}
@@ -62,6 +69,9 @@ class SharedTestRealMutationOps {
 				m.mutate(f);
 				boolean done = true;
 				for (int k = 0; k < j; k++) {
+					if (assertInterval) {
+						assertTrue(Math.abs(v[k] - f.get(k)) <= m.get(0));
+					}
 					if (f.get(k) < v[k]) low[k]++;
 					if (f.get(k) > v[k]) high[k]++;
 					if (low[k] == 0 || high[k] == 0) done = false;
@@ -76,12 +86,19 @@ class SharedTestRealMutationOps {
 	}
 	
 	void verifyMutate1(AbstractRealMutation<RealValued> m, double p) {
+		verifyMutate1(m, p, false);
+	}
+	
+	void verifyMutate1(AbstractRealMutation<RealValued> m, double p, boolean assertInterval) {
 		int countLow = 0;
 		int countHigh = 0;
 		final int TRIALS = (int)(2 * MAX_TRIALS / p);
 		for (int i = 0; i < TRIALS && (countLow==0 || countHigh==0); i++) {
 			SingleReal f = new SingleReal(9.0);
 			m.mutate(f);
+			if (assertInterval) {
+				assertTrue(Math.abs(9.0 - f.get()) <= m.get(0));
+			}
 			if (f.get() < 9.0) countLow++;
 			else if (f.get() > 9.0) countHigh++;
 		}
@@ -101,6 +118,9 @@ class SharedTestRealMutationOps {
 				m.mutate(f);
 				boolean done = true;
 				for (int k = 0; k < j; k++) {
+					if (assertInterval) {
+						assertTrue(Math.abs(v[k] - f.get(k)) <= m.get(0));
+					}
 					if (f.get(k) < v[k]) low[k]++;
 					if (f.get(k) > v[k]) high[k]++;
 					if (low[k] == 0 || high[k] == 0) done = false; 
@@ -115,11 +135,18 @@ class SharedTestRealMutationOps {
 	}
 	
 	void verifyMutate1(AbstractRealMutation<RealValued> m, int K) {
+		verifyMutate1(m, K, false);
+	}
+	
+	void verifyMutate1(AbstractRealMutation<RealValued> m, int K, boolean assertInterval) {
 		int countLow = 0;
 		int countHigh = 0;
 		for (int i = 0; i < MAX_TRIALS && (countLow==0 || countHigh==0); i++) {
 			SingleReal f = new SingleReal(9.0);
 			m.mutate(f);
+			if (assertInterval) {
+				assertTrue(Math.abs(9.0 - f.get()) <= m.get(0));
+			}
 			if (f.get() < 9.0) countLow++;
 			else if (f.get() > 9.0) countHigh++;
 		}
@@ -141,6 +168,9 @@ class SharedTestRealMutationOps {
 				boolean done = true;
 				int kCount = 0;
 				for (int k = 0; k < j; k++) {
+					if (assertInterval) {
+						assertTrue(Math.abs(v[k] - f.get(k)) <= m.get(0));
+					}
 					if (f.get(k) < v[k]) { low[k]++; kCount++; }
 					if (f.get(k) > v[k]) { high[k]++; kCount++; }
 					if (low[k] == 0 || high[k] == 0) done = false;				 

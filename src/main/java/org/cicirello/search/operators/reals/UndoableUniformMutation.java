@@ -20,9 +20,11 @@
  
 package org.cicirello.search.operators.reals;
 
-import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.search.representations.RealValued;
 import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomVariates;
+import org.cicirello.util.Copyable;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <p>This class implements a uniform
@@ -50,18 +52,32 @@ import org.cicirello.math.rand.RandomIndexer;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class UndoableUniformMutation<T extends RealValued> extends UniformMutation<T> implements UndoableMutationOperator<T> {
-	
-	double[] previous;
-	double old;
+public class UndoableUniformMutation<T extends RealValued> extends AbstractUndoableRealMutation<T> implements Copyable<UndoableUniformMutation<T>> {
 	
 	/*
 	 * Internal constructor.  Constructs a Uniform mutation operator supporting the undo operation.
 	 * Otherwise, must use the factory methods.
+	 * 
 	 * @param radius The radius parameter of the Uniform.
+	 *
+	 * @param transformer The functional transformation of the mutation.
 	 */
-	UndoableUniformMutation(double radius) { 
-		super(radius);
+	UndoableUniformMutation(double radius, Transformation transformer) { 
+		super(radius, transformer);
+	}
+	
+	/*
+	 * Internal constructor.  Constructs a Uniform mutation operator supporting the undo operation.
+	 * Otherwise, must use the factory methods.
+	 * 
+	 * @param radius The radius parameter of the Uniform.
+	 *
+	 * @param transformer The functional transformation of the mutation.
+	 *
+	 * @param selector Chooses the indexes for a partial mutation.
+	 */
+	UndoableUniformMutation(double radius, Transformation transformer, Selector selector) { 
+		super(radius, transformer, selector);
 	}
 	
 	/*
@@ -78,7 +94,7 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 	 * @return A Uniform mutation operator.
 	 */
 	public static <T extends RealValued> UndoableUniformMutation<T> createUniformMutation() {
-		return new UndoableUniformMutation<T>(1.0);
+		return createUniformMutation(1.0);
 	}
 	
 	/**
@@ -88,7 +104,10 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 	 * @return A Uniform mutation operator.
 	 */
 	public static <T extends RealValued> UndoableUniformMutation<T> createUniformMutation(double radius) {
-		return new UndoableUniformMutation<T>(radius);
+		return new UndoableUniformMutation<T>(
+			radius,
+			(old, param) -> old + ThreadLocalRandom.current().nextDouble(-param, param)
+		);
 	}
 	
 	/**
@@ -104,7 +123,11 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 	 */
 	public static <T extends RealValued> UndoableUniformMutation<T> createUniformMutation(double radius, int k) {
 		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
-		return new UndoablePartialUniformMutation<T>(radius, k);
+		return new UndoableUniformMutation<T>(
+			radius,
+			(old, param) -> old + ThreadLocalRandom.current().nextDouble(-param, param),
+			n -> RandomIndexer.sample(n, k < n ? k : n, (int[])null)
+		);
 	}
 	
 	/**
@@ -120,24 +143,14 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 	 */
 	public static <T extends RealValued> UndoableUniformMutation<T> createUniformMutation(double radius, double p) {
 		if (p <= 0) throw new IllegalArgumentException("p must be positive");
-		return p >= 1
-			? new UndoableUniformMutation<T>(radius)
-			: new UndoablePartialUniformMutation<T>(radius, p);
-	}
-	
-	@Override
-	public void mutate(T c) {
-		if (c.length() > 1) internalMutate(c, previous = c.toArray(previous));
-		else if (c.length() == 1) internalMutate(c, old = c.get(0));
-	}
-	
-	@Override
-	public void undo(T c) {
-		if (c.length() > 1) {
-			c.set(previous);
-		} else if (c.length() == 1) {
-			c.set(0, old);
+		if (p >= 1) {
+			return createUniformMutation(radius);
 		}
+		return new UndoableUniformMutation<T>(
+			radius, 
+			(old, param) -> old + ThreadLocalRandom.current().nextDouble(-param, param),
+			n -> RandomIndexer.sample(n, p)
+		);
 	}
 	
 	@Override
@@ -153,111 +166,4 @@ public class UndoableUniformMutation<T extends RealValued> extends UniformMutati
 	public UndoableUniformMutation<T> copy() {
 		return new UndoableUniformMutation<T>(this);
 	}
-	
-	@Override
-	public boolean equals(Object other) {
-		return super.equals(other) && other instanceof UndoableUniformMutation;
-	}
-	
-	private static final class UndoablePartialUniformMutation<T extends RealValued> extends UndoableUniformMutation<T> {
-		
-		private final int k;
-		private final double p;
-		private int[] indexes;
-		
-		UndoablePartialUniformMutation(double radius, int k) {
-			super(radius);
-			this.k = k;
-			p = -1;
-		}
-		
-		UndoablePartialUniformMutation(double radius, double p) {
-			super(radius);
-			this.p = p;
-			k = 0;
-		}
-		
-		UndoablePartialUniformMutation(UndoablePartialUniformMutation<T> other) {
-			super(other);
-			k = other.k;
-			p = other.p;
-		}
-		
-		@Override
-		public void mutate(T c) {
-			if (k >= c.length()) {
-				super.mutate(c);
-			} else {
-				indexes = p < 0 
-					? RandomIndexer.sample(c.length(), k, indexes) 
-					: RandomIndexer.sample(c.length(), p);
-				if (previous == null || previous.length < indexes.length) {
-					previous = new double[indexes.length];
-				}
-				for (int i = 0; i < indexes.length; i++) {
-					previous[i] = c.get(indexes[i]);
-				}
-				internalPartialMutation(c, indexes, previous);
-			}
-		}
-		
-		@Override
-		public void undo(T c) {
-			if (k >= c.length()) {
-				super.undo(c);
-			} else {
-				for (int i = 0; i < indexes.length; i++) {
-					c.set(indexes[i], previous[i]);
-				}
-			}
-		}
-		
-		/**
-		 * Indicates whether some other object is equal to this one.
-		 * The objects are equal if they are the same type of operator
-		 * with the same parameters.
-		 * @param other the object with which to compare
-		 * @return true if and only if the objects are equal
-		 */
-		@Override
-		public boolean equals(Object other) {
-			if (other == null || !(other instanceof UndoablePartialUniformMutation)) {
-				return false;
-			}
-			if (!super.equals(other)) {
-				return false;
-			}
-			UndoablePartialUniformMutation g = (UndoablePartialUniformMutation)other;
-			return k==g.k && p==g.p;
-		}
-		
-		/**
-		 * Returns a hash code value for the object.
-		 * This method is supported for the benefit of hash 
-		 * tables such as those provided by HashMap.
-		 * @return a hash code value for this object
-		 */
-		@Override
-		public int hashCode() {
-			return 31 * super.hashCode() + (p < 0 ? k : Double.hashCode(p));
-		}
-		
-		@Override
-		public UndoablePartialUniformMutation<T> split() {
-			return new UndoablePartialUniformMutation<T>(this);
-		}
-		
-		/**
-		 * Creates an identical copy of this object.
-		 * @return an identical copy of this object
-		 */
-		@Override
-		public UndoablePartialUniformMutation<T> copy() {
-			return new UndoablePartialUniformMutation<T>(this);
-		}
-	}
-	
-	
-	
-	
 }

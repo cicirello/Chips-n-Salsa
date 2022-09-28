@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Extracted an internal abstract base class for common functionality.
   * Refactored Gaussian mutation classes to use new abstract base class.
   * Refactored Cauchy mutation classes to use new abstract base class.
+  * Refactored uniform mutation classes to use new abstract base class.
 
 ### Deprecated
 

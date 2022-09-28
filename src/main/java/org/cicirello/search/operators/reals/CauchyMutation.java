@@ -118,6 +118,30 @@ public class CauchyMutation<T extends RealValued> extends AbstractRealMutation<T
 	}
 	
 	/**
+	 * Creates a Cauchy mutation operator, such that the mutate method
+	 * constrains each mutated real value to lie in the interval [lowerBound, upperBound].
+	 *
+	 * @param scale The scale parameter of the Cauchy.
+	 * @param lowerBound A lower bound on the result of a mutation.
+	 * @param upperBound An upper bound on the result of a mutation.
+	 *
+	 * @param <T> The specific RealValued type.
+	 * @return A Cauchy mutation operator.
+	 */
+	public static <T extends RealValued> CauchyMutation<T> createCauchyMutation(double scale, double lowerBound, double upperBound) {
+		if (upperBound < lowerBound) throw new IllegalArgumentException("upperBound must be at least lowerBound");
+		return new CauchyMutation<T>(
+			scale,
+			(old, param) -> {
+				double mutated = old + RandomVariates.nextCauchy(param);
+				if (mutated <= lowerBound) return lowerBound;
+				if (mutated >= upperBound) return upperBound;
+				return mutated;
+			}
+		);
+	}
+	
+	/**
 	 * Create a Cauchy mutation operator.  
 	 * @param scale The scale parameter of the Cauchy mutation.
 	 * @param k The number of input variables that the {@link #mutate} 

@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * AdaptiveEvolutionaryAlgorithm class: An implementation of an evolutionary algorithm with control 
   parameters (crossover and mutation rates) that evolve during the search.
-* A factory method in the GaussianMutation class for creating a GaussianMutation that constrains
-  result to an interval, such as relevant if mutating a crossover or mutation rate since such rates
-  constrained in [0.0, 1.0].
+* A factory method in each of the mutation operator classes for real-valued representations that constrains
+  result to an interval (e.g., such as relevant if mutating a crossover or mutation rate since such rates
+  constrained in [0.0, 1.0]).
 * A set(int[]) method to the IntegerValued interface along with implementations in corresponding classes.
 * A set(double[]) method to the RealValued interface along with implementations in corresponding classes.
 

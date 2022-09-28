@@ -21,7 +21,6 @@
 package org.cicirello.search.operators.reals;
 
 import org.cicirello.math.rand.RandomVariates;
-import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.representations.RealValued;
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.util.Copyable;
@@ -61,24 +60,39 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, 
  * <a href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class CauchyMutation<T extends RealValued> implements MutationOperator<T>, RealValued, Copyable<CauchyMutation<T>> {
-	
-	private double scale;
+public class CauchyMutation<T extends RealValued> extends AbstractRealMutation<T> implements Copyable<CauchyMutation<T>> {
 	
 	/*
 	 * Internal constructor.  Constructs a Cauchy mutation operator.
 	 * Otherwise, must use the factory methods.
+	 *
 	 * @param scale The scale parameter of the Cauchy.
+	 *
+	 * @param transformer The functional transformation of the mutation.
 	 */
-	CauchyMutation(double scale) { 
-		this.scale = scale;
+	CauchyMutation(double scale, Transformation transformer) { 
+		super(scale, transformer);
+	}
+	
+	/*
+	 * Internal constructor.  Constructs a Cauchy mutation operator.
+	 * Otherwise, must use the factory methods.
+	 *
+	 * @param scale The scale parameter of the Cauchy.
+	 *
+	 * @param transformer The functional transformation of the mutation.
+	 *
+	 * @param selector Chooses the indexes for a partial mutation.
+	 */
+	CauchyMutation(double scale, Transformation transformer, Selector selector) { 
+		super(scale, transformer, selector);
 	}
 	
 	/*
 	 * internal copy constructor
 	 */
 	CauchyMutation(CauchyMutation<T> other) {
-		scale = other.scale;
+		super(other);
 	}
 	
 	/**
@@ -87,7 +101,7 @@ public class CauchyMutation<T extends RealValued> implements MutationOperator<T>
 	 * @return A Cauchy mutation operator.
 	 */
 	public static <T extends RealValued> CauchyMutation<T> createCauchyMutation() {
-		return new CauchyMutation<T>(1.0);
+		return createCauchyMutation(1.0);
 	}
 	
 	/**
@@ -97,7 +111,10 @@ public class CauchyMutation<T extends RealValued> implements MutationOperator<T>
 	 * @return A Cauchy mutation operator.
 	 */
 	public static <T extends RealValued> CauchyMutation<T> createCauchyMutation(double scale) {
-		return new CauchyMutation<T>(scale);
+		return new CauchyMutation<T>(
+			scale,
+			(old, param) -> old + RandomVariates.nextCauchy(param)
+		);
 	}
 	
 	/**
@@ -113,7 +130,11 @@ public class CauchyMutation<T extends RealValued> implements MutationOperator<T>
 	 */
 	public static <T extends RealValued> CauchyMutation<T> createCauchyMutation(double scale, int k) {
 		if (k < 1) throw new IllegalArgumentException("k must be at least 1");
-		return new PartialCauchyMutation<T>(scale, k);
+		return new CauchyMutation<T>(
+			scale,
+			(old, param) -> old + RandomVariates.nextCauchy(param),
+			n -> RandomIndexer.sample(n, k < n ? k : n, (int[])null)
+		);
 	}
 	
 	/**
@@ -129,17 +150,14 @@ public class CauchyMutation<T extends RealValued> implements MutationOperator<T>
 	 */
 	public static <T extends RealValued> CauchyMutation<T> createCauchyMutation(double scale, double p) {
 		if (p <= 0) throw new IllegalArgumentException("p must be positive");
-		return p >= 1
-			? new CauchyMutation<T>(scale)
-			: new PartialCauchyMutation<T>(scale, p);
-	}
-	
-	@Override
-	public void mutate(T c) {
-		final int n = c.length();
-		for (int i = 0; i < n; i++) {
-			c.set(i, c.get(i) + RandomVariates.nextCauchy(scale));
+		if (p >= 1) {
+			return createCauchyMutation(scale);
 		}
+		return new CauchyMutation<T>(
+			scale, 
+			(old, param) -> old + RandomVariates.nextCauchy(param),
+			n -> RandomIndexer.sample(n, p)
+		);
 	}
 	
 	@Override
@@ -154,179 +172,5 @@ public class CauchyMutation<T extends RealValued> implements MutationOperator<T>
 	@Override
 	public CauchyMutation<T> copy() {
 		return new CauchyMutation<T>(this);
-	}
-	
-	/**
-	 * Indicates whether some other object is equal to this one.
-	 * The objects are equal if they are the same type of operator
-	 * with the same parameters.
-	 * @param other the object with which to compare
-	 * @return true if and only if the objects are equal
-	 */
-	@Override
-	public boolean equals(Object other) {
-		if (other == null || !(other instanceof CauchyMutation)) return false;
-		CauchyMutation g = (CauchyMutation)other;
-		return scale==g.scale;
-	}
-	
-	/**
-	 * Returns a hash code value for the object.
-	 * This method is supported for the benefit of hash 
-	 * tables such as those provided by HashMap.
-	 * @return a hash code value for this object
-	 */
-	@Override
-	public int hashCode() {
-		return Double.hashCode(scale);
-	}
-	
-	@Override
-	public final int length() {
-		return 1;
-	}
-	
-	/**
-	 * Accesses the current value of scale.
-	 * @param i Ignored.
-	 * @return The current value of scale.
-	 */
-	@Override
-	public final double get(int i) {
-		return scale;
-	}
-	
-	/**
-	 * Accesses the current value of scale as an array.  This method implemented
-	 * strictly to meet implementation requirements of RealValued interface.
-	 * @param values An array to hold the result.  If values is null or
-	 * if values.length is not equal 1, then a new array 
-	 * is constructed for the result.
-	 * @return An array containing the current value of scale.
-	 */
-	@Override
-	public final double[] toArray(double[] values) {
-		if (values == null || values.length != 1) values = new double[1];
-		values[0] = scale;
-		return values;
-	}
-	
-	/**
-	 * Sets scale to a specified value.
-	 * @param i Ignored.
-	 * @param value The new value for scale.
-	 */
-	@Override
-	public final void set(int i, double value) {
-		scale = value;
-	}
-	
-	/**
-	 * Sets scale to a specified value.
-	 * @param values The new value for scale is in values[0], the rest is ignored.
-	 */
-	@Override
-	public final void set(double[] values) {
-		scale = values[0];
-	}
-	
-	final void internalMutate(T c, double[] old) {
-		for (int i = 0; i < old.length; i++) {
-			c.set(i, old[i] + RandomVariates.nextCauchy(scale));
-		}
-	}
-	
-	final void internalMutate(T c, double old) {
-		c.set(0, old + RandomVariates.nextCauchy(scale));
-	}
-	
-	final void internalPartialMutation(T c, int[] indexes) {
-		for (int j = 0; j < indexes.length; j++) {
-			int i = indexes[j];
-			c.set(i, c.get(i) + RandomVariates.nextCauchy(scale));
-		}
-	}
-	
-	final void internalPartialMutation(T c, int[] indexes, double[] old) {
-		for (int j = 0; j < indexes.length; j++) {
-			c.set(indexes[j], old[j] + RandomVariates.nextCauchy(scale));
-		}
-	}
-	
-	private static final class PartialCauchyMutation<T extends RealValued> extends CauchyMutation<T> {
-		
-		private final int k;
-		private final double p;
-		
-		PartialCauchyMutation(double scale, int k) {
-			super(scale);
-			this.k = k;
-			p = -1;
-		}
-		
-		PartialCauchyMutation(double scale, double p) {
-			super(scale);
-			this.p = p;
-			k = 0;
-		}
-		
-		PartialCauchyMutation(PartialCauchyMutation<T> other) {
-			super(other);
-			k = other.k;
-			p = other.p;
-		}
-		
-		@Override
-		public void mutate(T c) {
-			if (k >= c.length()) {
-				super.mutate(c);
-			} else {
-				int[] indexes = p < 0 
-					? RandomIndexer.sample(c.length(), k, (int[])null) 
-					: RandomIndexer.sample(c.length(), p);
-				internalPartialMutation(c, indexes);
-			}
-		}
-		
-		/**
-		 * Indicates whether some other object is equal to this one.
-		 * The objects are equal if they are the same type of operator
-		 * with the same parameters.
-		 * @param other the object with which to compare
-		 * @return true if and only if the objects are equal
-		 */
-		@Override
-		public boolean equals(Object other) {
-			if (other==null || !(other instanceof PartialCauchyMutation) || !super.equals(other)) {
-				return false;
-			}
-			PartialCauchyMutation g = (PartialCauchyMutation)other;
-			return k==g.k && p==g.p;
-		}
-		
-		/**
-		 * Returns a hash code value for the object.
-		 * This method is supported for the benefit of hash 
-		 * tables such as those provided by HashMap.
-		 * @return a hash code value for this object
-		 */
-		@Override
-		public int hashCode() {
-			return 31 * super.hashCode() + (p < 0 ? k : Double.hashCode(p));
-		}
-		
-		@Override
-		public PartialCauchyMutation<T> split() {
-			return new PartialCauchyMutation<T>(this);
-		}
-		
-		/**
-		 * Creates an identical copy of this object.
-		 * @return an identical copy of this object
-		 */
-		@Override
-		public PartialCauchyMutation<T> copy() {
-			return new PartialCauchyMutation<T>(this);
-		}
 	}
 }

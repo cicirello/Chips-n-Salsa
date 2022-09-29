@@ -29,8 +29,6 @@ import org.cicirello.search.ProgressTracker;
  */
 public class EvolvableParametersPopulationTests extends SharedTestPopulations {
 	
-	private static final double EPSILON = 1e-10;
-	
 	@Test
 	public void testExceptions() {
 		NullPointerException thrown = assertThrows( 
@@ -292,90 +290,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
 			0, 
 			2
 		);
-		assertTrue(tracker == pop.getProgressTracker());
-		tracker = new ProgressTracker<TestObject>();
-		pop.setProgressTracker(tracker);
-		assertTrue(tracker == pop.getProgressTracker());
-		
-		pop.init();
-		assertEquals(10, pop.size());
-		assertEquals(10, pop.mutableSize());
-		assertEquals(16.0, pop.getFitnessOfMostFit(), EPSILON);
-		assertEquals(94, pop.getMostFit().getCost());
-		assertEquals(6, pop.getMostFit().getSolution().id);
-		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
-		int[] expected = { 2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
-		for (int i = 0; i < 10; i++) {
-			// fitnesses of original before selection.
-			assertEquals(expected[9-i]+10.0, pop.getFitness(i), EPSILON);
-		}
-		assertFalse(selection.called);
-		pop.select();
-		assertTrue(selection.called);
-		for (int i = 0; i < 10; i++) {
-			// fitnesses of original before selection.
-			assertEquals(expected[9-i]+10.0, pop.getFitness(i), EPSILON);
-			// subject to mutation to opposite order since we selected, which reversed.
-			assertEquals(expected[i], pop.get(i).id);
-			
-		}
-		assertEquals(16.0, pop.getFitnessOfMostFit(), EPSILON);
-		assertEquals(94, pop.getMostFit().getCost());
-		assertEquals(6, pop.getMostFit().getSolution().id);
-		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
-		pop.replace();
-		pop.select();
-		for (int i = 0; i < 10; i++) {
-			assertEquals(expected[9-i], pop.get(i).id);
-			assertEquals(expected[i]+10.0, pop.getFitness(i), EPSILON);
-		}
-		assertEquals(16.0, pop.getFitnessOfMostFit(), EPSILON);
-		assertEquals(94, pop.getMostFit().getCost());
-		assertEquals(6, pop.getMostFit().getSolution().id);
-		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
-		
-		f.changeFitness(1);
-		pop.updateFitness(0);
-		f.changeFitness(10);
-		pop.updateFitness(1);
-		pop.replace();
-		assertEquals(expected[9]+10.0+1, pop.getFitness(0), EPSILON);
-		assertEquals(expected[8]+10.0+10, pop.getFitness(1), EPSILON);
-		assertEquals(22.0, pop.getFitnessOfMostFit(), EPSILON);
-		assertEquals(2, pop.getMostFit().getSolution().id);
-		assertEquals(98, pop.getMostFit().getCost());
-		
-		f.changeFitness(12);
-		EvolvableParametersPopulation.Double<TestObject> pop2 = pop.split();
-		
-		// orginal should be same
-		assertEquals(expected[9]+10.0+1, pop.getFitness(0), EPSILON);
-		assertEquals(expected[8]+10.0+10, pop.getFitness(1), EPSILON);
-		assertEquals(22.0, pop.getFitnessOfMostFit(), EPSILON);
-		assertEquals(2, pop.getMostFit().getSolution().id);
-		assertEquals(98, pop.getMostFit().getCost());
-		
-		// trackers should be same
-		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
-		
-		pop2.init();
-		assertEquals(10, pop2.size());
-		assertEquals(10, pop2.mutableSize());
-		for (int i = 0; i < 10; i++) {
-			assertEquals(1-i+12+10.0, pop2.getFitness(i), EPSILON);
-		}
-		
-		assertFalse(pop.evolutionIsPaused());
-		assertFalse(pop2.evolutionIsPaused());
-		tracker.stop();
-		assertTrue(pop.evolutionIsPaused());
-		assertTrue(pop2.evolutionIsPaused());
-		tracker.start();
-		assertFalse(pop.evolutionIsPaused());
-		assertFalse(pop2.evolutionIsPaused());
-		tracker.update(0.0, new TestObject(), true);
-		assertTrue(pop.evolutionIsPaused());
-		assertTrue(pop2.evolutionIsPaused());	
+		verifyDoubleWithIntCost(pop, f, tracker, selection, p -> ((EvolvableParametersPopulation.Double<TestObject>)p).getFitnessOfMostFit(), 0);		
 	}
 	
 	@Test

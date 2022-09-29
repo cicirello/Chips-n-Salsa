@@ -165,6 +165,98 @@ public class SharedTestPopulations {
 		assertTrue(pop2.evolutionIsPaused());
 	}
 	
+	void verifyDoubleWithIntCost(PopulationFitnessVector.Double popVector, TestFitnessDoubleIntCost f, ProgressTracker<TestObject> tracker, TestSelectionOp selection, ToDoubleFunction<Population<TestObject>> mostFitFitness, int elite) {
+		@SuppressWarnings("unchecked")
+		Population<TestObject> pop = (Population<TestObject>)popVector;
+		
+		assertTrue(tracker == pop.getProgressTracker());
+		tracker = new ProgressTracker<TestObject>();
+		pop.setProgressTracker(tracker);
+		assertTrue(tracker == pop.getProgressTracker());
+		
+		pop.init();
+		assertEquals(10, pop.size());
+		assertEquals(10, pop.mutableSize());
+		assertEquals(16.0, mostFitFitness.applyAsDouble(pop));
+		assertEquals(94, pop.getMostFit().getCost());
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		int[] expected = { 2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
+		for (int i = 0; i < 10; i++) {
+			// fitnesses of original before selection.
+			assertEquals(expected[9-i]+10.0, popVector.getFitness(i));
+		}
+		assertFalse(selection.called);
+		pop.select();
+		assertTrue(selection.called);
+		for (int i = 0; i < 10; i++) {
+			// fitnesses of original before selection.
+			assertEquals(expected[9-i]+10.0, popVector.getFitness(i));
+			// subject to mutation to opposite order since we selected, which reversed.
+			assertEquals(expected[i], pop.get(i).id);
+			
+		}
+		assertEquals(16.0, mostFitFitness.applyAsDouble(pop));
+		assertEquals(94, pop.getMostFit().getCost());
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		pop.replace();
+		pop.select();
+		for (int i = 0; i < 10; i++) {
+			assertEquals(expected[9-i], pop.get(i).id);
+			assertEquals(expected[i]+10.0, popVector.getFitness(i));
+		}
+		assertEquals(16.0, mostFitFitness.applyAsDouble(pop));
+		assertEquals(94, pop.getMostFit().getCost());
+		assertEquals(6, pop.getMostFit().getSolution().id);
+		assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
+		
+		f.changeFitness(1);
+		pop.updateFitness(0);
+		f.changeFitness(10);
+		pop.updateFitness(1);
+		pop.replace();
+		assertEquals(expected[9]+10.0+1, popVector.getFitness(0));
+		assertEquals(expected[8]+10.0+10, popVector.getFitness(1));
+		assertEquals(22.0, mostFitFitness.applyAsDouble(pop));
+		assertEquals(2, pop.getMostFit().getSolution().id);
+		assertEquals(98, pop.getMostFit().getCost());
+		
+		f.changeFitness(12);
+		Population<TestObject> pop2 = pop.split();
+		@SuppressWarnings("unchecked")
+		PopulationFitnessVector.Double popVector2 = (PopulationFitnessVector.Double)pop2;
+		
+		// orginal should be same
+		assertEquals(expected[9]+10.0+1, popVector.getFitness(0));
+		assertEquals(expected[8]+10.0+10, popVector.getFitness(1));
+		assertEquals(22.0, mostFitFitness.applyAsDouble(pop));
+		assertEquals(2, pop.getMostFit().getSolution().id);
+		assertEquals(98, pop.getMostFit().getCost());
+		
+		// trackers should be same
+		assertTrue(pop.getProgressTracker() == pop2.getProgressTracker());
+		
+		pop2.init();
+		assertEquals(10, pop2.size());
+		assertEquals(10, pop2.mutableSize());
+		for (int i = 0; i < 10; i++) {
+			assertEquals(1-i+12+10.0, popVector2.getFitness(i));
+		}
+		
+		assertFalse(pop.evolutionIsPaused());
+		assertFalse(pop2.evolutionIsPaused());
+		tracker.stop();
+		assertTrue(pop.evolutionIsPaused());
+		assertTrue(pop2.evolutionIsPaused());
+		tracker.start();
+		assertFalse(pop.evolutionIsPaused());
+		assertFalse(pop2.evolutionIsPaused());
+		tracker.update(0.0, new TestObject(), true);
+		assertTrue(pop.evolutionIsPaused());
+		assertTrue(pop2.evolutionIsPaused());
+	}
+	
 	void verifyDouble(PopulationFitnessVector.Double popVector, TestFitnessDouble f, ProgressTracker<TestObject> tracker, TestSelectionOp selection, ToDoubleFunction<Population<TestObject>> mostFitFitness, int elite) {
 		@SuppressWarnings("unchecked")
 		Population<TestObject> pop = (Population<TestObject>)popVector; 

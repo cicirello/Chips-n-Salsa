@@ -42,46 +42,11 @@ class SharedTestRealMutationOps {
 	void verifyMutate1(AbstractRealMutation<RealValued> m) {
 		verifyMutate1(m, false);
 	}
-	
+
 	void verifyMutate1(AbstractRealMutation<RealValued> m, boolean assertInterval) {
-		int countLow = 0;
-		int countHigh = 0;
-		for (int i = 0; i < MAX_TRIALS && (countLow==0 || countHigh==0); i++) {
-			SingleReal f = new SingleReal(9.0);
-			m.mutate(f);
-			if (assertInterval) {
-				assertTrue(Math.abs(9.0 - f.get()) <= m.get(0));
-			}
-			if (f.get() < 9.0) countLow++;
-			else if (f.get() > 9.0) countHigh++;
-		}
-		assertTrue(countLow > 0);
-		assertTrue(countHigh > 0);
+		verifyMutatesSingleBothDirections(m, assertInterval, MAX_TRIALS);
 		for (int j = 0; j < 5; j++) {
-			double[] v = new double[j];
-			for (int k = 0; k < j; k++) {
-				v[k] = 9.0 - k;
-			}
-			int[] low = new int[j];
-			int[] high = new int[j];
-			for (int i = 0; i < MAX_TRIALS; i++) {
-				RealVector f = new RealVector(v.clone());
-				m.mutate(f);
-				boolean done = true;
-				for (int k = 0; k < j; k++) {
-					if (assertInterval) {
-						assertTrue(Math.abs(v[k] - f.get(k)) <= m.get(0));
-					}
-					if (f.get(k) < v[k]) low[k]++;
-					if (f.get(k) > v[k]) high[k]++;
-					if (low[k] == 0 || high[k] == 0) done = false;
-				}
-				if (done) break;
-			}
-			for (int k = 0; k < j; k++) {
-				assertTrue(low[k] > 0);
-				assertTrue(high[k] > 0);
-			}
+			verifyMutatesVectorBothDirections(m, assertInterval, MAX_TRIALS, j, j);
 		}
 	}
 	
@@ -90,9 +55,30 @@ class SharedTestRealMutationOps {
 	}
 	
 	void verifyMutate1(AbstractRealMutation<RealValued> m, double p, boolean assertInterval) {
+		final int TRIALS = (int)(2 * MAX_TRIALS / p);
+		verifyMutatesSingleBothDirections(m, assertInterval, TRIALS);
+		final int N = m.length() > 3 ? 3 + m.length() : 6;
+		for (int j = 0; j < N; j++) {
+			verifyMutatesVectorBothDirections(m, assertInterval, TRIALS, j, j);
+		}
+	}
+	
+	void verifyMutate1(AbstractRealMutation<RealValued> m, int K) {
+		verifyMutate1(m, K, false);
+	}
+	
+	void verifyMutate1(AbstractRealMutation<RealValued> m, int K, boolean assertInterval) {
+		verifyMutatesSingleBothDirections(m, assertInterval, MAX_TRIALS);
+		final int N = m.length() > 3 ? 3 + m.length() : 6;
+		for (int j = 0; j < N; j++) {
+			final int TRIALS = (int)(2 * MAX_TRIALS / (K < j ? 1.0*K/j : 1));
+			verifyMutatesVectorBothDirections(m, assertInterval, TRIALS, j, K);
+		}
+	}
+	
+	private void verifyMutatesSingleBothDirections(AbstractRealMutation<RealValued> m, boolean assertInterval, int TRIALS) {
 		int countLow = 0;
 		int countHigh = 0;
-		final int TRIALS = (int)(2 * MAX_TRIALS / p);
 		for (int i = 0; i < TRIALS && (countLow==0 || countHigh==0); i++) {
 			SingleReal f = new SingleReal(9.0);
 			m.mutate(f);
@@ -104,84 +90,35 @@ class SharedTestRealMutationOps {
 		}
 		assertTrue(countLow > 0);
 		assertTrue(countHigh > 0);
-		final int N = m.length() > 3 ? 3 + m.length() : 6;
-		for (int j = 0; j < N; j++) {
-			double[] v = new double[j];
-			for (int k = 0; k < j; k++) {
-				v[k] = 9.0 - k;
-			}
-			final int z = j;
-			int[] low = new int[z];
-			int[] high = new int[z];
-			for (int i = 0; i < TRIALS; i++) {
-				RealVector f = new RealVector(v.clone());
-				m.mutate(f);
-				boolean done = true;
-				for (int k = 0; k < j; k++) {
-					if (assertInterval) {
-						assertTrue(Math.abs(v[k] - f.get(k)) <= m.get(0));
-					}
-					if (f.get(k) < v[k]) low[k]++;
-					if (f.get(k) > v[k]) high[k]++;
-					if (low[k] == 0 || high[k] == 0) done = false; 
-				}
-				if (done) break;
-			}
-			for (int k = 0; k < low.length; k++) {
-				assertTrue(low[k] > 0);
-				assertTrue(high[k] > 0);
-			}
+	}
+	
+	private void verifyMutatesVectorBothDirections(AbstractRealMutation<RealValued> m, boolean assertInterval, int TRIALS, int j, int MAX_COUNT) {
+		double[] v = new double[j];
+		for (int k = 0; k < j; k++) {
+			v[k] = 9.0 - k;
 		}
-	}
-	
-	void verifyMutate1(AbstractRealMutation<RealValued> m, int K) {
-		verifyMutate1(m, K, false);
-	}
-	
-	void verifyMutate1(AbstractRealMutation<RealValued> m, int K, boolean assertInterval) {
-		int countLow = 0;
-		int countHigh = 0;
-		for (int i = 0; i < MAX_TRIALS && (countLow==0 || countHigh==0); i++) {
-			SingleReal f = new SingleReal(9.0);
+		final int z = j; 
+		int[] low = new int[z];
+		int[] high = new int[z];
+		for (int i = 0; i < TRIALS; i++) {
+			RealVector f = new RealVector(v.clone());
 			m.mutate(f);
-			if (assertInterval) {
-				assertTrue(Math.abs(9.0 - f.get()) <= m.get(0));
-			}
-			if (f.get() < 9.0) countLow++;
-			else if (f.get() > 9.0) countHigh++;
-		}
-		assertTrue(countLow > 0);
-		assertTrue(countHigh > 0);
-		final int N = m.length() > 3 ? 3 + m.length() : 6;
-		for (int j = 0; j < N; j++) {
-			double[] v = new double[j];
+			boolean done = true;
+			int kCount = 0;
 			for (int k = 0; k < j; k++) {
-				v[k] = 9.0 - k;
-			}
-			final int z = j; 
-			int[] low = new int[z];
-			int[] high = new int[z];
-			final int TRIALS = (int)(2 * MAX_TRIALS / (K < j ? 1.0*K/j : 1));
-			for (int i = 0; i < TRIALS; i++) {
-				RealVector f = new RealVector(v.clone());
-				m.mutate(f);
-				boolean done = true;
-				int kCount = 0;
-				for (int k = 0; k < j; k++) {
-					if (assertInterval) {
-						assertTrue(Math.abs(v[k] - f.get(k)) <= m.get(0));
-					}
-					if (f.get(k) < v[k]) { low[k]++; kCount++; }
-					if (f.get(k) > v[k]) { high[k]++; kCount++; }
-					if (low[k] == 0 || high[k] == 0) done = false;				 
+				if (assertInterval) {
+					assertTrue(Math.abs(v[k] - f.get(k)) <= m.get(0));
 				}
-				assertTrue(kCount <= K);
-				if (done) break;
+				if (f.get(k) < v[k]) { low[k]++; kCount++; }
+				if (f.get(k) > v[k]) { high[k]++; kCount++; }
+				if (low[k] == 0 || high[k] == 0) done = false;				 
 			}
-			for (int k = 0; k < low.length; k++) {
-				assertTrue(low[k] > 0);
-				assertTrue(high[k] > 0);
-			}
+			assertTrue(kCount <= MAX_COUNT);
+			if (done) break;
+		}
+		for (int k = 0; k < low.length; k++) {
+			assertTrue(low[k] > 0);
+			assertTrue(high[k] > 0);
 		}
 	}
 	

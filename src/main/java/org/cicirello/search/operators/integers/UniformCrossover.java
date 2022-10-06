@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -17,12 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
 package org.cicirello.search.operators.integers;
 
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.representations.IntegerVector;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 
 /**
  * <p>Implementation of uniform crossover, but for IntegerVectors. 
@@ -74,7 +73,7 @@ public final class UniformCrossover<T extends IntegerVector> implements Crossove
 	 */
 	@Override
 	public void cross(IntegerVector c1, IntegerVector c2) {
-		int[] indexes = RandomIndexer.sample(c1.length(), p);
+		int[] indexes = RandomSampler.sample(c1.length(), p);
 		for (int i : indexes) {
 			int temp = c1.get(i);
 			c1.set(i, c2.get(i));

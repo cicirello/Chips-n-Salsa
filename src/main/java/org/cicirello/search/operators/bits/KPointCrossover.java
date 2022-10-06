@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -22,7 +22,7 @@ package org.cicirello.search.operators.bits;
 
 import org.cicirello.search.representations.BitVector;
 import org.cicirello.search.operators.CrossoverOperator;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 
 /**
  * <p>Implementation of K-point crossover, a classic crossover operator for 
@@ -64,7 +64,7 @@ public final class KPointCrossover implements CrossoverOperator<BitVector> {
 	 */
 	@Override
 	public void cross(BitVector c1, BitVector c2) {
-		RandomIndexer.sample(c1.length(), indexes.length, indexes);
+		RandomSampler.sample(c1.length(), indexes.length, indexes);
 		sort(indexes);
 		int i = 1;
 		for ( ; i < indexes.length; i+=2) {

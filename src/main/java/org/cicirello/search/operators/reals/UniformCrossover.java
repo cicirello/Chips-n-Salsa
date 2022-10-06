@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -22,7 +22,7 @@ package org.cicirello.search.operators.reals;
 
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.representations.RealVector;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 
 /**
  * <p>Implementation of uniform crossover, but for RealVectors. 
@@ -74,7 +74,7 @@ public final class UniformCrossover<T extends RealVector> implements CrossoverOp
 	 */
 	@Override
 	public void cross(RealVector c1, RealVector c2) {
-		int[] indexes = RandomIndexer.sample(c1.length(), p);
+		int[] indexes = RandomSampler.sample(c1.length(), p);
 		for (int i : indexes) {
 			double temp = c1.get(i);
 			c1.set(i, c2.get(i));

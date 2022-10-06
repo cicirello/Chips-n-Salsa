@@ -22,7 +22,7 @@ package org.cicirello.search.operators.reals;
 
 import org.cicirello.math.rand.RandomVariates;
 import org.cicirello.search.representations.RealValued;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.util.Copyable;
 
 /**
@@ -157,7 +157,7 @@ public class CauchyMutation<T extends RealValued> extends AbstractRealMutation<T
 		return new CauchyMutation<T>(
 			scale,
 			(old, param) -> old + RandomVariates.nextCauchy(param),
-			n -> RandomIndexer.sample(n, k < n ? k : n, (int[])null)
+			n -> RandomSampler.sample(n, k < n ? k : n, (int[])null)
 		);
 	}
 	
@@ -180,7 +180,7 @@ public class CauchyMutation<T extends RealValued> extends AbstractRealMutation<T
 		return new CauchyMutation<T>(
 			scale, 
 			(old, param) -> old + RandomVariates.nextCauchy(param),
-			n -> RandomIndexer.sample(n, p)
+			n -> RandomSampler.sample(n, p)
 		);
 	}
 	

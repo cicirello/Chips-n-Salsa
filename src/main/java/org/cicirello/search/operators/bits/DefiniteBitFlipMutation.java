@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
 package org.cicirello.search.operators.bits;
 
 import org.cicirello.search.representations.BitVector;
@@ -25,6 +25,7 @@ import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 
 /**
  * <p>DefiniteBitFlipMutation implements a variation of Bit Flip Mutation.
@@ -86,7 +87,7 @@ public final class DefiniteBitFlipMutation implements UndoableMutationOperator<B
 	
 	@Override
 	public void mutate(BitVector c) {
-		flipped = RandomIndexer.sample(c.length(), RandomIndexer.nextBiasedInt(min(b,c.length())) + 1, (int[])null);
+		flipped = RandomSampler.sample(c.length(), RandomIndexer.nextBiasedInt(min(b,c.length())) + 1, (int[])null);
 		for (int i = 0; i < flipped.length; i++) {
 			c.flip(flipped[i]);
 		}

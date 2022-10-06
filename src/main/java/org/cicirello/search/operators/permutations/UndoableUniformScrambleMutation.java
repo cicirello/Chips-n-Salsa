@@ -23,6 +23,7 @@ package org.cicirello.search.operators.permutations;
 import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 
 /**
  * <p>This class implements a scramble mutation on permutations, where one mutation
@@ -85,7 +86,7 @@ public final class UndoableUniformScrambleMutation implements UndoableMutationOp
 	public final void mutate(Permutation c) {
 		if (c.length() >= 2) {
 			last = c.toArray();
-			indexes = RandomIndexer.sample(c.length(), u);
+			indexes = RandomSampler.sample(c.length(), u);
 			if (guaranteeChange && indexes.length < 2) {
 				indexes = RandomIndexer.nextIntPair(c.length(), null);
 			}

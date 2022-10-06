@@ -17,12 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
 package org.cicirello.search.operators.permutations;
 
 import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 
 /**
  * <p>This class implements the Cycle(kmax) form of cycle mutation on permutations, where one mutation
@@ -49,7 +50,7 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * <p>The runtime of
  * the {@link #mutate(Permutation) mutate} method is O(min(n, kmax<sup>2</sup>)), and derives
- * from the combination of algorithms utilized by the {@link RandomIndexer RandomIndexer}
+ * from the combination of algorithms utilized by the {@link RandomSampler RandomSampler}
  * class in sampling k random integers. For small values of kmax, the runtime is essentially
  * constant. The runtime of the {@link #undo(Permutation) undo} method is
  * O(kmax).</p>
@@ -82,7 +83,7 @@ public final class CycleMutation implements UndoableMutationOperator<Permutation
 	@Override
 	public final void mutate(Permutation c) {
 		if (c.length() >= 2) {
-			indexes = RandomIndexer.sample(
+			indexes = RandomSampler.sample(
 				c.length(),
 				2 + RandomIndexer.nextInt(bound < c.length() ? bound : c.length() - 1),
 				(int[])null

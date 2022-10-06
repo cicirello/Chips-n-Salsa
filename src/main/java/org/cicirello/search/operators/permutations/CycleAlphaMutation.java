@@ -17,12 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
 package org.cicirello.search.operators.permutations;
 
 import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -90,7 +91,7 @@ public final class CycleAlphaMutation implements UndoableMutationOperator<Permut
 	@Override
 	public final void mutate(Permutation c) {
 		if (c.length() >= 2) {
-			indexes = RandomIndexer.sample(
+			indexes = RandomSampler.sample(
 				c.length(),
 				computeK(c.length(), ThreadLocalRandom.current().nextDouble()),
 				(int[])null

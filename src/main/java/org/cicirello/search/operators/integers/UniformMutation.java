@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -17,12 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
 package org.cicirello.search.operators.integers;
 
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.representations.IntegerValued;
 import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.util.Copyable;
 
 /**
@@ -257,8 +258,8 @@ public class UniformMutation<T extends IntegerValued> implements MutationOperato
 				super.mutate(c);
 			} else {
 				int[] indexes = p < 0 
-					? RandomIndexer.sample(c.length(), k, (int[])null) 
-					: RandomIndexer.sample(c.length(), p);
+					? RandomSampler.sample(c.length(), k, (int[])null) 
+					: RandomSampler.sample(c.length(), p);
 				internalPartialMutation(c, indexes);
 			}
 		}

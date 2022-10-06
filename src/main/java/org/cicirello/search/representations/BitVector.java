@@ -22,7 +22,7 @@ package org.cicirello.search.representations;
 
 import java.util.concurrent.ThreadLocalRandom;
 import org.cicirello.util.Copyable;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 import java.util.Arrays;
 
 /**
@@ -118,7 +118,7 @@ public final class BitVector implements Copyable<BitVector> {
 				}
 				bits[bits.length-1] = lastIntMask;
 			} else if (p > 0.0) {
-				int[] bitsToSet = RandomIndexer.sample(bitLength, p);
+				int[] bitsToSet = RandomSampler.sample(bitLength, p);
 				for (int index : bitsToSet) {
 					int i = index >> 5;
 					bits[i] ^= (1 << (index - (i << 5)));

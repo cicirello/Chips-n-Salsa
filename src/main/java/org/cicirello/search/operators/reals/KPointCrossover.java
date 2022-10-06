@@ -22,7 +22,7 @@ package org.cicirello.search.operators.reals;
 
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.representations.RealVector;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 
 /**
  * <p>Implementation of K-point crossover, but for RealVectors. 
@@ -70,7 +70,7 @@ public final class KPointCrossover<T extends RealVector> implements CrossoverOpe
 	 */
 	@Override
 	public void cross(RealVector c1, RealVector c2) {
-		RandomIndexer.sample(c1.length(), indexes.length, indexes);
+		RandomSampler.sample(c1.length(), indexes.length, indexes);
 		sort(indexes);
 		int i = 1;
 		for ( ; i < indexes.length; i+=2) {

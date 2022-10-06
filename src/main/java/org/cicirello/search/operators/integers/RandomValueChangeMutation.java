@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  * 
@@ -17,12 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
 package org.cicirello.search.operators.integers;
 
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.representations.IntegerValued;
 import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.math.rand.RandomVariates;
 
 /**
@@ -130,7 +131,7 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
 		int min = c.length() < min_k ? c.length() : min_k;
 		lastK = p > 0 ? RandomVariates.nextBinomial(c.length(), p) : min;
 		if (lastK < min) lastK = min;
-		indexes = RandomIndexer.sample(c.length(), lastK, indexes);
+		indexes = RandomSampler.sample(c.length(), lastK, indexes);
 		for (int i = 0; i < lastK; i++) {
 			int v = a + RandomIndexer.nextInt(range-1);
 			if (v >= c.get(indexes[i])) v++;
@@ -177,7 +178,7 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
 		int min = c.length() < min_k ? c.length() : min_k;
 		lastK = p > 0 ? RandomVariates.nextBinomial(c.length(), p) : min;
 		if (lastK < min) lastK = min;
-		indexes = RandomIndexer.sample(c.length(), lastK, indexes);
+		indexes = RandomSampler.sample(c.length(), lastK, indexes);
 		for (int i = 0; i < lastK; i++) {
 			int v = a + RandomIndexer.nextInt(range-1);
 			old[i] = c.get(indexes[i]);

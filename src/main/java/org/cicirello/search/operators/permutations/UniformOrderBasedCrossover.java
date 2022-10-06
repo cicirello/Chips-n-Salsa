@@ -22,7 +22,7 @@ package org.cicirello.search.operators.permutations;
 
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.permutations.Permutation;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.util.IntegerList;
 
 /**
@@ -81,7 +81,7 @@ public final class UniformOrderBasedCrossover implements CrossoverOperator<Permu
 	public void cross(Permutation c1, Permutation c2) {
 		c1.apply( 
 			(raw1, raw2) -> {
-				int[] indexes = RandomIndexer.sample(raw1.length, u);
+				int[] indexes = RandomSampler.sample(raw1.length, u);
 				boolean[] mask = new boolean[raw1.length];
 				boolean[] in1 = new boolean[raw1.length];
 				boolean[] in2 = new boolean[raw1.length];

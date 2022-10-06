@@ -21,7 +21,7 @@
 package org.cicirello.search.operators.reals;
 
 import org.cicirello.search.representations.RealValued;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.math.rand.RandomVariates;
 import org.cicirello.util.Copyable;
 
@@ -160,7 +160,7 @@ public final class UndoableGaussianMutation<T extends RealValued> extends Abstra
 		return new UndoableGaussianMutation<T>(
 			sigma,
 			(old, param) -> old + RandomVariates.nextGaussian(param),
-			n -> RandomIndexer.sample(n, k < n ? k : n, (int[])null)
+			n -> RandomSampler.sample(n, k < n ? k : n, (int[])null)
 		);
 	}
 	
@@ -185,7 +185,7 @@ public final class UndoableGaussianMutation<T extends RealValued> extends Abstra
 		return new UndoableGaussianMutation<T>(
 			sigma, 
 			(old, param) -> old + RandomVariates.nextGaussian(param),
-			n -> RandomIndexer.sample(n, p)
+			n -> RandomSampler.sample(n, p)
 		);
 	}
 	

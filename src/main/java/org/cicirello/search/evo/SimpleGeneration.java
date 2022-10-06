@@ -24,7 +24,7 @@ import org.cicirello.util.Copyable;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.math.rand.RandomVariates;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 
 /**
  * A SimpleGeneration is the common cycle of: select, apply crossover to pairs of parents based on C,
@@ -91,7 +91,7 @@ final class SimpleGeneration<T extends Copyable<T>> implements Generation<T> {
 			pop.updateFitness(second);
 		}
 		// Choose which to mutate based on M and mutate them
-		int[] operateOnThese = RandomIndexer.sample(pop.mutableSize(), M);
+		int[] operateOnThese = RandomSampler.sample(pop.mutableSize(), M);
 		for (int j = 0; j < operateOnThese.length; j++) {
 			mutation.mutate(pop.get(operateOnThese[j]));
 			pop.updateFitness(operateOnThese[j]);

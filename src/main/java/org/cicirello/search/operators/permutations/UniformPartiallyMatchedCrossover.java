@@ -22,7 +22,7 @@ package org.cicirello.search.operators.permutations;
 
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.permutations.Permutation;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 
 /**
  *<p>Implementation of uniform partially matched crossover (UPMX). UPMX 
@@ -85,7 +85,7 @@ public final class UniformPartiallyMatchedCrossover implements CrossoverOperator
 	
 	@Override
 	public void cross(Permutation c1, Permutation c2) {
-		internalCross(c1, c2, RandomIndexer.sample(c1.length(), u));
+		internalCross(c1, c2, RandomSampler.sample(c1.length(), u));
 	}
 	
 	@Override

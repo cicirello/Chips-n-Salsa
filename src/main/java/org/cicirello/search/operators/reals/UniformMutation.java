@@ -22,7 +22,7 @@ package org.cicirello.search.operators.reals;
 
 import org.cicirello.math.rand.RandomVariates;
 import org.cicirello.search.representations.RealValued;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.util.Copyable;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -150,7 +150,7 @@ public class UniformMutation<T extends RealValued> extends AbstractRealMutation<
 		return new UniformMutation<T>(
 			radius,
 			(old, param) -> old + ThreadLocalRandom.current().nextDouble(-param, param),
-			n -> RandomIndexer.sample(n, k < n ? k : n, (int[])null)
+			n -> RandomSampler.sample(n, k < n ? k : n, (int[])null)
 		);
 	}
 	
@@ -173,7 +173,7 @@ public class UniformMutation<T extends RealValued> extends AbstractRealMutation<
 		return new UniformMutation<T>(
 			radius, 
 			(old, param) -> old + ThreadLocalRandom.current().nextDouble(-param, param),
-			n -> RandomIndexer.sample(n, p)
+			n -> RandomSampler.sample(n, p)
 		);
 	}
 	

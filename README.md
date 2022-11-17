@@ -15,7 +15,7 @@ API documentation: https://chips-n-salsa.cicirello.org/api/
 | __JaCoCo Test Coverage__ | [![coverage](https://raw.githubusercontent.com/cicirello/Chips-n-Salsa/badges/jacoco.svg)](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/build.yml) [![branches coverage](https://raw.githubusercontent.com/cicirello/Chips-n-Salsa/badges/branches.svg)](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/build.yml) |
 | __Security__ | [![Snyk security score](https://snyk-widget.herokuapp.com/badge/mvn/org.cicirello/chips-n-salsa/badge.svg)](https://snyk.io/vuln/maven%3Aorg.cicirello%3Achips-n-salsa) [![Snyk Known Vulnerabilities](https://snyk.io/test/github/cicirello/Chips-n-Salsa/badge.svg)](https://snyk.io/test/github/cicirello/Chips-n-Salsa) |
 | __DOI__ | [![DOI](https://zenodo.org/badge/273074441.svg)](https://zenodo.org/badge/latestdoi/273074441) |
-| __License__ | [![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE) |
+| __Other Information__ | [![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE) [![style](https://img.shields.io/badge/style-Google%20Java%20Style-informational)](https://google.github.io/styleguide/javaguide.html) |
 | __Support__ | [![GitHub Sponsors](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/cicirello) [![Liberapay](https://img.shields.io/badge/Liberapay-F6C915?logo=liberapay&logoColor=black)](https://liberapay.com/cicirello) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?logo=ko-fi&logoColor=white)](https://ko-fi.com/cicirello) | 
 
 ## How to Cite

@@ -296,6 +296,7 @@
 				<configuration>
 					<shadedArtifactAttached>true</shadedArtifactAttached>
 					<shadedClassifierName>jar-with-dependencies</shadedClassifierName>
+					<createDependencyReducedPom>false</createDependencyReducedPom>
 					<filters>
 						<filter>
 							<artifact>*:*</artifact>
@@ -334,5 +335,4 @@
 			</plugin>
 		</plugins>
 	</build>
-  
 </project>

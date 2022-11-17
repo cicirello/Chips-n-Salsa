@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-11-14
+## [Unreleased] - 2022-11-17
 
 ### Added
 * AdaptiveEvolutionaryAlgorithm class: An implementation of an evolutionary algorithm with control 
@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Configuration of maven-shade-plugin fixed to suppress generation of dependency-reduced pom to avoid 
+  breaking transitive dependencies for the regular jar of the library.
 
 ### Dependencies
 * Bump core from 2.2.2 to 2.4.3

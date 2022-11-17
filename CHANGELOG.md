@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * A set(double[]) method to the RealValued interface along with implementations in corresponding classes.
 
 ### Changed
+* Reformatted all sourcecode to [Google Java Style](https://google.github.io/styleguide/javaguide.html).
 * Refactored evolutionary algorithm classes to improve maintainability, as well as a few minor optimizations.
 * Refactored mutation classes for real-valued representations, including:
   * Extracted an internal abstract base class for common functionality.
@@ -38,8 +39,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### CI/CD
 * Configured the [refactor-first-maven-plugin](https://github.com/jimbethancourt/RefactorFirst) within a profile in the pom.xml.
+* Configured [Spotify's fmt-maven-plugin](https://github.com/spotify/fmt-maven-plugin) to format to Google Java Style during builds. 
 
 ### Other
+* Adopted [Google Java Style](https://google.github.io/styleguide/javaguide.html).
 
 
 ## [6.0.0] - 2022-09-02

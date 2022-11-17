@@ -98,33 +98,29 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">OptimizationProblem&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span><span class="extends-implements">
 extends <a href="Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;T&gt;</span></div>
-<div class="block"><p>The OptimizationProblem interface provides search algorithms with a way
- to interact with an instance of an optimization problem without the need
- to know the specifics of the problem (e.g., real-valued function optimization,
- traveling salesperson, bin packing, etc).</p>
+<div class="block">The OptimizationProblem interface provides search algorithms with a way to interact with an
+ instance of an optimization problem without the need to know the specifics of the problem (e.g.,
+ real-valued function optimization, traveling salesperson, bin packing, etc).
 
- <p>Classes that implement this interface should implement the 
- <a href="#value(T)"><code>value(T)</code></a> method such that it returns the actual optimization
- objective value, and should implement the <a href="#cost(T)"><code>cost(T)</code></a> method
- such that lower values are better.  For a minimization problem, these
- two methods can be implemented the same, while for a maximization problem,
- the <a href="#cost(T)"><code>cost(T)</code></a> method represents a transformation from 
- maximization to minimization.  This enables search algorithms to be implemented without
- the need to know if the problem is inherently minimization or maximization.
- That is, a search algorithm can treat every problem as minimization using the 
- <a href="#cost(T)"><code>cost(T)</code></a> method.  Upon completion, results can then be
- reported in terms of the actual optimization objective function, via the
- <a href="#value(T)"><code>value(T)</code></a> method.</p>
+ <p>Classes that implement this interface should implement the <a href="#value(T)"><code>value(T)</code></a>
+ method such that it returns the actual optimization objective value, and should implement the
+ <a href="#cost(T)"><code>cost(T)</code></a> method such that lower values are better. For a minimization
+ problem, these two methods can be implemented the same, while for a maximization problem, the
+ <a href="#cost(T)"><code>cost(T)</code></a> method represents a transformation from maximization to
+ minimization. This enables search algorithms to be implemented without the need to know if the
+ problem is inherently minimization or maximization. That is, a search algorithm can treat every
+ problem as minimization using the <a href="#cost(T)"><code>cost(T)</code></a> method. Upon completion,
+ results can then be reported in terms of the actual optimization objective function, via the
+ <a href="#value(T)"><code>value(T)</code></a> method.
 
- <p>Implementers of this interface should implement the <a href="#minCost()"><code>minCost</code></a> method
- to return a lower bound on the minimum cost across all possible solutions to the 
- problem instance.  Implementations should be fast (preferably constant time), and need not
- be tight.  The purpose of this method is to enable a search algorithm to know 
- if further search is futile (e.g., if it actually finds a solution whose cost is 
- equal to the bound on the minimum theoretical cost).  
- For a problem with non-negative costs, a very simple implementation might simply return 0.
- The default implementation returns Double.NEGATIVE_INFINITY and is appropriate for a
- case where bounding the minimum cost may require too much time and where costs may be negative.</p></div>
+ <p>Implementers of this interface should implement the <a href="#minCost()"><code>minCost</code></a> method to return
+ a lower bound on the minimum cost across all possible solutions to the problem instance.
+ Implementations should be fast (preferably constant time), and need not be tight. The purpose of
+ this method is to enable a search algorithm to know if further search is futile (e.g., if it
+ actually finds a solution whose cost is equal to the bound on the minimum theoretical cost). For
+ a problem with non-negative costs, a very simple implementation might simply return 0. The
+ default implementation returns Double.NEGATIVE_INFINITY and is appropriate for a case where
+ bounding the minimum cost may require too much time and where costs may be negative.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -157,20 +153,20 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#isMinCost(double)" class="member-name-link">isMinCost</a><wbr>(double&nbsp;cost)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>double</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#value(T)" class="member-name-link">value</a><wbr>(<a href="OptimizationProblem.html" title="type parameter in OptimizationProblem">T</a>&nbsp;candidate)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -190,13 +186,13 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
 <section class="detail" id="cost(T)">
 <h3 id="cost(org.cicirello.util.Copyable)">cost</h3>
 <div class="member-signature"><span class="return-type">double</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="OptimizationProblem.html" title="type parameter in OptimizationProblem">T</a>&nbsp;candidate)</span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -204,9 +200,9 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
 <section class="detail" id="minCost()">
 <h3>minCost</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">minCost</span>()</div>
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution. 
- The default implementation returns Double.NEGATIVE_INFINITY.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution. The default implementation returns
+ Double.NEGATIVE_INFINITY.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>A lower bound on the minimum theoretical cost of the problem instance.</dd>
@@ -217,8 +213,8 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
 <section class="detail" id="isMinCost(double)">
 <h3>isMinCost</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isMinCost</span><wbr><span class="parameters">(double&nbsp;cost)</span></div>
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>cost</code> - The cost to check.</dd>
@@ -231,8 +227,8 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
 <section class="detail" id="value(T)">
 <h3 id="value(org.cicirello.util.Copyable)">value</h3>
 <div class="member-signature"><span class="return-type">double</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="OptimizationProblem.html" title="type parameter in OptimizationProblem">T</a>&nbsp;candidate)</span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
@@ -245,20 +241,20 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
 <section class="detail" id="getSolutionCostPair(T)">
 <h3 id="getSolutionCostPair(org.cicirello.util.Copyable)">getSolutionCostPair</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="OptimizationProblem.html" title="type parameter in OptimizationProblem">T</a>&gt;</span>&nbsp;<span class="element-name">getSolutionCostPair</span><wbr><span class="parameters">(<a href="OptimizationProblem.html" title="type parameter in OptimizationProblem">T</a>&nbsp;candidate)</span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.
- 
- <p>The default implementation delegates work to the <a href="#cost(T)"><code>cost(T)</code></a> method,
- which is the desired behavior in most (probably all) cases.  You will
- not likely need to override this default behavior.</p></div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.
+
+ <p>The default implementation delegates work to the <a href="#cost(T)"><code>cost(T)</code></a> method, which is the desired
+ behavior in most (probably all) cases. You will not likely need to override this default
+ behavior.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Problem.html#getSolutionCostPair(T)">getSolutionCostPair</a></code>&nbsp;in interface&nbsp;<code><a href="Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="OptimizationProblem.html" title="type parameter in OptimizationProblem">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="OptimizationProblem.html" title="type parameter in OptimizationProblem">T</a>&gt;&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>A SolutionCostPair object containing the candidate solution
- and the cost of that candidate solution.  Lower cost means better solution.</dd>
+<dd>A SolutionCostPair object containing the candidate solution and the cost of that
+     candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -266,21 +262,20 @@ extends <a href="Problem.html" title="interface in org.cicirello.search.problems
 <section class="detail" id="costAsDouble(T)">
 <h3 id="costAsDouble(org.cicirello.util.Copyable)">costAsDouble</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">costAsDouble</span><wbr><span class="parameters">(<a href="OptimizationProblem.html" title="type parameter in OptimizationProblem">T</a>&nbsp;candidate)</span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution. Note that
- subinterfaces provide methods for computing the cost as more specific
- types (e.g., as an int).
- 
- <p>The default implementation delegates work to the <a href="#cost(T)"><code>cost(T)</code></a> method. 
- You should not need to override this default behavior.</p></div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution. Note that subinterfaces provide methods for computing the cost
+ as more specific types (e.g., as an int).
+
+ <p>The default implementation delegates work to the <a href="#cost(T)"><code>cost(T)</code></a> method. You should not need
+ to override this default behavior.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Problem.html#costAsDouble(T)">costAsDouble</a></code>&nbsp;in interface&nbsp;<code><a href="Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="OptimizationProblem.html" title="type parameter in OptimizationProblem">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="OptimizationProblem.html" title="type parameter in OptimizationProblem">T</a>&gt;&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution as a value of type double. 
- Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution as a value of type double. Lower cost means better
+     solution.</dd>
 </dl>
 </section>
 </li>

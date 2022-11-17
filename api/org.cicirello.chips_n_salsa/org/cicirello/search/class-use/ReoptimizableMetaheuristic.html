@@ -66,30 +66,29 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search">org.cicirello.search</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces related to implementing
- metaheuristic search algorithms in general, rather than specific to a particular
- metaheuristic.</div>
+<div class="block">This package includes classes and interfaces related to implementing metaheuristic search
+ algorithms in general, rather than specific to a particular metaheuristic.</div>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.concurrent">org.cicirello.search.concurrent</a></div>
 <div class="col-last odd-row-color">
-<div class="block">This package includes multithreaded search implementations, as well as
- classes and interfaces related to implementing multithreaded metaheuristics.</div>
+<div class="block">This package includes multithreaded search implementations, as well as classes and interfaces
+ related to implementing multithreaded metaheuristics.</div>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.evo">org.cicirello.search.evo</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces directly related to implementing
- evolutionary algorithms.</div>
+<div class="block">This package includes classes and interfaces directly related to implementing evolutionary
+ algorithms.</div>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.restarts">org.cicirello.search.restarts</a></div>
 <div class="col-last odd-row-color">
-<div class="block">This package includes classes and interfaces related to implementing multistart
- metaheuristics (i.e., metaheuristics that periodically restart, and return the best
- solution across a number of such restarts).</div>
+<div class="block">This package includes classes and interfaces related to implementing multistart metaheuristics
+ (i.e., metaheuristics that periodically restart, and return the best solution across a number of
+ such restarts).</div>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces directly related to implementing
- simulated annealing.</div>
+<div class="block">This package includes classes and interfaces directly related to implementing simulated
+ annealing.</div>
 </div>
 </div>
 <section class="class-uses">
@@ -105,10 +104,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../SingleSolutionMetaheuristic.html" class="type-name-link" title="interface in org.cicirello.search">SingleSolutionMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This interface defines the required methods for implementations
- of single-solution metaheuristics, i.e., metaheuristics such as simulated annealing
- that operate one a single candidate solution (as compared to population-based metaheuristics
- such as genetic algorithms.</div>
+<div class="block">This interface defines the required methods for implementations of single-solution
+ metaheuristics, i.e., metaheuristics such as simulated annealing that operate one a single
+ candidate solution (as compared to population-based metaheuristics such as genetic algorithms.</div>
 </div>
 </div>
 <div class="caption"><span>Methods in <a href="../package-summary.html">org.cicirello.search</a> that return <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a></span></div>
@@ -133,8 +131,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../concurrent/ParallelReoptimizableMetaheuristic.html" class="type-name-link" title="class in org.cicirello.search.concurrent">ParallelReoptimizableMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This class enables running multiple copies of a metaheuristic, or multiple metaheuristics, 
- in parallel with multiple threads.</div>
+<div class="block">This class enables running multiple copies of a metaheuristic, or multiple metaheuristics, in
+ parallel with multiple threads.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../concurrent/ParallelReoptimizableMultistarter.html" class="type-name-link" title="class in org.cicirello.search.concurrent">ParallelReoptimizableMultistarter</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
@@ -156,54 +154,54 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color"><code><a href="../concurrent/ParallelReoptimizableMetaheuristic.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,int)" class="member-name-link">ParallelReoptimizableMetaheuristic</a><wbr>(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMetaheuristic.html" title="type parameter in ParallelReoptimizableMetaheuristic">T</a>&gt;&nbsp;search,
  int&nbsp;numThreads)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a parallel metaheuristic that executes multiple identical copies of a
- metaheuristic in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel metaheuristic that executes multiple identical copies of a metaheuristic
+ in parallel across multiple threads.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../concurrent/ParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,int,int)" class="member-name-link">ParallelReoptimizableMultistarter</a><wbr>(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMultistarter.html" title="type parameter in ParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  int&nbsp;runLength,
  int&nbsp;numThreads)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../concurrent/ParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,java.util.Collection)" class="member-name-link">ParallelReoptimizableMultistarter</a><wbr>(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMultistarter.html" title="type parameter in ParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;&nbsp;schedules)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../concurrent/ParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,org.cicirello.search.restarts.RestartSchedule,int)" class="member-name-link">ParallelReoptimizableMultistarter</a><wbr>(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMultistarter.html" title="type parameter in ParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&nbsp;r,
  int&nbsp;numThreads)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../concurrent/TimedParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,int,int)" class="member-name-link">TimedParallelReoptimizableMultistarter</a><wbr>(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/TimedParallelReoptimizableMultistarter.html" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  int&nbsp;runLength,
  int&nbsp;numThreads)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../concurrent/TimedParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,java.util.Collection)" class="member-name-link">TimedParallelReoptimizableMultistarter</a><wbr>(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/TimedParallelReoptimizableMultistarter.html" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;&nbsp;schedules)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../concurrent/TimedParallelReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,org.cicirello.search.restarts.RestartSchedule,int)" class="member-name-link">TimedParallelReoptimizableMultistarter</a><wbr>(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/TimedParallelReoptimizableMultistarter.html" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&nbsp;r,
  int&nbsp;numThreads)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads.</div>
 </div>
 </div>
 <div class="caption"><span>Constructor parameters in <a href="../concurrent/package-summary.html">org.cicirello.search.concurrent</a> with type arguments of type <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a></span></div>
@@ -214,8 +212,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../concurrent/ParallelReoptimizableMetaheuristic.html#%3Cinit%3E(java.util.Collection)" class="member-name-link">ParallelReoptimizableMetaheuristic</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMetaheuristic.html" title="type parameter in ParallelReoptimizableMetaheuristic">T</a>&gt;&gt;&nbsp;searches)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a parallel metaheuristic that executes multiple 
- metaheuristics in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel metaheuristic that executes multiple metaheuristics in parallel across
+ multiple threads.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../concurrent/ParallelReoptimizableMultistarter.html#%3Cinit%3E(java.util.Collection,int)" class="member-name-link">ParallelReoptimizableMultistarter</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../concurrent/ParallelReoptimizableMultistarter.html" title="type parameter in ParallelReoptimizableMultistarter">T</a>&gt;&gt;&nbsp;searches,
@@ -257,62 +255,65 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Class</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../evo/GenerationalEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="../evo/AdaptiveEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">AdaptiveEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This class implements an evolutionary algorithm with a generational
- model, such as is commonly used in genetic algorithms, where a
- population of children are formed by applying genetic operators to
- members of the parent population, and where the children replace the 
- parents in the next generation.</div>
+<div class="block">This class implements an evolutionary algorithm with adaptive control parameters (i.e., crossover
+ rates and mutation rates that evolve during the search).</div>
 </div>
 <div class="col-first odd-row-color"><code>class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../evo/GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-second odd-row-color"><code><a href="../evo/GenerationalEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class implements an evolutionary algorithm (EA) with a generational
- model, where a population of children are formed by applying genetic operators to
- members of the parent population, and where the children replace the 
- parents in the next generation.</div>
+<div class="block">This class implements an evolutionary algorithm with a generational model, such as is commonly
+ used in genetic algorithms, where a population of children are formed by applying genetic
+ operators to members of the parent population, and where the children replace the parents in the
+ next generation.</div>
 </div>
 <div class="col-first even-row-color"><code>class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../evo/GenerationalMutationOnlyEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalMutationOnlyEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="../evo/GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This class implements an evolutionary algorithm (EA) with a generational
- model, such as is commonly used in genetic algorithms, where a
- population of children are formed by applying mutation to
- members of the parent population, and where the children replace the 
- parents in the next generation.</div>
+<div class="block">This class implements an evolutionary algorithm (EA) with a generational model, where a
+ population of children are formed by applying genetic operators to members of the parent
+ population, and where the children replace the parents in the next generation.</div>
 </div>
 <div class="col-first odd-row-color"><code>class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../evo/GeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></code></div>
+<div class="col-second odd-row-color"><code><a href="../evo/GenerationalMutationOnlyEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalMutationOnlyEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class is an implementation of a genetic algorithm (GA) with the common
- bit vector representation of solutions to optimization problems, and the
- generational model where children replace their parents each generation.</div>
+<div class="block">This class implements an evolutionary algorithm (EA) with a generational model, such as is
+ commonly used in genetic algorithms, where a population of children are formed by applying
+ mutation to members of the parent population, and where the children replace the parents in the
+ next generation.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../evo/MutationOnlyGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></code></div>
+<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../evo/GeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">This class is an implementation of a mutation-only genetic algorithm (GA) with the common
- bit vector representation of solutions to optimization problems, and the
- generational model where children replace their parents each generation.</div>
-</div>
-<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../evo/OnePlusOneEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">OnePlusOneEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
-<div class="col-last odd-row-color">
-<div class="block">This class implements a (1+1)-EA.</div>
-</div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../evo/OnePlusOneGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">OnePlusOneGeneticAlgorithm</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">This class implements a (1+1)-GA, a special case of a (1+1)-EA, where solutions
- are represented with a vector of bits.</div>
+<div class="block">This class is an implementation of a genetic algorithm (GA) with the common bit vector
+ representation of solutions to optimization problems, and the generational model where children
+ replace their parents each generation.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../evo/SimpleGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></code></div>
+<div class="col-second odd-row-color"><code><a href="../evo/MutationOnlyGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class is an implementation of the simple genetic algorithm (Simple GA) with the common
- bit vector representation of solutions to optimization problems, and the
- generational model where children replace their parents each generation.</div>
+<div class="block">This class is an implementation of a mutation-only genetic algorithm (GA) with the common bit
+ vector representation of solutions to optimization problems, and the generational model where
+ children replace their parents each generation.</div>
+</div>
+<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../evo/OnePlusOneEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">OnePlusOneEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-last even-row-color">
+<div class="block">This class implements a (1+1)-EA.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../evo/OnePlusOneGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">OnePlusOneGeneticAlgorithm</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This class implements a (1+1)-GA, a special case of a (1+1)-EA, where solutions are represented
+ with a vector of bits.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../evo/SimpleGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This class is an implementation of the simple genetic algorithm (Simple GA) with the common bit
+ vector representation of solutions to optimization problems, and the generational model where
+ children replace their parents each generation.</div>
 </div>
 </div>
 </section>
@@ -341,15 +342,15 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color"><code><a href="../restarts/ReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,int)" class="member-name-link">ReoptimizableMultistarter</a><wbr>(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../restarts/ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  int&nbsp;runLength)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a multistart metaheuristic that executes multiple runs of
- a specified metaheuristic, whose runs are all the same in length.</div>
+<div class="block">Constructs a multistart metaheuristic that executes multiple runs of a specified metaheuristic,
+ whose runs are all the same in length.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../restarts/ReoptimizableMultistarter.html#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,org.cicirello.search.restarts.RestartSchedule)" class="member-name-link">ReoptimizableMultistarter</a><wbr>(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../restarts/ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&nbsp;r)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a multistart metaheuristic that executes multiple runs of
- a specified metaheuristic, whose run lengths follow a specified schedule.</div>
+<div class="block">Constructs a multistart metaheuristic that executes multiple runs of a specified metaheuristic,
+ whose run lengths follow a specified schedule.</div>
 </div>
 </div>
 </section>

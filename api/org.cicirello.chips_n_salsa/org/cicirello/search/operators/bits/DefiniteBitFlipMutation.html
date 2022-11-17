@@ -94,35 +94,32 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">DefiniteBitFlipMutation</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;, <a href="../IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</span></div>
-<div class="block"><p>DefiniteBitFlipMutation implements a variation of Bit Flip Mutation.
- The form of bit flip mutation commonly used in genetic algorithms 
- (and implemented in the class <a href="BitFlipMutation.html" title="class in org.cicirello.search.operators.bits"><code>BitFlipMutation</code></a>) is not guaranteed
- to change any bits during a mutation.  For a metaheuristic that operates on a single
- solution rather than a population of solutions, such as simulated annealing and hill climbers,
- where we might use a mutation operator to generate neighbors, then we will want mutation to
- always make some change.  The DefiniteBitFlipMutation class is a variation of the classic
- bit flip that guarantees at least 1 bit will be flipped during each invocation of the mutation
- operator.</p>
+<div class="block">DefiniteBitFlipMutation implements a variation of Bit Flip Mutation. The form of bit flip
+ mutation commonly used in genetic algorithms (and implemented in the class <a href="BitFlipMutation.html" title="class in org.cicirello.search.operators.bits"><code>BitFlipMutation</code></a>) is not guaranteed to change any bits during a mutation. For a metaheuristic
+ that operates on a single solution rather than a population of solutions, such as simulated
+ annealing and hill climbers, where we might use a mutation operator to generate neighbors, then
+ we will want mutation to always make some change. The DefiniteBitFlipMutation class is a
+ variation of the classic bit flip that guarantees at least 1 bit will be flipped during each
+ invocation of the mutation operator.
 
- <p>Genetic Algorithm style Bit Flip Mutation: 
- In a bit flip mutation, each bit is flipped with probability M,
- known as the mutation rate.  Flipping a bit means changing it to 0 if it is currently
- a 1, or changing it to 1 if it is currently a 0.  If the length of the BitVector is
- N, then the expected number of bits flipped during a single mutation operation 
- is NM.  However, there is no guarantee that any bits will be flipped during a genetic algorithm
- style bit flip mutation.  This behavior is fine for genetic algorithms, but may be less
- than desirable for other metaheuristics, such as those that operate on a single candidate
- solution rather than a population of them.</p>  
+ <p>Genetic Algorithm style Bit Flip Mutation: In a bit flip mutation, each bit is flipped with
+ probability M, known as the mutation rate. Flipping a bit means changing it to 0 if it is
+ currently a 1, or changing it to 1 if it is currently a 0. If the length of the BitVector is N,
+ then the expected number of bits flipped during a single mutation operation is NM. However, there
+ is no guarantee that any bits will be flipped during a genetic algorithm style bit flip mutation.
+ This behavior is fine for genetic algorithms, but may be less than desirable for other
+ metaheuristics, such as those that operate on a single candidate solution rather than a
+ population of them.
 
- <p>Definite Bit Flip Mutation: This class does not implement the genetic algorithm style
- bit flip mutation.  Instead, it implements a variation of it that we call Definite Bit Flip,
- which guarantees that at least 1 bit will be flipped during a call to the <a href="#mutate(org.cicirello.search.representations.BitVector)"><code>mutate(org.cicirello.search.representations.BitVector)</code></a> method.
+ <p>Definite Bit Flip Mutation: This class does not implement the genetic algorithm style bit flip
+ mutation. Instead, it implements a variation of it that we call Definite Bit Flip, which
+ guarantees that at least 1 bit will be flipped during a call to the <a href="#mutate(org.cicirello.search.representations.BitVector)"><code>mutate(org.cicirello.search.representations.BitVector)</code></a> method.
  Instead of a mutation parameter, the Definite Bit Flip Mutation uses a parameter B which is an
- upper bound on the number of bits that can be flipped during a single call to the <a href="#mutate(org.cicirello.search.representations.BitVector)"><code>mutate(org.cicirello.search.representations.BitVector)</code></a> method.
- When the <a href="#mutate(org.cicirello.search.representations.BitVector)"><code>mutate(org.cicirello.search.representations.BitVector)</code></a> method is called, the mutation operator picks a number of bits to flip, f,
- uniformly at random from the interval [1, B].  It then flips f randomly selected bits, where all
- combinations of f bits are equally likely.  The expected number of bits flipped during a single
- call to the <a href="#mutate(org.cicirello.search.representations.BitVector)"><code>mutate(org.cicirello.search.representations.BitVector)</code></a> method is (1+B)/2.</p></div>
+ upper bound on the number of bits that can be flipped during a single call to the <a href="#mutate(org.cicirello.search.representations.BitVector)"><code>mutate(org.cicirello.search.representations.BitVector)</code></a>
+ method. When the <a href="#mutate(org.cicirello.search.representations.BitVector)"><code>mutate(org.cicirello.search.representations.BitVector)</code></a> method is called, the mutation operator picks a number of bits
+ to flip, f, uniformly at random from the interval [1, B]. It then flips f randomly selected bits,
+ where all combinations of f bits are equally likely. The expected number of bits flipped during a
+ single call to the <a href="#mutate(org.cicirello.search.representations.BitVector)"><code>mutate(org.cicirello.search.representations.BitVector)</code></a> method is (1+B)/2.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -155,9 +152,9 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../MutationIterator.html" title="interface in org.cicirello.search.operators">MutationIterator</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#iterator(org.cicirello.search.representations.BitVector)" class="member-name-link">iterator</a><wbr>(<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;c)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
- systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
- of a candidate solution, as one might do in a hill climber.</div>
+<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to systematically iterate over
+ all of the direct neighbors (i.e., a single mutation step away) of a candidate solution, as one
+ might do in a hill climber.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#mutate(org.cicirello.search.representations.BitVector)" class="member-name-link">mutate</a><wbr>(<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;c)</code></div>
@@ -167,14 +164,13 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="DefiniteBitFlipMutation.html" title="class in org.cicirello.search.operators.bits">DefiniteBitFlipMutation</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#undo(org.cicirello.search.representations.BitVector)" class="member-name-link">undo</a><wbr>(<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;c)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns a candidate solution to its previous state prior to the
- most recent mutation performed.</div>
+<div class="block">Returns a candidate solution to its previous state prior to the most recent mutation performed.</div>
 </div>
 </div>
 </div>
@@ -201,8 +197,8 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>b</code> - The maximum number of bits to flip during a single call to the <a href="#mutate(org.cicirello.search.representations.BitVector)"><code>mutate(org.cicirello.search.representations.BitVector)</code></a> method.
- The number of bits flipped during each call to <a href="#mutate(org.cicirello.search.representations.BitVector)"><code>mutate(org.cicirello.search.representations.BitVector)</code></a> method is chosen uniformly at random
- from the interval [1, b].</dd>
+     The number of bits flipped during each call to <a href="#mutate(org.cicirello.search.representations.BitVector)"><code>mutate(org.cicirello.search.representations.BitVector)</code></a> method is chosen uniformly
+     at random from the interval [1, b].</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if b is less than 1.</dd>
 </dl>
@@ -221,15 +217,13 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <h3>mutate</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">mutate</span><wbr><span class="parameters">(<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;c)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../MutationOperator.html#mutate(T)">MutationOperator</a></code></span></div>
-<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state.
- The mutant that is produced is in the local neighborhood of 
- the original candidate solution.</div>
+<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state. The mutant that is
+ produced is in the local neighborhood of the original candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../MutationOperator.html#mutate(T)">mutate</a></code>&nbsp;in interface&nbsp;<code><a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>c</code> - The candidate solution subject to the mutation.  This method
- changes the state of c.</dd>
+<dd><code>c</code> - The candidate solution subject to the mutation. This method changes the state of c.</dd>
 </dl>
 </section>
 </li>
@@ -238,16 +232,16 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <h3>undo</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">undo</span><wbr><span class="parameters">(<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;c)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../UndoableMutationOperator.html#undo(T)">UndoableMutationOperator</a></code></span></div>
-<div class="block"><p>Returns a candidate solution to its previous state prior to the
- most recent mutation performed.</p>  
- <p>For example, consider the following.
- Let c' be the current state of c.  Let c'' be the state of c after mutate(c);
- If we then call undo(c), the state of c should revert back to c'.</p>
- <p>The behavior of undo is undefined if c is altered by some other process between
- the calls to mutate and undo.  The behavior is also undefined if a different
- candidate is given to undo then the last given to mutate.  For example,
- if the following two statements are executed, mutate(c); undo(d);, the effect
- on d is undefined as it wasn't the most recently mutated candidate solution.</p></div>
+<div class="block">Returns a candidate solution to its previous state prior to the most recent mutation performed.
+
+ <p>For example, consider the following. Let c' be the current state of c. Let c'' be the state
+ of c after mutate(c); If we then call undo(c), the state of c should revert back to c'.
+
+ <p>The behavior of undo is undefined if c is altered by some other process between the calls to
+ mutate and undo. The behavior is also undefined if a different candidate is given to undo then
+ the last given to mutate. For example, if the following two statements are executed, mutate(c);
+ undo(d);, the effect on d is undefined as it wasn't the most recently mutated candidate
+ solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../UndoableMutationOperator.html#undo(T)">undo</a></code>&nbsp;in interface&nbsp;<code><a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
@@ -261,20 +255,18 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="DefiniteBitFlipMutation.html" title="class in org.cicirello.search.operators.bits">DefiniteBitFlipMutation</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IterableMutationOperator.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
@@ -283,9 +275,8 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <dt>Specified by:</dt>
 <dd><code><a href="../UndoableMutationOperator.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>
@@ -294,17 +285,15 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <h3>iterator</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../MutationIterator.html" title="interface in org.cicirello.search.operators">MutationIterator</a></span>&nbsp;<span class="element-name">iterator</span><wbr><span class="parameters">(<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;c)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../IterableMutationOperator.html#iterator(T)">IterableMutationOperator</a></code></span></div>
-<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
- systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
- of a candidate solution, as one might do in a hill climber.</div>
+<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to systematically iterate over
+ all of the direct neighbors (i.e., a single mutation step away) of a candidate solution, as one
+ might do in a hill climber.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IterableMutationOperator.html#iterator(T)">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="../IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>c</code> - The candidate solution subject to the mutation.  Calling methods of the
- <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that is returned changes the state of that candidate solution.  
- See the documentation
- of those methods for details of how such changes may occur.</dd>
+<dd><code>c</code> - The candidate solution subject to the mutation. Calling methods of the <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that is returned changes the state of that candidate solution. See the
+     documentation of those methods for details of how such changes may occur.</dd>
 <dt>Returns:</dt>
 <dd>A MutationIterator for iterating over the direct neighbors of a candidate solution.</dd>
 </dl>

@@ -85,9 +85,9 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>Type Parameters:</dt>
-<dd><code>T</code> - The type of object that this Partial can become, which is 
- assumed to be an object that is a sequence of integers (e.g., vector of integers,
- permutation, or some other indexable type that stores integers).</dd>
+<dd><code>T</code> - The type of object that this Partial can become, which is assumed to be an object that
+     is a sequence of integers (e.g., vector of integers, permutation, or some other indexable
+     type that stores integers).</dd>
 </dl>
 <dl class="notes">
 <dt>All Known Implementing Classes:</dt>
@@ -95,12 +95,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Partial&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span></div>
-<div class="block"><p>A Partial represents a partial solution to a problem (e.g.,
- a partial permutation or a partial integer vector) that is being 
- iteratively constructed as a solution to an optimization problem.
- This class supports the implementation of constructive heuristics 
- for optimization problems, as well as for stochastic
- sampling algorithms that rely on constructive heuristics.</p></div>
+<div class="block">A Partial represents a partial solution to a problem (e.g., a partial permutation or a partial
+ integer vector) that is being iteratively constructed as a solution to an optimization problem.
+ This class supports the implementation of constructive heuristics for optimization problems, as
+ well as for stochastic sampling algorithms that rely on constructive heuristics.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -118,8 +116,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#extend(int)" class="member-name-link">extend</a><wbr>(int&nbsp;extensionIndex)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Extends the Partial by adding an element to the
- end of the Partial.</div>
+<div class="block">Extends the Partial by adding an element to the end of the Partial.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#get(int)" class="member-name-link">get</a><wbr>(int&nbsp;index)</code></div>
@@ -134,8 +131,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getLast()" class="member-name-link">getLast</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Gets the element in the current last position of the Partial,
- i.e., the element at index: size()-1.</div>
+<div class="block">Gets the element in the current last position of the Partial, i.e., the element at index:
+ size()-1.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#isComplete()" class="member-name-link">isComplete</a>()</code></div>
@@ -150,14 +147,13 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Gets the size of the Partial, which is the number of elements
- that have already been added to it.</div>
+<div class="block">Gets the size of the Partial, which is the number of elements that have already been added to
+ it.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Partial.html" title="type parameter in Partial">T</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toComplete()" class="member-name-link">toComplete</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Generates a complete instance that is consistent with this
- Partial.</div>
+<div class="block">Generates a complete instance that is consistent with this Partial.</div>
 </div>
 </div>
 </div>
@@ -177,15 +173,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="toComplete()">
 <h3>toComplete</h3>
 <div class="member-signature"><span class="return-type"><a href="Partial.html" title="type parameter in Partial">T</a></span>&nbsp;<span class="element-name">toComplete</span>()</div>
-<div class="block">Generates a complete instance that is consistent with this
- Partial.  That is, elements already added to the
- Partial will retain their positions, while elements
- not already in the Partial will be added in an undefined
- order such that the result is a valid complete object of type T.</div>
+<div class="block">Generates a complete instance that is consistent with this Partial. That is, elements already
+ added to the Partial will retain their positions, while elements not already in the Partial
+ will be added in an undefined order such that the result is a valid complete object of type T.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>a valid object of type T consistent with the current state
- of this Partial</dd>
+<dd>a valid object of type T consistent with the current state of this Partial</dd>
 </dl>
 </section>
 </li>
@@ -207,12 +200,13 @@ loadScripts(document, 'script');</script>
 <div class="block">Gets the element in the Partial at position index.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>index</code> - The position, which must be less than size().
- The valid index values are [0, 1, ..., (size()-1)].</dd>
+<dd><code>index</code> - The position, which must be less than size(). The valid index values are [0, 1,
+     ..., (size()-1)].</dd>
 <dt>Returns:</dt>
 <dd>the element in position index.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArrayIndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">ArrayIndexOutOfBoundsException</a></code> - if index is greater than or equal to size(), or if index is less than 0</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArrayIndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">ArrayIndexOutOfBoundsException</a></code> - if index is greater than or equal to size(), or if index
+     is less than 0</dd>
 </dl>
 </section>
 </li>
@@ -220,8 +214,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getLast()">
 <h3>getLast</h3>
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">getLast</span>()</div>
-<div class="block">Gets the element in the current last position of the Partial,
- i.e., the element at index: size()-1.</div>
+<div class="block">Gets the element in the current last position of the Partial, i.e., the element at index:
+ size()-1.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>The element in the current last position of the Partial.</dd>
@@ -234,10 +228,9 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="size()">
 <h3>size</h3>
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">size</span>()</div>
-<div class="block">Gets the size of the Partial, which is the number of elements
- that have already been added to it.  Note that this is NOT the
- size of the final complete T.  Rather, it is the current size
- of the Partial.</div>
+<div class="block">Gets the size of the Partial, which is the number of elements that have already been added to
+ it. Note that this is NOT the size of the final complete T. Rather, it is the current size of
+ the Partial.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>size The size of the Partial.</dd>
@@ -248,9 +241,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="numExtensions()">
 <h3>numExtensions</h3>
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">numExtensions</span>()</div>
-<div class="block">Gets the number of elements not yet added to the Partial.
- We refer to these as extensions since adding an element will extend the
- size of the Partial.</div>
+<div class="block">Gets the number of elements not yet added to the Partial. We refer to these as extensions since
+ adding an element will extend the size of the Partial.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the number of elements not yet added to the Partial</dd>
@@ -261,25 +253,24 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getExtension(int)">
 <h3>getExtension</h3>
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">getExtension</span><wbr><span class="parameters">(int&nbsp;extensionIndex)</span></div>
-<div class="block">Gets the element in position index of the list of possible extensions.   
- This method gets the element at position index from the list of those elements
- that can be added next to the Partial. For example, if this is a partial
- permutation, then this would get one of the elements not yet added to the permutation.
- Or for example, if this is a partial vector of integers, then this would get one
- of the values that is allowed to be added to the next position of the vector.
- Note that each time
- <a href="#extend(int)"><code>extend(int)</code></a> is called that the remaining elements may be reordered, so you cannot
- assume that the extensions remain in the same positions once you call extend.</div>
+<div class="block">Gets the element in position index of the list of possible extensions. This method gets the
+ element at position index from the list of those elements that can be added next to the
+ Partial. For example, if this is a partial permutation, then this would get one of the elements
+ not yet added to the permutation. Or for example, if this is a partial vector of integers, then
+ this would get one of the values that is allowed to be added to the next position of the
+ vector. Note that each time <a href="#extend(int)"><code>extend(int)</code></a> is called that the remaining elements may be
+ reordered, so you cannot assume that the extensions remain in the same positions once you call
+ extend.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>extensionIndex</code> - An index into the list of elements that can be added to the Partial next. 
- The valid extensionIndex values are [0, 1, ..., (numExtensions()-1)].</dd>
+<dd><code>extensionIndex</code> - An index into the list of elements that can be added to the Partial next.
+     The valid extensionIndex values are [0, 1, ..., (numExtensions()-1)].</dd>
 <dt>Returns:</dt>
-<dd>the element at the designated index in the list of elements 
- that can be added to the Partial.</dd>
+<dd>the element at the designated index in the list of elements that can be added to the
+     Partial.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArrayIndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">ArrayIndexOutOfBoundsException</a></code> - if extensionIndex is greater than or equal to numExtensions(), 
- or if extensionIndex is less than 0</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArrayIndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">ArrayIndexOutOfBoundsException</a></code> - if extensionIndex is greater than or equal to
+     numExtensions(), or if extensionIndex is less than 0</dd>
 </dl>
 </section>
 </li>
@@ -287,17 +278,16 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="extend(int)">
 <h3>extend</h3>
 <div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">extend</span><wbr><span class="parameters">(int&nbsp;extensionIndex)</span></div>
-<div class="block"><p>Extends the Partial by adding an element to the
- end of the Partial.  If size() is the size of the
- Partial before the extension, then the new element
- is added to position size() and the size() is increased by 1.</p></div>
+<div class="block">Extends the Partial by adding an element to the end of the Partial. If size() is the size of
+ the Partial before the extension, then the new element is added to position size() and the
+ size() is increased by 1.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>extensionIndex</code> - An index into the list of elements that can be added to the 
- Partial.  The valid extensionIndex values are [0, 1, ..., (numExtensions()-1)].</dd>
+<dd><code>extensionIndex</code> - An index into the list of elements that can be added to the Partial. The
+     valid extensionIndex values are [0, 1, ..., (numExtensions()-1)].</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArrayIndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">ArrayIndexOutOfBoundsException</a></code> - if extensionIndex is greater than or equal to numExtensions(), 
- or if extensionIndex is less than 0</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArrayIndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">ArrayIndexOutOfBoundsException</a></code> - if extensionIndex is greater than or equal to
+     numExtensions(), or if extensionIndex is less than 0</dd>
 </dl>
 </section>
 </li>

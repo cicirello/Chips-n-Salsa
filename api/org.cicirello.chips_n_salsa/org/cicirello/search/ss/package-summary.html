@@ -76,8 +76,8 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="package-signature">package <span class="element-name">org.cicirello.search.ss</span></div>
 <section class="package-description" id="package-description">
-<div class="block">This package includes classes and interfaces directly related to implementing
- stochastic sampling algorithms.</div>
+<div class="block">This package includes classes and interfaces directly related to implementing stochastic sampling
+ algorithms.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -89,9 +89,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="../package-summary.html">org.cicirello.search</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces related to implementing
- metaheuristic search algorithms in general, rather than specific to a particular
- metaheuristic.</div>
+<div class="block">This package includes classes and interfaces related to implementing metaheuristic search
+ algorithms in general, rather than specific to a particular metaheuristic.</div>
 </div>
 </div>
 </div>
@@ -105,52 +104,45 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="AcceptanceBandSampling.html" title="class in org.cicirello.search.ss">AcceptanceBandSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">The AcceptanceBandSampling class implements a form of stochastic sampling 
- search that uses a constructive heuristic to guide the random decisions.</div>
+<div class="block">The AcceptanceBandSampling class implements a form of stochastic sampling search that uses a
+ constructive heuristic to guide the random decisions.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
-<div class="block">Classes implementing this interface are used
- as constructive heuristics for constructing heuristic solutions
- to optimization problems, as well as for
- certain stochastic sampling search algorithms.</div>
+<div class="block">Classes implementing this interface are used as constructive heuristics for constructing
+ heuristic solutions to optimization problems, as well as for certain stochastic sampling search
+ algorithms.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="HeuristicBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">HeuristicBiasedStochasticSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">Heuristic Biased Stochastic Sampling (HBSS) is a form of stochastic sampling 
- search that uses a constructive heuristic to bias the random decisions.</div>
+<div class="block">Heuristic Biased Stochastic Sampling (HBSS) is a form of stochastic sampling search that uses a
+ constructive heuristic to bias the random decisions.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="HeuristicBiasedStochasticSampling.BiasFunction.html" title="interface in org.cicirello.search.ss">HeuristicBiasedStochasticSampling.BiasFunction</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
-<div class="block">Implement this interface to implement the bias function
- used by HBSS.</div>
+<div class="block">Implement this interface to implement the bias function used by HBSS.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">This class generates solutions to permutation optimization
- problems using a constructive heuristic.</div>
+<div class="block">This class generates solutions to permutation optimization problems using a constructive
+ heuristic.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
-<div class="block">This class generates solutions to optimization
- problems using a constructive heuristic.</div>
+<div class="block">This class generates solutions to optimization problems using a constructive heuristic.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="HybridConstructiveHeuristic.html" title="class in org.cicirello.search.ss">HybridConstructiveHeuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">A HybridConstructiveHeuristic maintains a list of 
- <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss"><code>ConstructiveHeuristic</code></a> objects for a problem,
- for use in a multiheuristic stochastic sampling search,
- where each full iteration of the stochastic sampler
- uses a single heuristic for all decisions, but where 
- a different heuristic is chosen for each iteration.</div>
+<div class="block">A HybridConstructiveHeuristic maintains a list of <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss"><code>ConstructiveHeuristic</code></a> objects for a
+ problem, for use in a multiheuristic stochastic sampling search, where each full iteration of the
+ stochastic sampler uses a single heuristic for all decisions, but where a different heuristic is
+ chosen for each iteration.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
-<div class="block">The implementations of constructive heuristics and
- stochastic samplers biased by constructive heuristics
- in the library support incremental updates, 
- as the solution is heuristically assembled,
- to problem and/or heuristic data utilized by the heuristic.</div>
+<div class="block">The implementations of constructive heuristics and stochastic samplers biased by constructive
+ heuristics in the library support incremental updates, as the solution is heuristically
+ assembled, to problem and/or heuristic data utilized by the heuristic.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="IterativeSampling.html" title="class in org.cicirello.search.ss">IterativeSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
@@ -158,31 +150,27 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
-<div class="block">A Partial represents a partial solution to a problem (e.g.,
- a partial permutation or a partial integer vector) that is being 
- iteratively constructed as a solution to an optimization problem.</div>
+<div class="block">A Partial represents a partial solution to a problem (e.g., a partial permutation or a partial
+ integer vector) that is being iteratively constructed as a solution to an optimization problem.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="PartialIntegerVector.html" title="class in org.cicirello.search.ss">PartialIntegerVector</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">A PartialIntegerVector represents a vector of integers that is being 
- iteratively constructed as a solution to an optimization problem
- over the space of integer vectors.</div>
+<div class="block">A PartialIntegerVector represents a vector of integers that is being iteratively constructed as a
+ solution to an optimization problem over the space of integer vectors.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="PartialPermutation.html" title="class in org.cicirello.search.ss">PartialPermutation</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
-<div class="block">A PartialPermutation represents a permutation that is being 
- iteratively constructed as a solution to an optimization problem
- over the space of permutations.</div>
+<div class="block">A PartialPermutation represents a permutation that is being iteratively constructed as a solution
+ to an optimization problem over the space of permutations.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="ValueBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">Value Biased Stochastic Sampling (VBSS) is a form of stochastic sampling 
- search that uses a constructive heuristic to bias the random decisions.</div>
+<div class="block">Value Biased Stochastic Sampling (VBSS) is a form of stochastic sampling search that uses a
+ constructive heuristic to bias the random decisions.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="ValueBiasedStochasticSampling.BiasFunction.html" title="interface in org.cicirello.search.ss">ValueBiasedStochasticSampling.BiasFunction</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
-<div class="block">Implement this interface to implement the bias function
- used by VBSS.</div>
+<div class="block">Implement this interface to implement the bias function used by VBSS.</div>
 </div>
 </div>
 </div>

@@ -94,11 +94,10 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">RestartSchedule</span><span class="extends-implements">
 extends <a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;</span></div>
-<div class="block">Multistart metaheuristics involve periodically restarting the metaheuristic
- from a new initial starting solution (often random).  Although it is common
- for such restarts to have a common run length, there do exist other restart
- schedules that vary the run length from one run to the next in some way.
- This interface defines the functionality of a restart schedule.</div>
+<div class="block">Multistart metaheuristics involve periodically restarting the metaheuristic from a new initial
+ starting solution (often random). Although it is common for such restarts to have a common run
+ length, there do exist other restart schedules that vary the run length from one run to the next
+ in some way. This interface defines the functionality of a restart schedule.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -116,15 +115,12 @@ extends <a href="../concurrent/Splittable.html" title="interface in org.cicirell
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#nextRunLength()" class="member-name-link">nextRunLength</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Gets the next run length in the restart schedule's sequence of
- run lengths.</div>
+<div class="block">Gets the next run length in the restart schedule's sequence of run lengths.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#reset()" class="member-name-link">reset</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Resets the restart schedule to its initial conditions, such that
- the next call to <a href="#nextRunLength()"><code>nextRunLength()</code></a> will return the initial
- run length of the schedule.</div>
+<div class="block">Resets the restart schedule to its initial conditions, such that the next call to <a href="#nextRunLength()"><code>nextRunLength()</code></a> will return the initial run length of the schedule.</div>
 </div>
 </div>
 </div>
@@ -147,8 +143,7 @@ extends <a href="../concurrent/Splittable.html" title="interface in org.cicirell
 <section class="detail" id="nextRunLength()">
 <h3>nextRunLength</h3>
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">nextRunLength</span>()</div>
-<div class="block">Gets the next run length in the restart schedule's sequence of
- run lengths.</div>
+<div class="block">Gets the next run length in the restart schedule's sequence of run lengths.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the length for the next run of a multistart metaheuristic</dd>
@@ -159,9 +154,7 @@ extends <a href="../concurrent/Splittable.html" title="interface in org.cicirell
 <section class="detail" id="reset()">
 <h3>reset</h3>
 <div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">reset</span>()</div>
-<div class="block">Resets the restart schedule to its initial conditions, such that
- the next call to <a href="#nextRunLength()"><code>nextRunLength()</code></a> will return the initial
- run length of the schedule.</div>
+<div class="block">Resets the restart schedule to its initial conditions, such that the next call to <a href="#nextRunLength()"><code>nextRunLength()</code></a> will return the initial run length of the schedule.</div>
 </section>
 </li>
 </ul>

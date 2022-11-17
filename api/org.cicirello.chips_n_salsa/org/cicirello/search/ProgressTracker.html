@@ -93,12 +93,10 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">ProgressTracker&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">This class is used to track search algorithm progress, and supports
- multithreaded search algorithms.  For a multithreaded search algorithm,
- all search threads should share a single instance.  The <a href="#update(int,T,boolean)"><code>update</code></a> 
- methods and the <a href="#getSolutionCostPair()"><code>getSolutionCostPair()</code></a> method 
- of this class use synchronization for thread-safety.
- All other methods are non-blocking.</div>
+<div class="block">This class is used to track search algorithm progress, and supports multithreaded search
+ algorithms. For a multithreaded search algorithm, all search threads should share a single
+ instance. The <a href="#update(int,T,boolean)"><code>update</code></a> methods and the <a href="#getSolutionCostPair()"><code>getSolutionCostPair()</code></a> method of this
+ class use synchronization for thread-safety. All other methods are non-blocking.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -131,21 +129,20 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#containsIntCost()" class="member-name-link">containsIntCost</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks whether the cost of the solution contained in this ProgressTracker
- is integer valued.</div>
+<div class="block">Checks whether the cost of the solution contained in this ProgressTracker is integer valued.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#didFindBest()" class="member-name-link">didFindBest</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Check whether the solution contained in the ProgressTracker has been marked
- as the best possible solution.</div>
+<div class="block">Check whether the solution contained in the ProgressTracker has been marked as the best
+ possible solution.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#elapsed()" class="member-name-link">elapsed</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the amount of time (nanoseconds precision) that elapsed
- between when this ProgressTracker was constructed and the most recent
- successful update of the best solution contained within the tracker.</div>
+<div class="block">Gets the amount of time (nanoseconds precision) that elapsed between when this ProgressTracker
+ was constructed and the most recent successful update of the best solution contained within the
+ tracker.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCost()" class="member-name-link">getCost</a>()</code></div>
@@ -170,8 +167,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isStopped()" class="member-name-link">isStopped</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks whether a flag is set indicating that all searches sharing this ProgressTracker
- should stop.</div>
+<div class="block">Checks whether a flag is set indicating that all searches sharing this ProgressTracker should
+ stop.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
@@ -181,8 +178,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stop()" class="member-name-link">stop</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Set a flag that indicates that all searches sharing this ProgressTracker
- should stop their search when able to (e.g., such as at the end of the next iteration.</div>
+<div class="block">Set a flag that indicates that all searches sharing this ProgressTracker should stop their
+ search when able to (e.g., such as at the end of the next iteration.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(double,T,boolean)" class="member-name-link">update</a><wbr>(double&nbsp;cost,
@@ -241,28 +238,25 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">update</span><wbr><span class="parameters">(int&nbsp;cost,
  <a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&nbsp;solution,
  boolean&nbsp;isKnownOptimal)</span></div>
-<div class="block">Updates the best solution contained in this progress tracker.
- The update takes place only if the new solution has lower cost than
- the current best cost solution stored in the progress tracker.  This method
- is thread-safe.  However, it uses synchronization for thread-safety, so
- it is strongly suggested that in multithreaded search implementations that
- you reserve calls to this method for when the search believes it has likely found 
- a better solution than all currently running threads.  Although in theory the 
- functionality of this class is such that it can be used as the sole means of a
- search algorithm keeping track of the best found solution.  If multiple
- parallel runs attempt to share this object for that purpose, significant blocking
- may occur.  You may consider using the nonblocking <a href="#getCost()"><code>getCost()</code></a> method
- first.</div>
+<div class="block">Updates the best solution contained in this progress tracker. The update takes place only if
+ the new solution has lower cost than the current best cost solution stored in the progress
+ tracker. This method is thread-safe. However, it uses synchronization for thread-safety, so it
+ is strongly suggested that in multithreaded search implementations that you reserve calls to
+ this method for when the search believes it has likely found a better solution than all
+ currently running threads. Although in theory the functionality of this class is such that it
+ can be used as the sole means of a search algorithm keeping track of the best found solution.
+ If multiple parallel runs attempt to share this object for that purpose, significant blocking
+ may occur. You may consider using the nonblocking <a href="#getCost()"><code>getCost()</code></a> method first.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>cost</code> - The cost of the solution.</dd>
 <dd><code>solution</code> - The new solution.</dd>
-<dd><code>isKnownOptimal</code> - Pass true if this solution is known to be the optimal such as if
- it is equal to a lower bound for the problem, and otherwise pass false.</dd>
+<dd><code>isKnownOptimal</code> - Pass true if this solution is known to be the optimal such as if it is
+     equal to a lower bound for the problem, and otherwise pass false.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the best solution found.  This may or may not be equal
- to the cost passed as a parameter.  If the returned value is less than cost, then
- that means the best solution was previously updated by this or another thread.</dd>
+<dd>The cost of the best solution found. This may or may not be equal to the cost passed as
+     a parameter. If the returned value is less than cost, then that means the best solution was
+     previously updated by this or another thread.</dd>
 </dl>
 </section>
 </li>
@@ -272,28 +266,25 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">update</span><wbr><span class="parameters">(double&nbsp;cost,
  <a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&nbsp;solution,
  boolean&nbsp;isKnownOptimal)</span></div>
-<div class="block">Updates the best solution contained in this progress tracker.
- The update takes place only if the new solution has lower cost than
- the current best cost solution stored in the progress tracker.  This method
- is thread-safe.  However, it uses synchronization for thread-safety, so
- it is strongly suggested that in multithreaded search implementations that
- you reserve calls to this method for when the search believes it has likely found 
- a better solution than all currently running threads.  Although in theory the 
- functionality of this class is such that it can be used as the sole means of a
- search algorithm keeping track of the best found solution.  If multiple
- parallel runs attempt to share this object for that purpose, significant blocking
- may occur.  You may consider using the nonblocking <a href="#getCostDouble()"><code>getCostDouble()</code></a> method
- first.</div>
+<div class="block">Updates the best solution contained in this progress tracker. The update takes place only if
+ the new solution has lower cost than the current best cost solution stored in the progress
+ tracker. This method is thread-safe. However, it uses synchronization for thread-safety, so it
+ is strongly suggested that in multithreaded search implementations that you reserve calls to
+ this method for when the search believes it has likely found a better solution than all
+ currently running threads. Although in theory the functionality of this class is such that it
+ can be used as the sole means of a search algorithm keeping track of the best found solution.
+ If multiple parallel runs attempt to share this object for that purpose, significant blocking
+ may occur. You may consider using the nonblocking <a href="#getCostDouble()"><code>getCostDouble()</code></a> method first.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>cost</code> - The cost of the solution.</dd>
 <dd><code>solution</code> - The new solution.</dd>
-<dd><code>isKnownOptimal</code> - Pass true if this solution is known to be the optimal such as if
- it is equal to a lower bound for the problem, and otherwise pass false.</dd>
+<dd><code>isKnownOptimal</code> - Pass true if this solution is known to be the optimal such as if it is
+     equal to a lower bound for the problem, and otherwise pass false.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the best solution found.  This may or may not be equal
- to the cost passed as a parameter.  If the returned value is less than cost, then
- that means the best solution was previously updated by this or another thread.</dd>
+<dd>The cost of the best solution found. This may or may not be equal to the cost passed as
+     a parameter. If the returned value is less than cost, then that means the best solution was
+     previously updated by this or another thread.</dd>
 </dl>
 </section>
 </li>
@@ -301,18 +292,17 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="update(org.cicirello.search.SolutionCostPair)">
 <h3>update</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">update</span><wbr><span class="parameters">(<a href="SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&gt;&nbsp;pair)</span></div>
-<div class="block">Updates the best solution contained in this progress tracker.
- The update takes place only if the new solution has lower cost than
- the current best cost solution stored in the progress tracker.  This method
- is thread-safe.</div>
+<div class="block">Updates the best solution contained in this progress tracker. The update takes place only if
+ the new solution has lower cost than the current best cost solution stored in the progress
+ tracker. This method is thread-safe.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>pair</code> - A solution cost pair.</dd>
 <dt>Returns:</dt>
-<dd>true If the cost of the solution in the ProgressTracker is that of this
- pair at the time that this method returns, which will be the case if this pair
- contains a new best solution or a solution with cost equal to that contained in the
- ProgressTracker. It otherwise returns false.</dd>
+<dd>true If the cost of the solution in the ProgressTracker is that of this pair at the
+     time that this method returns, which will be the case if this pair contains a new best
+     solution or a solution with cost equal to that contained in the ProgressTracker. It
+     otherwise returns false.</dd>
 </dl>
 </section>
 </li>
@@ -320,13 +310,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getSolutionCostPair()">
 <h3>getSolutionCostPair</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="ProgressTracker.html" title="type parameter in ProgressTracker">T</a>&gt;</span>&nbsp;<span class="element-name">getSolutionCostPair</span>()</div>
-<div class="block">Gets the current best solution and its corresponding cost from the ProgressTracker.
- This method
- is thread-safe, and the solution and cost contained in the returned object are
- guaranteed to correspond with each other.  However, it uses synchronization for thread-safety,
- so if all you need is the current cost, you should instead use the non-blocking 
- <a href="#getCost()"><code>getCost()</code></a> or <a href="#getCostDouble()"><code>getCostDouble()</code></a> methods.  Likewise, if all you need is
- the solution, you should instead use the non-blocking <a href="#getSolution()"><code>getSolution()</code></a> method.</div>
+<div class="block">Gets the current best solution and its corresponding cost from the ProgressTracker. This method
+ is thread-safe, and the solution and cost contained in the returned object are guaranteed to
+ correspond with each other. However, it uses synchronization for thread-safety, so if all you
+ need is the current cost, you should instead use the non-blocking <a href="#getCost()"><code>getCost()</code></a> or <a href="#getCostDouble()"><code>getCostDouble()</code></a> methods. Likewise, if all you need is the solution, you should instead use the
+ non-blocking <a href="#getSolution()"><code>getSolution()</code></a> method.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>current best solution and its corresponding cost</dd>
@@ -337,9 +325,9 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getCost()">
 <h3>getCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getCost</span>()</div>
-<div class="block">Gets the cost of the current best solution stored in the ProgressTracker.
- If update(double, T) was used to set a floating-point valued cost, then
- the behavior of this method is undefined.  Use the <a href="#getCostDouble()"><code>getCostDouble()</code></a> method instead.</div>
+<div class="block">Gets the cost of the current best solution stored in the ProgressTracker. If update(double, T)
+ was used to set a floating-point valued cost, then the behavior of this method is undefined.
+ Use the <a href="#getCostDouble()"><code>getCostDouble()</code></a> method instead.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the cost of the current best solution</dd>
@@ -372,13 +360,13 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="elapsed()">
 <h3>elapsed</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">elapsed</span>()</div>
-<div class="block">Gets the amount of time (nanoseconds precision) that elapsed
- between when this ProgressTracker was constructed and the most recent
- successful update of the best solution contained within the tracker.</div>
+<div class="block">Gets the amount of time (nanoseconds precision) that elapsed between when this ProgressTracker
+ was constructed and the most recent successful update of the best solution contained within the
+ tracker.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>time (in nanoseconds) between ProgressTracker construction and
- most recent recording of best solution.</dd>
+<dd>time (in nanoseconds) between ProgressTracker construction and most recent recording of
+     best solution.</dd>
 </dl>
 </section>
 </li>
@@ -386,8 +374,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="didFindBest()">
 <h3>didFindBest</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">didFindBest</span>()</div>
-<div class="block">Check whether the solution contained in the ProgressTracker has been marked
- as the best possible solution.</div>
+<div class="block">Check whether the solution contained in the ProgressTracker has been marked as the best
+ possible solution.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>true if the ProgressTracker contains the best possible solution.</dd>
@@ -398,8 +386,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="stop()">
 <h3>stop</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">stop</span>()</div>
-<div class="block">Set a flag that indicates that all searches sharing this ProgressTracker
- should stop their search when able to (e.g., such as at the end of the next iteration.</div>
+<div class="block">Set a flag that indicates that all searches sharing this ProgressTracker should stop their
+ search when able to (e.g., such as at the end of the next iteration.</div>
 </section>
 </li>
 <li>
@@ -413,8 +401,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="isStopped()">
 <h3>isStopped</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isStopped</span>()</div>
-<div class="block">Checks whether a flag is set indicating that all searches sharing this ProgressTracker
- should stop.</div>
+<div class="block">Checks whether a flag is set indicating that all searches sharing this ProgressTracker should
+ stop.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>true if the searches sharing this ProgressTracker should stop.</dd>
@@ -425,13 +413,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="containsIntCost()">
 <h3>containsIntCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">containsIntCost</span>()</div>
-<div class="block">Checks whether the cost of the solution contained in this ProgressTracker
- is integer valued.</div>
+<div class="block">Checks whether the cost of the solution contained in this ProgressTracker is integer valued.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>true if the most recently set solution has integer valued cost, and false 
- otherwise. If this method returns false, then the behavior of the <a href="#getCost()"><code>getCost()</code></a>
- method is undefined.</dd>
+<dd>true if the most recently set solution has integer valued cost, and false otherwise. If
+     this method returns false, then the behavior of the <a href="#getCost()"><code>getCost()</code></a> method is undefined.</dd>
 </dl>
 </section>
 </li>

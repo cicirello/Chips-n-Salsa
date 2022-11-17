@@ -95,24 +95,20 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">MutationOnlyGeneticAlgorithm</span>
 <span class="extends-implements">extends <a href="GenerationalMutationOnlyEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalMutationOnlyEvolutionaryAlgorithm</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</span></div>
-<div class="block"><p>This class is an implementation of a mutation-only genetic algorithm (GA) with the common
- bit vector representation of solutions to optimization problems, and the
- generational model where children replace their parents each generation.
- It uses the usual bit flip mutation, where each bit of each member of the
- population is mutated (flipped) with some probability, known as the mutation
- rate, each generation. The selection operator is configurable. 
- This MutationOnlyGeneticAlgorithm class can also be configured
- with or without the use of elitism. With elitism, a specified number of the
- most fit members of the population survive into the next generation unaltered.</p>
+<div class="block">This class is an implementation of a mutation-only genetic algorithm (GA) with the common bit
+ vector representation of solutions to optimization problems, and the generational model where
+ children replace their parents each generation. It uses the usual bit flip mutation, where each
+ bit of each member of the population is mutated (flipped) with some probability, known as the
+ mutation rate, each generation. The selection operator is configurable. This
+ MutationOnlyGeneticAlgorithm class can also be configured with or without the use of elitism.
+ With elitism, a specified number of the most fit members of the population survive into the next
+ generation unaltered.
 
- <p>The library also includes other classes for evolutionary algorithms that
- may be more relevant depending upon your use-case. For example, see the
- <a href="SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo"><code>SimpleGeneticAlgorithm</code></a> class for the form of GA known as the Simple GA,
- the <a href="GeneticAlgorithm.html" title="class in org.cicirello.search.evo"><code>GeneticAlgorithm</code></a> class if you want to use both mutation and 
- crossover, and the <a href="GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo"><code>GenerationalEvolutionaryAlgorithm</code></a> 
- and <a href="GenerationalMutationOnlyEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo"><code>GenerationalMutationOnlyEvolutionaryAlgorithm</code></a> classes if you want
- to optimize something other than BitVectors or if you want even greater flexibility
- in configuring your evolutionary search.</p></div>
+ <p>The library also includes other classes for evolutionary algorithms that may be more relevant
+ depending upon your use-case. For example, see the <a href="SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo"><code>SimpleGeneticAlgorithm</code></a> class for the
+ form of GA known as the Simple GA, the <a href="GeneticAlgorithm.html" title="class in org.cicirello.search.evo"><code>GeneticAlgorithm</code></a> class if you want to use both
+ mutation and crossover, and the <a href="GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo"><code>GenerationalEvolutionaryAlgorithm</code></a> and <a href="GenerationalMutationOnlyEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo"><code>GenerationalMutationOnlyEvolutionaryAlgorithm</code></a> classes if you want to optimize something other
+ than BitVectors or if you want even greater flexibility in configuring your evolutionary search.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -130,8 +126,8 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  int&nbsp;bitLength,
@@ -140,8 +136,8 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  int&nbsp;bitLength,
@@ -151,8 +147,8 @@ loadScripts(document, 'script');</script>
  int&nbsp;eliteCount,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  int&nbsp;bitLength,
@@ -161,8 +157,8 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  int&nbsp;bitLength,
@@ -170,8 +166,8 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  int&nbsp;bitLength,
@@ -180,8 +176,8 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  int&nbsp;bitLength,
@@ -191,8 +187,8 @@ loadScripts(document, 'script');</script>
  int&nbsp;eliteCount,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  int&nbsp;bitLength,
@@ -201,8 +197,8 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
@@ -210,8 +206,8 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
@@ -220,8 +216,8 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
@@ -231,8 +227,8 @@ loadScripts(document, 'script');</script>
  int&nbsp;eliteCount,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
@@ -241,8 +237,8 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
@@ -250,8 +246,8 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
@@ -260,8 +256,8 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
@@ -271,8 +267,8 @@ loadScripts(document, 'script');</script>
  int&nbsp;eliteCount,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Integer,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
  <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;initializer,
@@ -281,8 +277,8 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 </div>
 </section>
@@ -306,8 +302,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getProgressTracker()" class="member-name-link">getProgressTracker</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.</div>
+<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTotalRunLength()" class="member-name-link">getTotalRunLength</a>()</code></div>
@@ -323,20 +318,19 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reoptimize(int)" class="member-name-link">reoptimize</a><wbr>(int&nbsp;numGenerations)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Runs the evolutionary algorithm continuing from the final population from the most recent call
- to either <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> or <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>, or from a random population if this is the first
- call to either method.</div>
+ to either <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> or <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>, or from a random population if this is the
+ first call to either method.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setProgressTracker(org.cicirello.search.ProgressTracker)" class="member-name-link">setProgressTracker</a><wbr>(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.</div>
+<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -365,19 +359,21 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>initializer</code> - An initializer for generating random initial population members.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
-<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.</dd>
+<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount
+     must be less than n.</dd>
 <dd><code>tracker</code> - A ProgressTracker.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
@@ -397,19 +393,21 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>initializer</code> - An initializer for generating random initial population members.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
-<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.</dd>
+<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount
+     must be less than n.</dd>
 <dd><code>tracker</code> - A ProgressTracker.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
@@ -428,17 +426,18 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>initializer</code> - An initializer for generating random initial population members.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
 <dd><code>tracker</code> - A ProgressTracker.</dd>
 <dt>Throws:</dt>
@@ -457,17 +456,18 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>initializer</code> - An initializer for generating random initial population members.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
 <dd><code>tracker</code> - A ProgressTracker.</dd>
 <dt>Throws:</dt>
@@ -486,19 +486,21 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>initializer</code> - An initializer for generating random initial population members.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
-<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.</dd>
+<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount
+     must be less than n.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if mutationRate &le; 0 or if mutationRate &ge; 1.</dd>
@@ -516,19 +518,21 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>initializer</code> - An initializer for generating random initial population members.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
-<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.</dd>
+<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount
+     must be less than n.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if mutationRate &le; 0 or if mutationRate &ge; 1.</dd>
@@ -545,17 +549,18 @@ loadScripts(document, 'script');</script>
  <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>initializer</code> - An initializer for generating random initial population members.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
@@ -572,17 +577,18 @@ loadScripts(document, 'script');</script>
  <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>initializer</code> - An initializer for generating random initial population members.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
@@ -601,19 +607,21 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>bitLength</code> - The length of each bit vector.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
-<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.</dd>
+<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount
+     must be less than n.</dd>
 <dd><code>tracker</code> - A ProgressTracker.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
@@ -634,19 +642,21 @@ loadScripts(document, 'script');</script>
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>bitLength</code> - The length of each bit vector.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
-<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.</dd>
+<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount
+     must be less than n.</dd>
 <dd><code>tracker</code> - A ProgressTracker.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
@@ -666,17 +676,18 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>bitLength</code> - The length of each bit vector.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
 <dd><code>tracker</code> - A ProgressTracker.</dd>
 <dt>Throws:</dt>
@@ -696,17 +707,18 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>bitLength</code> - The length of each bit vector.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
 <dd><code>tracker</code> - A ProgressTracker.</dd>
 <dt>Throws:</dt>
@@ -726,19 +738,21 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>bitLength</code> - The length of each bit vector.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
-<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.</dd>
+<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount
+     must be less than n.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if mutationRate &le; 0 or if mutationRate &ge; 1.</dd>
@@ -757,19 +771,21 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>bitLength</code> - The length of each bit vector.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
-<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount must be less than n.</dd>
+<dd><code>eliteCount</code> - The number of elite population members. Pass 0 for no elitism. eliteCount
+     must be less than n.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if mutationRate &le; 0 or if mutationRate &ge; 1.</dd>
@@ -787,17 +803,18 @@ loadScripts(document, 'script');</script>
  <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ double, the <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Double</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>bitLength</code> - The length of each bit vector.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
@@ -815,17 +832,18 @@ loadScripts(document, 'script');</script>
  <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;f,
  double&nbsp;mutationRate,
  <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</span></div>
-<div class="block"><p>Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation. All other characteristics, such as 
- selection operator are configurable. This constructor supports fitness functions
- with fitnesses of type int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</p></div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation. All other characteristics, such as selection
+ operator are configurable. This constructor supports fitness functions with fitnesses of type
+ int, the <a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo"><code>FitnessFunction.Integer</code></a> interface.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The population size.</dd>
 <dd><code>bitLength</code> - The length of each bit vector.</dd>
 <dd><code>f</code> - The fitness function.</dd>
-<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the 
-    population is flipped with this probability, and the decisions to flip bits are independent.</dd>
+<dd><code>mutationRate</code> - The per-bit probability of flipping a bit. Each bit of each member of the
+     population is flipped with this probability, and the decisions to flip bits are
+     independent.</dd>
 <dd><code>selection</code> - The selection operator.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
@@ -848,20 +866,18 @@ loadScripts(document, 'script');</script>
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../Metaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
@@ -872,9 +888,8 @@ loadScripts(document, 'script');</script>
 <dt>Overrides:</dt>
 <dd><code><a href="GenerationalMutationOnlyEvolutionaryAlgorithm.html#split()">split</a></code>&nbsp;in class&nbsp;<code><a href="GenerationalMutationOnlyEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalMutationOnlyEvolutionaryAlgorithm</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>
@@ -882,8 +897,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="optimize(int)">
 <h3>optimize</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</span>&nbsp;<span class="element-name">optimize</span><wbr><span class="parameters">(int&nbsp;numGenerations)</span></div>
-<div class="block">Runs the evolutionary algorithm beginning from a randomly generated population. If this 
- method is called multiple times, each call begins at a new randomly generated population.</div>
+<div class="block">Runs the evolutionary algorithm beginning from a randomly generated population. If this method
+ is called multiple times, each call begins at a new randomly generated population.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../Metaheuristic.html#optimize(int)">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></dd>
@@ -891,9 +906,9 @@ loadScripts(document, 'script');</script>
 <dd><code>numGenerations</code> - The number of generations to run.</dd>
 <dt>Returns:</dt>
 <dd>The best solution found during this set of generations, which may or may not be the
- same as the solution contained in the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best across all
- calls to optimize as well as <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>. Returns null if the run did not execute, such 
- as if the ProgressTracker already contains the theoretical best solution.</dd>
+     same as the solution contained in the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best
+     across all calls to optimize as well as <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>. Returns null if the run did
+     not execute, such as if the ProgressTracker already contains the theoretical best solution.</dd>
 </dl>
 </section>
 </li>
@@ -902,8 +917,8 @@ loadScripts(document, 'script');</script>
 <h3>reoptimize</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</span>&nbsp;<span class="element-name">reoptimize</span><wbr><span class="parameters">(int&nbsp;numGenerations)</span></div>
 <div class="block">Runs the evolutionary algorithm continuing from the final population from the most recent call
- to either <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> or <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>, or from a random population if this is the first
- call to either method.</div>
+ to either <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> or <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>, or from a random population if this is the
+ first call to either method.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../ReoptimizableMetaheuristic.html#reoptimize(int)">reoptimize</a></code>&nbsp;in interface&nbsp;<code><a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></dd>
@@ -911,9 +926,9 @@ loadScripts(document, 'script');</script>
 <dd><code>numGenerations</code> - The number of generations to run.</dd>
 <dt>Returns:</dt>
 <dd>The best solution found during this set of generations, which may or may not be the
- same as the solution contained in the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best across all
- calls to optimize as well as <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a>. Returns null if the run did not execute, such 
- as if the ProgressTracker already contains the theoretical best solution.</dd>
+     same as the solution contained in the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best
+     across all calls to optimize as well as <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a>. Returns null if the run did not
+     execute, such as if the ProgressTracker already contains the theoretical best solution.</dd>
 </dl>
 </section>
 </li>
@@ -922,14 +937,12 @@ loadScripts(document, 'script');</script>
 <h3>getProgressTracker</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</span>&nbsp;<span class="element-name">getProgressTracker</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#getProgressTracker()">TrackableSearch</a></code></span></div>
-<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.  The object returned by this method
- contains the best solution found during the search (including across
- multiple concurrent runs if the search is multithreaded, or across
- multiple restarts if the run methods were called 
- multiple times), as well as cost of that solution, among other information.
- See the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> documentation for more information about
- the search data tracked by this object.</div>
+<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress. The object
+ returned by this method contains the best solution found during the search (including across
+ multiple concurrent runs if the search is multithreaded, or across multiple restarts if the run
+ methods were called multiple times), as well as cost of that solution, among other information.
+ See the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> documentation for more information about the search data
+ tracked by this object.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../TrackableSearch.html#getProgressTracker()">getProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></dd>
@@ -943,15 +956,14 @@ loadScripts(document, 'script');</script>
 <h3>setProgressTracker</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setProgressTracker</span><wbr><span class="parameters">(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#setProgressTracker(org.cicirello.search.ProgressTracker)">TrackableSearch</a></code></span></div>
-<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.  Any previously set ProgressTracker is
- replaced by this one.</div>
+<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress. Any
+ previously set ProgressTracker is replaced by this one.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../TrackableSearch.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>tracker</code> - The new ProgressTracker to set.  The tracker must not be null.
- This method does nothing if tracker is null.</dd>
+<dd><code>tracker</code> - The new ProgressTracker to set. The tracker must not be null. This method does
+     nothing if tracker is null.</dd>
 </dl>
 </section>
 </li>
@@ -973,16 +985,17 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getTotalRunLength()">
 <h3>getTotalRunLength</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getTotalRunLength</span>()</div>
-<div class="block">Gets the total run length in number of fitness evaluations. This is the total run length across all 
- calls to <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> and <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>. This may differ from what may be expected 
- based on run lengths. For example, the search terminates if it finds the theoretical best 
- solution, and also immediately returns if a prior call found the theoretical best. In such 
+<div class="block">Gets the total run length in number of fitness evaluations. This is the total run length across
+ all calls to <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> and <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>. This may differ from what may be
+ expected based on run lengths. For example, the search terminates if it finds the theoretical
+ best solution, and also immediately returns if a prior call found the theoretical best. In such
  cases, the total run length may be less than the requested run length.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../TrackableSearch.html#getTotalRunLength()">getTotalRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>The total number of generations completed across all calls to <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> and <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>.</dd>
+<dd>The total number of generations completed across all calls to <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> and
+     <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>.</dd>
 </dl>
 </section>
 </li>

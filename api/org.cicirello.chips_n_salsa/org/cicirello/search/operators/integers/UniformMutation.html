@@ -102,26 +102,21 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">UniformMutation&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T&gt;, <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>, <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;T&gt;&gt;</span></div>
-<div class="block"><p>This class implements a uniform
- mutation for
- mutating integer values.  This class can be used to mutate
- objects of any of the classes that implement the 
- <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations"><code>IntegerValued</code></a>
- interface, including both univariates and multivariates.</p>
+<div class="block">This class implements a uniform mutation for mutating integer values. This class can be used to
+ mutate objects of any of the classes that implement the <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations"><code>IntegerValued</code></a> interface,
+ including both univariates and multivariates.
 
- <p>In the form of uniform mutation implemented by this class,
- a value v is mutated by adding to it a randomly
- generated integer m such that m is drawn uniformly at random from the interval [-radius, radius].</p>
+ <p>In the form of uniform mutation implemented by this class, a value v is mutated by adding to
+ it a randomly generated integer m such that m is drawn uniformly at random from the interval
+ [-radius, radius].
 
- <p>This mutation operator also 
- implements the <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations"><code>IntegerValued</code></a> 
- interface to enable implementation
- of metaheuristics that mutate their own mutation parameters.  That is, you can pass
- a UniformMutation object to the <a href="#mutate(T)"><code>mutate(T)</code></a> method of a UniformMutation object
- to mutate its radius.</p>
+ <p>This mutation operator also implements the <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations"><code>IntegerValued</code></a> interface to enable
+ implementation of metaheuristics that mutate their own mutation parameters. That is, you can pass
+ a UniformMutation object to the <a href="#mutate(T)"><code>mutate(T)</code></a> method of a UniformMutation object to mutate its
+ radius.
 
- <p>To construct a UniformMutation, you must use one of the factory methods.  See
- the various <a href="#createUniformMutation(int)"><code>createUniformMutation(int)</code></a> methods.</p></div>
+ <p>To construct a UniformMutation, you must use one of the factory methods. See the various
+ <a href="#createUniformMutation(int)"><code>createUniformMutation(int)</code></a> methods.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -192,8 +187,8 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;<a href="UniformMutation.html" title="type parameter in UniformMutation">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int[]</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toArray(int%5B%5D)" class="member-name-link">toArray</a><wbr>(int[]&nbsp;values)</code></div>
@@ -206,6 +201,9 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-org.cicirello.search.representations.IntegerValued">Methods inherited from interface&nbsp;org.cicirello.search.representations.<a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a></h3>
+<code><a href="../../representations/IntegerValued.html#set(int%5B%5D)">set</a></code></div>
 </section>
 </li>
 </ul>
@@ -245,10 +243,9 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <dd><code>T</code> - The specific IntegerValued type.</dd>
 <dt>Parameters:</dt>
 <dd><code>radius</code> - The radius parameter of the Uniform mutation.</dd>
-<dd><code>k</code> - The number of input variables that the <a href="#mutate(T)"><code>mutate(T)</code></a> 
- method changes when called.
- The k input variables are chosen uniformly at random from among all subsets of size k.
- If there are less than k input variables, then all are mutated.</dd>
+<dd><code>k</code> - The number of input variables that the <a href="#mutate(T)"><code>mutate(T)</code></a> method changes when called. The
+     k input variables are chosen uniformly at random from among all subsets of size k. If there
+     are less than k input variables, then all are mutated.</dd>
 <dt>Returns:</dt>
 <dd>A Uniform mutation operator</dd>
 <dt>Throws:</dt>
@@ -268,12 +265,9 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <dd><code>T</code> - The specific IntegerValued type.</dd>
 <dt>Parameters:</dt>
 <dd><code>radius</code> - The radius parameter of the Uniform mutation.</dd>
-<dd><code>p</code> - The probability that the <a href="#mutate(T)"><code>mutate(T)</code></a> 
- method changes an input variable.
- If there are n input variables, then n*p input 
- variables will be mutated on average during
- a single call to the <a href="#mutate(T)"><code>mutate(T)</code></a> method. A value of
- p &gt; 1 is treated as p = 1.</dd>
+<dd><code>p</code> - The probability that the <a href="#mutate(T)"><code>mutate(T)</code></a> method changes an input variable. If there
+     are n input variables, then n*p input variables will be mutated on average during a single
+     call to the <a href="#mutate(T)"><code>mutate(T)</code></a> method. A value of p &gt; 1 is treated as p = 1.</dd>
 <dt>Returns:</dt>
 <dd>A Uniform mutation operator</dd>
 <dt>Throws:</dt>
@@ -286,15 +280,13 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <h3 id="mutate(org.cicirello.search.representations.IntegerValued)">mutate</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">mutate</span><wbr><span class="parameters">(<a href="UniformMutation.html" title="type parameter in UniformMutation">T</a>&nbsp;c)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../MutationOperator.html#mutate(T)">MutationOperator</a></code></span></div>
-<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state.
- The mutant that is produced is in the local neighborhood of 
- the original candidate solution.</div>
+<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state. The mutant that is
+ produced is in the local neighborhood of the original candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../MutationOperator.html#mutate(T)">mutate</a></code>&nbsp;in interface&nbsp;<code><a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="UniformMutation.html" title="type parameter in UniformMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>c</code> - The candidate solution subject to the mutation.  This method
- changes the state of c.</dd>
+<dd><code>c</code> - The candidate solution subject to the mutation. This method changes the state of c.</dd>
 </dl>
 </section>
 </li>
@@ -303,27 +295,24 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;<a href="UniformMutation.html" title="type parameter in UniformMutation">T</a>&gt;</span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="UniformMutation.html" title="type parameter in UniformMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>
@@ -344,9 +333,8 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <section class="detail" id="equals(java.lang.Object)">
 <h3>equals</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
-<div class="block">Indicates whether some other object is equal to this one.
- The objects are equal if they are the same type of operator
- with the same parameters.</div>
+<div class="block">Indicates whether some other object is equal to this one. The objects are equal if they are the
+ same type of operator with the same parameters.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
@@ -361,8 +349,7 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <section class="detail" id="hashCode()">
 <h3>hashCode</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">hashCode</span>()</div>
-<div class="block">Returns a hash code value for the object.
- This method is supported for the benefit of hash 
+<div class="block">Returns a hash code value for the object. This method is supported for the benefit of hash
  tables such as those provided by HashMap.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
@@ -405,15 +392,14 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <section class="detail" id="toArray(int[])">
 <h3>toArray</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int[]</span>&nbsp;<span class="element-name">toArray</span><wbr><span class="parameters">(int[]&nbsp;values)</span></div>
-<div class="block">Accesses the current value of radius as an array.  This method implemented
- strictly to meet implementation requirements of IntegerValued interface.</div>
+<div class="block">Accesses the current value of radius as an array. This method implemented strictly to meet
+ implementation requirements of IntegerValued interface.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../representations/IntegerValued.html#toArray(int%5B%5D)">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>values</code> - An array to hold the result.  If values is null or
- if values.length is not equal 1, then a new array 
- is constructed for the result.</dd>
+<dd><code>values</code> - An array to hold the result. If values is null or if values.length is not equal
+     1, then a new array is constructed for the result.</dd>
 <dt>Returns:</dt>
 <dd>An array containing the current value of radius.</dd>
 </dl>

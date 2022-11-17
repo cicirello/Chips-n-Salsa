@@ -88,10 +88,9 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>Type Parameters:</dt>
-<dd><code>T</code> - The type of Partial object for which this 
- HybridConstructiveHeuristic guides construction, which is 
- assumed to be an object that is a sequence of integers (e.g., vector of integers,
- permutation, or some other indexable type that stores integers).</dd>
+<dd><code>T</code> - The type of Partial object for which this HybridConstructiveHeuristic guides
+     construction, which is assumed to be an object that is a sequence of integers (e.g., vector
+     of integers, permutation, or some other indexable type that stores integers).</dd>
 </dl>
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
@@ -101,31 +100,26 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">HybridConstructiveHeuristic&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T&gt;</span></div>
-<div class="block"><p>A HybridConstructiveHeuristic maintains a list of 
- <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss"><code>ConstructiveHeuristic</code></a> objects for a problem,
- for use in a multiheuristic stochastic sampling search,
- where each full iteration of the stochastic sampler
- uses a single heuristic for all decisions, but where 
- a different heuristic is chosen for each iteration.</p>
+<div class="block">A HybridConstructiveHeuristic maintains a list of <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss"><code>ConstructiveHeuristic</code></a> objects for a
+ problem, for use in a multiheuristic stochastic sampling search, where each full iteration of the
+ stochastic sampler uses a single heuristic for all decisions, but where a different heuristic is
+ chosen for each iteration.
 
- <p>The HybridConstructiveHeuristic supports the following
- heuristic selection strategies:</p>
+ <p>The HybridConstructiveHeuristic supports the following heuristic selection strategies:
+
  <ul>
- <li>Choose a heuristic uniformly at random at the start
- of the iteration.</li>
- <li>Use a round robin strategy that uses the heuristics
- in order as determined by the order they were passed to the
- constructor, cycling around to the start of the list when
- necessary.</li>
- <li>Choose a heuristic using a weighted random decision, where
- each heuristic has an associated weight. For example, if the
- weight of heuristic 1 is 2 and the weight of heuristic 2 is 3,
- then on average you can expect 2 out of every 5 iterations
- to use heuristic 1, and 3 out of every 5 iterations to use 
- heuristic 2.</li>
+   <li>Choose a heuristic uniformly at random at the start of the iteration.
+   <li>Use a round robin strategy that uses the heuristics in order as determined by the order
+       they were passed to the constructor, cycling around to the start of the list when
+       necessary.
+   <li>Choose a heuristic using a weighted random decision, where each heuristic has an associated
+       weight. For example, if the weight of heuristic 1 is 2 and the weight of heuristic 2 is 3,
+       then on average you can expect 2 out of every 5 iterations to use heuristic 1, and 3 out of
+       every 5 iterations to use heuristic 2.
  </ul>
- <p>See the documentation of the various constructors to
- make your choice of which of these strategies to use.</p></div>
+
+ <p>See the documentation of the various constructors to make your choice of which of these
+ strategies to use.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -139,26 +133,21 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.util.List)" class="member-name-link">HybridConstructiveHeuristic</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;&nbsp;heuristics)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic
- is chosen uniformly at random at the start of each iteration of the
- stochastic sampler (i.e., each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a>
- is called).</div>
+<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic is chosen uniformly at random
+ at the start of each iteration of the stochastic sampler (i.e., each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a> is called).</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.util.List,boolean)" class="member-name-link">HybridConstructiveHeuristic</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;&nbsp;heuristics,
  boolean&nbsp;roundRobin)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic
- is either chosen uniformly at random at the start of each iteration of the
- stochastic sampler (i.e., each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a>
- is called), or using the round robin strategy.</div>
+<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic is either chosen uniformly at
+ random at the start of each iteration of the stochastic sampler (i.e., each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a> is called), or using the round robin strategy.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.util.List,int%5B%5D)" class="member-name-link">HybridConstructiveHeuristic</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;&nbsp;heuristics,
  int[]&nbsp;weights)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic
- is chosen using a weighted random decision at the start of each iteration of the
- stochastic sampler (i.e., each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a>
- is called).</div>
+<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic is chosen using a weighted
+ random decision at the start of each iteration of the stochastic sampler (i.e., each time
+ <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a> is called).</div>
 </div>
 </div>
 </section>
@@ -177,36 +166,33 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#completeLength()" class="member-name-link">completeLength</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the required length of complete solutions 
- to the problem instance for which this constructive heuristic
- is configured.</div>
+<div class="block">Gets the required length of complete solutions to the problem instance for which this
+ constructive heuristic is configured.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createIncrementalEvaluation()" class="member-name-link">createIncrementalEvaluation</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">This method handles choosing the heuristic for the next iteration
- of the stochastic sampling search, and then delegates the usual function
- of this method to the chosen heuristic.</div>
+<div class="block">This method handles choosing the heuristic for the next iteration of the stochastic sampling
+ search, and then delegates the usual function of this method to the chosen heuristic.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createPartial(int)" class="member-name-link">createPartial</a><wbr>(int&nbsp;n)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates an empty Partial solution, which will be incrementally
- transformed into a complete solution of a specified length.</div>
+<div class="block">Creates an empty Partial solution, which will be incrementally transformed into a complete
+ solution of a specified length.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getProblem()" class="member-name-link">getProblem</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets a reference to the instance of the optimization problem 
- that is the subject of this heuristic.</div>
+<div class="block">Gets a reference to the instance of the optimization problem that is the subject of this
+ heuristic.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)" class="member-name-link">h</a><wbr>(<a href="Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&nbsp;p,
  int&nbsp;element,
  <a href="IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&nbsp;incEval)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Heuristically evaluates the possible addition of an element to the
- end of a Partial.</div>
+<div class="block">Heuristically evaluates the possible addition of an element to the end of a Partial.</div>
 </div>
 </div>
 </div>
@@ -229,18 +215,15 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
 <section class="detail" id="&lt;init&gt;(java.util.List)">
 <h3>HybridConstructiveHeuristic</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">HybridConstructiveHeuristic</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;&nbsp;heuristics)</span></div>
-<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic
- is chosen uniformly at random at the start of each iteration of the
- stochastic sampler (i.e., each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a>
- is called).</div>
+<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic is chosen uniformly at random
+ at the start of each iteration of the stochastic sampler (i.e., each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a> is called).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>heuristics</code> - A list of ConstructiveHeuristic, all of which must
- be configured to solve the same problem instance. The list of heuristics
- must be non-empty.</dd>
+<dd><code>heuristics</code> - A list of ConstructiveHeuristic, all of which must be configured to solve the
+     same problem instance. The list of heuristics must be non-empty.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if not all of the heuristics are configured
- for the same problem instance.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if not all of the heuristics are configured for the same
+     problem instance.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if heuristics.size() equals 0.</dd>
 </dl>
 </section>
@@ -250,21 +233,18 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
 <h3>HybridConstructiveHeuristic</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">HybridConstructiveHeuristic</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;&nbsp;heuristics,
  boolean&nbsp;roundRobin)</span></div>
-<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic
- is either chosen uniformly at random at the start of each iteration of the
- stochastic sampler (i.e., each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a>
- is called), or using the round robin strategy.</div>
+<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic is either chosen uniformly at
+ random at the start of each iteration of the stochastic sampler (i.e., each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a> is called), or using the round robin strategy.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>heuristics</code> - A list of ConstructiveHeuristic, all of which must
- be configured to solve the same problem instance. The list of heuristics
- must be non-empty.</dd>
-<dd><code>roundRobin</code> - If true, then each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a>
- is called, the HybridConstructiveHeuristic cycles to the next heuristic systematically.
- Otherwise, if false, it chooses uniformly at random.</dd>
+<dd><code>heuristics</code> - A list of ConstructiveHeuristic, all of which must be configured to solve the
+     same problem instance. The list of heuristics must be non-empty.</dd>
+<dd><code>roundRobin</code> - If true, then each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a> is called, the
+     HybridConstructiveHeuristic cycles to the next heuristic systematically. Otherwise, if
+     false, it chooses uniformly at random.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if not all of the heuristics are configured
- for the same problem instance.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if not all of the heuristics are configured for the same
+     problem instance.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if heuristics.size() equals 0.</dd>
 </dl>
 </section>
@@ -274,27 +254,23 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
 <h3>HybridConstructiveHeuristic</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">HybridConstructiveHeuristic</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;&nbsp;heuristics,
  int[]&nbsp;weights)</span></div>
-<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic
- is chosen using a weighted random decision at the start of each iteration of the
- stochastic sampler (i.e., each time <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a>
- is called).  If this constructor is used, it will choose a heuristic using 
- a weighted random decision, where
- each heuristic has an associated weight. For example, if the
- weight of heuristic 1 is 2 and the weight of heuristic 2 is 3,
- then on average you can expect 2 out of every 5 iterations
- to use heuristic 1, and 3 out of every 5 iterations to use 
- heuristic 2.</div>
+<div class="block">Constructs the HybridConstructiveHeuristic, where the heuristic is chosen using a weighted
+ random decision at the start of each iteration of the stochastic sampler (i.e., each time
+ <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a> is called). If this constructor is used, it will choose a
+ heuristic using a weighted random decision, where each heuristic has an associated weight. For
+ example, if the weight of heuristic 1 is 2 and the weight of heuristic 2 is 3, then on average
+ you can expect 2 out of every 5 iterations to use heuristic 1, and 3 out of every 5 iterations
+ to use heuristic 2.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>heuristics</code> - A list of ConstructiveHeuristics, all of which must
- be configured to solve the same problem instance. The list of heuristics
- must be non-empty.</dd>
-<dd><code>weights</code> - An array of weights, which must be the same length as heuristics.
- Each weight corresponds to the heuristic in the same position in the sequence.
- All weights must be positive.</dd>
+<dd><code>heuristics</code> - A list of ConstructiveHeuristics, all of which must be configured to solve
+     the same problem instance. The list of heuristics must be non-empty.</dd>
+<dd><code>weights</code> - An array of weights, which must be the same length as heuristics. Each weight
+     corresponds to the heuristic in the same position in the sequence. All weights must be
+     positive.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if not all of the heuristics are configured
- for the same problem instance.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if not all of the heuristics are configured for the same
+     problem instance.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if heuristics.size() equals 0.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if heuristics.size() is not equal to weights.length.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if there exists an i, such that weights[i] &lt; 1.</dd>
@@ -313,16 +289,15 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
 <section class="detail" id="createIncrementalEvaluation()">
 <h3>createIncrementalEvaluation</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;</span>&nbsp;<span class="element-name">createIncrementalEvaluation</span>()</div>
-<div class="block">This method handles choosing the heuristic for the next iteration
- of the stochastic sampling search, and then delegates the usual function
- of this method to the chosen heuristic. See the <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss"><code>ConstructiveHeuristic</code></a>
- interface for full details of the functionality of this method.</div>
+<div class="block">This method handles choosing the heuristic for the next iteration of the stochastic sampling
+ search, and then delegates the usual function of this method to the chosen heuristic. See the
+ <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss"><code>ConstructiveHeuristic</code></a> interface for full details of the functionality of this method.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="ConstructiveHeuristic.html#createIncrementalEvaluation()">createIncrementalEvaluation</a></code>&nbsp;in interface&nbsp;<code><a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>An IncrementalEvaluation for an empty Partial 
- to be used for incrementally computing any data required by the <a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)"><code>h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method.</dd>
+<dd>An IncrementalEvaluation for an empty Partial to be used for incrementally computing
+     any data required by the <a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)"><code>h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method.</dd>
 </dl>
 </section>
 </li>
@@ -333,29 +308,26 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
  int&nbsp;element,
  <a href="IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&nbsp;incEval)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="ConstructiveHeuristic.html#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)">ConstructiveHeuristic</a></code></span></div>
-<div class="block">Heuristically evaluates the possible addition of an element to the
- end of a Partial.  Higher evaluations imply that the element is
- a better choice for the next element to add.  For example, if you evaluate
- two elements, x and y, with h, and h returns a higher value for y than for x,
- then this means that y is believed to be the better choice according to the 
- heuristic. Implementations of this interface must ensure that h always 
- returns a positive result. This is because stochastic sampling algorithms
- such as HBSS and VBSS assume that the constructive heuristic returns only
- positive values.</div>
+<div class="block">Heuristically evaluates the possible addition of an element to the end of a Partial. Higher
+ evaluations imply that the element is a better choice for the next element to add. For example,
+ if you evaluate two elements, x and y, with h, and h returns a higher value for y than for x,
+ then this means that y is believed to be the better choice according to the heuristic.
+ Implementations of this interface must ensure that h always returns a positive result. This is
+ because stochastic sampling algorithms such as HBSS and VBSS assume that the constructive
+ heuristic returns only positive values.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="ConstructiveHeuristic.html#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)">h</a></code>&nbsp;in interface&nbsp;<code><a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>p</code> - The current state of the Partial</dd>
 <dd><code>element</code> - The element under consideration for adding to the Partial</dd>
-<dd><code>incEval</code> - An IncrementalEvaluation of p.  This method assumes that incEval
- is of the same runtime type as the object returned by <a href="ConstructiveHeuristic.html#createIncrementalEvaluation()"><code>ConstructiveHeuristic.createIncrementalEvaluation()</code></a>.</dd>
+<dd><code>incEval</code> - An IncrementalEvaluation of p. This method assumes that incEval is of the same
+     runtime type as the object returned by <a href="ConstructiveHeuristic.html#createIncrementalEvaluation()"><code>ConstructiveHeuristic.createIncrementalEvaluation()</code></a>.</dd>
 <dt>Returns:</dt>
-<dd>The heuristic evaluation of the hypothetical addition of element to the end
- of p. The higher the evaluation, the more important the heuristic believes that
- element should be added next.  The intention is to compare the value returned
- with the heuristic evaluations of other elements.  Individual results in isolation
- are not necessarily meaningful.</dd>
+<dd>The heuristic evaluation of the hypothetical addition of element to the end of p. The
+     higher the evaluation, the more important the heuristic believes that element should be
+     added next. The intention is to compare the value returned with the heuristic evaluations
+     of other elements. Individual results in isolation are not necessarily meaningful.</dd>
 </dl>
 </section>
 </li>
@@ -364,8 +336,8 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
 <h3>createPartial</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;</span>&nbsp;<span class="element-name">createPartial</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="ConstructiveHeuristic.html#createPartial(int)">ConstructiveHeuristic</a></code></span></div>
-<div class="block">Creates an empty Partial solution, which will be incrementally
- transformed into a complete solution of a specified length.</div>
+<div class="block">Creates an empty Partial solution, which will be incrementally transformed into a complete
+ solution of a specified length.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="ConstructiveHeuristic.html#createPartial(int)">createPartial</a></code>&nbsp;in interface&nbsp;<code><a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;</code></dd>
@@ -381,15 +353,13 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
 <h3>completeLength</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">completeLength</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="ConstructiveHeuristic.html#completeLength()">ConstructiveHeuristic</a></code></span></div>
-<div class="block">Gets the required length of complete solutions 
- to the problem instance for which this constructive heuristic
- is configured.</div>
+<div class="block">Gets the required length of complete solutions to the problem instance for which this
+ constructive heuristic is configured.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="ConstructiveHeuristic.html#completeLength()">completeLength</a></code>&nbsp;in interface&nbsp;<code><a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>length of solutions to the problem instance for which this heuristic
- is configured</dd>
+<dd>length of solutions to the problem instance for which this heuristic is configured</dd>
 </dl>
 </section>
 </li>
@@ -398,14 +368,13 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
 <h3>getProblem</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;</span>&nbsp;<span class="element-name">getProblem</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="ConstructiveHeuristic.html#getProblem()">ConstructiveHeuristic</a></code></span></div>
-<div class="block">Gets a reference to the instance of the optimization problem 
- that is the subject of this heuristic.</div>
+<div class="block">Gets a reference to the instance of the optimization problem that is the subject of this
+ heuristic.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="ConstructiveHeuristic.html#getProblem()">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>the instance of the optimization problem 
- that is the subject of this heuristic.</dd>
+<dd>the instance of the optimization problem that is the subject of this heuristic.</dd>
 </dl>
 </section>
 </li>

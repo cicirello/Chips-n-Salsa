@@ -102,12 +102,11 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">OnePlusOneEvolutionaryAlgorithm&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org.cicirello.search">SingleSolutionMetaheuristic</a>&lt;T&gt;</span></div>
-<div class="block"><p>This class implements a (1+1)-EA. In a (1+1)-EA, the evolutionary algorithm has a
- population size of 1, in each cycle of the algorithm a single mutant is created from
- that single population member, forming a population of size 2, and finally the EA
- keeps the better of the two solutions. This is perhaps the simplest case of an EA.
- This class supports optimizing arbitrary structures, specified by the generic type
- parameter.</p></div>
+<div class="block">This class implements a (1+1)-EA. In a (1+1)-EA, the evolutionary algorithm has a population size
+ of 1, in each cycle of the algorithm a single mutant is created from that single population
+ member, forming a population of size 2, and finally the EA keeps the better of the two solutions.
+ This is perhaps the simplest case of an EA. This class supports optimizing arbitrary structures,
+ specified by the generic type parameter.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -167,14 +166,12 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getProgressTracker()" class="member-name-link">getProgressTracker</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.</div>
+<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTotalRunLength()" class="member-name-link">getTotalRunLength</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the total number of evaluations (iterations)
- performed by this EA object.</div>
+<div class="block">Gets the total number of evaluations (iterations) performed by this EA object.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#optimize(int)" class="member-name-link">optimize</a><wbr>(int&nbsp;maxEvals)</code></div>
@@ -190,20 +187,19 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reoptimize(int)" class="member-name-link">reoptimize</a><wbr>(int&nbsp;maxEvals)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Continues optimizing starting from the previous best found solution contained
- in the tracker object, rather than from a random one.</div>
+<div class="block">Continues optimizing starting from the previous best found solution contained in the tracker
+ object, rather than from a random one.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setProgressTracker(org.cicirello.search.ProgressTracker)" class="member-name-link">setProgressTracker</a><wbr>(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.</div>
+<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="OnePlusOneEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">OnePlusOneEvolutionaryAlgorithm</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -228,8 +224,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">OnePlusOneEvolutionaryAlgorithm</span><wbr><span class="parameters">(<a href="../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;problem,
  <a href="../operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;mutation,
  <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;initializer)</span></div>
-<div class="block">Creates a OnePlusOneEvolutionaryAlgorithm instance for real-valued optimization problems.
- A <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<div class="block">Creates a OnePlusOneEvolutionaryAlgorithm instance for real-valued optimization problems. A
+ <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
@@ -246,8 +242,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">OnePlusOneEvolutionaryAlgorithm</span><wbr><span class="parameters">(<a href="../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;problem,
  <a href="../operators/UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;mutation,
  <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;initializer)</span></div>
-<div class="block">Creates a OnePlusOneEvolutionaryAlgorithm instance for integer-valued optimization problems.
- A <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<div class="block">Creates a OnePlusOneEvolutionaryAlgorithm instance for integer-valued optimization problems. A
+ <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
@@ -271,8 +267,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
 <dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
 <dd><code>initializer</code> - The source of random initial states.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best solution found
+     during the run, the time when it was found, and other related data.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if any of the parameters are null</dd>
 </dl>
@@ -291,8 +287,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
 <dd><code>mutation</code> - A mutation operator supporting the undo operation.</dd>
 <dd><code>initializer</code> - The source of random initial states.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best solution found
+     during the run, the time when it was found, and other related data.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if any of the parameters are null</dd>
 </dl>
@@ -310,21 +306,20 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <section class="detail" id="reoptimize(int)">
 <h3>reoptimize</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;</span>&nbsp;<span class="element-name">reoptimize</span><wbr><span class="parameters">(int&nbsp;maxEvals)</span></div>
-<div class="block">Continues optimizing starting from the previous best found solution contained
- in the tracker object, rather than from a random one. If no prior
- run had been performed, then this method starts the run from a randomly generated
- solution.</div>
+<div class="block">Continues optimizing starting from the previous best found solution contained in the tracker
+ object, rather than from a random one. If no prior run had been performed, then this method
+ starts the run from a randomly generated solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../ReoptimizableMetaheuristic.html#reoptimize(int)">reoptimize</a></code>&nbsp;in interface&nbsp;<code><a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>maxEvals</code> - The maximum number of evaluations (i.e., iterations) to execute.</dd>
 <dt>Returns:</dt>
-<dd>the current solution at the end of this run and its cost, which may or may not be the best
- of run solution, and which may or may not be the same as the solution contained
- in this instance's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs.
- Returns null if the run did not execute, such as if the ProgressTracker already contains
- the theoretical best solution.</dd>
+<dd>the current solution at the end of this run and its cost, which may or may not be the
+     best of run solution, and which may or may not be the same as the solution contained in
+     this instance's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs. Returns null
+     if the run did not execute, such as if the ProgressTracker already contains the theoretical
+     best solution.</dd>
 </dl>
 </section>
 </li>
@@ -339,11 +334,11 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <dt>Parameters:</dt>
 <dd><code>maxEvals</code> - The maximum number of evaluations (i.e., iterations) to execute.</dd>
 <dt>Returns:</dt>
-<dd>the current solution at the end of this run and its cost, which may or may not be the best
- of run solution, and which may or may not be the same as the solution contained
- in this instance's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs.
- Returns null if the run did not execute, such as if the ProgressTracker already contains
- the theoretical best solution.</dd>
+<dd>the current solution at the end of this run and its cost, which may or may not be the
+     best of run solution, and which may or may not be the same as the solution contained in
+     this instance's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs. Returns null
+     if the run did not execute, such as if the ProgressTracker already contains the theoretical
+     best solution.</dd>
 </dl>
 </section>
 </li>
@@ -360,11 +355,11 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <dd><code>maxEvals</code> - The maximum number of evaluations (i.e., iterations) to execute.</dd>
 <dd><code>start</code> - The desired starting solution.</dd>
 <dt>Returns:</dt>
-<dd>the current solution at the end of this run and its cost, which may or may not be the best
- of run solution, and which may or may not be the same as the solution contained
- in this instance's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs.
- Returns null if the run did not execute, such as if the ProgressTracker already contains
- the theoretical best solution.</dd>
+<dd>the current solution at the end of this run and its cost, which may or may not be the
+     best of run solution, and which may or may not be the same as the solution contained in
+     this instance's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs. Returns null
+     if the run did not execute, such as if the ProgressTracker already contains the theoretical
+     best solution.</dd>
 </dl>
 </section>
 </li>
@@ -387,14 +382,12 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <h3>getProgressTracker</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;</span>&nbsp;<span class="element-name">getProgressTracker</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#getProgressTracker()">TrackableSearch</a></code></span></div>
-<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.  The object returned by this method
- contains the best solution found during the search (including across
- multiple concurrent runs if the search is multithreaded, or across
- multiple restarts if the run methods were called 
- multiple times), as well as cost of that solution, among other information.
- See the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> documentation for more information about
- the search data tracked by this object.</div>
+<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress. The object
+ returned by this method contains the best solution found during the search (including across
+ multiple concurrent runs if the search is multithreaded, or across multiple restarts if the run
+ methods were called multiple times), as well as cost of that solution, among other information.
+ See the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> documentation for more information about the search data
+ tracked by this object.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../TrackableSearch.html#getProgressTracker()">getProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&gt;</code></dd>
@@ -408,15 +401,14 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <h3>setProgressTracker</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setProgressTracker</span><wbr><span class="parameters">(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&nbsp;tracker)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#setProgressTracker(org.cicirello.search.ProgressTracker)">TrackableSearch</a></code></span></div>
-<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.  Any previously set ProgressTracker is
- replaced by this one.</div>
+<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress. Any
+ previously set ProgressTracker is replaced by this one.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../TrackableSearch.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>tracker</code> - The new ProgressTracker to set.  The tracker must not be null.
- This method does nothing if tracker is null.</dd>
+<dd><code>tracker</code> - The new ProgressTracker to set. The tracker must not be null. This method does
+     nothing if tracker is null.</dd>
 </dl>
 </section>
 </li>
@@ -425,20 +417,18 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="OnePlusOneEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">OnePlusOneEvolutionaryAlgorithm</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;</span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../Metaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&gt;</code></dd>
@@ -447,9 +437,8 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <dt>Specified by:</dt>
 <dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>
@@ -457,14 +446,12 @@ implements <a href="../SingleSolutionMetaheuristic.html" title="interface in org
 <section class="detail" id="getTotalRunLength()">
 <h3>getTotalRunLength</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getTotalRunLength</span>()</div>
-<div class="block"><p>Gets the total number of evaluations (iterations)
- performed by this EA object. This is the total number of
- such evaluations across all calls to the optimize and reoptimize methods.
- This may differ from the combined number of maxEvals passed as a parameter
- to those methods. For example, those methods terminate 
- if they find the theoretical best solution, and also immediately return if
- a prior call found the theoretical best. In such cases, the total run length may
- be less than the requested maxEvals.</p></div>
+<div class="block">Gets the total number of evaluations (iterations) performed by this EA object. This is the
+ total number of such evaluations across all calls to the optimize and reoptimize methods. This
+ may differ from the combined number of maxEvals passed as a parameter to those methods. For
+ example, those methods terminate if they find the theoretical best solution, and also
+ immediately return if a prior call found the theoretical best. In such cases, the total run
+ length may be less than the requested maxEvals.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../TrackableSearch.html#getTotalRunLength()">getTotalRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;&gt;</code></dd>

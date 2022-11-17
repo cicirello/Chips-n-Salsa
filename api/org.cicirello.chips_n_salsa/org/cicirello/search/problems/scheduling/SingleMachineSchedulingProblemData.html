@@ -89,35 +89,27 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">SingleMachineSchedulingProblemData</span></div>
-<div class="block"><p>Classes that implement single machine scheduling problems should
- implement this interface to enable heuristic, etc to interact with the
- data that defines the jobs of the scheduling instance, such as the
- process times, setup times (if any), due-dates, etc of the jobs.</p>
+<div class="block">Classes that implement single machine scheduling problems should implement this interface to
+ enable heuristic, etc to interact with the data that defines the jobs of the scheduling instance,
+ such as the process times, setup times (if any), due-dates, etc of the jobs.
 
- <p>This interface includes methods for accessing all of the common
- elements of scheduling problems: processing times, due dates, release
- dates, weights, setup times.  It also has methods for checking whether
- each of these (except processing times) are present.  Some scheduling
- cost functions are influenced only by some of these, etc.  Default
- implementations are included for all of these potential properties
- except for processing times, where the defaults make the obvious
- interpretation if that property is not present.  For example,
- the default release date is 0, for available for scheduling right
- from the start of the schedule, which is the assumption made by many
- scheduling problems.  See the various method documentation for
- details of defaults for the others.</p>
+ <p>This interface includes methods for accessing all of the common elements of scheduling
+ problems: processing times, due dates, release dates, weights, setup times. It also has methods
+ for checking whether each of these (except processing times) are present. Some scheduling cost
+ functions are influenced only by some of these, etc. Default implementations are included for all
+ of these potential properties except for processing times, where the defaults make the obvious
+ interpretation if that property is not present. For example, the default release date is 0, for
+ available for scheduling right from the start of the schedule, which is the assumption made by
+ many scheduling problems. See the various method documentation for details of defaults for the
+ others.
 
- <p>The design rationale for providing access to all of these 
- properties, with defaults, is to have a generalized interface to
- scheduling problem data to enable easily mixing and matching
- implementations of scheduling instance generators with 
- scheduling cost functions.  For example, with this approach,
- we can take a scheduling problem generator for a common due date
- problem (which has both early and late weights) and instead optimize
- weighted tardiness (which doesn't care about early weights).
- Therefore, we have separated the scheduling cost functions from
- the classes that represent scheduling problem characteristics
- in the library.</p></div>
+ <p>The design rationale for providing access to all of these properties, with defaults, is to
+ have a generalized interface to scheduling problem data to enable easily mixing and matching
+ implementations of scheduling instance generators with scheduling cost functions. For example,
+ with this approach, we can take a scheduling problem generator for a common due date problem
+ (which has both early and late weights) and instead optimize weighted tardiness (which doesn't
+ care about early weights). Therefore, we have separated the scheduling cost functions from the
+ classes that represent scheduling problem characteristics in the library.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -135,8 +127,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int[]</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getCompletionTimes(org.cicirello.permutations.Permutation)" class="member-name-link">getCompletionTimes</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;schedule)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Computes the completion times of all of the jobs if they were scheduled in
- the order defined by the specified Permutation.</div>
+<div class="block">Computes the completion times of all of the jobs if they were scheduled in the order defined by
+ the specified Permutation.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getDueDate(int)" class="member-name-link">getDueDate</a><wbr>(int&nbsp;j)</code></div>
@@ -146,14 +138,13 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getEarlyWeight(int)" class="member-name-link">getEarlyWeight</a><wbr>(int&nbsp;j)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">Gets the early weight of a job, for weighted scheduling problems that have
- early weights.</div>
+<div class="block">Gets the early weight of a job, for weighted scheduling problems that have early weights.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getProcessingTime(int)" class="member-name-link">getProcessingTime</a><wbr>(int&nbsp;j)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Gets the processing time of a job, which is the amount of
- time required by the machine to process the job.</div>
+<div class="block">Gets the processing time of a job, which is the amount of time required by the machine to
+ process the job.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getReleaseDate(int)" class="member-name-link">getReleaseDate</a><wbr>(int&nbsp;j)</code></div>
@@ -163,23 +154,20 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getSetupTime(int)" class="member-name-link">getSetupTime</a><wbr>(int&nbsp;j)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">Gets the setup time of a job if it is the first job
- processed on the machine.</div>
+<div class="block">Gets the setup time of a job if it is the first job processed on the machine.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getSetupTime(int,int)" class="member-name-link">getSetupTime</a><wbr>(int&nbsp;i,
  int&nbsp;j)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">Gets the setup time of a job if it was to immediately follow 
- a specified job on the machine, for problems that have sequence
- dependent setups.</div>
+<div class="block">Gets the setup time of a job if it was to immediately follow a specified job on the machine,
+ for problems that have sequence dependent setups.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getWeight(int)" class="member-name-link">getWeight</a><wbr>(int&nbsp;j)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's
- weight indicates its importance or priority (higher weight implies higher
- priority).</div>
+<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's weight indicates its
+ importance or priority (higher weight implies higher priority).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#hasDueDates()" class="member-name-link">hasDueDates</a>()</code></div>
@@ -240,8 +228,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getProcessingTime(int)">
 <h3>getProcessingTime</h3>
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">getProcessingTime</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
-<div class="block">Gets the processing time of a job, which is the amount of
- time required by the machine to process the job.</div>
+<div class="block">Gets the processing time of a job, which is the amount of time required by the machine to
+ process the job.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>j</code> - The index of the job, which must be in the interval: [0, numberOfJobs()).</dd>
@@ -256,20 +244,18 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getCompletionTimes(org.cicirello.permutations.Permutation)">
 <h3>getCompletionTimes</h3>
 <div class="member-signature"><span class="return-type">int[]</span>&nbsp;<span class="element-name">getCompletionTimes</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;schedule)</span></div>
-<div class="block">Computes the completion times of all of the jobs if they were scheduled in
- the order defined by the specified Permutation.  The completion times are
- computed according to the processing times of the jobs, as well as setup times
- and ready times if the problem has these.</div>
+<div class="block">Computes the completion times of all of the jobs if they were scheduled in the order defined by
+ the specified Permutation. The completion times are computed according to the processing times
+ of the jobs, as well as setup times and ready times if the problem has these.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>schedule</code> - A schedule (i.e., sequence of jobs on the machine).</dd>
 <dt>Returns:</dt>
-<dd>An array of completion times.  Let C be the array of completion times.
- C.length must equal schedule.length().  Additionally, C[j] must be the completion
- time of job j (and not the completion time of the job 
- in position j of the Permutation).  That is, the indexes into C correspond to the
- parameter j of the <a href="#getProcessingTime(int)"><code>getProcessingTime(int)</code></a> method, and other related methods
- of this interface.</dd>
+<dd>An array of completion times. Let C be the array of completion times. C.length must
+     equal schedule.length(). Additionally, C[j] must be the completion time of job j (and not
+     the completion time of the job in position j of the Permutation). That is, the indexes into
+     C correspond to the parameter j of the <a href="#getProcessingTime(int)"><code>getProcessingTime(int)</code></a> method, and other related
+     methods of this interface.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if schedule.length() is not equal to numberOfJobs()</dd>
 </dl>
@@ -279,20 +265,17 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getDueDate(int)">
 <h3>getDueDate</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getDueDate</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
-<div class="block">Gets the due date of a job, for scheduling problems that have due dates.
- The meaning of a due date, and its effect on the optimization cost function,
- may vary by problem.  See the documentation of the specific scheduling
- problem's cost function for details.
- .</div>
+<div class="block">Gets the due date of a job, for scheduling problems that have due dates. The meaning of a due
+ date, and its effect on the optimization cost function, may vary by problem. See the
+ documentation of the specific scheduling problem's cost function for details. .</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>j</code> - The index of the job, which must be in the interval: [0, numberOfJobs()).</dd>
 <dt>Returns:</dt>
 <dd>the due date of job j.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/UnsupportedOperationException.html" title="class or interface in java.lang" class="external-link">UnsupportedOperationException</a></code> - if <a href="#hasDueDates()"><code>hasDueDates()</code></a> 
- returns false.  This is the
- behavior if the scheduling problem definition doesn't have due dates.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/UnsupportedOperationException.html" title="class or interface in java.lang" class="external-link">UnsupportedOperationException</a></code> - if <a href="#hasDueDates()"><code>hasDueDates()</code></a> returns false. This is the
+     behavior if the scheduling problem definition doesn't have due dates.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if j &lt; 0 or j &ge; numberOfJobs()</dd>
 </dl>
 </section>
@@ -312,12 +295,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getReleaseDate(int)">
 <h3>getReleaseDate</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getReleaseDate</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
-<div class="block">Gets the release date of a job, for scheduling problems that have release dates.
- The default implementation simply returns 0, which is appropriate for 
- problems without release dates (i.e., problems in which all jobs are available
- for scheduling right at the start).  You can use the <a href="#hasReleaseDates()"><code>hasReleaseDates()</code></a>
- method to check whether release dates are present.
- .</div>
+<div class="block">Gets the release date of a job, for scheduling problems that have release dates. The default
+ implementation simply returns 0, which is appropriate for problems without release dates (i.e.,
+ problems in which all jobs are available for scheduling right at the start). You can use the
+ <a href="#hasReleaseDates()"><code>hasReleaseDates()</code></a> method to check whether release dates are present. .</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>j</code> - The index of the job, which must be in the interval: [0, numberOfJobs()).</dd>
@@ -343,14 +324,13 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getWeight(int)">
 <h3>getWeight</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getWeight</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
-<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's
- weight indicates its importance or priority (higher weight implies higher
- priority).  Many common scheduling problem cost functions use weights
- (e.g., weighted tardiness, weighted lateness, etc).
- The default implementation simply returns 1, which is appropriate for 
- problems without weights (i.e., the unweighted variation of most scheduling
- cost functions is equivalent to the weighted version if all weights are 1).  
- You can use the <a href="#hasWeights()"><code>hasWeights()</code></a> method to check whether weights are present.</div>
+<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's weight indicates its
+ importance or priority (higher weight implies higher priority). Many common scheduling problem
+ cost functions use weights (e.g., weighted tardiness, weighted lateness, etc). The default
+ implementation simply returns 1, which is appropriate for problems without weights (i.e., the
+ unweighted variation of most scheduling cost functions is equivalent to the weighted version if
+ all weights are 1). You can use the <a href="#hasWeights()"><code>hasWeights()</code></a> method to check whether weights are
+ present.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>j</code> - The index of the job, which must be in the interval: [0, numberOfJobs()).</dd>
@@ -376,15 +356,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getEarlyWeight(int)">
 <h3>getEarlyWeight</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getEarlyWeight</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
-<div class="block">Gets the early weight of a job, for weighted scheduling problems that have
- early weights.  For example, there are scheduling problems with a pair
- of weights for each job, where there is a different weight penalty for 
- completing a job early as there is for completing it late.
- The default implementation simply returns 1 
- (i.e., the unweighted variation of cost functions involving early weights
- is equivalent to the weighted version if all early weights are 1).  
- You can use the <a href="#hasEarlyWeights()"><code>hasEarlyWeights()</code></a> method to check whether 
- early weights are present.</div>
+<div class="block">Gets the early weight of a job, for weighted scheduling problems that have early weights. For
+ example, there are scheduling problems with a pair of weights for each job, where there is a
+ different weight penalty for completing a job early as there is for completing it late. The
+ default implementation simply returns 1 (i.e., the unweighted variation of cost functions
+ involving early weights is equivalent to the weighted version if all early weights are 1). You
+ can use the <a href="#hasEarlyWeights()"><code>hasEarlyWeights()</code></a> method to check whether early weights are present.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>j</code> - The index of the job, which must be in the interval: [0, numberOfJobs()).</dd>
@@ -411,26 +388,23 @@ loadScripts(document, 'script');</script>
 <h3>getSetupTime</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getSetupTime</span><wbr><span class="parameters">(int&nbsp;i,
  int&nbsp;j)</span></div>
-<div class="block">Gets the setup time of a job if it was to immediately follow 
- a specified job on the machine, for problems that have sequence
- dependent setups.  The default simply returns 0, which is
- consistent with problems that don't have setup times (in those cases it
- is usually assumed rolled into the process time).
- You can use the <a href="#hasSetupTimes()"><code>hasSetupTimes()</code></a> method to check 
- whether setup times are present.</div>
+<div class="block">Gets the setup time of a job if it was to immediately follow a specified job on the machine,
+ for problems that have sequence dependent setups. The default simply returns 0, which is
+ consistent with problems that don't have setup times (in those cases it is usually assumed
+ rolled into the process time). You can use the <a href="#hasSetupTimes()"><code>hasSetupTimes()</code></a> method to check whether
+ setup times are present.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>i</code> - The index of the previous job in the schedule,
- which must be in the interval: [0, numberOfJobs()).  Pass
- i = j for the setup time of job j if it is
- the first job in the schedule.</dd>
-<dd><code>j</code> - The index of the job whose setup time you want, 
- which must be in the interval: [0, numberOfJobs()).</dd>
+<dd><code>i</code> - The index of the previous job in the schedule, which must be in the interval: [0,
+     numberOfJobs()). Pass i = j for the setup time of job j if it is the first job in the
+     schedule.</dd>
+<dd><code>j</code> - The index of the job whose setup time you want, which must be in the interval: [0,
+     numberOfJobs()).</dd>
 <dt>Returns:</dt>
 <dd>the setup time of job j if it immediately follows job i.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if j &lt; 0 or j &ge; numberOfJobs()
- i &lt; 0 or i &ge; numberOfJobs()</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if j &lt; 0 or j &ge; numberOfJobs() i &lt; 0 or i &ge;
+     numberOfJobs()</dd>
 </dl>
 </section>
 </li>
@@ -438,17 +412,14 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getSetupTime(int)">
 <h3>getSetupTime</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getSetupTime</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
-<div class="block">Gets the setup time of a job if it is the first job
- processed on the machine.  
- The default simply returns 0, which is
- consistent with problems that don't have setup times (in those cases it
- is usually assumed rolled into the process time).
- You can use the <a href="#hasSetupTimes()"><code>hasSetupTimes()</code></a> method to check 
- whether setup times are present.</div>
+<div class="block">Gets the setup time of a job if it is the first job processed on the machine. The default
+ simply returns 0, which is consistent with problems that don't have setup times (in those cases
+ it is usually assumed rolled into the process time). You can use the <a href="#hasSetupTimes()"><code>hasSetupTimes()</code></a>
+ method to check whether setup times are present.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>j</code> - The index of the job whose setup time you want, 
- which must be in the interval: [0, numberOfJobs()).</dd>
+<dd><code>j</code> - The index of the job whose setup time you want, which must be in the interval: [0,
+     numberOfJobs()).</dd>
 <dt>Returns:</dt>
 <dd>the setup time of job j if it is the first job processed by the machine</dd>
 <dt>Throws:</dt>

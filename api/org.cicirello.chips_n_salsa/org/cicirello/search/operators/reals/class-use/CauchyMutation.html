@@ -66,10 +66,10 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.operators.reals">org.cicirello.search.operators.reals</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes that implement operators that create, mutate, etc, the
- the inputs to functions with real-valued input parameters (represented with type double), 
- such as is required to solve function optimization
- problems using simulated annealing or other metaheuristics.</div>
+<div class="block">This package includes classes that implement operators that create, mutate, etc, the the inputs
+ to functions with real-valued input parameters (represented with type double), such as is
+ required to solve function optimization problems using simulated annealing or other
+ metaheuristics.</div>
 </div>
 </div>
 <section class="class-uses">
@@ -77,18 +77,6 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="org.cicirello.search.operators.reals">
 <h2>Uses of <a href="../CauchyMutation.html" title="class in org.cicirello.search.operators.reals">CauchyMutation</a> in <a href="../package-summary.html">org.cicirello.search.operators.reals</a></h2>
-<div class="caption"><span>Subclasses of <a href="../CauchyMutation.html" title="class in org.cicirello.search.operators.reals">CauchyMutation</a> in <a href="../package-summary.html">org.cicirello.search.operators.reals</a></span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier and Type</div>
-<div class="table-header col-second">Class</div>
-<div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../UndoableCauchyMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.reals">UndoableCauchyMutation</a>&lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;</code></div>
-<div class="col-last even-row-color">
-<div class="block">This class implements Cauchy
- mutation with support for the <a href="../UndoableCauchyMutation.html#undo(T)"><code>UndoableCauchyMutation.undo(T)</code></a> method.</div>
-</div>
-</div>
 <div class="caption"><span>Methods in <a href="../package-summary.html">org.cicirello.search.operators.reals</a> that return <a href="../CauchyMutation.html" title="class in org.cicirello.search.operators.reals">CauchyMutation</a></span></div>
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
@@ -116,14 +104,22 @@ loadScripts(document, 'script');</script>
 <div class="block">Create a Cauchy mutation operator.</div>
 </div>
 <div class="col-first even-row-color"><code>static &lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;<br><a href="../CauchyMutation.html" title="class in org.cicirello.search.operators.reals">CauchyMutation</a>&lt;T&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">CauchyMutation.</span><code><a href="../CauchyMutation.html#createCauchyMutation(double,int)" class="member-name-link">createCauchyMutation</a><wbr>(double&nbsp;scale,
- int&nbsp;k)</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">CauchyMutation.</span><code><a href="../CauchyMutation.html#createCauchyMutation(double,double,double)" class="member-name-link">createCauchyMutation</a><wbr>(double&nbsp;scale,
+ double&nbsp;lowerBound,
+ double&nbsp;upperBound)</code></div>
 <div class="col-last even-row-color">
+<div class="block">Creates a Cauchy mutation operator, such that the mutate method constrains each mutated real
+ value to lie in the interval [lowerBound, upperBound].</div>
+</div>
+<div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;<br><a href="../CauchyMutation.html" title="class in org.cicirello.search.operators.reals">CauchyMutation</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">CauchyMutation.</span><code><a href="../CauchyMutation.html#createCauchyMutation(double,int)" class="member-name-link">createCauchyMutation</a><wbr>(double&nbsp;scale,
+ int&nbsp;k)</code></div>
+<div class="col-last odd-row-color">
 <div class="block">Create a Cauchy mutation operator.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="../CauchyMutation.html" title="class in org.cicirello.search.operators.reals">CauchyMutation</a>&lt;<a href="../CauchyMutation.html" title="type parameter in CauchyMutation">T</a>&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">CauchyMutation.</span><code><a href="../CauchyMutation.html#split()" class="member-name-link">split</a>()</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code><a href="../CauchyMutation.html" title="class in org.cicirello.search.operators.reals">CauchyMutation</a>&lt;<a href="../CauchyMutation.html" title="type parameter in CauchyMutation">T</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">CauchyMutation.</span><code><a href="../CauchyMutation.html#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>

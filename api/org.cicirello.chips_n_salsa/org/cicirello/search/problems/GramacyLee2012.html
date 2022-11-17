@@ -94,13 +94,14 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">GramacyLee2012</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;, <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;</span></div>
-<div class="block"><p>A continuous function with a large number of local minimums, and
- a single global minimum, defined for input x in [0.5, 2.5].</p>
+<div class="block">A continuous function with a large number of local minimums, and a single global minimum, defined
+ for input x in [0.5, 2.5].
 
- <p>This minimization problem was introduced in:</p>
+ <p>This minimization problem was introduced in:
+
  <ul>
- <li>Gramacy, R.B.; Lee, H.K.H. Cases for the nugget in modeling computer experiments. 
- Statistics and Computing 2012, 22, 713–722. doi:10.1007/s11222-010-9224-x.</li>
+   <li>Gramacy, R.B.; Lee, H.K.H. Cases for the nugget in modeling computer experiments.
+       Statistics and Computing 2012, 22, 713–722. doi:10.1007/s11222-010-9224-x.
  </ul></div>
 </section>
 <section class="summary">
@@ -144,14 +145,14 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="GramacyLee2012.html" title="class in org.cicirello.search.problems">GramacyLee2012</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.search.representations.SingleReal)" class="member-name-link">value</a><wbr>(<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&nbsp;candidate)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -193,15 +194,15 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <h3>cost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="OptimizationProblem.html#cost(T)">OptimizationProblem</a></code></span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="OptimizationProblem.html#cost(T)">cost</a></code>&nbsp;in interface&nbsp;<code><a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -210,8 +211,8 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="OptimizationProblem.html#value(T)">OptimizationProblem</a></code></span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="OptimizationProblem.html#value(T)">value</a></code>&nbsp;in interface&nbsp;<code><a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;</code></dd>
@@ -241,27 +242,24 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="GramacyLee2012.html" title="class in org.cicirello.search.problems">GramacyLee2012</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

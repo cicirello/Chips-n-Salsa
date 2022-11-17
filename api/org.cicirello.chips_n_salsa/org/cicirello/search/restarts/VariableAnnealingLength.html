@@ -94,41 +94,34 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">VariableAnnealingLength</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a></span></div>
-<div class="block"><p>The Variable Annealing Length (VAL) restart schedule originated,
- as you would expect from the word "annealing" in its name, as a 
- restart schedule for Simulated Annealing.  Its motivation is two-fold.
- First, a commonly encountered observation is that a single long run
- of simulated annealing usually outperforms multiple short runs
- whose combined length is that of the long run (assuming the annealing schedule
- is tuned well).  Second, it is often the case that we don't know beforehand 
- how long of a run we have time to execute, thus our annealing schedule may not
- be tuned properly for our available time (e.g., we may cool too quickly or
- too slowly).</p>
+<div class="block">The Variable Annealing Length (VAL) restart schedule originated, as you would expect from the
+ word "annealing" in its name, as a restart schedule for Simulated Annealing. Its motivation is
+ two-fold. First, a commonly encountered observation is that a single long run of simulated
+ annealing usually outperforms multiple short runs whose combined length is that of the long run
+ (assuming the annealing schedule is tuned well). Second, it is often the case that we don't know
+ beforehand how long of a run we have time to execute, thus our annealing schedule may not be
+ tuned properly for our available time (e.g., we may cool too quickly or too slowly).
 
- <p>The VAL restart schedule starts with a short run, and increases run length
- exponentially across restarts.  Specifically, define r<sub>i</sub> as the run length
- for run i, with the following: r<sub>i</sub> = 1000 * 2<sup>i</sup>.  For simulated
- annealing, run length is number of evaluations (i.e., iterations of the 
- simulated annealing main loop).  You can compute the sequence of run lengths
- incrementally with r<sub>0</sub> = 1000 and r<sub>i</sub> = 2r<sub>i-1</sub>.  
- The first few run lengths in the sequence are: 1000, 2000, 4000, ....</p>
+ <p>The VAL restart schedule starts with a short run, and increases run length exponentially
+ across restarts. Specifically, define r<sub>i</sub> as the run length for run i, with the
+ following: r<sub>i</sub> = 1000 * 2<sup>i</sup>. For simulated annealing, run length is number of
+ evaluations (i.e., iterations of the simulated annealing main loop). You can compute the sequence
+ of run lengths incrementally with r<sub>0</sub> = 1000 and r<sub>i</sub> = 2r<sub>i-1</sub>. The
+ first few run lengths in the sequence are: 1000, 2000, 4000, ....
 
  <p>The VAL restart schedule was introduced in:<br>
- Vincent A. Cicirello. 
- <a href=https://www.cicirello.org/publications/cicirello2017SoCS2.html target=_top>"Variable 
- Annealing Length and Parallelism in Simulated Annealing."</a> 
- In Proceedings of the Tenth International Symposium on Combinatorial Search (SoCS 2017), 
- pages 2-10. AAAI Press, June 2017.</p>
+ Vincent A. Cicirello. <a href=https://www.cicirello.org/publications/cicirello2017SoCS2.html target=_top>"Variable Annealing Length and Parallelism in Simulated Annealing."</a> In
+ Proceedings of the Tenth International Symposium on Combinatorial Search (SoCS 2017), pages 2-10.
+ AAAI Press, June 2017.
 
- <p>This class supports both the original schedule as defined above, as well as
- including a parameter to specify the initial run length r<sub>0</sub> as something
- other than 1000.  In this case, the subsequent run lengths are still twice the
- previous.  For example, if you start r<sub>0</sub> = 50, then the run lengths
- will follow the sequence: 50, 100, 200, 400, ....</p>
+ <p>This class supports both the original schedule as defined above, as well as including a
+ parameter to specify the initial run length r<sub>0</sub> as something other than 1000. In this
+ case, the subsequent run lengths are still twice the previous. For example, if you start
+ r<sub>0</sub> = 50, then the run lengths will follow the sequence: 50, 100, 200, 400, ....
 
- <p>Although not originally stated in the paper that proposed this restart schedule,
- this implementation converges to a constant restart length of Integer.MAX_VALUE if the next run length
- of the schedule would otherwise exceed the maximum positive 32-bit integer value.</p></div>
+ <p>Although not originally stated in the paper that proposed this restart schedule, this
+ implementation converges to a constant restart length of Integer.MAX_VALUE if the next run length
+ of the schedule would otherwise exceed the maximum positive 32-bit integer value.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -142,8 +135,8 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">VariableAnnealingLength</a>()</code></div>
 <div class="col-last even-row-color">
-<div class="block">The default constructor constructs the original Variable Annealing Length (VAL)
- restart schedule of: Vincent A.</div>
+<div class="block">The default constructor constructs the original Variable Annealing Length (VAL) restart
+ schedule of: Vincent A.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int)" class="member-name-link">VariableAnnealingLength</a><wbr>(int&nbsp;r0)</code></div>
 <div class="col-last odd-row-color">
@@ -166,34 +159,31 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="VariableAnnealingLength.html" title="class in org.cicirello.search.restarts">VariableAnnealingLength</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createRestartSchedules(int)" class="member-name-link">createRestartSchedules</a><wbr>(int&nbsp;numThreads)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">This is a convenience method for use in generating several identical VAL
- annealing schedules, such as if needed for a parallel search.</div>
+<div class="block">This is a convenience method for use in generating several identical VAL annealing schedules,
+ such as if needed for a parallel search.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="VariableAnnealingLength.html" title="class in org.cicirello.search.restarts">VariableAnnealingLength</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createRestartSchedules(int,int)" class="member-name-link">createRestartSchedules</a><wbr>(int&nbsp;numThreads,
  int&nbsp;r0)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">This is a convenience method for use in generating several identical VAL
- annealing schedules, such as if needed for a parallel search.</div>
+<div class="block">This is a convenience method for use in generating several identical VAL annealing schedules,
+ such as if needed for a parallel search.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#nextRunLength()" class="member-name-link">nextRunLength</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the next run length in the restart schedule's sequence of
- run lengths.</div>
+<div class="block">Gets the next run length in the restart schedule's sequence of run lengths.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reset()" class="member-name-link">reset</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Resets the restart schedule to its initial conditions, such that
- the next call to <a href="RestartSchedule.html#nextRunLength()"><code>RestartSchedule.nextRunLength()</code></a> will return the initial
- run length of the schedule.</div>
+<div class="block">Resets the restart schedule to its initial conditions, such that the next call to <a href="RestartSchedule.html#nextRunLength()"><code>RestartSchedule.nextRunLength()</code></a> will return the initial run length of the schedule.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="VariableAnnealingLength.html" title="class in org.cicirello.search.restarts">VariableAnnealingLength</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -216,23 +206,22 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <section class="detail" id="&lt;init&gt;()">
 <h3>VariableAnnealingLength</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">VariableAnnealingLength</span>()</div>
-<div class="block">The default constructor constructs the original Variable Annealing Length (VAL)
- restart schedule of: Vincent A. Cicirello. "Variable Annealing Length and 
- Parallelism in Simulated Annealing." In Proceedings of the Tenth International 
- Symposium on Combinatorial Search (SoCS 2017), pages 2-10. AAAI Press, June 2017.
- Specifically, the initial run length is 1000, and each subsequent run length is
- twice the previous.</div>
+<div class="block">The default constructor constructs the original Variable Annealing Length (VAL) restart
+ schedule of: Vincent A. Cicirello. "Variable Annealing Length and Parallelism in Simulated
+ Annealing." In Proceedings of the Tenth International Symposium on Combinatorial Search (SoCS
+ 2017), pages 2-10. AAAI Press, June 2017. Specifically, the initial run length is 1000, and
+ each subsequent run length is twice the previous.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="&lt;init&gt;(int)">
 <h3>VariableAnnealingLength</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">VariableAnnealingLength</span><wbr><span class="parameters">(int&nbsp;r0)</span></div>
-<div class="block">This constructor enables specifying the initial run length for the first run.
- Subsequent runs otherwise follow the original schedule and are
- twice the length of the previous run.  This restart schedule originated with
- simulated annealing, but when used with other metaheuristics it may be desirable to
- either increase or decrease the initial run length from what was originally used.</div>
+<div class="block">This constructor enables specifying the initial run length for the first run. Subsequent runs
+ otherwise follow the original schedule and are twice the length of the previous run. This
+ restart schedule originated with simulated annealing, but when used with other metaheuristics
+ it may be desirable to either increase or decrease the initial run length from what was
+ originally used.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>r0</code> - The initial run length for the first run.</dd>
@@ -252,8 +241,7 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <h3>nextRunLength</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">nextRunLength</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="RestartSchedule.html#nextRunLength()">RestartSchedule</a></code></span></div>
-<div class="block">Gets the next run length in the restart schedule's sequence of
- run lengths.</div>
+<div class="block">Gets the next run length in the restart schedule's sequence of run lengths.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="RestartSchedule.html#nextRunLength()">nextRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a></code></dd>
@@ -267,9 +255,7 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <h3>reset</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">reset</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="RestartSchedule.html#reset()">RestartSchedule</a></code></span></div>
-<div class="block">Resets the restart schedule to its initial conditions, such that
- the next call to <a href="RestartSchedule.html#nextRunLength()"><code>RestartSchedule.nextRunLength()</code></a> will return the initial
- run length of the schedule.</div>
+<div class="block">Resets the restart schedule to its initial conditions, such that the next call to <a href="RestartSchedule.html#nextRunLength()"><code>RestartSchedule.nextRunLength()</code></a> will return the initial run length of the schedule.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="RestartSchedule.html#reset()">reset</a></code>&nbsp;in interface&nbsp;<code><a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a></code></dd>
@@ -281,27 +267,24 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="VariableAnnealingLength.html" title="class in org.cicirello.search.restarts">VariableAnnealingLength</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>
@@ -309,16 +292,13 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <section class="detail" id="createRestartSchedules(int)">
 <h3>createRestartSchedules</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="VariableAnnealingLength.html" title="class in org.cicirello.search.restarts">VariableAnnealingLength</a>&gt;</span>&nbsp;<span class="element-name">createRestartSchedules</span><wbr><span class="parameters">(int&nbsp;numThreads)</span></div>
-<div class="block"><p>This is a convenience method for use in generating several identical VAL
- annealing schedules, such as if needed for a parallel search. All of the
- annealing schedules in the returned list are identical, but are 
- independent (no shared state). This does NOT give you the P-VAL
- schedule (see <a href="ParallelVariableAnnealingLength.html" title="class in org.cicirello.search.restarts"><code>ParallelVariableAnnealingLength</code></a> for the P-VAL
- schedule).</p>
+<div class="block">This is a convenience method for use in generating several identical VAL annealing schedules,
+ such as if needed for a parallel search. All of the annealing schedules in the returned list
+ are identical, but are independent (no shared state). This does NOT give you the P-VAL schedule
+ (see <a href="ParallelVariableAnnealingLength.html" title="class in org.cicirello.search.restarts"><code>ParallelVariableAnnealingLength</code></a> for the P-VAL schedule).
 
- <p>The list that is returned is of the size of the requested number of threads.
- This should correspond to the number of parallel instances of the search you
- intend to execute.</p></div>
+ <p>The list that is returned is of the size of the requested number of threads. This should
+ correspond to the number of parallel instances of the search you intend to execute.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>numThreads</code> - The number of parallel instances of the search.</dd>
@@ -334,16 +314,13 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <h3>createRestartSchedules</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="VariableAnnealingLength.html" title="class in org.cicirello.search.restarts">VariableAnnealingLength</a>&gt;</span>&nbsp;<span class="element-name">createRestartSchedules</span><wbr><span class="parameters">(int&nbsp;numThreads,
  int&nbsp;r0)</span></div>
-<div class="block"><p>This is a convenience method for use in generating several identical VAL
- annealing schedules, such as if needed for a parallel search. All of the
- annealing schedules in the returned list are identical, but are 
- independent (no shared state). This does NOT give you the P-VAL
- schedule (see <a href="ParallelVariableAnnealingLength.html" title="class in org.cicirello.search.restarts"><code>ParallelVariableAnnealingLength</code></a> for the P-VAL
- schedule).</p>
+<div class="block">This is a convenience method for use in generating several identical VAL annealing schedules,
+ such as if needed for a parallel search. All of the annealing schedules in the returned list
+ are identical, but are independent (no shared state). This does NOT give you the P-VAL schedule
+ (see <a href="ParallelVariableAnnealingLength.html" title="class in org.cicirello.search.restarts"><code>ParallelVariableAnnealingLength</code></a> for the P-VAL schedule).
 
- <p>The list that is returned is of the size of the requested number of threads.
- This should correspond to the number of parallel instances of the search you
- intend to execute.</p></div>
+ <p>The list that is returned is of the size of the requested number of threads. This should
+ correspond to the number of parallel instances of the search you intend to execute.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>numThreads</code> - The number of parallel instances of the search.</dd>

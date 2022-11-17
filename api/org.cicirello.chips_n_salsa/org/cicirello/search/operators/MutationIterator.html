@@ -85,14 +85,12 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">MutationIterator</span></div>
-<div class="block"><p>Defines an interface for iterating over all of the mutants (i.e., neighbors)
- of a candidate solution to a problem.  MutationIterators are used in 
- combination with <a href="IterableMutationOperator.html" title="interface in org.cicirello.search.operators"><code>IterableMutationOperator</code></a> objects.</p>
+<div class="block">Defines an interface for iterating over all of the mutants (i.e., neighbors) of a candidate
+ solution to a problem. MutationIterators are used in combination with <a href="IterableMutationOperator.html" title="interface in org.cicirello.search.operators"><code>IterableMutationOperator</code></a> objects.
 
- <p>Example 1: Here is an example of its use.  In this first example,
- we iterate over all neighbors.  At the completion of this block, the
- state of x will be as of the most recent call to <code>setSavepoint()</code>
- or its original state if that method was never called.</p>
+ <p>Example 1: Here is an example of its use. In this first example, we iterate over all
+ neighbors. At the completion of this block, the state of x will be as of the most recent call to
+ <code>setSavepoint()</code> or its original state if that method was never called.
 
  <pre><code>
  T x = some object of type T.
@@ -102,14 +100,13 @@ loadScripts(document, 'script');</script>
      iter.nextMutant();
      if (new state of x is one we'd like to be able to revert to) {
           iter.setSavepoint();
-     } 
+     }
  }
  // This next statement rolls x back to the last savepoint.
- iter.rollback(); 
+ iter.rollback();
  </code></pre>
 
-<p>Example 2: In this next example,
- we iterate over neighbors only until we find one we like.</p>
+ <p>Example 2: In this next example, we iterate over neighbors only until we find one we like.
 
  <pre><code>
  T x = some object of type T.
@@ -121,9 +118,9 @@ loadScripts(document, 'script');</script>
      if (new state of x is one we'd like to keep) {
           foundOneToKeep = true;
           break;
-     } 
+     }
  }
- if (!foundOneToKeep) iter.rollback(); 
+ if (!foundOneToKeep) iter.rollback();
  </code></pre></div>
 </section>
 <section class="summary">
@@ -142,8 +139,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#hasNext()" class="member-name-link">hasNext</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Checks whether there are any additional neighbors
- of the candidate solution.</div>
+<div class="block">Checks whether there are any additional neighbors of the candidate solution.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#nextMutant()" class="member-name-link">nextMutant</a>()</code></div>
@@ -153,16 +149,13 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#rollback()" class="member-name-link">rollback</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Reverts the candidate solution to its state as of the most recent call to the
- <a href="#setSavepoint()"><code>setSavepoint()</code></a> method, or its original state if that method has
- not been called.</div>
+<div class="block">Reverts the candidate solution to its state as of the most recent call to the <a href="#setSavepoint()"><code>setSavepoint()</code></a> method, or its original state if that method has not been called.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#setSavepoint()" class="member-name-link">setSavepoint</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Records internally within the MutationIterator the current neighbor/mutant,
- enabling reverting back to this neighbor when the <a href="#rollback()"><code>rollback()</code></a>
- method is called.</div>
+<div class="block">Records internally within the MutationIterator the current neighbor/mutant, enabling reverting
+ back to this neighbor when the <a href="#rollback()"><code>rollback()</code></a> method is called.</div>
 </div>
 </div>
 </div>
@@ -182,13 +175,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="hasNext()">
 <h3>hasNext</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">hasNext</span>()</div>
-<div class="block">Checks whether there are any additional neighbors
- of the candidate solution.</div>
+<div class="block">Checks whether there are any additional neighbors of the candidate solution.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>true if there are additional neighbors that can
- be iterated over via the <a href="#nextMutant()"><code>nextMutant()</code></a> method, provided
- the <a href="#rollback()"><code>rollback()</code></a> method has not been called.</dd>
+<dd>true if there are additional neighbors that can be iterated over via the <a href="#nextMutant()"><code>nextMutant()</code></a> method, provided the <a href="#rollback()"><code>rollback()</code></a> method has not been called.</dd>
 </dl>
 </section>
 </li>
@@ -199,9 +189,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Mutates the candidate solution into its next neighbor.</div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if there are no additional neighbors to iterate over
- or if the <a href="#rollback()"><code>rollback()</code></a> method was called.  You should use the <a href="#hasNext()"><code>hasNext()</code></a>
- method to check first.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if there are no additional neighbors to iterate over or if the
+     <a href="#rollback()"><code>rollback()</code></a> method was called. You should use the <a href="#hasNext()"><code>hasNext()</code></a> method to check
+     first.</dd>
 </dl>
 </section>
 </li>
@@ -209,21 +199,18 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="setSavepoint()">
 <h3>setSavepoint</h3>
 <div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">setSavepoint</span>()</div>
-<div class="block">Records internally within the MutationIterator the current neighbor/mutant,
- enabling reverting back to this neighbor when the <a href="#rollback()"><code>rollback()</code></a>
- method is called.  This does not affect the order of neighbors returned by future
- calls to the <a href="#nextMutant()"><code>nextMutant()</code></a> method.</div>
+<div class="block">Records internally within the MutationIterator the current neighbor/mutant, enabling reverting
+ back to this neighbor when the <a href="#rollback()"><code>rollback()</code></a> method is called. This does not affect the
+ order of neighbors returned by future calls to the <a href="#nextMutant()"><code>nextMutant()</code></a> method.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="rollback()">
 <h3>rollback</h3>
 <div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">rollback</span>()</div>
-<div class="block">Reverts the candidate solution to its state as of the most recent call to the
- <a href="#setSavepoint()"><code>setSavepoint()</code></a> method, or its original state if that method has
- not been called.  Upon calling the rollback method, all future calls
- to the <a href="#nextMutant()"><code>nextMutant()</code></a> method will throw an IllegalStateException.
- If rollback is not called, then the candidate solution's state will be
+<div class="block">Reverts the candidate solution to its state as of the most recent call to the <a href="#setSavepoint()"><code>setSavepoint()</code></a> method, or its original state if that method has not been called. Upon calling
+ the rollback method, all future calls to the <a href="#nextMutant()"><code>nextMutant()</code></a> method will throw an
+ IllegalStateException. If rollback is not called, then the candidate solution's state will be
  as of the most recent call to <a href="#nextMutant()"><code>nextMutant()</code></a>.</div>
 </section>
 </li>

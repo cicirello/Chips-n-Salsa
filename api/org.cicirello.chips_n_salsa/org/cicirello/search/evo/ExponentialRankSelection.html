@@ -93,23 +93,20 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">ExponentialRankSelection</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block"><p>This class implements exponential rank selection. Exponential rank selection begins
- be determining the rank of each population member, where the least fit
- member of the population has rank 1, and the most fit member of the
- population has rank N, where the population size is N. During selection,
- the population member with rank r is chosen randomly with probability
- proportional to: c<sup>N-r</sup>. The c is a real-valued parameter
- that must be in the interval (0, 1). The most-fit member of the population
- will be chosen with probability proportional to 1, while the least-fit will
- be chosen with probability proportional to c<sup>N-1</sup>. In the limit
- as c approaches 1, exponential selection converges to a uniform random selection
- method. Whereas in the limit as c approaches 0, exponential selection converges
- upon a degenerate selection method that chooses an entire population of copies
- of the single most-fit population member. The lower the value of c, the faster the
- degree of exponential decline in weight given to lower ranked population members.</p>
+<div class="block">This class implements exponential rank selection. Exponential rank selection begins be
+ determining the rank of each population member, where the least fit member of the population has
+ rank 1, and the most fit member of the population has rank N, where the population size is N.
+ During selection, the population member with rank r is chosen randomly with probability
+ proportional to: c<sup>N-r</sup>. The c is a real-valued parameter that must be in the interval
+ (0, 1). The most-fit member of the population will be chosen with probability proportional to 1,
+ while the least-fit will be chosen with probability proportional to c<sup>N-1</sup>. In the limit
+ as c approaches 1, exponential selection converges to a uniform random selection method. Whereas
+ in the limit as c approaches 0, exponential selection converges upon a degenerate selection
+ method that chooses an entire population of copies of the single most-fit population member. The
+ lower the value of c, the faster the degree of exponential decline in weight given to lower
+ ranked population members.
 
- <p>The runtime to select M population members from a population of size N is
- O(N lg N + M lg N).</p></div>
+ <p>The runtime to select M population members from a population of size N is O(N lg N + M lg N).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -154,8 +151,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ExponentialRankSelection.html" title="class in org.cicirello.search.evo">ExponentialRankSelection</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -184,10 +181,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Construct an exponential rank selection operator.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>c</code> - The base of the exponential, such that c is in the interval (0.0, 1.0). 
- The closer c is to 0, the faster
- the selection weights decline from most-fit population member to least-fit, and the
- closer c is to 1, the closer the selection method is to a uniform random process.</dd>
+<dd><code>c</code> - The base of the exponential, such that c is in the interval (0.0, 1.0). The closer c
+     is to 0, the faster the selection weights decline from most-fit population member to
+     least-fit, and the closer c is to 1, the closer the selection method is to a uniform random
+     process.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if c is less than or equal to 0 or greater than or equal to 1.</dd>
 </dl>
@@ -206,25 +203,22 @@ loadScripts(document, 'script');</script>
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ExponentialRankSelection.html" title="class in org.cicirello.search.evo">ExponentialRankSelection</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>
@@ -234,23 +228,21 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">select</span><wbr><span class="parameters">(<a href="PopulationFitnessVector.Integer.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Integer</a>&nbsp;fitnesses,
  int[]&nbsp;selected)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)">SelectionOperator</a></code></span></div>
-<div class="block">Selects a set of members of the population based on fitness. Implementations should
- ensure that the array of indexes of population members is in a random order. For some
- selection operators, this required behavior is met by definition (e.g., the common
- fitness proportionate selection will have this behavior as is). But other selection
- operators may require randomizing the array of indexes after selection. For example,
- the obvious implementation of stochastic universal sampling will likely have all copies
- of an individual population member ordered together, and thus will require a 
- shuffling of the array before returning.</div>
+<div class="block">Selects a set of members of the population based on fitness. Implementations should ensure that
+ the array of indexes of population members is in a random order. For some selection operators,
+ this required behavior is met by definition (e.g., the common fitness proportionate selection
+ will have this behavior as is). But other selection operators may require randomizing the array
+ of indexes after selection. For example, the obvious implementation of stochastic universal
+ sampling will likely have all copies of an individual population member ordered together, and
+ thus will require a shuffling of the array before returning.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)">select</a></code>&nbsp;in interface&nbsp;<code><a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>fitnesses</code> - A vector of fitnesses of the members of the population.</dd>
-<dd><code>selected</code> - An array for the result. The selection operator should select 
- selected.length members of the population based on fitnesses, populating 
- selected with the indexes of the chosen members. Note that selected.length may
- be different than the fitnesses.size().</dd>
+<dd><code>selected</code> - An array for the result. The selection operator should select selected.length
+     members of the population based on fitnesses, populating selected with the indexes of the
+     chosen members. Note that selected.length may be different than the fitnesses.size().</dd>
 </dl>
 </section>
 </li>
@@ -260,23 +252,21 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">select</span><wbr><span class="parameters">(<a href="PopulationFitnessVector.Double.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Double</a>&nbsp;fitnesses,
  int[]&nbsp;selected)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)">SelectionOperator</a></code></span></div>
-<div class="block">Selects a set of members of the population based on fitness. Implementations should
- ensure that the array of indexes of population members is in a random order. For some
- selection operators, this required behavior is met by definition (e.g., the common
- fitness proportionate selection will have this behavior as is). But other selection
- operators may require randomizing the array of indexes after selection. For example,
- the obvious implementation of stochastic universal sampling will likely have all copies
- of an individual population member ordered together, and thus will require a 
- shuffling of the array before returning.</div>
+<div class="block">Selects a set of members of the population based on fitness. Implementations should ensure that
+ the array of indexes of population members is in a random order. For some selection operators,
+ this required behavior is met by definition (e.g., the common fitness proportionate selection
+ will have this behavior as is). But other selection operators may require randomizing the array
+ of indexes after selection. For example, the obvious implementation of stochastic universal
+ sampling will likely have all copies of an individual population member ordered together, and
+ thus will require a shuffling of the array before returning.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)">select</a></code>&nbsp;in interface&nbsp;<code><a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>fitnesses</code> - A vector of fitnesses of the members of the population.</dd>
-<dd><code>selected</code> - An array for the result. The selection operator should select 
- selected.length members of the population based on fitnesses, populating 
- selected with the indexes of the chosen members. Note that selected.length may
- be different than the fitnesses.size().</dd>
+<dd><code>selected</code> - An array for the result. The selection operator should select selected.length
+     members of the population based on fitnesses, populating selected with the indexes of the
+     chosen members. Note that selected.length may be different than the fitnesses.size().</dd>
 </dl>
 </section>
 </li>

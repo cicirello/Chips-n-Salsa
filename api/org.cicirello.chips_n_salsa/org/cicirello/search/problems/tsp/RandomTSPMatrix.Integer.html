@@ -102,19 +102,17 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public static final class </span><span class="element-name type-name-label">RandomTSPMatrix.Integer</span>
 <span class="extends-implements">extends <a href="RandomTSPMatrix.html" title="class in org.cicirello.search.problems.tsp">RandomTSPMatrix</a>
 implements <a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
-<div class="block"><p>This class implements the Traveling Salesperson Problem (TSP),
- and its variant, the Asymmetric Traveling Salesperson Problem (ATSP),
- by generating a random distance matrix, with integer cost edges.
- It supports both the
- TSP and ATSP, and also provides the option to control whether or not the distance
- matrix satisfies the triangle inequality.</p>
+<div class="block">This class implements the Traveling Salesperson Problem (TSP), and its variant, the Asymmetric
+ Traveling Salesperson Problem (ATSP), by generating a random distance matrix, with integer cost
+ edges. It supports both the TSP and ATSP, and also provides the option to control whether or
+ not the distance matrix satisfies the triangle inequality.
 
- <p>The random distance matrix is generated via an approach based on that
- of the paper: Cirasella J., Johnson D.S., McGeoch L.A., Zhang W. (2001) The Asymmetric 
- Traveling Salesman Problem: Algorithms, Instance Generators, and Tests. In <i>Algorithm Engineering and Experimentation (ALENEX 2001)</i>.
- There are some minor differences between the approach described in that paper and
- the approach of this class. This class generates random distances with a minimum of 1, whereas
- the approach described in that paper allows distances of 0.</p></div>
+ <p>The random distance matrix is generated via an approach based on that of the paper:
+ Cirasella J., Johnson D.S., McGeoch L.A., Zhang W. (2001) The Asymmetric Traveling Salesman
+ Problem: Algorithms, Instance Generators, and Tests. In <i>Algorithm Engineering and
+ Experimentation (ALENEX 2001)</i>. There are some minor differences between the approach
+ described in that paper and the approach of this class. This class generates random distances
+ with a minimum of 1, whereas the approach described in that paper allows distances of 0.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -137,7 +135,7 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int%5B%5D%5B%5D)" class="member-name-link">Integer</a><wbr>(int[][]&nbsp;distance)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Although the focus of this class is generating random TSP and ATSP instances, this 
+<div class="block">Although the focus of this class is generating random TSP and ATSP instances, this
  constructor enables specifying the distance matrix directly.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,int)" class="member-name-link">Integer</a><wbr>(int&nbsp;n,
@@ -199,14 +197,14 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.permutations.Permutation)" class="member-name-link">value</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -233,17 +231,15 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <h3>Integer</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Integer</span><wbr><span class="parameters">(int&nbsp;n,
  int&nbsp;maxDistance)</span></div>
-<div class="block">Generates a random instance of either the TSP.
- The instances generated by this constructor may not satisfy the
- triangle inequality. If you desire an instance that satisfies the
- triangle inequality, see the other constructors. The distance
- matrix generated by this constructor is symmetric. See the other
- constructors for the ATSP.</div>
+<div class="block">Generates a random instance of either the TSP. The instances generated by this constructor
+ may not satisfy the triangle inequality. If you desire an instance that satisfies the
+ triangle inequality, see the other constructors. The distance matrix generated by this
+ constructor is symmetric. See the other constructors for the ATSP.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of cities.</dd>
-<dd><code>maxDistance</code> - The maximum distance between cities. The edge costs
-        between pairs of cities are uniform in the interval [1, maxDistance].</dd>
+<dd><code>maxDistance</code> - The maximum distance between cities. The edge costs between pairs of
+     cities are uniform in the interval [1, maxDistance].</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n &lt; 2.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if maxDistance &lt; 1.</dd>
@@ -256,15 +252,14 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Integer</span><wbr><span class="parameters">(int&nbsp;n,
  int&nbsp;maxDistance,
  boolean&nbsp;symmetric)</span></div>
-<div class="block">Generates a random instance of either the TSP or ATSP.
- The instances generated by this constructor may not satisfy the
- triangle inequality. If you desire an instance that satisfies the
- triangle inequality, see the other constructors.</div>
+<div class="block">Generates a random instance of either the TSP or ATSP. The instances generated by this
+ constructor may not satisfy the triangle inequality. If you desire an instance that satisfies
+ the triangle inequality, see the other constructors.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of cities.</dd>
-<dd><code>maxDistance</code> - The maximum distance between cities. The edge costs
-        between pairs of cities are uniform in the interval [1, maxDistance].</dd>
+<dd><code>maxDistance</code> - The maximum distance between cities. The edge costs between pairs of
+     cities are uniform in the interval [1, maxDistance].</dd>
 <dd><code>symmetric</code> - Pass true for the TSP, or false for the ATSP.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n &lt; 2.</dd>
@@ -283,11 +278,11 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of cities.</dd>
-<dd><code>maxDistance</code> - The maximum distance between cities. The edge costs
-        between pairs of cities are uniform in the interval [1, maxDistance].</dd>
+<dd><code>maxDistance</code> - The maximum distance between cities. The edge costs between pairs of
+     cities are uniform in the interval [1, maxDistance].</dd>
 <dd><code>symmetric</code> - Pass true for the TSP, or false for the ATSP.</dd>
-<dd><code>triangleInequality</code> - Pass true if you want the generated distance matrix
-        to respect the triangle inequality, or false for purely random distances.</dd>
+<dd><code>triangleInequality</code> - Pass true if you want the generated distance matrix to respect the
+     triangle inequality, or false for purely random distances.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n &lt; 2.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if maxDistance &lt; 1.</dd>
@@ -306,13 +301,13 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of cities.</dd>
-<dd><code>maxDistance</code> - The maximum distance between cities. The edge costs
-        between pairs of cities are uniform in the interval [1, maxDistance].</dd>
+<dd><code>maxDistance</code> - The maximum distance between cities. The edge costs between pairs of
+     cities are uniform in the interval [1, maxDistance].</dd>
 <dd><code>symmetric</code> - Pass true for the TSP, or false for the ATSP.</dd>
-<dd><code>triangleInequality</code> - Pass true if you want the generated distance matrix
-        to respect the triangle inequality, or false for purely random distances.</dd>
-<dd><code>seed</code> - The seed for the random number generator to enable reproducing the
-        same instance for experiment reproducibility.</dd>
+<dd><code>triangleInequality</code> - Pass true if you want the generated distance matrix to respect the
+     triangle inequality, or false for purely random distances.</dd>
+<dd><code>seed</code> - The seed for the random number generator to enable reproducing the same instance
+     for experiment reproducibility.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n &lt; 2.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if maxDistance &lt; 1.</dd>
@@ -323,17 +318,17 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <section class="detail" id="&lt;init&gt;(int[][])">
 <h3>Integer</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Integer</span><wbr><span class="parameters">(int[][]&nbsp;distance)</span></div>
-<div class="block">Although the focus of this class is generating random TSP and ATSP instances, this 
+<div class="block">Although the focus of this class is generating random TSP and ATSP instances, this
  constructor enables specifying the distance matrix directly.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>distance</code> - The distance matrix, such that distance[i][j] is the distance from
-    city i to city j. The distance matrix must be square, with same number of rows as columns,
-    and whose dimension determines number of cities. Dimensions must be at least 2 by 2.</dd>
+<dd><code>distance</code> - The distance matrix, such that distance[i][j] is the distance from city i to
+     city j. The distance matrix must be square, with same number of rows as columns, and
+     whose dimension determines number of cities. Dimensions must be at least 2 by 2.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if distance is not at least a 2 by 2 array.</dd>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if number of rows is not same as number of columns, or
-      if rows don't all have same length.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if number of rows is not same as number of columns, or if
+     rows don't all have same length.</dd>
 </dl>
 </section>
 </li>
@@ -378,15 +373,15 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <h3>cost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../IntegerCostOptimizationProblem.html#cost(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IntegerCostOptimizationProblem.html#cost(T)">cost</a></code>&nbsp;in interface&nbsp;<code><a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -395,8 +390,8 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../IntegerCostOptimizationProblem.html#value(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IntegerCostOptimizationProblem.html#value(T)">value</a></code>&nbsp;in interface&nbsp;<code><a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -412,9 +407,9 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <h3>minCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">minCost</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../IntegerCostOptimizationProblem.html#minCost()">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution. 
- The default implementation returns Integer.MIN_VALUE.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution. The default implementation returns
+ Integer.MIN_VALUE.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IntegerCostOptimizationProblem.html#minCost()">minCost</a></code>&nbsp;in interface&nbsp;<code><a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>

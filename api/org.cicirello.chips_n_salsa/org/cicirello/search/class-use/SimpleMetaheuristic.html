@@ -66,26 +66,23 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search">org.cicirello.search</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces related to implementing
- metaheuristic search algorithms in general, rather than specific to a particular
- metaheuristic.</div>
+<div class="block">This package includes classes and interfaces related to implementing metaheuristic search
+ algorithms in general, rather than specific to a particular metaheuristic.</div>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.hc">org.cicirello.search.hc</a></div>
 <div class="col-last odd-row-color">
-<div class="block">This package includes classes and interfaces directly related to implementing
- hill climbers.</div>
+<div class="block">This package includes classes and interfaces directly related to implementing hill climbers.</div>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.operators">org.cicirello.search.operators</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces for defining various operators
- required by simulated annealing and other metaheuristics, such as 
- mutation operators, along with
- other related classes and interfaces.</div>
+<div class="block">This package includes classes and interfaces for defining various operators required by simulated
+ annealing and other metaheuristics, such as mutation operators, along with other related classes
+ and interfaces.</div>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.ss">org.cicirello.search.ss</a></div>
 <div class="col-last odd-row-color">
-<div class="block">This package includes classes and interfaces directly related to implementing
- stochastic sampling algorithms.</div>
+<div class="block">This package includes classes and interfaces directly related to implementing stochastic sampling
+ algorithms.</div>
 </div>
 </div>
 <section class="class-uses">
@@ -101,10 +98,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../SimpleLocalMetaheuristic.html" class="type-name-link" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This interface defines the required methods for implementations
- of simple metaheuristics that locally optimize from some initial solution 
- (random or otherwise) whose run length is self-determined, such as 
- hill climbers that terminate upon reaching a local optima.</div>
+<div class="block">This interface defines the required methods for implementations of simple metaheuristics that
+ locally optimize from some initial solution (random or otherwise) whose run length is
+ self-determined, such as hill climbers that terminate upon reaching a local optima.</div>
 </div>
 </div>
 <div class="caption"><span>Methods in <a href="../package-summary.html">org.cicirello.search</a> that return <a href="../SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a></span></div>
@@ -150,9 +146,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../operators/InitializeBySimpleMetaheuristic.html#%3Cinit%3E(org.cicirello.search.SimpleMetaheuristic)" class="member-name-link">InitializeBySimpleMetaheuristic</a><wbr>(<a href="../SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;<a href="../operators/InitializeBySimpleMetaheuristic.html" title="type parameter in InitializeBySimpleMetaheuristic">T</a>&gt;&nbsp;meta)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs an Initializer that creates initial candidate solutions for metaheuristics
- by running another simpler metaheuristic, such as a hill climber, 
- from a random initial solution, climbing to a local optima.</div>
+<div class="block">Constructs an Initializer that creates initial candidate solutions for metaheuristics by
+ running another simpler metaheuristic, such as a hill climber, from a random initial solution,
+ climbing to a local optima.</div>
 </div>
 </div>
 </section>
@@ -168,26 +164,25 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../ss/AcceptanceBandSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">AcceptanceBandSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">The AcceptanceBandSampling class implements a form of stochastic sampling 
- search that uses a constructive heuristic to guide the random decisions.</div>
+<div class="block">The AcceptanceBandSampling class implements a form of stochastic sampling search that uses a
+ constructive heuristic to guide the random decisions.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../ss/HeuristicBiasedStochasticSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">HeuristicBiasedStochasticSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Heuristic Biased Stochastic Sampling (HBSS) is a form of stochastic sampling 
- search that uses a constructive heuristic to bias the random decisions.</div>
+<div class="block">Heuristic Biased Stochastic Sampling (HBSS) is a form of stochastic sampling search that uses a
+ constructive heuristic to bias the random decisions.</div>
 </div>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../ss/HeuristicPermutationGenerator.html" class="type-name-link" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">This class generates solutions to permutation optimization
- problems using a constructive heuristic.</div>
+<div class="block">This class generates solutions to permutation optimization problems using a constructive
+ heuristic.</div>
 </div>
 <div class="col-first odd-row-color"><code>class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../ss/HeuristicSolutionGenerator.html" class="type-name-link" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class generates solutions to optimization
- problems using a constructive heuristic.</div>
+<div class="block">This class generates solutions to optimization problems using a constructive heuristic.</div>
 </div>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../ss/IterativeSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">IterativeSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
@@ -197,8 +192,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../ss/ValueBiasedStochasticSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Value Biased Stochastic Sampling (VBSS) is a form of stochastic sampling 
- search that uses a constructive heuristic to bias the random decisions.</div>
+<div class="block">Value Biased Stochastic Sampling (VBSS) is a form of stochastic sampling search that uses a
+ constructive heuristic to bias the random decisions.</div>
 </div>
 </div>
 </section>

@@ -94,64 +94,59 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">TwoChangeMutation</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;, <a href="../IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
-<div class="block"><p>This class implements the classic two-change operator as a mutation operator 
- for permutations. The two-change operator originated as a local search operator 
- for the TSP that removes two edges from a tour of the cities of a TSP and replaces
- them with two different edges such that the result is a valid tour of the cities.
- This implementation is not strictly for the TSP, and will operate on a permutation
- regardless of what that permutation represents. However, it assumes that the 
- permutation represents a cyclic sequence of edges, and specifically that if two elements
- are adjacent in the permutation that it corresponds to an undirected edge between the
- elements. For example, consider the permutation, p = [2, 1, 4, 0, 3], of the first 5 
- non-negative integers. Now imagine that we have a graph with 5 vertexes, labeled 0 to
- 4. This example permutation would correspond to a set of undirected edges: 
- { (2, 1), (1, 4), (4, 0), (0, 3), (3, 2) }. Notice that we included (3, 2) here in that
- the set of edges represented by the permutation is cyclic and includes an edge between
- the two endpoints.  The classic two-change removes two edges and replaces them with two 
- different edges that reconnect a valid traversal of all elements. One way of implementing
- the equivalent of this as an operator on permutations is to reverse a subsequence.
- For example, consider reversing the first 3 elements, which gives you: p = [4, 1, 2, 0, 3],
- which under the edge interpretation corresponds to the edges: 
- { (4, 1), (1, 2), (2, 0), (0, 3), (3, 4) }. Remember that we are interpreting the edges
- as undirected edges, and that there are exactly two that have changed: (4, 0) and (3, 2)
- were removed, and replaced by (2, 0) and (3, 4).</p> 
- 
- <p>Technically, if you wanted to use the approximate equivalent of a two change operator,
- you could use the <a href="ReversalMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ReversalMutation</code></a> class. The reason is that every two change
- is equivalent to a reversal. However, not every reversal is equivalent to a two change.
- If you reverse the entire permutation, you don't actually change any edges, if the permutation
- represents a cyclic set of undirected edges. Likewise, if you reverse an n-1 length sequence
- of elements, you also don't change any edges. This TwoChangeMutation class implements a
- two change operator that always produces a mutant that is the equivalent to changing
- two edges (if that is what the permutation represents). For example, it won't reverse
- the entire permutation, and also won't reverse a subpermutation of length n-1. Additionally,
- simply viewing reversals as two changes leads to redundancy (e.g., reversing the
- first k elements changes the same two edges as reversing the last n-k elements), so if
- your aim is to perform two changes, and if you want all possible two changes to be
- equally likely when generating a random mutant, then the <a href="ReversalMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ReversalMutation</code></a> class
- will not give you that since it will be biased in favor of the two changes that have
- multiple equivalent reversals. This TwoChangeMutation class is implemented such that
- all two changes of a permutation are approximately equally likely.</p>
+<div class="block">This class implements the classic two-change operator as a mutation operator for permutations.
+ The two-change operator originated as a local search operator for the TSP that removes two edges
+ from a tour of the cities of a TSP and replaces them with two different edges such that the
+ result is a valid tour of the cities. This implementation is not strictly for the TSP, and will
+ operate on a permutation regardless of what that permutation represents. However, it assumes that
+ the permutation represents a cyclic sequence of edges, and specifically that if two elements are
+ adjacent in the permutation that it corresponds to an undirected edge between the elements. For
+ example, consider the permutation, p = [2, 1, 4, 0, 3], of the first 5 non-negative integers. Now
+ imagine that we have a graph with 5 vertexes, labeled 0 to 4. This example permutation would
+ correspond to a set of undirected edges: { (2, 1), (1, 4), (4, 0), (0, 3), (3, 2) }. Notice that
+ we included (3, 2) here in that the set of edges represented by the permutation is cyclic and
+ includes an edge between the two endpoints. The classic two-change removes two edges and replaces
+ them with two different edges that reconnect a valid traversal of all elements. One way of
+ implementing the equivalent of this as an operator on permutations is to reverse a subsequence.
+ For example, consider reversing the first 3 elements, which gives you: p = [4, 1, 2, 0, 3], which
+ under the edge interpretation corresponds to the edges: { (4, 1), (1, 2), (2, 0), (0, 3), (3, 4)
+ }. Remember that we are interpreting the edges as undirected edges, and that there are exactly
+ two that have changed: (4, 0) and (3, 2) were removed, and replaced by (2, 0) and (3, 4).
 
- <p>Also note that this TwoChangeMutation doesn't guarantee implementation by reversals.
- It only guarantees that every mutation is equivalent to a two change (under the interpretation
- of a permutation representing a cyclic set of edges), and that all possible such
- two changes are equally likely. Under this assumption some two changes can be generated
- faster than by a reversal.</p>
+ <p>Technically, if you wanted to use the approximate equivalent of a two change operator, you
+ could use the <a href="ReversalMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ReversalMutation</code></a> class. The reason is that every two change is equivalent
+ to a reversal. However, not every reversal is equivalent to a two change. If you reverse the
+ entire permutation, you don't actually change any edges, if the permutation represents a cyclic
+ set of undirected edges. Likewise, if you reverse an n-1 length sequence of elements, you also
+ don't change any edges. This TwoChangeMutation class implements a two change operator that always
+ produces a mutant that is the equivalent to changing two edges (if that is what the permutation
+ represents). For example, it won't reverse the entire permutation, and also won't reverse a
+ subpermutation of length n-1. Additionally, simply viewing reversals as two changes leads to
+ redundancy (e.g., reversing the first k elements changes the same two edges as reversing the last
+ n-k elements), so if your aim is to perform two changes, and if you want all possible two changes
+ to be equally likely when generating a random mutant, then the <a href="ReversalMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ReversalMutation</code></a> class
+ will not give you that since it will be biased in favor of the two changes that have multiple
+ equivalent reversals. This TwoChangeMutation class is implemented such that all two changes of a
+ permutation are approximately equally likely.
 
- <p>The runtime (worst case and average case) of both
- the <a href="#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a> and <a href="#undo(org.cicirello.permutations.Permutation)"><code>undo</code></a> methods is O(n),
- where n is the length of the permutation. During a single call to one of these methods,
- at most n/2 elements will change locations. Thus, this is roughly twice as fast as 
- the <a href="ReversalMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ReversalMutation</code></a> class, which can move as many as n elements during a single
- call to these methods. If the set of edges interpretation applies to your problem, then
- the TwoChangeMutation may be a better choice than ReversalMutation. At the very least it
- will compute mutants faster. If that interpretation doesn't apply to your problem, then
- we can't really say (at least not in a problem independent way) which might be better.</p>
+ <p>Also note that this TwoChangeMutation doesn't guarantee implementation by reversals. It only
+ guarantees that every mutation is equivalent to a two change (under the interpretation of a
+ permutation representing a cyclic set of edges), and that all possible such two changes are
+ equally likely. Under this assumption some two changes can be generated faster than by a
+ reversal.
 
- <p>For any given permutation of length n, there are n*(n-3)/2 possible two-change
- neighbors. For permutations of length n &lt; 4, the TwoChangeMutation operator
- makes no changes, as there are no two-change neighbors of permutations of that size.</p></div>
+ <p>The runtime (worst case and average case) of both the <a href="#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a> and
+ <a href="#undo(org.cicirello.permutations.Permutation)"><code>undo</code></a> methods is O(n), where n is the length of the permutation. During
+ a single call to one of these methods, at most n/2 elements will change locations. Thus, this is
+ roughly twice as fast as the <a href="ReversalMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ReversalMutation</code></a> class, which can move as many as n elements
+ during a single call to these methods. If the set of edges interpretation applies to your
+ problem, then the TwoChangeMutation may be a better choice than ReversalMutation. At the very
+ least it will compute mutants faster. If that interpretation doesn't apply to your problem, then
+ we can't really say (at least not in a problem independent way) which might be better.
+
+ <p>For any given permutation of length n, there are n*(n-3)/2 possible two-change neighbors. For
+ permutations of length n &lt; 4, the TwoChangeMutation operator makes no changes, as there are no
+ two-change neighbors of permutations of that size.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -184,9 +179,9 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../MutationIterator.html" title="interface in org.cicirello.search.operators">MutationIterator</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#iterator(org.cicirello.permutations.Permutation)" class="member-name-link">iterator</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;p)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
- systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
- of a candidate solution, as one might do in a hill climber.</div>
+<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to systematically iterate over
+ all of the direct neighbors (i.e., a single mutation step away) of a candidate solution, as one
+ might do in a hill climber.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#mutate(org.cicirello.permutations.Permutation)" class="member-name-link">mutate</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c)</code></div>
@@ -196,14 +191,13 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="TwoChangeMutation.html" title="class in org.cicirello.search.operators.permutations">TwoChangeMutation</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#undo(org.cicirello.permutations.Permutation)" class="member-name-link">undo</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns a candidate solution to its previous state prior to the
- most recent mutation performed.</div>
+<div class="block">Returns a candidate solution to its previous state prior to the most recent mutation performed.</div>
 </div>
 </div>
 </div>
@@ -242,15 +236,13 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <h3>mutate</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">mutate</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../MutationOperator.html#mutate(T)">MutationOperator</a></code></span></div>
-<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state.
- The mutant that is produced is in the local neighborhood of 
- the original candidate solution.</div>
+<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state. The mutant that is
+ produced is in the local neighborhood of the original candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../MutationOperator.html#mutate(T)">mutate</a></code>&nbsp;in interface&nbsp;<code><a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>c</code> - The candidate solution subject to the mutation.  This method
- changes the state of c.</dd>
+<dd><code>c</code> - The candidate solution subject to the mutation. This method changes the state of c.</dd>
 </dl>
 </section>
 </li>
@@ -259,16 +251,16 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <h3>undo</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">undo</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../UndoableMutationOperator.html#undo(T)">UndoableMutationOperator</a></code></span></div>
-<div class="block"><p>Returns a candidate solution to its previous state prior to the
- most recent mutation performed.</p>  
- <p>For example, consider the following.
- Let c' be the current state of c.  Let c'' be the state of c after mutate(c);
- If we then call undo(c), the state of c should revert back to c'.</p>
- <p>The behavior of undo is undefined if c is altered by some other process between
- the calls to mutate and undo.  The behavior is also undefined if a different
- candidate is given to undo then the last given to mutate.  For example,
- if the following two statements are executed, mutate(c); undo(d);, the effect
- on d is undefined as it wasn't the most recently mutated candidate solution.</p></div>
+<div class="block">Returns a candidate solution to its previous state prior to the most recent mutation performed.
+
+ <p>For example, consider the following. Let c' be the current state of c. Let c'' be the state
+ of c after mutate(c); If we then call undo(c), the state of c should revert back to c'.
+
+ <p>The behavior of undo is undefined if c is altered by some other process between the calls to
+ mutate and undo. The behavior is also undefined if a different candidate is given to undo then
+ the last given to mutate. For example, if the following two statements are executed, mutate(c);
+ undo(d);, the effect on d is undefined as it wasn't the most recently mutated candidate
+ solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../UndoableMutationOperator.html#undo(T)">undo</a></code>&nbsp;in interface&nbsp;<code><a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -282,20 +274,18 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="TwoChangeMutation.html" title="class in org.cicirello.search.operators.permutations">TwoChangeMutation</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IterableMutationOperator.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -304,9 +294,8 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <dt>Specified by:</dt>
 <dd><code><a href="../UndoableMutationOperator.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>
@@ -314,24 +303,20 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <section class="detail" id="iterator(org.cicirello.permutations.Permutation)">
 <h3>iterator</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../MutationIterator.html" title="interface in org.cicirello.search.operators">MutationIterator</a></span>&nbsp;<span class="element-name">iterator</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;p)</span></div>
-<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
- systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
- of a candidate solution, as one might do in a hill climber.
- <p>The worst case runtime of the <a href="../MutationIterator.html#hasNext()"><code>MutationIterator.hasNext()</code></a> and the 
- <a href="../MutationIterator.html#setSavepoint()"><code>MutationIterator.setSavepoint()</code></a> methods of the <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> 
- created by this method is O(1).  The amortized runtime of the 
- <a href="../MutationIterator.html#nextMutant()"><code>MutationIterator.nextMutant()</code></a> method is O(1).
- And the worst case runtime of the 
- <a href="../MutationIterator.html#rollback()"><code>MutationIterator.rollback()</code></a> method 
- is O(n), where n is the length of the Permutation.</p></div>
+<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to systematically iterate over
+ all of the direct neighbors (i.e., a single mutation step away) of a candidate solution, as one
+ might do in a hill climber.
+
+ <p>The worst case runtime of the <a href="../MutationIterator.html#hasNext()"><code>MutationIterator.hasNext()</code></a> and the <a href="../MutationIterator.html#setSavepoint()"><code>MutationIterator.setSavepoint()</code></a> methods of the <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> created by this method
+ is O(1). The amortized runtime of the <a href="../MutationIterator.html#nextMutant()"><code>MutationIterator.nextMutant()</code></a> method is O(1). And
+ the worst case runtime of the <a href="../MutationIterator.html#rollback()"><code>MutationIterator.rollback()</code></a> method is O(n), where n is the
+ length of the Permutation.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IterableMutationOperator.html#iterator(T)">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="../IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>p</code> - The candidate solution subject to the mutation.  Calling methods of the
- <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that is returned changes the state of that candidate solution.  
- See the documentation
- of those methods for details of how such changes may occur.</dd>
+<dd><code>p</code> - The candidate solution subject to the mutation. Calling methods of the <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that is returned changes the state of that candidate solution. See the
+     documentation of those methods for details of how such changes may occur.</dd>
 <dt>Returns:</dt>
 <dd>A MutationIterator for iterating over the direct neighbors of a candidate solution.</dd>
 </dl>

@@ -98,27 +98,23 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">InverseCostFitnessFunction&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;T&gt;</span></div>
-<div class="block"><p>This class provides a convenient mechanism for transforming optimization cost
- values to fitness values. Most of the algorithms in the library require a
- cost function to minimize through a class that implements either
- <a href="../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems"><code>OptimizationProblem</code></a> or <a href="../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems"><code>IntegerCostOptimizationProblem</code></a>. However,
- the evolutionary algorithms in the library require a fitness function such that higher
- fitness implies better solution. Furthermore, some selection operators further assume
- that fitness values are positive, such as <a href="FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a> and
- <a href="StochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>StochasticUniversalSampling</code></a>.</p>
+<div class="block">This class provides a convenient mechanism for transforming optimization cost values to fitness
+ values. Most of the algorithms in the library require a cost function to minimize through a class
+ that implements either <a href="../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems"><code>OptimizationProblem</code></a> or <a href="../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems"><code>IntegerCostOptimizationProblem</code></a>.
+ However, the evolutionary algorithms in the library require a fitness function such that higher
+ fitness implies better solution. Furthermore, some selection operators further assume that
+ fitness values are positive, such as <a href="FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a> and <a href="StochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>StochasticUniversalSampling</code></a>.
 
- <p>This class transforms the cost of solution s to fitness to meet these requirements 
- with the following
- transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()), where c
- is a positive constant, which defaults to 1.0 (see constructors). The problem.cost(s)
- and problem.minCost() refer to the methods by those names in the 
- <a href="../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems"><code>OptimizationProblem</code></a> and <a href="../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems"><code>IntegerCostOptimizationProblem</code></a> classes. Note that
- the adjustment by problem.minCost() ensures that fitness will be positive even if
- costs can be negative.</p>
+ <p>This class transforms the cost of solution s to fitness to meet these requirements with the
+ following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()), where c is
+ a positive constant, which defaults to 1.0 (see constructors). The problem.cost(s) and
+ problem.minCost() refer to the methods by those names in the <a href="../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems"><code>OptimizationProblem</code></a> and
+ <a href="../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems"><code>IntegerCostOptimizationProblem</code></a> classes. Note that the adjustment by problem.minCost()
+ ensures that fitness will be positive even if costs can be negative.
 
- <p>Note that the problem's implementation of minCost must return a finite lower bound
- for the cost function (which is assumed to be correct), otherwise the constructors of 
- this class will throw an <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link"><code>IllegalArgumentException</code></a>.</p></div>
+ <p>Note that the problem's implementation of minCost must return a finite lower bound for the
+ cost function (which is assumed to be correct), otherwise the constructors of this class will
+ throw an <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link"><code>IllegalArgumentException</code></a>.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -141,25 +137,25 @@ implements <a href="FitnessFunction.Double.html" title="interface in org.cicirel
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem)" class="member-name-link">InverseCostFitnessFunction</a><wbr>(<a href="../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&nbsp;problem)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
- the following transformation: fitness(s) = 1.0 / (1.0 + problem.cost(s) - problem.minCost()).</div>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with the
+ following transformation: fitness(s) = 1.0 / (1.0 + problem.cost(s) - problem.minCost()).</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,double)" class="member-name-link">InverseCostFitnessFunction</a><wbr>(<a href="../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&nbsp;problem,
  double&nbsp;c)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
- the following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()).</div>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with the
+ following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()).</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem)" class="member-name-link">InverseCostFitnessFunction</a><wbr>(<a href="../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&nbsp;problem)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
- the following transformation: fitness(s) = 1.0 / (1.0 + problem.cost(s) - problem.minCost()).</div>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with the
+ following transformation: fitness(s) = 1.0 / (1.0 + problem.cost(s) - problem.minCost()).</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.problems.OptimizationProblem,double)" class="member-name-link">InverseCostFitnessFunction</a><wbr>(<a href="../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&nbsp;problem,
  double&nbsp;c)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
- the following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()).</div>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with the
+ following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()).</div>
 </div>
 </div>
 </section>
@@ -178,8 +174,8 @@ implements <a href="FitnessFunction.Double.html" title="interface in org.cicirel
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#fitness(T)" class="member-name-link">fitness</a><wbr>(<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&nbsp;candidate)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the fitness of a candidate solution to a problem,
- for use by genetic algorithms and other evolutionary algorithms.</div>
+<div class="block">Computes the fitness of a candidate solution to a problem, for use by genetic algorithms and
+ other evolutionary algorithms.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getProblem()" class="member-name-link">getProblem</a>()</code></div>
@@ -207,8 +203,8 @@ implements <a href="FitnessFunction.Double.html" title="interface in org.cicirel
 <section class="detail" id="&lt;init&gt;(org.cicirello.search.problems.OptimizationProblem)">
 <h3>InverseCostFitnessFunction</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">InverseCostFitnessFunction</span><wbr><span class="parameters">(<a href="../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&nbsp;problem)</span></div>
-<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
- the following transformation: fitness(s) = 1.0 / (1.0 + problem.cost(s) - problem.minCost()).</div>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with the
+ following transformation: fitness(s) = 1.0 / (1.0 + problem.cost(s) - problem.minCost()).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>problem</code> - The optimization problem.</dd>
@@ -221,13 +217,14 @@ implements <a href="FitnessFunction.Double.html" title="interface in org.cicirel
 <section class="detail" id="&lt;init&gt;(org.cicirello.search.problems.IntegerCostOptimizationProblem)">
 <h3>InverseCostFitnessFunction</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">InverseCostFitnessFunction</span><wbr><span class="parameters">(<a href="../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&nbsp;problem)</span></div>
-<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
- the following transformation: fitness(s) = 1.0 / (1.0 + problem.cost(s) - problem.minCost()).</div>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with the
+ following transformation: fitness(s) = 1.0 / (1.0 + problem.cost(s) - problem.minCost()).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>problem</code> - The optimization problem.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if problem.minCost() equals Integer.MAX_VALUE or Integer.MIN_VALUE.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if problem.minCost() equals Integer.MAX_VALUE or
+     Integer.MIN_VALUE.</dd>
 </dl>
 </section>
 </li>
@@ -236,8 +233,8 @@ implements <a href="FitnessFunction.Double.html" title="interface in org.cicirel
 <h3>InverseCostFitnessFunction</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">InverseCostFitnessFunction</span><wbr><span class="parameters">(<a href="../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&nbsp;problem,
  double&nbsp;c)</span></div>
-<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
- the following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()).</div>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with the
+ following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>problem</code> - The optimization problem.</dd>
@@ -253,15 +250,16 @@ implements <a href="FitnessFunction.Double.html" title="interface in org.cicirel
 <h3>InverseCostFitnessFunction</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">InverseCostFitnessFunction</span><wbr><span class="parameters">(<a href="../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&nbsp;problem,
  double&nbsp;c)</span></div>
-<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with
- the following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()).</div>
+<div class="block">Constructs a fitness function that transforms the cost of solution s to fitness with the
+ following transformation: fitness(s) = c / (c + problem.cost(s) - problem.minCost()).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>problem</code> - The optimization problem.</dd>
 <dd><code>c</code> - A constant which must be positive.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if c is less than or equal to 0.0.</dd>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if problem.minCost() equals Integer.MAX_VALUE or Integer.MIN_VALUE.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if problem.minCost() equals Integer.MAX_VALUE or
+     Integer.MIN_VALUE.</dd>
 </dl>
 </section>
 </li>
@@ -278,8 +276,8 @@ implements <a href="FitnessFunction.Double.html" title="interface in org.cicirel
 <h3 id="fitness(org.cicirello.util.Copyable)">fitness</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">fitness</span><wbr><span class="parameters">(<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="FitnessFunction.Double.html#fitness(T)">FitnessFunction.Double</a></code></span></div>
-<div class="block">Computes the fitness of a candidate solution to a problem,
- for use by genetic algorithms and other evolutionary algorithms.</div>
+<div class="block">Computes the fitness of a candidate solution to a problem, for use by genetic algorithms and
+ other evolutionary algorithms.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="FitnessFunction.Double.html#fitness(T)">fitness</a></code>&nbsp;in interface&nbsp;<code><a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="InverseCostFitnessFunction.html" title="type parameter in InverseCostFitnessFunction">T</a>&gt;&gt;</code></dd>

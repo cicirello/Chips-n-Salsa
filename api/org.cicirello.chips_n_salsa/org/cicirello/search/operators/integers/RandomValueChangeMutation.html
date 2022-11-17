@@ -102,20 +102,18 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">RandomValueChangeMutation&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T&gt;</span></div>
-<div class="block">This mutation operator is for integer valued representations, and replaces an
- integer value with a different random integer value from the domain.  The domain
- is specified with an interval: [a, b].  The parameter p specifies the probability
- of mutating an integer.  E.g., if the <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations"><code>IntegerValued</code></a> object undergoing
- mutation has n integers, then on average the <a href="#mutate(T)"><code>mutate(T)</code></a> method will mutate k=n*p
- of those integers. The k integers chosen for mutation are chosen uniformly at random.
- For each of those k integers, the new value is chosen uniformly at random from [a, b]
- but excluding its current value.  For example, let [a, b]=[0,4], and consider mutating
- an integer v whose value is currently v=3.  The new value for v will be chosen uniformly at random
- from the set {0, 1, 2, 4}.  Note that when a=0 and b=1, this mutation operator
- becomes equivalent to the traditional bit-flip mutation commonly used in genetic algorithms
- when solutions are represented as bit strings, although use of this class and the 
- <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations"><code>IntegerValued</code></a> class for that purpose is not recommended as there are much more efficient
- ways of representing strings of bits (e.g., using bit level operators).</div>
+<div class="block">This mutation operator is for integer valued representations, and replaces an integer value with
+ a different random integer value from the domain. The domain is specified with an interval: [a,
+ b]. The parameter p specifies the probability of mutating an integer. E.g., if the <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations"><code>IntegerValued</code></a> object undergoing mutation has n integers, then on average the <a href="#mutate(T)"><code>mutate(T)</code></a>
+ method will mutate k=n*p of those integers. The k integers chosen for mutation are chosen
+ uniformly at random. For each of those k integers, the new value is chosen uniformly at random
+ from [a, b] but excluding its current value. For example, let [a, b]=[0,4], and consider mutating
+ an integer v whose value is currently v=3. The new value for v will be chosen uniformly at random
+ from the set {0, 1, 2, 4}. Note that when a=0 and b=1, this mutation operator becomes equivalent
+ to the traditional bit-flip mutation commonly used in genetic algorithms when solutions are
+ represented as bit strings, although use of this class and the <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations"><code>IntegerValued</code></a> class for
+ that purpose is not recommended as there are much more efficient ways of representing strings of
+ bits (e.g., using bit level operators).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -130,8 +128,8 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int)" class="member-name-link">RandomValueChangeMutation</a><wbr>(int&nbsp;a,
  int&nbsp;b)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a RandomValueChangeMutation operator that always 
- mutates exactly one integer from the IntegerValued.</div>
+<div class="block">Constructs a RandomValueChangeMutation operator that always mutates exactly one integer from
+ the IntegerValued.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,int,double)" class="member-name-link">RandomValueChangeMutation</a><wbr>(int&nbsp;a,
  int&nbsp;b,
@@ -178,8 +176,8 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="RandomValueChangeMutation.html" title="class in org.cicirello.search.operators.integers">RandomValueChangeMutation</a>&lt;<a href="RandomValueChangeMutation.html" title="type parameter in RandomValueChangeMutation">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -203,16 +201,15 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <h3>RandomValueChangeMutation</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">RandomValueChangeMutation</span><wbr><span class="parameters">(int&nbsp;a,
  int&nbsp;b)</span></div>
-<div class="block">Constructs a RandomValueChangeMutation operator that always 
- mutates exactly one integer from the IntegerValued.
- If the IntegerValued is a univariate, then it mutates the
- one and only one integer.  If it is a multivariate, then one integer parameter
- is chosen for mutation uniformly at random.</div>
+<div class="block">Constructs a RandomValueChangeMutation operator that always mutates exactly one integer from
+ the IntegerValued. If the IntegerValued is a univariate, then it mutates the one and only one
+ integer. If it is a multivariate, then one integer parameter is chosen for mutation uniformly
+ at random.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>a</code> - The lower bound of the domain from which to choose random values.</dd>
-<dd><code>b</code> - The upper bound of the domain from which to choose random values.  b must be
- greater than a (i.e., there must be at least 2 values in the domain).</dd>
+<dd><code>b</code> - The upper bound of the domain from which to choose random values. b must be greater
+     than a (i.e., there must be at least 2 values in the domain).</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if a &ge; b.</dd>
 </dl>
@@ -224,19 +221,17 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">RandomValueChangeMutation</span><wbr><span class="parameters">(int&nbsp;a,
  int&nbsp;b,
  double&nbsp;p)</span></div>
-<div class="block">Constructs a RandomValueChangeMutation operator.
- If the IntegerValued undergoing mutation contains n integer parameters, 
- then this mutation operator will mutate n*p of those integers on average during
- calls to <a href="#mutate(T)"><code>mutate(T)</code></a>.  Since this is a randomized process, it is possible
- that no integers will be mutated during a call to mutate (e.g., if p is low
- relative to n).</div>
+<div class="block">Constructs a RandomValueChangeMutation operator. If the IntegerValued undergoing mutation
+ contains n integer parameters, then this mutation operator will mutate n*p of those integers on
+ average during calls to <a href="#mutate(T)"><code>mutate(T)</code></a>. Since this is a randomized process, it is possible
+ that no integers will be mutated during a call to mutate (e.g., if p is low relative to n).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>a</code> - The lower bound of the domain from which to choose random values.</dd>
-<dd><code>b</code> - The upper bound of the domain from which to choose random values.  b must be
- greater than a (i.e., there must be at least 2 values in the domain).</dd>
-<dd><code>p</code> - The probability of mutating an individual integer.  Negative p are treated as p=0.
- If p is greater than 1, it is treated as p=1.</dd>
+<dd><code>b</code> - The upper bound of the domain from which to choose random values. b must be greater
+     than a (i.e., there must be at least 2 values in the domain).</dd>
+<dd><code>p</code> - The probability of mutating an individual integer. Negative p are treated as p=0. If p
+     is greater than 1, it is treated as p=1.</dd>
 </dl>
 </section>
 </li>
@@ -247,21 +242,20 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
  int&nbsp;b,
  double&nbsp;p,
  int&nbsp;k)</span></div>
-<div class="block">Constructs a RandomValueChangeMutation operator.
- If the IntegerValued undergoing mutation contains n integer parameters, 
- then this mutation operator will mutate n*p of those integers on average during
- calls to <a href="#mutate(T)"><code>mutate(T)</code></a>, but will definitely mutate at least k of them.  
- Use this constructor if you want to insure that every call to <a href="#mutate(T)"><code>mutate(T)</code></a> changes 
- the IntegerValued undergoing mutation by specifying a minimum k to mutate.</div>
+<div class="block">Constructs a RandomValueChangeMutation operator. If the IntegerValued undergoing mutation
+ contains n integer parameters, then this mutation operator will mutate n*p of those integers on
+ average during calls to <a href="#mutate(T)"><code>mutate(T)</code></a>, but will definitely mutate at least k of them. Use
+ this constructor if you want to insure that every call to <a href="#mutate(T)"><code>mutate(T)</code></a> changes the
+ IntegerValued undergoing mutation by specifying a minimum k to mutate.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>a</code> - The lower bound of the domain from which to choose random values.</dd>
-<dd><code>b</code> - The upper bound of the domain from which to choose random values.  b must be
- greater than a (i.e., there must be at least 2 values in the domain).</dd>
-<dd><code>p</code> - The probability of mutating an individual integer.  Negative p are treated as p=0.
- If p is greater than 1, it is treated as p=1.</dd>
-<dd><code>k</code> - The minimum number of integer parameters of the IntegerValued undergoing
- mutation to mutate during calls to the <a href="#mutate(T)"><code>mutate(T)</code></a> method.  Negative k are treated as k=0.</dd>
+<dd><code>b</code> - The upper bound of the domain from which to choose random values. b must be greater
+     than a (i.e., there must be at least 2 values in the domain).</dd>
+<dd><code>p</code> - The probability of mutating an individual integer. Negative p are treated as p=0. If p
+     is greater than 1, it is treated as p=1.</dd>
+<dd><code>k</code> - The minimum number of integer parameters of the IntegerValued undergoing mutation to
+     mutate during calls to the <a href="#mutate(T)"><code>mutate(T)</code></a> method. Negative k are treated as k=0.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if a &ge; b or if p is negative.</dd>
 </dl>
@@ -280,15 +274,13 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <h3 id="mutate(org.cicirello.search.representations.IntegerValued)">mutate</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">mutate</span><wbr><span class="parameters">(<a href="RandomValueChangeMutation.html" title="type parameter in RandomValueChangeMutation">T</a>&nbsp;c)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../MutationOperator.html#mutate(T)">MutationOperator</a></code></span></div>
-<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state.
- The mutant that is produced is in the local neighborhood of 
- the original candidate solution.</div>
+<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state. The mutant that is
+ produced is in the local neighborhood of the original candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../MutationOperator.html#mutate(T)">mutate</a></code>&nbsp;in interface&nbsp;<code><a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="RandomValueChangeMutation.html" title="type parameter in RandomValueChangeMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>c</code> - The candidate solution subject to the mutation.  This method
- changes the state of c.</dd>
+<dd><code>c</code> - The candidate solution subject to the mutation. This method changes the state of c.</dd>
 </dl>
 </section>
 </li>
@@ -297,27 +289,24 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="RandomValueChangeMutation.html" title="class in org.cicirello.search.operators.integers">RandomValueChangeMutation</a>&lt;<a href="RandomValueChangeMutation.html" title="type parameter in RandomValueChangeMutation">T</a>&gt;</span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="RandomValueChangeMutation.html" title="type parameter in RandomValueChangeMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>
@@ -325,9 +314,8 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <section class="detail" id="equals(java.lang.Object)">
 <h3>equals</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
-<div class="block">Indicates whether some other object is equal to this one.
- The objects are equal if they are the same type of operator
- with the same parameters.</div>
+<div class="block">Indicates whether some other object is equal to this one. The objects are equal if they are the
+ same type of operator with the same parameters.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
@@ -342,8 +330,7 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <section class="detail" id="hashCode()">
 <h3>hashCode</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">hashCode</span>()</div>
-<div class="block">Returns a hash code value for the object.
- This method is supported for the benefit of hash 
+<div class="block">Returns a hash code value for the object. This method is supported for the benefit of hash
  tables such as those provided by HashMap.</div>
 <dl class="notes">
 <dt>Overrides:</dt>

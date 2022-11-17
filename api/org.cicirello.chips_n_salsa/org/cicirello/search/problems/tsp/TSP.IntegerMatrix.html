@@ -102,11 +102,11 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public static final class </span><span class="element-name type-name-label">TSP.IntegerMatrix</span>
 <span class="extends-implements">extends <a href="TSP.html" title="class in org.cicirello.search.problems.tsp">TSP</a>
 implements <a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
-<div class="block"><p>Cost function for the Traveling Salesperson Problem (TSP), where edge costs 
- are integer valued, and where all edge costs between pairs of cities
- are precomputed. This implementation requires quadratic memory, and may be prohibitive
- for large instances, in which case you may prefer to use the <a href="TSP.Integer.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.Integer</code></a> class,
- that only requires linear memory but recomputes an edge cost every time it is needed.</p></div>
+<div class="block">Cost function for the Traveling Salesperson Problem (TSP), where edge costs are integer valued,
+ and where all edge costs between pairs of cities are precomputed. This implementation requires
+ quadratic memory, and may be prohibitive for large instances, in which case you may prefer to
+ use the <a href="TSP.Integer.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.Integer</code></a> class, that only requires linear memory but recomputes an edge cost
+ every time it is needed.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -130,43 +130,37 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double%5B%5D,double%5B%5D)" class="member-name-link">IntegerMatrix</a><wbr>(double[]&nbsp;x,
  double[]&nbsp;y)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a TSP instance with city locations specified by arrays of
- x and y coordinates.</div>
+<div class="block">Constructs a TSP instance with city locations specified by arrays of x and y coordinates.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(double%5B%5D,double%5B%5D,org.cicirello.search.problems.tsp.TSPEdgeDistance)" class="member-name-link">IntegerMatrix</a><wbr>(double[]&nbsp;x,
  double[]&nbsp;y,
  <a href="TSPEdgeDistance.html" title="interface in org.cicirello.search.problems.tsp">TSPEdgeDistance</a>&nbsp;distance)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a TSP instance with city locations specified by arrays of
- x and y coordinates.</div>
+<div class="block">Constructs a TSP instance with city locations specified by arrays of x and y coordinates.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,double)" class="member-name-link">IntegerMatrix</a><wbr>(int&nbsp;n,
  double&nbsp;w)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a random TSP instance with cities randomly distributed within
- a square region.</div>
+<div class="block">Constructs a random TSP instance with cities randomly distributed within a square region.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,double,long)" class="member-name-link">IntegerMatrix</a><wbr>(int&nbsp;n,
  double&nbsp;w,
  long&nbsp;seed)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a random TSP instance with cities randomly distributed within
- a square region.</div>
+<div class="block">Constructs a random TSP instance with cities randomly distributed within a square region.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,double,org.cicirello.search.problems.tsp.TSPEdgeDistance)" class="member-name-link">IntegerMatrix</a><wbr>(int&nbsp;n,
  double&nbsp;w,
  <a href="TSPEdgeDistance.html" title="interface in org.cicirello.search.problems.tsp">TSPEdgeDistance</a>&nbsp;distance)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a random TSP instance with cities randomly distributed within
- a square region.</div>
+<div class="block">Constructs a random TSP instance with cities randomly distributed within a square region.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,double,org.cicirello.search.problems.tsp.TSPEdgeDistance,long)" class="member-name-link">IntegerMatrix</a><wbr>(int&nbsp;n,
  double&nbsp;w,
  <a href="TSPEdgeDistance.html" title="interface in org.cicirello.search.problems.tsp">TSPEdgeDistance</a>&nbsp;distance,
  long&nbsp;seed)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a random TSP instance with cities randomly distributed within
- a square region.</div>
+<div class="block">Constructs a random TSP instance with cities randomly distributed within a square region.</div>
 </div>
 </div>
 </section>
@@ -190,14 +184,14 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.permutations.Permutation)" class="member-name-link">value</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -227,9 +221,9 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <h3>IntegerMatrix</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">IntegerMatrix</span><wbr><span class="parameters">(int&nbsp;n,
  double&nbsp;w)</span></div>
-<div class="block">Constructs a random TSP instance with cities randomly distributed within
- a square region. The edge cost of a pair of cities is the Euclidean distance
- between them rounded to the nearest integer.</div>
+<div class="block">Constructs a random TSP instance with cities randomly distributed within a square region. The
+ edge cost of a pair of cities is the Euclidean distance between them rounded to the nearest
+ integer.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of cities.</dd>
@@ -246,8 +240,7 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">IntegerMatrix</span><wbr><span class="parameters">(int&nbsp;n,
  double&nbsp;w,
  <a href="TSPEdgeDistance.html" title="interface in org.cicirello.search.problems.tsp">TSPEdgeDistance</a>&nbsp;distance)</span></div>
-<div class="block">Constructs a random TSP instance with cities randomly distributed within
- a square region.</div>
+<div class="block">Constructs a random TSP instance with cities randomly distributed within a square region.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of cities.</dd>
@@ -265,15 +258,15 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">IntegerMatrix</span><wbr><span class="parameters">(int&nbsp;n,
  double&nbsp;w,
  long&nbsp;seed)</span></div>
-<div class="block">Constructs a random TSP instance with cities randomly distributed within
- a square region. The edge cost of a pair of cities is the Euclidean distance
- between them rounded to the nearest integer.</div>
+<div class="block">Constructs a random TSP instance with cities randomly distributed within a square region. The
+ edge cost of a pair of cities is the Euclidean distance between them rounded to the nearest
+ integer.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of cities.</dd>
 <dd><code>w</code> - The width (and height) of a square region containing the cities.</dd>
-<dd><code>seed</code> - The seed for the random number generator to enable reproducing the
- same instance for experiment reproducibility.</dd>
+<dd><code>seed</code> - The seed for the random number generator to enable reproducing the same instance
+     for experiment reproducibility.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n &lt; 2.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if w &#x2264; 0.0.</dd>
@@ -287,15 +280,14 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
  double&nbsp;w,
  <a href="TSPEdgeDistance.html" title="interface in org.cicirello.search.problems.tsp">TSPEdgeDistance</a>&nbsp;distance,
  long&nbsp;seed)</span></div>
-<div class="block">Constructs a random TSP instance with cities randomly distributed within
- a square region.</div>
+<div class="block">Constructs a random TSP instance with cities randomly distributed within a square region.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of cities.</dd>
 <dd><code>w</code> - The width (and height) of a square region containing the cities.</dd>
 <dd><code>distance</code> - The distance function to use for the edge costs.</dd>
-<dd><code>seed</code> - The seed for the random number generator to enable reproducing the
- same instance for experiment reproducibility.</dd>
+<dd><code>seed</code> - The seed for the random number generator to enable reproducing the same instance
+     for experiment reproducibility.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n &lt; 2.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if w &#x2264; 0.0.</dd>
@@ -307,9 +299,9 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <h3>IntegerMatrix</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">IntegerMatrix</span><wbr><span class="parameters">(double[]&nbsp;x,
  double[]&nbsp;y)</span></div>
-<div class="block">Constructs a TSP instance with city locations specified by arrays of
- x and y coordinates. The edge cost of a pair of cities is the Euclidean distance
- between them rounded to the nearest integer.</div>
+<div class="block">Constructs a TSP instance with city locations specified by arrays of x and y coordinates. The
+ edge cost of a pair of cities is the Euclidean distance between them rounded to the nearest
+ integer.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>x</code> - Array of x coordinates.</dd>
@@ -326,8 +318,7 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">IntegerMatrix</span><wbr><span class="parameters">(double[]&nbsp;x,
  double[]&nbsp;y,
  <a href="TSPEdgeDistance.html" title="interface in org.cicirello.search.problems.tsp">TSPEdgeDistance</a>&nbsp;distance)</span></div>
-<div class="block">Constructs a TSP instance with city locations specified by arrays of
- x and y coordinates.</div>
+<div class="block">Constructs a TSP instance with city locations specified by arrays of x and y coordinates.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>x</code> - Array of x coordinates.</dd>
@@ -352,15 +343,15 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <h3>cost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../IntegerCostOptimizationProblem.html#cost(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IntegerCostOptimizationProblem.html#cost(T)">cost</a></code>&nbsp;in interface&nbsp;<code><a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -369,8 +360,8 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../IntegerCostOptimizationProblem.html#value(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IntegerCostOptimizationProblem.html#value(T)">value</a></code>&nbsp;in interface&nbsp;<code><a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -386,9 +377,9 @@ implements <a href="../IntegerCostOptimizationProblem.html" title="interface in 
 <h3>minCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">minCost</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../IntegerCostOptimizationProblem.html#minCost()">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution. 
- The default implementation returns Integer.MIN_VALUE.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution. The default implementation returns
+ Integer.MIN_VALUE.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IntegerCostOptimizationProblem.html#minCost()">minCost</a></code>&nbsp;in interface&nbsp;<code><a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>

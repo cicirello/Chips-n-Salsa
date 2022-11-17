@@ -94,84 +94,76 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">WeightedStaticSchedulingWithSetups</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></span></div>
-<div class="block"><p>This class provides a representation of, and means of generating,
- instances of single machine scheduling problems involving weights,
- due dates, and sequence-dependent setup times, but without release
- dates (i.e., all jobs are released at the start of the problem at time 0,
- thus, the term "static" in the class name).</p>
+<div class="block">This class provides a representation of, and means of generating, instances of single machine
+ scheduling problems involving weights, due dates, and sequence-dependent setup times, but without
+ release dates (i.e., all jobs are released at the start of the problem at time 0, thus, the term
+ "static" in the class name).
 
- <p>This class generates instances using a procedure largely based upon
- that which was used to generate the benchmark instances for 
- weighted tardiness scheduling with sequence-dependent setups described
- in the following paper, and with instances 
- now available at the following Harvard Dataverse site:</p>
- <ul>
- <li>Vincent A. Cicirello. 
- <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted 
- Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
- Technical Report, Intelligent Coordination and Logistics Laboratory, Robotics 
- Institute, Carnegie Mellon University, Pittsburgh, PA, February 2003.</li>
- <li>Vincent A. Cicirello.
- <a href="http://dx.doi.org/10.7910/DVN/VHA0VQ">Weighted 
- Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
- Harvard Dataverse, doi:10.7910/DVN/VHA0VQ, June 2016.</li>
- </ul>
- <p>That approach was based on the description of generating instances 
- for that scheduling problem described in the following paper:</p>
- <ul>
- <li>Lee, Y. H., Bhaskaran, K., and Pinedo, M. A heuristic to minimize the 
- total weighted tardiness with sequence-dependent setups. IIE Transactions, 
- 29:45–52, 1997.</li>
- </ul>
- <p>The Chips-n-Salsa library separates the representation of the scheduling
- problem instance data (e.g., processing times, setup times, etc) from the
- implementations of scheduling cost functions deliberately to enable
- defining additional problems (i.e., different cost functions to optimize)
- using the same scheduling problem generators.  This is very much like
- what was suggested in the following paper:</p>
- <ul>
- <li>Vincent A. Cicirello. 
- <a href="https://www.cicirello.org/publications/cicirello2007icaps.html">The 
- Challenge of Sequence-Dependent Setups: Proposal for a Scheduling Competition 
- Track on One Machine Sequencing Problems</a>. Proceedings of the International 
- Conference on Automated Planning and Scheduling (ICAPS) Workshop on Scheduling 
- a Scheduling Competition. AAAI Press, September 2007.</li>
- </ul>
- <p>This is a reimplementation of the above problem instance generator,
- using a more efficient random number generator, and a better estimator of
- makespan (which is used in determining the random due dates).</p>
+ <p>This class generates instances using a procedure largely based upon that which was used to
+ generate the benchmark instances for weighted tardiness scheduling with sequence-dependent setups
+ described in the following paper, and with instances now available at the following Harvard
+ Dataverse site:
 
- <p>The constructors that generate random scheduling problem instances
- take four parameters: n, &tau;, r, and &eta;.  These parameters are defined
- as follows.  The number of jobs in the instance is n.  &tau; controls
- due date tightness, and r controls the due date range.  &eta; controls
- the severity of the setup times.  The values of &tau;, r, and &eta;
- are required to be in the interval [0.0, 1.0].</p>
+ <ul>
+   <li>Vincent A. Cicirello. <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted Tardiness
+       Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>. Technical Report,
+       Intelligent Coordination and Logistics Laboratory, Robotics Institute, Carnegie Mellon
+       University, Pittsburgh, PA, February 2003.
+   <li>Vincent A. Cicirello. <a href="http://dx.doi.org/10.7910/DVN/VHA0VQ">Weighted Tardiness
+       Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>. Harvard Dataverse,
+       doi:10.7910/DVN/VHA0VQ, June 2016.
+ </ul>
 
- <p>Instances are then generated randomly as follows.  The processing time
- p[j] of job j is generated uniformly at random from: [50, 150].  
- The mean processing time is thus: p&#772; = 100.
- The weight w[j] of job j is generated uniformly at random from: [0, 10].
- To generate the random setup times, first define the mean setup time
- as: s&#772; = &eta;p&#772;.  The setup time s[i][j] of job j if it
- immediately follows job i on the machine is generated uniformly at random
- from: [0, 2s&#772;].  To generate the random due dates, first define the
- mean due date d&#772; as d&#772; = (1 - &tau;)C<sub>max</sub>, where 
- C<sub>max</sub> is an estimate of makespan (see below).  With probability
- &tau;, we generate the due date d[j] of job j uniformly at random from the
- interval: [d&#772; - rd&#772;, d&#772;]; and with probability (1 - &tau;),
- we generate it uniformly at random from 
- [d&#772;, d&#772; + r(C<sub>max</sub> - d&#772;)].
- The makespan, C<sub>max</sub>, is estimated based on Lee et al's (see references above)
- estimate: C<sub>max</sub> = n(p&#772; + &beta;s&#772;), where &beta; &le; 1.0.
- Lee et al's rationale for including the &beta; factor is that the optimal
- schedule will tend to favor job transitions that involve lower than average
- setups.  Lee et al's paper provided data on how &beta; varies for a couple
- specific problem sizes n.  They don't derive a general rule, however, an examination
- of the limited data in their paper shows that &beta; appears to decrease logarithmically
- in n.  We fit a curve to the couple data points available in Lee et al's paper and
- estimate: &beta; = -0.097 ln(n) + 0.6876, but we don't 
- allow &beta; to fall below 0.2.</p></div>
+ <p>That approach was based on the description of generating instances for that scheduling problem
+ described in the following paper:
+
+ <ul>
+   <li>Lee, Y. H., Bhaskaran, K., and Pinedo, M. A heuristic to minimize the total weighted
+       tardiness with sequence-dependent setups. IIE Transactions, 29:45–52, 1997.
+ </ul>
+
+ <p>The Chips-n-Salsa library separates the representation of the scheduling problem instance data
+ (e.g., processing times, setup times, etc) from the implementations of scheduling cost functions
+ deliberately to enable defining additional problems (i.e., different cost functions to optimize)
+ using the same scheduling problem generators. This is very much like what was suggested in the
+ following paper:
+
+ <ul>
+   <li>Vincent A. Cicirello. <a href="https://www.cicirello.org/publications/cicirello2007icaps.html">The Challenge of
+       Sequence-Dependent Setups: Proposal for a Scheduling Competition Track on One Machine
+       Sequencing Problems</a>. Proceedings of the International Conference on Automated Planning
+       and Scheduling (ICAPS) Workshop on Scheduling a Scheduling Competition. AAAI Press,
+       September 2007.
+ </ul>
+
+ <p>This is a reimplementation of the above problem instance generator, using a more efficient
+ random number generator, and a better estimator of makespan (which is used in determining the
+ random due dates).
+
+ <p>The constructors that generate random scheduling problem instances take four parameters: n,
+ &tau;, r, and &eta;. These parameters are defined as follows. The number of jobs in the instance
+ is n. &tau; controls due date tightness, and r controls the due date range. &eta; controls the
+ severity of the setup times. The values of &tau;, r, and &eta; are required to be in the interval
+ [0.0, 1.0].
+
+ <p>Instances are then generated randomly as follows. The processing time p[j] of job j is
+ generated uniformly at random from: [50, 150]. The mean processing time is thus: p&#772; = 100.
+ The weight w[j] of job j is generated uniformly at random from: [0, 10]. To generate the random
+ setup times, first define the mean setup time as: s&#772; = &eta;p&#772;. The setup time s[i][j]
+ of job j if it immediately follows job i on the machine is generated uniformly at random from:
+ [0, 2s&#772;]. To generate the random due dates, first define the mean due date d&#772; as
+ d&#772; = (1 - &tau;)C<sub>max</sub>, where C<sub>max</sub> is an estimate of makespan (see
+ below). With probability &tau;, we generate the due date d[j] of job j uniformly at random from
+ the interval: [d&#772; - rd&#772;, d&#772;]; and with probability (1 - &tau;), we generate it
+ uniformly at random from [d&#772;, d&#772; + r(C<sub>max</sub> - d&#772;)]. The makespan,
+ C<sub>max</sub>, is estimated based on Lee et al's (see references above) estimate:
+ C<sub>max</sub> = n(p&#772; + &beta;s&#772;), where &beta; &le; 1.0. Lee et al's rationale for
+ including the &beta; factor is that the optimal schedule will tend to favor job transitions that
+ involve lower than average setups. Lee et al's paper provided data on how &beta; varies for a
+ couple specific problem sizes n. They don't derive a general rule, however, an examination of the
+ limited data in their paper shows that &beta; appears to decrease logarithmically in n. We fit a
+ curve to the couple data points available in Lee et al's paper and estimate: &beta; = -0.097
+ ln(n) + 0.6876, but we don't allow &beta; to fall below 0.2.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -237,9 +229,12 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String)" class="member-name-link">WeightedStaticSchedulingWithSetups</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a single machine scheduling problem instance by parsing
- an instance data file that follows the format specified in the following
- paper, with instances available at the following link:</div>
+<div class="block">Constructs a single machine scheduling problem instance by parsing an instance data file that
+ follows the format specified in the following paper, with instances available at the following
+ link:
+
+ 
+   Vincent A.</div>
 </div>
 </div>
 </section>
@@ -258,8 +253,8 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int[]</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCompletionTimes(org.cicirello.permutations.Permutation)" class="member-name-link">getCompletionTimes</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;schedule)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the completion times of all of the jobs if they were scheduled in
- the order defined by the specified Permutation.</div>
+<div class="block">Computes the completion times of all of the jobs if they were scheduled in the order defined by
+ the specified Permutation.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDueDate(int)" class="member-name-link">getDueDate</a><wbr>(int&nbsp;j)</code></div>
@@ -269,29 +264,26 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getProcessingTime(int)" class="member-name-link">getProcessingTime</a><wbr>(int&nbsp;j)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the processing time of a job, which is the amount of
- time required by the machine to process the job.</div>
+<div class="block">Gets the processing time of a job, which is the amount of time required by the machine to
+ process the job.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSetupTime(int)" class="member-name-link">getSetupTime</a><wbr>(int&nbsp;j)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the setup time of a job if it is the first job
- processed on the machine.</div>
+<div class="block">Gets the setup time of a job if it is the first job processed on the machine.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSetupTime(int,int)" class="member-name-link">getSetupTime</a><wbr>(int&nbsp;i,
  int&nbsp;j)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the setup time of a job if it was to immediately follow 
- a specified job on the machine, for problems that have sequence
- dependent setups.</div>
+<div class="block">Gets the setup time of a job if it was to immediately follow a specified job on the machine,
+ for problems that have sequence dependent setups.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getWeight(int)" class="member-name-link">getWeight</a><wbr>(int&nbsp;j)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's
- weight indicates its importance or priority (higher weight implies higher
- priority).</div>
+<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's weight indicates its
+ importance or priority (higher weight implies higher priority).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hasDueDates()" class="member-name-link">hasDueDates</a>()</code></div>
@@ -316,15 +308,13 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toFile(java.lang.String)" class="member-name-link">toFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Outputs a description of the instance data in the format
- based on that described in:</div>
+<div class="block">Outputs a description of the instance data in the format based on that described in:</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toFile(java.lang.String,int)" class="member-name-link">toFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename,
  int&nbsp;instanceNumber)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Outputs a description of the instance data in the format
- based on that described in:</div>
+<div class="block">Outputs a description of the instance data in the format based on that described in:</div>
 </div>
 </div>
 </div>
@@ -350,9 +340,8 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <section class="detail" id="MIN_PROCESS_TIME">
 <h3>MIN_PROCESS_TIME</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">MIN_PROCESS_TIME</span></div>
-<div class="block">Defines the minimum process times. Process times are generated 
- uniformly at random from the interval: 
- [MIN_PROCESS_TIME, MAX_PROCESS_TIME].</div>
+<div class="block">Defines the minimum process times. Process times are generated uniformly at random from the
+ interval: [MIN_PROCESS_TIME, MAX_PROCESS_TIME].</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -367,9 +356,8 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <section class="detail" id="MAX_PROCESS_TIME">
 <h3>MAX_PROCESS_TIME</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">MAX_PROCESS_TIME</span></div>
-<div class="block">Defines the maximum process times. Process times are generated 
- uniformly at random from the interval: 
- [MIN_PROCESS_TIME, MAX_PROCESS_TIME].</div>
+<div class="block">Defines the maximum process times. Process times are generated uniformly at random from the
+ interval: [MIN_PROCESS_TIME, MAX_PROCESS_TIME].</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -384,9 +372,8 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <section class="detail" id="AVERAGE_PROCESS_TIME">
 <h3>AVERAGE_PROCESS_TIME</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">AVERAGE_PROCESS_TIME</span></div>
-<div class="block">Defines the average process time. Process times are generated 
- uniformly at random from the interval: 
- [MIN_PROCESS_TIME, MAX_PROCESS_TIME].</div>
+<div class="block">Defines the average process time. Process times are generated uniformly at random from the
+ interval: [MIN_PROCESS_TIME, MAX_PROCESS_TIME].</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -401,14 +388,11 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <section class="detail" id="MIN_WEIGHT">
 <h3>MIN_WEIGHT</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">MIN_WEIGHT</span></div>
-<div class="block">Defines the minimum weight.  Weights are generated
- uniformly at random from the interval:
- [MIN_WEIGHT, MAX_WEIGHT].  This follows the instance
- generation described by Lee, et al, but has since been
- criticized since it implies some jobs are excluded from
- some cost functions (e.g., weighted tardiness), although
- those jobs can still be critical to the schedule due to
- how setup times are generated.</div>
+<div class="block">Defines the minimum weight. Weights are generated uniformly at random from the interval:
+ [MIN_WEIGHT, MAX_WEIGHT]. This follows the instance generation described by Lee, et al, but has
+ since been criticized since it implies some jobs are excluded from some cost functions (e.g.,
+ weighted tardiness), although those jobs can still be critical to the schedule due to how setup
+ times are generated.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -423,8 +407,7 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <section class="detail" id="MAX_WEIGHT">
 <h3>MAX_WEIGHT</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">MAX_WEIGHT</span></div>
-<div class="block">Defines the maximum weight.  Weights are generated
- uniformly at random from the interval:
+<div class="block">Defines the maximum weight. Weights are generated uniformly at random from the interval:
  [MIN_WEIGHT, MAX_WEIGHT].</div>
 <dl class="notes">
 <dt>See Also:</dt>
@@ -456,20 +439,20 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of jobs in the instance, must be positive.</dd>
-<dd><code>tau</code> - The due date tightness, in the interval [0.0, 1.0].  The higher the
- value of tau, the tighter are the due dates (e.g., if tau=1.0, then all due dates
- will be 0, i.e., at the start of the schedule).</dd>
-<dd><code>r</code> - The due date range, in the interval [0.0, 1.0].  The higher the value of
- r, the wider the range of due dates.  For example, if r=0, all due dates will be the same.</dd>
-<dd><code>eta</code> - The setup time severity, in the interval [0.0, 1.0].  The higher the value of eta,
- the greater the impact of setup times on scheduling difficulty.  For example, if eta=0, then
- all setup times are 0.</dd>
+<dd><code>tau</code> - The due date tightness, in the interval [0.0, 1.0]. The higher the value of tau, the
+     tighter are the due dates (e.g., if tau=1.0, then all due dates will be 0, i.e., at the
+     start of the schedule).</dd>
+<dd><code>r</code> - The due date range, in the interval [0.0, 1.0]. The higher the value of r, the wider
+     the range of due dates. For example, if r=0, all due dates will be the same.</dd>
+<dd><code>eta</code> - The setup time severity, in the interval [0.0, 1.0]. The higher the value of eta,
+     the greater the impact of setup times on scheduling difficulty. For example, if eta=0, then
+     all setup times are 0.</dd>
 <dd><code>seed</code> - A seed for the random number generator, to enable easily generating the same
- problem instance.  If all parameters, including the seed are the same, then the same instance
- will be generated.</dd>
+     problem instance. If all parameters, including the seed are the same, then the same
+     instance will be generated.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is not positive, or if any of tau, eta, or r are not in 
- the interval [0.0, 1.0].</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is not positive, or if any of tau, eta, or r are not in
+     the interval [0.0, 1.0].</dd>
 </dl>
 </section>
 </li>
@@ -484,17 +467,17 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of jobs in the instance, must be positive.</dd>
-<dd><code>tau</code> - The due date tightness, in the interval [0.0, 1.0].  The higher the
- value of tau, the tighter are the due dates (e.g., if tau=1.0, then all due dates
- will be 0, i.e., at the start of the schedule).</dd>
-<dd><code>r</code> - The due date range, in the interval [0.0, 1.0].  The higher the value of
- r, the wider the range of due dates.  For example, if r=0, all due dates will be the same.</dd>
-<dd><code>eta</code> - The setup time severity, in the interval [0.0, 1.0].  The higher the value of eta,
- the greater the impact of setup times on scheduling difficulty.  For example, if eta=0, then
- all setup times are 0.</dd>
+<dd><code>tau</code> - The due date tightness, in the interval [0.0, 1.0]. The higher the value of tau, the
+     tighter are the due dates (e.g., if tau=1.0, then all due dates will be 0, i.e., at the
+     start of the schedule).</dd>
+<dd><code>r</code> - The due date range, in the interval [0.0, 1.0]. The higher the value of r, the wider
+     the range of due dates. For example, if r=0, all due dates will be the same.</dd>
+<dd><code>eta</code> - The setup time severity, in the interval [0.0, 1.0]. The higher the value of eta,
+     the greater the impact of setup times on scheduling difficulty. For example, if eta=0, then
+     all setup times are 0.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is not positive, or if any of tau, eta, or r are not in 
- the interval [0.0, 1.0].</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is not positive, or if any of tau, eta, or r are not in
+     the interval [0.0, 1.0].</dd>
 </dl>
 </section>
 </li>
@@ -503,30 +486,29 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>WeightedStaticSchedulingWithSetups</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">WeightedStaticSchedulingWithSetups</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename)</span>
                                    throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></span></div>
-<div class="block"><p>Constructs a single machine scheduling problem instance by parsing
- an instance data file that follows the format specified in the following
- paper, with instances available at the following link:</p>
+<div class="block">Constructs a single machine scheduling problem instance by parsing an instance data file that
+ follows the format specified in the following paper, with instances available at the following
+ link:
+
  <ul>
- <li>Vincent A. Cicirello. 
- <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted 
- Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
- Technical Report, Intelligent Coordination and Logistics Laboratory, Robotics 
- Institute, Carnegie Mellon University, Pittsburgh, PA, February 2003.</li>
- <li>Vincent A. Cicirello.
- <a href="http://dx.doi.org/10.7910/DVN/VHA0VQ">Weighted 
- Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
- Harvard Dataverse, doi:10.7910/DVN/VHA0VQ, June 2016.</li>
+   <li>Vincent A. Cicirello. <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted Tardiness
+       Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>. Technical Report,
+       Intelligent Coordination and Logistics Laboratory, Robotics Institute, Carnegie Mellon
+       University, Pittsburgh, PA, February 2003.
+   <li>Vincent A. Cicirello. <a href="http://dx.doi.org/10.7910/DVN/VHA0VQ">Weighted Tardiness
+       Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>. Harvard Dataverse,
+       doi:10.7910/DVN/VHA0VQ, June 2016.
  </ul>
- <p>Note that the paper above describes a weighted tardiness scheduling
- problem, but the instance data (process and setup times, weights, duedates)
- can also be used with other scheduling objective functions</p></div>
+
+ <p>Note that the paper above describes a weighted tardiness scheduling problem, but the
+ instance data (process and setup times, weights, duedates) can also be used with other
+ scheduling objective functions</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>filename</code> - The name of the data instance file, with path.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - if the named file does not exist, is a 
- directory rather than a regular file, or for some other reason cannot 
- be opened for reading</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - if the named file does not exist, is a directory rather than a
+     regular file, or for some other reason cannot be opened for reading</dd>
 </dl>
 </section>
 </li>
@@ -543,22 +525,20 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>getCompletionTimes</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int[]</span>&nbsp;<span class="element-name">getCompletionTimes</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;schedule)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SingleMachineSchedulingProblemData.html#getCompletionTimes(org.cicirello.permutations.Permutation)">SingleMachineSchedulingProblemData</a></code></span></div>
-<div class="block">Computes the completion times of all of the jobs if they were scheduled in
- the order defined by the specified Permutation.  The completion times are
- computed according to the processing times of the jobs, as well as setup times
- and ready times if the problem has these.</div>
+<div class="block">Computes the completion times of all of the jobs if they were scheduled in the order defined by
+ the specified Permutation. The completion times are computed according to the processing times
+ of the jobs, as well as setup times and ready times if the problem has these.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SingleMachineSchedulingProblemData.html#getCompletionTimes(org.cicirello.permutations.Permutation)">getCompletionTimes</a></code>&nbsp;in interface&nbsp;<code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>schedule</code> - A schedule (i.e., sequence of jobs on the machine).</dd>
 <dt>Returns:</dt>
-<dd>An array of completion times.  Let C be the array of completion times.
- C.length must equal schedule.length().  Additionally, C[j] must be the completion
- time of job j (and not the completion time of the job 
- in position j of the Permutation).  That is, the indexes into C correspond to the
- parameter j of the <a href="SingleMachineSchedulingProblemData.html#getProcessingTime(int)"><code>SingleMachineSchedulingProblemData.getProcessingTime(int)</code></a> method, and other related methods
- of this interface.</dd>
+<dd>An array of completion times. Let C be the array of completion times. C.length must
+     equal schedule.length(). Additionally, C[j] must be the completion time of job j (and not
+     the completion time of the job in position j of the Permutation). That is, the indexes into
+     C correspond to the parameter j of the <a href="SingleMachineSchedulingProblemData.html#getProcessingTime(int)"><code>SingleMachineSchedulingProblemData.getProcessingTime(int)</code></a> method, and other related
+     methods of this interface.</dd>
 </dl>
 </section>
 </li>
@@ -581,8 +561,8 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>getProcessingTime</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getProcessingTime</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SingleMachineSchedulingProblemData.html#getProcessingTime(int)">SingleMachineSchedulingProblemData</a></code></span></div>
-<div class="block">Gets the processing time of a job, which is the amount of
- time required by the machine to process the job.</div>
+<div class="block">Gets the processing time of a job, which is the amount of time required by the machine to
+ process the job.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SingleMachineSchedulingProblemData.html#getProcessingTime(int)">getProcessingTime</a></code>&nbsp;in interface&nbsp;<code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></dd>
@@ -598,11 +578,9 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>getDueDate</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getDueDate</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SingleMachineSchedulingProblemData.html#getDueDate(int)">SingleMachineSchedulingProblemData</a></code></span></div>
-<div class="block">Gets the due date of a job, for scheduling problems that have due dates.
- The meaning of a due date, and its effect on the optimization cost function,
- may vary by problem.  See the documentation of the specific scheduling
- problem's cost function for details.
- .</div>
+<div class="block">Gets the due date of a job, for scheduling problems that have due dates. The meaning of a due
+ date, and its effect on the optimization cost function, may vary by problem. See the
+ documentation of the specific scheduling problem's cost function for details. .</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SingleMachineSchedulingProblemData.html#getDueDate(int)">getDueDate</a></code>&nbsp;in interface&nbsp;<code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></dd>
@@ -632,14 +610,13 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>getWeight</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getWeight</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SingleMachineSchedulingProblemData.html#getWeight(int)">SingleMachineSchedulingProblemData</a></code></span></div>
-<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's
- weight indicates its importance or priority (higher weight implies higher
- priority).  Many common scheduling problem cost functions use weights
- (e.g., weighted tardiness, weighted lateness, etc).
- The default implementation simply returns 1, which is appropriate for 
- problems without weights (i.e., the unweighted variation of most scheduling
- cost functions is equivalent to the weighted version if all weights are 1).  
- You can use the <a href="SingleMachineSchedulingProblemData.html#hasWeights()"><code>SingleMachineSchedulingProblemData.hasWeights()</code></a> method to check whether weights are present.</div>
+<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's weight indicates its
+ importance or priority (higher weight implies higher priority). Many common scheduling problem
+ cost functions use weights (e.g., weighted tardiness, weighted lateness, etc). The default
+ implementation simply returns 1, which is appropriate for problems without weights (i.e., the
+ unweighted variation of most scheduling cost functions is equivalent to the weighted version if
+ all weights are 1). You can use the <a href="SingleMachineSchedulingProblemData.html#hasWeights()"><code>SingleMachineSchedulingProblemData.hasWeights()</code></a> method to check whether weights are
+ present.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SingleMachineSchedulingProblemData.html#getWeight(int)">getWeight</a></code>&nbsp;in interface&nbsp;<code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></dd>
@@ -670,23 +647,20 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getSetupTime</span><wbr><span class="parameters">(int&nbsp;i,
  int&nbsp;j)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SingleMachineSchedulingProblemData.html#getSetupTime(int,int)">SingleMachineSchedulingProblemData</a></code></span></div>
-<div class="block">Gets the setup time of a job if it was to immediately follow 
- a specified job on the machine, for problems that have sequence
- dependent setups.  The default simply returns 0, which is
- consistent with problems that don't have setup times (in those cases it
- is usually assumed rolled into the process time).
- You can use the <a href="SingleMachineSchedulingProblemData.html#hasSetupTimes()"><code>SingleMachineSchedulingProblemData.hasSetupTimes()</code></a> method to check 
- whether setup times are present.</div>
+<div class="block">Gets the setup time of a job if it was to immediately follow a specified job on the machine,
+ for problems that have sequence dependent setups. The default simply returns 0, which is
+ consistent with problems that don't have setup times (in those cases it is usually assumed
+ rolled into the process time). You can use the <a href="SingleMachineSchedulingProblemData.html#hasSetupTimes()"><code>SingleMachineSchedulingProblemData.hasSetupTimes()</code></a> method to check whether
+ setup times are present.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SingleMachineSchedulingProblemData.html#getSetupTime(int,int)">getSetupTime</a></code>&nbsp;in interface&nbsp;<code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>i</code> - The index of the previous job in the schedule,
- which must be in the interval: [0, numberOfJobs()).  Pass
- i = j for the setup time of job j if it is
- the first job in the schedule.</dd>
-<dd><code>j</code> - The index of the job whose setup time you want, 
- which must be in the interval: [0, numberOfJobs()).</dd>
+<dd><code>i</code> - The index of the previous job in the schedule, which must be in the interval: [0,
+     numberOfJobs()). Pass i = j for the setup time of job j if it is the first job in the
+     schedule.</dd>
+<dd><code>j</code> - The index of the job whose setup time you want, which must be in the interval: [0,
+     numberOfJobs()).</dd>
 <dt>Returns:</dt>
 <dd>the setup time of job j if it immediately follows job i.</dd>
 </dl>
@@ -697,19 +671,16 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>getSetupTime</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getSetupTime</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SingleMachineSchedulingProblemData.html#getSetupTime(int)">SingleMachineSchedulingProblemData</a></code></span></div>
-<div class="block">Gets the setup time of a job if it is the first job
- processed on the machine.  
- The default simply returns 0, which is
- consistent with problems that don't have setup times (in those cases it
- is usually assumed rolled into the process time).
- You can use the <a href="SingleMachineSchedulingProblemData.html#hasSetupTimes()"><code>SingleMachineSchedulingProblemData.hasSetupTimes()</code></a> method to check 
- whether setup times are present.</div>
+<div class="block">Gets the setup time of a job if it is the first job processed on the machine. The default
+ simply returns 0, which is consistent with problems that don't have setup times (in those cases
+ it is usually assumed rolled into the process time). You can use the <a href="SingleMachineSchedulingProblemData.html#hasSetupTimes()"><code>SingleMachineSchedulingProblemData.hasSetupTimes()</code></a>
+ method to check whether setup times are present.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SingleMachineSchedulingProblemData.html#getSetupTime(int)">getSetupTime</a></code>&nbsp;in interface&nbsp;<code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>j</code> - The index of the job whose setup time you want, 
- which must be in the interval: [0, numberOfJobs()).</dd>
+<dd><code>j</code> - The index of the job whose setup time you want, which must be in the interval: [0,
+     numberOfJobs()).</dd>
 <dt>Returns:</dt>
 <dd>the setup time of job j if it is the first job processed by the machine</dd>
 </dl>
@@ -734,28 +705,28 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>toFile</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">toFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename)</span>
             throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></span></div>
-<div class="block"><p>Outputs a description of the instance data in the format
- based on that described in:</p>
- <p>Vincent A. Cicirello. 
- <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted 
- Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
- Technical Report, Intelligent Coordination and Logistics Laboratory, Robotics 
- Institute, Carnegie Mellon University, Pittsburgh, PA, February 2003.</p>
- <p>The data as output by this method varies from that format in that it
- does not output the "Generator Parameters" section.  Instead, it has the
- "Begin Generator Parameters" and the "End Generator Parameters" block markers,
- but an empty block.  The constructor of this class that takes an instance data
- file as input can correctly parse both the original and this modified format.</p>
- <p>This method will output a -1 for the problem instance number. If you wish
- to have meaningful problem instance numbers, use the version of the method that
- includes a parameter for this.</p></div>
+<div class="block">Outputs a description of the instance data in the format based on that described in:
+
+ <p>Vincent A. Cicirello. <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted Tardiness
+ Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>. Technical Report,
+ Intelligent Coordination and Logistics Laboratory, Robotics Institute, Carnegie Mellon
+ University, Pittsburgh, PA, February 2003.
+
+ <p>The data as output by this method varies from that format in that it does not output the
+ "Generator Parameters" section. Instead, it has the "Begin Generator Parameters" and the "End
+ Generator Parameters" block markers, but an empty block. The constructor of this class that
+ takes an instance data file as input can correctly parse both the original and this modified
+ format.
+
+ <p>This method will output a -1 for the problem instance number. If you wish to have meaningful
+ problem instance numbers, use the version of the method that includes a parameter for this.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>filename</code> - The name of a file for the output.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - If the given string does not denote 
- an existing, writable regular file and a new regular file of that name 
- cannot be created, or if some other error occurs while opening or creating the file</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - If the given string does not denote an existing, writable regular
+     file and a new regular file of that name cannot be created, or if some other error occurs
+     while opening or creating the file</dd>
 </dl>
 </section>
 </li>
@@ -765,26 +736,26 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">toFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename,
  int&nbsp;instanceNumber)</span>
             throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></span></div>
-<div class="block"><p>Outputs a description of the instance data in the format
- based on that described in:</p>
- <p>Vincent A. Cicirello. 
- <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted 
- Tardiness Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>.
- Technical Report, Intelligent Coordination and Logistics Laboratory, Robotics 
- Institute, Carnegie Mellon University, Pittsburgh, PA, February 2003.</p>
- <p>The data as output by this method varies from that format in that it
- does not output the "Generator Parameters" section.  Instead, it has the
- "Begin Generator Parameters" and the "End Generator Parameters" block markers,
- but an empty block.  The constructor of this class that takes an instance data
- file as input can correctly parse both the original and this modified format.</p></div>
+<div class="block">Outputs a description of the instance data in the format based on that described in:
+
+ <p>Vincent A. Cicirello. <a href="https://www.cicirello.org/publications/cicirello2003cmu.html">Weighted Tardiness
+ Scheduling with Sequence-Dependent Setups: A Benchmark Library</a>. Technical Report,
+ Intelligent Coordination and Logistics Laboratory, Robotics Institute, Carnegie Mellon
+ University, Pittsburgh, PA, February 2003.
+
+ <p>The data as output by this method varies from that format in that it does not output the
+ "Generator Parameters" section. Instead, it has the "Begin Generator Parameters" and the "End
+ Generator Parameters" block markers, but an empty block. The constructor of this class that
+ takes an instance data file as input can correctly parse both the original and this modified
+ format.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>filename</code> - The name of a file for the output.</dd>
 <dd><code>instanceNumber</code> - An id for the problem instance.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - If the given string does not denote 
- an existing, writable regular file and a new regular file of that name 
- cannot be created, or if some other error occurs while opening or creating the file</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - If the given string does not denote an existing, writable regular
+     file and a new regular file of that name cannot be created, or if some other error occurs
+     while opening or creating the file</dd>
 </dl>
 </section>
 </li>

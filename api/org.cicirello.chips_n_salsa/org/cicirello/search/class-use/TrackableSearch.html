@@ -66,40 +66,38 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search">org.cicirello.search</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces related to implementing
- metaheuristic search algorithms in general, rather than specific to a particular
- metaheuristic.</div>
+<div class="block">This package includes classes and interfaces related to implementing metaheuristic search
+ algorithms in general, rather than specific to a particular metaheuristic.</div>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.concurrent">org.cicirello.search.concurrent</a></div>
 <div class="col-last odd-row-color">
-<div class="block">This package includes multithreaded search implementations, as well as
- classes and interfaces related to implementing multithreaded metaheuristics.</div>
+<div class="block">This package includes multithreaded search implementations, as well as classes and interfaces
+ related to implementing multithreaded metaheuristics.</div>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.evo">org.cicirello.search.evo</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces directly related to implementing
- evolutionary algorithms.</div>
+<div class="block">This package includes classes and interfaces directly related to implementing evolutionary
+ algorithms.</div>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.hc">org.cicirello.search.hc</a></div>
 <div class="col-last odd-row-color">
-<div class="block">This package includes classes and interfaces directly related to implementing
- hill climbers.</div>
+<div class="block">This package includes classes and interfaces directly related to implementing hill climbers.</div>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.restarts">org.cicirello.search.restarts</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces related to implementing multistart
- metaheuristics (i.e., metaheuristics that periodically restart, and return the best
- solution across a number of such restarts).</div>
+<div class="block">This package includes classes and interfaces related to implementing multistart metaheuristics
+ (i.e., metaheuristics that periodically restart, and return the best solution across a number of
+ such restarts).</div>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></div>
 <div class="col-last odd-row-color">
-<div class="block">This package includes classes and interfaces directly related to implementing
- simulated annealing.</div>
+<div class="block">This package includes classes and interfaces directly related to implementing simulated
+ annealing.</div>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.ss">org.cicirello.search.ss</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces directly related to implementing
- stochastic sampling algorithms.</div>
+<div class="block">This package includes classes and interfaces directly related to implementing stochastic sampling
+ algorithms.</div>
 </div>
 </div>
 <section class="class-uses">
@@ -115,40 +113,35 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../Metaheuristic.html" class="type-name-link" title="interface in org.cicirello.search">Metaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This interface defines the required methods for implementations
- of metaheuristics, in particular metaheuristics for which the maximum run length
- can be specified.</div>
+<div class="block">This interface defines the required methods for implementations of metaheuristics, in particular
+ metaheuristics for which the maximum run length can be specified.</div>
 </div>
 <div class="col-first odd-row-color"><code>interface&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../ReoptimizableMetaheuristic.html" class="type-name-link" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">This interface defines the required methods for implementations
- of metaheuristics, for which the maximum run length
- can be specified, and which have the capability of restarting
- from a previously optimized solution.</div>
+<div class="block">This interface defines the required methods for implementations of metaheuristics, for which the
+ maximum run length can be specified, and which have the capability of restarting from a
+ previously optimized solution.</div>
 </div>
 <div class="col-first even-row-color"><code>interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../SimpleLocalMetaheuristic.html" class="type-name-link" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This interface defines the required methods for implementations
- of simple metaheuristics that locally optimize from some initial solution 
- (random or otherwise) whose run length is self-determined, such as 
- hill climbers that terminate upon reaching a local optima.</div>
+<div class="block">This interface defines the required methods for implementations of simple metaheuristics that
+ locally optimize from some initial solution (random or otherwise) whose run length is
+ self-determined, such as hill climbers that terminate upon reaching a local optima.</div>
 </div>
 <div class="col-first odd-row-color"><code>interface&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../SimpleMetaheuristic.html" class="type-name-link" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">This interface defines the required methods for implementations
- of simple metaheuristics whose run length is self-determined, such as 
- hill climbers that terminate upon reaching a local optima.</div>
+<div class="block">This interface defines the required methods for implementations of simple metaheuristics whose
+ run length is self-determined, such as hill climbers that terminate upon reaching a local optima.</div>
 </div>
 <div class="col-first even-row-color"><code>interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../SingleSolutionMetaheuristic.html" class="type-name-link" title="interface in org.cicirello.search">SingleSolutionMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This interface defines the required methods for implementations
- of single-solution metaheuristics, i.e., metaheuristics such as simulated annealing
- that operate one a single candidate solution (as compared to population-based metaheuristics
- such as genetic algorithms.</div>
+<div class="block">This interface defines the required methods for implementations of single-solution
+ metaheuristics, i.e., metaheuristics such as simulated annealing that operate one a single
+ candidate solution (as compared to population-based metaheuristics such as genetic algorithms.</div>
 </div>
 </div>
 </section>
@@ -164,8 +157,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../concurrent/ParallelMetaheuristic.html" class="type-name-link" title="class in org.cicirello.search.concurrent">ParallelMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This class enables running multiple copies of a metaheuristic, or multiple metaheuristics, 
- in parallel with multiple threads.</div>
+<div class="block">This class enables running multiple copies of a metaheuristic, or multiple metaheuristics, in
+ parallel with multiple threads.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../concurrent/ParallelMultistarter.html" class="type-name-link" title="class in org.cicirello.search.concurrent">ParallelMultistarter</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
@@ -175,8 +168,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../concurrent/ParallelReoptimizableMetaheuristic.html" class="type-name-link" title="class in org.cicirello.search.concurrent">ParallelReoptimizableMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This class enables running multiple copies of a metaheuristic, or multiple metaheuristics, 
- in parallel with multiple threads.</div>
+<div class="block">This class enables running multiple copies of a metaheuristic, or multiple metaheuristics, in
+ parallel with multiple threads.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../concurrent/ParallelReoptimizableMultistarter.html" class="type-name-link" title="class in org.cicirello.search.concurrent">ParallelReoptimizableMultistarter</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
@@ -205,62 +198,65 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Class</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../evo/GenerationalEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="../evo/AdaptiveEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">AdaptiveEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This class implements an evolutionary algorithm with a generational
- model, such as is commonly used in genetic algorithms, where a
- population of children are formed by applying genetic operators to
- members of the parent population, and where the children replace the 
- parents in the next generation.</div>
+<div class="block">This class implements an evolutionary algorithm with adaptive control parameters (i.e., crossover
+ rates and mutation rates that evolve during the search).</div>
 </div>
 <div class="col-first odd-row-color"><code>class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../evo/GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-second odd-row-color"><code><a href="../evo/GenerationalEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class implements an evolutionary algorithm (EA) with a generational
- model, where a population of children are formed by applying genetic operators to
- members of the parent population, and where the children replace the 
- parents in the next generation.</div>
+<div class="block">This class implements an evolutionary algorithm with a generational model, such as is commonly
+ used in genetic algorithms, where a population of children are formed by applying genetic
+ operators to members of the parent population, and where the children replace the parents in the
+ next generation.</div>
 </div>
 <div class="col-first even-row-color"><code>class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../evo/GenerationalMutationOnlyEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalMutationOnlyEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="../evo/GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This class implements an evolutionary algorithm (EA) with a generational
- model, such as is commonly used in genetic algorithms, where a
- population of children are formed by applying mutation to
- members of the parent population, and where the children replace the 
- parents in the next generation.</div>
+<div class="block">This class implements an evolutionary algorithm (EA) with a generational model, where a
+ population of children are formed by applying genetic operators to members of the parent
+ population, and where the children replace the parents in the next generation.</div>
 </div>
 <div class="col-first odd-row-color"><code>class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../evo/GeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></code></div>
+<div class="col-second odd-row-color"><code><a href="../evo/GenerationalMutationOnlyEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GenerationalMutationOnlyEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class is an implementation of a genetic algorithm (GA) with the common
- bit vector representation of solutions to optimization problems, and the
- generational model where children replace their parents each generation.</div>
+<div class="block">This class implements an evolutionary algorithm (EA) with a generational model, such as is
+ commonly used in genetic algorithms, where a population of children are formed by applying
+ mutation to members of the parent population, and where the children replace the parents in the
+ next generation.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../evo/MutationOnlyGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></code></div>
+<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../evo/GeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">This class is an implementation of a mutation-only genetic algorithm (GA) with the common
- bit vector representation of solutions to optimization problems, and the
- generational model where children replace their parents each generation.</div>
-</div>
-<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../evo/OnePlusOneEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">OnePlusOneEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
-<div class="col-last odd-row-color">
-<div class="block">This class implements a (1+1)-EA.</div>
-</div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../evo/OnePlusOneGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">OnePlusOneGeneticAlgorithm</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">This class implements a (1+1)-GA, a special case of a (1+1)-EA, where solutions
- are represented with a vector of bits.</div>
+<div class="block">This class is an implementation of a genetic algorithm (GA) with the common bit vector
+ representation of solutions to optimization problems, and the generational model where children
+ replace their parents each generation.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../evo/SimpleGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></code></div>
+<div class="col-second odd-row-color"><code><a href="../evo/MutationOnlyGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class is an implementation of the simple genetic algorithm (Simple GA) with the common
- bit vector representation of solutions to optimization problems, and the
- generational model where children replace their parents each generation.</div>
+<div class="block">This class is an implementation of a mutation-only genetic algorithm (GA) with the common bit
+ vector representation of solutions to optimization problems, and the generational model where
+ children replace their parents each generation.</div>
+</div>
+<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../evo/OnePlusOneEvolutionaryAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">OnePlusOneEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-last even-row-color">
+<div class="block">This class implements a (1+1)-EA.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../evo/OnePlusOneGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">OnePlusOneGeneticAlgorithm</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This class implements a (1+1)-GA, a special case of a (1+1)-EA, where solutions are represented
+ with a vector of bits.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../evo/SimpleGeneticAlgorithm.html" class="type-name-link" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This class is an implementation of the simple genetic algorithm (Simple GA) with the common bit
+ vector representation of solutions to optimization problems, and the generational model where
+ children replace their parents each generation.</div>
 </div>
 </div>
 </section>
@@ -335,26 +331,25 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../ss/AcceptanceBandSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">AcceptanceBandSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">The AcceptanceBandSampling class implements a form of stochastic sampling 
- search that uses a constructive heuristic to guide the random decisions.</div>
+<div class="block">The AcceptanceBandSampling class implements a form of stochastic sampling search that uses a
+ constructive heuristic to guide the random decisions.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../ss/HeuristicBiasedStochasticSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">HeuristicBiasedStochasticSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Heuristic Biased Stochastic Sampling (HBSS) is a form of stochastic sampling 
- search that uses a constructive heuristic to bias the random decisions.</div>
+<div class="block">Heuristic Biased Stochastic Sampling (HBSS) is a form of stochastic sampling search that uses a
+ constructive heuristic to bias the random decisions.</div>
 </div>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../ss/HeuristicPermutationGenerator.html" class="type-name-link" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">This class generates solutions to permutation optimization
- problems using a constructive heuristic.</div>
+<div class="block">This class generates solutions to permutation optimization problems using a constructive
+ heuristic.</div>
 </div>
 <div class="col-first odd-row-color"><code>class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../ss/HeuristicSolutionGenerator.html" class="type-name-link" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class generates solutions to optimization
- problems using a constructive heuristic.</div>
+<div class="block">This class generates solutions to optimization problems using a constructive heuristic.</div>
 </div>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../ss/IterativeSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">IterativeSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
@@ -364,8 +359,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../ss/ValueBiasedStochasticSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Value Biased Stochastic Sampling (VBSS) is a form of stochastic sampling 
- search that uses a constructive heuristic to bias the random decisions.</div>
+<div class="block">Value Biased Stochastic Sampling (VBSS) is a form of stochastic sampling search that uses a
+ constructive heuristic to bias the random decisions.</div>
 </div>
 </div>
 </section>

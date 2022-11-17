@@ -94,34 +94,35 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">UniformPartiallyMatchedCrossover</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
-<div class="block"><p>Implementation of uniform partially matched crossover (UPMX). UPMX 
- is a variation of partially matched crossover (PMX), but whereas PMX selects a contiguous cross region
- similar to a two-point bit-string crossover, UPMX selects a set of non-contiguous cross points similar to
- uniform crossover for bit-strings. UPMX begins by selecting a set of random cross points, using a parameter U,
- which is the probability that an index is a cross point. Thus, for permutation length N, the expected number of
- cross points is U*N. UPMX then initializes the children as copies of the parents, and proceeds to make a sequence 
- of swaps within child c1 as to cause c1 at the end of those swaps to contain the elements from the cross points of 
- p2 at those indexes. And similarly for the other child. Essentially, the cross points define a set of swaps that
- are made internally within each child.</p>
+<div class="block">Implementation of uniform partially matched crossover (UPMX). UPMX is a variation of partially
+ matched crossover (PMX), but whereas PMX selects a contiguous cross region similar to a two-point
+ bit-string crossover, UPMX selects a set of non-contiguous cross points similar to uniform
+ crossover for bit-strings. UPMX begins by selecting a set of random cross points, using a
+ parameter U, which is the probability that an index is a cross point. Thus, for permutation
+ length N, the expected number of cross points is U*N. UPMX then initializes the children as
+ copies of the parents, and proceeds to make a sequence of swaps within child c1 as to cause c1 at
+ the end of those swaps to contain the elements from the cross points of p2 at those indexes. And
+ similarly for the other child. Essentially, the cross points define a set of swaps that are made
+ internally within each child.
 
- <p>Consider as an example parent permutation p1 = [7, 6, 5, 4, 3, 2, 1, 0] and parent
- permutation p2 = [1, 2, 0, 5, 6, 4, 7, 3]. Now consider that the random cross sites are indexes 3, 1, and 6.
- Child c1 is initialized as a copy of p1, i.e., c1 = [7, 6, 5, 4, 3, 2, 1, 0]. At index 3 in p1 is element 4,
- and at index 3 in p2 is element 5, so UPMX swaps the 4 and the 5 within c1 to get c1 = [7, 6, 4, 5, 3, 2, 1, 0]. 
- At index 1, we find elements 6 and 2 in p1 and p2, respectively, so UMPX swaps the 6 and the 2 within c1 to get
- c1 = [7, 2, 4, 5, 3, 6, 1, 0]. Finally, at index 6, we find 1 and 7 in p1 and p2, respectively. Thus, UPMX swaps
- the 1 and 7 within c1 to get the final child c1 = [1, 2, 4, 5, 3, 6, 7, 0]. In a similar way, we can derive
- child c2, such that c2 = [7, 6, 0, 4, 2, 5, 1, 3].</p>
+ <p>Consider as an example parent permutation p1 = [7, 6, 5, 4, 3, 2, 1, 0] and parent permutation
+ p2 = [1, 2, 0, 5, 6, 4, 7, 3]. Now consider that the random cross sites are indexes 3, 1, and 6.
+ Child c1 is initialized as a copy of p1, i.e., c1 = [7, 6, 5, 4, 3, 2, 1, 0]. At index 3 in p1 is
+ element 4, and at index 3 in p2 is element 5, so UPMX swaps the 4 and the 5 within c1 to get c1 =
+ [7, 6, 4, 5, 3, 2, 1, 0]. At index 1, we find elements 6 and 2 in p1 and p2, respectively, so
+ UMPX swaps the 6 and the 2 within c1 to get c1 = [7, 2, 4, 5, 3, 6, 1, 0]. Finally, at index 6,
+ we find 1 and 7 in p1 and p2, respectively. Thus, UPMX swaps the 1 and 7 within c1 to get the
+ final child c1 = [1, 2, 4, 5, 3, 6, 7, 0]. In a similar way, we can derive child c2, such that c2
+ = [7, 6, 0, 4, 2, 5, 1, 3].
 
- <p>UPMX was introduced in the following paper:</p>
+ <p>UPMX was introduced in the following paper:
 
- <p>Vincent A. Cicirello and Stephen F. Smith. <a href="https://www.cicirello.org/publications/cicirello2000gecco.html">Modeling 
- GA Performance for Control Parameter Optimization</a>. <i>Proceedings of the Genetic and Evolutionary Computation 
- Conference (GECCO-2000)</i>, pages 235-242. Morgan Kaufmann Publishers, July 2000.
- <a href="http://dl.acm.org/citation.cfm?id=2933750">[From ACM Digital Library]</a></p>
+ <p>Vincent A. Cicirello and Stephen F. Smith. <a href="https://www.cicirello.org/publications/cicirello2000gecco.html">Modeling GA Performance for
+ Control Parameter Optimization</a>. <i>Proceedings of the Genetic and Evolutionary Computation
+ Conference (GECCO-2000)</i>, pages 235-242. Morgan Kaufmann Publishers, July 2000. <a href="http://dl.acm.org/citation.cfm?id=2933750">[From ACM Digital Library]</a>
 
  <p>The worst case runtime of a call to <a href="#cross(org.cicirello.permutations.Permutation,org.cicirello.permutations.Permutation)"><code>cross</code></a> is O(N), where N is the length of the
- permutations.</p></div>
+ permutations.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -135,8 +136,7 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">UniformPartiallyMatchedCrossover</a>()</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a uniform partially matched crossover (UPMX) operator, with a 
- default u = 1.0 / 3.0.</div>
+<div class="block">Constructs a uniform partially matched crossover (UPMX) operator, with a default u = 1.0 / 3.0.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(double)" class="member-name-link">UniformPartiallyMatchedCrossover</a><wbr>(double&nbsp;u)</code></div>
 <div class="col-last odd-row-color">
@@ -160,14 +160,14 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#cross(org.cicirello.permutations.Permutation,org.cicirello.permutations.Permutation)" class="member-name-link">cross</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c1,
  <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c2)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
- forms two children from two parents.</div>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover forms two children from
+ two parents.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="UniformPartiallyMatchedCrossover.html" title="class in org.cicirello.search.operators.permutations">UniformPartiallyMatchedCrossover</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -190,9 +190,9 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <section class="detail" id="&lt;init&gt;()">
 <h3>UniformPartiallyMatchedCrossover</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">UniformPartiallyMatchedCrossover</span>()</div>
-<div class="block">Constructs a uniform partially matched crossover (UPMX) operator, with a 
- default u = 1.0 / 3.0. The rationale for this default u is that it leads UPMX to the
- same expected number of swaps as PMX, only scattered throughout the permutation.</div>
+<div class="block">Constructs a uniform partially matched crossover (UPMX) operator, with a default u = 1.0 / 3.0.
+ The rationale for this default u is that it leads UPMX to the same expected number of swaps as
+ PMX, only scattered throughout the permutation.</div>
 </section>
 </li>
 <li>
@@ -204,8 +204,8 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <dt>Parameters:</dt>
 <dd><code>u</code> - The probability of an index being among the cross points.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if u is less than or equal to 0.0, or if u is greater than
- or equal to 1.0.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if u is less than or equal to 0.0, or if u is greater than or
+     equal to 1.0.</dd>
 </dl>
 </section>
 </li>
@@ -223,17 +223,15 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">cross</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c1,
  <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c2)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../CrossoverOperator.html#cross(T,T)">CrossoverOperator</a></code></span></div>
-<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
- forms two children from two parents. Implementations of this method 
- modify the parameters, transforming the parents into the children.</div>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover forms two children from
+ two parents. Implementations of this method modify the parameters, transforming the parents
+ into the children.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../CrossoverOperator.html#cross(T,T)">cross</a></code>&nbsp;in interface&nbsp;<code><a href="../CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>c1</code> - A candidate solution subject to the crossover. This method
- changes the state of c1.</dd>
-<dd><code>c2</code> - A candidate solution subject to the crossover. This method
- changes the state of c2.</dd>
+<dd><code>c1</code> - A candidate solution subject to the crossover. This method changes the state of c1.</dd>
+<dd><code>c2</code> - A candidate solution subject to the crossover. This method changes the state of c2.</dd>
 </dl>
 </section>
 </li>
@@ -242,27 +240,24 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="UniformPartiallyMatchedCrossover.html" title="class in org.cicirello.search.operators.permutations">UniformPartiallyMatchedCrossover</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

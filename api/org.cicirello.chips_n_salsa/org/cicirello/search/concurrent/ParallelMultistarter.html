@@ -99,31 +99,26 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">ParallelMultistarter&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span>
 <span class="extends-implements">extends <a href="ParallelMetaheuristic.html" title="class in org.cicirello.search.concurrent">ParallelMetaheuristic</a>&lt;T&gt;</span></div>
-<div class="block"><p>This class is used for implementing parallel multistart metaheuristics.  It can be used to
- restart any class that implements the <a href="../Metaheuristic.html" title="interface in org.cicirello.search"><code>Metaheuristic</code></a> interface.  
- A multistart metaheuristic returns the best result from among all of the restarts.
- In the case of a parallel multistart metaheuristic, the search returns the best result from among
- all restarts across all threads.</p>
+<div class="block">This class is used for implementing parallel multistart metaheuristics. It can be used to restart
+ any class that implements the <a href="../Metaheuristic.html" title="interface in org.cicirello.search"><code>Metaheuristic</code></a> interface. A multistart metaheuristic returns
+ the best result from among all of the restarts. In the case of a parallel multistart
+ metaheuristic, the search returns the best result from among all restarts across all threads.
 
- <p>There are several 
- constructors enabling different ways to configure the search.  You can initialize the search
- with a combination of a <a href="../Metaheuristic.html" title="interface in org.cicirello.search"><code>Metaheuristic</code></a> and number of threads 
- along with either a <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts"><code>RestartSchedule</code></a> 
- for the purpose of specifying run lengths for the restarts, or a run length if all runs 
- are to be of the same length.
- You can also initialize the search with a Collection of <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts"><code>RestartSchedule</code></a> objects, one
- for each thread (with number of threads implied by size of Collection.
- Or you can initialize the search with a Collection of <a href="../Metaheuristic.html" title="interface in org.cicirello.search"><code>Metaheuristic</code></a> objects and a 
- Collection of <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts"><code>RestartSchedule</code></a> objects (both Collections of the same size).
- You can also initialize the search with a <a href="../restarts/Multistarter.html" title="class in org.cicirello.search.restarts"><code>Multistarter</code></a> configured with your restart schedule,
- along with the number of threads, or a Collection of <a href="../restarts/Multistarter.html" title="class in org.cicirello.search.restarts"><code>Multistarter</code></a> objects.</p>
- 
- <p>When calling the <a href="ParallelMetaheuristic.html#optimize(int)"><code>optimize</code></a> method, the runLength parameter corresponds
- to the number of restarts for each of the Multistarter instances, where those restarts
- will have run lengths determined by the restart schedule specified upon construction.
- If the <a href="ParallelMetaheuristic.html#optimize(int)"><code>optimize</code></a> method is called multiple times, the restart 
- schedules of the parallel metaheuristics are not reinitialized,
- and the run lengths for the additional restarts will continue where the schedules left off.</p></div>
+ <p>There are several constructors enabling different ways to configure the search. You can
+ initialize the search with a combination of a <a href="../Metaheuristic.html" title="interface in org.cicirello.search"><code>Metaheuristic</code></a> and number of threads along
+ with either a <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts"><code>RestartSchedule</code></a> for the purpose of specifying run lengths for the restarts,
+ or a run length if all runs are to be of the same length. You can also initialize the search with
+ a Collection of <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts"><code>RestartSchedule</code></a> objects, one for each thread (with number of threads
+ implied by size of Collection. Or you can initialize the search with a Collection of <a href="../Metaheuristic.html" title="interface in org.cicirello.search"><code>Metaheuristic</code></a> objects and a Collection of <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts"><code>RestartSchedule</code></a> objects (both Collections of
+ the same size). You can also initialize the search with a <a href="../restarts/Multistarter.html" title="class in org.cicirello.search.restarts"><code>Multistarter</code></a> configured with
+ your restart schedule, along with the number of threads, or a Collection of <a href="../restarts/Multistarter.html" title="class in org.cicirello.search.restarts"><code>Multistarter</code></a>
+ objects.
+
+ <p>When calling the <a href="ParallelMetaheuristic.html#optimize(int)"><code>optimize</code></a> method, the runLength parameter corresponds to the
+ number of restarts for each of the Multistarter instances, where those restarts will have run
+ lengths determined by the restart schedule specified upon construction. If the <a href="ParallelMetaheuristic.html#optimize(int)"><code>optimize</code></a> method is called multiple times, the restart schedules of the parallel metaheuristics
+ are not reinitialized, and the run lengths for the additional restarts will continue where the
+ schedules left off.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -149,34 +144,34 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.util.Collection)" class="member-name-link">ParallelMultistarter</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="../restarts/Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;&nbsp;multistarters)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a set of specified metaheuristics in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a set of
+ specified metaheuristics in parallel across multiple threads.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.Metaheuristic,int,int)" class="member-name-link">ParallelMultistarter</a><wbr>(<a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;search,
  int&nbsp;runLength,
  int&nbsp;numThreads)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.Metaheuristic,java.util.Collection)" class="member-name-link">ParallelMultistarter</a><wbr>(<a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;search,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;&nbsp;schedules)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.Metaheuristic,org.cicirello.search.restarts.RestartSchedule,int)" class="member-name-link">ParallelMultistarter</a><wbr>(<a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;search,
  <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&nbsp;r,
  int&nbsp;numThreads)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.restarts.Multistarter,int)" class="member-name-link">ParallelMultistarter</a><wbr>(<a href="../restarts/Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;multistartSearch,
  int&nbsp;numThreads)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads.</div>
 </div>
 </div>
 </section>
@@ -195,8 +190,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ParallelMultistarter.html" title="class in org.cicirello.search.concurrent">ParallelMultistarter</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -224,9 +219,8 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ParallelMultistarter</span><wbr><span class="parameters">(<a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;search,
  int&nbsp;runLength,
  int&nbsp;numThreads)</span></div>
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.  All restarts 
- are the same in length.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads. All restarts are the same in length.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>search</code> - The metaheuristic to restart multiple times in parallel.</dd>
@@ -244,14 +238,14 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ParallelMultistarter</span><wbr><span class="parameters">(<a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;search,
  <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&nbsp;r,
  int&nbsp;numThreads)</span></div>
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.  All parallel instances 
- follow the same restart schedule of run lengths.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads. All parallel instances follow the same
+ restart schedule of run lengths.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>search</code> - The metaheuristic to restart multiple times in parallel.</dd>
-<dd><code>r</code> - The schedule of run lengths.  Note that the threads do not share a
- single RestartSchedule.  Rather, each thread will be initialized with its own copy of r.</dd>
+<dd><code>r</code> - The schedule of run lengths. Note that the threads do not share a single
+     RestartSchedule. Rather, each thread will be initialized with its own copy of r.</dd>
 <dd><code>numThreads</code> - The number of threads to use.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if numThreads is less than 1.</dd>
@@ -263,14 +257,14 @@ loadScripts(document, 'script');</script>
 <h3>ParallelMultistarter</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ParallelMultistarter</span><wbr><span class="parameters">(<a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;search,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;&nbsp;schedules)</span></div>
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.  Each parallel instance 
- follows its own restart schedule of run lengths.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads. Each parallel instance follows its own
+ restart schedule of run lengths.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>search</code> - The metaheuristic to restart multiple times in parallel.</dd>
-<dd><code>schedules</code> - The schedules of run lengths, one for each thread.  The number of threads will 
- be equal to the number of restart schedules.</dd>
+<dd><code>schedules</code> - The schedules of run lengths, one for each thread. The number of threads will
+     be equal to the number of restart schedules.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if schedules.size() is less than 1.</dd>
 </dl>
@@ -282,21 +276,21 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ParallelMultistarter</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;&nbsp;searches,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="../restarts/RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;&nbsp;schedules)</span></div>
 <div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a set of
- specified metaheuristics in parallel across multiple threads.  Each parallel search 
- follows its own restart schedule of run lengths.</div>
+ specified metaheuristics in parallel across multiple threads. Each parallel search follows its
+ own restart schedule of run lengths.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>searches</code> - A collection of the metaheuristics to restart multiple times in parallel.
- The number of threads will 
- be equal to the size of this collection.</dd>
+<dd><code>searches</code> - A collection of the metaheuristics to restart multiple times in parallel. The
+     number of threads will be equal to the size of this collection.</dd>
 <dd><code>schedules</code> - The schedules of run lengths, one for each thread.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if searches.size() is not equal to schedules.size().</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the Collection of Metaheuristics don't all share the same
- problem (i.e., requires that s1.getProblem() == s2.getProblem() for all s1, s2 in searches).</dd>
+     problem (i.e., requires that s1.getProblem() == s2.getProblem() for all s1, s2 in
+     searches).</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the Collection of Metaheuristics don't all share a single
- ProgressTracker (i.e., requires that 
- s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in searches).</dd>
+     ProgressTracker (i.e., requires that s1.getProgressTracker() == s2.getProgressTracker() for
+     all s1, s2 in searches).</dd>
 </dl>
 </section>
 </li>
@@ -306,21 +300,21 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ParallelMultistarter</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;&nbsp;searches,
  int&nbsp;runLength)</span></div>
 <div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a set of
- specified metaheuristics in parallel across multiple threads.  All runs of all parallel instances
- follows a constant run length.</div>
+ specified metaheuristics in parallel across multiple threads. All runs of all parallel
+ instances follows a constant run length.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>searches</code> - A collection of the metaheuristics to restart multiple times in parallel.
- The number of threads will 
- be equal to the size of this collection.</dd>
+<dd><code>searches</code> - A collection of the metaheuristics to restart multiple times in parallel. The
+     number of threads will be equal to the size of this collection.</dd>
 <dd><code>runLength</code> - The length of all restarted runs of all parallel metaheuristics.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if runLength &lt; 1.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the Collection of Metaheuristics don't all share the same
- problem (i.e., requires that s1.getProblem() == s2.getProblem() for all s1, s2 in searches).</dd>
+     problem (i.e., requires that s1.getProblem() == s2.getProblem() for all s1, s2 in
+     searches).</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the Collection of Metaheuristics don't all share a single
- ProgressTracker (i.e., requires that 
- s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in searches).</dd>
+     ProgressTracker (i.e., requires that s1.getProgressTracker() == s2.getProgressTracker() for
+     all s1, s2 in searches).</dd>
 </dl>
 </section>
 </li>
@@ -329,13 +323,13 @@ loadScripts(document, 'script');</script>
 <h3>ParallelMultistarter</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ParallelMultistarter</span><wbr><span class="parameters">(<a href="../restarts/Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&nbsp;multistartSearch,
  int&nbsp;numThreads)</span></div>
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a specified metaheuristic in parallel across multiple threads.  All parallel instances 
- follow the same restart schedule of run lengths.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a specified
+ metaheuristic in parallel across multiple threads. All parallel instances follow the same
+ restart schedule of run lengths.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>multistartSearch</code> - A Multistarter configured with the metaheuristic and restart schedule.
-         Each of the threads will be an identical copy of this Multistarter.</dd>
+     Each of the threads will be an identical copy of this Multistarter.</dd>
 <dd><code>numThreads</code> - The number of threads to use.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if numThreads is less than 1.</dd>
@@ -346,21 +340,21 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(java.util.Collection)">
 <h3>ParallelMultistarter</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ParallelMultistarter</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="../restarts/Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;&nbsp;multistarters)</span></div>
-<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of
- a set of specified metaheuristics in parallel across multiple threads.  Each of the
- Multistarters will run in its own thread.  The number of threads will be equal to the
- number of Multistarters passed to the constructor.</div>
+<div class="block">Constructs a parallel multistart metaheuristic that executes multiple runs of a set of
+ specified metaheuristics in parallel across multiple threads. Each of the Multistarters will
+ run in its own thread. The number of threads will be equal to the number of Multistarters
+ passed to the constructor.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>multistarters</code> - A collection of Multistarters configured 
-         with the metaheuristics and restart schedules
-         for the threads.</dd>
+<dd><code>multistarters</code> - A collection of Multistarters configured with the metaheuristics and
+     restart schedules for the threads.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the Collection of Multistarters don't all share the same
- problem (i.e., requires that s1.getProblem() == s2.getProblem() for all s1, s2 in multistarters).</dd>
+     problem (i.e., requires that s1.getProblem() == s2.getProblem() for all s1, s2 in
+     multistarters).</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the Collection of Multistarters don't all share a single
- ProgressTracker (i.e., requires that 
- s1.getProgressTracker() == s2.getProgressTracker() for all s1, s2 in multistarters).</dd>
+     ProgressTracker (i.e., requires that s1.getProgressTracker() == s2.getProgressTracker() for
+     all s1, s2 in multistarters).</dd>
 </dl>
 </section>
 </li>
@@ -377,20 +371,18 @@ loadScripts(document, 'script');</script>
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ParallelMultistarter.html" title="class in org.cicirello.search.concurrent">ParallelMultistarter</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;</span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../Metaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;</code></dd>
@@ -399,9 +391,8 @@ loadScripts(document, 'script');</script>
 <dt>Overrides:</dt>
 <dd><code><a href="ParallelMetaheuristic.html#split()">split</a></code>&nbsp;in class&nbsp;<code><a href="ParallelMetaheuristic.html" title="class in org.cicirello.search.concurrent">ParallelMetaheuristic</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="ParallelMultistarter.html" title="type parameter in ParallelMultistarter">T</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

@@ -98,14 +98,13 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">IterableMutationOperator&lt;T&gt;</span><span class="extends-implements">
 extends <a href="MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T&gt;</span></div>
-<div class="block"><p>Implement the IterableMutationOperator interface to define a mutation
- operator that enables iterating systematically over the neighbors of
- a candidate solution, like one would do in a hill climber.</p>
+<div class="block">Implement the IterableMutationOperator interface to define a mutation operator that enables
+ iterating systematically over the neighbors of a candidate solution, like one would do in a hill
+ climber.
 
- <p>Example 1: Here is an example of its use.  In this first example,
- we iterate over all neighbors.  At the completion of this block, the
- state of x will be as of the most recent call to <code>setSavepoint()</code>
- or its original state if that method was never called.</p>
+ <p>Example 1: Here is an example of its use. In this first example, we iterate over all
+ neighbors. At the completion of this block, the state of x will be as of the most recent call to
+ <code>setSavepoint()</code> or its original state if that method was never called.
 
  <pre><code>
  T x = some object of type T.
@@ -115,14 +114,13 @@ extends <a href="MutationOperator.html" title="interface in org.cicirello.search
      iter.nextMutant();
      if (new state of x is one we'd like to be able to revert to) {
           iter.setSavepoint();
-     } 
+     }
  }
  // This next statement rolls x back to the last savepoint.
- iter.rollback(); 
+ iter.rollback();
  </code></pre>
 
-<p>Example 2: In this next example,
- we iterate over neighbors only until we find one we like.</p>
+ <p>Example 2: In this next example, we iterate over neighbors only until we find one we like.
 
  <pre><code>
  T x = some object of type T.
@@ -134,9 +132,9 @@ extends <a href="MutationOperator.html" title="interface in org.cicirello.search
      if (new state of x is one we'd like to keep) {
           foundOneToKeep = true;
           break;
-     } 
+     }
  }
- if (!foundOneToKeep) iter.rollback(); 
+ if (!foundOneToKeep) iter.rollback();
  </code></pre></div>
 </section>
 <section class="summary">
@@ -155,15 +153,15 @@ extends <a href="MutationOperator.html" title="interface in org.cicirello.search
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="MutationIterator.html" title="interface in org.cicirello.search.operators">MutationIterator</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#iterator(T)" class="member-name-link">iterator</a><wbr>(<a href="IterableMutationOperator.html" title="type parameter in IterableMutationOperator">T</a>&nbsp;c)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Creates and returns a <a href="MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
- systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
- of a candidate solution, as one might do in a hill climber.</div>
+<div class="block">Creates and returns a <a href="MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to systematically iterate over
+ all of the direct neighbors (i.e., a single mutation step away) of a candidate solution, as one
+ might do in a hill climber.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;<a href="IterableMutationOperator.html" title="type parameter in IterableMutationOperator">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -186,15 +184,13 @@ extends <a href="MutationOperator.html" title="interface in org.cicirello.search
 <section class="detail" id="iterator(T)">
 <h3 id="iterator(java.lang.Object)">iterator</h3>
 <div class="member-signature"><span class="return-type"><a href="MutationIterator.html" title="interface in org.cicirello.search.operators">MutationIterator</a></span>&nbsp;<span class="element-name">iterator</span><wbr><span class="parameters">(<a href="IterableMutationOperator.html" title="type parameter in IterableMutationOperator">T</a>&nbsp;c)</span></div>
-<div class="block">Creates and returns a <a href="MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
- systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
- of a candidate solution, as one might do in a hill climber.</div>
+<div class="block">Creates and returns a <a href="MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to systematically iterate over
+ all of the direct neighbors (i.e., a single mutation step away) of a candidate solution, as one
+ might do in a hill climber.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>c</code> - The candidate solution subject to the mutation.  Calling methods of the
- <a href="MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that is returned changes the state of that candidate solution.  
- See the documentation
- of those methods for details of how such changes may occur.</dd>
+<dd><code>c</code> - The candidate solution subject to the mutation. Calling methods of the <a href="MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that is returned changes the state of that candidate solution. See the
+     documentation of those methods for details of how such changes may occur.</dd>
 <dt>Returns:</dt>
 <dd>A MutationIterator for iterating over the direct neighbors of a candidate solution.</dd>
 </dl>
@@ -205,27 +201,24 @@ extends <a href="MutationOperator.html" title="interface in org.cicirello.search
 <h3>split</h3>
 <div class="member-signature"><span class="return-type"><a href="IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;<a href="IterableMutationOperator.html" title="type parameter in IterableMutationOperator">T</a>&gt;</span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="IterableMutationOperator.html" title="type parameter in IterableMutationOperator">T</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

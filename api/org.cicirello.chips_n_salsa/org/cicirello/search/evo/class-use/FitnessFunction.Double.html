@@ -66,8 +66,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.evo">org.cicirello.search.evo</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces directly related to implementing
- evolutionary algorithms.</div>
+<div class="block">This package includes classes and interfaces directly related to implementing evolutionary
+ algorithms.</div>
 </div>
 </div>
 <section class="class-uses">
@@ -83,14 +83,14 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../InverseCostFitnessFunction.html" class="type-name-link" title="class in org.cicirello.search.evo">InverseCostFitnessFunction</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">This class provides a convenient mechanism for transforming optimization cost
- values to fitness values.</div>
+<div class="block">This class provides a convenient mechanism for transforming optimization cost values to fitness
+ values.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../NegativeCostFitnessFunction.html" class="type-name-link" title="class in org.cicirello.search.evo">NegativeCostFitnessFunction</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class provides a convenient mechanism for transforming optimization cost
- values to fitness values.</div>
+<div class="block">This class provides a convenient mechanism for transforming optimization cost values to fitness
+ values.</div>
 </div>
 </div>
 <div class="caption"><span>Constructors in <a href="../package-summary.html">org.cicirello.search.evo</a> with parameters of type <a href="../FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a></span></div>
@@ -98,6 +98,50 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier</div>
 <div class="table-header col-second">Constructor</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../AdaptiveEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,org.cicirello.search.operators.CrossoverOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator)" class="member-name-link">AdaptiveEvolutionaryAlgorithm</a><wbr>(int&nbsp;n,
+ <a href="../../operators/MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;mutation,
+ <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;crossover,
+ <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;initializer,
+ <a href="../FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;f,
+ <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Constructs and initializes the evolutionary algorithm.</div>
+</div>
+<div class="col-first odd-row-color"><code>&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../AdaptiveEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,org.cicirello.search.operators.CrossoverOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator,int)" class="member-name-link">AdaptiveEvolutionaryAlgorithm</a><wbr>(int&nbsp;n,
+ <a href="../../operators/MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;mutation,
+ <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;crossover,
+ <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;initializer,
+ <a href="../FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;f,
+ <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+ int&nbsp;eliteCount)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Constructs and initializes the evolutionary algorithm.</div>
+</div>
+<div class="col-first even-row-color"><code>&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../AdaptiveEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,org.cicirello.search.operators.CrossoverOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)" class="member-name-link">AdaptiveEvolutionaryAlgorithm</a><wbr>(int&nbsp;n,
+ <a href="../../operators/MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;mutation,
+ <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;crossover,
+ <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;initializer,
+ <a href="../FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;f,
+ <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+ int&nbsp;eliteCount,
+ <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;tracker)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Constructs and initializes the evolutionary algorithm.</div>
+</div>
+<div class="col-first odd-row-color"><code>&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../AdaptiveEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,org.cicirello.search.operators.CrossoverOperator,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)" class="member-name-link">AdaptiveEvolutionaryAlgorithm</a><wbr>(int&nbsp;n,
+ <a href="../../operators/MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;mutation,
+ <a href="../../operators/CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;crossover,
+ <a href="../../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;initializer,
+ <a href="../FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;f,
+ <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
+ <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../AdaptiveEvolutionaryAlgorithm.html" title="type parameter in AdaptiveEvolutionaryAlgorithm">T</a>&gt;&nbsp;tracker)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Constructs and initializes the evolutionary algorithm.</div>
+</div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../GenerationalEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator)" class="member-name-link">GenerationalEvolutionaryAlgorithm</a><wbr>(int&nbsp;n,
  <a href="../../operators/MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="../GenerationalEvolutionaryAlgorithm.html" title="type parameter in GenerationalEvolutionaryAlgorithm">T</a>&gt;&nbsp;mutation,
@@ -160,9 +204,10 @@ loadScripts(document, 'script');</script>
  <a href="../FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;<a href="../GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators.html" title="type parameter in GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators">T</a>&gt;&nbsp;f,
  <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover operator
- and a mutation operator, such that the genetic operators follow a mutually exclusive 
- property where each population member is involved in at most one of those operations in a single generation.</div>
+<div class="block">Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover
+ operator and a mutation operator, such that the genetic operators follow a mutually exclusive
+ property where each population member is involved in at most one of those operations in a
+ single generation.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator,int)" class="member-name-link">GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators</a><wbr>(int&nbsp;n,
@@ -175,9 +220,10 @@ loadScripts(document, 'script');</script>
  <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover operator
- and a mutation operator, such that the genetic operators follow a mutually exclusive 
- property where each population member is involved in at most one of those operations in a single generation.</div>
+<div class="block">Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover
+ operator and a mutation operator, such that the genetic operators follow a mutually exclusive
+ property where each population member is involved in at most one of those operations in a
+ single generation.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)" class="member-name-link">GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators</a><wbr>(int&nbsp;n,
@@ -191,9 +237,10 @@ loadScripts(document, 'script');</script>
  int&nbsp;eliteCount,
  <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators.html" title="type parameter in GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators">T</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover operator
- and a mutation operator, such that the genetic operators follow a mutually exclusive 
- property where each population member is involved in at most one of those operations in a single generation.</div>
+<div class="block">Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover
+ operator and a mutation operator, such that the genetic operators follow a mutually exclusive
+ property where each population member is involved in at most one of those operations in a
+ single generation.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.CrossoverOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)" class="member-name-link">GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators</a><wbr>(int&nbsp;n,
@@ -206,9 +253,10 @@ loadScripts(document, 'script');</script>
  <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators.html" title="type parameter in GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators">T</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover operator
- and a mutation operator, such that the genetic operators follow a mutually exclusive 
- property where each population member is involved in at most one of those operations in a single generation.</div>
+<div class="block">Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover
+ operator and a mutation operator, such that the genetic operators follow a mutually exclusive
+ property where each population member is involved in at most one of those operations in a
+ single generation.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../GenerationalMutationOnlyEvolutionaryAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.MutationOperator,double,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,org.cicirello.search.evo.SelectionOperator)" class="member-name-link">GenerationalMutationOnlyEvolutionaryAlgorithm</a><wbr>(int&nbsp;n,
@@ -365,8 +413,8 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
@@ -376,8 +424,8 @@ loadScripts(document, 'script');</script>
  <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
@@ -388,8 +436,8 @@ loadScripts(document, 'script');</script>
  int&nbsp;eliteCount,
  <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
@@ -399,8 +447,8 @@ loadScripts(document, 'script');</script>
  <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
@@ -409,8 +457,8 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
@@ -420,8 +468,8 @@ loadScripts(document, 'script');</script>
  <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  int&nbsp;eliteCount)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,int,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
@@ -432,8 +480,8 @@ loadScripts(document, 'script');</script>
  int&nbsp;eliteCount,
  <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../MutationOnlyGeneticAlgorithm.html#%3Cinit%3E(int,org.cicirello.search.operators.Initializer,org.cicirello.search.evo.FitnessFunction.Double,double,org.cicirello.search.evo.SelectionOperator,org.cicirello.search.ProgressTracker)" class="member-name-link">MutationOnlyGeneticAlgorithm</a><wbr>(int&nbsp;n,
@@ -443,8 +491,8 @@ loadScripts(document, 'script');</script>
  <a href="../SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation.</div>
+<div class="block">Initializes a mutation-only genetic algorithm with a generational model where children replace
+ the parents, using the standard bit flip mutation.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../SimpleGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,double)" class="member-name-link">SimpleGeneticAlgorithm</a><wbr>(int&nbsp;n,
@@ -453,9 +501,8 @@ loadScripts(document, 'script');</script>
  double&nbsp;mutationRate,
  double&nbsp;crossoverRate)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes a simple genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation, single-point crossover (the <a href="../../operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits"><code>SinglePointCrossover</code></a> class), 
- and fitness-proportional selection (the <a href="../FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a> class).</div>
+<div class="block">Initializes a simple genetic algorithm with a generational model where children replace the
+ parents, using the standard bit flip mutation, single-point crossover (the <a href="../../operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits"><code>SinglePointCrossover</code></a> class), and fitness-proportional selection (the <a href="../FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a> class).</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../SimpleGeneticAlgorithm.html#%3Cinit%3E(int,int,org.cicirello.search.evo.FitnessFunction.Double,double,double,org.cicirello.search.ProgressTracker)" class="member-name-link">SimpleGeneticAlgorithm</a><wbr>(int&nbsp;n,
@@ -465,9 +512,8 @@ loadScripts(document, 'script');</script>
  double&nbsp;crossoverRate,
  <a href="../../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Initializes a simple genetic algorithm with a generational model where children replace the parents,
- using the standard bit flip mutation, single-point crossover (the <a href="../../operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits"><code>SinglePointCrossover</code></a> class), 
- and fitness-proportional selection (the <a href="../FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a> class).</div>
+<div class="block">Initializes a simple genetic algorithm with a generational model where children replace the
+ parents, using the standard bit flip mutation, single-point crossover (the <a href="../../operators/bits/SinglePointCrossover.html" title="class in org.cicirello.search.operators.bits"><code>SinglePointCrossover</code></a> class), and fitness-proportional selection (the <a href="../FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a> class).</div>
 </div>
 </div>
 </section>

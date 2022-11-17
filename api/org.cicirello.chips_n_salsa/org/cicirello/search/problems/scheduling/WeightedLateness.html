@@ -94,16 +94,11 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">WeightedLateness</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="SingleMachineSchedulingProblem.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblem</a></span></div>
-<div class="block">Implements the scheduling cost function known as 
- weighted lateness.  The lateness L[j] of job j
- is: L[j] = C[j] - d[j], where C[j] is the time 
- it is completed by the machine, and d[j] is its
- due date.  The weighted lateness cost function
- is the weighted sum over the jobs of: w[j]L[j],
- where w[j] is job j's weight.  Note that the lateness
- of a job can be negative if the job is completed early, 
- so this cost function can
- evaluate to a negative value.</div>
+<div class="block">Implements the scheduling cost function known as weighted lateness. The lateness L[j] of job j
+ is: L[j] = C[j] - d[j], where C[j] is the time it is completed by the machine, and d[j] is its
+ due date. The weighted lateness cost function is the weighted sum over the jobs of: w[j]L[j],
+ where w[j] is job j's weight. Note that the lateness of a job can be negative if the job is
+ completed early, so this cost function can evaluate to a negative value.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -117,8 +112,7 @@ implements <a href="SingleMachineSchedulingProblem.html" title="interface in org
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)" class="member-name-link">WeightedLateness</a><wbr>(<a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- weighted lateness.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing weighted lateness.</div>
 </div>
 </div>
 </section>
@@ -142,16 +136,15 @@ implements <a href="SingleMachineSchedulingProblem.html" title="interface in org
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getInstanceData()" class="member-name-link">getInstanceData</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets an object that encapsulates the data describing the
- scheduling problem instance, such as number of jobs, and the
- characteristics of the jobs, such as processing times, setup
- times, due dates, weights, etc.</div>
+<div class="block">Gets an object that encapsulates the data describing the scheduling problem instance, such as
+ number of jobs, and the characteristics of the jobs, such as processing times, setup times, due
+ dates, weights, etc.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.permutations.Permutation)" class="member-name-link">value</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -177,12 +170,10 @@ implements <a href="SingleMachineSchedulingProblem.html" title="interface in org
 <section class="detail" id="&lt;init&gt;(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)">
 <h3>WeightedLateness</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">WeightedLateness</span><wbr><span class="parameters">(<a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</span></div>
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- weighted lateness.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing weighted lateness.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>instanceData</code> - An encapsulation of the job characteristics,
- such as processing times, etc.</dd>
+<dd><code>instanceData</code> - An encapsulation of the job characteristics, such as processing times, etc.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if instanceData.hasDueDates() returns false.</dd>
 </dl>
@@ -201,10 +192,9 @@ implements <a href="SingleMachineSchedulingProblem.html" title="interface in org
 <h3>getInstanceData</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></span>&nbsp;<span class="element-name">getInstanceData</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SingleMachineSchedulingProblem.html#getInstanceData()">SingleMachineSchedulingProblem</a></code></span></div>
-<div class="block">Gets an object that encapsulates the data describing the
- scheduling problem instance, such as number of jobs, and the
- characteristics of the jobs, such as processing times, setup
- times, due dates, weights, etc.</div>
+<div class="block">Gets an object that encapsulates the data describing the scheduling problem instance, such as
+ number of jobs, and the characteristics of the jobs, such as processing times, setup times, due
+ dates, weights, etc.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SingleMachineSchedulingProblem.html#getInstanceData()">getInstanceData</a></code>&nbsp;in interface&nbsp;<code><a href="SingleMachineSchedulingProblem.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblem</a></code></dd>
@@ -218,15 +208,15 @@ implements <a href="SingleMachineSchedulingProblem.html" title="interface in org
 <h3>cost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../IntegerCostOptimizationProblem.html#cost(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IntegerCostOptimizationProblem.html#cost(T)">cost</a></code>&nbsp;in interface&nbsp;<code><a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -235,8 +225,8 @@ implements <a href="SingleMachineSchedulingProblem.html" title="interface in org
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../IntegerCostOptimizationProblem.html#value(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IntegerCostOptimizationProblem.html#value(T)">value</a></code>&nbsp;in interface&nbsp;<code><a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>

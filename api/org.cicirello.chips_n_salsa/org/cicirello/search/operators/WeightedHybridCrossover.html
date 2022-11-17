@@ -98,16 +98,14 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">WeightedHybridCrossover&lt;T&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;T&gt;</span></div>
-<div class="block"><p>A WeightedHybridCrossover enables using multiple crossover operators,
- such that each time the <a href="#cross(T,T)"><code>cross(T, T)</code></a> method is called,
- a randomly chosen crossover operator is applied to the candidate
- solutions.  The random choice of crossover operator is weighted proportionately based on
- an array of weights passed upon construction.</p>
+<div class="block">A WeightedHybridCrossover enables using multiple crossover operators, such that each time the
+ <a href="#cross(T,T)"><code>cross(T, T)</code></a> method is called, a randomly chosen crossover operator is applied to the candidate
+ solutions. The random choice of crossover operator is weighted proportionately based on an array
+ of weights passed upon construction.
 
- <p>Consider the following weights: w = [ 1, 2, 3].  In this example, the
- first crossover operator will be used with probability 0.167, the second
- crossover operator will be used with probability 2/6 = 0.333, and the third 
- crossover operator will be used with probability 3/6 = 0.5.</p></div>
+ <p>Consider the following weights: w = [ 1, 2, 3]. In this example, the first crossover operator
+ will be used with probability 0.167, the second crossover operator will be used with probability
+ 2/6 = 0.333, and the third crossover operator will be used with probability 3/6 = 0.5.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -142,14 +140,14 @@ implements <a href="CrossoverOperator.html" title="interface in org.cicirello.se
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#cross(T,T)" class="member-name-link">cross</a><wbr>(<a href="WeightedHybridCrossover.html" title="type parameter in WeightedHybridCrossover">T</a>&nbsp;c1,
  <a href="WeightedHybridCrossover.html" title="type parameter in WeightedHybridCrossover">T</a>&nbsp;c2)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
- forms two children from two parents.</div>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover forms two children from
+ two parents.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="WeightedHybridCrossover.html" title="class in org.cicirello.search.operators">WeightedHybridCrossover</a>&lt;<a href="WeightedHybridCrossover.html" title="type parameter in WeightedHybridCrossover">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -177,8 +175,8 @@ implements <a href="CrossoverOperator.html" title="interface in org.cicirello.se
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>ops</code> - A Collection of CrossoverOperators.</dd>
-<dd><code>weights</code> - The array of weights, whose length must be equal to ops.size().
- Every element of weights must be greater than 0.</dd>
+<dd><code>weights</code> - The array of weights, whose length must be equal to ops.size(). Every element of
+     weights must be greater than 0.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if ops doesn't contain any CrossoverOperators.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if ops.size() is not equal to weights.length.</dd>
@@ -200,17 +198,15 @@ implements <a href="CrossoverOperator.html" title="interface in org.cicirello.se
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">cross</span><wbr><span class="parameters">(<a href="WeightedHybridCrossover.html" title="type parameter in WeightedHybridCrossover">T</a>&nbsp;c1,
  <a href="WeightedHybridCrossover.html" title="type parameter in WeightedHybridCrossover">T</a>&nbsp;c2)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="CrossoverOperator.html#cross(T,T)">CrossoverOperator</a></code></span></div>
-<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
- forms two children from two parents. Implementations of this method 
- modify the parameters, transforming the parents into the children.</div>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover forms two children from
+ two parents. Implementations of this method modify the parameters, transforming the parents
+ into the children.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="CrossoverOperator.html#cross(T,T)">cross</a></code>&nbsp;in interface&nbsp;<code><a href="CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="WeightedHybridCrossover.html" title="type parameter in WeightedHybridCrossover">T</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>c1</code> - A candidate solution subject to the crossover. This method
- changes the state of c1.</dd>
-<dd><code>c2</code> - A candidate solution subject to the crossover. This method
- changes the state of c2.</dd>
+<dd><code>c1</code> - A candidate solution subject to the crossover. This method changes the state of c1.</dd>
+<dd><code>c2</code> - A candidate solution subject to the crossover. This method changes the state of c2.</dd>
 </dl>
 </section>
 </li>
@@ -219,27 +215,24 @@ implements <a href="CrossoverOperator.html" title="interface in org.cicirello.se
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="WeightedHybridCrossover.html" title="class in org.cicirello.search.operators">WeightedHybridCrossover</a>&lt;<a href="WeightedHybridCrossover.html" title="type parameter in WeightedHybridCrossover">T</a>&gt;</span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="WeightedHybridCrossover.html" title="type parameter in WeightedHybridCrossover">T</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

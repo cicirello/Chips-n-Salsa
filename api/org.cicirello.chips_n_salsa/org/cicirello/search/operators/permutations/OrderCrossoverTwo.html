@@ -94,40 +94,47 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">OrderCrossoverTwo</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
-<div class="block"><p>Implementation of the crossover operator for permutations that is often referred to as Order Crossover 2 (OX2). It is 
- rather different in function than the original Order Crossover (OX), implemented in class <a href="OrderCrossover.html" title="class in org.cicirello.search.operators.permutations"><code>OrderCrossover</code></a>. OX2, which
- was introduced by Syswerda (see reference below), is very nearly identical to Uniform Order Based Crossover (UOBX) also
- introduced by Syswerda in the same paper. UOBX is implemented in the <a href="UniformOrderBasedCrossover.html" title="class in org.cicirello.search.operators.permutations"><code>UniformOrderBasedCrossover</code></a> class. Each child 
- produced by OX2 from a given pair of parents can be produced by UOBX from
- the same pair of parents. Likewise each child produced by UOBX from a given pair of parents can be produced by OX2 from the
- same pair of parents. However, the pair of children produced by OX2 from a given pair of parents will typically differ from
- the pair of children produced by UOBX and vice versa. Therefore, OX2 and UOBX are not exactly equivalent. However, it is not
- clear whether there is ever an occasion when either one will lead to significantly different performance relative to the other.
- The Chips-n-Salsa library includes both operators in the interest of comprehensiveness with respect to commonly encountered
- permutation crossover operators.</p>
+<div class="block">Implementation of the crossover operator for permutations that is often referred to as Order
+ Crossover 2 (OX2). It is rather different in function than the original Order Crossover (OX),
+ implemented in class <a href="OrderCrossover.html" title="class in org.cicirello.search.operators.permutations"><code>OrderCrossover</code></a>. OX2, which was introduced by Syswerda (see reference
+ below), is very nearly identical to Uniform Order Based Crossover (UOBX) also introduced by
+ Syswerda in the same paper. UOBX is implemented in the <a href="UniformOrderBasedCrossover.html" title="class in org.cicirello.search.operators.permutations"><code>UniformOrderBasedCrossover</code></a> class.
+ Each child produced by OX2 from a given pair of parents can be produced by UOBX from the same
+ pair of parents. Likewise each child produced by UOBX from a given pair of parents can be
+ produced by OX2 from the same pair of parents. However, the pair of children produced by OX2 from
+ a given pair of parents will typically differ from the pair of children produced by UOBX and vice
+ versa. Therefore, OX2 and UOBX are not exactly equivalent. However, it is not clear whether there
+ is ever an occasion when either one will lead to significantly different performance relative to
+ the other. The Chips-n-Salsa library includes both operators in the interest of comprehensiveness
+ with respect to commonly encountered permutation crossover operators.
 
- <p>OX2 begins by selecting a random set of indexes. The original description implied each index equally likely chosen as not
- chosen. However, in our implementation, we provide a parameter u, which is the probability that an index is chosen, much like
- the parameter of a uniform crossover for bit-strings. We provide a constructor with a default of u=0.5. The elements at those
- indexes in parent p2 are found in parent p1. Child c1 is then a copy of p1 but with those elements rearranged into the relative
- order from p2. In a similar way, the elements at the chosen indexes in parent p1 are found in parent p2. Child c2 is then a copy 
- of p2 but with those elements rearranged into the relative order from p1.</p>
+ <p>OX2 begins by selecting a random set of indexes. The original description implied each index
+ equally likely chosen as not chosen. However, in our implementation, we provide a parameter u,
+ which is the probability that an index is chosen, much like the parameter of a uniform crossover
+ for bit-strings. We provide a constructor with a default of u=0.5. The elements at those indexes
+ in parent p2 are found in parent p1. Child c1 is then a copy of p1 but with those elements
+ rearranged into the relative order from p2. In a similar way, the elements at the chosen indexes
+ in parent p1 are found in parent p2. Child c2 is then a copy of p2 but with those elements
+ rearranged into the relative order from p1.
 
- <p>Consider this example. Let p1 = [1, 0, 3, 2, 5, 4, 7, 6] and p2 = [6, 7, 4, 5, 2, 3, 0, 1]. Let the random indexes include: 1, 2, 6, 
- and 7. The elements at those indexes in p2, ordered as in p2, are: 7, 4, 0, 1. These are therefore rearranged within p1 to produce
- c1 = [7, 4, 3, 2, 5, 0, 1, 6]. The elements at the random indexes in p1, ordered as in p1, are: 0, 3, 7, 6. These are therefore 
- rearranged within p2 to produce c2 = [0, 3, 4, 5, 2, 7, 6, 1].</p>
+ <p>Consider this example. Let p1 = [1, 0, 3, 2, 5, 4, 7, 6] and p2 = [6, 7, 4, 5, 2, 3, 0, 1].
+ Let the random indexes include: 1, 2, 6, and 7. The elements at those indexes in p2, ordered as
+ in p2, are: 7, 4, 0, 1. These are therefore rearranged within p1 to produce c1 = [7, 4, 3, 2, 5,
+ 0, 1, 6]. The elements at the random indexes in p1, ordered as in p1, are: 0, 3, 7, 6. These are
+ therefore rearranged within p2 to produce c2 = [0, 3, 4, 5, 2, 7, 6, 1].
 
  <p>The worst case runtime of a call to <a href="#cross(org.cicirello.permutations.Permutation,org.cicirello.permutations.Permutation)"><code>cross</code></a> is O(n), where n is the length of the
- permutations.</p>
+ permutations.
 
  <p>OX2 was introduced in the following paper:<br>
- Syswerda, G. Schedule Optimization using Genetic Algorithms. <i>Handbook of Genetic Algorithms</i>, 1991.</p>
+ Syswerda, G. Schedule Optimization using Genetic Algorithms. <i>Handbook of Genetic
+ Algorithms</i>, 1991.
 
  <p>Although it got its name Order Crossover 2 (OX2) from others in order to distinguish it from
  the original OX, such as this paper:<br>
- T. Starkweather, S McDaniel, K Mathias, D Whitley, and C Whitley. A Comparison of Genetic Sequencing Operators.
- <i>Proceedings of the Fourth International Conference on Genetic Algorithms</i>, pages 69-76, 1991.</p></div>
+ T. Starkweather, S McDaniel, K Mathias, D Whitley, and C Whitley. A Comparison of Genetic
+ Sequencing Operators. <i>Proceedings of the Fourth International Conference on Genetic
+ Algorithms</i>, pages 69-76, 1991.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -165,14 +172,14 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#cross(org.cicirello.permutations.Permutation,org.cicirello.permutations.Permutation)" class="member-name-link">cross</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c1,
  <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c2)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
- forms two children from two parents.</div>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover forms two children from
+ two parents.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="OrderCrossoverTwo.html" title="class in org.cicirello.search.operators.permutations">OrderCrossoverTwo</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -207,8 +214,8 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <dt>Parameters:</dt>
 <dd><code>u</code> - The probability of selecting an index.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if u is less than or equal to 0.0, or if u is greater than
- or equal to 1.0.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if u is less than or equal to 0.0, or if u is greater than or
+     equal to 1.0.</dd>
 </dl>
 </section>
 </li>
@@ -226,17 +233,15 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">cross</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c1,
  <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c2)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../CrossoverOperator.html#cross(T,T)">CrossoverOperator</a></code></span></div>
-<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
- forms two children from two parents. Implementations of this method 
- modify the parameters, transforming the parents into the children.</div>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover forms two children from
+ two parents. Implementations of this method modify the parameters, transforming the parents
+ into the children.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../CrossoverOperator.html#cross(T,T)">cross</a></code>&nbsp;in interface&nbsp;<code><a href="../CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>c1</code> - A candidate solution subject to the crossover. This method
- changes the state of c1.</dd>
-<dd><code>c2</code> - A candidate solution subject to the crossover. This method
- changes the state of c2.</dd>
+<dd><code>c1</code> - A candidate solution subject to the crossover. This method changes the state of c1.</dd>
+<dd><code>c2</code> - A candidate solution subject to the crossover. This method changes the state of c2.</dd>
 </dl>
 </section>
 </li>
@@ -245,27 +250,24 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="OrderCrossoverTwo.html" title="class in org.cicirello.search.operators.permutations">OrderCrossoverTwo</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

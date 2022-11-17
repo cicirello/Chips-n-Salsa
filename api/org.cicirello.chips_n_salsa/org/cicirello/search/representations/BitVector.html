@@ -94,10 +94,10 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">BitVector</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</span></div>
-<div class="block">A BitVector is an indexable vector of bits.  It supports operations for manipulating the bits in
- a variety of ways, such as setting and getting, flipping, left and right shifts, computing 
- bitwise operators (and, or, xor) between pairs of equal length BitVectors, etc.  It also supports
- iterating over the bits, either one bit at a time, or groups of bits.  Indexes into a BitVector
+<div class="block">A BitVector is an indexable vector of bits. It supports operations for manipulating the bits in a
+ variety of ways, such as setting and getting, flipping, left and right shifts, computing bitwise
+ operators (and, or, xor) between pairs of equal length BitVectors, etc. It also supports
+ iterating over the bits, either one bit at a time, or groups of bits. Indexes into a BitVector
  begin at 0, and index 0 refers to the least significant bit (&quot;right-most&quot; bit).</div>
 </section>
 <section class="summary">
@@ -188,14 +188,12 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="BitVector.BitIterator.html" title="class in org.cicirello.search.representations">BitVector.BitIterator</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#bitIterator()" class="member-name-link">bitIterator</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a BitIterator to iterate over the bits of
- this BitVector, one bit at a time.</div>
+<div class="block">Creates a BitIterator to iterate over the bits of this BitVector, one bit at a time.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="BitVector.BitIterator.html" title="class in org.cicirello.search.representations">BitVector.BitIterator</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#bitIterator(int)" class="member-name-link">bitIterator</a><wbr>(int&nbsp;k)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates a BitIterator to iterate over the bits of
- this BitVector.</div>
+<div class="block">Creates a BitIterator to iterate over the bits of this BitVector.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#copy()" class="member-name-link">copy</a>()</code></div>
@@ -230,14 +228,14 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
  <a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;b2,
  <a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;mask)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Exchanges a selection of bits between two BitVectors, where the bits to exchange are
- indicated by a bit mask, also represented by a BitVector.</div>
+<div class="block">Exchanges a selection of bits between two BitVectors, where the bits to exchange are indicated
+ by a bit mask, also represented by a BitVector.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#flip(int)" class="member-name-link">flip</a><wbr>(int&nbsp;index)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Flips the value of the bit at the specified index (e.g., if it is a 0, then
- change to a 1; if it is a 1, change to a 0).</div>
+<div class="block">Flips the value of the bit at the specified index (e.g., if it is a 0, then change to a 1; if
+ it is a 1, change to a 0).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get32(int)" class="member-name-link">get32</a><wbr>(int&nbsp;i)</code></div>
@@ -294,14 +292,12 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#shiftLeft(int)" class="member-name-link">shiftLeft</a><wbr>(int&nbsp;numBits)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Performs a left shift of the bits of the BitVector, with 0s filling in on
- the right.</div>
+<div class="block">Performs a left shift of the bits of the BitVector, with 0s filling in on the right.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#shiftRight(int)" class="member-name-link">shiftRight</a><wbr>(int&nbsp;numBits)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Performs a right shift of the bits of the BitVector, with 0s filling in on
- the left.</div>
+<div class="block">Performs a right shift of the bits of the BitVector, with 0s filling in on the left.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
@@ -352,8 +348,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>bitLength</code> - The length of the bit vector in number of bits.</dd>
-<dd><code>randomize</code> - if true, then the vector is initialized with random bit values;
- and otherwise initializes it to a vector of all 0 bits.</dd>
+<dd><code>randomize</code> - if true, then the vector is initialized with random bit values; and otherwise
+     initializes it to a vector of all 0 bits.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if bitLength &lt; 0.</dd>
 </dl>
@@ -370,9 +366,9 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <dd><code>bitLength</code> - The length of the bit vector in number of bits.</dd>
 <dd><code>bits</code> - An array of ints containing the bits for initializing the BitVector.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if bitLength &lt; 0 or if bits.length is longer than
- necessary for a vector of bitLength bits or if bits.length is too short for a vector of 
- bitLength bits.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if bitLength &lt; 0 or if bits.length is longer than necessary
+     for a vector of bitLength bits or if bits.length is too short for a vector of bitLength
+     bits.</dd>
 </dl>
 </section>
 </li>
@@ -425,15 +421,15 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">exchangeBits</span><wbr><span class="parameters">(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;b1,
  <a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;b2,
  <a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;mask)</span></div>
-<div class="block">Exchanges a selection of bits between two BitVectors, where the bits to exchange are
- indicated by a bit mask, also represented by a BitVector.</div>
+<div class="block">Exchanges a selection of bits between two BitVectors, where the bits to exchange are indicated
+ by a bit mask, also represented by a BitVector.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>b1</code> - The first BitVector.</dd>
 <dd><code>b2</code> - The second BitVector.</dd>
-<dd><code>mask</code> - A bit mask indicating which bit positions to exchange. Specifically, if mask.getBit(i)
-     is a 1, then b1 and b2 will trade the bits in position i between each other, and otherwise they
-     won't.</dd>
+<dd><code>mask</code> - A bit mask indicating which bit positions to exchange. Specifically, if
+     mask.getBit(i) is a 1, then b1 and b2 will trade the bits in position i between each other,
+     and otherwise they won't.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the lengths of b1, b2, and mask, are not all the same.</dd>
 </dl>
@@ -446,9 +442,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <div class="block">Check if the BitVector contains all 0-bits.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>true If all of the bits are equal to 0, and false otherwise.
- Note that if the length of the BitVector is 0, this method returns
- true.</dd>
+<dd>true If all of the bits are equal to 0, and false otherwise. Note that if the length of
+     the BitVector is 0, this method returns true.</dd>
 </dl>
 </section>
 </li>
@@ -459,9 +454,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <div class="block">Check if the BitVector contains all 1-bits.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>true If all of the bits are equal to 1, and false otherwise.
- Note that if the length of the BitVector is 0, this method returns
- true.</dd>
+<dd>true If all of the bits are equal to 1, and false otherwise. Note that if the length of
+     the BitVector is 0, this method returns true.</dd>
 </dl>
 </section>
 </li>
@@ -472,9 +466,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <div class="block">Check if the BitVector contains any bits equal to a 1.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>true If there is at least one 1-bit, and false otherwise.
- Note that if the length of the BitVector is 0, this method returns
- false.</dd>
+<dd>true If there is at least one 1-bit, and false otherwise. Note that if the length of
+     the BitVector is 0, this method returns false.</dd>
 </dl>
 </section>
 </li>
@@ -485,9 +478,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <div class="block">Check if the BitVector contains any bits equal to a 0.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>true If there is at least one 0-bit, and false otherwise.
- Note that if the length of the BitVector is 0, this method returns
- false.</dd>
+<dd>true If there is at least one 0-bit, and false otherwise. Note that if the length of
+     the BitVector is 0, this method returns false.</dd>
 </dl>
 </section>
 </li>
@@ -511,8 +503,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <dt>Parameters:</dt>
 <dd><code>index</code> - The index into the bit vector, which must be 0 &le; index &lt; length().</dd>
 <dt>Returns:</dt>
-<dd>The value of the bit at position index, as an int. The least significant bit 
- of the returned int will hold the value of the bit.  The other 31 bits will be 0.</dd>
+<dd>The value of the bit at position index, as an int. The least significant bit of the
+     returned int will hold the value of the bit. The other 31 bits will be 0.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if index is negative, or if index &ge; length()</dd>
 </dl>
@@ -527,8 +519,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>index</code> - The index into the bit vector, which must be 0 &le; index &lt; length().</dd>
-<dd><code>bitValue</code> - The value to set for the bit at position index.  The least significant bit
- of this int is used.</dd>
+<dd><code>bitValue</code> - The value to set for the bit at position index. The least significant bit of
+     this int is used.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if index is negative, or if index &ge; length()</dd>
 </dl>
@@ -538,8 +530,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <section class="detail" id="flip(int)">
 <h3>flip</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">flip</span><wbr><span class="parameters">(int&nbsp;index)</span></div>
-<div class="block">Flips the value of the bit at the specified index (e.g., if it is a 0, then
- change to a 1; if it is a 1, change to a 0).</div>
+<div class="block">Flips the value of the bit at the specified index (e.g., if it is a 0, then change to a 1; if
+ it is a 1, change to a 0).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>index</code> - The index into the bit vector, which must be 0 &le; index &lt; length().</dd>
@@ -587,13 +579,12 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <dt>Parameters:</dt>
 <dd><code>i</code> - The block of bits accessed by this method begins at the bit with index 32*i.</dd>
 <dt>Returns:</dt>
-<dd>Up to 32 bits beginning at the bit at index 32*i.  For example, if i is 0, then
- this method will return the 32 bits beginning at index 32*0=0, i.e., bits 0 through 31.
- Bit 0 will be in the least significant position, and bit 31 will be in the most significant
- position.
- If i is 1, then this method returns the 32 bits beginning with the bit at index 32 (i.e.,
- bits 32 through 63).  If there are less than 32 bits beginning at index 32*i, then the
- relevant bits will be in the least significant positions of the returned int.</dd>
+<dd>Up to 32 bits beginning at the bit at index 32*i. For example, if i is 0, then this
+     method will return the 32 bits beginning at index 32*0=0, i.e., bits 0 through 31. Bit 0
+     will be in the least significant position, and bit 31 will be in the most significant
+     position. If i is 1, then this method returns the 32 bits beginning with the bit at index
+     32 (i.e., bits 32 through 63). If there are less than 32 bits beginning at index 32*i, then
+     the relevant bits will be in the least significant positions of the returned int.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if i is negative, or if 32*i &ge; length()</dd>
 </dl>
@@ -607,15 +598,13 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <div class="block">Sets a block of up to 32 bits.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>i</code> - The block of bits set by this method begins at the bit with index 32*i.
- For example, if i is 0, then
- this method will set the 32 bits beginning at index 32*0=0, i.e., bits 0 through 31.
- Bit 0 will be in the least significant position, and bit 31 will be in the most significant
- position.
- If i is 1, then this method sets the 32 bits beginning with the bit at index 32 (i.e.,
- bits 32 through 63).</dd>
-<dd><code>block</code> - The block of bits to set.  The least significant bit of block will be stored
- at index 32*i.</dd>
+<dd><code>i</code> - The block of bits set by this method begins at the bit with index 32*i. For example,
+     if i is 0, then this method will set the 32 bits beginning at index 32*0=0, i.e., bits 0
+     through 31. Bit 0 will be in the least significant position, and bit 31 will be in the most
+     significant position. If i is 1, then this method sets the 32 bits beginning with the bit
+     at index 32 (i.e., bits 32 through 63).</dd>
+<dd><code>block</code> - The block of bits to set. The least significant bit of block will be stored at
+     index 32*i.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if i is negative, or if 32*i &ge; length()</dd>
 </dl>
@@ -647,8 +636,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <section class="detail" id="and(org.cicirello.search.representations.BitVector)">
 <h3>and</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">and</span><wbr><span class="parameters">(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;other)</span></div>
-<div class="block">Computes the bitwise AND of this BitVector and another BitVector.  This BitVector
- is updated with the result.</div>
+<div class="block">Computes the bitwise AND of this BitVector and another BitVector. This BitVector is updated
+ with the result.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>other</code> - The other BitVector.</dd>
@@ -661,8 +650,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <section class="detail" id="or(org.cicirello.search.representations.BitVector)">
 <h3>or</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">or</span><wbr><span class="parameters">(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;other)</span></div>
-<div class="block">Computes the bitwise OR of this BitVector and another BitVector.  This BitVector
- is updated with the result.</div>
+<div class="block">Computes the bitwise OR of this BitVector and another BitVector. This BitVector is updated with
+ the result.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>other</code> - The other BitVector.</dd>
@@ -675,8 +664,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <section class="detail" id="xor(org.cicirello.search.representations.BitVector)">
 <h3>xor</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">xor</span><wbr><span class="parameters">(<a href="BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;other)</span></div>
-<div class="block">Computes the bitwise XOR of this BitVector and another BitVector.  This BitVector
- is updated with the result.</div>
+<div class="block">Computes the bitwise XOR of this BitVector and another BitVector. This BitVector is updated
+ with the result.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>other</code> - The other BitVector.</dd>
@@ -689,19 +678,17 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <section class="detail" id="not()">
 <h3>not</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">not</span>()</div>
-<div class="block">Computes the bitwise complement of this BitVector.  This BitVector
- is updated with the result.</div>
+<div class="block">Computes the bitwise complement of this BitVector. This BitVector is updated with the result.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="shiftLeft(int)">
 <h3>shiftLeft</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">shiftLeft</span><wbr><span class="parameters">(int&nbsp;numBits)</span></div>
-<div class="block">Performs a left shift of the bits of the BitVector, with 0s filling in on
- the right.  Specifically, the value of the bit in index i before a call to
- shiftLeft, will move to index (i + numBits).  The method does not change the
- length of the BitVector, so the numBits bits on the left end of the BitVector
- before the call are lost.</div>
+<div class="block">Performs a left shift of the bits of the BitVector, with 0s filling in on the right.
+ Specifically, the value of the bit in index i before a call to shiftLeft, will move to index (i
+ + numBits). The method does not change the length of the BitVector, so the numBits bits on the
+ left end of the BitVector before the call are lost.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>numBits</code> - The number of bits to shift to the left.</dd>
@@ -712,11 +699,9 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <section class="detail" id="shiftRight(int)">
 <h3>shiftRight</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">shiftRight</span><wbr><span class="parameters">(int&nbsp;numBits)</span></div>
-<div class="block">Performs a right shift of the bits of the BitVector, with 0s filling in on
- the left.  Specifically, the value of the bit in index i before a call to
- shiftLeft, will move to index (i - numBits).  The 
- numBits bits on the right end of the BitVector
- before the call are lost.</div>
+<div class="block">Performs a right shift of the bits of the BitVector, with 0s filling in on the left.
+ Specifically, the value of the bit in index i before a call to shiftLeft, will move to index (i
+ - numBits). The numBits bits on the right end of the BitVector before the call are lost.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>numBits</code> - The number of bits to shift to the right.</dd>
@@ -740,9 +725,8 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <section class="detail" id="equals(java.lang.Object)">
 <h3>equals</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
-<div class="block">Indicates whether some other object is equal to this one.
- The objects are equal if they are the same type of operator
- with the same parameters.</div>
+<div class="block">Indicates whether some other object is equal to this one. The objects are equal if they are the
+ same type of operator with the same parameters.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
@@ -757,8 +741,7 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <section class="detail" id="hashCode()">
 <h3>hashCode</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">hashCode</span>()</div>
-<div class="block">Returns a hash code value for the object.
- This method is supported for the benefit of hash 
+<div class="block">Returns a hash code value for the object. This method is supported for the benefit of hash
  tables such as those provided by HashMap.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
@@ -785,14 +768,13 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <section class="detail" id="bitIterator(int)">
 <h3>bitIterator</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="BitVector.BitIterator.html" title="class in org.cicirello.search.representations">BitVector.BitIterator</a></span>&nbsp;<span class="element-name">bitIterator</span><wbr><span class="parameters">(int&nbsp;k)</span></div>
-<div class="block">Creates a BitIterator to iterate over the bits of
- this BitVector.</div>
+<div class="block">Creates a BitIterator to iterate over the bits of this BitVector.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>k</code> - The number of bits for the BitIterator to return at a time.
- For example, if k is 3, then each call to <a href="BitVector.BitIterator.html#nextBitBlock()"><code>BitVector.BitIterator.nextBitBlock()</code></a> will
- return an int containing the next 3 bits from the BitVector in the
- least significant 3 places.  The value of k must be 0 &lt; k &le; 32.</dd>
+<dd><code>k</code> - The number of bits for the BitIterator to return at a time. For example, if k is 3,
+     then each call to <a href="BitVector.BitIterator.html#nextBitBlock()"><code>BitVector.BitIterator.nextBitBlock()</code></a> will return an int containing the next
+     3 bits from the BitVector in the least significant 3 places. The value of k must be 0 &lt;
+     k &le; 32.</dd>
 <dt>Returns:</dt>
 <dd>A BitIterator object to iterate over the bits of this BitVector.</dd>
 <dt>Throws:</dt>
@@ -810,8 +792,7 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <section class="detail" id="bitIterator()">
 <h3>bitIterator</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="BitVector.BitIterator.html" title="class in org.cicirello.search.representations">BitVector.BitIterator</a></span>&nbsp;<span class="element-name">bitIterator</span>()</div>
-<div class="block">Creates a BitIterator to iterate over the bits of
- this BitVector, one bit at a time.</div>
+<div class="block">Creates a BitIterator to iterate over the bits of this BitVector, one bit at a time.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>A BitIterator object to iterate over the bits of this BitVector.</dd>

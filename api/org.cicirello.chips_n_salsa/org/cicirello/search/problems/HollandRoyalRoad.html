@@ -94,70 +94,67 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">HollandRoyalRoad</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</span></div>
-<div class="block"><p>Implementation of Holland's Royal Road problem, as described in the following
- paper:<br>
- Terry Jones. A Description of Holland's Royal Road Function. Evolutionary Computation
- 2(4): 409-415, 1995.<br>
+<div class="block">Implementation of Holland's Royal Road problem, as described in the following paper:<br>
+ Terry Jones. A Description of Holland's Royal Road Function. Evolutionary Computation 2(4):
+ 409-415, 1995.<br>
  Originally described by Holland in:<br>
- J.H. Holland. Royal Road Functions. Internet Genetic Algorithms Digest, 7(22), 1993.</p>
+ J.H. Holland. Royal Road Functions. Internet Genetic Algorithms Digest, 7(22), 1993.
 
- <p>We suggest that the Jones (1995) paper be consulted for a detailed description and
- detailed example of Holland's Royal Road function.</p>
+ <p>We suggest that the Jones (1995) paper be consulted for a detailed description and detailed
+ example of Holland's Royal Road function.
 
  <p>Note that if you are looking for the original Royal Road problems of Mitchell, Forrest, and
- Holland, see the <a href="RoyalRoad.html" title="class in org.cicirello.search.problems"><code>RoyalRoad</code></a> class.</p>
+ Holland, see the <a href="RoyalRoad.html" title="class in org.cicirello.search.problems"><code>RoyalRoad</code></a> class.
 
- <p>The problem is defined with several parameters. Part of the fitness function
- is calculated over k+1 levels, where there are 2<sup>k</sup> regions in level 0, and
- each level i has 2<sup>k-i</sup> regions. Each region at level 0 begins with a
- block of b bits, which is followed by a gap of g bits. Thus each region at level 0
- contains b + g bits. Each region of level 1 is the concatenation of 2 consecutive regions
- from level 0. Likewise, each region of level 2 is the concatenation of 2 consecutive regions
- from level 1, and so forth, until level k which is simply the entire bit vector.</p>
+ <p>The problem is defined with several parameters. Part of the fitness function is calculated
+ over k+1 levels, where there are 2<sup>k</sup> regions in level 0, and each level i has
+ 2<sup>k-i</sup> regions. Each region at level 0 begins with a block of b bits, which is followed
+ by a gap of g bits. Thus each region at level 0 contains b + g bits. Each region of level 1 is
+ the concatenation of 2 consecutive regions from level 0. Likewise, each region of level 2 is the
+ concatenation of 2 consecutive regions from level 1, and so forth, until level k which is simply
+ the entire bit vector.
 
- <p>Fitness evaluation includes two components. The first is referred to as the Part fitness,
- in which each level 0 region contributes to the fitness of the bit vector. The gap bits of
- each region are ignored and don't factor into fitness. If all of the bits in the b-bit
- block are all ones, then the region doesn't factor into the Part calculation (only the 
- Bonus calculation). Otherwise, if there are mStar or less one bits in the block, then each contributes
- v to the fitness, and otherwise if there are more than mStar bits in the block then the
- excess bits are each penalized in the fitness by b.  For example, suppose the block size b=8, 
- mStar=4, and v=0.02. If there is only a single one-bit, then the block contributes 0.02 to
- the fitness. If there are 2 one-bits, then the block contributes 0.04 to the fitness.
- If there are 3 one-bits, then the block contributes 0.06 to the fitness.
- If there are 4 one-bits, then the block contributes 0.08 to the fitness.
- However, if there are 5, 6, or 7 one-bits, then the block causes a reduction in fitness.
- For example, if there are 6 one-bits, then the 2 extra (above the mStar of 4) each incur
- a penalty of -0.02 (total penalty of 0.04). If all 8 bits are ones, no increase nor decrease
- in fitness occurs during the Part calculation.</p>
+ <p>Fitness evaluation includes two components. The first is referred to as the Part fitness, in
+ which each level 0 region contributes to the fitness of the bit vector. The gap bits of each
+ region are ignored and don't factor into fitness. If all of the bits in the b-bit block are all
+ ones, then the region doesn't factor into the Part calculation (only the Bonus calculation).
+ Otherwise, if there are mStar or less one bits in the block, then each contributes v to the
+ fitness, and otherwise if there are more than mStar bits in the block then the excess bits are
+ each penalized in the fitness by b. For example, suppose the block size b=8, mStar=4, and v=0.02.
+ If there is only a single one-bit, then the block contributes 0.02 to the fitness. If there are 2
+ one-bits, then the block contributes 0.04 to the fitness. If there are 3 one-bits, then the block
+ contributes 0.06 to the fitness. If there are 4 one-bits, then the block contributes 0.08 to the
+ fitness. However, if there are 5, 6, or 7 one-bits, then the block causes a reduction in fitness.
+ For example, if there are 6 one-bits, then the 2 extra (above the mStar of 4) each incur a
+ penalty of -0.02 (total penalty of 0.04). If all 8 bits are ones, no increase nor decrease in
+ fitness occurs during the Part calculation.
 
- <p>The second phase of fitness is called the Bonus calculation. The Bonus calculation is 
- computed over the k+1 levels. The first complete block (all one-bits) at level 0 contributes
- uStar to the fitness, and each additional complete block at level 0 contributes u to the fitness.
- For example, if there are 5 complete blocks at level 0, and if uStar is 1.0 and u is 0.3, then
- the level 0 bonus is 1.0 + 4 * 0.3 = 2.2.  Level 1 then consists of half as many regions,
- each region formed by the concatenation of two consecutive regions of level 0. Note that each
- each at level 1 will consist of b block bits, followed by g gap bits, followed by b block bits,
- followed by g gap bits. At level 1, a complete block is when the 2b bits in the 2 block segments
- are all ones. Just like level 0, the first complete block at level 1 contributes uStar to fitness, and then
- each additional complete block at level 1 contributes u to the fitness. This then proceeds through
- levels 2, 3, ..., k.</p>
+ <p>The second phase of fitness is called the Bonus calculation. The Bonus calculation is computed
+ over the k+1 levels. The first complete block (all one-bits) at level 0 contributes uStar to the
+ fitness, and each additional complete block at level 0 contributes u to the fitness. For example,
+ if there are 5 complete blocks at level 0, and if uStar is 1.0 and u is 0.3, then the level 0
+ bonus is 1.0 + 4 * 0.3 = 2.2. Level 1 then consists of half as many regions, each region formed
+ by the concatenation of two consecutive regions of level 0. Note that each each at level 1 will
+ consist of b block bits, followed by g gap bits, followed by b block bits, followed by g gap
+ bits. At level 1, a complete block is when the 2b bits in the 2 block segments are all ones. Just
+ like level 0, the first complete block at level 1 contributes uStar to fitness, and then each
+ additional complete block at level 1 contributes u to the fitness. This then proceeds through
+ levels 2, 3, ..., k.
 
- <p>Holland's Royal Road function is a fitness function, and thus must be maximized. Due to the penalty 
- terms in the Part calculation, it can evaluate to negative values. The <a href="#value(org.cicirello.search.representations.BitVector)"><code>value</code></a> method
- computes the fitness function of this problem.  Since the metaheuristics of the
+ <p>Holland's Royal Road function is a fitness function, and thus must be maximized. Due to the
+ penalty terms in the Part calculation, it can evaluate to negative values. The <a href="#value(org.cicirello.search.representations.BitVector)"><code>value</code></a> method computes the fitness function of this problem. Since the metaheuristics of the
  Chips-n-Salsa library assume minimization problems, the <a href="#cost(org.cicirello.search.representations.BitVector)"><code>cost</code></a> method transforms the
  problem to minimization. It does this by computing cost = MaxFitness - value. MaxFitness can be
- computed from the parameters of the problem, k, b, g, mStar, v, uStar, and u. So although
- the <a href="#value(org.cicirello.search.representations.BitVector)"><code>value</code></a> method may return negative values, the <a href="#cost(org.cicirello.search.representations.BitVector)"><code>cost</code></a> method
- is guaranteed to never return a negative, and the optimal solution to an instance has a cost of 0.
- Although note that each instance will have many optimal solutions due to the gap bits which do not
- affect fitness or cost.</p>
+ computed from the parameters of the problem, k, b, g, mStar, v, uStar, and u. So although the
+ <a href="#value(org.cicirello.search.representations.BitVector)"><code>value</code></a> method may return negative values, the <a href="#cost(org.cicirello.search.representations.BitVector)"><code>cost</code></a> method is
+ guaranteed to never return a negative, and the optimal solution to an instance has a cost of 0.
+ Although note that each instance will have many optimal solutions due to the gap bits which do
+ not affect fitness or cost.
 
  <p>The <a href="#value(org.cicirello.search.representations.BitVector)"><code>value</code></a> and <a href="#cost(org.cicirello.search.representations.BitVector)"><code>cost</code></a> methods will throw exceptions if you attempt
- to evaluate a BitVector whose length is inconsistent with the parameters passed to the constructor.
- The <a href="#supportedBitVectorLength()"><code>supportedBitVectorLength</code></a> method returns the length of
- BitVector supported by an instance of the problem, which is 2<sup>k</sup>(b + g).</p></div>
+ to evaluate a BitVector whose length is inconsistent with the parameters passed to the
+ constructor. The <a href="#supportedBitVectorLength()"><code>supportedBitVectorLength</code></a> method returns the
+ length of BitVector supported by an instance of the problem, which is 2<sup>k</sup>(b + g).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -171,9 +168,8 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">HollandRoyalRoad</a>()</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs an instance of Holland's Royal Road fitness function,
- with Holland's original set of default parameter values: k=4, b=8,
- g=7, mStar=4, v=0.02, uStar=1.0, and u=0.3.</div>
+<div class="block">Constructs an instance of Holland's Royal Road fitness function, with Holland's original set of
+ default parameter values: k=4, b=8, g=7, mStar=4, v=0.02, uStar=1.0, and u=0.3.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,int,int,int,double,double,double)" class="member-name-link">HollandRoyalRoad</a><wbr>(int&nbsp;k,
  int&nbsp;blockSize,
@@ -207,26 +203,26 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isMinCost(double)" class="member-name-link">isMinCost</a><wbr>(double&nbsp;cost)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#supportedBitVectorLength()" class="member-name-link">supportedBitVectorLength</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">The length of BitVectors supported by this instance of HollandRoyalRoad,
- which is 2<sup>k</sup>(blockSize + gapSize).</div>
+<div class="block">The length of BitVectors supported by this instance of HollandRoyalRoad, which is
+ 2<sup>k</sup>(blockSize + gapSize).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.search.representations.BitVector)" class="member-name-link">value</a><wbr>(<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -252,9 +248,8 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <section class="detail" id="&lt;init&gt;()">
 <h3>HollandRoyalRoad</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">HollandRoyalRoad</span>()</div>
-<div class="block">Constructs an instance of Holland's Royal Road fitness function,
- with Holland's original set of default parameter values: k=4, b=8,
- g=7, mStar=4, v=0.02, uStar=1.0, and u=0.3.</div>
+<div class="block">Constructs an instance of Holland's Royal Road fitness function, with Holland's original set of
+ default parameter values: k=4, b=8, g=7, mStar=4, v=0.02, uStar=1.0, and u=0.3.</div>
 </section>
 </li>
 <li>
@@ -270,29 +265,31 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <div class="block">Constructs an instance of Holland's Royal Road fitness function.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>k</code> - The number of level 0 blocks. There will be 2<sup>k</sup> level 0 blocks
- (see the references listed in the class comment for relevant definitions). The number of
- levels in the function is: k + 1.</dd>
-<dd><code>blockSize</code> - The number of bits in each block. This parameter was originally simply b
- in Holland's description as well as Jones's more detailed presentation.</dd>
-<dd><code>gapSize</code> - The number of bits in the gap following each block. This parameter was 
- originally simply g in Holland's description as well as in Jones's more detailed presentation.
- The gap bits are ignored by the fitness function.</dd>
-<dd><code>mStar</code> - This is a parameter used in calculating what Holland called the Part fitness (originally
- named m* by Holland). It is the number of one-bits that a block may have before being penalized
- for having too many ones. The penalty applies to any blocks that have more than mStar ones, but less than
- blockSize ones.</dd>
-<dd><code>v</code> - This parameter is also used in calculating Holland's Part fitness. If there are no more than
- mStar ones in the block, then v is a reward for each one-bit in the block. If there are more than
- mStar ones in the block but less than blockSize, then v is a penalty per one-bit in the block.
- If the block is complete (all one-bits), then the Part fitness is 0.</dd>
-<dd><code>uStar</code> - This parameter is used in calculating Holland's Bonus fitness. At each level, the first
- completed (all one-bits) block (or block set) received a fitness bonus of uStar.</dd>
-<dd><code>u</code> - This parameter is used in calculating Holland's Bonus fitness. At each level, each completed
- (all one-bits) block (or block set) after the first contributes an additional u to the fitness.</dd>
+<dd><code>k</code> - The number of level 0 blocks. There will be 2<sup>k</sup> level 0 blocks (see the
+     references listed in the class comment for relevant definitions). The number of levels in
+     the function is: k + 1.</dd>
+<dd><code>blockSize</code> - The number of bits in each block. This parameter was originally simply b in
+     Holland's description as well as Jones's more detailed presentation.</dd>
+<dd><code>gapSize</code> - The number of bits in the gap following each block. This parameter was
+     originally simply g in Holland's description as well as in Jones's more detailed
+     presentation. The gap bits are ignored by the fitness function.</dd>
+<dd><code>mStar</code> - This is a parameter used in calculating what Holland called the Part fitness
+     (originally named m* by Holland). It is the number of one-bits that a block may have before
+     being penalized for having too many ones. The penalty applies to any blocks that have more
+     than mStar ones, but less than blockSize ones.</dd>
+<dd><code>v</code> - This parameter is also used in calculating Holland's Part fitness. If there are no
+     more than mStar ones in the block, then v is a reward for each one-bit in the block. If
+     there are more than mStar ones in the block but less than blockSize, then v is a penalty
+     per one-bit in the block. If the block is complete (all one-bits), then the Part fitness is
+     0.</dd>
+<dd><code>uStar</code> - This parameter is used in calculating Holland's Bonus fitness. At each level, the
+     first completed (all one-bits) block (or block set) received a fitness bonus of uStar.</dd>
+<dd><code>u</code> - This parameter is used in calculating Holland's Bonus fitness. At each level, each
+     completed (all one-bits) block (or block set) after the first contributes an additional u
+     to the fitness.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if k &lt; 0 or blockSize &lt; 1 or gapSize &lt; 0 or mStar &lt; 0
- or mStar &gt; blockSize or v &lt; 0.0 or uStar &lt; 0.0 or u &lt; 0.0</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if k &lt; 0 or blockSize &lt; 1 or gapSize &lt; 0 or mStar
+     &lt; 0 or mStar &gt; blockSize or v &lt; 0.0 or uStar &lt; 0.0 or u &lt; 0.0</dd>
 </dl>
 </section>
 </li>
@@ -308,8 +305,8 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <section class="detail" id="supportedBitVectorLength()">
 <h3>supportedBitVectorLength</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">supportedBitVectorLength</span>()</div>
-<div class="block">The length of BitVectors supported by this instance of HollandRoyalRoad,
- which is 2<sup>k</sup>(blockSize + gapSize).</div>
+<div class="block">The length of BitVectors supported by this instance of HollandRoyalRoad, which is
+ 2<sup>k</sup>(blockSize + gapSize).</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the length BitVector supported by this instance of HollandRoyalRoad.</dd>
@@ -320,18 +317,18 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <section class="detail" id="cost(org.cicirello.search.representations.BitVector)">
 <h3>cost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="OptimizationProblem.html#cost(T)">cost</a></code>&nbsp;in interface&nbsp;<code><a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if candidate.length() is not equal to 2<sup>k</sup>(blockSize + gapSize).
- See the <a href="#supportedBitVectorLength()"><code>supportedBitVectorLength()</code></a> method.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if candidate.length() is not equal to 2<sup>k</sup>(blockSize
+     + gapSize). See the <a href="#supportedBitVectorLength()"><code>supportedBitVectorLength()</code></a> method.</dd>
 </dl>
 </section>
 </li>
@@ -340,9 +337,9 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <h3>minCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">minCost</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="OptimizationProblem.html#minCost()">OptimizationProblem</a></code></span></div>
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution. 
- The default implementation returns Double.NEGATIVE_INFINITY.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution. The default implementation returns
+ Double.NEGATIVE_INFINITY.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="OptimizationProblem.html#minCost()">minCost</a></code>&nbsp;in interface&nbsp;<code><a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
@@ -356,8 +353,8 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <h3>isMinCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isMinCost</span><wbr><span class="parameters">(double&nbsp;cost)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="OptimizationProblem.html#isMinCost(double)">OptimizationProblem</a></code></span></div>
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="OptimizationProblem.html#isMinCost(double)">isMinCost</a></code>&nbsp;in interface&nbsp;<code><a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
@@ -372,8 +369,8 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <section class="detail" id="value(org.cicirello.search.representations.BitVector)">
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="OptimizationProblem.html#value(T)">value</a></code>&nbsp;in interface&nbsp;<code><a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
@@ -382,8 +379,8 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <dt>Returns:</dt>
 <dd>The actual optimization value of the candidate solution.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if candidate.length() is not equal to 2<sup>k</sup>(blockSize + gapSize).
- See the <a href="#supportedBitVectorLength()"><code>supportedBitVectorLength()</code></a> method.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if candidate.length() is not equal to 2<sup>k</sup>(blockSize
+     + gapSize). See the <a href="#supportedBitVectorLength()"><code>supportedBitVectorLength()</code></a> method.</dd>
 </dl>
 </section>
 </li>

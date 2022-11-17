@@ -97,8 +97,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Problem&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span></div>
-<div class="block">Base interface for all interfaces defining types of problems supported
- by the library.</div>
+<div class="block">Base interface for all interfaces defining types of problems supported by the library.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -141,14 +140,14 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getSolutionCostPair(T)">
 <h3 id="getSolutionCostPair(org.cicirello.util.Copyable)">getSolutionCostPair</h3>
 <div class="member-signature"><span class="return-type"><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="Problem.html" title="type parameter in Problem">T</a>&gt;</span>&nbsp;<span class="element-name">getSolutionCostPair</span><wbr><span class="parameters">(<a href="Problem.html" title="type parameter in Problem">T</a>&nbsp;candidate)</span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>A SolutionCostPair object containing the candidate solution
- and the cost of that candidate solution.  Lower cost means better solution.</dd>
+<dd>A SolutionCostPair object containing the candidate solution and the cost of that
+     candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -156,16 +155,15 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="costAsDouble(T)">
 <h3 id="costAsDouble(org.cicirello.util.Copyable)">costAsDouble</h3>
 <div class="member-signature"><span class="return-type">double</span>&nbsp;<span class="element-name">costAsDouble</span><wbr><span class="parameters">(<a href="Problem.html" title="type parameter in Problem">T</a>&nbsp;candidate)</span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution. Note that
- subinterfaces provide methods for computing the cost as more specific
- types (e.g., as an int).</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution. Note that subinterfaces provide methods for computing the cost
+ as more specific types (e.g., as an int).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution as a value of type double. 
- Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution as a value of type double. Lower cost means better
+     solution.</dd>
 </dl>
 </section>
 </li>

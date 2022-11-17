@@ -94,29 +94,30 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">UniformOrderBasedCrossover</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
-<div class="block"><p>Implementation of uniform order-based crossover (UOBX). UOBX is controlled by a parameter U,
+<div class="block">Implementation of uniform order-based crossover (UOBX). UOBX is controlled by a parameter U,
  which is the probability that an index is a fixed-point for children relative to parents (i.e.,
- that the children get the elements at those positions from the parents). Child c1
- gets the absolute positions of U*N elements on average from parent p1, where N is the permutation
- length, and c1 gets the relative positions of the remaining elements from parent p2. Likewise, child
- c2 gets the absolute positions of elements at those same chosen indexes from p2, with the relative 
- positions of the others coming from p1.</p>
+ that the children get the elements at those positions from the parents). Child c1 gets the
+ absolute positions of U*N elements on average from parent p1, where N is the permutation length,
+ and c1 gets the relative positions of the remaining elements from parent p2. Likewise, child c2
+ gets the absolute positions of elements at those same chosen indexes from p2, with the relative
+ positions of the others coming from p1.
 
- <p>Consider an example to illustrate. Let parent p1 = [3, 0, 6, 2, 5, 1, 4, 7] and parent
- p2 = [7, 6, 5, 4, 3, 2, 1, 0]. Consider U=0.5, and imagine in this hypothetical scenario that
- exactly half of the indexes were chosen, and that those 4 indexes are: 0, 3, 4, 6. Child c1 will
- get the elements at those indexes from p1, thus c1 begins with [3, x, x, 2, 5, x, 4, x]. The missing
- elements, 0, 1, 6, 7 will get their relative ordering from p2, and thus will be ordered as: 7, 6, 1, 0.
- In that order, they will fill into the open spots to derive: c1 = [3, 7, 6, 2, 5, 1, 4, 0]. Likewise,
- c2 will get the elements from indexes 0, 3, 4, and 6 from p2 to initialize as [7, x, x, 4, 3, x, 1, x].
- Its missing elements, 0, 2, 5, and 6 will get relative order from p1, and thus will be ordered
- 0, 6, 2, 5 to derive c2 = [7, 0, 6, 4, 3, 2, 1, 5].</p>
+ <p>Consider an example to illustrate. Let parent p1 = [3, 0, 6, 2, 5, 1, 4, 7] and parent p2 =
+ [7, 6, 5, 4, 3, 2, 1, 0]. Consider U=0.5, and imagine in this hypothetical scenario that exactly
+ half of the indexes were chosen, and that those 4 indexes are: 0, 3, 4, 6. Child c1 will get the
+ elements at those indexes from p1, thus c1 begins with [3, x, x, 2, 5, x, 4, x]. The missing
+ elements, 0, 1, 6, 7 will get their relative ordering from p2, and thus will be ordered as: 7, 6,
+ 1, 0. In that order, they will fill into the open spots to derive: c1 = [3, 7, 6, 2, 5, 1, 4, 0].
+ Likewise, c2 will get the elements from indexes 0, 3, 4, and 6 from p2 to initialize as [7, x, x,
+ 4, 3, x, 1, x]. Its missing elements, 0, 2, 5, and 6 will get relative order from p1, and thus
+ will be ordered 0, 6, 2, 5 to derive c2 = [7, 0, 6, 4, 3, 2, 1, 5].
 
  <p>The worst case runtime of a call to <a href="#cross(org.cicirello.permutations.Permutation,org.cicirello.permutations.Permutation)"><code>cross</code></a> is O(n), where n is the length of the
- permutations.</p>
+ permutations.
 
  <p>UOBX was introduced in the following paper:<br>
- Syswerda, G. Schedule Optimization using Genetic Algorithms. <i>Handbook of Genetic Algorithms</i>, 1991.</p></div>
+ Syswerda, G. Schedule Optimization using Genetic Algorithms. <i>Handbook of Genetic
+ Algorithms</i>, 1991.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -154,14 +155,14 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#cross(org.cicirello.permutations.Permutation,org.cicirello.permutations.Permutation)" class="member-name-link">cross</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c1,
  <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c2)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
- forms two children from two parents.</div>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover forms two children from
+ two parents.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="UniformOrderBasedCrossover.html" title="class in org.cicirello.search.operators.permutations">UniformOrderBasedCrossover</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -196,8 +197,8 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <dt>Parameters:</dt>
 <dd><code>u</code> - The probability of an index being among the fixed-point positions.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if u is less than or equal to 0.0, or if u is greater than
- or equal to 1.0.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if u is less than or equal to 0.0, or if u is greater than or
+     equal to 1.0.</dd>
 </dl>
 </section>
 </li>
@@ -215,17 +216,15 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">cross</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c1,
  <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c2)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../CrossoverOperator.html#cross(T,T)">CrossoverOperator</a></code></span></div>
-<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover
- forms two children from two parents. Implementations of this method 
- modify the parameters, transforming the parents into the children.</div>
+<div class="block">Performs a crossover for an evolutionary algorithm, such that crossover forms two children from
+ two parents. Implementations of this method modify the parameters, transforming the parents
+ into the children.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../CrossoverOperator.html#cross(T,T)">cross</a></code>&nbsp;in interface&nbsp;<code><a href="../CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>c1</code> - A candidate solution subject to the crossover. This method
- changes the state of c1.</dd>
-<dd><code>c2</code> - A candidate solution subject to the crossover. This method
- changes the state of c2.</dd>
+<dd><code>c1</code> - A candidate solution subject to the crossover. This method changes the state of c1.</dd>
+<dd><code>c2</code> - A candidate solution subject to the crossover. This method changes the state of c2.</dd>
 </dl>
 </section>
 </li>
@@ -234,27 +233,24 @@ implements <a href="../CrossoverOperator.html" title="interface in org.cicirello
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="UniformOrderBasedCrossover.html" title="class in org.cicirello.search.operators.permutations">UniformOrderBasedCrossover</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

@@ -95,13 +95,11 @@ loadScripts(document, 'script');</script>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
 <div class="block">This class is an implementation of the Quadratic Assignment Problem (QAP), an NP-Hard
- optimization problem. In this implementation, both the cost and distance matrices
- are integer-valued. This class uses factory methods, rather than constructors to better
- support a variety of ways of generating random instances. The class supports generating 
- uniform random instances via the 
- <a href="#createUniformRandomInstance(int,int,int,int,int)"><code>createUniformRandomInstance</code></a>
- method, as well as creating instances by directly specifying the cost and distance matrices
- via the <a href="#createInstance(int%5B%5D%5B%5D,int%5B%5D%5B%5D)"><code>createInstance</code></a>.</div>
+ optimization problem. In this implementation, both the cost and distance matrices are
+ integer-valued. This class uses factory methods, rather than constructors to better support a
+ variety of ways of generating random instances. The class supports generating uniform random
+ instances via the <a href="#createUniformRandomInstance(int,int,int,int,int)"><code>createUniformRandomInstance</code></a> method, as
+ well as creating instances by directly specifying the cost and distance matrices via the <a href="#createInstance(int%5B%5D%5B%5D,int%5B%5D%5B%5D)"><code>createInstance</code></a>.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -134,8 +132,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
  int&nbsp;minDistance,
  int&nbsp;maxDistance)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Creates an instance of the QAP problem with cost and distance matrices formed from
- uniformly random integers.</div>
+<div class="block">Creates an instance of the QAP problem with cost and distance matrices formed from uniformly
+ random integers.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="QuadraticAssignmentProblem.html" title="class in org.cicirello.search.problems">QuadraticAssignmentProblem</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createUniformRandomInstance(int,int,int,int,int,long)" class="member-name-link">createUniformRandomInstance</a><wbr>(int&nbsp;size,
@@ -145,8 +143,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
  int&nbsp;maxDistance,
  long&nbsp;seed)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Creates an instance of the QAP problem with cost and distance matrices formed from
- uniformly random integers.</div>
+<div class="block">Creates an instance of the QAP problem with cost and distance matrices formed from uniformly
+ random integers.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCost(int,int)" class="member-name-link">getCost</a><wbr>(int&nbsp;i,
@@ -163,8 +161,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
@@ -174,8 +172,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.permutations.Permutation)" class="member-name-link">value</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -202,15 +200,15 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>cost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#cost(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#cost(T)">cost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -219,8 +217,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#value(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#value(T)">value</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -236,9 +234,9 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>minCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">minCost</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#minCost()">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution. 
- The default implementation returns Integer.MIN_VALUE.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution. The default implementation returns
+ Integer.MIN_VALUE.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#minCost()">minCost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -271,8 +269,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <dt>Returns:</dt>
 <dd>The cost of cell i, j.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if either i or j is less than 0, or if either i or j is greater than
- or equal to size().</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if either i or j is less than 0, or if either i or j is
+     greater than or equal to size().</dd>
 </dl>
 </section>
 </li>
@@ -289,8 +287,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <dt>Returns:</dt>
 <dd>The distance of cell i, j.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if either i or j is less than 0, or if either i or j is greater than
- or equal to size().</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if either i or j is less than 0, or if either i or j is
+     greater than or equal to size().</dd>
 </dl>
 </section>
 </li>
@@ -299,16 +297,18 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>createInstance</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="QuadraticAssignmentProblem.html" title="class in org.cicirello.search.problems">QuadraticAssignmentProblem</a></span>&nbsp;<span class="element-name">createInstance</span><wbr><span class="parameters">(int[][]&nbsp;cost,
  int[][]&nbsp;distance)</span></div>
-<div class="block">Creates an instance of the QAP problem from given cost and distance matrices. Note that
- the <code>cost</code> and <a href="#value(org.cicirello.permutations.Permutation)"><code>value</code></a> methods assume that the diagonal is always 0.</div>
+<div class="block">Creates an instance of the QAP problem from given cost and distance matrices. Note that the
+ <code>cost</code> and <a href="#value(org.cicirello.permutations.Permutation)"><code>value</code></a> methods assume that the diagonal is always 0.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>cost</code> - The cost matrix which must be square.</dd>
-<dd><code>distance</code> - The distance matrix which must be square and of the same dimensions as the cost matrix.</dd>
+<dd><code>distance</code> - The distance matrix which must be square and of the same dimensions as the cost
+     matrix.</dd>
 <dt>Returns:</dt>
 <dd>an instance of the QAP problem from the specified cost and distance matrices</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the cost and distance matrices are not square or not of the same dimensions</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the cost and distance matrices are not square or not of the
+     same dimensions</dd>
 </dl>
 </section>
 </li>
@@ -320,19 +320,22 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
  int&nbsp;maxCost,
  int&nbsp;minDistance,
  int&nbsp;maxDistance)</span></div>
-<div class="block">Creates an instance of the QAP problem with cost and distance matrices formed from
- uniformly random integers. Note that the diagonal is always 0.</div>
+<div class="block">Creates an instance of the QAP problem with cost and distance matrices formed from uniformly
+ random integers. Note that the diagonal is always 0.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>size</code> - Create a size by size instance.</dd>
 <dd><code>minCost</code> - Costs are uniform at random from an interval with minCost as the minimum.</dd>
 <dd><code>maxCost</code> - Costs are uniform at random from an interval with maxCost as the maximum.</dd>
-<dd><code>minDistance</code> - Distances are uniform at random from an interval with minDistance as the minimum.</dd>
-<dd><code>maxDistance</code> - Distances are uniform at random from an interval with maxDistance as the maximum.</dd>
+<dd><code>minDistance</code> - Distances are uniform at random from an interval with minDistance as the
+     minimum.</dd>
+<dd><code>maxDistance</code> - Distances are uniform at random from an interval with maxDistance as the
+     maximum.</dd>
 <dt>Returns:</dt>
 <dd>an instance of the QAP problem with uniform random cost and distance matrices</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if size is less than 1, or maxCost is less than minCost, or maxDistance is less than minDistance.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if size is less than 1, or maxCost is less than minCost, or
+     maxDistance is less than minDistance.</dd>
 </dl>
 </section>
 </li>
@@ -345,20 +348,23 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
  int&nbsp;minDistance,
  int&nbsp;maxDistance,
  long&nbsp;seed)</span></div>
-<div class="block">Creates an instance of the QAP problem with cost and distance matrices formed from
- uniformly random integers. Note that the diagonal is always 0.</div>
+<div class="block">Creates an instance of the QAP problem with cost and distance matrices formed from uniformly
+ random integers. Note that the diagonal is always 0.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>size</code> - Create a size by size instance.</dd>
 <dd><code>minCost</code> - Costs are uniform at random from an interval with minCost as the minimum.</dd>
 <dd><code>maxCost</code> - Costs are uniform at random from an interval with maxCost as the maximum.</dd>
-<dd><code>minDistance</code> - Distances are uniform at random from an interval with minDistance as the minimum.</dd>
-<dd><code>maxDistance</code> - Distances are uniform at random from an interval with maxDistance as the maximum.</dd>
+<dd><code>minDistance</code> - Distances are uniform at random from an interval with minDistance as the
+     minimum.</dd>
+<dd><code>maxDistance</code> - Distances are uniform at random from an interval with maxDistance as the
+     maximum.</dd>
 <dd><code>seed</code> - The seed for the random number generator.</dd>
 <dt>Returns:</dt>
 <dd>an instance of the QAP problem with uniform random cost and distance matrices</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if size is less than 1, or maxCost is less than minCost, or maxDistance is less than minDistance.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if size is less than 1, or maxCost is less than minCost, or
+     maxDistance is less than minDistance.</dd>
 </dl>
 </section>
 </li>

@@ -94,26 +94,23 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">LargestCommonSubgraph</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
-<div class="block"><p>This class is an implementation of the Largest Common Subgraph
- problem, an NP-Hard combinatorial optimization problem. In the problem,
- we are given two graphs G<sub>1</sub> and G<sub>2</sub>. The problem is to
- find the largest graph G<sub>c</sub>, measured in number of edges,
- that is isomorphic to a subgraph of G<sub>1</sub> and a subgraph of G<sub>2</sub>.</p>
+<div class="block">This class is an implementation of the Largest Common Subgraph problem, an NP-Hard combinatorial
+ optimization problem. In the problem, we are given two graphs G<sub>1</sub> and G<sub>2</sub>.
+ The problem is to find the largest graph G<sub>c</sub>, measured in number of edges, that is
+ isomorphic to a subgraph of G<sub>1</sub> and a subgraph of G<sub>2</sub>.
 
- <p>The <a href="#value(org.cicirello.permutations.Permutation)"><code>value</code></a> method computes the actual optimization objective,
- number of edges in common, which we must maximize. The <a href="#cost(org.cicirello.permutations.Permutation)"><code>cost</code></a> method
- transforms this to a minimization problem by subtracting that count from 
- the number of edges in the smaller of G<sub>1</sub> and G<sub>2</sub> (in terms of
- edges).</p>
+ <p>The <a href="#value(org.cicirello.permutations.Permutation)"><code>value</code></a> method computes the actual optimization objective, number of edges in
+ common, which we must maximize. The <a href="#cost(org.cicirello.permutations.Permutation)"><code>cost</code></a> method transforms this to a minimization
+ problem by subtracting that count from the number of edges in the smaller of G<sub>1</sub> and
+ G<sub>2</sub> (in terms of edges).
 
- <p>This implementation assumes representing solutions with a Permutation used to
- represent a mapping between the vertexes of the two graphs. Specifically, holding
- the vertexes of the graph with the fewer number of vertexes in a fixed order
- by their vertex id, a solution to the problem is represented with a Permutation of
- the vertex ids of the other graph. Position in the permutation corresponds to the
- mapping. For example, if p(i) = j, then vertex i in G<sub>1</sub> is mapped to
- vertex j in G<sub>2</sub>. This assumes that G<sub>1</sub> has at most the number
- of vertexes as G<sub>2</sub>.</p></div>
+ <p>This implementation assumes representing solutions with a Permutation used to represent a
+ mapping between the vertexes of the two graphs. Specifically, holding the vertexes of the graph
+ with the fewer number of vertexes in a fixed order by their vertex id, a solution to the problem
+ is represented with a Permutation of the vertex ids of the other graph. Position in the
+ permutation corresponds to the mapping. For example, if p(i) = j, then vertex i in G<sub>1</sub>
+ is mapped to vertex j in G<sub>2</sub>. This assumes that G<sub>1</sub> has at most the number of
+ vertexes as G<sub>2</sub>.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -129,8 +126,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="col-first even-row-color"><code>static final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="LargestCommonSubgraph.Edge.html" class="type-name-link" title="class in org.cicirello.search.problems">LargestCommonSubgraph.Edge</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">This class is used to represent edges when specifying
- instances of the <a href="LargestCommonSubgraph.html" title="class in org.cicirello.search.problems"><code>LargestCommonSubgraph</code></a> problem.</div>
+<div class="block">This class is used to represent edges when specifying instances of the <a href="LargestCommonSubgraph.html" title="class in org.cicirello.search.problems"><code>LargestCommonSubgraph</code></a> problem.</div>
 </div>
 </div>
 </section>
@@ -201,28 +197,28 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createInstanceGeneralizedPetersenGraph(int,int)" class="member-name-link">createInstanceGeneralizedPetersenGraph</a><wbr>(int&nbsp;n,
  int&nbsp;k)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Creates an instance of the Largest Common Subgraph problem for a pair of isomorphic
- <a href=https://en.wikipedia.org/wiki/Generalized_Petersen_graph target=_top>Generalized Petersen Graphs</a>.</div>
+<div class="block">Creates an instance of the Largest Common Subgraph problem for a pair of isomorphic <a href=https://en.wikipedia.org/wiki/Generalized_Petersen_graph target=_top>Generalized Petersen
+ Graphs</a>.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="LargestCommonSubgraph.html" title="class in org.cicirello.search.problems">LargestCommonSubgraph</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createInstanceGeneralizedPetersenGraph(int,int,long)" class="member-name-link">createInstanceGeneralizedPetersenGraph</a><wbr>(int&nbsp;n,
  int&nbsp;k,
  long&nbsp;seed)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Creates an instance of the Largest Common Subgraph problem for a pair of isomorphic
- <a href=https://en.wikipedia.org/wiki/Generalized_Petersen_graph target=_top>Generalized Petersen Graphs</a>.</div>
+<div class="block">Creates an instance of the Largest Common Subgraph problem for a pair of isomorphic <a href=https://en.wikipedia.org/wiki/Generalized_Petersen_graph target=_top>Generalized Petersen
+ Graphs</a>.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#maxValue()" class="member-name-link">maxValue</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Determines an upper bound on the possible size in number of edges
- of the largest common subgraph.</div>
+<div class="block">Determines an upper bound on the possible size in number of edges of the largest common
+ subgraph.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
@@ -232,8 +228,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.permutations.Permutation)" class="member-name-link">value</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -265,12 +261,12 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>v</code> - The number of vertexes of each graph.</dd>
-<dd><code>density</code> - The density of each graph, which is the probability of an edge existing between 
- a pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
-<dd><code>isomorphic</code> - If true, the two graphs will be isomorphic, which provides an easy way
- of generating instances with a known optimal solution.</dd>
+<dd><code>density</code> - The density of each graph, which is the probability of an edge existing between
+     a pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
+<dd><code>isomorphic</code> - If true, the two graphs will be isomorphic, which provides an easy way of
+     generating instances with a known optimal solution.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if v  is less than 1.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if v is less than 1.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if density is less than 0.0 or greater than 1.0.</dd>
 </dl>
 </section>
@@ -287,13 +283,14 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <dt>Parameters:</dt>
 <dd><code>v1</code> - The number of vertexes of graph 1.</dd>
 <dd><code>v2</code> - The number of vertexes of graph 2.</dd>
-<dd><code>density1</code> - The density of graph 1, which is the probability of an edge existing between 
- a pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
-<dd><code>density2</code> - The density of graph 2, which is the probability of an edge existing between 
- a pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
+<dd><code>density1</code> - The density of graph 1, which is the probability of an edge existing between a
+     pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
+<dd><code>density2</code> - The density of graph 2, which is the probability of an edge existing between a
+     pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if v1 and/or v2 is less than 1.</dd>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if either density1 or density2 is less than 0.0 or greater than 1.0.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if either density1 or density2 is less than 0.0 or greater
+     than 1.0.</dd>
 </dl>
 </section>
 </li>
@@ -308,13 +305,13 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>v</code> - The number of vertexes of each graph.</dd>
-<dd><code>density</code> - The density of each graph, which is the probability of an edge existing between 
- a pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
-<dd><code>isomorphic</code> - If true, the two graphs will be isomorphic, which provides an easy way
- of generating instances with a known optimal solution.</dd>
+<dd><code>density</code> - The density of each graph, which is the probability of an edge existing between
+     a pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
+<dd><code>isomorphic</code> - If true, the two graphs will be isomorphic, which provides an easy way of
+     generating instances with a known optimal solution.</dd>
 <dd><code>seed</code> - The seed for the random number generator to enable replicating an instance.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if v  is less than 1.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if v is less than 1.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if density is less than 0.0 or greater than 1.0.</dd>
 </dl>
 </section>
@@ -332,14 +329,15 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <dt>Parameters:</dt>
 <dd><code>v1</code> - The number of vertexes of graph 1.</dd>
 <dd><code>v2</code> - The number of vertexes of graph 2.</dd>
-<dd><code>density1</code> - The density of graph 1, which is the probability of an edge existing between 
- a pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
-<dd><code>density2</code> - The density of graph 2, which is the probability of an edge existing between 
- a pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
+<dd><code>density1</code> - The density of graph 1, which is the probability of an edge existing between a
+     pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
+<dd><code>density2</code> - The density of graph 2, which is the probability of an edge existing between a
+     pair of vertexes. It must be in the interval [0.0, 1.0].</dd>
 <dd><code>seed</code> - The seed for the random number generator to enable replicating an instance.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if v1 and/or v2 is less than 1.</dd>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if either density1 or density2 is less than 0.0 or greater than 1.0.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if either density1 or density2 is less than 0.0 or greater
+     than 1.0.</dd>
 </dl>
 </section>
 </li>
@@ -355,18 +353,18 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <dt>Parameters:</dt>
 <dd><code>v1</code> - The number of vertexes of graph 1.</dd>
 <dd><code>v2</code> - The number of vertexes of graph 2.</dd>
-<dd><code>edges1</code> - A list of the edges for graph 1. Each of the 2 endpoints of each
-        edge in edges1 must be in the interval [0, v1). This list must not contain duplicate
-        edges, and also must not contain both (a, b) and (b, a) since these are the same edge.
-        The behavior of this class is undefined if either of these are violated.</dd>
-<dd><code>edges2</code> - A list of the edges for graph 2. Each of the 2 endpoints of each
-        edge in edges2 must be in the interval [0, v2). This list must not contain duplicate
-        edges, and also must not contain both (a, b) and (b, a) since these are the same edge.
-        The behavior of this class is undefined if either of these are violated.</dd>
+<dd><code>edges1</code> - A list of the edges for graph 1. Each of the 2 endpoints of each edge in edges1
+     must be in the interval [0, v1). This list must not contain duplicate edges, and also must
+     not contain both (a, b) and (b, a) since these are the same edge. The behavior of this
+     class is undefined if either of these are violated.</dd>
+<dd><code>edges2</code> - A list of the edges for graph 2. Each of the 2 endpoints of each edge in edges2
+     must be in the interval [0, v2). This list must not contain duplicate edges, and also must
+     not contain both (a, b) and (b, a) since these are the same edge. The behavior of this
+     class is undefined if either of these are violated.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if v1 and/or v2 is less than 1.</dd>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if any of the endpoints of the edges in edges1 or edges2
- are out of bounds for the corresponding graph.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if any of the endpoints of the edges in edges1 or edges2 are
+     out of bounds for the corresponding graph.</dd>
 </dl>
 </section>
 </li>
@@ -383,19 +381,19 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>createInstanceGeneralizedPetersenGraph</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="LargestCommonSubgraph.html" title="class in org.cicirello.search.problems">LargestCommonSubgraph</a></span>&nbsp;<span class="element-name">createInstanceGeneralizedPetersenGraph</span><wbr><span class="parameters">(int&nbsp;n,
  int&nbsp;k)</span></div>
-<div class="block"><p>Creates an instance of the Largest Common Subgraph problem for a pair of isomorphic
- <a href=https://en.wikipedia.org/wiki/Generalized_Petersen_graph target=_top>Generalized Petersen Graphs</a>.
- One of the graphs for this LCS problem instance is the Generalized Petersen Graph G(n, k). The second
- is isomorphic to the first, formed by generating a random relabeling of the vertex indexes.
- The Generalized Petersen Graph G(n, k) consists of 2*n vertexes and 3*n edges.</p></div>
+<div class="block">Creates an instance of the Largest Common Subgraph problem for a pair of isomorphic <a href=https://en.wikipedia.org/wiki/Generalized_Petersen_graph target=_top>Generalized Petersen
+ Graphs</a>. One of the graphs for this LCS problem instance is the Generalized Petersen Graph
+ G(n, k). The second is isomorphic to the first, formed by generating a random relabeling of the
+ vertex indexes. The Generalized Petersen Graph G(n, k) consists of 2*n vertexes and 3*n edges.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>n</code> - The parameter n of the Generalized Petersen Graph G(n, k), which must be at least 1. The
-    graph formed will have 2*n vertexes and 3*n edges.</dd>
-<dd><code>k</code> - The parameter k of the Generalized Petersen Graph G(n, k), which must be less than n/2.</dd>
+<dd><code>n</code> - The parameter n of the Generalized Petersen Graph G(n, k), which must be at least 1.
+     The graph formed will have 2*n vertexes and 3*n edges.</dd>
+<dd><code>k</code> - The parameter k of the Generalized Petersen Graph G(n, k), which must be less than
+     n/2.</dd>
 <dt>Returns:</dt>
-<dd>An instance of the Largest Common Subgraph problem for a pair of isomorphic
- Generalized Petersen Graphs.</dd>
+<dd>An instance of the Largest Common Subgraph problem for a pair of isomorphic Generalized
+     Petersen Graphs.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if k is not less than n/2 or if k is negative.</dd>
@@ -408,21 +406,21 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="LargestCommonSubgraph.html" title="class in org.cicirello.search.problems">LargestCommonSubgraph</a></span>&nbsp;<span class="element-name">createInstanceGeneralizedPetersenGraph</span><wbr><span class="parameters">(int&nbsp;n,
  int&nbsp;k,
  long&nbsp;seed)</span></div>
-<div class="block"><p>Creates an instance of the Largest Common Subgraph problem for a pair of isomorphic
- <a href=https://en.wikipedia.org/wiki/Generalized_Petersen_graph target=_top>Generalized Petersen Graphs</a>.
- One of the graphs for this LCS problem instance is the Generalized Petersen Graph G(n, k). The second
- is isomorphic to the first, formed by generating a random relabeling of the vertex indexes.
- The Generalized Petersen Graph G(n, k) consists of 2*n vertexes and 3*n edges.</p></div>
+<div class="block">Creates an instance of the Largest Common Subgraph problem for a pair of isomorphic <a href=https://en.wikipedia.org/wiki/Generalized_Petersen_graph target=_top>Generalized Petersen
+ Graphs</a>. One of the graphs for this LCS problem instance is the Generalized Petersen Graph
+ G(n, k). The second is isomorphic to the first, formed by generating a random relabeling of the
+ vertex indexes. The Generalized Petersen Graph G(n, k) consists of 2*n vertexes and 3*n edges.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>n</code> - The parameter n of the Generalized Petersen Graph G(n, k), which must be at least 1. The
-    graph formed will have 2*n vertexes and 3*n edges.</dd>
-<dd><code>k</code> - The parameter k of the Generalized Petersen Graph G(n, k), which must be less than n/2.</dd>
-<dd><code>seed</code> - The seed for the random number generator used in generating the randomized vertex index relabeling
-    when generating the second graph of the pair.</dd>
+<dd><code>n</code> - The parameter n of the Generalized Petersen Graph G(n, k), which must be at least 1.
+     The graph formed will have 2*n vertexes and 3*n edges.</dd>
+<dd><code>k</code> - The parameter k of the Generalized Petersen Graph G(n, k), which must be less than
+     n/2.</dd>
+<dd><code>seed</code> - The seed for the random number generator used in generating the randomized vertex
+     index relabeling when generating the second graph of the pair.</dd>
 <dt>Returns:</dt>
-<dd>An instance of the Largest Common Subgraph problem for a pair of isomorphic
- Generalized Petersen Graphs.</dd>
+<dd>An instance of the Largest Common Subgraph problem for a pair of isomorphic Generalized
+     Petersen Graphs.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is less than 1.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if k is not less than n/2 or if k is negative.</dd>
@@ -433,8 +431,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <section class="detail" id="size()">
 <h3>size</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">size</span>()</div>
-<div class="block">Gets the size of the instance as the number of vertexes in the larger graph.
- This is the required permutation length.</div>
+<div class="block">Gets the size of the instance as the number of vertexes in the larger graph. This is the
+ required permutation length.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the number of vertexes in the larger of the two graphs.</dd>
@@ -446,15 +444,15 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>cost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#cost(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#cost(T)">cost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -463,8 +461,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#value(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#value(T)">value</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -480,9 +478,9 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>minCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">minCost</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#minCost()">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution. 
- The default implementation returns Integer.MIN_VALUE.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution. The default implementation returns
+ Integer.MIN_VALUE.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#minCost()">minCost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -495,10 +493,10 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <section class="detail" id="maxValue()">
 <h3>maxValue</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">maxValue</span>()</div>
-<div class="block">Determines an upper bound on the possible size in number of edges
- of the largest common subgraph. This is simply the smaller of the number
- of edges of the two graphs. Note it may or may not be possible to actually find
- a common subgraph with this number of edges. It is simply an upper bound.</div>
+<div class="block">Determines an upper bound on the possible size in number of edges of the largest common
+ subgraph. This is simply the smaller of the number of edges of the two graphs. Note it may or
+ may not be possible to actually find a common subgraph with this number of edges. It is simply
+ an upper bound.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the minimum of the number of edges in graph 1 and graph 2.</dd>

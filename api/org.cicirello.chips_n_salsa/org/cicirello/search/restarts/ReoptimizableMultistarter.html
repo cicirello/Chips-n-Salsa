@@ -101,11 +101,9 @@ loadScripts(document, 'script');</script>
 <span class="extends-implements">extends <a href="Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a>&lt;T&gt;
 implements <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;T&gt;</span></div>
 <div class="block">This class is used for implementing multistart metaheuristics, that can be restarted at
- previously found solutions.  It can be used to
- restart any class that implements the <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search"><code>ReoptimizableMetaheuristic</code></a> interface, and requires
- specification of either a <a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts"><code>RestartSchedule</code></a> for the purpose of specifying run lengths
- for the restarts, or a run length if all runs are to be of the same length.
- A multistart metaheuristic returns the best result from among all of the restarts.</div>
+ previously found solutions. It can be used to restart any class that implements the <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search"><code>ReoptimizableMetaheuristic</code></a> interface, and requires specification of either a <a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts"><code>RestartSchedule</code></a> for the purpose of specifying run lengths for the restarts, or a run length if
+ all runs are to be of the same length. A multistart metaheuristic returns the best result from
+ among all of the restarts.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -120,14 +118,14 @@ implements <a href="../ReoptimizableMetaheuristic.html" title="interface in org.
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,int)" class="member-name-link">ReoptimizableMultistarter</a><wbr>(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  int&nbsp;runLength)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a multistart metaheuristic that executes multiple runs of
- a specified metaheuristic, whose runs are all the same in length.</div>
+<div class="block">Constructs a multistart metaheuristic that executes multiple runs of a specified metaheuristic,
+ whose runs are all the same in length.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.ReoptimizableMetaheuristic,org.cicirello.search.restarts.RestartSchedule)" class="member-name-link">ReoptimizableMultistarter</a><wbr>(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  <a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&nbsp;r)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a multistart metaheuristic that executes multiple runs of
- a specified metaheuristic, whose run lengths follow a specified schedule.</div>
+<div class="block">Constructs a multistart metaheuristic that executes multiple runs of a specified metaheuristic,
+ whose run lengths follow a specified schedule.</div>
 </div>
 </div>
 </section>
@@ -146,14 +144,14 @@ implements <a href="../ReoptimizableMetaheuristic.html" title="interface in org.
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reoptimize(int)" class="member-name-link">reoptimize</a><wbr>(int&nbsp;numRestarts)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Executes a multistart search, calling the underlying metaheuristic the specified
- number of times, keeping track of the best solution across the multiple runs of the search.</div>
+<div class="block">Executes a multistart search, calling the underlying metaheuristic the specified number of
+ times, keeping track of the best solution across the multiple runs of the search.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ReoptimizableMultistarter.html" title="class in org.cicirello.search.restarts">ReoptimizableMultistarter</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -186,8 +184,8 @@ implements <a href="../ReoptimizableMetaheuristic.html" title="interface in org.
 <h3>ReoptimizableMultistarter</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ReoptimizableMultistarter</span><wbr><span class="parameters">(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  <a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&nbsp;r)</span></div>
-<div class="block">Constructs a multistart metaheuristic that executes multiple runs of
- a specified metaheuristic, whose run lengths follow a specified schedule.</div>
+<div class="block">Constructs a multistart metaheuristic that executes multiple runs of a specified metaheuristic,
+ whose run lengths follow a specified schedule.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>search</code> - The metaheuristic to restart multiple times.</dd>
@@ -200,8 +198,8 @@ implements <a href="../ReoptimizableMetaheuristic.html" title="interface in org.
 <h3>ReoptimizableMultistarter</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ReoptimizableMultistarter</span><wbr><span class="parameters">(<a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;&nbsp;search,
  int&nbsp;runLength)</span></div>
-<div class="block">Constructs a multistart metaheuristic that executes multiple runs of
- a specified metaheuristic, whose runs are all the same in length.</div>
+<div class="block">Constructs a multistart metaheuristic that executes multiple runs of a specified metaheuristic,
+ whose runs are all the same in length.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>search</code> - The metaheuristic to restart multiple times.</dd>
@@ -223,24 +221,22 @@ implements <a href="../ReoptimizableMetaheuristic.html" title="interface in org.
 <section class="detail" id="reoptimize(int)">
 <h3>reoptimize</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;</span>&nbsp;<span class="element-name">reoptimize</span><wbr><span class="parameters">(int&nbsp;numRestarts)</span></div>
-<div class="block"><p>Executes a multistart search, calling the underlying metaheuristic the specified
- number of times, keeping track of the best solution across the multiple runs of the search.
- Each restart begins at the best solution found so far, but reinitializes any search
- control parameters.</p>
+<div class="block">Executes a multistart search, calling the underlying metaheuristic the specified number of
+ times, keeping track of the best solution across the multiple runs of the search. Each restart
+ begins at the best solution found so far, but reinitializes any search control parameters.
 
- <p>If this method is called multiple times, the restart schedule is not reinitialized,
- and the run lengths for the additional restarts will continue where the schedule left off.</p></div>
+ <p>If this method is called multiple times, the restart schedule is not reinitialized, and the
+ run lengths for the additional restarts will continue where the schedule left off.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../ReoptimizableMetaheuristic.html#reoptimize(int)">reoptimize</a></code>&nbsp;in interface&nbsp;<code><a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>numRestarts</code> - The number of times to restart the metaheuristic.</dd>
 <dt>Returns:</dt>
-<dd>The best end of run solution (and its cost) of this set of restarts, 
- which may or may not be the same as the solution contained
- in this metaheuristic's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs.
- Returns null if the run did not execute, such as if the ProgressTracker already contains
- the theoretical best solution.</dd>
+<dd>The best end of run solution (and its cost) of this set of restarts, which may or may
+     not be the same as the solution contained in this metaheuristic's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>,
+     which contains the best of all runs. Returns null if the run did not execute, such as if
+     the ProgressTracker already contains the theoretical best solution.</dd>
 </dl>
 </section>
 </li>
@@ -249,20 +245,18 @@ implements <a href="../ReoptimizableMetaheuristic.html" title="interface in org.
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ReoptimizableMultistarter.html" title="class in org.cicirello.search.restarts">ReoptimizableMultistarter</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;</span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../Metaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;&gt;</code></dd>
@@ -273,9 +267,8 @@ implements <a href="../ReoptimizableMetaheuristic.html" title="interface in org.
 <dt>Overrides:</dt>
 <dd><code><a href="Multistarter.html#split()">split</a></code>&nbsp;in class&nbsp;<code><a href="Multistarter.html" title="class in org.cicirello.search.restarts">Multistarter</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="ReoptimizableMultistarter.html" title="type parameter in ReoptimizableMultistarter">T</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

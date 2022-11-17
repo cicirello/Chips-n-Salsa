@@ -85,10 +85,9 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>Type Parameters:</dt>
-<dd><code>T</code> - The type of Partial object for which this 
- ConstructiveHeuristic guides construction, which is 
- assumed to be an object that is a sequence of integers (e.g., vector of integers,
- permutation, or some other indexable type that stores integers).</dd>
+<dd><code>T</code> - The type of Partial object for which this ConstructiveHeuristic guides construction,
+     which is assumed to be an object that is a sequence of integers (e.g., vector of integers,
+     permutation, or some other indexable type that stores integers).</dd>
 </dl>
 <dl class="notes">
 <dt>All Known Implementing Classes:</dt>
@@ -96,10 +95,9 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">ConstructiveHeuristic&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span></div>
-<div class="block"><p>Classes implementing this interface are used
- as constructive heuristics for constructing heuristic solutions
- to optimization problems, as well as for
- certain stochastic sampling search algorithms.</p></div>
+<div class="block">Classes implementing this interface are used as constructive heuristics for constructing
+ heuristic solutions to optimization problems, as well as for certain stochastic sampling search
+ algorithms.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -117,36 +115,33 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#completeLength()" class="member-name-link">completeLength</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Gets the required length of complete solutions 
- to the problem instance for which this constructive heuristic
- is configured.</div>
+<div class="block">Gets the required length of complete solutions to the problem instance for which this
+ constructive heuristic is configured.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#createIncrementalEvaluation()" class="member-name-link">createIncrementalEvaluation</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">Creates an IncrementalEvaluation object corresponding to an initially
- empty Partial for use in incrementally constructing a solution
- to the problem for which this heuristic is designed.</div>
+<div class="block">Creates an IncrementalEvaluation object corresponding to an initially empty Partial for use in
+ incrementally constructing a solution to the problem for which this heuristic is designed.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#createPartial(int)" class="member-name-link">createPartial</a><wbr>(int&nbsp;n)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Creates an empty Partial solution, which will be incrementally
- transformed into a complete solution of a specified length.</div>
+<div class="block">Creates an empty Partial solution, which will be incrementally transformed into a complete
+ solution of a specified length.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getProblem()" class="member-name-link">getProblem</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Gets a reference to the instance of the optimization problem 
- that is the subject of this heuristic.</div>
+<div class="block">Gets a reference to the instance of the optimization problem that is the subject of this
+ heuristic.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)" class="member-name-link">h</a><wbr>(<a href="Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;&nbsp;p,
  int&nbsp;element,
  <a href="IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;&nbsp;incEval)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Heuristically evaluates the possible addition of an element to the
- end of a Partial.</div>
+<div class="block">Heuristically evaluates the possible addition of an element to the end of a Partial.</div>
 </div>
 </div>
 </div>
@@ -168,31 +163,27 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="return-type">double</span>&nbsp;<span class="element-name">h</span><wbr><span class="parameters">(<a href="Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;&nbsp;p,
  int&nbsp;element,
  <a href="IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;&nbsp;incEval)</span></div>
-<div class="block">Heuristically evaluates the possible addition of an element to the
- end of a Partial.  Higher evaluations imply that the element is
- a better choice for the next element to add.  For example, if you evaluate
- two elements, x and y, with h, and h returns a higher value for y than for x,
- then this means that y is believed to be the better choice according to the 
- heuristic. Implementations of this interface must ensure that h always 
- returns a positive result. This is because stochastic sampling algorithms
- such as HBSS and VBSS assume that the constructive heuristic returns only
- positive values.</div>
+<div class="block">Heuristically evaluates the possible addition of an element to the end of a Partial. Higher
+ evaluations imply that the element is a better choice for the next element to add. For example,
+ if you evaluate two elements, x and y, with h, and h returns a higher value for y than for x,
+ then this means that y is believed to be the better choice according to the heuristic.
+ Implementations of this interface must ensure that h always returns a positive result. This is
+ because stochastic sampling algorithms such as HBSS and VBSS assume that the constructive
+ heuristic returns only positive values.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>p</code> - The current state of the Partial</dd>
 <dd><code>element</code> - The element under consideration for adding to the Partial</dd>
-<dd><code>incEval</code> - An IncrementalEvaluation of p.  This method assumes that incEval
- is of the same runtime type as the object returned by <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a>.</dd>
+<dd><code>incEval</code> - An IncrementalEvaluation of p. This method assumes that incEval is of the same
+     runtime type as the object returned by <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a>.</dd>
 <dt>Returns:</dt>
-<dd>The heuristic evaluation of the hypothetical addition of element to the end
- of p. The higher the evaluation, the more important the heuristic believes that
- element should be added next.  The intention is to compare the value returned
- with the heuristic evaluations of other elements.  Individual results in isolation
- are not necessarily meaningful.</dd>
+<dd>The heuristic evaluation of the hypothetical addition of element to the end of p. The
+     higher the evaluation, the more important the heuristic believes that element should be
+     added next. The intention is to compare the value returned with the heuristic evaluations
+     of other elements. Individual results in isolation are not necessarily meaningful.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ClassCastException.html" title="class or interface in java.lang" class="external-link">ClassCastException</a></code> - if incEval is not of the same runtime type as the
- objects returned by the <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a> method of the
- class implementing this interface</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ClassCastException.html" title="class or interface in java.lang" class="external-link">ClassCastException</a></code> - if incEval is not of the same runtime type as the objects returned
+     by the <a href="#createIncrementalEvaluation()"><code>createIncrementalEvaluation()</code></a> method of the class implementing this interface</dd>
 </dl>
 </section>
 </li>
@@ -200,21 +191,19 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="createIncrementalEvaluation()">
 <h3>createIncrementalEvaluation</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;</span>&nbsp;<span class="element-name">createIncrementalEvaluation</span>()</div>
-<div class="block"><p>Creates an IncrementalEvaluation object corresponding to an initially
- empty Partial for use in incrementally constructing a solution
- to the problem for which this heuristic is designed. The object returned 
- incrementally computes any data associated with a Partial as
- needed by the <a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)"><code>h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method.  The <a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)"><code>h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method will assume that 
- it will be given an object of the specific runtime type returned by this
- method.  It is unsafe to pass IncrementalEvaluation objects created by
- one heuristic to the <a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)"><code>h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method of another.</p>
+<div class="block">Creates an IncrementalEvaluation object corresponding to an initially empty Partial for use in
+ incrementally constructing a solution to the problem for which this heuristic is designed. The
+ object returned incrementally computes any data associated with a Partial as needed by the
+ <a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)"><code>h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method. The <a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)"><code>h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method will assume that it will be given an object of the
+ specific runtime type returned by this method. It is unsafe to pass IncrementalEvaluation
+ objects created by one heuristic to the <a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)"><code>h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method of another.
 
- <p>The default implementation simply returns null, which is appropriate for
- heuristics that won't benefit from incrementally computing heuristic information.</p></div>
+ <p>The default implementation simply returns null, which is appropriate for heuristics that
+ won't benefit from incrementally computing heuristic information.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>An IncrementalEvaluation for an empty Partial 
- to be used for incrementally computing any data required by the <a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)"><code>h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method.</dd>
+<dd>An IncrementalEvaluation for an empty Partial to be used for incrementally computing
+     any data required by the <a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)"><code>h(org.cicirello.search.ss.Partial&lt;T&gt;, int, org.cicirello.search.ss.IncrementalEvaluation&lt;T&gt;)</code></a> method.</dd>
 </dl>
 </section>
 </li>
@@ -222,8 +211,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="createPartial(int)">
 <h3>createPartial</h3>
 <div class="member-signature"><span class="return-type"><a href="Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;</span>&nbsp;<span class="element-name">createPartial</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
-<div class="block">Creates an empty Partial solution, which will be incrementally
- transformed into a complete solution of a specified length.</div>
+<div class="block">Creates an empty Partial solution, which will be incrementally transformed into a complete
+ solution of a specified length.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - the desired length of the final complete solution.</dd>
@@ -236,13 +225,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="completeLength()">
 <h3>completeLength</h3>
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">completeLength</span>()</div>
-<div class="block">Gets the required length of complete solutions 
- to the problem instance for which this constructive heuristic
- is configured.</div>
+<div class="block">Gets the required length of complete solutions to the problem instance for which this
+ constructive heuristic is configured.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>length of solutions to the problem instance for which this heuristic
- is configured</dd>
+<dd>length of solutions to the problem instance for which this heuristic is configured</dd>
 </dl>
 </section>
 </li>
@@ -250,12 +237,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getProblem()">
 <h3>getProblem</h3>
 <div class="member-signature"><span class="return-type"><a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;</span>&nbsp;<span class="element-name">getProblem</span>()</div>
-<div class="block">Gets a reference to the instance of the optimization problem 
- that is the subject of this heuristic.</div>
+<div class="block">Gets a reference to the instance of the optimization problem that is the subject of this
+ heuristic.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the instance of the optimization problem 
- that is the subject of this heuristic.</dd>
+<dd>the instance of the optimization problem that is the subject of this heuristic.</dd>
 </dl>
 </section>
 </li>

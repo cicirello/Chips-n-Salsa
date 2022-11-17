@@ -98,11 +98,10 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">SingleSolutionMetaheuristic&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span><span class="extends-implements">
 extends <a href="ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;T&gt;</span></div>
-<div class="block">This interface defines the required methods for implementations
- of single-solution metaheuristics, i.e., metaheuristics such as simulated annealing
- that operate one a single candidate solution (as compared to population-based metaheuristics
- such as genetic algorithms.  It is also specifically focused on 
- metaheuristics for which the maximum run length can be specified.</div>
+<div class="block">This interface defines the required methods for implementations of single-solution
+ metaheuristics, i.e., metaheuristics such as simulated annealing that operate one a single
+ candidate solution (as compared to population-based metaheuristics such as genetic algorithms. It
+ is also specifically focused on metaheuristics for which the maximum run length can be specified.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -151,26 +150,24 @@ extends <a href="ReoptimizableMetaheuristic.html" title="interface in org.cicire
 <h3 id="optimize(int,org.cicirello.util.Copyable)">optimize</h3>
 <div class="member-signature"><span class="return-type"><a href="SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="SingleSolutionMetaheuristic.html" title="type parameter in SingleSolutionMetaheuristic">T</a>&gt;</span>&nbsp;<span class="element-name">optimize</span><wbr><span class="parameters">(int&nbsp;runLength,
  <a href="SingleSolutionMetaheuristic.html" title="type parameter in SingleSolutionMetaheuristic">T</a>&nbsp;start)</span></div>
-<div class="block"><p>Executes a run of the metaheuristic beginning at a specified starting solution.
- If this method is called multiple times, each call begins by reinitializing 
- the metaheuristic's control parameters.
- as if it was a fresh run.</p>
+<div class="block">Executes a run of the metaheuristic beginning at a specified starting solution. If this method
+ is called multiple times, each call begins by reinitializing the metaheuristic's control
+ parameters. as if it was a fresh run.
 
- <p>Implementing classes should provide more specific documentation of this method
- to define in particular what run length means in the context of the given metaheuristic.
- It is also recommended that implementing classes rename the runLength parameter to be a more
- meaningful name within the context of that metaheuristic.</p></div>
+ <p>Implementing classes should provide more specific documentation of this method to define in
+ particular what run length means in the context of the given metaheuristic. It is also
+ recommended that implementing classes rename the runLength parameter to be a more meaningful
+ name within the context of that metaheuristic.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>runLength</code> - The length of a run of this metaheuristic.</dd>
 <dd><code>start</code> - The desired starting solution.</dd>
 <dt>Returns:</dt>
-<dd>The current solution at the end of this run and its cost, which may or may not be the best
- of run solution, and which may or may not be the same as the solution contained
- in this metaheuristic's <a href="ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, 
- which contains the best of all runs.
- Returns null if the run did not execute, such as if the ProgressTracker already contains
- the theoretical best solution.</dd>
+<dd>The current solution at the end of this run and its cost, which may or may not be the
+     best of run solution, and which may or may not be the same as the solution contained in
+     this metaheuristic's <a href="ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs. Returns
+     null if the run did not execute, such as if the ProgressTracker already contains the
+     theoretical best solution.</dd>
 </dl>
 </section>
 </li>

@@ -94,33 +94,28 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">PermutationInAHaystack</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
-<div class="block"><p>The Permutation in a Haystack is a family of optimization problems
- that can be parameterized to the various types of permutation problem 
- (e.g., absolute versus relative positioning).  The Permutation in a 
- Haystack problem uses permutation distance metrics to specify search landscape topology,
- providing an easy means of studying the behavior of search operators on a wide 
- variety of permutation landscapes.</p>
+<div class="block">The Permutation in a Haystack is a family of optimization problems that can be parameterized to
+ the various types of permutation problem (e.g., absolute versus relative positioning). The
+ Permutation in a Haystack problem uses permutation distance metrics to specify search landscape
+ topology, providing an easy means of studying the behavior of search operators on a wide variety
+ of permutation landscapes.
 
- <p>The Permutation in a Haystack Problem, Haystack(&delta;, n), is defined as follows.
- Find the permutation p such that, p = argmin<sub>p'</sub> &delta;(p', p<sub>n</sub>), 
- where p<sub>n</sub> = [0, 1, ..., (n-1)].  The p<sub>n</sub> is called the target permutation,
- and is just the permutation of the first n non-negative integers in increasing order.
- The p<sub>n</sub> is our figurative needle for which we are searching our haystack.
- It is also the optimal solution to the problem, so in this way the search problem has a
- known optimal.  The &delta; is a measure of the distance for permutations.  There are
- many measures of permutation distance available in the literature.  Some focus on
- exact positions of elements in the permutation, others focus on relative ordering of
- permutation elements, others focus on element precedences, etc.  In this way, the choice
- of &delta; enables you to control the search space topology.  The
- <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/distance/package-summary.html" class="external-link"><code>org.cicirello.permutations.distance</code></a> package includes implementations of many 
- permutation distance measures.  The class includes a constructor that uses the target
- permutation as defined above, as well as an additional constructor that enables you
- to specify a different target.</p>
+ <p>The Permutation in a Haystack Problem, Haystack(&delta;, n), is defined as follows. Find the
+ permutation p such that, p = argmin<sub>p'</sub> &delta;(p', p<sub>n</sub>), where p<sub>n</sub>
+ = [0, 1, ..., (n-1)]. The p<sub>n</sub> is called the target permutation, and is just the
+ permutation of the first n non-negative integers in increasing order. The p<sub>n</sub> is our
+ figurative needle for which we are searching our haystack. It is also the optimal solution to the
+ problem, so in this way the search problem has a known optimal. The &delta; is a measure of the
+ distance for permutations. There are many measures of permutation distance available in the
+ literature. Some focus on exact positions of elements in the permutation, others focus on
+ relative ordering of permutation elements, others focus on element precedences, etc. In this way,
+ the choice of &delta; enables you to control the search space topology. The <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/distance/package-summary.html" class="external-link"><code>org.cicirello.permutations.distance</code></a> package includes implementations of many permutation
+ distance measures. The class includes a constructor that uses the target permutation as defined
+ above, as well as an additional constructor that enables you to specify a different target.
 
- <p>The Permutation in a Haystack Problem was introduced in the following paper:<br> 
- V.A. Cicirello, <a href="https://www.cicirello.org/publications/cicirello2016evc.html" target=_top>"The 
- Permutation in a Haystack Problem and the Calculus of Search Landscapes,"</a> 
- IEEE Transactions on Evolutionary Computation, 20(3):434-446, June 2016.</p></div>
+ <p>The Permutation in a Haystack Problem was introduced in the following paper:<br>
+ V.A. Cicirello, <a href="https://www.cicirello.org/publications/cicirello2016evc.html" target=_top>"The Permutation in a Haystack Problem and the Calculus of Search Landscapes,"</a>
+ IEEE Transactions on Evolutionary Computation, 20(3):434-446, June 2016.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -135,14 +130,13 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(org.cicirello.permutations.distance.PermutationDistanceMeasurer,int)" class="member-name-link">PermutationInAHaystack</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/distance/PermutationDistanceMeasurer.html" title="class or interface in org.cicirello.permutations.distance" class="external-link">PermutationDistanceMeasurer</a>&nbsp;distance,
  int&nbsp;n)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs an instance of the Permutation in a Haystack problem, for a given distance
- measure.</div>
+<div class="block">Constructs an instance of the Permutation in a Haystack problem, for a given distance measure.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(org.cicirello.permutations.distance.PermutationDistanceMeasurer,org.cicirello.permutations.Permutation)" class="member-name-link">PermutationInAHaystack</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/distance/PermutationDistanceMeasurer.html" title="class or interface in org.cicirello.permutations.distance" class="external-link">PermutationDistanceMeasurer</a>&nbsp;distance,
  <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;target)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs an instance of the Permutation in a Haystack problem, for a given distance
- measure, and given target permutation.</div>
+<div class="block">Constructs an instance of the Permutation in a Haystack problem, for a given distance measure,
+ and given target permutation.</div>
 </div>
 </div>
 </section>
@@ -166,20 +160,20 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isMinCost(int)" class="member-name-link">isMinCost</a><wbr>(int&nbsp;cost)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.permutations.Permutation)" class="member-name-link">value</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -206,10 +200,9 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>PermutationInAHaystack</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PermutationInAHaystack</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/distance/PermutationDistanceMeasurer.html" title="class or interface in org.cicirello.permutations.distance" class="external-link">PermutationDistanceMeasurer</a>&nbsp;distance,
  int&nbsp;n)</span></div>
-<div class="block">Constructs an instance of the Permutation in a Haystack problem, for a given distance
- measure.  The target permutation, the figurative
- needle for which we are searching the haystack, is set to the following 
- permutation: [0, 1, ..., (n-1)].  That is, the known optimal solution to the
+<div class="block">Constructs an instance of the Permutation in a Haystack problem, for a given distance measure.
+ The target permutation, the figurative needle for which we are searching the haystack, is set
+ to the following permutation: [0, 1, ..., (n-1)]. That is, the known optimal solution to the
  problem is just the permutation of the first n integers in increasing order.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -223,15 +216,14 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>PermutationInAHaystack</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PermutationInAHaystack</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/distance/PermutationDistanceMeasurer.html" title="class or interface in org.cicirello.permutations.distance" class="external-link">PermutationDistanceMeasurer</a>&nbsp;distance,
  <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;target)</span></div>
-<div class="block">Constructs an instance of the Permutation in a Haystack problem, for a given distance
- measure, and given target permutation.</div>
+<div class="block">Constructs an instance of the Permutation in a Haystack problem, for a given distance measure,
+ and given target permutation.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>distance</code> - A permutation distance measure,</dd>
-<dd><code>target</code> - The target permutation, such that the problem is to find the
- permutation with minimum distance to the target.  That is, target is our figurative
- needle for which we are searching the haystack.  It is the known optimal solution to 
- the problem.</dd>
+<dd><code>target</code> - The target permutation, such that the problem is to find the permutation with
+     minimum distance to the target. That is, target is our figurative needle for which we are
+     searching the haystack. It is the known optimal solution to the problem.</dd>
 </dl>
 </section>
 </li>
@@ -248,15 +240,15 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>cost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#cost(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#cost(T)">cost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -265,9 +257,9 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>minCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">minCost</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#minCost()">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution. 
- The default implementation returns Integer.MIN_VALUE.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution. The default implementation returns
+ Integer.MIN_VALUE.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#minCost()">minCost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -281,8 +273,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#value(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#value(T)">value</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -298,8 +290,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>isMinCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isMinCost</span><wbr><span class="parameters">(int&nbsp;cost)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#isMinCost(int)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#isMinCost(int)">isMinCost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>

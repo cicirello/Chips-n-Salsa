@@ -95,14 +95,13 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">OnePlusOneGeneticAlgorithm</span>
 <span class="extends-implements">extends <a href="OnePlusOneEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">OnePlusOneEvolutionaryAlgorithm</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</span></div>
-<div class="block"><p>This class implements a (1+1)-GA, a special case of a (1+1)-EA, where solutions
- are represented with a vector of bits. In a (1+1)-EA, the evolutionary algorithm has a
- population size of 1, in each cycle of the algorithm a single mutant is created from
- that single population member, forming a population of size 2, and finally the EA
- keeps the better of the two solutions. This is perhaps the simplest case of an EA.
- This class supports optimizing BitVector objects. Mutation is the standard bit-flip
- mutation of a genetic algorithm, where a mutation rate M specifies the probability 
- that each bit flips (from 0 to 1 or vice versa) during a mutation.</p></div>
+<div class="block">This class implements a (1+1)-GA, a special case of a (1+1)-EA, where solutions are represented
+ with a vector of bits. In a (1+1)-EA, the evolutionary algorithm has a population size of 1, in
+ each cycle of the algorithm a single mutant is created from that single population member,
+ forming a population of size 2, and finally the EA keeps the better of the two solutions. This is
+ perhaps the simplest case of an EA. This class supports optimizing BitVector objects. Mutation is
+ the standard bit-flip mutation of a genetic algorithm, where a mutation rate M specifies the
+ probability that each bit flips (from 0 to 1 or vice versa) during a mutation.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -157,8 +156,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="OnePlusOneGeneticAlgorithm.html" title="class in org.cicirello.search.evo">OnePlusOneGeneticAlgorithm</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -186,13 +185,12 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">OnePlusOneGeneticAlgorithm</span><wbr><span class="parameters">(<a href="../problems/OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;problem,
  double&nbsp;m,
  int&nbsp;bitLength)</span></div>
-<div class="block">Creates a OnePlusOneGeneticAlgorithm instance for real-valued optimization problems.
- A <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<div class="block">Creates a OnePlusOneGeneticAlgorithm instance for real-valued optimization problems. A <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
 <dd><code>m</code> - The probability of flipping each bit during a mutation, which must be greater than 0.0
-        and less than 1.0.</dd>
+     and less than 1.0.</dd>
 <dd><code>bitLength</code> - The length of BitVectors required to represent solutions to the problem.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if m &le; 0 or m &ge; 1 or if bitLength is negative.</dd>
@@ -206,13 +204,13 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">OnePlusOneGeneticAlgorithm</span><wbr><span class="parameters">(<a href="../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;problem,
  double&nbsp;m,
  int&nbsp;bitLength)</span></div>
-<div class="block">Creates a OnePlusOneGeneticAlgorithm instance for integer-valued optimization problems.
- A <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
+<div class="block">Creates a OnePlusOneGeneticAlgorithm instance for integer-valued optimization problems. A
+ <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> is created for you.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
 <dd><code>m</code> - The probability of flipping each bit during a mutation, which must be greater than 0.0
-        and less than 1.0.</dd>
+     and less than 1.0.</dd>
 <dd><code>bitLength</code> - The length of BitVectors required to represent solutions to the problem.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if m &le; 0 or m &ge; 1 or if bitLength is negative.</dd>
@@ -232,10 +230,10 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
 <dd><code>m</code> - The probability of flipping each bit during a mutation, which must be greater than 0.0
-        and less than 1.0.</dd>
+     and less than 1.0.</dd>
 <dd><code>bitLength</code> - The length of BitVectors required to represent solutions to the problem.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best solution found
+     during the run, the time when it was found, and other related data.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if m &le; 0 or m &ge; 1 or if bitLength is negative.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if problem is null or if tracker is null.</dd>
@@ -254,10 +252,10 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>problem</code> - An instance of an optimization problem to solve.</dd>
 <dd><code>m</code> - The probability of flipping each bit during a mutation, which must be greater than 0.0
-        and less than 1.0.</dd>
+     and less than 1.0.</dd>
 <dd><code>bitLength</code> - The length of BitVectors required to represent solutions to the problem.</dd>
-<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best
- solution found during the run, the time when it was found, and other related data.</dd>
+<dd><code>tracker</code> - A ProgressTracker object, which is used to keep track of the best solution found
+     during the run, the time when it was found, and other related data.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if m &le; 0 or m &ge; 1 or if bitLength is negative.</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if problem is null or if tracker is null.</dd>
@@ -277,20 +275,18 @@ loadScripts(document, 'script');</script>
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="OnePlusOneGeneticAlgorithm.html" title="class in org.cicirello.search.evo">OnePlusOneGeneticAlgorithm</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../Metaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
@@ -301,9 +297,8 @@ loadScripts(document, 'script');</script>
 <dt>Overrides:</dt>
 <dd><code><a href="OnePlusOneEvolutionaryAlgorithm.html#split()">split</a></code>&nbsp;in class&nbsp;<code><a href="OnePlusOneEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">OnePlusOneEvolutionaryAlgorithm</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

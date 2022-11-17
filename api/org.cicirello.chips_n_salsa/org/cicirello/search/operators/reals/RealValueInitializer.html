@@ -94,13 +94,12 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">RealValueInitializer</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;</span></div>
-<div class="block">Generating random <a href="../../representations/SingleReal.html" title="class in org.cicirello.search.representations"><code>SingleReal</code></a> objects for use in generating random initial solutions
- for simulated annealing and other metaheuristics, and for copying such objects.
- This initializer supports both unbounded objects (<a href="../../representations/SingleReal.html" title="class in org.cicirello.search.representations"><code>SingleReal</code></a>) 
- as well as bounded reals, where the domain of values is bound in an interval.
- In the bounded case, the objects created by this class enforce the bounds upon calls
- to <a href="../../representations/SingleReal.html#set(double)"><code>SingleReal.set(double)</code></a> such that the <a href="../../representations/SingleReal.html#set(double)"><code>SingleReal.set(double)</code></a> method will set the value to
- the min if a value is passed less than min (and similarly for max).</div>
+<div class="block">Generating random <a href="../../representations/SingleReal.html" title="class in org.cicirello.search.representations"><code>SingleReal</code></a> objects for use in generating random initial solutions for
+ simulated annealing and other metaheuristics, and for copying such objects. This initializer
+ supports both unbounded objects (<a href="../../representations/SingleReal.html" title="class in org.cicirello.search.representations"><code>SingleReal</code></a>) as well as bounded reals, where the domain
+ of values is bound in an interval. In the bounded case, the objects created by this class enforce
+ the bounds upon calls to <a href="../../representations/SingleReal.html#set(double)"><code>SingleReal.set(double)</code></a> such that the <a href="../../representations/SingleReal.html#set(double)"><code>SingleReal.set(double)</code></a> method will
+ set the value to the min if a value is passed less than min (and similarly for max).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -115,17 +114,16 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double,double)" class="member-name-link">RealValueInitializer</a><wbr>(double&nbsp;a,
  double&nbsp;b)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Construct a RealValueInitializer that generates
- random solutions uniformly in the interval [a, b).</div>
+<div class="block">Construct a RealValueInitializer that generates random solutions uniformly in the interval [a,
+ b).</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(double,double,double,double)" class="member-name-link">RealValueInitializer</a><wbr>(double&nbsp;a,
  double&nbsp;b,
  double&nbsp;min,
  double&nbsp;max)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Construct a RealValueInitializer that generates
- random solutions uniformly in the interval [a, b), subject to
- bounds [min, max].</div>
+<div class="block">Construct a RealValueInitializer that generates random solutions uniformly in the interval [a,
+ b), subject to bounds [min, max].</div>
 </div>
 </div>
 </section>
@@ -155,8 +153,8 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="RealValueInitializer.html" title="class in org.cicirello.search.operators.reals">RealValueInitializer</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -180,12 +178,10 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
 <h3>RealValueInitializer</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">RealValueInitializer</span><wbr><span class="parameters">(double&nbsp;a,
  double&nbsp;b)</span></div>
-<div class="block">Construct a RealValueInitializer that generates
- random solutions uniformly in the interval [a, b).  The 
- <a href="../../representations/SingleReal.html" title="class in org.cicirello.search.representations"><code>SingleReal</code></a> objects returned by the
- <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method are otherwise unbounded
- (i.e., future mutations may alter the value such that it leaves that
- interval).  Use the other constructor if you need to enforce bounds.</div>
+<div class="block">Construct a RealValueInitializer that generates random solutions uniformly in the interval [a,
+ b). The <a href="../../representations/SingleReal.html" title="class in org.cicirello.search.representations"><code>SingleReal</code></a> objects returned by the <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method are
+ otherwise unbounded (i.e., future mutations may alter the value such that it leaves that
+ interval). Use the other constructor if you need to enforce bounds.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>a</code> - The lower end of the interval (inclusive).</dd>
@@ -202,14 +198,10 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
  double&nbsp;b,
  double&nbsp;min,
  double&nbsp;max)</span></div>
-<div class="block">Construct a RealValueInitializer that generates
- random solutions uniformly in the interval [a, b), subject to
- bounds [min, max].  If this constructor is used, then the 
- <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method will return 
- an object of a subclass of <a href="../../representations/SingleReal.html" title="class in org.cicirello.search.representations"><code>SingleReal</code></a>, which will
- enforce the constraint that the value of the function inputs must
- remain in the interval [min, max] as mutation and other operators
- are applied.</div>
+<div class="block">Construct a RealValueInitializer that generates random solutions uniformly in the interval [a,
+ b), subject to bounds [min, max]. If this constructor is used, then the <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method will return an object of a subclass of <a href="../../representations/SingleReal.html" title="class in org.cicirello.search.representations"><code>SingleReal</code></a>,
+ which will enforce the constraint that the value of the function inputs must remain in the
+ interval [min, max] as mutation and other operators are applied.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>a</code> - The lower end of the interval (inclusive).</dd>
@@ -248,27 +240,24 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="RealValueInitializer.html" title="class in org.cicirello.search.operators.reals">RealValueInitializer</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

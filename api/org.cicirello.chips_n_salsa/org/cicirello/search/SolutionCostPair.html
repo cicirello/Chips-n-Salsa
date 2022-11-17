@@ -144,15 +144,14 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#containsIntCost()" class="member-name-link">containsIntCost</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks whether the cost of the solution contained in this SolutionCostPair
- is integer valued.</div>
+<div class="block">Checks whether the cost of the solution contained in this SolutionCostPair is integer valued.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#containsKnownOptimal()" class="member-name-link">containsKnownOptimal</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks if the solution contained in this object has a cost value equal to
- the theoretical minimum cost for the problem instance, such as if the cost
- is equal to a lower bound on the cost for the problem instance.</div>
+<div class="block">Checks if the solution contained in this object has a cost value equal to the theoretical
+ minimum cost for the problem instance, such as if the cost is equal to a lower bound on the
+ cost for the problem instance.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCost()" class="member-name-link">getCost</a>()</code></div>
@@ -197,7 +196,8 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <dt>Parameters:</dt>
 <dd><code>solution</code> - The solution.</dd>
 <dd><code>cost</code> - The cost of the solution.</dd>
-<dd><code>isKnownOptimal</code> - Pass true if this solution is known to be the optimal, and false otherwise.</dd>
+<dd><code>isKnownOptimal</code> - Pass true if this solution is known to be the optimal, and false
+     otherwise.</dd>
 </dl>
 </section>
 </li>
@@ -212,7 +212,8 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <dt>Parameters:</dt>
 <dd><code>solution</code> - The solution.</dd>
 <dd><code>cost</code> - The cost of the solution.</dd>
-<dd><code>isKnownOptimal</code> - Pass true if this solution is known to be the optimal, and false otherwise.</dd>
+<dd><code>isKnownOptimal</code> - Pass true if this solution is known to be the optimal, and false
+     otherwise.</dd>
 </dl>
 </section>
 </li>
@@ -228,8 +229,8 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="getCost()">
 <h3>getCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getCost</span>()</div>
-<div class="block">Gets the cost contained in this solution cost pair as an int.
- Behavior is undefined if costs are floating-point values.</div>
+<div class="block">Gets the cost contained in this solution cost pair as an int. Behavior is undefined if costs
+ are floating-point values.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the cost</dd>
@@ -262,13 +263,11 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="containsIntCost()">
 <h3>containsIntCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">containsIntCost</span>()</div>
-<div class="block">Checks whether the cost of the solution contained in this SolutionCostPair
- is integer valued.</div>
+<div class="block">Checks whether the cost of the solution contained in this SolutionCostPair is integer valued.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>true if the solution has integer valued cost, and false 
- otherwise. If this method returns false, then the behavior of the <a href="#getCost()"><code>getCost()</code></a>
- method is undefined.</dd>
+<dd>true if the solution has integer valued cost, and false otherwise. If this method
+     returns false, then the behavior of the <a href="#getCost()"><code>getCost()</code></a> method is undefined.</dd>
 </dl>
 </section>
 </li>
@@ -276,9 +275,9 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="containsKnownOptimal()">
 <h3>containsKnownOptimal</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">containsKnownOptimal</span>()</div>
-<div class="block">Checks if the solution contained in this object has a cost value equal to
- the theoretical minimum cost for the problem instance, such as if the cost
- is equal to a lower bound on the cost for the problem instance.</div>
+<div class="block">Checks if the solution contained in this object has a cost value equal to the theoretical
+ minimum cost for the problem instance, such as if the cost is equal to a lower bound on the
+ cost for the problem instance.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>true if the solution is a known optimal, and false otherwise.</dd>
@@ -289,19 +288,17 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="compareTo(org.cicirello.search.SolutionCostPair)">
 <h3>compareTo</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">compareTo</span><wbr><span class="parameters">(<a href="SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="SolutionCostPair.html" title="type parameter in SolutionCostPair">T</a>&gt;&nbsp;other)</span></div>
-<div class="block">Compares this SolutionCostPair with the specified SolutionCostPair for order. 
- Returns a negative integer, zero, or a positive integer as this SolutionCostPair
- has a cost that is less than, equal to, or greater than the cost of the specified 
- SolutionCostPair.</div>
+<div class="block">Compares this SolutionCostPair with the specified SolutionCostPair for order. Returns a
+ negative integer, zero, or a positive integer as this SolutionCostPair has a cost that is less
+ than, equal to, or greater than the cost of the specified SolutionCostPair.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html#compareTo(T)" title="class or interface in java.lang" class="external-link">compareTo</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html" title="class or interface in java.lang" class="external-link">Comparable</a>&lt;<a href="SolutionCostPair.html" title="type parameter in SolutionCostPair">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="SolutionCostPair.html" title="type parameter in SolutionCostPair">T</a>&gt;&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>other</code> - The other SolutionCostPair with which to compare.</dd>
 <dt>Returns:</dt>
-<dd>a negative integer, zero, or a positive integer as this SolutionCostPair
- has a cost that is less than, equal to, or greater than the cost of the specified 
- SolutionCostPair</dd>
+<dd>a negative integer, zero, or a positive integer as this SolutionCostPair has a cost
+     that is less than, equal to, or greater than the cost of the specified SolutionCostPair</dd>
 </dl>
 </section>
 </li>

@@ -94,34 +94,25 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">TwoMax</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</span></div>
-<div class="block"><p>This class implements the benchmarking problem known
- as TwoMax. The TwoMax problem is to maximize the following
- function: f(x) = |18*CountOfOneBits(x) - 8*n|, where x is
- a vector of bits of length n. The global optimal solution is
- when x is all ones, which has a maximal value of 10*n. This 
- search landscape also has a local optima when x is all zeros,
- which has a value of 8*n. Thus, this search landscape has
- two basins of attraction. The attractions basin for the 
- global optima is larger. As long as x has more than
- (4/9)n bits equal to a one, a strict hill climber will
- be pulled into the global optima. However, a search that
- ends up at the local optima would have a very steep climb
- to escape.</p>
+<div class="block">This class implements the benchmarking problem known as TwoMax. The TwoMax problem is to maximize
+ the following function: f(x) = |18*CountOfOneBits(x) - 8*n|, where x is a vector of bits of
+ length n. The global optimal solution is when x is all ones, which has a maximal value of 10*n.
+ This search landscape also has a local optima when x is all zeros, which has a value of 8*n.
+ Thus, this search landscape has two basins of attraction. The attractions basin for the global
+ optima is larger. As long as x has more than (4/9)n bits equal to a one, a strict hill climber
+ will be pulled into the global optima. However, a search that ends up at the local optima would
+ have a very steep climb to escape.
 
- <p>The <a href="#value(org.cicirello.search.representations.BitVector)"><code>value</code></a> method implements the original maximization
- version of the TwoMax problem, as described above. The algorithms
- of the Chips-n-Salsa library are defined for minimization, requiring
- a cost function. The <a href="#cost(org.cicirello.search.representations.BitVector)"><code>cost</code></a> method implements the equivalent
- as the following minimization problem: minimize
- cost(x) = 10*n - |18*CountOfOneBits(x) - 8*n|.  The global optima
- is still all 1-bits, which has a cost equal to 0.  The local optima
- is still all 0-bits, which has a cost equal to 2*n.</p>
+ <p>The <a href="#value(org.cicirello.search.representations.BitVector)"><code>value</code></a> method implements the original maximization version of the TwoMax
+ problem, as described above. The algorithms of the Chips-n-Salsa library are defined for
+ minimization, requiring a cost function. The <a href="#cost(org.cicirello.search.representations.BitVector)"><code>cost</code></a> method implements the equivalent
+ as the following minimization problem: minimize cost(x) = 10*n - |18*CountOfOneBits(x) - 8*n|.
+ The global optima is still all 1-bits, which has a cost equal to 0. The local optima is still all
+ 0-bits, which has a cost equal to 2*n.
 
- <p>The TwoMax problem
- was introduced by David Ackley in the following paper:<br>
- David H. Ackley. A connectionist algorithm for genetic search. Proceedings of
- the First International Conference on Genetic Algorithms and Their Applications,
- pages 121-135, July 1985.</p></div>
+ <p>The TwoMax problem was introduced by David Ackley in the following paper:<br>
+ David H. Ackley. A connectionist algorithm for genetic search. Proceedings of the First
+ International Conference on Genetic Algorithms and Their Applications, pages 121-135, July 1985.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -135,8 +126,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">TwoMax</a>()</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a TwoMax object for use in evaluating candidate solutions to the
- TwoMax problem.</div>
+<div class="block">Constructs a TwoMax object for use in evaluating candidate solutions to the TwoMax problem.</div>
 </div>
 </div>
 </section>
@@ -160,20 +150,20 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isMinCost(int)" class="member-name-link">isMinCost</a><wbr>(int&nbsp;cost)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.search.representations.BitVector)" class="member-name-link">value</a><wbr>(<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -199,8 +189,7 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <section class="detail" id="&lt;init&gt;()">
 <h3>TwoMax</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">TwoMax</span>()</div>
-<div class="block">Constructs a TwoMax object for use in evaluating candidate solutions to the
- TwoMax problem.</div>
+<div class="block">Constructs a TwoMax object for use in evaluating candidate solutions to the TwoMax problem.</div>
 </section>
 </li>
 </ul>
@@ -216,15 +205,15 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>cost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#cost(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#cost(T)">cost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -233,9 +222,9 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>minCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">minCost</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#minCost()">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution. 
- The default implementation returns Integer.MIN_VALUE.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution. The default implementation returns
+ Integer.MIN_VALUE.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#minCost()">minCost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
@@ -249,8 +238,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#value(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#value(T)">value</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
@@ -266,8 +255,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>isMinCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isMinCost</span><wbr><span class="parameters">(int&nbsp;cost)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#isMinCost(int)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#isMinCost(int)">isMinCost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>

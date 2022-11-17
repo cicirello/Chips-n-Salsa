@@ -94,20 +94,19 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">SigmaScaling</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></span></div>
-<div class="block"><p>Implements sigma scaling by wrapping your chosen selection operator. The SigmaScaling
- instance applies sigma scaling to the fitnesses of the population, passing the scaled
- fitnesses to the true selection operator.</p>
+<div class="block">Implements sigma scaling by wrapping your chosen selection operator. The SigmaScaling instance
+ applies sigma scaling to the fitnesses of the population, passing the scaled fitnesses to the
+ true selection operator.
 
- <p>The fitness, f<sub>i</sub>, of population member i is transformed as follows:
- f'<sub>i</sub> = f<sub>i</sub> - ( f&#773; - c * &sigma; ), where c is a parameter
- usually between 1 and 3, inclusive. &sigma; is the standard deviation of the fitnesses of
- the population, and f&#773; is average fitness. For any members of the population for which
- this transformation produces a fitness less than 0.001, it is reset to 0.001.</p>
+ <p>The fitness, f<sub>i</sub>, of population member i is transformed as follows: f'<sub>i</sub> =
+ f<sub>i</sub> - ( f&#773; - c * &sigma; ), where c is a parameter usually between 1 and 3,
+ inclusive. &sigma; is the standard deviation of the fitnesses of the population, and f&#773; is
+ average fitness. For any members of the population for which this transformation produces a
+ fitness less than 0.001, it is reset to 0.001.
 
- <p>The intended use-case is to use in combination with a fitness weighted selection
- operator, such as <a href="FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a>, <a href="StochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>StochasticUniversalSampling</code></a>,
- <a href="BiasedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>BiasedFitnessProportionalSelection</code></a>, or <a href="BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>BiasedStochasticUniversalSampling</code></a>.
- Here is an example of how to instantiate an instance of a selection operator using SigmaScaling:</p> 
+ <p>The intended use-case is to use in combination with a fitness weighted selection operator,
+ such as <a href="FitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>FitnessProportionalSelection</code></a>, <a href="StochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>StochasticUniversalSampling</code></a>, <a href="BiasedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>BiasedFitnessProportionalSelection</code></a>, or <a href="BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>BiasedStochasticUniversalSampling</code></a>. Here is an
+ example of how to instantiate an instance of a selection operator using SigmaScaling:
 
  <pre><code>
  SelectionOperator selection = new SigmaScaling(new FitnessProportionalSelection(), 2);
@@ -127,8 +126,8 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <div class="col-first even-row-color"><code>static final double</code></div>
 <div class="col-second even-row-color"><code><a href="#MIN_SCALED_FITNESS" class="member-name-link">MIN_SCALED_FITNESS</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">The minimum scaled fitness, such that any fitnesses that lead to scaled fitness less than
- this value, are reset to this value.</div>
+<div class="block">The minimum scaled fitness, such that any fitnesses that lead to scaled fitness less than this
+ value, are reset to this value.</div>
 </div>
 </div>
 </section>
@@ -143,14 +142,14 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.evo.SelectionOperator)" class="member-name-link">SigmaScaling</a><wbr>(<a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a new SigmaScaling object, to transform fitness values via sigma scaling
- prior to selection by a wrapped selection operator.</div>
+<div class="block">Constructs a new SigmaScaling object, to transform fitness values via sigma scaling prior to
+ selection by a wrapped selection operator.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.evo.SelectionOperator,double)" class="member-name-link">SigmaScaling</a><wbr>(<a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  double&nbsp;c)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a new SigmaScaling object, to transform fitness values via sigma scaling
- prior to selection by a wrapped selection operator.</div>
+<div class="block">Constructs a new SigmaScaling object, to transform fitness values via sigma scaling prior to
+ selection by a wrapped selection operator.</div>
 </div>
 </div>
 </section>
@@ -169,8 +168,8 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#init(int)" class="member-name-link">init</a><wbr>(int&nbsp;generations)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Perform any initialization necessary for the selection operator at the start
- of the run of the evolutionary algorithm.</div>
+<div class="block">Perform any initialization necessary for the selection operator at the start of the run of the
+ evolutionary algorithm.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)" class="member-name-link">select</a><wbr>(<a href="PopulationFitnessVector.Double.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Double</a>&nbsp;fitnesses,
@@ -187,8 +186,8 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="SigmaScaling.html" title="class in org.cicirello.search.evo">SigmaScaling</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -211,8 +210,8 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <section class="detail" id="MIN_SCALED_FITNESS">
 <h3>MIN_SCALED_FITNESS</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">MIN_SCALED_FITNESS</span></div>
-<div class="block">The minimum scaled fitness, such that any fitnesses that lead to scaled fitness less than
- this value, are reset to this value.</div>
+<div class="block">The minimum scaled fitness, such that any fitnesses that lead to scaled fitness less than this
+ value, are reset to this value.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -235,8 +234,8 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <section class="detail" id="&lt;init&gt;(org.cicirello.search.evo.SelectionOperator)">
 <h3>SigmaScaling</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">SigmaScaling</span><wbr><span class="parameters">(<a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection)</span></div>
-<div class="block">Constructs a new SigmaScaling object, to transform fitness values via sigma scaling
- prior to selection by a wrapped selection operator. Uses a default c = 2.0.</div>
+<div class="block">Constructs a new SigmaScaling object, to transform fitness values via sigma scaling prior to
+ selection by a wrapped selection operator. Uses a default c = 2.0.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>selection</code> - The selection operator.</dd>
@@ -248,8 +247,8 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <h3>SigmaScaling</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">SigmaScaling</span><wbr><span class="parameters">(<a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&nbsp;selection,
  double&nbsp;c)</span></div>
-<div class="block">Constructs a new SigmaScaling object, to transform fitness values via sigma scaling
- prior to selection by a wrapped selection operator.</div>
+<div class="block">Constructs a new SigmaScaling object, to transform fitness values via sigma scaling prior to
+ selection by a wrapped selection operator.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>selection</code> - The selection operator.</dd>
@@ -271,23 +270,21 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">select</span><wbr><span class="parameters">(<a href="PopulationFitnessVector.Integer.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Integer</a>&nbsp;fitnesses,
  int[]&nbsp;selected)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)">SelectionOperator</a></code></span></div>
-<div class="block">Selects a set of members of the population based on fitness. Implementations should
- ensure that the array of indexes of population members is in a random order. For some
- selection operators, this required behavior is met by definition (e.g., the common
- fitness proportionate selection will have this behavior as is). But other selection
- operators may require randomizing the array of indexes after selection. For example,
- the obvious implementation of stochastic universal sampling will likely have all copies
- of an individual population member ordered together, and thus will require a 
- shuffling of the array before returning.</div>
+<div class="block">Selects a set of members of the population based on fitness. Implementations should ensure that
+ the array of indexes of population members is in a random order. For some selection operators,
+ this required behavior is met by definition (e.g., the common fitness proportionate selection
+ will have this behavior as is). But other selection operators may require randomizing the array
+ of indexes after selection. For example, the obvious implementation of stochastic universal
+ sampling will likely have all copies of an individual population member ordered together, and
+ thus will require a shuffling of the array before returning.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)">select</a></code>&nbsp;in interface&nbsp;<code><a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>fitnesses</code> - A vector of fitnesses of the members of the population.</dd>
-<dd><code>selected</code> - An array for the result. The selection operator should select 
- selected.length members of the population based on fitnesses, populating 
- selected with the indexes of the chosen members. Note that selected.length may
- be different than the fitnesses.size().</dd>
+<dd><code>selected</code> - An array for the result. The selection operator should select selected.length
+     members of the population based on fitnesses, populating selected with the indexes of the
+     chosen members. Note that selected.length may be different than the fitnesses.size().</dd>
 </dl>
 </section>
 </li>
@@ -297,23 +294,21 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">select</span><wbr><span class="parameters">(<a href="PopulationFitnessVector.Double.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Double</a>&nbsp;fitnesses,
  int[]&nbsp;selected)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)">SelectionOperator</a></code></span></div>
-<div class="block">Selects a set of members of the population based on fitness. Implementations should
- ensure that the array of indexes of population members is in a random order. For some
- selection operators, this required behavior is met by definition (e.g., the common
- fitness proportionate selection will have this behavior as is). But other selection
- operators may require randomizing the array of indexes after selection. For example,
- the obvious implementation of stochastic universal sampling will likely have all copies
- of an individual population member ordered together, and thus will require a 
- shuffling of the array before returning.</div>
+<div class="block">Selects a set of members of the population based on fitness. Implementations should ensure that
+ the array of indexes of population members is in a random order. For some selection operators,
+ this required behavior is met by definition (e.g., the common fitness proportionate selection
+ will have this behavior as is). But other selection operators may require randomizing the array
+ of indexes after selection. For example, the obvious implementation of stochastic universal
+ sampling will likely have all copies of an individual population member ordered together, and
+ thus will require a shuffling of the array before returning.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)">select</a></code>&nbsp;in interface&nbsp;<code><a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>fitnesses</code> - A vector of fitnesses of the members of the population.</dd>
-<dd><code>selected</code> - An array for the result. The selection operator should select 
- selected.length members of the population based on fitnesses, populating 
- selected with the indexes of the chosen members. Note that selected.length may
- be different than the fitnesses.size().</dd>
+<dd><code>selected</code> - An array for the result. The selection operator should select selected.length
+     members of the population based on fitnesses, populating selected with the indexes of the
+     chosen members. Note that selected.length may be different than the fitnesses.size().</dd>
 </dl>
 </section>
 </li>
@@ -322,19 +317,20 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <h3>init</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">init</span><wbr><span class="parameters">(int&nbsp;generations)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SelectionOperator.html#init(int)">SelectionOperator</a></code></span></div>
-<div class="block">Perform any initialization necessary for the selection operator at the start
- of the run of the evolutionary algorithm. This method is called by the evolutionary
- algorithm at the start of a run (i.e., whenever an EA's optimize or reoptimize methods
- are called. The default implementation of this method does nothing, which is appropriate
- for most selection operators since the behavior of most standard selection operators is
- doesn't change during runs. However, some selection operators may adjust behavior during
- the run, such as Boltzmann selection which adjusts a temperature parameter. The init method
- enables reinitializing such parameters at the start of runs.</div>
+<div class="block">Perform any initialization necessary for the selection operator at the start of the run of the
+ evolutionary algorithm. This method is called by the evolutionary algorithm at the start of a
+ run (i.e., whenever an EA's optimize or reoptimize methods are called. The default
+ implementation of this method does nothing, which is appropriate for most selection operators
+ since the behavior of most standard selection operators is doesn't change during runs. However,
+ some selection operators may adjust behavior during the run, such as Boltzmann selection which
+ adjusts a temperature parameter. The init method enables reinitializing such parameters at the
+ start of runs.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SelectionOperator.html#init(int)">init</a></code>&nbsp;in interface&nbsp;<code><a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>generations</code> - The number of generations for the run of the evolutionary algorithm about to commence.</dd>
+<dd><code>generations</code> - The number of generations for the run of the evolutionary algorithm about to
+     commence.</dd>
 </dl>
 </section>
 </li>
@@ -343,27 +339,24 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="SigmaScaling.html" title="class in org.cicirello.search.evo">SigmaScaling</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

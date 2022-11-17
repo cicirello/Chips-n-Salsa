@@ -94,20 +94,15 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/FunctionalInterface.html" title="class or interface in java.lang" class="external-link">@FunctionalInterface</a>
 </span><span class="modifiers">public static interface </span><span class="element-name type-name-label">HeuristicBiasedStochasticSampling.BiasFunction</span></div>
-<div class="block"><p>Implement this interface to implement the bias function
- used by HBSS. Specifically, when making a randomized
- decision among possible permutation elements to add to
- the permutation, HBSS choose randomly but biased by a function
- of the ranks that would result if we were to sort the elements
- in order by their heuristic values.  If rank is the rank
- of permutation element e according to the heuristic, 
- then e will be added to the permutation
- with a probability proportional to bias(rank).  
- How you implement this depends upon how much confidence you
- have in the specific heuristic you are randomizing.  Just make
- sure that you remember that the lowest rank, rank of 1, is the element 
- perceived to be best by the heuristic.  So the bias function must
- map lower ranks to higher values, and the output must be positive.</p></div>
+<div class="block">Implement this interface to implement the bias function used by HBSS. Specifically, when making
+ a randomized decision among possible permutation elements to add to the permutation, HBSS
+ choose randomly but biased by a function of the ranks that would result if we were to sort the
+ elements in order by their heuristic values. If rank is the rank of permutation element e
+ according to the heuristic, then e will be added to the permutation with a probability
+ proportional to bias(rank). How you implement this depends upon how much confidence you have in
+ the specific heuristic you are randomizing. Just make sure that you remember that the lowest
+ rank, rank of 1, is the element perceived to be best by the heuristic. So the bias function
+ must map lower ranks to higher values, and the output must be positive.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -148,10 +143,9 @@ loadScripts(document, 'script');</script>
 <div class="block">This method is the bias function.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>rank</code> - The rank of one of the elements under
- consideration for addition to the permutation, where rank
- means position in a list of the elements if they were sorted
- by heuristic value.</dd>
+<dd><code>rank</code> - The rank of one of the elements under consideration for addition to the
+     permutation, where rank means position in a list of the elements if they were sorted by
+     heuristic value.</dd>
 <dt>Returns:</dt>
 <dd>the bias function applied to that rank</dd>
 </dl>

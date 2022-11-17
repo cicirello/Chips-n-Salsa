@@ -94,13 +94,12 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">SingleMachineSchedulingProblem</span><span class="extends-implements">
 extends <a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
-<div class="block">Implement this interface to define a single machine scheduling problem.
- A class that implements this interface should implement the cost function
- for the problem (i.e., the function we are optimizing) and must utilize
- a class implementing the <a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling"><code>SingleMachineSchedulingProblemData</code></a> interface
- to represent the data describing the instance, such as processing times, due dates,
- etc.  You may have a single class that implements both interfaces, if desired,
- in which case, the <a href="#getInstanceData()"><code>getInstanceData()</code></a> could just return the this reference.</div>
+<div class="block">Implement this interface to define a single machine scheduling problem. A class that implements
+ this interface should implement the cost function for the problem (i.e., the function we are
+ optimizing) and must utilize a class implementing the <a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling"><code>SingleMachineSchedulingProblemData</code></a>
+ interface to represent the data describing the instance, such as processing times, due dates,
+ etc. You may have a single class that implements both interfaces, if desired, in which case, the
+ <a href="#getInstanceData()"><code>getInstanceData()</code></a> could just return the this reference.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -118,10 +117,9 @@ extends <a href="../IntegerCostOptimizationProblem.html" title="interface in org
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getInstanceData()" class="member-name-link">getInstanceData</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Gets an object that encapsulates the data describing the
- scheduling problem instance, such as number of jobs, and the
- characteristics of the jobs, such as processing times, setup
- times, due dates, weights, etc.</div>
+<div class="block">Gets an object that encapsulates the data describing the scheduling problem instance, such as
+ number of jobs, and the characteristics of the jobs, such as processing times, setup times, due
+ dates, weights, etc.</div>
 </div>
 </div>
 </div>
@@ -144,10 +142,9 @@ extends <a href="../IntegerCostOptimizationProblem.html" title="interface in org
 <section class="detail" id="getInstanceData()">
 <h3>getInstanceData</h3>
 <div class="member-signature"><span class="return-type"><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></span>&nbsp;<span class="element-name">getInstanceData</span>()</div>
-<div class="block">Gets an object that encapsulates the data describing the
- scheduling problem instance, such as number of jobs, and the
- characteristics of the jobs, such as processing times, setup
- times, due dates, weights, etc.</div>
+<div class="block">Gets an object that encapsulates the data describing the scheduling problem instance, such as
+ number of jobs, and the characteristics of the jobs, such as processing times, setup times, due
+ dates, weights, etc.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>an encapsulation of the data describing the scheduling problem instance</dd>

@@ -95,21 +95,19 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">WindowLimitedSwapMutation</span>
 <span class="extends-implements">extends <a href="SwapMutation.html" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></span></div>
-<div class="block"><p>This class implements a window-limited version of the 
- <a href="SwapMutation.html" title="class in org.cicirello.search.operators.permutations"><code>SwapMutation</code></a> mutation operator on permutations.  A window-limited
- mutation operator on permutations is a mutation operator such that there is a window 
- constraint, w, on the random indexes used by the mutation.  For a mutation operator
- that uses a pair of random indexes, (i, j), these indexes are constrained such that |i-j| &le; w.
- All index pairs that satisfy the window constraint are equally likely.</p>
- <p>The runtime of both
- the <a href="SwapMutation.html#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a> and <a href="SwapMutation.html#undo(org.cicirello.permutations.Permutation)"><code>undo</code></a> methods is O(1),
- since only 2 elements must be moved regardless of permutation length and window limit.</p>
+<div class="block">This class implements a window-limited version of the <a href="SwapMutation.html" title="class in org.cicirello.search.operators.permutations"><code>SwapMutation</code></a> mutation operator on
+ permutations. A window-limited mutation operator on permutations is a mutation operator such that
+ there is a window constraint, w, on the random indexes used by the mutation. For a mutation
+ operator that uses a pair of random indexes, (i, j), these indexes are constrained such that
+ |i-j| &le; w. All index pairs that satisfy the window constraint are equally likely.
+
+ <p>The runtime of both the <a href="SwapMutation.html#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a> and <a href="SwapMutation.html#undo(org.cicirello.permutations.Permutation)"><code>undo</code></a> methods is O(1), since only 2 elements must be moved regardless of permutation length and
+ window limit.
 
  <p>For further discussion of window limited permutation mutation operators see:<br>
- V. A. Cicirello, <a href="https://www.cicirello.org/publications/cicirello2014bict.html" target=_top>"On 
- the Effects of Window-Limits on the Distance Profiles of Permutation Neighborhood Operators,"</a> 
- in Proceedings of the 8th International Conference on Bioinspired Information and 
- Communications Technologies, pages 28–35, December 2014.</p></div>
+ V. A. Cicirello, <a href="https://www.cicirello.org/publications/cicirello2014bict.html" target=_top>"On the Effects of Window-Limits on the Distance Profiles of Permutation Neighborhood
+ Operators,"</a> in Proceedings of the 8th International Conference on Bioinspired Information and
+ Communications Technologies, pages 28–35, December 2014.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -123,8 +121,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">WindowLimitedSwapMutation</a>()</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a WindowLimitedSwapMutation mutation operator with
- a default window limit of Integer.MAX_VALUE.</div>
+<div class="block">Constructs a WindowLimitedSwapMutation mutation operator with a default window limit of
+ Integer.MAX_VALUE.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int)" class="member-name-link">WindowLimitedSwapMutation</a><wbr>(int&nbsp;windowLimit)</code></div>
 <div class="col-last odd-row-color">
@@ -147,15 +145,15 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../MutationIterator.html" title="interface in org.cicirello.search.operators">MutationIterator</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#iterator(org.cicirello.permutations.Permutation)" class="member-name-link">iterator</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;p)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
- systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
- of a candidate solution, as one might do in a hill climber.</div>
+<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to systematically iterate over
+ all of the direct neighbors (i.e., a single mutation step away) of a candidate solution, as one
+ might do in a hill climber.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="WindowLimitedSwapMutation.html" title="class in org.cicirello.search.operators.permutations">WindowLimitedSwapMutation</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -181,8 +179,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;()">
 <h3>WindowLimitedSwapMutation</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">WindowLimitedSwapMutation</span>()</div>
-<div class="block">Constructs a WindowLimitedSwapMutation mutation operator with
- a default window limit of Integer.MAX_VALUE.</div>
+<div class="block">Constructs a WindowLimitedSwapMutation mutation operator with a default window limit of
+ Integer.MAX_VALUE.</div>
 </section>
 </li>
 <li>
@@ -211,20 +209,18 @@ loadScripts(document, 'script');</script>
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="WindowLimitedSwapMutation.html" title="class in org.cicirello.search.operators.permutations">WindowLimitedSwapMutation</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IterableMutationOperator.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -235,9 +231,8 @@ loadScripts(document, 'script');</script>
 <dt>Overrides:</dt>
 <dd><code><a href="SwapMutation.html#split()">split</a></code>&nbsp;in class&nbsp;<code><a href="SwapMutation.html" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>
@@ -246,23 +241,20 @@ loadScripts(document, 'script');</script>
 <h3>iterator</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../MutationIterator.html" title="interface in org.cicirello.search.operators">MutationIterator</a></span>&nbsp;<span class="element-name">iterator</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;p)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="SwapMutation.html#iterator(org.cicirello.permutations.Permutation)">SwapMutation</a></code></span></div>
-<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to
- systematically iterate over all of the direct neighbors (i.e., a single mutation step away) 
- of a candidate solution, as one might do in a hill climber.
- <p>The worst case runtime of the <a href="../MutationIterator.html#hasNext()"><code>MutationIterator.hasNext()</code></a>,
- <a href="../MutationIterator.html#nextMutant()"><code>MutationIterator.nextMutant()</code></a>, <a href="../MutationIterator.html#setSavepoint()"><code>MutationIterator.setSavepoint()</code></a>, and
- <a href="../MutationIterator.html#rollback()"><code>MutationIterator.rollback()</code></a> methods of the <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> created by this method
- is O(1).</p></div>
+<div class="block">Creates and returns a <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that can be used to systematically iterate over
+ all of the direct neighbors (i.e., a single mutation step away) of a candidate solution, as one
+ might do in a hill climber.
+
+ <p>The worst case runtime of the <a href="../MutationIterator.html#hasNext()"><code>MutationIterator.hasNext()</code></a>, <a href="../MutationIterator.html#nextMutant()"><code>MutationIterator.nextMutant()</code></a>, <a href="../MutationIterator.html#setSavepoint()"><code>MutationIterator.setSavepoint()</code></a>, and <a href="../MutationIterator.html#rollback()"><code>MutationIterator.rollback()</code></a> methods of the <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> created by this method is
+ O(1).</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../IterableMutationOperator.html#iterator(T)">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="../IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Overrides:</dt>
 <dd><code><a href="SwapMutation.html#iterator(org.cicirello.permutations.Permutation)">iterator</a></code>&nbsp;in class&nbsp;<code><a href="SwapMutation.html" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>p</code> - The candidate solution subject to the mutation.  Calling methods of the
- <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that is returned changes the state of that candidate solution.  
- See the documentation
- of those methods for details of how such changes may occur.</dd>
+<dd><code>p</code> - The candidate solution subject to the mutation. Calling methods of the <a href="../MutationIterator.html" title="interface in org.cicirello.search.operators"><code>MutationIterator</code></a> that is returned changes the state of that candidate solution. See the
+     documentation of those methods for details of how such changes may occur.</dd>
 <dt>Returns:</dt>
 <dd>A MutationIterator for iterating over the direct neighbors of a candidate solution.</dd>
 </dl>

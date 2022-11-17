@@ -93,14 +93,13 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">BitVector.BitIterator</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block"><p>The BitIterator class enables iterating over the bits of a BitVector.
- In particular, it enables iterating over fixed length blocks within 
- the BitVector.  BitIterators are created via the <a href="BitVector.html#bitIterator(int)"><code>BitVector.bitIterator(int)</code></a>
- method or the <a href="BitVector.html#bitIterator()"><code>BitVector.bitIterator()</code></a> method.</p>
+<div class="block">The BitIterator class enables iterating over the bits of a BitVector. In particular, it enables
+ iterating over fixed length blocks within the BitVector. BitIterators are created via the
+ <a href="BitVector.html#bitIterator(int)"><code>BitVector.bitIterator(int)</code></a> method or the <a href="BitVector.html#bitIterator()"><code>BitVector.bitIterator()</code></a> method.
 
- <p>An example usage of the BitIterator class is as follows.  In this example,
- we are iterating over the bits of a random BitVector of 128 bits, 4 bits at a time,
- using the <a href="#nextBitBlock()"><code>nextBitBlock()</code></a> method.</p>
+ <p>An example usage of the BitIterator class is as follows. In this example, we are iterating
+ over the bits of a random BitVector of 128 bits, 4 bits at a time, using the <a href="#nextBitBlock()"><code>nextBitBlock()</code></a> method.
+
  <pre><code>
  BitVector b = new BitVector(128, true);
  BitVector.BitIterator iter = b.bitIterator(4);
@@ -110,10 +109,10 @@ loadScripts(document, 'script');</script>
  }
  </code></pre>
 
- <p>The BitIterator class also includes a <a href="#nextBit()"><code>nextBit()</code></a> method that gets the
- next single bit (returned as an int) regardless of the block length used when
- the BitIterator was initiated.  This example shows how to iterate over
- individual bits.</p>
+ <p>The BitIterator class also includes a <a href="#nextBit()"><code>nextBit()</code></a> method that gets the next single bit
+ (returned as an int) regardless of the block length used when the BitIterator was initiated.
+ This example shows how to iterate over individual bits.
+
  <pre><code>
  int k = ...; // doesn't matter what is passed as block length
  BitVector b = new BitVector(128, true);
@@ -124,9 +123,9 @@ loadScripts(document, 'script');</script>
  }
  </code></pre>
 
- <p>You can even use a combination of calls to the <a href="#nextBitBlock()"><code>nextBitBlock()</code></a> method and
- the <a href="#nextBit()"><code>nextBit()</code></a> method.  In this example, we alternate getting blocks of 4 bits
- with getting a single bit.</p>
+ <p>You can even use a combination of calls to the <a href="#nextBitBlock()"><code>nextBitBlock()</code></a> method and the <a href="#nextBit()"><code>nextBit()</code></a> method. In this example, we alternate getting blocks of 4 bits with getting a single
+ bit.
+
  <pre><code>
  BitVector b = new BitVector(128, true);
  BitVector.BitIterator iter = b.bitIterator(4);
@@ -140,12 +139,11 @@ loadScripts(document, 'script');</script>
  }
  </code></pre>
 
- <p>There is also a <a href="#nextBitBlock(int)"><code>nextBitBlock(int)</code></a> method, which enables overriding the
- default block size for some calls.  The class supports usages involving combinations of
- calls to <a href="#nextBitBlock()"><code>nextBitBlock()</code></a>, <a href="#nextBitBlock(int)"><code>nextBitBlock(int)</code></a>, and <a href="#nextBit()"><code>nextBit()</code></a>.
- This next example initiates a BitIterator with a default block size of 4, and then gets
- the default of 4 bits, followed by a block of 7 bits, followed by a single bit, and then 
- the default of 4 bits again.</p>
+ <p>There is also a <a href="#nextBitBlock(int)"><code>nextBitBlock(int)</code></a> method, which enables overriding the default
+ block size for some calls. The class supports usages involving combinations of calls to <a href="#nextBitBlock()"><code>nextBitBlock()</code></a>, <a href="#nextBitBlock(int)"><code>nextBitBlock(int)</code></a>, and <a href="#nextBit()"><code>nextBit()</code></a>. This next example
+ initiates a BitIterator with a default block size of 4, and then gets the default of 4 bits,
+ followed by a block of 7 bits, followed by a single bit, and then the default of 4 bits again.
+
  <pre><code>
  BitVector b = new BitVector(128, true);
  BitVector.BitIterator iter = b.bitIterator(4);
@@ -243,8 +241,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Verifies if there are more bits to get, and it is safe to call <a href="#nextBitBlock()"><code>nextBitBlock()</code></a>.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>true if there are more bits, and false otherwise.  If this method returns false,
- then calls to <a href="#nextBitBlock()"><code>nextBitBlock()</code></a> will throw an exception.</dd>
+<dd>true if there are more bits, and false otherwise. If this method returns false, then
+     calls to <a href="#nextBitBlock()"><code>nextBitBlock()</code></a> will throw an exception.</dd>
 </dl>
 </section>
 </li>
@@ -266,8 +264,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Gets the next block of bits from the BitVector.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the next block of bits, which will be in the least significant places of the
- returned int value.</dd>
+<dd>the next block of bits, which will be in the least significant places of the returned
+     int value.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if there are no more blocks to get</dd>
 </dl>
@@ -280,15 +278,13 @@ loadScripts(document, 'script');</script>
 <div class="block">Gets the next block of bits from the BitVector.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>k</code> - The block size, which overrides the default block size
- that was used when the BitIterator was initiated for this call
- only.  
- For example, if k is 3, then this call will
- return an int containing the next 3 bits from the BitVector in the
- least significant 3 places.  The value of k must be 0 &lt; k &le; 32.</dd>
+<dd><code>k</code> - The block size, which overrides the default block size that was used when the
+     BitIterator was initiated for this call only. For example, if k is 3, then this call will
+     return an int containing the next 3 bits from the BitVector in the least significant 3
+     places. The value of k must be 0 &lt; k &le; 32.</dd>
 <dt>Returns:</dt>
-<dd>the next block of bits, which will be in the least significant places of the
- returned int value.</dd>
+<dd>the next block of bits, which will be in the least significant places of the returned
+     int value.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if k &le; 0 or if k &gt; 32</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if there are no more blocks to get</dd>
@@ -302,16 +298,13 @@ loadScripts(document, 'script');</script>
 <div class="block">Gets the next block of bits from the BitVector.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>k</code> - The block size, which overrides the default block size
- that was used when the BitIterator was initiated for this call
- only. Unlike the <a href="#nextBitBlock()"><code>nextBitBlock()</code></a> methods, this method
- is not limited in block size, other than by the number of
- remaining bits.</dd>
+<dd><code>k</code> - The block size, which overrides the default block size that was used when the
+     BitIterator was initiated for this call only. Unlike the <a href="#nextBitBlock()"><code>nextBitBlock()</code></a> methods,
+     this method is not limited in block size, other than by the number of remaining bits.</dd>
 <dt>Returns:</dt>
-<dd>the next block of bits, as an array of ints, with the
- first 32 bits of the block filled from least significant to most
- significant bit of a[0], where a is the array that is returned,
- and the next 32 bits filled similarly into a[1], etc.</dd>
+<dd>the next block of bits, as an array of ints, with the first 32 bits of the block
+     filled from least significant to most significant bit of a[0], where a is the array that
+     is returned, and the next 32 bits filled similarly into a[1], etc.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if there are fewer than k bits remaining.</dd>
 </dl>
@@ -334,12 +327,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="nextBit()">
 <h3>nextBit</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">nextBit</span>()</div>
-<div class="block">Gets the next bit from the BitVector.  Unlike the <a href="#nextBitBlock()"><code>nextBitBlock()</code></a> method,
- this method just gets 1 bit at a time, rather than a block of bits.</div>
+<div class="block">Gets the next bit from the BitVector. Unlike the <a href="#nextBitBlock()"><code>nextBitBlock()</code></a> method, this method
+ just gets 1 bit at a time, rather than a block of bits.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the next bit, which will be in the least significant place of the
- returned int value.</dd>
+<dd>the next bit, which will be in the least significant place of the returned int value.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if there are no more bits to get</dd>
 </dl>

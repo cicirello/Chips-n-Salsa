@@ -94,15 +94,12 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/FunctionalInterface.html" title="class or interface in java.lang" class="external-link">@FunctionalInterface</a>
 </span><span class="modifiers">public static interface </span><span class="element-name type-name-label">ValueBiasedStochasticSampling.BiasFunction</span></div>
-<div class="block"><p>Implement this interface to implement the bias function
- used by VBSS. Specifically, when making a randomized
- decision among possible permutation elements to add to
- the permutation, VBSS choose randomly but biased by a function
- of the heuristic value.  If value is the heuristic evaluation
- of permutation element e, then e will be added to the permutation
- with a probability proportional to bias(value).  
- How you implement this depends upon how much confidence you
- have in the specific heuristic you are randomizing.</p></div>
+<div class="block">Implement this interface to implement the bias function used by VBSS. Specifically, when making
+ a randomized decision among possible permutation elements to add to the permutation, VBSS
+ choose randomly but biased by a function of the heuristic value. If value is the heuristic
+ evaluation of permutation element e, then e will be added to the permutation with a probability
+ proportional to bias(value). How you implement this depends upon how much confidence you have
+ in the specific heuristic you are randomizing.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -143,8 +140,8 @@ loadScripts(document, 'script');</script>
 <div class="block">This method is the bias function.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>value</code> - The heuristic value of one of the elements under
- consideration for addition to the permutation.</dd>
+<dd><code>value</code> - The heuristic value of one of the elements under consideration for addition to
+     the permutation.</dd>
 <dt>Returns:</dt>
 <dd>the bias function applied to that value</dd>
 </dl>

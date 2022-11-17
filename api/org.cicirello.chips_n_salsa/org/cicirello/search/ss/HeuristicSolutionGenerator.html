@@ -98,17 +98,13 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">HeuristicSolutionGenerator&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;T&gt;</span></div>
-<div class="block"><p>This class generates solutions to optimization
- problems using a constructive heuristic. Unless the heuristic
- given to it is randomized, this class is completely deterministic
- and has no randomized behavior. Thus, executing the <a href="#optimize()"><code>optimize()</code></a>
- method multiple times should produce the same result each time.
- When using a constructive heuristic, you begin with an empty solution,
- (e.g., an empty permutation for a permutation optimization problem), 
- and you then use a constructive
- heuristic to choose which element to add to the partial solution.
- This is repeated until
- you derive a complete solution.</p></div>
+<div class="block">This class generates solutions to optimization problems using a constructive heuristic. Unless
+ the heuristic given to it is randomized, this class is completely deterministic and has no
+ randomized behavior. Thus, executing the <a href="#optimize()"><code>optimize()</code></a> method multiple times should produce
+ the same result each time. When using a constructive heuristic, you begin with an empty solution,
+ (e.g., an empty permutation for a permutation optimization problem), and you then use a
+ constructive heuristic to choose which element to add to the partial solution. This is repeated
+ until you derive a complete solution.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -122,14 +118,14 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.ss.ConstructiveHeuristic)" class="member-name-link">HeuristicSolutionGenerator</a><wbr>(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;heuristic)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions
- to an optimization problem using a constructive heuristic.</div>
+<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions to an optimization problem
+ using a constructive heuristic.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.ss.ConstructiveHeuristic,org.cicirello.search.ProgressTracker)" class="member-name-link">HeuristicSolutionGenerator</a><wbr>(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;heuristic,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions
- to an optimization problem using a constructive heuristic.</div>
+<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions to an optimization problem
+ using a constructive heuristic.</div>
 </div>
 </div>
 </section>
@@ -153,8 +149,7 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getProgressTracker()" class="member-name-link">getProgressTracker</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.</div>
+<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final long</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTotalRunLength()" class="member-name-link">getTotalRunLength</a>()</code></div>
@@ -164,21 +159,20 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#optimize()" class="member-name-link">optimize</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Executes a single run of a metaheuristic whose run length cannot be specified
- (e.g., a hill climber that terminates when it reaches a local optima, or a stochastic
- sampler that terminates when it constructs one solution, etc).</div>
+<div class="block">Executes a single run of a metaheuristic whose run length cannot be specified (e.g., a hill
+ climber that terminates when it reaches a local optima, or a stochastic sampler that terminates
+ when it constructs one solution, etc).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setProgressTracker(org.cicirello.search.ProgressTracker)" class="member-name-link">setProgressTracker</a><wbr>(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.</div>
+<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -201,9 +195,8 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 <section class="detail" id="&lt;init&gt;(org.cicirello.search.ss.ConstructiveHeuristic)">
 <h3>HeuristicSolutionGenerator</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">HeuristicSolutionGenerator</span><wbr><span class="parameters">(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;heuristic)</span></div>
-<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions
- to an optimization problem using a constructive heuristic.  A ProgressTracker 
- is created for you.</div>
+<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions to an optimization problem
+ using a constructive heuristic. A ProgressTracker is created for you.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>heuristic</code> - The constructive heuristic.</dd>
@@ -217,8 +210,8 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 <h3>HeuristicSolutionGenerator</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">HeuristicSolutionGenerator</span><wbr><span class="parameters">(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;heuristic,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;tracker)</span></div>
-<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions
- to an optimization problem using a constructive heuristic.</div>
+<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions to an optimization problem
+ using a constructive heuristic.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>heuristic</code> - The constructive heuristic.</dd>
@@ -241,23 +234,20 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 <h3>optimize</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;</span>&nbsp;<span class="element-name">optimize</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../SimpleMetaheuristic.html#optimize()">SimpleMetaheuristic</a></code></span></div>
-<div class="block"><p>Executes a single run of a metaheuristic whose run length cannot be specified
- (e.g., a hill climber that terminates when it reaches a local optima, or a stochastic
- sampler that terminates when it constructs one solution, etc).
- If this method is called multiple times, each call is randomized in some algorithm
- dependent way (e.g., a hill climber begins at a new randomly generated
- starting solution), and reinitializes any control parameters  
- that may have changed during the previous call to optimize to the start of run state.</p></div>
+<div class="block">Executes a single run of a metaheuristic whose run length cannot be specified (e.g., a hill
+ climber that terminates when it reaches a local optima, or a stochastic sampler that terminates
+ when it constructs one solution, etc). If this method is called multiple times, each call is
+ randomized in some algorithm dependent way (e.g., a hill climber begins at a new randomly
+ generated starting solution), and reinitializes any control parameters that may have changed
+ during the previous call to optimize to the start of run state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../SimpleMetaheuristic.html#optimize()">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="../SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>The current solution at the end of this run and its cost, 
- which may or may not be the same as the solution contained
- in this metaheuristic's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, 
- which contains the best of all runs.
- Returns null if the run did not execute, such as if the ProgressTracker already contains
- the theoretical best solution.</dd>
+<dd>The current solution at the end of this run and its cost, which may or may not be the
+     same as the solution contained in this metaheuristic's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs.
+     Returns null if the run did not execute, such as if the ProgressTracker already contains
+     the theoretical best solution.</dd>
 </dl>
 </section>
 </li>
@@ -266,14 +256,12 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 <h3>getProgressTracker</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;</span>&nbsp;<span class="element-name">getProgressTracker</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#getProgressTracker()">TrackableSearch</a></code></span></div>
-<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.  The object returned by this method
- contains the best solution found during the search (including across
- multiple concurrent runs if the search is multithreaded, or across
- multiple restarts if the run methods were called 
- multiple times), as well as cost of that solution, among other information.
- See the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> documentation for more information about
- the search data tracked by this object.</div>
+<div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress. The object
+ returned by this method contains the best solution found during the search (including across
+ multiple concurrent runs if the search is multithreaded, or across multiple restarts if the run
+ methods were called multiple times), as well as cost of that solution, among other information.
+ See the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> documentation for more information about the search data
+ tracked by this object.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../TrackableSearch.html#getProgressTracker()">getProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&gt;</code></dd>
@@ -287,15 +275,14 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 <h3>setProgressTracker</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setProgressTracker</span><wbr><span class="parameters">(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;tracker)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#setProgressTracker(org.cicirello.search.ProgressTracker)">TrackableSearch</a></code></span></div>
-<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for
- tracking search progress.  Any previously set ProgressTracker is
- replaced by this one.</div>
+<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress. Any
+ previously set ProgressTracker is replaced by this one.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../TrackableSearch.html#setProgressTracker(org.cicirello.search.ProgressTracker)">setProgressTracker</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>tracker</code> - The new ProgressTracker to set.  The tracker must not be null.
- This method does nothing if tracker is null.</dd>
+<dd><code>tracker</code> - The new ProgressTracker to set. The tracker must not be null. This method does
+     nothing if tracker is null.</dd>
 </dl>
 </section>
 </li>
@@ -304,17 +291,15 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 <h3>getTotalRunLength</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getTotalRunLength</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#getTotalRunLength()">TrackableSearch</a></code></span></div>
-<div class="block"><p>Gets the total run length of the metaheuristic.  This is the total run length
- across all calls to the search.
- This may differ from what may be expected based on run lengths.  
- For example, the search terminates 
- if it finds the theoretical best solution, and also immediately returns if
- a prior call found the theoretical best.  In such cases, the total run length may
- be less than the requested run length.</p>
+<div class="block">Gets the total run length of the metaheuristic. This is the total run length across all calls
+ to the search. This may differ from what may be expected based on run lengths. For example, the
+ search terminates if it finds the theoretical best solution, and also immediately returns if a
+ prior call found the theoretical best. In such cases, the total run length may be less than the
+ requested run length.
 
- <p>The meaning of run length may vary from one metaheuristic to another.  Therefore,
- implementing classes should provide fresh documentation rather than relying entirely on
- the interface documentation.</p></div>
+ <p>The meaning of run length may vary from one metaheuristic to another. Therefore,
+ implementing classes should provide fresh documentation rather than relying entirely on the
+ interface documentation.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../TrackableSearch.html#getTotalRunLength()">getTotalRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&gt;</code></dd>
@@ -342,29 +327,26 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;</span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../SimpleMetaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&gt;</code></dd>
 <dt>Specified by:</dt>
 <dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

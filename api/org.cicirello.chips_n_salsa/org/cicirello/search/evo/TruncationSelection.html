@@ -94,32 +94,31 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">TruncationSelection</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></span></div>
-<div class="block"><p>This class implements truncation selection for evolutionary algorithms. 
- In truncation selection, the proportion p &isin; [0.0, 1.0) of the population with
- greatest fitness is determined. Selection then proceeds randomly, with each member
- of the next generation chosen uniformly at random from among the p*N members of
- the population with highest fitness, where N is the size of the population. For example,
- if p=0.5, and if the population size N=100, then truncation selection will select
- individuals uniformly at random from among the 50 population members with highest fitness.</p>
+<div class="block">This class implements truncation selection for evolutionary algorithms. In truncation selection,
+ the proportion p &isin; [0.0, 1.0) of the population with greatest fitness is determined.
+ Selection then proceeds randomly, with each member of the next generation chosen uniformly at
+ random from among the p*N members of the population with highest fitness, where N is the size of
+ the population. For example, if p=0.5, and if the population size N=100, then truncation
+ selection will select individuals uniformly at random from among the 50 population members with
+ highest fitness.
 
- <p>Note that in this implementation, we modify the definition slightly, without loss
- of generality. Specifically, rather than defining the operator in terms of a proportion,
- the constructor of this class includes a parameter k, which is the absolute number
- of greatest fitness population members to select from. For example, if population size is
- N, and if we want the equivalent behavior for a proportion p=0.5, we would pass 50 for k.</p>
+ <p>Note that in this implementation, we modify the definition slightly, without loss of
+ generality. Specifically, rather than defining the operator in terms of a proportion, the
+ constructor of this class includes a parameter k, which is the absolute number of greatest
+ fitness population members to select from. For example, if population size is N, and if we want
+ the equivalent behavior for a proportion p=0.5, we would pass 50 for k.
 
- <p>This selection operator is compatible with all fitness functions, even in the case of
- negative fitness values, since it simply compares which fitness values are higher.</p>
+ <p>This selection operator is compatible with all fitness functions, even in the case of negative
+ fitness values, since it simply compares which fitness values are higher.
 
- <p>The runtime to select M population members from a population of size N is
- O(N + M), which includes generating O(M) random int values. In a typical generational
- model, M=N, and this is simply O(N). Note that you will often see the runtime
- for truncation selection cited as O(N lg N), mistakenly assuming that sorting the
- population by fitness is necessary. However, it is possible to determine the k most
- fit members of the population without a full sort in O(N) time, as we can partition
- the population into the set of the k most-fit and the set of the N-k least fit using
- a modification of a typical order-statistics algorithm in linear time since we don't
- actually need a total ordering over either of those sets.</p></div>
+ <p>The runtime to select M population members from a population of size N is O(N + M), which
+ includes generating O(M) random int values. In a typical generational model, M=N, and this is
+ simply O(N). Note that you will often see the runtime for truncation selection cited as O(N lg
+ N), mistakenly assuming that sorting the population by fitness is necessary. However, it is
+ possible to determine the k most fit members of the population without a full sort in O(N) time,
+ as we can partition the population into the set of the k most-fit and the set of the N-k least
+ fit using a modification of a typical order-statistics algorithm in linear time since we don't
+ actually need a total ordering over either of those sets.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -133,8 +132,8 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int)" class="member-name-link">TruncationSelection</a><wbr>(int&nbsp;k)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a truncation selection operator that selects uniformly
- at random from the k most fit current members of the population.</div>
+<div class="block">Constructs a truncation selection operator that selects uniformly at random from the k most fit
+ current members of the population.</div>
 </div>
 </div>
 </section>
@@ -165,8 +164,8 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="TruncationSelection.html" title="class in org.cicirello.search.evo">TruncationSelection</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -192,14 +191,14 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <section class="detail" id="&lt;init&gt;(int)">
 <h3>TruncationSelection</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">TruncationSelection</span><wbr><span class="parameters">(int&nbsp;k)</span></div>
-<div class="block">Constructs a truncation selection operator that selects uniformly
- at random from the k most fit current members of the population.</div>
+<div class="block">Constructs a truncation selection operator that selects uniformly at random from the k most fit
+ current members of the population.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>k</code> - The number of the most fit individuals to base selection upon. The value
- of k must be at least 1. However, 1 is not likely to be a good choice since this means
- that all offspring will be based upon the single most fit individual, which means crossover
- will always lead to the same children.</dd>
+<dd><code>k</code> - The number of the most fit individuals to base selection upon. The value of k must be
+     at least 1. However, 1 is not likely to be a good choice since this means that all
+     offspring will be based upon the single most fit individual, which means crossover will
+     always lead to the same children.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if k is less than 1.</dd>
 </dl>
@@ -219,23 +218,21 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">select</span><wbr><span class="parameters">(<a href="PopulationFitnessVector.Integer.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Integer</a>&nbsp;fitnesses,
  int[]&nbsp;selected)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)">SelectionOperator</a></code></span></div>
-<div class="block">Selects a set of members of the population based on fitness. Implementations should
- ensure that the array of indexes of population members is in a random order. For some
- selection operators, this required behavior is met by definition (e.g., the common
- fitness proportionate selection will have this behavior as is). But other selection
- operators may require randomizing the array of indexes after selection. For example,
- the obvious implementation of stochastic universal sampling will likely have all copies
- of an individual population member ordered together, and thus will require a 
- shuffling of the array before returning.</div>
+<div class="block">Selects a set of members of the population based on fitness. Implementations should ensure that
+ the array of indexes of population members is in a random order. For some selection operators,
+ this required behavior is met by definition (e.g., the common fitness proportionate selection
+ will have this behavior as is). But other selection operators may require randomizing the array
+ of indexes after selection. For example, the obvious implementation of stochastic universal
+ sampling will likely have all copies of an individual population member ordered together, and
+ thus will require a shuffling of the array before returning.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Integer,int%5B%5D)">select</a></code>&nbsp;in interface&nbsp;<code><a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>fitnesses</code> - A vector of fitnesses of the members of the population.</dd>
-<dd><code>selected</code> - An array for the result. The selection operator should select 
- selected.length members of the population based on fitnesses, populating 
- selected with the indexes of the chosen members. Note that selected.length may
- be different than the fitnesses.size().</dd>
+<dd><code>selected</code> - An array for the result. The selection operator should select selected.length
+     members of the population based on fitnesses, populating selected with the indexes of the
+     chosen members. Note that selected.length may be different than the fitnesses.size().</dd>
 </dl>
 </section>
 </li>
@@ -245,23 +242,21 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">select</span><wbr><span class="parameters">(<a href="PopulationFitnessVector.Double.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.Double</a>&nbsp;fitnesses,
  int[]&nbsp;selected)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)">SelectionOperator</a></code></span></div>
-<div class="block">Selects a set of members of the population based on fitness. Implementations should
- ensure that the array of indexes of population members is in a random order. For some
- selection operators, this required behavior is met by definition (e.g., the common
- fitness proportionate selection will have this behavior as is). But other selection
- operators may require randomizing the array of indexes after selection. For example,
- the obvious implementation of stochastic universal sampling will likely have all copies
- of an individual population member ordered together, and thus will require a 
- shuffling of the array before returning.</div>
+<div class="block">Selects a set of members of the population based on fitness. Implementations should ensure that
+ the array of indexes of population members is in a random order. For some selection operators,
+ this required behavior is met by definition (e.g., the common fitness proportionate selection
+ will have this behavior as is). But other selection operators may require randomizing the array
+ of indexes after selection. For example, the obvious implementation of stochastic universal
+ sampling will likely have all copies of an individual population member ordered together, and
+ thus will require a shuffling of the array before returning.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SelectionOperator.html#select(org.cicirello.search.evo.PopulationFitnessVector.Double,int%5B%5D)">select</a></code>&nbsp;in interface&nbsp;<code><a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>fitnesses</code> - A vector of fitnesses of the members of the population.</dd>
-<dd><code>selected</code> - An array for the result. The selection operator should select 
- selected.length members of the population based on fitnesses, populating 
- selected with the indexes of the chosen members. Note that selected.length may
- be different than the fitnesses.size().</dd>
+<dd><code>selected</code> - An array for the result. The selection operator should select selected.length
+     members of the population based on fitnesses, populating selected with the indexes of the
+     chosen members. Note that selected.length may be different than the fitnesses.size().</dd>
 </dl>
 </section>
 </li>
@@ -270,27 +265,24 @@ implements <a href="SelectionOperator.html" title="interface in org.cicirello.se
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="TruncationSelection.html" title="class in org.cicirello.search.evo">TruncationSelection</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

@@ -66,10 +66,10 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.operators.reals">org.cicirello.search.operators.reals</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes that implement operators that create, mutate, etc, the
- the inputs to functions with real-valued input parameters (represented with type double), 
- such as is required to solve function optimization
- problems using simulated annealing or other metaheuristics.</div>
+<div class="block">This package includes classes that implement operators that create, mutate, etc, the the inputs
+ to functions with real-valued input parameters (represented with type double), such as is
+ required to solve function optimization problems using simulated annealing or other
+ metaheuristics.</div>
 </div>
 </div>
 <section class="class-uses">
@@ -90,29 +90,38 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;<br><a href="../UndoableGaussianMutation.html" title="class in org.cicirello.search.operators.reals">UndoableGaussianMutation</a>&lt;T&gt;</code></div>
 <div class="col-second odd-row-color"><span class="type-name-label">UndoableGaussianMutation.</span><code><a href="../UndoableGaussianMutation.html#createGaussianMutation()" class="member-name-link">createGaussianMutation</a>()</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Creates a Gaussian mutation operator with standard deviation equal to 1
- that supports the undo operation.</div>
+<div class="block">Creates a Gaussian mutation operator with standard deviation equal to 1, and which supports the
+ <a href="../../UndoableMutationOperator.html#undo(T)"><code>UndoableMutationOperator.undo(T)</code></a> method.</div>
 </div>
 <div class="col-first even-row-color"><code>static &lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;<br><a href="../UndoableGaussianMutation.html" title="class in org.cicirello.search.operators.reals">UndoableGaussianMutation</a>&lt;T&gt;</code></div>
 <div class="col-second even-row-color"><span class="type-name-label">UndoableGaussianMutation.</span><code><a href="../UndoableGaussianMutation.html#createGaussianMutation(double)" class="member-name-link">createGaussianMutation</a><wbr>(double&nbsp;sigma)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Creates a Gaussian mutation operator that supports the undo operation.</div>
+<div class="block">Creates a Gaussian mutation operator, and which supports the <a href="../../UndoableMutationOperator.html#undo(T)"><code>UndoableMutationOperator.undo(T)</code></a> method.</div>
 </div>
 <div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;<br><a href="../UndoableGaussianMutation.html" title="class in org.cicirello.search.operators.reals">UndoableGaussianMutation</a>&lt;T&gt;</code></div>
 <div class="col-second odd-row-color"><span class="type-name-label">UndoableGaussianMutation.</span><code><a href="../UndoableGaussianMutation.html#createGaussianMutation(double,double)" class="member-name-link">createGaussianMutation</a><wbr>(double&nbsp;sigma,
  double&nbsp;p)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Create a Gaussian mutation operator that supports the undo operation.</div>
+<div class="block">Create a Gaussian mutation operator, and which supports the <a href="../../UndoableMutationOperator.html#undo(T)"><code>UndoableMutationOperator.undo(T)</code></a> method.</div>
 </div>
 <div class="col-first even-row-color"><code>static &lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;<br><a href="../UndoableGaussianMutation.html" title="class in org.cicirello.search.operators.reals">UndoableGaussianMutation</a>&lt;T&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">UndoableGaussianMutation.</span><code><a href="../UndoableGaussianMutation.html#createGaussianMutation(double,int)" class="member-name-link">createGaussianMutation</a><wbr>(double&nbsp;sigma,
- int&nbsp;k)</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">UndoableGaussianMutation.</span><code><a href="../UndoableGaussianMutation.html#createGaussianMutation(double,double,double)" class="member-name-link">createGaussianMutation</a><wbr>(double&nbsp;sigma,
+ double&nbsp;lowerBound,
+ double&nbsp;upperBound)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Create a Gaussian mutation operator that supports the undo operation.</div>
+<div class="block">Creates a Gaussian mutation operator, such that the mutate method constrains each mutated real
+ value to lie in the interval [lowerBound, upperBound], and which supports the <a href="../../UndoableMutationOperator.html#undo(T)"><code>UndoableMutationOperator.undo(T)</code></a>
+ method.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="../UndoableGaussianMutation.html" title="class in org.cicirello.search.operators.reals">UndoableGaussianMutation</a>&lt;<a href="../UndoableGaussianMutation.html" title="type parameter in UndoableGaussianMutation">T</a>&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">UndoableGaussianMutation.</span><code><a href="../UndoableGaussianMutation.html#split()" class="member-name-link">split</a>()</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;<br><a href="../UndoableGaussianMutation.html" title="class in org.cicirello.search.operators.reals">UndoableGaussianMutation</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">UndoableGaussianMutation.</span><code><a href="../UndoableGaussianMutation.html#createGaussianMutation(double,int)" class="member-name-link">createGaussianMutation</a><wbr>(double&nbsp;sigma,
+ int&nbsp;k)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Create a Gaussian mutation operator, and which supports the <a href="../../UndoableMutationOperator.html#undo(T)"><code>UndoableMutationOperator.undo(T)</code></a> method.</div>
+</div>
+<div class="col-first even-row-color"><code><a href="../UndoableGaussianMutation.html" title="class in org.cicirello.search.operators.reals">UndoableGaussianMutation</a>&lt;<a href="../UndoableGaussianMutation.html" title="type parameter in UndoableGaussianMutation">T</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">UndoableGaussianMutation.</span><code><a href="../UndoableGaussianMutation.html#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>

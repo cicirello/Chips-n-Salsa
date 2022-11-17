@@ -85,28 +85,22 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>Type Parameters:</dt>
-<dd><code>T</code> - The type of Partial object that this IncrementalEvaluation evaluates, which is 
- assumed to be an object that is a sequence of integers (e.g., vector of integers,
- permutation, or some other indexable type that stores integers).</dd>
+<dd><code>T</code> - The type of Partial object that this IncrementalEvaluation evaluates, which is assumed
+     to be an object that is a sequence of integers (e.g., vector of integers, permutation, or
+     some other indexable type that stores integers).</dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">IncrementalEvaluation&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span></div>
-<div class="block"><p>The implementations of constructive heuristics and
- stochastic samplers biased by constructive heuristics
- in the library support incremental updates, 
- as the solution is heuristically assembled,
- to problem and/or heuristic data utilized by the heuristic. 
- Implementations of this interface depend upon the
- specific optimization problem, as well as
- the specific constructive heuristic.  For example,
- for a scheduling problem, it would be more efficient to
- compute the current time in the schedule incrementally as
- the schedule is built than it would be to recompute it
- each time a job is added to the schedule.  Or, for example,
- there may be a constructive heuristic for a problem that utilizes
- a characteristic of the portion of the problem not yet solved
- for which it would be more efficient to compute incrementally
- than to recompute fresh each step of the problem solving process.</p></div>
+<div class="block">The implementations of constructive heuristics and stochastic samplers biased by constructive
+ heuristics in the library support incremental updates, as the solution is heuristically
+ assembled, to problem and/or heuristic data utilized by the heuristic. Implementations of this
+ interface depend upon the specific optimization problem, as well as the specific constructive
+ heuristic. For example, for a scheduling problem, it would be more efficient to compute the
+ current time in the schedule incrementally as the schedule is built than it would be to recompute
+ it each time a job is added to the schedule. Or, for example, there may be a constructive
+ heuristic for a problem that utilizes a characteristic of the portion of the problem not yet
+ solved for which it would be more efficient to compute incrementally than to recompute fresh each
+ step of the problem solving process.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -125,10 +119,8 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#extend(org.cicirello.search.ss.Partial,int)" class="member-name-link">extend</a><wbr>(<a href="Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="IncrementalEvaluation.html" title="type parameter in IncrementalEvaluation">T</a>&gt;&nbsp;p,
  int&nbsp;element)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Extends an 
- incremental evaluation,
- to account for extending a Partial by the addition of 
- one element.</div>
+<div class="block">Extends an incremental evaluation, to account for extending a Partial by the addition of one
+ element.</div>
 </div>
 </div>
 </div>
@@ -149,31 +141,25 @@ loadScripts(document, 'script');</script>
 <h3>extend</h3>
 <div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">extend</span><wbr><span class="parameters">(<a href="Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="IncrementalEvaluation.html" title="type parameter in IncrementalEvaluation">T</a>&gt;&nbsp;p,
  int&nbsp;element)</span></div>
-<div class="block"><p>Extends an 
- incremental evaluation,
- to account for extending a Partial by the addition of 
- one element.</p>
+<div class="block">Extends an incremental evaluation, to account for extending a Partial by the addition of one
+ element.
 
- <p>This method assumes that this IncrementalEvaluation object
- is consistent and up to date with the Partial p passed
- as a parameter.</p>
+ <p>This method assumes that this IncrementalEvaluation object is consistent and up to date with
+ the Partial p passed as a parameter.
 
- <p>This extension is problem-dependent and this IncrementalEvaluation
- includes maintenance of any data for which incremental updates
- as the Partial is gradually transformed into a full T
- is beneficial to performance.  For example, for a scheduling problem,
- the IncrementalEvaluation might keep track of current time in the schedule,
- accounting for all of the jobs already scheduled, to avoid having to 
- recompute it with each extension (if the heuristic uses that to evaluate
- a job).</p></div>
+ <p>This extension is problem-dependent and this IncrementalEvaluation includes maintenance of
+ any data for which incremental updates as the Partial is gradually transformed into a full T is
+ beneficial to performance. For example, for a scheduling problem, the IncrementalEvaluation
+ might keep track of current time in the schedule, accounting for all of the jobs already
+ scheduled, to avoid having to recompute it with each extension (if the heuristic uses that to
+ evaluate a job).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>p</code> - The current state of the Partial 
- (assumed to be the Partial
- that is the subject of the IncrementalEvaluation).</dd>
-<dd><code>element</code> - The element that will be added to the Partial.
- This method should not actually add element to p. Rather, it should update
- the IncrementalEvaluation to coincide with the addition of element to p.</dd>
+<dd><code>p</code> - The current state of the Partial (assumed to be the Partial that is the subject of the
+     IncrementalEvaluation).</dd>
+<dd><code>element</code> - The element that will be added to the Partial. This method should not actually
+     add element to p. Rather, it should update the IncrementalEvaluation to coincide with the
+     addition of element to p.</dd>
 </dl>
 </section>
 </li>

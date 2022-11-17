@@ -95,8 +95,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">BoundedRealVector</span>
 <span class="extends-implements">extends <a href="RealVector.html" title="class in org.cicirello.search.representations">RealVector</a></span></div>
-<div class="block">A class for representing the input to a multivariate function,
- with real values (floating-point) 
+<div class="block">A class for representing the input to a multivariate function, with real values (floating-point)
  that are bounded in some interval [min, max].</div>
 </section>
 <section class="summary">
@@ -113,8 +112,7 @@ loadScripts(document, 'script');</script>
  double&nbsp;min,
  double&nbsp;max)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Initializes the vector to the specified values, subject to
- the given bounds [min, max].</div>
+<div class="block">Initializes the vector to the specified values, subject to the given bounds [min, max].</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.representations.BoundedRealVector)" class="member-name-link">BoundedRealVector</a><wbr>(<a href="BoundedRealVector.html" title="class in org.cicirello.search.representations">BoundedRealVector</a>&nbsp;other)</code></div>
 <div class="col-last odd-row-color">
@@ -152,15 +150,19 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sameBounds(org.cicirello.search.representations.BoundedRealVector)" class="member-name-link">sameBounds</a><wbr>(<a href="BoundedRealVector.html" title="class in org.cicirello.search.representations">BoundedRealVector</a>&nbsp;other)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks if the bounds of this BoundedRealVector are the 
- same as those of another.</div>
+<div class="block">Checks if the bounds of this BoundedRealVector are the same as those of another.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set(int,double)" class="member-name-link">set</a><wbr>(int&nbsp;i,
- double&nbsp;value)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set(double%5B%5D)" class="member-name-link">set</a><wbr>(double[]&nbsp;values)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sets a parameter to a specified value, subject to the
- lower and upper bounds for this function input.</div>
+<div class="block">Sets from an array, subject to the lower and upper bounds for this vector.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set(int,double)" class="member-name-link">set</a><wbr>(int&nbsp;i,
+ double&nbsp;value)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets a parameter to a specified value, subject to the lower and upper bounds for this function
+ input.</div>
 </div>
 </div>
 </div>
@@ -188,13 +190,11 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">BoundedRealVector</span><wbr><span class="parameters">(double[]&nbsp;x,
  double&nbsp;min,
  double&nbsp;max)</span></div>
-<div class="block">Initializes the vector to the specified values, subject to
- the given bounds [min, max].</div>
+<div class="block">Initializes the vector to the specified values, subject to the given bounds [min, max].</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>x</code> - The initial values for the vector.  Any values that
- are less than min will instead be set to min.  Any values that are
- greater than max will instead be set to max.</dd>
+<dd><code>x</code> - The initial values for the vector. Any values that are less than min will instead be
+     set to min. Any values that are greater than max will instead be set to max.</dd>
 <dd><code>min</code> - The minimum allowed value for each integer.</dd>
 <dd><code>max</code> - The maximum allowed value for each integer.</dd>
 <dt>Throws:</dt>
@@ -226,12 +226,10 @@ loadScripts(document, 'script');</script>
 <h3>set</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">set</span><wbr><span class="parameters">(int&nbsp;i,
  double&nbsp;value)</span></div>
-<div class="block">Sets a parameter to a specified value, subject to the
- lower and upper bounds for this function input.  If the specified
- new value is less than the min, then the function input is set to
- the min.  If the specified new value is greater than the max, then
- the function input is set to the max.  Otherwise, the function input
- is set to the specified value.</div>
+<div class="block">Sets a parameter to a specified value, subject to the lower and upper bounds for this function
+ input. If the specified new value is less than the min, then the function input is set to the
+ min. If the specified new value is greater than the max, then the function input is set to the
+ max. Otherwise, the function input is set to the specified value.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="RealValued.html#set(int,double)">set</a></code>&nbsp;in interface&nbsp;<code><a href="RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a></code></dd>
@@ -246,11 +244,27 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="set(double[])">
+<h3>set</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">set</span><wbr><span class="parameters">(double[]&nbsp;values)</span></div>
+<div class="block">Sets from an array, subject to the lower and upper bounds for this vector. If a specified new
+ value is less than the min, then it is set to the min. If the specified new value is greater
+ than the max, then the it is set to the max. Otherwise, it is set to the specified value.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="RealValued.html#set(double%5B%5D)">set</a></code>&nbsp;in interface&nbsp;<code><a href="RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a></code></dd>
+<dt>Overrides:</dt>
+<dd><code><a href="RealVector.html#set(double%5B%5D)">set</a></code>&nbsp;in class&nbsp;<code><a href="RealVector.html" title="class in org.cicirello.search.representations">RealVector</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>values</code> - The values to set.</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="sameBounds(org.cicirello.search.representations.BoundedRealVector)">
 <h3>sameBounds</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">sameBounds</span><wbr><span class="parameters">(<a href="BoundedRealVector.html" title="class in org.cicirello.search.representations">BoundedRealVector</a>&nbsp;other)</span></div>
-<div class="block">Checks if the bounds of this BoundedRealVector are the 
- same as those of another.</div>
+<div class="block">Checks if the bounds of this BoundedRealVector are the same as those of another.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>other</code> - The other vector.</dd>
@@ -278,17 +292,16 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="equals(java.lang.Object)">
 <h3>equals</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
-<div class="block">Indicates whether some other object is "equal to" this one.
- To be equal, the other object must be of the same runtime type and contain the
- same values and bounds.</div>
+<div class="block">Indicates whether some other object is "equal to" this one. To be equal, the other object must
+ be of the same runtime type and contain the same values and bounds.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="RealVector.html#equals(java.lang.Object)">equals</a></code>&nbsp;in class&nbsp;<code><a href="RealVector.html" title="class in org.cicirello.search.representations">RealVector</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>other</code> - The other object to compare.</dd>
 <dt>Returns:</dt>
-<dd>true if other is not null, is of the same runtime type as this, and contains
- the same values and bounds.</dd>
+<dd>true if other is not null, is of the same runtime type as this, and contains the same
+     values and bounds.</dd>
 </dl>
 </section>
 </li>

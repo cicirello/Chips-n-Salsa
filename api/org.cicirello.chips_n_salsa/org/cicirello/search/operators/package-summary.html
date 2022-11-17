@@ -76,10 +76,9 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="package-signature">package <span class="element-name">org.cicirello.search.operators</span></div>
 <section class="package-description" id="package-description">
-<div class="block">This package includes classes and interfaces for defining various operators
- required by simulated annealing and other metaheuristics, such as 
- mutation operators, along with
- other related classes and interfaces.</div>
+<div class="block">This package includes classes and interfaces for defining various operators required by simulated
+ annealing and other metaheuristics, such as mutation operators, along with other related classes
+ and interfaces.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -91,19 +90,17 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="../package-summary.html">org.cicirello.search</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces related to implementing
- metaheuristic search algorithms in general, rather than specific to a particular
- metaheuristic.</div>
+<div class="block">This package includes classes and interfaces related to implementing metaheuristic search
+ algorithms in general, rather than specific to a particular metaheuristic.</div>
 </div>
 <div class="col-first odd-row-color"><a href="bits/package-summary.html">org.cicirello.search.operators.bits</a></div>
 <div class="col-last odd-row-color">
-<div class="block">This package includes classes that implement operators that create, mutate, etc,
- BitVectors.</div>
+<div class="block">This package includes classes that implement operators that create, mutate, etc, BitVectors.</div>
 </div>
 <div class="col-first even-row-color"><a href="integers/package-summary.html">org.cicirello.search.operators.integers</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes that implement operators that create, mutate, etc,
- integer valued representations.</div>
+<div class="block">This package includes classes that implement operators that create, mutate, etc, integer valued
+ representations.</div>
 </div>
 <div class="col-first odd-row-color"><a href="permutations/package-summary.html">org.cicirello.search.operators.permutations</a></div>
 <div class="col-last odd-row-color">
@@ -112,10 +109,10 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color"><a href="reals/package-summary.html">org.cicirello.search.operators.reals</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes that implement operators that create, mutate, etc, the
- the inputs to functions with real-valued input parameters (represented with type double), 
- such as is required to solve function optimization
- problems using simulated annealing or other metaheuristics.</div>
+<div class="block">This package includes classes that implement operators that create, mutate, etc, the the inputs
+ to functions with real-valued input parameters (represented with type double), such as is
+ required to solve function optimization problems using simulated annealing or other
+ metaheuristics.</div>
 </div>
 </div>
 </div>
@@ -129,88 +126,78 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="CrossoverOperator.html" title="interface in org.cicirello.search.operators">CrossoverOperator</a>&lt;T&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab1">
-<div class="block">Implement the CrossoverOperator interface to implement a crossover operator
- for use in evolutionary algorithms.</div>
+<div class="block">Implement the CrossoverOperator interface to implement a crossover operator for use in
+ evolutionary algorithms.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="HybridCrossover.html" title="class in org.cicirello.search.operators">HybridCrossover</a>&lt;T&gt;</div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
-<div class="block">A HybridCrossover enables using multiple crossover operators for the
- evolutionary algorithm, such that each time the <a href="HybridCrossover.html#cross(T,T)"><code>HybridCrossover.cross(T, T)</code></a> method is called,
- a randomly chosen crossover operator is applied to the candidate
- solution.</div>
+<div class="block">A HybridCrossover enables using multiple crossover operators for the evolutionary algorithm, such
+ that each time the <a href="HybridCrossover.html#cross(T,T)"><code>HybridCrossover.cross(T, T)</code></a> method is called, a randomly chosen crossover operator is
+ applied to the candidate solution.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="HybridMutation.html" title="class in org.cicirello.search.operators">HybridMutation</a>&lt;T&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">A HybridMutation enables using multiple mutation operators for the
- search, such that each time the <a href="HybridMutation.html#mutate(T)"><code>HybridMutation.mutate(T)</code></a> method is called,
- a randomly chosen mutation operator is applied to the candidate
- solution.</div>
+<div class="block">A HybridMutation enables using multiple mutation operators for the search, such that each time
+ the <a href="HybridMutation.html#mutate(T)"><code>HybridMutation.mutate(T)</code></a> method is called, a randomly chosen mutation operator is applied to the
+ candidate solution.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="HybridUndoableMutation.html" title="class in org.cicirello.search.operators">HybridUndoableMutation</a>&lt;T&gt;</div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
-<div class="block">A HybridMutation enables using multiple mutation operators for the
- search, such that each time the <a href="HybridUndoableMutation.html#mutate(T)"><code>HybridUndoableMutation.mutate(T)</code></a> method is called,
- a randomly chosen mutation operator is applied to the candidate
- solution.</div>
+<div class="block">A HybridMutation enables using multiple mutation operators for the search, such that each time
+ the <a href="HybridUndoableMutation.html#mutate(T)"><code>HybridUndoableMutation.mutate(T)</code></a> method is called, a randomly chosen mutation operator is applied to the
+ candidate solution.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="InitializeBySimpleMetaheuristic.html" title="class in org.cicirello.search.operators">InitializeBySimpleMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">This class implements the <a href="Initializer.html" title="interface in org.cicirello.search.operators"><code>Initializer</code></a> interface to provide
- metaheuristics and other search algorithms with a way
- to generate initial candidate solutions to a problem, that are themselves
- generated via a metaheuristic.</div>
+<div class="block">This class implements the <a href="Initializer.html" title="interface in org.cicirello.search.operators"><code>Initializer</code></a> interface to provide metaheuristics and other
+ search algorithms with a way to generate initial candidate solutions to a problem, that are
+ themselves generated via a metaheuristic.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;T&gt;</div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
-<div class="block">Implement the Initializer interface to provide
- metaheuristics and other search algorithms with a way
- to generate initial candidate solutions to a problem.</div>
+<div class="block">Implement the Initializer interface to provide metaheuristics and other search algorithms with a
+ way to generate initial candidate solutions to a problem.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="IterableMutationOperator.html" title="interface in org.cicirello.search.operators">IterableMutationOperator</a>&lt;T&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab1">
-<div class="block">Implement the IterableMutationOperator interface to define a mutation
- operator that enables iterating systematically over the neighbors of
- a candidate solution, like one would do in a hill climber.</div>
+<div class="block">Implement the IterableMutationOperator interface to define a mutation operator that enables
+ iterating systematically over the neighbors of a candidate solution, like one would do in a hill
+ climber.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="MutationIterator.html" title="interface in org.cicirello.search.operators">MutationIterator</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
-<div class="block">Defines an interface for iterating over all of the mutants (i.e., neighbors)
- of a candidate solution to a problem.</div>
+<div class="block">Defines an interface for iterating over all of the mutants (i.e., neighbors) of a candidate
+ solution to a problem.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab1">
-<div class="block">Implement the MutationOperator interface to implement a mutation operator
- for use in simulated annealing, genetic algorithms, and other evolutionary algorithms,
- and other metaheuristics, that require a
- way to generate random neighbors of a candidate solution.</div>
+<div class="block">Implement the MutationOperator interface to implement a mutation operator for use in simulated
+ annealing, genetic algorithms, and other evolutionary algorithms, and other metaheuristics, that
+ require a way to generate random neighbors of a candidate solution.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;</div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
-<div class="block">Implement the UndoableMutationOperator interface to implement a mutation operator
- for use in simulated annealing, and other metaheuristics, that require a
- way to generate random neighbors of a candidate solution, and which supports
- an undo method.</div>
+<div class="block">Implement the UndoableMutationOperator interface to implement a mutation operator for use in
+ simulated annealing, and other metaheuristics, that require a way to generate random neighbors of
+ a candidate solution, and which supports an undo method.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="WeightedHybridCrossover.html" title="class in org.cicirello.search.operators">WeightedHybridCrossover</a>&lt;T&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">A WeightedHybridCrossover enables using multiple crossover operators,
- such that each time the <a href="WeightedHybridCrossover.html#cross(T,T)"><code>WeightedHybridCrossover.cross(T, T)</code></a> method is called,
- a randomly chosen crossover operator is applied to the candidate
+<div class="block">A WeightedHybridCrossover enables using multiple crossover operators, such that each time the
+ <a href="WeightedHybridCrossover.html#cross(T,T)"><code>WeightedHybridCrossover.cross(T, T)</code></a> method is called, a randomly chosen crossover operator is applied to the candidate
  solutions.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="WeightedHybridMutation.html" title="class in org.cicirello.search.operators">WeightedHybridMutation</a>&lt;T&gt;</div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
-<div class="block">A WeightedHybridMutation enables using multiple mutation operators for the
- search, such that each time the <a href="WeightedHybridMutation.html#mutate(T)"><code>WeightedHybridMutation.mutate(T)</code></a> method is called,
- a randomly chosen mutation operator is applied to the candidate
- solution.</div>
+<div class="block">A WeightedHybridMutation enables using multiple mutation operators for the search, such that each
+ time the <a href="WeightedHybridMutation.html#mutate(T)"><code>WeightedHybridMutation.mutate(T)</code></a> method is called, a randomly chosen mutation operator is applied to the
+ candidate solution.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="WeightedHybridUndoableMutation.html" title="class in org.cicirello.search.operators">WeightedHybridUndoableMutation</a>&lt;T&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">A WeightedHybridMutation enables using multiple mutation operators for the
- search, such that each time the <a href="WeightedHybridUndoableMutation.html#mutate(T)"><code>WeightedHybridUndoableMutation.mutate(T)</code></a> method is called,
- a randomly chosen mutation operator is applied to the candidate
- solution.</div>
+<div class="block">A WeightedHybridMutation enables using multiple mutation operators for the search, such that each
+ time the <a href="WeightedHybridUndoableMutation.html#mutate(T)"><code>WeightedHybridUndoableMutation.mutate(T)</code></a> method is called, a randomly chosen mutation operator is applied to the
+ candidate solution.</div>
 </div>
 </div>
 </div>

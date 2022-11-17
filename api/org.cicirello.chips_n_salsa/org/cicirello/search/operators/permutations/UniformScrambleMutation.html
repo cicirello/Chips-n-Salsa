@@ -94,15 +94,13 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">UniformScrambleMutation</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
-<div class="block"><p>This class implements a scramble mutation on permutations, where one mutation
- consists in randomizing the order of a non-contiguous subset of the permutation
- elements. It is controlled by a parameter U, which is the probability that an 
- element is included in the scramble. On average, you can expect U*n elements
- to be randomized, where n is the length of the permutation.</p>
- <p>The worst case runtime of 
- the <a href="#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a> method is O(n), and the
- average case is O(U*n),
- where n is the length of the permutation.</p></div>
+<div class="block">This class implements a scramble mutation on permutations, where one mutation consists in
+ randomizing the order of a non-contiguous subset of the permutation elements. It is controlled by
+ a parameter U, which is the probability that an element is included in the scramble. On average,
+ you can expect U*n elements to be randomized, where n is the length of the permutation.
+
+ <p>The worst case runtime of the <a href="#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a> method is O(n), and the
+ average case is O(U*n), where n is the length of the permutation.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -145,8 +143,8 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="UniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UniformScrambleMutation</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -172,9 +170,8 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <div class="block">Constructs a UniformScrambleMutation mutation operator.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>u</code> - The probability that an element is included in a
- scramble. If the permutation length is n, you can expect 
- approximately u*n elements on average to be scrambled.</dd>
+<dd><code>u</code> - The probability that an element is included in a scramble. If the permutation length
+     is n, you can expect approximately u*n elements on average to be scrambled.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if u is negative or if u is greater than 1.0.</dd>
 </dl>
@@ -188,13 +185,12 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <div class="block">Constructs a UniformScrambleMutation mutation operator.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>u</code> - The probability that an element is included in a
- scramble. If the permutation length is n, you can expect 
- approximately u*n elements on average to be scrambled.</dd>
-<dd><code>guaranteeChange</code> - If true, then the <a href="#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a>
- method will be guaranteed to change the locations of at least 2 elements.
- Otherwise, if false, it may be possible (e.g., for low values of u) for
- the mutate method not to change anything during some calls.</dd>
+<dd><code>u</code> - The probability that an element is included in a scramble. If the permutation length
+     is n, you can expect approximately u*n elements on average to be scrambled.</dd>
+<dd><code>guaranteeChange</code> - If true, then the <a href="#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a> method will be
+     guaranteed to change the locations of at least 2 elements. Otherwise, if false, it may be
+     possible (e.g., for low values of u) for the mutate method not to change anything during
+     some calls.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if u is negative or if u is greater than 1.0.</dd>
 </dl>
@@ -213,15 +209,13 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <h3>mutate</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">mutate</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../MutationOperator.html#mutate(T)">MutationOperator</a></code></span></div>
-<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state.
- The mutant that is produced is in the local neighborhood of 
- the original candidate solution.</div>
+<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state. The mutant that is
+ produced is in the local neighborhood of the original candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../MutationOperator.html#mutate(T)">mutate</a></code>&nbsp;in interface&nbsp;<code><a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>c</code> - The candidate solution subject to the mutation.  This method
- changes the state of c.</dd>
+<dd><code>c</code> - The candidate solution subject to the mutation. This method changes the state of c.</dd>
 </dl>
 </section>
 </li>
@@ -230,27 +224,24 @@ implements <a href="../MutationOperator.html" title="interface in org.cicirello.
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="UniformScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UniformScrambleMutation</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

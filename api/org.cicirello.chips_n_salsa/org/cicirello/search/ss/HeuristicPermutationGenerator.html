@@ -95,27 +95,21 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">HeuristicPermutationGenerator</span>
 <span class="extends-implements">extends <a href="HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
-<div class="block"><p>This class generates solutions to permutation optimization
- problems using a constructive heuristic. Unless the heuristic
- given to it is randomized, this class is completely deterministic
- and has no randomized behavior. Thus, executing the <a href="HeuristicSolutionGenerator.html#optimize()"><code>HeuristicSolutionGenerator.optimize()</code></a>
- method multiple times should produce the same result each time.
- When using a constructive heuristic, you begin with an empty solution,
- in this case an empty permutation, and you then use a constructive
- heuristic to choose which element to add to the partial solution,
- in this case to the partial permutation.  This is repeated until
- you derive a complete solution (i.e., a complete permutation).</p>
+<div class="block">This class generates solutions to permutation optimization problems using a constructive
+ heuristic. Unless the heuristic given to it is randomized, this class is completely deterministic
+ and has no randomized behavior. Thus, executing the <a href="HeuristicSolutionGenerator.html#optimize()"><code>HeuristicSolutionGenerator.optimize()</code></a> method multiple times
+ should produce the same result each time. When using a constructive heuristic, you begin with an
+ empty solution, in this case an empty permutation, and you then use a constructive heuristic to
+ choose which element to add to the partial solution, in this case to the partial permutation.
+ This is repeated until you derive a complete solution (i.e., a complete permutation).
 
- <p>Constructive heuristics are not  
- just for permutations.  See the <a href="HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss"><code>HeuristicSolutionGenerator</code></a> class
- for a more general implementation.</p>
+ <p>Constructive heuristics are not just for permutations. See the <a href="HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss"><code>HeuristicSolutionGenerator</code></a> class for a more general implementation.
 
- <p>Assuming that the length of the permutation is N, and that the runtime
- of the heuristic is O(f(N)), the runtime to construct one permutation
- using a constructive heuristic is O(N<sup>2</sup> f(N)).  If the cost, f(N), to
- heuristically evaluate one permutation element is simply, O(1), constant
- time, then the cost to heuristically construct 
- a permutation is simply O(N<sup>2</sup>).</p></div>
+ <p>Assuming that the length of the permutation is N, and that the runtime of the heuristic is
+ O(f(N)), the runtime to construct one permutation using a constructive heuristic is
+ O(N<sup>2</sup> f(N)). If the cost, f(N), to heuristically evaluate one permutation element is
+ simply, O(1), constant time, then the cost to heuristically construct a permutation is simply
+ O(N<sup>2</sup>).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -129,14 +123,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.ss.ConstructiveHeuristic)" class="member-name-link">HeuristicPermutationGenerator</a><wbr>(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;heuristic)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs an HeuristicPermutationGenerator for generating solutions
- to an optimization problem using a constructive heuristic.</div>
+<div class="block">Constructs an HeuristicPermutationGenerator for generating solutions to an optimization problem
+ using a constructive heuristic.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.ss.ConstructiveHeuristic,org.cicirello.search.ProgressTracker)" class="member-name-link">HeuristicPermutationGenerator</a><wbr>(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;heuristic,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs an HeuristicPermutationGenerator for generating solutions
- to an optimization problem using a constructive heuristic.</div>
+<div class="block">Constructs an HeuristicPermutationGenerator for generating solutions to an optimization problem
+ using a constructive heuristic.</div>
 </div>
 </div>
 </section>
@@ -155,8 +149,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -182,9 +176,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(org.cicirello.search.ss.ConstructiveHeuristic)">
 <h3>HeuristicPermutationGenerator</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">HeuristicPermutationGenerator</span><wbr><span class="parameters">(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;heuristic)</span></div>
-<div class="block">Constructs an HeuristicPermutationGenerator for generating solutions
- to an optimization problem using a constructive heuristic.  A ProgressTracker 
- is created for you.</div>
+<div class="block">Constructs an HeuristicPermutationGenerator for generating solutions to an optimization problem
+ using a constructive heuristic. A ProgressTracker is created for you.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>heuristic</code> - The constructive heuristic.</dd>
@@ -198,8 +191,8 @@ loadScripts(document, 'script');</script>
 <h3>HeuristicPermutationGenerator</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">HeuristicPermutationGenerator</span><wbr><span class="parameters">(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;heuristic,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;tracker)</span></div>
-<div class="block">Constructs an HeuristicPermutationGenerator for generating solutions
- to an optimization problem using a constructive heuristic.</div>
+<div class="block">Constructs an HeuristicPermutationGenerator for generating solutions to an optimization problem
+ using a constructive heuristic.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>heuristic</code> - The constructive heuristic.</dd>
@@ -222,20 +215,18 @@ loadScripts(document, 'script');</script>
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../SimpleMetaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -244,9 +235,8 @@ loadScripts(document, 'script');</script>
 <dt>Overrides:</dt>
 <dd><code><a href="HeuristicSolutionGenerator.html#split()">split</a></code>&nbsp;in class&nbsp;<code><a href="HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

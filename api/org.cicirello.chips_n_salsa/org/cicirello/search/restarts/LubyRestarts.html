@@ -94,26 +94,25 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">LubyRestarts</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a></span></div>
-<div class="block"><p>The Luby restart schedule originated with constraint satisfaction search, and
- was originally used to control when to restart a backtracking constraint satisfaction 
- search in number of backtracks.  Its motivation is the often-encountered heavy-tailed
- runtime distributions of constraint satisfaction search algorithms (i.e., although
- many runs may take exponentially long to solve the instance, there tends to be a high
- density of runs that lead directly to a solution).  The Luby schedule's intention is
- to cut off search early, and that a restart may have a reasonable chance of resulting
- in one of the fast runs.  The Luby schedule, thus, is focused on short numbers of
- restarts, but does continue to increase over time to ensure completeness of
- constraint satisfaction search.</p>  
+<div class="block">The Luby restart schedule originated with constraint satisfaction search, and was originally used
+ to control when to restart a backtracking constraint satisfaction search in number of backtracks.
+ Its motivation is the often-encountered heavy-tailed runtime distributions of constraint
+ satisfaction search algorithms (i.e., although many runs may take exponentially long to solve the
+ instance, there tends to be a high density of runs that lead directly to a solution). The Luby
+ schedule's intention is to cut off search early, and that a restart may have a reasonable chance
+ of resulting in one of the fast runs. The Luby schedule, thus, is focused on short numbers of
+ restarts, but does continue to increase over time to ensure completeness of constraint
+ satisfaction search.
 
- <p>It is not likely a good choice for simulated annealing, and other similar
- optimization algorithms, as the Luby schedule's objective is rather different
- than how restarts are used in simulated annealing.  However, we have included it
- in this library as it is a well-known restart schedule for search more generally.</p>
+ <p>It is not likely a good choice for simulated annealing, and other similar optimization
+ algorithms, as the Luby schedule's objective is rather different than how restarts are used in
+ simulated annealing. However, we have included it in this library as it is a well-known restart
+ schedule for search more generally.
 
- <p>The Luby schedule of restart lengths is as follows: 1, 1, 2, 1, 1, 2, 4,
- 1, 1, 2, 1, 1, 2, 4, 8, 1, 1, 2, 1, 1, 2, 4, 1, 1, 2, 1, 1, 2, 4, 8, 16, ....
- The default constructor supports this original Luby schedule.  An additional
- constructor provides the ability to multiply the Luby schedule by a constant.</p></div>
+ <p>The Luby schedule of restart lengths is as follows: 1, 1, 2, 1, 1, 2, 4, 1, 1, 2, 1, 1, 2, 4,
+ 8, 1, 1, 2, 1, 1, 2, 4, 1, 1, 2, 1, 1, 2, 4, 8, 16, .... The default constructor supports this
+ original Luby schedule. An additional constructor provides the ability to multiply the Luby
+ schedule by a constant.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -127,13 +126,12 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">LubyRestarts</a>()</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a restart schedule that follows the Luby sequence
- of run lengths.</div>
+<div class="block">Constructs a restart schedule that follows the Luby sequence of run lengths.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int)" class="member-name-link">LubyRestarts</a><wbr>(int&nbsp;a)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a restart schedule, such that the run lengths are equal to a*L, where
- L follows the Luby sequence.</div>
+<div class="block">Constructs a restart schedule, such that the run lengths are equal to a*L, where L follows the
+ Luby sequence.</div>
 </div>
 </div>
 </section>
@@ -152,36 +150,33 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="LubyRestarts.html" title="class in org.cicirello.search.restarts">LubyRestarts</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createRestartSchedules(int)" class="member-name-link">createRestartSchedules</a><wbr>(int&nbsp;numThreads)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">A convenience method for generating several identical and independent LubyRestarts
- objects, such as when needed for a parallel search (e.g., if each instance
- needs its own restart schedule).</div>
+<div class="block">A convenience method for generating several identical and independent LubyRestarts objects,
+ such as when needed for a parallel search (e.g., if each instance needs its own restart
+ schedule).</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="LubyRestarts.html" title="class in org.cicirello.search.restarts">LubyRestarts</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createRestartSchedules(int,int)" class="member-name-link">createRestartSchedules</a><wbr>(int&nbsp;numThreads,
  int&nbsp;a)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">A convenience method for generating several identical and independent LubyRestarts
- objects, such as when needed for a parallel search (e.g., if each instance
- needs its own restart schedule).</div>
+<div class="block">A convenience method for generating several identical and independent LubyRestarts objects,
+ such as when needed for a parallel search (e.g., if each instance needs its own restart
+ schedule).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#nextRunLength()" class="member-name-link">nextRunLength</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the next run length in the restart schedule's sequence of
- run lengths.</div>
+<div class="block">Gets the next run length in the restart schedule's sequence of run lengths.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reset()" class="member-name-link">reset</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Resets the restart schedule to its initial conditions, such that
- the next call to <a href="RestartSchedule.html#nextRunLength()"><code>RestartSchedule.nextRunLength()</code></a> will return the initial
- run length of the schedule.</div>
+<div class="block">Resets the restart schedule to its initial conditions, such that the next call to <a href="RestartSchedule.html#nextRunLength()"><code>RestartSchedule.nextRunLength()</code></a> will return the initial run length of the schedule.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="LubyRestarts.html" title="class in org.cicirello.search.restarts">LubyRestarts</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -204,21 +199,19 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <section class="detail" id="&lt;init&gt;()">
 <h3>LubyRestarts</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">LubyRestarts</span>()</div>
-<div class="block">Constructs a restart schedule that follows the Luby sequence
- of run lengths.</div>
+<div class="block">Constructs a restart schedule that follows the Luby sequence of run lengths.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="&lt;init&gt;(int)">
 <h3>LubyRestarts</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">LubyRestarts</span><wbr><span class="parameters">(int&nbsp;a)</span></div>
-<div class="block">Constructs a restart schedule, such that the run lengths are equal to a*L, where
- L follows the Luby sequence.</div>
+<div class="block">Constructs a restart schedule, such that the run lengths are equal to a*L, where L follows the
+ Luby sequence.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>a</code> - A multiplier, which must be positive.  Each run 
- length is equal to a*L where 
- L follows the Luby sequence.</dd>
+<dd><code>a</code> - A multiplier, which must be positive. Each run length is equal to a*L where L follows
+     the Luby sequence.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if a &lt; 1</dd>
 </dl>
@@ -237,8 +230,7 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <h3>nextRunLength</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">nextRunLength</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="RestartSchedule.html#nextRunLength()">RestartSchedule</a></code></span></div>
-<div class="block">Gets the next run length in the restart schedule's sequence of
- run lengths.</div>
+<div class="block">Gets the next run length in the restart schedule's sequence of run lengths.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="RestartSchedule.html#nextRunLength()">nextRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a></code></dd>
@@ -252,9 +244,7 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <h3>reset</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">reset</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="RestartSchedule.html#reset()">RestartSchedule</a></code></span></div>
-<div class="block">Resets the restart schedule to its initial conditions, such that
- the next call to <a href="RestartSchedule.html#nextRunLength()"><code>RestartSchedule.nextRunLength()</code></a> will return the initial
- run length of the schedule.</div>
+<div class="block">Resets the restart schedule to its initial conditions, such that the next call to <a href="RestartSchedule.html#nextRunLength()"><code>RestartSchedule.nextRunLength()</code></a> will return the initial run length of the schedule.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="RestartSchedule.html#reset()">reset</a></code>&nbsp;in interface&nbsp;<code><a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a></code></dd>
@@ -266,27 +256,24 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="LubyRestarts.html" title="class in org.cicirello.search.restarts">LubyRestarts</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="RestartSchedule.html" title="interface in org.cicirello.search.restarts">RestartSchedule</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>
@@ -294,9 +281,9 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <section class="detail" id="createRestartSchedules(int)">
 <h3>createRestartSchedules</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="LubyRestarts.html" title="class in org.cicirello.search.restarts">LubyRestarts</a>&gt;</span>&nbsp;<span class="element-name">createRestartSchedules</span><wbr><span class="parameters">(int&nbsp;numThreads)</span></div>
-<div class="block">A convenience method for generating several identical and independent LubyRestarts
- objects, such as when needed for a parallel search (e.g., if each instance
- needs its own restart schedule).</div>
+<div class="block">A convenience method for generating several identical and independent LubyRestarts objects,
+ such as when needed for a parallel search (e.g., if each instance needs its own restart
+ schedule).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>numThreads</code> - The number of restart schedules to generate.</dd>
@@ -312,15 +299,14 @@ implements <a href="RestartSchedule.html" title="interface in org.cicirello.sear
 <h3>createRestartSchedules</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="LubyRestarts.html" title="class in org.cicirello.search.restarts">LubyRestarts</a>&gt;</span>&nbsp;<span class="element-name">createRestartSchedules</span><wbr><span class="parameters">(int&nbsp;numThreads,
  int&nbsp;a)</span></div>
-<div class="block">A convenience method for generating several identical and independent LubyRestarts
- objects, such as when needed for a parallel search (e.g., if each instance
- needs its own restart schedule).</div>
+<div class="block">A convenience method for generating several identical and independent LubyRestarts objects,
+ such as when needed for a parallel search (e.g., if each instance needs its own restart
+ schedule).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>numThreads</code> - The number of restart schedules to generate.</dd>
-<dd><code>a</code> - A multiplier, which must be positive.  Each run 
- length is equal to a*L where 
- L follows the Luby sequence.</dd>
+<dd><code>a</code> - A multiplier, which must be positive. Each run length is equal to a*L where L follows
+     the Luby sequence.</dd>
 <dt>Returns:</dt>
 <dd>a list of Luby restart schedules</dd>
 <dt>Throws:</dt>

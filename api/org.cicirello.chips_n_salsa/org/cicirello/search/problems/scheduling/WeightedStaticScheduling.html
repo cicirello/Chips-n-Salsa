@@ -94,37 +94,28 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">WeightedStaticScheduling</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></span></div>
-<div class="block"><p>This class provides a representation of, and means of generating,
- instances of single machine scheduling problems involving weights
- and due dates, but without release
- dates (i.e., all jobs are released at the start of the problem at time 0,
- thus, the term "static" in the class name).</p>
+<div class="block">This class provides a representation of, and means of generating, instances of single machine
+ scheduling problems involving weights and due dates, but without release dates (i.e., all jobs
+ are released at the start of the problem at time 0, thus, the term "static" in the class name).
 
- <p>This class generates instances using a procedure based on that used
- to generate the benchmark instances for weighted tardiness scheduling
- that are available in 
- the <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/wtinfo.html>OR-Library 
- of J.E. Beasley</a>.  Note that this is NOT the implementation that 
- generated those instances.  Rather, this implementation is based on the
- description of that generator.  
- That <a href=https://github.com/cicirello/scheduling-benchmarks/tree/master/wt>description</a>, 
- along with a set of benchmark instances, is mirrored
- in the following GitHub repository: 
- <a href=https://github.com/cicirello/scheduling-benchmarks>https://github.com/cicirello/scheduling-benchmarks</a></p>
+ <p>This class generates instances using a procedure based on that used to generate the benchmark
+ instances for weighted tardiness scheduling that are available in the <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/wtinfo.html>OR-Library of J.E. Beasley</a>.
+ Note that this is NOT the implementation that generated those instances. Rather, this
+ implementation is based on the description of that generator. That <a href=https://github.com/cicirello/scheduling-benchmarks/tree/master/wt>description</a>, along
+ with a set of benchmark instances, is mirrored in the following GitHub repository: <a href=https://github.com/cicirello/scheduling-benchmarks>https://github.com/cicirello/scheduling-benchmarks</a>
 
- <p>The Chips-n-Salsa library separates the representation of the scheduling
- problem instance data (e.g., processing times, weights, etc) from the
- implementations of scheduling cost functions deliberately to enable
- defining additional problems (i.e., different cost functions to optimize)
- using the same scheduling problem generators.  This is very much like
- what was suggested in the following paper:</p>
+ <p>The Chips-n-Salsa library separates the representation of the scheduling problem instance data
+ (e.g., processing times, weights, etc) from the implementations of scheduling cost functions
+ deliberately to enable defining additional problems (i.e., different cost functions to optimize)
+ using the same scheduling problem generators. This is very much like what was suggested in the
+ following paper:
+
  <ul>
- <li>Vincent A. Cicirello. 
- <a href=https://www.cicirello.org/publications/cicirello2007icaps.html>The 
- Challenge of Sequence-Dependent Setups: Proposal for a Scheduling Competition 
- Track on One Machine Sequencing Problems</a>. Proceedings of the International 
- Conference on Automated Planning and Scheduling (ICAPS) Workshop on Scheduling 
- a Scheduling Competition. AAAI Press, September 2007.</li>
+   <li>Vincent A. Cicirello. <a href=https://www.cicirello.org/publications/cicirello2007icaps.html>The Challenge of
+       Sequence-Dependent Setups: Proposal for a Scheduling Competition Track on One Machine
+       Sequencing Problems</a>. Proceedings of the International Conference on Automated Planning
+       and Scheduling (ICAPS) Workshop on Scheduling a Scheduling Competition. AAAI Press,
+       September 2007.
  </ul></div>
 </section>
 <section class="summary">
@@ -186,10 +177,8 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
  int&nbsp;n,
  int&nbsp;instanceNumber)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a single machine scheduling problem instance by parsing
- an instance data file that follows the format specified in the
- <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/wtinfo.html>OR-Library 
- of J.E.</div>
+<div class="block">Constructs a single machine scheduling problem instance by parsing an instance data file that
+ follows the format specified in the <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/wtinfo.html>OR-Library of J.E.</div>
 </div>
 </div>
 </section>
@@ -208,8 +197,8 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int[]</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCompletionTimes(org.cicirello.permutations.Permutation)" class="member-name-link">getCompletionTimes</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;schedule)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the completion times of all of the jobs if they were scheduled in
- the order defined by the specified Permutation.</div>
+<div class="block">Computes the completion times of all of the jobs if they were scheduled in the order defined by
+ the specified Permutation.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDueDate(int)" class="member-name-link">getDueDate</a><wbr>(int&nbsp;j)</code></div>
@@ -219,15 +208,14 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getProcessingTime(int)" class="member-name-link">getProcessingTime</a><wbr>(int&nbsp;j)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the processing time of a job, which is the amount of
- time required by the machine to process the job.</div>
+<div class="block">Gets the processing time of a job, which is the amount of time required by the machine to
+ process the job.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getWeight(int)" class="member-name-link">getWeight</a><wbr>(int&nbsp;j)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's
- weight indicates its importance or priority (higher weight implies higher
- priority).</div>
+<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's weight indicates its
+ importance or priority (higher weight implies higher priority).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hasDueDates()" class="member-name-link">hasDueDates</a>()</code></div>
@@ -247,10 +235,7 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toFile(java.lang.String)" class="member-name-link">toFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Outputs a description of the instance data in the format
- described by the 
- <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/wtinfo.html>OR-Library 
- of J.E.</div>
+<div class="block">Outputs a description of the instance data in the format described by the <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/wtinfo.html>OR-Library of J.E.</div>
 </div>
 </div>
 </div>
@@ -276,9 +261,8 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <section class="detail" id="MIN_PROCESS_TIME">
 <h3>MIN_PROCESS_TIME</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">MIN_PROCESS_TIME</span></div>
-<div class="block">Defines the minimum process times. Process times are generated 
- uniformly at random from the interval: 
- [MIN_PROCESS_TIME, MAX_PROCESS_TIME].</div>
+<div class="block">Defines the minimum process times. Process times are generated uniformly at random from the
+ interval: [MIN_PROCESS_TIME, MAX_PROCESS_TIME].</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -293,9 +277,8 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <section class="detail" id="MAX_PROCESS_TIME">
 <h3>MAX_PROCESS_TIME</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">MAX_PROCESS_TIME</span></div>
-<div class="block">Defines the maximum process times. Process times are generated 
- uniformly at random from the interval: 
- [MIN_PROCESS_TIME, MAX_PROCESS_TIME].</div>
+<div class="block">Defines the maximum process times. Process times are generated uniformly at random from the
+ interval: [MIN_PROCESS_TIME, MAX_PROCESS_TIME].</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -310,8 +293,7 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <section class="detail" id="MIN_WEIGHT">
 <h3>MIN_WEIGHT</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">MIN_WEIGHT</span></div>
-<div class="block">Defines the minimum weight.  Weights are generated
- uniformly at random from the interval:
+<div class="block">Defines the minimum weight. Weights are generated uniformly at random from the interval:
  [MIN_WEIGHT, MAX_WEIGHT].</div>
 <dl class="notes">
 <dt>See Also:</dt>
@@ -327,8 +309,7 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <section class="detail" id="MAX_WEIGHT">
 <h3>MAX_WEIGHT</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">MAX_WEIGHT</span></div>
-<div class="block">Defines the maximum weight.  Weights are generated
- uniformly at random from the interval:
+<div class="block">Defines the maximum weight. Weights are generated uniformly at random from the interval:
  [MIN_WEIGHT, MAX_WEIGHT].</div>
 <dl class="notes">
 <dt>See Also:</dt>
@@ -359,18 +340,16 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of jobs in the instance, must be positive.</dd>
-<dd><code>rdd</code> - The relative range of duedates. See the links in the
- class comments for an explanation of this parameter.  Must be in the 
- interval (0.0, 1.0].</dd>
-<dd><code>tf</code> - The tardiness factor.  See the links in the
- class comments for an explanation of this parameter.  Must be in the 
- interval [0.0, 1.0].</dd>
+<dd><code>rdd</code> - The relative range of duedates. See the links in the class comments for an
+     explanation of this parameter. Must be in the interval (0.0, 1.0].</dd>
+<dd><code>tf</code> - The tardiness factor. See the links in the class comments for an explanation of this
+     parameter. Must be in the interval [0.0, 1.0].</dd>
 <dd><code>seed</code> - A seed for the random number generator, to enable easily generating the same
- problem instance.  If all parameters, including the seed are the same, then the same instance
- will be generated.</dd>
+     problem instance. If all parameters, including the seed are the same, then the same
+     instance will be generated.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is not positive, or rdd &le; 0 or rdd &gt; 1 or
- tf &lt; 0 or tf &gt; 0.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is not positive, or rdd &le; 0 or rdd &gt; 1 or tf &lt; 0
+     or tf &gt; 0.</dd>
 </dl>
 </section>
 </li>
@@ -384,15 +363,13 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of jobs in the instance, must be positive.</dd>
-<dd><code>rdd</code> - The relative range of duedates. See the links in the
- class comments for an explanation of this parameter.  Must be in the 
- interval (0.0, 1.0].</dd>
-<dd><code>tf</code> - The tardiness factor.  See the links in the
- class comments for an explanation of this parameter.  Must be in the 
- interval [0.0, 1.0].</dd>
+<dd><code>rdd</code> - The relative range of duedates. See the links in the class comments for an
+     explanation of this parameter. Must be in the interval (0.0, 1.0].</dd>
+<dd><code>tf</code> - The tardiness factor. See the links in the class comments for an explanation of this
+     parameter. Must be in the interval [0.0, 1.0].</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is not positive, or rdd &le; 0 or rdd &gt; 1 or
- tf &lt; 0 or tf &gt; 0.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if n is not positive, or rdd &le; 0 or rdd &gt; 1 or tf &lt; 0
+     or tf &gt; 0.</dd>
 </dl>
 </section>
 </li>
@@ -403,33 +380,26 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
  int&nbsp;n,
  int&nbsp;instanceNumber)</span>
                          throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></span></div>
-<div class="block"><p>Constructs a single machine scheduling problem instance by parsing
- an instance data file that follows the format specified in the
- <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/wtinfo.html>OR-Library 
- of J.E. Beasley</a>.
- The <a href=https://github.com/cicirello/scheduling-benchmarks/tree/master/wt>description</a>, 
- along with a set of benchmark instances, is mirrored
- in the following GitHub repository: 
- <a href=https://github.com/cicirello/scheduling-benchmarks>https://github.com/cicirello/scheduling-benchmarks</a></p>
+<div class="block">Constructs a single machine scheduling problem instance by parsing an instance data file that
+ follows the format specified in the <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/wtinfo.html>OR-Library of J.E. Beasley</a>.
+ The <a href=https://github.com/cicirello/scheduling-benchmarks/tree/master/wt>description</a>,
+ along with a set of benchmark instances, is mirrored in the following GitHub repository: <a href=https://github.com/cicirello/scheduling-benchmarks>https://github.com/cicirello/scheduling-benchmarks</a>
 
- <p>The format from the benchmark library is a bit unusual. 
- Each file contains many instances.  There is no labeling info, 
- so you need to know the number of jobs, n, contained in the file.
- The first instance is listed first with n process times, 
- followed by n weights, followed by n duedates. This is then followed 
- by second instance (n process times, n weights, and then n duedates), etc,  
- with no instance separators.</p></div>
+ <p>The format from the benchmark library is a bit unusual. Each file contains many instances.
+ There is no labeling info, so you need to know the number of jobs, n, contained in the file.
+ The first instance is listed first with n process times, followed by n weights, followed by n
+ duedates. This is then followed by second instance (n process times, n weights, and then n
+ duedates), etc, with no instance separators.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>filename</code> - The name of the file containing the instances, with path.</dd>
-<dd><code>n</code> - The number of jobs in one instance.  Behavior is undefined if n
- is inconsistent with the actual number of jobs of the instances contained in the file.</dd>
-<dd><code>instanceNumber</code> - The number of the instance to parse, where the first instance
- is instance 0. Behavior is undefined if instanceNumber is too high.</dd>
+<dd><code>n</code> - The number of jobs in one instance. Behavior is undefined if n is inconsistent with
+     the actual number of jobs of the instances contained in the file.</dd>
+<dd><code>instanceNumber</code> - The number of the instance to parse, where the first instance is instance
+     0. Behavior is undefined if instanceNumber is too high.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - if the named file does not exist, is a 
- directory rather than a regular file, or for some other reason cannot 
- be opened for reading</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - if the named file does not exist, is a directory rather than a
+     regular file, or for some other reason cannot be opened for reading</dd>
 </dl>
 </section>
 </li>
@@ -446,22 +416,20 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>getCompletionTimes</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int[]</span>&nbsp;<span class="element-name">getCompletionTimes</span><wbr><span class="parameters">(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;schedule)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SingleMachineSchedulingProblemData.html#getCompletionTimes(org.cicirello.permutations.Permutation)">SingleMachineSchedulingProblemData</a></code></span></div>
-<div class="block">Computes the completion times of all of the jobs if they were scheduled in
- the order defined by the specified Permutation.  The completion times are
- computed according to the processing times of the jobs, as well as setup times
- and ready times if the problem has these.</div>
+<div class="block">Computes the completion times of all of the jobs if they were scheduled in the order defined by
+ the specified Permutation. The completion times are computed according to the processing times
+ of the jobs, as well as setup times and ready times if the problem has these.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SingleMachineSchedulingProblemData.html#getCompletionTimes(org.cicirello.permutations.Permutation)">getCompletionTimes</a></code>&nbsp;in interface&nbsp;<code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>schedule</code> - A schedule (i.e., sequence of jobs on the machine).</dd>
 <dt>Returns:</dt>
-<dd>An array of completion times.  Let C be the array of completion times.
- C.length must equal schedule.length().  Additionally, C[j] must be the completion
- time of job j (and not the completion time of the job 
- in position j of the Permutation).  That is, the indexes into C correspond to the
- parameter j of the <a href="SingleMachineSchedulingProblemData.html#getProcessingTime(int)"><code>SingleMachineSchedulingProblemData.getProcessingTime(int)</code></a> method, and other related methods
- of this interface.</dd>
+<dd>An array of completion times. Let C be the array of completion times. C.length must
+     equal schedule.length(). Additionally, C[j] must be the completion time of job j (and not
+     the completion time of the job in position j of the Permutation). That is, the indexes into
+     C correspond to the parameter j of the <a href="SingleMachineSchedulingProblemData.html#getProcessingTime(int)"><code>SingleMachineSchedulingProblemData.getProcessingTime(int)</code></a> method, and other related
+     methods of this interface.</dd>
 </dl>
 </section>
 </li>
@@ -484,8 +452,8 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>getProcessingTime</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getProcessingTime</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SingleMachineSchedulingProblemData.html#getProcessingTime(int)">SingleMachineSchedulingProblemData</a></code></span></div>
-<div class="block">Gets the processing time of a job, which is the amount of
- time required by the machine to process the job.</div>
+<div class="block">Gets the processing time of a job, which is the amount of time required by the machine to
+ process the job.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SingleMachineSchedulingProblemData.html#getProcessingTime(int)">getProcessingTime</a></code>&nbsp;in interface&nbsp;<code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></dd>
@@ -501,11 +469,9 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>getDueDate</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getDueDate</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SingleMachineSchedulingProblemData.html#getDueDate(int)">SingleMachineSchedulingProblemData</a></code></span></div>
-<div class="block">Gets the due date of a job, for scheduling problems that have due dates.
- The meaning of a due date, and its effect on the optimization cost function,
- may vary by problem.  See the documentation of the specific scheduling
- problem's cost function for details.
- .</div>
+<div class="block">Gets the due date of a job, for scheduling problems that have due dates. The meaning of a due
+ date, and its effect on the optimization cost function, may vary by problem. See the
+ documentation of the specific scheduling problem's cost function for details. .</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SingleMachineSchedulingProblemData.html#getDueDate(int)">getDueDate</a></code>&nbsp;in interface&nbsp;<code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></dd>
@@ -535,14 +501,13 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>getWeight</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getWeight</span><wbr><span class="parameters">(int&nbsp;j)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="SingleMachineSchedulingProblemData.html#getWeight(int)">SingleMachineSchedulingProblemData</a></code></span></div>
-<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's
- weight indicates its importance or priority (higher weight implies higher
- priority).  Many common scheduling problem cost functions use weights
- (e.g., weighted tardiness, weighted lateness, etc).
- The default implementation simply returns 1, which is appropriate for 
- problems without weights (i.e., the unweighted variation of most scheduling
- cost functions is equivalent to the weighted version if all weights are 1).  
- You can use the <a href="SingleMachineSchedulingProblemData.html#hasWeights()"><code>SingleMachineSchedulingProblemData.hasWeights()</code></a> method to check whether weights are present.</div>
+<div class="block">Gets the weight of a job, for weighted scheduling problems, where a job's weight indicates its
+ importance or priority (higher weight implies higher priority). Many common scheduling problem
+ cost functions use weights (e.g., weighted tardiness, weighted lateness, etc). The default
+ implementation simply returns 1, which is appropriate for problems without weights (i.e., the
+ unweighted variation of most scheduling cost functions is equivalent to the weighted version if
+ all weights are 1). You can use the <a href="SingleMachineSchedulingProblemData.html#hasWeights()"><code>SingleMachineSchedulingProblemData.hasWeights()</code></a> method to check whether weights are
+ present.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="SingleMachineSchedulingProblemData.html#getWeight(int)">getWeight</a></code>&nbsp;in interface&nbsp;<code><a href="SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></dd>
@@ -572,26 +537,21 @@ implements <a href="SingleMachineSchedulingProblemData.html" title="interface in
 <h3>toFile</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">toFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename)</span>
             throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></span></div>
-<div class="block"><p>Outputs a description of the instance data in the format
- described by the 
- <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/wtinfo.html>OR-Library 
- of J.E. Beasley</a>.
- The <a href=https://github.com/cicirello/scheduling-benchmarks/tree/master/wt>description</a>, 
- along with a set of benchmark instances, is mirrored
- in the following GitHub repository: 
- <a href=https://github.com/cicirello/scheduling-benchmarks>https://github.com/cicirello/scheduling-benchmarks</a></p>
+<div class="block">Outputs a description of the instance data in the format described by the <a href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/wtinfo.html>OR-Library of J.E. Beasley</a>.
+ The <a href=https://github.com/cicirello/scheduling-benchmarks/tree/master/wt>description</a>,
+ along with a set of benchmark instances, is mirrored in the following GitHub repository: <a href=https://github.com/cicirello/scheduling-benchmarks>https://github.com/cicirello/scheduling-benchmarks</a>
 
- <p>The only different with that format is that this stores only the one instance
- in the file.  But for consistency with the original format, you do need to know
- the number of jobs for the instance (or you can determine this by counting number
- of integers in the file and dividing by 3.</p></div>
+ <p>The only different with that format is that this stores only the one instance in the file.
+ But for consistency with the original format, you do need to know the number of jobs for the
+ instance (or you can determine this by counting number of integers in the file and dividing by
+ 3.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>filename</code> - The name of a file for the output.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - If the given string does not denote 
- an existing, writable regular file and a new regular file of that name 
- cannot be created, or if some other error occurs while opening or creating the file</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - If the given string does not denote an existing, writable regular
+     file and a new regular file of that name cannot be created, or if some other error occurs
+     while opening or creating the file</dd>
 </dl>
 </section>
 </li>

@@ -93,12 +93,10 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">SmallestTwoJobSetup</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block"><p>This heuristic is smallest two-job setup.
- We define it as: h(j) = 1 / (1 + s[i][j] + min<sub>k</sub>(s[j][k])),
- where s[i][j] is the setup time of job j if it
- follows job i on the machine, job i is the most recently schedule job,
- and min<sub>k</sub>(s[j][k]) is the minimum setup of potential
- successors of job j.</p></div>
+<div class="block">This heuristic is smallest two-job setup. We define it as: h(j) = 1 / (1 + s[i][j] +
+ min<sub>k</sub>(s[j][k])), where s[i][j] is the setup time of job j if it follows job i on the
+ machine, job i is the most recently schedule job, and min<sub>k</sub>(s[j][k]) is the minimum
+ setup of potential successors of job j.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -148,29 +146,27 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#completeLength()" class="member-name-link">completeLength</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the required length of complete solutions 
- to the problem instance for which this constructive heuristic
- is configured.</div>
+<div class="block">Gets the required length of complete solutions to the problem instance for which this
+ constructive heuristic is configured.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../../ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createPartial(int)" class="member-name-link">createPartial</a><wbr>(int&nbsp;n)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Creates an empty Partial solution, which will be incrementally
- transformed into a complete solution of a specified length.</div>
+<div class="block">Creates an empty Partial solution, which will be incrementally transformed into a complete
+ solution of a specified length.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getProblem()" class="member-name-link">getProblem</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets a reference to the instance of the optimization problem 
- that is the subject of this heuristic.</div>
+<div class="block">Gets a reference to the instance of the optimization problem that is the subject of this
+ heuristic.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)" class="member-name-link">h</a><wbr>(<a href="../../ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;p,
  int&nbsp;element,
  <a href="../../ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;incEval)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Heuristically evaluates the possible addition of an element to the
- end of a Partial.</div>
+<div class="block">Heuristically evaluates the possible addition of an element to the end of a Partial.</div>
 </div>
 </div>
 </div>
@@ -196,13 +192,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="MIN_H">
 <h3>MIN_H</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">MIN_H</span></div>
-<div class="block">The minimum heuristic value.  If the heuristic value
- as calculated is lower than MIN_H, then MIN_H is used as
- the heuristic value.  The reason is related to the
- primary purpose of the constructive heuristics in the library:
- heuristic guidance for stochastic sampling algorithms, which
- assume positive heuristic values (e.g., an h of 0 would be
- problematic).</div>
+<div class="block">The minimum heuristic value. If the heuristic value as calculated is lower than MIN_H, then
+ MIN_H is used as the heuristic value. The reason is related to the primary purpose of the
+ constructive heuristics in the library: heuristic guidance for stochastic sampling algorithms,
+ which assume positive heuristic values (e.g., an h of 0 would be problematic).</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -228,8 +221,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Constructs an SmallestTwoJobSetup heuristic.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>problem</code> - The instance of a scheduling problem that is
- the target of the heuristic.</dd>
+<dd><code>problem</code> - The instance of a scheduling problem that is the target of the heuristic.</dd>
 </dl>
 </section>
 </li>
@@ -248,27 +240,24 @@ loadScripts(document, 'script');</script>
  int&nbsp;element,
  <a href="../../ss/IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;incEval)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../ss/ConstructiveHeuristic.html#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)">ConstructiveHeuristic</a></code></span></div>
-<div class="block">Heuristically evaluates the possible addition of an element to the
- end of a Partial.  Higher evaluations imply that the element is
- a better choice for the next element to add.  For example, if you evaluate
- two elements, x and y, with h, and h returns a higher value for y than for x,
- then this means that y is believed to be the better choice according to the 
- heuristic. Implementations of this interface must ensure that h always 
- returns a positive result. This is because stochastic sampling algorithms
- such as HBSS and VBSS assume that the constructive heuristic returns only
- positive values.</div>
+<div class="block">Heuristically evaluates the possible addition of an element to the end of a Partial. Higher
+ evaluations imply that the element is a better choice for the next element to add. For example,
+ if you evaluate two elements, x and y, with h, and h returns a higher value for y than for x,
+ then this means that y is believed to be the better choice according to the heuristic.
+ Implementations of this interface must ensure that h always returns a positive result. This is
+ because stochastic sampling algorithms such as HBSS and VBSS assume that the constructive
+ heuristic returns only positive values.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>p</code> - The current state of the Partial</dd>
 <dd><code>element</code> - The element under consideration for adding to the Partial</dd>
-<dd><code>incEval</code> - An IncrementalEvaluation of p.  This method assumes that incEval
- is of the same runtime type as the object returned by <a href="../../ss/ConstructiveHeuristic.html#createIncrementalEvaluation()"><code>ConstructiveHeuristic.createIncrementalEvaluation()</code></a>.</dd>
+<dd><code>incEval</code> - An IncrementalEvaluation of p. This method assumes that incEval is of the same
+     runtime type as the object returned by <a href="../../ss/ConstructiveHeuristic.html#createIncrementalEvaluation()"><code>ConstructiveHeuristic.createIncrementalEvaluation()</code></a>.</dd>
 <dt>Returns:</dt>
-<dd>The heuristic evaluation of the hypothetical addition of element to the end
- of p. The higher the evaluation, the more important the heuristic believes that
- element should be added next.  The intention is to compare the value returned
- with the heuristic evaluations of other elements.  Individual results in isolation
- are not necessarily meaningful.</dd>
+<dd>The heuristic evaluation of the hypothetical addition of element to the end of p. The
+     higher the evaluation, the more important the heuristic believes that element should be
+     added next. The intention is to compare the value returned with the heuristic evaluations
+     of other elements. Individual results in isolation are not necessarily meaningful.</dd>
 </dl>
 </section>
 </li>
@@ -277,14 +266,13 @@ loadScripts(document, 'script');</script>
 <h3>getProblem</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span>&nbsp;<span class="element-name">getProblem</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../ss/ConstructiveHeuristic.html#getProblem()">ConstructiveHeuristic</a></code></span></div>
-<div class="block">Gets a reference to the instance of the optimization problem 
- that is the subject of this heuristic.</div>
+<div class="block">Gets a reference to the instance of the optimization problem that is the subject of this
+ heuristic.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../ss/ConstructiveHeuristic.html#getProblem()">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="../../ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>the instance of the optimization problem 
- that is the subject of this heuristic.</dd>
+<dd>the instance of the optimization problem that is the subject of this heuristic.</dd>
 </dl>
 </section>
 </li>
@@ -293,8 +281,8 @@ loadScripts(document, 'script');</script>
 <h3>createPartial</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../../ss/Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span>&nbsp;<span class="element-name">createPartial</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../ss/ConstructiveHeuristic.html#createPartial(int)">ConstructiveHeuristic</a></code></span></div>
-<div class="block">Creates an empty Partial solution, which will be incrementally
- transformed into a complete solution of a specified length.</div>
+<div class="block">Creates an empty Partial solution, which will be incrementally transformed into a complete
+ solution of a specified length.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../ss/ConstructiveHeuristic.html#createPartial(int)">createPartial</a></code>&nbsp;in interface&nbsp;<code><a href="../../ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
@@ -310,15 +298,13 @@ loadScripts(document, 'script');</script>
 <h3>completeLength</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">completeLength</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../ss/ConstructiveHeuristic.html#completeLength()">ConstructiveHeuristic</a></code></span></div>
-<div class="block">Gets the required length of complete solutions 
- to the problem instance for which this constructive heuristic
- is configured.</div>
+<div class="block">Gets the required length of complete solutions to the problem instance for which this
+ constructive heuristic is configured.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../ss/ConstructiveHeuristic.html#completeLength()">completeLength</a></code>&nbsp;in interface&nbsp;<code><a href="../../ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>length of solutions to the problem instance for which this heuristic
- is configured</dd>
+<dd>length of solutions to the problem instance for which this heuristic is configured</dd>
 </dl>
 </section>
 </li>

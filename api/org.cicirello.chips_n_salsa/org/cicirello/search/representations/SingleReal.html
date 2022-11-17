@@ -168,14 +168,19 @@ implements <a href="RealValued.html" title="interface in org.cicirello.search.re
 <div class="block">Sets to a specified value.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set(int,double)" class="member-name-link">set</a><wbr>(int&nbsp;i,
- double&nbsp;x)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set(double%5B%5D)" class="member-name-link">set</a><wbr>(double[]&nbsp;values)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets this function input to a specified value.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final double[]</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toArray(double%5B%5D)" class="member-name-link">toArray</a><wbr>(double[]&nbsp;values)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set(int,double)" class="member-name-link">set</a><wbr>(int&nbsp;i,
+ double&nbsp;x)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets this function input to a specified value.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final double[]</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toArray(double%5B%5D)" class="member-name-link">toArray</a><wbr>(double[]&nbsp;values)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Accesses the current values of all of the parameters.</div>
 </div>
 </div>
@@ -261,18 +266,16 @@ implements <a href="RealValued.html" title="interface in org.cicirello.search.re
 <section class="detail" id="get(int)">
 <h3>get</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">get</span><wbr><span class="parameters">(int&nbsp;i)</span></div>
-<div class="block">Accesses the current value.
- This method originates with the <a href="RealValued.html" title="interface in org.cicirello.search.representations"><code>RealValued</code></a> interface.
- Since this is a univariate function, there is only 1 input variable by
- definition.  Rather than throw an exception for values of i other than 0,
- this method ignores the i parameter and is equivalent to
- the <a href="#get()"><code>get()</code></a> method regardless of value passed for i.</div>
+<div class="block">Accesses the current value. This method originates with the <a href="RealValued.html" title="interface in org.cicirello.search.representations"><code>RealValued</code></a> interface. Since
+ this is a univariate function, there is only 1 input variable by definition. Rather than throw
+ an exception for values of i other than 0, this method ignores the i parameter and is
+ equivalent to the <a href="#get()"><code>get()</code></a> method regardless of value passed for i.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="RealValued.html#get(int)">get</a></code>&nbsp;in interface&nbsp;<code><a href="RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>i</code> - The input to get (ignored by this implementation since this 
- is an input for a univariate function).</dd>
+<dd><code>i</code> - The input to get (ignored by this implementation since this is an input for a
+     univariate function).</dd>
 <dt>Returns:</dt>
 <dd>The current value of this function input.</dd>
 </dl>
@@ -288,9 +291,8 @@ implements <a href="RealValued.html" title="interface in org.cicirello.search.re
 <dt>Specified by:</dt>
 <dd><code><a href="RealValued.html#toArray(double%5B%5D)">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>values</code> - An array to hold the result.  If values is null or
- if values.length is not equal to this.length(), then a new array 
- is constructed for the result.</dd>
+<dd><code>values</code> - An array to hold the result. If values is null or if values.length is not equal
+     to this.length(), then a new array is constructed for the result.</dd>
 <dt>Returns:</dt>
 <dd>An array containing the current values of all of the parameters.</dd>
 </dl>
@@ -312,22 +314,38 @@ implements <a href="RealValued.html" title="interface in org.cicirello.search.re
 <h3>set</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">set</span><wbr><span class="parameters">(int&nbsp;i,
  double&nbsp;x)</span></div>
-<div class="block"><p>Sets this function input to a specified value.
- This method originates with the <a href="RealValued.html" title="interface in org.cicirello.search.representations"><code>RealValued</code></a> interface.
- Since this is a univariate function, there is only 1 input variable by
- definition.  Rather than throw an exception for values of i other than 0,
- this method ignores the i parameter and is equivalent to
- the <a href="#set(double)"><code>set(double)</code></a> method regardless of value passed for i.</p>
- <p>This method delegates work to the <a href="#set(double)"><code>set(double)</code></a> method, so the
- behavior of this method will be consistent with any subclasses that override 
- <a href="#set(double)"><code>set(double)</code></a>.</p></div>
+<div class="block">Sets this function input to a specified value. This method originates with the <a href="RealValued.html" title="interface in org.cicirello.search.representations"><code>RealValued</code></a> interface. Since this is a univariate function, there is only 1 input variable by
+ definition. Rather than throw an exception for values of i other than 0, this method ignores
+ the i parameter and is equivalent to the <a href="#set(double)"><code>set(double)</code></a> method regardless of value passed
+ for i.
+
+ <p>This method delegates work to the <a href="#set(double)"><code>set(double)</code></a> method, so the behavior of this
+ method will be consistent with any subclasses that override <a href="#set(double)"><code>set(double)</code></a>.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="RealValued.html#set(int,double)">set</a></code>&nbsp;in interface&nbsp;<code><a href="RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>i</code> - The input variable to set (ignored by this implementation since this 
- is an input for a univariate function).</dd>
+<dd><code>i</code> - The input variable to set (ignored by this implementation since this is an input for a
+     univariate function).</dd>
 <dd><code>x</code> - The new value for this function input.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="set(double[])">
+<h3>set</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">set</span><wbr><span class="parameters">(double[]&nbsp;values)</span></div>
+<div class="block">Sets this function input to a specified value. This method originates with the <a href="RealValued.html" title="interface in org.cicirello.search.representations"><code>RealValued</code></a> interface. Since this is a univariate function, there is only 1 input variable by
+ definition. Rather than throw an exception for values.length greater than 1, this method simply
+ uses values[0] and ignores any extra values.
+
+ <p>This method delegates work to the <a href="#set(double)"><code>set(double)</code></a> method, so the behavior of this
+ method will be consistent with any subclasses that override <a href="#set(double)"><code>set(double)</code></a>.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="RealValued.html#set(double%5B%5D)">set</a></code>&nbsp;in interface&nbsp;<code><a href="RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>values</code> - The values to set.</dd>
 </dl>
 </section>
 </li>
@@ -348,17 +366,16 @@ implements <a href="RealValued.html" title="interface in org.cicirello.search.re
 <section class="detail" id="equals(java.lang.Object)">
 <h3>equals</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
-<div class="block">Indicates whether some other object is "equal to" this one.
- To be equal, the other object must be of the same runtime type and contain the
- same value of the function input.</div>
+<div class="block">Indicates whether some other object is "equal to" this one. To be equal, the other object must
+ be of the same runtime type and contain the same value of the function input.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>other</code> - The other object to compare.</dd>
 <dt>Returns:</dt>
-<dd>true if other is not null, is of the same runtime type as this, and contains
- the same function input value.</dd>
+<dd>true if other is not null, is of the same runtime type as this, and contains the same
+     function input value.</dd>
 </dl>
 </section>
 </li>

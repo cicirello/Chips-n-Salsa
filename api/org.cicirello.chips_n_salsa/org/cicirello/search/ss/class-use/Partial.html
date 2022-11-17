@@ -66,9 +66,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.problems.scheduling">org.cicirello.search.problems.scheduling</a></div>
 <div class="col-last even-row-color">
-<div class="block">Package of classes and interfaces related to representing
- and solving scheduling problems, which includes implementations
- of constructive heuristics for scheduling problems.</div>
+<div class="block">Package of classes and interfaces related to representing and solving scheduling problems, which
+ includes implementations of constructive heuristics for scheduling problems.</div>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.problems.tsp">org.cicirello.search.problems.tsp</a></div>
 <div class="col-last odd-row-color">
@@ -76,8 +75,8 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.ss">org.cicirello.search.ss</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes and interfaces directly related to implementing
- stochastic sampling algorithms.</div>
+<div class="block">This package includes classes and interfaces directly related to implementing stochastic sampling
+ algorithms.</div>
 </div>
 </div>
 <section class="class-uses">
@@ -267,16 +266,14 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../PartialIntegerVector.html" class="type-name-link" title="class in org.cicirello.search.ss">PartialIntegerVector</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">A PartialIntegerVector represents a vector of integers that is being 
- iteratively constructed as a solution to an optimization problem
- over the space of integer vectors.</div>
+<div class="block">A PartialIntegerVector represents a vector of integers that is being iteratively constructed as a
+ solution to an optimization problem over the space of integer vectors.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../PartialPermutation.html" class="type-name-link" title="class in org.cicirello.search.ss">PartialPermutation</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">A PartialPermutation represents a permutation that is being 
- iteratively constructed as a solution to an optimization problem
- over the space of permutations.</div>
+<div class="block">A PartialPermutation represents a permutation that is being iteratively constructed as a solution
+ to an optimization problem over the space of permutations.</div>
 </div>
 </div>
 <div class="caption"><span>Methods in <a href="../package-summary.html">org.cicirello.search.ss</a> that return <a href="../Partial.html" title="interface in org.cicirello.search.ss">Partial</a></span></div>
@@ -287,8 +284,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code><a href="../Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="../ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;</code></div>
 <div class="col-second even-row-color"><span class="type-name-label">ConstructiveHeuristic.</span><code><a href="../ConstructiveHeuristic.html#createPartial(int)" class="member-name-link">createPartial</a><wbr>(int&nbsp;n)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Creates an empty Partial solution, which will be incrementally
- transformed into a complete solution of a specified length.</div>
+<div class="block">Creates an empty Partial solution, which will be incrementally transformed into a complete
+ solution of a specified length.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="../Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="../HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;</code></div>
 <div class="col-second odd-row-color"><span class="type-name-label">HybridConstructiveHeuristic.</span><code><a href="../HybridConstructiveHeuristic.html#createPartial(int)" class="member-name-link">createPartial</a><wbr>(int&nbsp;n)</code></div>
@@ -303,18 +300,15 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color"><span class="type-name-label">IncrementalEvaluation.</span><code><a href="../IncrementalEvaluation.html#extend(org.cicirello.search.ss.Partial,int)" class="member-name-link">extend</a><wbr>(<a href="../Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="../IncrementalEvaluation.html" title="type parameter in IncrementalEvaluation">T</a>&gt;&nbsp;p,
  int&nbsp;element)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Extends an 
- incremental evaluation,
- to account for extending a Partial by the addition of 
- one element.</div>
+<div class="block">Extends an incremental evaluation, to account for extending a Partial by the addition of one
+ element.</div>
 </div>
 <div class="col-first odd-row-color"><code>double</code></div>
 <div class="col-second odd-row-color"><span class="type-name-label">ConstructiveHeuristic.</span><code><a href="../ConstructiveHeuristic.html#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)" class="member-name-link">h</a><wbr>(<a href="../Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="../ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;&nbsp;p,
  int&nbsp;element,
  <a href="../IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="../ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;&nbsp;incEval)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Heuristically evaluates the possible addition of an element to the
- end of a Partial.</div>
+<div class="block">Heuristically evaluates the possible addition of an element to the end of a Partial.</div>
 </div>
 <div class="col-first even-row-color"><code>double</code></div>
 <div class="col-second even-row-color"><span class="type-name-label">HybridConstructiveHeuristic.</span><code><a href="../HybridConstructiveHeuristic.html#h(org.cicirello.search.ss.Partial,int,org.cicirello.search.ss.IncrementalEvaluation)" class="member-name-link">h</a><wbr>(<a href="../Partial.html" title="interface in org.cicirello.search.ss">Partial</a>&lt;<a href="../HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&nbsp;p,

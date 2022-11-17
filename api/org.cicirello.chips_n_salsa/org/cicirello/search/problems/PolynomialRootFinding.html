@@ -94,16 +94,14 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">PolynomialRootFinding</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;</span></div>
-<div class="block">This class defines polynomial root finding as an optimization problem, enabling
- solving via simulated annealing or other metaheuristic optimization algorithms.
- In polynomial root-finding, we have an equation of the form:
- 0 = c<sub>0</sub> + c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + 
- ... + c<sub>N</sub>*x<sup>N</sup>.
- The problem is to find a value of x, known as a root or as a zero, that satisfies
- the equation.  This class represents root-finding as an optimization problem where
- one must find a value of x to minimize the value of: 
- abs(c<sub>0</sub> + c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + 
- ... + c<sub>N</sub>*x<sup>N</sup>).</div>
+<div class="block">This class defines polynomial root finding as an optimization problem, enabling solving via
+ simulated annealing or other metaheuristic optimization algorithms. In polynomial root-finding,
+ we have an equation of the form: 0 = c<sub>0</sub> + c<sub>1</sub>*x +
+ c<sub>2</sub>*x<sup>2</sup> + ... + c<sub>N</sub>*x<sup>N</sup>. The problem is to find a value
+ of x, known as a root or as a zero, that satisfies the equation. This class represents
+ root-finding as an optimization problem where one must find a value of x to minimize the value
+ of: abs(c<sub>0</sub> + c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + ... +
+ c<sub>N</sub>*x<sup>N</sup>).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -134,31 +132,29 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double%5B%5D)" class="member-name-link">PolynomialRootFinding</a><wbr>(double[]&nbsp;coefficients)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Defines a problem for finding a root of a polynomial equation
- of the form: 0 = c<sub>0</sub> + c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + 
- ...</div>
+<div class="block">Defines a problem for finding a root of a polynomial equation of the form: 0 = c<sub>0</sub> +
+ c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + ...</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(double%5B%5D,double)" class="member-name-link">PolynomialRootFinding</a><wbr>(double[]&nbsp;coefficients,
  double&nbsp;precision)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Defines a problem for finding a root of a polynomial equation
- of the form: 0 = c<sub>0</sub> + c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + 
- ...</div>
+<div class="block">Defines a problem for finding a root of a polynomial equation of the form: 0 = c<sub>0</sub> +
+ c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + ...</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double,double,double)" class="member-name-link">PolynomialRootFinding</a><wbr>(double&nbsp;a,
  double&nbsp;b,
  double&nbsp;c)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Defines a problem for finding a root of a quadratic equation 
- of the form: 0 = a*x<sup>2</sup> + b*x + c.</div>
+<div class="block">Defines a problem for finding a root of a quadratic equation of the form: 0 = a*x<sup>2</sup> +
+ b*x + c.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(double,double,double,double)" class="member-name-link">PolynomialRootFinding</a><wbr>(double&nbsp;a,
  double&nbsp;b,
  double&nbsp;c,
  double&nbsp;precision)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Defines a problem for finding a root of a quadratic equation 
- of the form: 0 = a*x<sup>2</sup> + b*x + c.</div>
+<div class="block">Defines a problem for finding a root of a quadratic equation of the form: 0 = a*x<sup>2</sup> +
+ b*x + c.</div>
 </div>
 </div>
 </section>
@@ -182,20 +178,20 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isMinCost(double)" class="member-name-link">isMinCost</a><wbr>(double&nbsp;cost)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.search.representations.SingleReal)" class="member-name-link">value</a><wbr>(<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&nbsp;candidate)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -247,13 +243,9 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PolynomialRootFinding</span><wbr><span class="parameters">(double&nbsp;a,
  double&nbsp;b,
  double&nbsp;c)</span></div>
-<div class="block">Defines a problem for finding a root of a quadratic equation 
- of the form: 0 = a*x<sup>2</sup> + b*x + c.
- The problem defined is to find a value of x that satisfies the
- above equation.
- Uses the <a href="#DEFAULT_PRECISION"><code>DEFAULT_PRECISION</code></a> for the precision of the
- result, i.e., any x such 
- that <a href="#DEFAULT_PRECISION"><code>DEFAULT_PRECISION</code></a> &ge; abs( a*x<sup>2</sup> + b*x + c).</div>
+<div class="block">Defines a problem for finding a root of a quadratic equation of the form: 0 = a*x<sup>2</sup> +
+ b*x + c. The problem defined is to find a value of x that satisfies the above equation. Uses
+ the <a href="#DEFAULT_PRECISION"><code>DEFAULT_PRECISION</code></a> for the precision of the result, i.e., any x such that <a href="#DEFAULT_PRECISION"><code>DEFAULT_PRECISION</code></a> &ge; abs( a*x<sup>2</sup> + b*x + c).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>a</code> - The coefficient of the quadratic term.</dd>
@@ -275,12 +267,10 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
  double&nbsp;b,
  double&nbsp;c,
  double&nbsp;precision)</span></div>
-<div class="block">Defines a problem for finding a root of a quadratic equation 
- of the form: 0 = a*x<sup>2</sup> + b*x + c.
- The problem defined is to find a value of x that satisfies the
- above equation.
- Programmer can specify the precision of the result, i.e., finds any x such 
- that precision &ge; abs( a*x<sup>2</sup> + b*x + c).</div>
+<div class="block">Defines a problem for finding a root of a quadratic equation of the form: 0 = a*x<sup>2</sup> +
+ b*x + c. The problem defined is to find a value of x that satisfies the above equation.
+ Programmer can specify the precision of the result, i.e., finds any x such that precision &ge;
+ abs( a*x<sup>2</sup> + b*x + c).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>a</code> - The coefficient of the quadratic term.</dd>
@@ -300,22 +290,16 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <section class="detail" id="&lt;init&gt;(double[])">
 <h3>PolynomialRootFinding</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PolynomialRootFinding</span><wbr><span class="parameters">(double[]&nbsp;coefficients)</span></div>
-<div class="block">Defines a problem for finding a root of a polynomial equation
- of the form: 0 = c<sub>0</sub> + c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + 
- ... + c<sub>N</sub>*x<sup>N</sup>.
- The problem defined is to find a value of x that satisfies the
- above equation.
- Uses the <a href="#DEFAULT_PRECISION"><code>DEFAULT_PRECISION</code></a> for the precision of the
- result, i.e., any x such 
- that <a href="#DEFAULT_PRECISION"><code>DEFAULT_PRECISION</code></a> &ge; abs(c<sub>0</sub> + c<sub>1</sub>*x + 
- c<sub>2</sub>*x<sup>2</sup> + 
+<div class="block">Defines a problem for finding a root of a polynomial equation of the form: 0 = c<sub>0</sub> +
+ c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + ... + c<sub>N</sub>*x<sup>N</sup>. The problem
+ defined is to find a value of x that satisfies the above equation. Uses the <a href="#DEFAULT_PRECISION"><code>DEFAULT_PRECISION</code></a> for the precision of the result, i.e., any x such that <a href="#DEFAULT_PRECISION"><code>DEFAULT_PRECISION</code></a> &ge; abs(c<sub>0</sub> + c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> +
  ... + c<sub>N</sub>*x<sup>N</sup>).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>coefficients</code> - An array of the coefficients of the polynomial.  The degree of
- the polynomial is equal to coefficients.length - 1.  The value of coefficients[i] is
- the coefficient of the x<sup>i</sup> term.  Thus, coefficients[0] is the constant term.
- The length of coefficients must be at least 2.</dd>
+<dd><code>coefficients</code> - An array of the coefficients of the polynomial. The degree of the
+     polynomial is equal to coefficients.length - 1. The value of coefficients[i] is the
+     coefficient of the x<sup>i</sup> term. Thus, coefficients[0] is the constant term. The
+     length of coefficients must be at least 2.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if coefficients.length &lt; 2</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if coefficients is null</dd>
@@ -333,21 +317,17 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <h3>PolynomialRootFinding</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PolynomialRootFinding</span><wbr><span class="parameters">(double[]&nbsp;coefficients,
  double&nbsp;precision)</span></div>
-<div class="block">Defines a problem for finding a root of a polynomial equation
- of the form: 0 = c<sub>0</sub> + c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + 
- ... + c<sub>N</sub>*x<sup>N</sup>.
- The problem defined is to find a value of x that satisfies the
- above equation.
- Programmer can specify the precision of the result, i.e., finds any x such 
- that precision &ge; abs(c<sub>0</sub> + c<sub>1</sub>*x + 
- c<sub>2</sub>*x<sup>2</sup> + 
- ... + c<sub>N</sub>*x<sup>N</sup>).</div>
+<div class="block">Defines a problem for finding a root of a polynomial equation of the form: 0 = c<sub>0</sub> +
+ c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + ... + c<sub>N</sub>*x<sup>N</sup>. The problem
+ defined is to find a value of x that satisfies the above equation. Programmer can specify the
+ precision of the result, i.e., finds any x such that precision &ge; abs(c<sub>0</sub> +
+ c<sub>1</sub>*x + c<sub>2</sub>*x<sup>2</sup> + ... + c<sub>N</sub>*x<sup>N</sup>).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>coefficients</code> - An array of the coefficients of the polynomial.  The degree of
- the polynomial is equal to coefficients.length - 1.  The value of coefficients[i] is
- the coefficient of the x<sup>i</sup> term.  Thus, coefficients[0] is the constant term.
- The length of coefficients must be at least 2.</dd>
+<dd><code>coefficients</code> - An array of the coefficients of the polynomial. The degree of the
+     polynomial is equal to coefficients.length - 1. The value of coefficients[i] is the
+     coefficient of the x<sup>i</sup> term. Thus, coefficients[0] is the constant term. The
+     length of coefficients must be at least 2.</dd>
 <dd><code>precision</code> - The precision of the result.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if coefficients.length &lt; 2</dd>
@@ -374,15 +354,15 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <h3>cost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="OptimizationProblem.html#cost(T)">OptimizationProblem</a></code></span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="OptimizationProblem.html#cost(T)">cost</a></code>&nbsp;in interface&nbsp;<code><a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -391,9 +371,9 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <h3>minCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">minCost</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="OptimizationProblem.html#minCost()">OptimizationProblem</a></code></span></div>
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution. 
- The default implementation returns Double.NEGATIVE_INFINITY.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution. The default implementation returns
+ Double.NEGATIVE_INFINITY.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="OptimizationProblem.html#minCost()">minCost</a></code>&nbsp;in interface&nbsp;<code><a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;</code></dd>
@@ -406,8 +386,8 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <section class="detail" id="isMinCost(double)">
 <h3>isMinCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isMinCost</span><wbr><span class="parameters">(double&nbsp;cost)</span></div>
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="OptimizationProblem.html#isMinCost(double)">isMinCost</a></code>&nbsp;in interface&nbsp;<code><a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;</code></dd>
@@ -429,8 +409,8 @@ implements <a href="OptimizationProblem.html" title="interface in org.cicirello.
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="OptimizationProblem.html#value(T)">OptimizationProblem</a></code></span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="OptimizationProblem.html#value(T)">value</a></code>&nbsp;in interface&nbsp;<code><a href="OptimizationProblem.html" title="interface in org.cicirello.search.problems">OptimizationProblem</a>&lt;<a href="../representations/SingleReal.html" title="class in org.cicirello.search.representations">SingleReal</a>&gt;</code></dd>

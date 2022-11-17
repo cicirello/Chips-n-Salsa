@@ -66,10 +66,10 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.operators.reals">org.cicirello.search.operators.reals</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes that implement operators that create, mutate, etc, the
- the inputs to functions with real-valued input parameters (represented with type double), 
- such as is required to solve function optimization
- problems using simulated annealing or other metaheuristics.</div>
+<div class="block">This package includes classes that implement operators that create, mutate, etc, the the inputs
+ to functions with real-valued input parameters (represented with type double), such as is
+ required to solve function optimization problems using simulated annealing or other
+ metaheuristics.</div>
 </div>
 </div>
 <section class="class-uses">
@@ -90,8 +90,8 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;<br><a href="../UndoableCauchyMutation.html" title="class in org.cicirello.search.operators.reals">UndoableCauchyMutation</a>&lt;T&gt;</code></div>
 <div class="col-second odd-row-color"><span class="type-name-label">UndoableCauchyMutation.</span><code><a href="../UndoableCauchyMutation.html#createCauchyMutation()" class="member-name-link">createCauchyMutation</a>()</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Creates a Cauchy mutation operator with scale parameter equal to 1
- that supports the undo operation.</div>
+<div class="block">Creates a Cauchy mutation operator with scale parameter equal to 1 that supports the undo
+ operation.</div>
 </div>
 <div class="col-first even-row-color"><code>static &lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;<br><a href="../UndoableCauchyMutation.html" title="class in org.cicirello.search.operators.reals">UndoableCauchyMutation</a>&lt;T&gt;</code></div>
 <div class="col-second even-row-color"><span class="type-name-label">UndoableCauchyMutation.</span><code><a href="../UndoableCauchyMutation.html#createCauchyMutation(double)" class="member-name-link">createCauchyMutation</a><wbr>(double&nbsp;scale)</code></div>
@@ -105,14 +105,22 @@ loadScripts(document, 'script');</script>
 <div class="block">Create a Cauchy mutation operator that supports the undo operation.</div>
 </div>
 <div class="col-first even-row-color"><code>static &lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;<br><a href="../UndoableCauchyMutation.html" title="class in org.cicirello.search.operators.reals">UndoableCauchyMutation</a>&lt;T&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">UndoableCauchyMutation.</span><code><a href="../UndoableCauchyMutation.html#createCauchyMutation(double,int)" class="member-name-link">createCauchyMutation</a><wbr>(double&nbsp;scale,
- int&nbsp;k)</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">UndoableCauchyMutation.</span><code><a href="../UndoableCauchyMutation.html#createCauchyMutation(double,double,double)" class="member-name-link">createCauchyMutation</a><wbr>(double&nbsp;scale,
+ double&nbsp;lowerBound,
+ double&nbsp;upperBound)</code></div>
 <div class="col-last even-row-color">
+<div class="block">Creates a Cauchy mutation operator that supports the undo operation, and such that the mutate
+ method constrains each mutated real value to lie in the interval [lowerBound, upperBound].</div>
+</div>
+<div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a>&gt;<br><a href="../UndoableCauchyMutation.html" title="class in org.cicirello.search.operators.reals">UndoableCauchyMutation</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">UndoableCauchyMutation.</span><code><a href="../UndoableCauchyMutation.html#createCauchyMutation(double,int)" class="member-name-link">createCauchyMutation</a><wbr>(double&nbsp;scale,
+ int&nbsp;k)</code></div>
+<div class="col-last odd-row-color">
 <div class="block">Create a Cauchy mutation operator that supports the undo operation.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="../UndoableCauchyMutation.html" title="class in org.cicirello.search.operators.reals">UndoableCauchyMutation</a>&lt;<a href="../UndoableCauchyMutation.html" title="type parameter in UndoableCauchyMutation">T</a>&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">UndoableCauchyMutation.</span><code><a href="../UndoableCauchyMutation.html#split()" class="member-name-link">split</a>()</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code><a href="../UndoableCauchyMutation.html" title="class in org.cicirello.search.operators.reals">UndoableCauchyMutation</a>&lt;<a href="../UndoableCauchyMutation.html" title="type parameter in UndoableCauchyMutation">T</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">UndoableCauchyMutation.</span><code><a href="../UndoableCauchyMutation.html#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>

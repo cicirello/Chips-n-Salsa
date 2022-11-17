@@ -66,9 +66,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.problems.scheduling">org.cicirello.search.problems.scheduling</a></div>
 <div class="col-last even-row-color">
-<div class="block">Package of classes and interfaces related to representing
- and solving scheduling problems, which includes implementations
- of constructive heuristics for scheduling problems.</div>
+<div class="block">Package of classes and interfaces related to representing and solving scheduling problems, which
+ includes implementations of constructive heuristics for scheduling problems.</div>
 </div>
 </div>
 <section class="class-uses">
@@ -84,27 +83,23 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../CommonDuedateScheduling.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">CommonDuedateScheduling</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">This class represents and generates instances of a common duedate
- scheduling problem, in which all jobs have both an earliness weight
- and a tardiness weight, and share a common duedate.</div>
+<div class="block">This class represents and generates instances of a common duedate scheduling problem, in which
+ all jobs have both an earliness weight and a tardiness weight, and share a common duedate.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../WeightedStaticScheduling.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedStaticScheduling</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class provides a representation of, and means of generating,
- instances of single machine scheduling problems involving weights
- and due dates, but without release
- dates (i.e., all jobs are released at the start of the problem at time 0,
- thus, the term "static" in the class name).</div>
+<div class="block">This class provides a representation of, and means of generating, instances of single machine
+ scheduling problems involving weights and due dates, but without release dates (i.e., all jobs
+ are released at the start of the problem at time 0, thus, the term "static" in the class name).</div>
 </div>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../WeightedStaticSchedulingWithSetups.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedStaticSchedulingWithSetups</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">This class provides a representation of, and means of generating,
- instances of single machine scheduling problems involving weights,
- due dates, and sequence-dependent setup times, but without release
- dates (i.e., all jobs are released at the start of the problem at time 0,
- thus, the term "static" in the class name).</div>
+<div class="block">This class provides a representation of, and means of generating, instances of single machine
+ scheduling problems involving weights, due dates, and sequence-dependent setup times, but without
+ release dates (i.e., all jobs are released at the start of the problem at time 0, thus, the term
+ "static" in the class name).</div>
 </div>
 </div>
 <div class="caption"><span>Methods in <a href="../package-summary.html">org.cicirello.search.problems.scheduling</a> that return <a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></span></div>
@@ -127,10 +122,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code><a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></div>
 <div class="col-second even-row-color"><span class="type-name-label">SingleMachineSchedulingProblem.</span><code><a href="../SingleMachineSchedulingProblem.html#getInstanceData()" class="member-name-link">getInstanceData</a>()</code></div>
 <div class="col-last even-row-color">
-<div class="block">Gets an object that encapsulates the data describing the
- scheduling problem instance, such as number of jobs, and the
- characteristics of the jobs, such as processing times, setup
- times, due dates, weights, etc.</div>
+<div class="block">Gets an object that encapsulates the data describing the scheduling problem instance, such as
+ number of jobs, and the characteristics of the jobs, such as processing times, setup times, due
+ dates, weights, etc.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></code></div>
 <div class="col-second odd-row-color"><span class="type-name-label">WeightedEarlinessTardiness.</span><code><a href="../WeightedEarlinessTardiness.html#getInstanceData()" class="member-name-link">getInstanceData</a>()</code></div>
@@ -159,62 +153,53 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../MinimizeMakespan.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)" class="member-name-link">MinimizeMakespan</a><wbr>(<a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- makespan.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing makespan.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../MinimizeMaximumFlowtime.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)" class="member-name-link">MinimizeMaximumFlowtime</a><wbr>(<a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- maximum flowtime.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing maximum flowtime.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../MinimizeMaximumLateness.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)" class="member-name-link">MinimizeMaximumLateness</a><wbr>(<a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- maximum lateness.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing maximum lateness.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../MinimizeMaximumTardiness.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)" class="member-name-link">MinimizeMaximumTardiness</a><wbr>(<a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- maximum tardiness.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing maximum tardiness.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../WeightedEarlinessTardiness.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)" class="member-name-link">WeightedEarlinessTardiness</a><wbr>(<a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- weighted earliness plus weighted tardiness.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing weighted earliness plus weighted
+ tardiness.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../WeightedFlowtime.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)" class="member-name-link">WeightedFlowtime</a><wbr>(<a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- weighted flowtime.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing weighted flowtime.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../WeightedLateness.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)" class="member-name-link">WeightedLateness</a><wbr>(<a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- weighted lateness.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing weighted lateness.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../WeightedNumberTardyJobs.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)" class="member-name-link">WeightedNumberTardyJobs</a><wbr>(<a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- weighted number of tardy jobs.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing weighted number of tardy jobs.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../WeightedSquaredTardiness.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)" class="member-name-link">WeightedSquaredTardiness</a><wbr>(<a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- weighted squared tardiness.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing weighted squared tardiness.</div>
 </div>
 <div class="col-first odd-row-color"><code>&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../WeightedTardiness.html#%3Cinit%3E(org.cicirello.search.problems.scheduling.SingleMachineSchedulingProblemData)" class="member-name-link">WeightedTardiness</a><wbr>(<a href="../SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a>&nbsp;instanceData)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Constructs a single machine scheduling problem for minimizing 
- weighted tardiness.</div>
+<div class="block">Constructs a single machine scheduling problem for minimizing weighted tardiness.</div>
 </div>
 </div>
 </section>

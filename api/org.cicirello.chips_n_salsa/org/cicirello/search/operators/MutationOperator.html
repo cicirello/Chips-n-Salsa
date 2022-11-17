@@ -102,25 +102,21 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">MutationOperator&lt;T&gt;</span><span class="extends-implements">
 extends <a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T&gt;&gt;</span></div>
-<div class="block"><p>Implement the MutationOperator interface to implement a mutation operator
- for use in simulated annealing, genetic algorithms, and other evolutionary algorithms,
- and other metaheuristics, that require a
- way to generate random neighbors of a candidate solution.</p>  
+<div class="block">Implement the MutationOperator interface to implement a mutation operator for use in simulated
+ annealing, genetic algorithms, and other evolutionary algorithms, and other metaheuristics, that
+ require a way to generate random neighbors of a candidate solution.
 
- <p>If your mutation
- operator is one in which the inverse operation (i.e., the operation that
- reverts an object to its previous state from prior to the mutation) can be
- implemented without substantially affecting the runtime of the mutation itself,
- then consider implementing the <a href="UndoableMutationOperator.html" title="interface in org.cicirello.search.operators"><code>UndoableMutationOperator</code></a> interface 
- instead, a subinterface of MutationOperator that adds an undo method.</p>
+ <p>If your mutation operator is one in which the inverse operation (i.e., the operation that
+ reverts an object to its previous state from prior to the mutation) can be implemented without
+ substantially affecting the runtime of the mutation itself, then consider implementing the <a href="UndoableMutationOperator.html" title="interface in org.cicirello.search.operators"><code>UndoableMutationOperator</code></a> interface instead, a subinterface of MutationOperator that adds an undo
+ method.
 
- <p>On the other hand, if implementing <a href="UndoableMutationOperator.html#undo(T)"><code>UndoableMutationOperator.undo(T)</code></a>
- would require significant added cost in either time or memory to the 
- <a href="#mutate(T)"><code>mutate(T)</code></a> method, then consider implementing two versions of your
- mutation operator, one that implements MutationOperator and a second that implements
- <a href="UndoableMutationOperator.html" title="interface in org.cicirello.search.operators"><code>UndoableMutationOperator</code></a>.  In this way, you can use the first version
- with metaheuristics that do not utilize the undo method, and the second for those
- that do.</p></div>
+ <p>On the other hand, if implementing <a href="UndoableMutationOperator.html#undo(T)"><code>UndoableMutationOperator.undo(T)</code></a> would require
+ significant added cost in either time or memory to the <a href="#mutate(T)"><code>mutate(T)</code></a> method, then consider
+ implementing two versions of your mutation operator, one that implements MutationOperator and a
+ second that implements <a href="UndoableMutationOperator.html" title="interface in org.cicirello.search.operators"><code>UndoableMutationOperator</code></a>. In this way, you can use the first
+ version with metaheuristics that do not utilize the undo method, and the second for those that
+ do.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -161,13 +157,11 @@ extends <a href="../concurrent/Splittable.html" title="interface in org.cicirell
 <section class="detail" id="mutate(T)">
 <h3 id="mutate(java.lang.Object)">mutate</h3>
 <div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">mutate</span><wbr><span class="parameters">(<a href="MutationOperator.html" title="type parameter in MutationOperator">T</a>&nbsp;c)</span></div>
-<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state.
- The mutant that is produced is in the local neighborhood of 
- the original candidate solution.</div>
+<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state. The mutant that is
+ produced is in the local neighborhood of the original candidate solution.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>c</code> - The candidate solution subject to the mutation.  This method
- changes the state of c.</dd>
+<dd><code>c</code> - The candidate solution subject to the mutation. This method changes the state of c.</dd>
 </dl>
 </section>
 </li>

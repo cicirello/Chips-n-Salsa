@@ -99,22 +99,18 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">TSP</span>
 <span class="extends-implements">extends <a href="BaseTSP.html" title="class in org.cicirello.search.problems.tsp">BaseTSP</a></span></div>
-<div class="block"><p>This class and its nested classes implement the Traveling Salesperson Problem (TSP),
- such that cities are 2D points, and edge costs is the distance between them. The default
- distance is Euclidean distance, but any distance function can be configured by implementing
- the <a href="TSPEdgeDistance.html" title="interface in org.cicirello.search.problems.tsp"><code>TSPEdgeDistance</code></a> interface.
- The TSP class provides two inner classes where edge weights are computed as needed, one for edge 
- costs that are floating-point valued (class <a href="TSP.Double.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.Double</code></a>), and
- one for integer cost edges (class <a href="TSP.Integer.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.Integer</code></a>); and it also provides two inner classes
- where the edge weights are precomputed, one for edge 
- costs that are floating-point valued (class <a href="TSP.DoubleMatrix.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.DoubleMatrix</code></a>), and
- one for integer cost edges (class <a href="TSP.IntegerMatrix.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.IntegerMatrix</code></a>). The nested classes with precomputed
- edge weights (<a href="TSP.DoubleMatrix.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.DoubleMatrix</code></a> and <a href="TSP.IntegerMatrix.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.IntegerMatrix</code></a>) may lead to faster runtimes 
- for most search algorithms, but uses quadratic memory
- which may be prohibitive for TSP instances with a very large number of cities. Whereas
- the other two classes that compute each edge weight each time it is needed (<a href="TSP.Double.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.Double</code></a> and
- <a href="TSP.Integer.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.Integer</code></a>), may be slower (by a constant factor) but only use linear memory, and are thus
- applicable to much larger TSP instances.</p></div>
+<div class="block">This class and its nested classes implement the Traveling Salesperson Problem (TSP), such that
+ cities are 2D points, and edge costs is the distance between them. The default distance is
+ Euclidean distance, but any distance function can be configured by implementing the <a href="TSPEdgeDistance.html" title="interface in org.cicirello.search.problems.tsp"><code>TSPEdgeDistance</code></a> interface. The TSP class provides two inner classes where edge weights are
+ computed as needed, one for edge costs that are floating-point valued (class <a href="TSP.Double.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.Double</code></a>), and
+ one for integer cost edges (class <a href="TSP.Integer.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.Integer</code></a>); and it also provides two inner classes where
+ the edge weights are precomputed, one for edge costs that are floating-point valued (class <a href="TSP.DoubleMatrix.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.DoubleMatrix</code></a>), and one for integer cost edges (class <a href="TSP.IntegerMatrix.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.IntegerMatrix</code></a>). The nested classes
+ with precomputed edge weights (<a href="TSP.DoubleMatrix.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.DoubleMatrix</code></a> and <a href="TSP.IntegerMatrix.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.IntegerMatrix</code></a>) may lead to faster
+ runtimes for most search algorithms, but uses quadratic memory which may be prohibitive for TSP
+ instances with a very large number of cities. Whereas the other two classes that compute each
+ edge weight each time it is needed (<a href="TSP.Double.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.Double</code></a> and <a href="TSP.Integer.html" title="class in org.cicirello.search.problems.tsp"><code>TSP.Integer</code></a>), may be slower (by a
+ constant factor) but only use linear memory, and are thus applicable to much larger TSP
+ instances.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -130,28 +126,25 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>static final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="TSP.Double.html" class="type-name-link" title="class in org.cicirello.search.problems.tsp">TSP.Double</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Cost function for the Traveling Salesperson Problem (TSP), where edge costs 
- are floating-point valued.</div>
+<div class="block">Cost function for the Traveling Salesperson Problem (TSP), where edge costs are floating-point
+ valued.</div>
 </div>
 <div class="col-first odd-row-color"><code>static final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="TSP.DoubleMatrix.html" class="type-name-link" title="class in org.cicirello.search.problems.tsp">TSP.DoubleMatrix</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Cost function for the Traveling Salesperson Problem (TSP), where edge costs 
- are floating-point valued, and where all edge costs between pairs of cities
- are precomputed.</div>
+<div class="block">Cost function for the Traveling Salesperson Problem (TSP), where edge costs are floating-point
+ valued, and where all edge costs between pairs of cities are precomputed.</div>
 </div>
 <div class="col-first even-row-color"><code>static final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="TSP.Integer.html" class="type-name-link" title="class in org.cicirello.search.problems.tsp">TSP.Integer</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Cost function for the Traveling Salesperson Problem (TSP), where edge costs 
- are integer valued.</div>
+<div class="block">Cost function for the Traveling Salesperson Problem (TSP), where edge costs are integer valued.</div>
 </div>
 <div class="col-first odd-row-color"><code>static final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="TSP.IntegerMatrix.html" class="type-name-link" title="class in org.cicirello.search.problems.tsp">TSP.IntegerMatrix</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Cost function for the Traveling Salesperson Problem (TSP), where edge costs 
- are integer valued, and where all edge costs between pairs of cities
- are precomputed.</div>
+<div class="block">Cost function for the Traveling Salesperson Problem (TSP), where edge costs are integer valued,
+ and where all edge costs between pairs of cities are precomputed.</div>
 </div>
 </div>
 </section>

@@ -170,14 +170,19 @@ implements <a href="RealValued.html" title="interface in org.cicirello.search.re
 <div class="block">Gets the number of parameters.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set(int,double)" class="member-name-link">set</a><wbr>(int&nbsp;i,
- double&nbsp;value)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set(double%5B%5D)" class="member-name-link">set</a><wbr>(double[]&nbsp;values)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets all values from an array (copies values from the array).</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set(int,double)" class="member-name-link">set</a><wbr>(int&nbsp;i,
+ double&nbsp;value)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets a function parameter to a specified value.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final double[]</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toArray(double%5B%5D)" class="member-name-link">toArray</a><wbr>(double[]&nbsp;values)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final double[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toArray(double%5B%5D)" class="member-name-link">toArray</a><wbr>(double[]&nbsp;values)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Accesses the current values of all of the parameters.</div>
 </div>
 </div>
@@ -278,9 +283,8 @@ implements <a href="RealValued.html" title="interface in org.cicirello.search.re
 <dt>Specified by:</dt>
 <dd><code><a href="RealValued.html#toArray(double%5B%5D)">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>values</code> - An array to hold the result.  If values is null or
- if values.length is not equal to this.length(), then a new array 
- is constructed for the result.</dd>
+<dd><code>values</code> - An array to hold the result. If values is null or if values.length is not equal
+     to this.length(), then a new array is constructed for the result.</dd>
 <dt>Returns:</dt>
 <dd>An array containing the current values of all of the parameters.</dd>
 </dl>
@@ -303,6 +307,20 @@ implements <a href="RealValued.html" title="interface in org.cicirello.search.re
 </section>
 </li>
 <li>
+<section class="detail" id="set(double[])">
+<h3>set</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">set</span><wbr><span class="parameters">(double[]&nbsp;values)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="RealValued.html#set(double%5B%5D)">RealValued</a></code></span></div>
+<div class="block">Sets all values from an array (copies values from the array).</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="RealValued.html#set(double%5B%5D)">set</a></code>&nbsp;in interface&nbsp;<code><a href="RealValued.html" title="interface in org.cicirello.search.representations">RealValued</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>values</code> - an array of new values</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="exchange(org.cicirello.search.representations.RealVector,org.cicirello.search.representations.RealVector,int,int)">
 <h3>exchange</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">exchange</span><wbr><span class="parameters">(<a href="RealVector.html" title="class in org.cicirello.search.representations">RealVector</a>&nbsp;v1,
@@ -317,8 +335,8 @@ implements <a href="RealValued.html" title="interface in org.cicirello.search.re
 <dd><code>firstIndex</code> - The first index of the sequence to exchange, inclusive.</dd>
 <dd><code>lastIndex</code> - The last index of the sequence to exchange, inclusive.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if either index is negative, or if either index &ge; v1.length(),
-     or if either index &ge; v2.length()</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IndexOutOfBoundsException.html" title="class or interface in java.lang" class="external-link">IndexOutOfBoundsException</a></code> - if either index is negative, or if either index &ge;
+     v1.length(), or if either index &ge; v2.length()</dd>
 </dl>
 </section>
 </li>
@@ -339,17 +357,16 @@ implements <a href="RealValued.html" title="interface in org.cicirello.search.re
 <section class="detail" id="equals(java.lang.Object)">
 <h3>equals</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
-<div class="block">Indicates whether some other object is "equal to" this one.
- To be equal, the other object must be of the same runtime type and contain the
- same values.</div>
+<div class="block">Indicates whether some other object is "equal to" this one. To be equal, the other object must
+ be of the same runtime type and contain the same values.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>other</code> - The other object to compare.</dd>
 <dt>Returns:</dt>
-<dd>true if other is not null, is of the same runtime type as this, and contains
- the same values.</dd>
+<dd>true if other is not null, is of the same runtime type as this, and contains the same
+     values.</dd>
 </dl>
 </section>
 </li>

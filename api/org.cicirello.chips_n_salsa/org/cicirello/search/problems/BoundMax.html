@@ -96,42 +96,33 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">BoundMax</span>
 <span class="extends-implements">extends <a href="../operators/integers/IntegerVectorInitializer.html" title="class in org.cicirello.search.operators.integers">IntegerVectorInitializer</a>
 implements <a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;</span></div>
-<div class="block"><p>The BoundMax class is an implementation of a generalization of
- the well-known OneMax problem, often used in benchmarking genetic 
- algorithms and other metaheuristics.</p>
+<div class="block">The BoundMax class is an implementation of a generalization of the well-known OneMax problem,
+ often used in benchmarking genetic algorithms and other metaheuristics.
 
- <p>In the OneMax problem, the metaheuristic is searching the space
- of bit-strings of length n for the bit-string with the most bits equal
- to a 1.  It originated as a test problem for genetic algorithms,
- where the standard form of a genetic algorithm represents solutions
- to the problem with a string of bits.  The OneMax problem offers
- a test problem with a known optimal solution, a bit-string of all
- 1s.  For example, if n=8, then the optimal solution is: 11111111.</p>
+ <p>In the OneMax problem, the metaheuristic is searching the space of bit-strings of length n for
+ the bit-string with the most bits equal to a 1. It originated as a test problem for genetic
+ algorithms, where the standard form of a genetic algorithm represents solutions to the problem
+ with a string of bits. The OneMax problem offers a test problem with a known optimal solution, a
+ bit-string of all 1s. For example, if n=8, then the optimal solution is: 11111111.
 
- <p>BoundMax generalizes OneMax to vectors of integers such that each 
- integer is bound in the interval [0,B] for some B &ge; 1.  The problem is
- to find the vector of length n with maximum number of integers equal to B.
- The optimal solution is thus n copies of B.  For example, if n is 8, the
- optimal solution is [B, B, B, B, B, B, B, B].  The OneMax problem is the special
- case when B=1.</p>
+ <p>BoundMax generalizes OneMax to vectors of integers such that each integer is bound in the
+ interval [0,B] for some B &ge; 1. The problem is to find the vector of length n with maximum
+ number of integers equal to B. The optimal solution is thus n copies of B. For example, if n is
+ 8, the optimal solution is [B, B, B, B, B, B, B, B]. The OneMax problem is the special case when
+ B=1.
 
- <p>The <a href="#value(org.cicirello.search.representations.IntegerVector)"><code>value</code></a> method simply counts the number
- of components equal to B.  The problem is to maximize this count.  Thus, as 
- a cost function, the <a href="#cost(org.cicirello.search.representations.IntegerVector)"><code>cost</code></a> method counts the number
- of components not equal to B, where the minimum cost is thus 0.</p>
+ <p>The <a href="#value(org.cicirello.search.representations.IntegerVector)"><code>value</code></a> method simply counts the number of components equal to B. The problem
+ is to maximize this count. Thus, as a cost function, the <a href="#cost(org.cicirello.search.representations.IntegerVector)"><code>cost</code></a> method counts the
+ number of components not equal to B, where the minimum cost is thus 0.
 
- <p>The BoundMax class extends <a href="../operators/integers/IntegerVectorInitializer.html" title="class in org.cicirello.search.operators.integers"><code>IntegerVectorInitializer</code></a>
- to ensure that metaheuristics solving an instance have access to a correct means
- of generating valid vectors within the search space (correct length and components
- in the interval [0,B].</p>
+ <p>The BoundMax class extends <a href="../operators/integers/IntegerVectorInitializer.html" title="class in org.cicirello.search.operators.integers"><code>IntegerVectorInitializer</code></a> to ensure that metaheuristics
+ solving an instance have access to a correct means of generating valid vectors within the search
+ space (correct length and components in the interval [0,B].
 
  <p>Although technically you can use the BoundMax class, which evaluates IntegerVector objects,
- using a bound B=1, to define the OneMax problem, you should instead use the 
- <a href="OneMax.html" title="class in org.cicirello.search.problems"><code>OneMax</code></a> class for the original OneMax problem.  
- The <a href="OneMax.html" title="class in org.cicirello.search.problems"><code>OneMax</code></a> class 
- evaluates <a href="../representations/BitVector.html" title="class in org.cicirello.search.representations"><code>BitVector</code></a> objects, 
- which is a proper implementation
- of an indexable vector of bits.</p></div>
+ using a bound B=1, to define the OneMax problem, you should instead use the <a href="OneMax.html" title="class in org.cicirello.search.problems"><code>OneMax</code></a> class
+ for the original OneMax problem. The <a href="OneMax.html" title="class in org.cicirello.search.problems"><code>OneMax</code></a> class evaluates <a href="../representations/BitVector.html" title="class in org.cicirello.search.representations"><code>BitVector</code></a> objects, which is a proper implementation of an
+ indexable vector of bits.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -173,20 +164,20 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isMinCost(int)" class="member-name-link">isMinCost</a><wbr>(int&nbsp;cost)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.search.representations.IntegerVector)" class="member-name-link">value</a><wbr>(<a href="../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&nbsp;candidate)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 </div>
 </div>
 </div>
@@ -240,15 +231,15 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>cost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">cost</span><wbr><span class="parameters">(<a href="../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#cost(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the cost of a candidate solution to the problem instance.
- The lower the cost, the more optimal the candidate solution.</div>
+<div class="block">Computes the cost of a candidate solution to the problem instance. The lower the cost, the more
+ optimal the candidate solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#cost(T)">cost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>candidate</code> - The candidate solution to evaluate.</dd>
 <dt>Returns:</dt>
-<dd>The cost of the candidate solution.  Lower cost means better solution.</dd>
+<dd>The cost of the candidate solution. Lower cost means better solution.</dd>
 </dl>
 </section>
 </li>
@@ -257,8 +248,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>value</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">value</span><wbr><span class="parameters">(<a href="../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&nbsp;candidate)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#value(T)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Computes the value of the candidate solution within the usual constraints and
- interpretation of the problem.</div>
+<div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
+ the problem.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#value(T)">value</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;</code></dd>
@@ -274,9 +265,9 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>minCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">minCost</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#minCost()">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">A lower bound on the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution. 
- The default implementation returns Integer.MIN_VALUE.</div>
+<div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
+ instance, where lower cost implies better solution. The default implementation returns
+ Integer.MIN_VALUE.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#minCost()">minCost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;</code></dd>
@@ -290,8 +281,8 @@ implements <a href="IntegerCostOptimizationProblem.html" title="interface in org
 <h3>isMinCost</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isMinCost</span><wbr><span class="parameters">(int&nbsp;cost)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="IntegerCostOptimizationProblem.html#isMinCost(int)">IntegerCostOptimizationProblem</a></code></span></div>
-<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible solutions
- to the problem instance, where lower cost implies better solution.</div>
+<div class="block">Checks if a given cost value is equal to the minimum theoretical cost across all possible
+ solutions to the problem instance, where lower cost implies better solution.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="IntegerCostOptimizationProblem.html#isMinCost(int)">isMinCost</a></code>&nbsp;in interface&nbsp;<code><a href="IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;</code></dd>

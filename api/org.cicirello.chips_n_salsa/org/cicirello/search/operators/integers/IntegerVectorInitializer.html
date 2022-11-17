@@ -99,12 +99,11 @@ loadScripts(document, 'script');</script>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="../Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;</span></div>
 <div class="block">Generating random <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a> objects for use in generating random initial solutions
- for simulated annealing and other metaheuristics, and for copying such objects.
- This initializer supports both unbounded vectors (<a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a>) 
- as well as bounded vectors, where the domain of values is bound in an interval.
- In the bounded case, the objects created by this class enforce the bounds upon calls
- to <a href="../../representations/IntegerVector.html#set(int,int)"><code>IntegerVector.set(int, int)</code></a> such that the <a href="../../representations/IntegerVector.html#set(int,int)"><code>IntegerVector.set(int, int)</code></a> method will set the value to
- the min if a value is passed less than min (and similarly for max).</div>
+ for simulated annealing and other metaheuristics, and for copying such objects. This initializer
+ supports both unbounded vectors (<a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a>) as well as bounded vectors, where the
+ domain of values is bound in an interval. In the bounded case, the objects created by this class
+ enforce the bounds upon calls to <a href="../../representations/IntegerVector.html#set(int,int)"><code>IntegerVector.set(int, int)</code></a> such that the <a href="../../representations/IntegerVector.html#set(int,int)"><code>IntegerVector.set(int, int)</code></a> method will set the value to the min if a value is passed less than min (and
+ similarly for max).</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -119,37 +118,32 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int%5B%5D,int%5B%5D)" class="member-name-link">IntegerVectorInitializer</a><wbr>(int[]&nbsp;a,
  int[]&nbsp;b)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Construct a IntegerVectorInitializer that generates
- random solutions such that the values of variable i is chosen
- uniformly in the interval [a[i], b[i]).</div>
+<div class="block">Construct a IntegerVectorInitializer that generates random solutions such that the values of
+ variable i is chosen uniformly in the interval [a[i], b[i]).</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int%5B%5D,int%5B%5D,int%5B%5D,int%5B%5D)" class="member-name-link">IntegerVectorInitializer</a><wbr>(int[]&nbsp;a,
  int[]&nbsp;b,
  int[]&nbsp;min,
  int[]&nbsp;max)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Construct a IntegerVectorInitializer that generates
- random solutions such that the values of variable i is chosen
- uniformly in the interval [a[i], b[i]), subject to
- bounds [min[i], max[i]].</div>
+<div class="block">Construct a IntegerVectorInitializer that generates random solutions such that the values of
+ variable i is chosen uniformly in the interval [a[i], b[i]), subject to bounds [min[i],
+ max[i]].</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int%5B%5D,int%5B%5D,int,int)" class="member-name-link">IntegerVectorInitializer</a><wbr>(int[]&nbsp;a,
  int[]&nbsp;b,
  int&nbsp;min,
  int&nbsp;max)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Construct a IntegerVectorInitializer that generates
- random solutions such that the values of variable i is chosen
- uniformly in the interval [a[i], b[i]), subject to
- bounds [min, max].</div>
+<div class="block">Construct a IntegerVectorInitializer that generates random solutions such that the values of
+ variable i is chosen uniformly in the interval [a[i], b[i]), subject to bounds [min, max].</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,int,int)" class="member-name-link">IntegerVectorInitializer</a><wbr>(int&nbsp;n,
  int&nbsp;a,
  int&nbsp;b)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Construct a IntegerVectorInitializer that generates
- random solutions such that the values of all n variables are chosen
- uniformly in the interval [a, b).</div>
+<div class="block">Construct a IntegerVectorInitializer that generates random solutions such that the values of
+ all n variables are chosen uniformly in the interval [a, b).</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int,int,int,int)" class="member-name-link">IntegerVectorInitializer</a><wbr>(int&nbsp;n,
  int&nbsp;a,
@@ -157,10 +151,8 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
  int&nbsp;min,
  int&nbsp;max)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Construct a IntegerVectorInitializer that generates
- random solutions such that the values of all n variables are chosen
- uniformly in the interval [a, b), subject to
- bounds [min, max].</div>
+<div class="block">Construct a IntegerVectorInitializer that generates random solutions such that the values of
+ all n variables are chosen uniformly in the interval [a, b), subject to bounds [min, max].</div>
 </div>
 </div>
 </section>
@@ -190,8 +182,8 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="IntegerVectorInitializer.html" title="class in org.cicirello.search.operators.integers">IntegerVectorInitializer</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -216,13 +208,11 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">IntegerVectorInitializer</span><wbr><span class="parameters">(int&nbsp;n,
  int&nbsp;a,
  int&nbsp;b)</span></div>
-<div class="block">Construct a IntegerVectorInitializer that generates
- random solutions such that the values of all n variables are chosen
- uniformly in the interval [a, b).  The 
- <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a> objects returned by the
- <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method are otherwise unbounded
- (i.e., future mutations may alter the values such that it leaves that
- interval).  Use a different constructor if you need to enforce bounds.</div>
+<div class="block">Construct a IntegerVectorInitializer that generates random solutions such that the values of
+ all n variables are chosen uniformly in the interval [a, b). The <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a> objects
+ returned by the <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method are otherwise unbounded (i.e., future
+ mutations may alter the values such that it leaves that interval). Use a different constructor
+ if you need to enforce bounds.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of input variables for the function.</dd>
@@ -239,24 +229,22 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
 <h3>IntegerVectorInitializer</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">IntegerVectorInitializer</span><wbr><span class="parameters">(int[]&nbsp;a,
  int[]&nbsp;b)</span></div>
-<div class="block">Construct a IntegerVectorInitializer that generates
- random solutions such that the values of variable i is chosen
- uniformly in the interval [a[i], b[i]).  The 
- <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a> objects returned by the
- <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method are otherwise unbounded
- (i.e., future mutations may alter the values such that it leaves that
- interval).  Use a different constructor if you need to enforce bounds.</div>
+<div class="block">Construct a IntegerVectorInitializer that generates random solutions such that the values of
+ variable i is chosen uniformly in the interval [a[i], b[i]). The <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a> objects
+ returned by the <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method are otherwise unbounded (i.e., future
+ mutations may alter the values such that it leaves that interval). Use a different constructor
+ if you need to enforce bounds.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>a</code> - An array of the left points of the intervals, inclusive.  The length
- of this array corresponds to the number of input variables for the function
- you are optimizing.  Variable x[i]'s initial value will be at least a[i].</dd>
-<dd><code>b</code> - An array of the right points of the intervals, exclusive.  The length
- of this array corresponds to the number of input variables for the function
- you are optimizing.  Variable x[i]'s initial value will be less than b[i].</dd>
+<dd><code>a</code> - An array of the left points of the intervals, inclusive. The length of this array
+     corresponds to the number of input variables for the function you are optimizing. Variable
+     x[i]'s initial value will be at least a[i].</dd>
+<dd><code>b</code> - An array of the right points of the intervals, exclusive. The length of this array
+     corresponds to the number of input variables for the function you are optimizing. Variable
+     x[i]'s initial value will be less than b[i].</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the lengths of a and b are different, or if there
- exists an i, such that a[i] &ge; b[i].</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the lengths of a and b are different, or if there exists an
+     i, such that a[i] &ge; b[i].</dd>
 </dl>
 </section>
 </li>
@@ -268,15 +256,12 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
  int&nbsp;b,
  int&nbsp;min,
  int&nbsp;max)</span></div>
-<div class="block">Construct a IntegerVectorInitializer that generates
- random solutions such that the values of all n variables are chosen
- uniformly in the interval [a, b), subject to
- bounds [min, max].  If this constructor is used, then the 
- <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method will return 
- an object of a subclass of <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a>, which will
- enforce the constraint that the values of the function inputs must
- remain in the interval [min, max] as mutation and other operators
- are applied.</div>
+<div class="block">Construct a IntegerVectorInitializer that generates random solutions such that the values of
+ all n variables are chosen uniformly in the interval [a, b), subject to bounds [min, max]. If
+ this constructor is used, then the <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method will return an
+ object of a subclass of <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a>, which will enforce the constraint that the
+ values of the function inputs must remain in the interval [min, max] as mutation and other
+ operators are applied.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>n</code> - The number of input variables for the function.</dd>
@@ -297,28 +282,25 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
  int[]&nbsp;b,
  int&nbsp;min,
  int&nbsp;max)</span></div>
-<div class="block">Construct a IntegerVectorInitializer that generates
- random solutions such that the values of variable i is chosen
- uniformly in the interval [a[i], b[i]), subject to
- bounds [min, max].  If this constructor is used, then the 
- <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method will return 
- an object of a subclass of <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a>, which will
- enforce the constraint that the values of the function inputs must
- remain in the interval [min, max] as mutation and other operators
- are applied.</div>
+<div class="block">Construct a IntegerVectorInitializer that generates random solutions such that the values of
+ variable i is chosen uniformly in the interval [a[i], b[i]), subject to bounds [min, max]. If
+ this constructor is used, then the <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method will return an
+ object of a subclass of <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a>, which will enforce the constraint that the
+ values of the function inputs must remain in the interval [min, max] as mutation and other
+ operators are applied.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>a</code> - An array of the left points of the intervals, inclusive.  The length
- of this array corresponds to the number of input variables for the function
- you are optimizing.  Variable x[i]'s initial value will be at least a[i].</dd>
-<dd><code>b</code> - An array of the right points of the intervals, exclusive.  The length
- of this array corresponds to the number of input variables for the function
- you are optimizing.  Variable x[i]'s initial value will be less than b[i].</dd>
+<dd><code>a</code> - An array of the left points of the intervals, inclusive. The length of this array
+     corresponds to the number of input variables for the function you are optimizing. Variable
+     x[i]'s initial value will be at least a[i].</dd>
+<dd><code>b</code> - An array of the right points of the intervals, exclusive. The length of this array
+     corresponds to the number of input variables for the function you are optimizing. Variable
+     x[i]'s initial value will be less than b[i].</dd>
 <dd><code>min</code> - Lower bound on allowed values for the function inputs generated.</dd>
 <dd><code>max</code> - Upper bound on allowed values for the function inputs generated.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the lengths of a and b are different; or if there
- exists an i, such that a[i] &ge; b[i]; or if min &gt; max.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the lengths of a and b are different; or if there exists an
+     i, such that a[i] &ge; b[i]; or if min &gt; max.</dd>
 </dl>
 </section>
 </li>
@@ -329,30 +311,27 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
  int[]&nbsp;b,
  int[]&nbsp;min,
  int[]&nbsp;max)</span></div>
-<div class="block">Construct a IntegerVectorInitializer that generates
- random solutions such that the values of variable i is chosen
- uniformly in the interval [a[i], b[i]), subject to
- bounds [min[i], max[i]].  If this constructor is used, then the 
- <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method will return 
- an object of a subclass of <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a>, which will
- enforce the constraint that the values of the function inputs must
- remain in the interval [min[i], max[i]] as mutation and other operators
- are applied.</div>
+<div class="block">Construct a IntegerVectorInitializer that generates random solutions such that the values of
+ variable i is chosen uniformly in the interval [a[i], b[i]), subject to bounds [min[i],
+ max[i]]. If this constructor is used, then the <a href="#createCandidateSolution()"><code>createCandidateSolution()</code></a> method will
+ return an object of a subclass of <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations"><code>IntegerVector</code></a>, which will enforce the constraint that
+ the values of the function inputs must remain in the interval [min[i], max[i]] as mutation and
+ other operators are applied.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>a</code> - An array of the left points of the intervals, inclusive.  The length
- of this array corresponds to the number of input variables for the function
- you are optimizing.  Variable x[i]'s initial value will be at least a[i].</dd>
-<dd><code>b</code> - An array of the right points of the intervals, exclusive.  The length
- of this array corresponds to the number of input variables for the function
- you are optimizing.  Variable x[i]'s initial value will be less than b[i].</dd>
-<dd><code>min</code> - An array of lower bounds on allowed values for the function inputs generated,
- such that x[i] will never be less than min[i].</dd>
-<dd><code>max</code> - An array of upper bounds on allowed values for the function inputs generated,
- such that x[i] will never be greater than max[i].</dd>
+<dd><code>a</code> - An array of the left points of the intervals, inclusive. The length of this array
+     corresponds to the number of input variables for the function you are optimizing. Variable
+     x[i]'s initial value will be at least a[i].</dd>
+<dd><code>b</code> - An array of the right points of the intervals, exclusive. The length of this array
+     corresponds to the number of input variables for the function you are optimizing. Variable
+     x[i]'s initial value will be less than b[i].</dd>
+<dd><code>min</code> - An array of lower bounds on allowed values for the function inputs generated, such
+     that x[i] will never be less than min[i].</dd>
+<dd><code>max</code> - An array of upper bounds on allowed values for the function inputs generated, such
+     that x[i] will never be greater than max[i].</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the lengths of a and b are different; or if there
- exists an i, such that a[i] &ge; b[i] or min[i] &gt; max[i].</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the lengths of a and b are different; or if there exists an
+     i, such that a[i] &ge; b[i] or min[i] &gt; max[i].</dd>
 </dl>
 </section>
 </li>
@@ -383,27 +362,24 @@ implements <a href="../Initializer.html" title="interface in org.cicirello.searc
 <h3>split</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="IntegerVectorInitializer.html" title="class in org.cicirello.search.operators.integers">IntegerVectorInitializer</a></span>&nbsp;<span class="element-name">split</span>()</div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../concurrent/Splittable.html#split()">Splittable</a></code></span></div>
-<div class="block">Generates a functionally identical copy of this object, for use in
- multithreaded implementations of search algorithms.  The state of the object
- that is returned may or may not be identical to that of the original.  Thus,
- this is a distinct concept from the functionality of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface.
- Classes that implement this interface must ensure that the object returned 
- performs the same functionality, and that it does not share any state data
- that would be either unsafe or inefficient for concurrent access by multiple threads.
- The split method is allowed to simply return the this reference, provided that it is
- both safe and efficient for multiple threads to share a single copy of the Splittable object.
- The intention is to provide a multithreaded search with the capability to 
- provide spawned threads with their own distinct search operators.
- Such multithreaded algorithms can call the split method for each thread it spawns
- to generate a functionally identical copy of the operator, but with independent
- state.</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>A functionally identical copy of the object, or a reference to this if
- it is both safe and efficient for multiple threads to share a single instance of this
- Splittable object.</dd>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

@@ -181,6 +181,30 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>refactor</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.hjug.refactorfirst.plugin</groupId>
+						<artifactId>refactor-first-maven-plugin</artifactId>
+						<version>0.3.0</version>       
+						<configuration>
+							<showDetails>true</showDetails>
+						</configuration>
+						<executions>
+							<execution>
+								<id>refactor-first</id>
+								<phase>test</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
 	<issueManagement>

@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-11-17
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Dependencies
+
+### CI/CD
+
+### Other
+
+
+## [6.1.0] - 2022-11-17
+
+### Added
 * AdaptiveEvolutionaryAlgorithm class: An implementation of an evolutionary algorithm with control 
   parameters (crossover and mutation rates) that evolve during the search.
 * Option to constrain the result of a mutation on a real-valued representation to an interval (e.g., such 
@@ -23,10 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Refactored Cauchy mutation classes to use new abstract base class.
   * Refactored uniform mutation classes to use new abstract base class.
 * Refactored several test classes based on suggestions by Sonatype Lift's new technical debt scan.
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 * Configuration of maven-shade-plugin fixed to suppress generation of dependency-reduced pom to avoid 

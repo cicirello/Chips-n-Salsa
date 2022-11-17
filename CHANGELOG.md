@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Dependencies
 * Bump core from 2.2.2 to 2.4.3
 * Bump rho-mu from 2.4.2 to 2.5.0
-* Bump jpt from 4.2.0 to 4.3.0
+* Bump jpt from 4.2.0 to 4.3.1
 
 ### CI/CD
 * Configured the [refactor-first-maven-plugin](https://github.com/jimbethancourt/RefactorFirst) within a profile in the pom.xml.

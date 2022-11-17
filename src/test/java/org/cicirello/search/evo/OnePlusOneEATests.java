@@ -208,7 +208,7 @@ public class OnePlusOneEATests {
       @Override
       public SolutionCostPair<TestObject> call() {
         started = true;
-        return ea.optimize(1000000);
+        return ea.optimize(2000000);
       }
     }
 
@@ -224,7 +224,7 @@ public class OnePlusOneEATests {
     Future<SolutionCostPair<TestObject>> future = threadPool.submit(thread);
     try {
       do {
-        Thread.sleep(10);
+        Thread.sleep(20);
       } while (!thread.started);
       tracker.stop();
       SolutionCostPair<TestObject> pair = future.get();
@@ -239,7 +239,7 @@ public class OnePlusOneEATests {
     future = threadPool.submit(thread);
     try {
       do {
-        Thread.sleep(10);
+        Thread.sleep(20);
       } while (!thread.started);
       tracker.stop();
       SolutionCostPair<TestObject> pair = future.get();

@@ -20,7 +20,6 @@
 
 package org.cicirello.search.evo;
 
-
 /**
  * FitnessShifter wraps another SelectionOperator, shifting all fitness values by the minimum
  * fitness minus one, such that the least fit population member's transformed fitness is equal to 1,

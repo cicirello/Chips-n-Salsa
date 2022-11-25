@@ -126,22 +126,11 @@ public class LCSTests {
     int n = 7;
     LargestCommonSubgraph problem = new LargestCommonSubgraph(n, 0.5, false);
     assertEquals(n, problem.size());
-    Permutation p = new Permutation(n, 0);
-    int minCost = Integer.MAX_VALUE;
-    int maxCost = Integer.MIN_VALUE;
-    int minValue = Integer.MAX_VALUE;
-    int maxValue = Integer.MIN_VALUE;
-    Iterator<Permutation> iter = p.iterator();
-    while (iter.hasNext()) {
-      Permutation perm = iter.next();
-      int cost = problem.cost(perm);
-      int value = problem.value(perm);
-      if (cost < minCost) minCost = cost;
-      if (cost > maxCost) maxCost = cost;
-      if (value < minValue) minValue = value;
-      if (value > maxValue) maxValue = value;
-      assertEquals(problem.maxValue() - value, cost);
-    }
+    int[] costsValues = computeMinMaxCostValue(problem, n);
+    int minCost = costsValues[0];
+    int maxCost = costsValues[1];
+    int minValue = costsValues[2];
+    int maxValue = costsValues[3];
     assertTrue(minCost >= problem.minCost());
     assertTrue(maxValue <= problem.maxValue());
   }
@@ -151,22 +140,11 @@ public class LCSTests {
     int n = 7;
     LargestCommonSubgraph problem = new LargestCommonSubgraph(n, 0.5, false, 42);
     assertEquals(n, problem.size());
-    Permutation p = new Permutation(n, 0);
-    int minCost = Integer.MAX_VALUE;
-    int maxCost = Integer.MIN_VALUE;
-    int minValue = Integer.MAX_VALUE;
-    int maxValue = Integer.MIN_VALUE;
-    Iterator<Permutation> iter = p.iterator();
-    while (iter.hasNext()) {
-      Permutation perm = iter.next();
-      int cost = problem.cost(perm);
-      int value = problem.value(perm);
-      if (cost < minCost) minCost = cost;
-      if (cost > maxCost) maxCost = cost;
-      if (value < minValue) minValue = value;
-      if (value > maxValue) maxValue = value;
-      assertEquals(problem.maxValue() - value, cost);
-    }
+    int[] costsValues = computeMinMaxCostValue(problem, n);
+    int minCost = costsValues[0];
+    int maxCost = costsValues[1];
+    int minValue = costsValues[2];
+    int maxValue = costsValues[3];
     assertTrue(minCost >= problem.minCost());
     assertTrue(maxValue <= problem.maxValue());
   }
@@ -176,22 +154,11 @@ public class LCSTests {
     int n = 7;
     LargestCommonSubgraph problem = new LargestCommonSubgraph(n, n, 0.5, 0.5);
     assertEquals(n, problem.size());
-    Permutation p = new Permutation(n, 0);
-    int minCost = Integer.MAX_VALUE;
-    int maxCost = Integer.MIN_VALUE;
-    int minValue = Integer.MAX_VALUE;
-    int maxValue = Integer.MIN_VALUE;
-    Iterator<Permutation> iter = p.iterator();
-    while (iter.hasNext()) {
-      Permutation perm = iter.next();
-      int cost = problem.cost(perm);
-      int value = problem.value(perm);
-      if (cost < minCost) minCost = cost;
-      if (cost > maxCost) maxCost = cost;
-      if (value < minValue) minValue = value;
-      if (value > maxValue) maxValue = value;
-      assertEquals(problem.maxValue() - value, cost);
-    }
+    int[] costsValues = computeMinMaxCostValue(problem, n);
+    int minCost = costsValues[0];
+    int maxCost = costsValues[1];
+    int minValue = costsValues[2];
+    int maxValue = costsValues[3];
     assertTrue(minCost >= problem.minCost());
     assertTrue(maxValue <= problem.maxValue());
   }
@@ -201,22 +168,11 @@ public class LCSTests {
     int n = 7;
     LargestCommonSubgraph problem = new LargestCommonSubgraph(n, n, 0.5, 0.5, 42);
     assertEquals(n, problem.size());
-    Permutation p = new Permutation(n, 0);
-    int minCost = Integer.MAX_VALUE;
-    int maxCost = Integer.MIN_VALUE;
-    int minValue = Integer.MAX_VALUE;
-    int maxValue = Integer.MIN_VALUE;
-    Iterator<Permutation> iter = p.iterator();
-    while (iter.hasNext()) {
-      Permutation perm = iter.next();
-      int cost = problem.cost(perm);
-      int value = problem.value(perm);
-      if (cost < minCost) minCost = cost;
-      if (cost > maxCost) maxCost = cost;
-      if (value < minValue) minValue = value;
-      if (value > maxValue) maxValue = value;
-      assertEquals(problem.maxValue() - value, cost);
-    }
+    int[] costsValues = computeMinMaxCostValue(problem, n);
+    int minCost = costsValues[0];
+    int maxCost = costsValues[1];
+    int minValue = costsValues[2];
+    int maxValue = costsValues[3];
     assertTrue(minCost >= problem.minCost());
     assertTrue(maxValue <= problem.maxValue());
   }
@@ -226,43 +182,21 @@ public class LCSTests {
     int n = 7;
     LargestCommonSubgraph problem = new LargestCommonSubgraph(n, n, 0.3, 0.7);
     assertEquals(n, problem.size());
-    Permutation p = new Permutation(n, 0);
-    int minCost = Integer.MAX_VALUE;
-    int maxCost = Integer.MIN_VALUE;
-    int minValue = Integer.MAX_VALUE;
-    int maxValue = Integer.MIN_VALUE;
-    Iterator<Permutation> iter = p.iterator();
-    while (iter.hasNext()) {
-      Permutation perm = iter.next();
-      int cost = problem.cost(perm);
-      int value = problem.value(perm);
-      if (cost < minCost) minCost = cost;
-      if (cost > maxCost) maxCost = cost;
-      if (value < minValue) minValue = value;
-      if (value > maxValue) maxValue = value;
-      assertEquals(problem.maxValue() - value, cost);
-    }
+    int[] costsValues = computeMinMaxCostValue(problem, n);
+    int minCost = costsValues[0];
+    int maxCost = costsValues[1];
+    int minValue = costsValues[2];
+    int maxValue = costsValues[3];
     assertTrue(minCost >= problem.minCost());
     assertTrue(maxValue <= problem.maxValue());
 
     problem = new LargestCommonSubgraph(n, n, 0.7, 0.3);
     assertEquals(n, problem.size());
-    p = new Permutation(n, 0);
-    minCost = Integer.MAX_VALUE;
-    maxCost = Integer.MIN_VALUE;
-    minValue = Integer.MAX_VALUE;
-    maxValue = Integer.MIN_VALUE;
-    iter = p.iterator();
-    while (iter.hasNext()) {
-      Permutation perm = iter.next();
-      int cost = problem.cost(perm);
-      int value = problem.value(perm);
-      if (cost < minCost) minCost = cost;
-      if (cost > maxCost) maxCost = cost;
-      if (value < minValue) minValue = value;
-      if (value > maxValue) maxValue = value;
-      assertEquals(problem.maxValue() - value, cost);
-    }
+    costsValues = computeMinMaxCostValue(problem, n);
+    minCost = costsValues[0];
+    maxCost = costsValues[1];
+    minValue = costsValues[2];
+    maxValue = costsValues[3];
     assertTrue(minCost >= problem.minCost());
     assertTrue(maxValue <= problem.maxValue());
   }
@@ -272,6 +206,26 @@ public class LCSTests {
     int n = 7;
     LargestCommonSubgraph problem = new LargestCommonSubgraph(n, n, 0.3, 0.7, 42);
     assertEquals(n, problem.size());
+    int[] costsValues = computeMinMaxCostValue(problem, n);
+    int minCost = costsValues[0];
+    int maxCost = costsValues[1];
+    int minValue = costsValues[2];
+    int maxValue = costsValues[3];
+    assertTrue(minCost >= problem.minCost());
+    assertTrue(maxValue <= problem.maxValue());
+
+    problem = new LargestCommonSubgraph(n, n, 0.7, 0.3, 42);
+    assertEquals(n, problem.size());
+    costsValues = computeMinMaxCostValue(problem, n);
+    minCost = costsValues[0];
+    maxCost = costsValues[1];
+    minValue = costsValues[2];
+    maxValue = costsValues[3];
+    assertTrue(minCost >= problem.minCost());
+    assertTrue(maxValue <= problem.maxValue());
+  }
+
+  private int[] computeMinMaxCostValue(LargestCommonSubgraph problem, int n) {
     Permutation p = new Permutation(n, 0);
     int minCost = Integer.MAX_VALUE;
     int maxCost = Integer.MIN_VALUE;
@@ -288,28 +242,6 @@ public class LCSTests {
       if (value > maxValue) maxValue = value;
       assertEquals(problem.maxValue() - value, cost);
     }
-    assertTrue(minCost >= problem.minCost());
-    assertTrue(maxValue <= problem.maxValue());
-
-    problem = new LargestCommonSubgraph(n, n, 0.7, 0.3, 42);
-    assertEquals(n, problem.size());
-    p = new Permutation(n, 0);
-    minCost = Integer.MAX_VALUE;
-    maxCost = Integer.MIN_VALUE;
-    minValue = Integer.MAX_VALUE;
-    maxValue = Integer.MIN_VALUE;
-    iter = p.iterator();
-    while (iter.hasNext()) {
-      Permutation perm = iter.next();
-      int cost = problem.cost(perm);
-      int value = problem.value(perm);
-      if (cost < minCost) minCost = cost;
-      if (cost > maxCost) maxCost = cost;
-      if (value < minValue) minValue = value;
-      if (value > maxValue) maxValue = value;
-      assertEquals(problem.maxValue() - value, cost);
-    }
-    assertTrue(minCost >= problem.minCost());
-    assertTrue(maxValue <= problem.maxValue());
+    return new int[] {minCost, maxCost, minValue, maxValue};
   }
 }

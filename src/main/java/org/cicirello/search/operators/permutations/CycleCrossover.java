@@ -22,6 +22,7 @@ package org.cicirello.search.operators.permutations;
 
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.permutations.PermutationFullBinaryOperator;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
@@ -48,38 +49,49 @@ import org.cicirello.search.operators.CrossoverOperator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class CycleCrossover implements CrossoverOperator<Permutation> {
+public final class CycleCrossover
+    implements CrossoverOperator<Permutation>, PermutationFullBinaryOperator {
 
   /** Constructs a cycle crossover (CX) operator. */
   public CycleCrossover() {}
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
-    c1.apply(
-        (raw1, raw2, p1, p2) -> {
-          boolean[] inCycle = new boolean[raw1.length];
-          int[] cycle = new int[raw1.length];
-          int count = 0;
-          int[] inv1 = p1.getInverse();
-          int i = RandomIndexer.nextInt(raw1.length);
-          while (!inCycle[i]) {
-            inCycle[i] = true;
-            cycle[count] = i;
-            count++;
-            i = inv1[raw2[i]];
-          }
-          for (i = 0; i < count; i++) {
-            int temp = raw1[cycle[i]];
-            raw1[cycle[i]] = raw2[cycle[i]];
-            raw2[cycle[i]] = temp;
-          }
-        },
-        c2);
+    c1.apply(this, c2);
   }
 
   @Override
   public CycleCrossover split() {
     // doesn't maintain any state, so safe to return this
     return this;
+  }
+
+  /**
+   * See {@link PermutationFullBinaryOperator} for details of this method. This method is not
+   * intended for direct usage. Use the {@link #cross} method instead.
+   *
+   * @param raw1 The raw representation of the first permutation.
+   * @param raw2 The raw representation of the second permutation.
+   * @param p1 The first permutation.
+   * @param p2 The second permutation.
+   */
+  @Override
+  public void apply(int[] raw1, int[] raw2, Permutation p1, Permutation p2) {
+    boolean[] inCycle = new boolean[raw1.length];
+    int[] cycle = new int[raw1.length];
+    int count = 0;
+    int[] inv1 = p1.getInverse();
+    int i = RandomIndexer.nextInt(raw1.length);
+    while (!inCycle[i]) {
+      inCycle[i] = true;
+      cycle[count] = i;
+      count++;
+      i = inv1[raw2[i]];
+    }
+    for (i = 0; i < count; i++) {
+      int temp = raw1[cycle[i]];
+      raw1[cycle[i]] = raw2[cycle[i]];
+      raw2[cycle[i]] = temp;
+    }
   }
 }

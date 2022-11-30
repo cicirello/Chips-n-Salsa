@@ -22,6 +22,7 @@ package org.cicirello.search.operators.reals;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.DoubleBinaryOperator;
+import java.util.function.IntFunction;
 import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.search.representations.RealValued;
 import org.cicirello.util.Copyable;
@@ -71,7 +72,7 @@ public class UniformMutation<T extends RealValued> extends AbstractRealMutation<
    *
    * @param selector Chooses the indexes for a partial mutation.
    */
-  UniformMutation(double radius, DoubleBinaryOperator transformer, Selector selector) {
+  UniformMutation(double radius, DoubleBinaryOperator transformer, IntFunction<int[]> selector) {
     super(radius, transformer, selector);
   }
 

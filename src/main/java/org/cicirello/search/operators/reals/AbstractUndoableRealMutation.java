@@ -21,6 +21,7 @@
 package org.cicirello.search.operators.reals;
 
 import java.util.function.DoubleBinaryOperator;
+import java.util.function.IntFunction;
 import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.search.representations.RealValued;
 
@@ -57,7 +58,8 @@ abstract class AbstractUndoableRealMutation<T extends RealValued> extends Abstra
    * @param transformer The functional transformation of the mutation.
    * @param selector Chooses the indexes for a partial mutation.
    */
-  AbstractUndoableRealMutation(double param, DoubleBinaryOperator transformer, Selector selector) {
+  AbstractUndoableRealMutation(
+      double param, DoubleBinaryOperator transformer, IntFunction<int[]> selector) {
     super(param, transformer, selector);
   }
 

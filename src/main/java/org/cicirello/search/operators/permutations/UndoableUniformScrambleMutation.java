@@ -23,6 +23,7 @@ package org.cicirello.search.operators.permutations;
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.permutations.PermutationUnaryOperator;
 import org.cicirello.search.operators.UndoableMutationOperator;
 
 /**
@@ -45,7 +46,7 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
 public final class UndoableUniformScrambleMutation
-    implements UndoableMutationOperator<Permutation> {
+    implements UndoableMutationOperator<Permutation>, PermutationUnaryOperator {
 
   private final double u;
   private final boolean guaranteeChange;
@@ -96,17 +97,25 @@ public final class UndoableUniformScrambleMutation
   @Override
   public final void undo(Permutation c) {
     if (c.length() >= 2) {
-      c.apply(
-          perm -> {
-            for (int i = 0; i < indexes.length; i++) {
-              perm[indexes[i]] = last[indexes[i]];
-            }
-          });
+      c.apply(this);
     }
   }
 
   @Override
   public UndoableUniformScrambleMutation split() {
     return new UndoableUniformScrambleMutation(u, guaranteeChange);
+  }
+
+  /**
+   * See {@link PermutationUnaryOperator} for details of this method. This method is not intended
+   * for direct usage. Use the {@link #undo} method instead.
+   *
+   * @param perm The raw representation of the permutation for undoing the most recent mutation.
+   */
+  @Override
+  public final void apply(int[] perm) {
+    for (int i = 0; i < indexes.length; i++) {
+      perm[indexes[i]] = last[indexes[i]];
+    }
   }
 }

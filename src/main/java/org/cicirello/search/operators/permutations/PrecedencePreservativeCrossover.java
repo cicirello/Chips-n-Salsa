@@ -22,6 +22,7 @@ package org.cicirello.search.operators.permutations;
 
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.permutations.PermutationBinaryOperator;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
@@ -66,24 +67,34 @@ import org.cicirello.search.operators.CrossoverOperator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class PrecedencePreservativeCrossover implements CrossoverOperator<Permutation> {
+public final class PrecedencePreservativeCrossover
+    implements CrossoverOperator<Permutation>, PermutationBinaryOperator {
 
   /** Constructs a precedence preservative crossover (PPX) operator. */
   public PrecedencePreservativeCrossover() {}
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
-    c1.apply(
-        (raw1, raw2) ->
-            internalCross(
-                raw1, raw2, RandomIndexer.nextInt(raw1.length), RandomIndexer.nextInt(raw1.length)),
-        c2);
+    c1.apply(this, c2);
   }
 
   @Override
   public PrecedencePreservativeCrossover split() {
     // doesn't maintain any state, so safe to return this
     return this;
+  }
+
+  /**
+   * See {@link PermutationBinaryOperator} for details of this method. This method is not intended
+   * for direct usage. Use the {@link #cross} method instead.
+   *
+   * @param raw1 The raw representation of the first permutation.
+   * @param raw2 The raw representation of the second permutation.
+   */
+  @Override
+  public void apply(int[] raw1, int[] raw2) {
+    internalCross(
+        raw1, raw2, RandomIndexer.nextInt(raw1.length), RandomIndexer.nextInt(raw1.length));
   }
 
   /*

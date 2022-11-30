@@ -20,6 +20,8 @@
 
 package org.cicirello.search.operators.reals;
 
+import java.util.function.DoubleBinaryOperator;
+import java.util.function.IntFunction;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.representations.RealValued;
 
@@ -43,7 +45,7 @@ abstract class AbstractRealMutation<T extends RealValued>
    *     Cauchy, radius for a uniform, etc.
    * @param transformer The functional transformation of the mutation.
    */
-  AbstractRealMutation(double param, Transformation transformer) {
+  AbstractRealMutation(double param, DoubleBinaryOperator transformer) {
     this.param = param;
     m = new InternalTotalMutator<T>(transformer);
   }
@@ -56,7 +58,8 @@ abstract class AbstractRealMutation<T extends RealValued>
    * @param transformer The functional transformation of the mutation.
    * @param selector Chooses the indexes for a partial mutation.
    */
-  AbstractRealMutation(double param, Transformation transformer, Selector selector) {
+  AbstractRealMutation(
+      double param, DoubleBinaryOperator transformer, IntFunction<int[]> selector) {
     this.param = param;
     m = new InternalPartialMutator<T>(transformer, selector);
   }
@@ -127,33 +130,6 @@ abstract class AbstractRealMutation<T extends RealValued>
   public abstract AbstractRealMutation<T> split();
 
   @FunctionalInterface
-  static interface Transformation {
-
-    /**
-     * Mutates a value.
-     *
-     * @param double The old value.
-     * @param param The current value of the mutator's parameter (e.g., sigma for Gaussian, or scale
-     *     for a Cauchy or radius for a uniform.
-     * @return The new value.
-     */
-    double mutate(double old, double param);
-  }
-
-  @FunctionalInterface
-  static interface Selector {
-
-    /**
-     * Chooses which indexes to mutate for a partial mutation where only some elements of a real
-     * vector are mutated.
-     *
-     * @param n Length of the vector.
-     * @return An array of indexes to mutate.
-     */
-    int[] chooseIndexes(int n);
-  }
-
-  @FunctionalInterface
   private static interface InternalMutator<T1 extends RealValued> {
 
     /**
@@ -167,9 +143,9 @@ abstract class AbstractRealMutation<T extends RealValued>
 
   private static class InternalTotalMutator<T1 extends RealValued> implements InternalMutator<T1> {
 
-    private final Transformation mutator;
+    private final DoubleBinaryOperator mutator;
 
-    private InternalTotalMutator(Transformation mutator) {
+    private InternalTotalMutator(DoubleBinaryOperator mutator) {
       this.mutator = mutator;
     }
 
@@ -177,7 +153,7 @@ abstract class AbstractRealMutation<T extends RealValued>
     public void mutate(T1 c, double param) {
       final int n = c.length();
       for (int i = 0; i < n; i++) {
-        c.set(i, mutator.mutate(c.get(i), param));
+        c.set(i, mutator.applyAsDouble(c.get(i), param));
       }
     }
   }
@@ -185,19 +161,19 @@ abstract class AbstractRealMutation<T extends RealValued>
   private static class InternalPartialMutator<T1 extends RealValued>
       implements InternalMutator<T1> {
 
-    private final Transformation mutator;
-    private final Selector selector;
+    private final DoubleBinaryOperator mutator;
+    private final IntFunction<int[]> selector;
 
-    private InternalPartialMutator(Transformation mutator, Selector selector) {
+    private InternalPartialMutator(DoubleBinaryOperator mutator, IntFunction<int[]> selector) {
       this.mutator = mutator;
       this.selector = selector;
     }
 
     @Override
     public void mutate(T1 c, double param) {
-      int[] indexes = selector.chooseIndexes(c.length());
+      int[] indexes = selector.apply(c.length());
       for (int i : indexes) {
-        c.set(i, mutator.mutate(c.get(i), param));
+        c.set(i, mutator.applyAsDouble(c.get(i), param));
       }
     }
   }

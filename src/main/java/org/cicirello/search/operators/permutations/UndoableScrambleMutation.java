@@ -22,6 +22,7 @@ package org.cicirello.search.operators.permutations;
 
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.permutations.PermutationUnaryOperator;
 import org.cicirello.search.operators.UndoableMutationOperator;
 
 /**
@@ -44,7 +45,8 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class UndoableScrambleMutation implements UndoableMutationOperator<Permutation> {
+public class UndoableScrambleMutation
+    implements UndoableMutationOperator<Permutation>, PermutationUnaryOperator {
 
   private int[] last;
   private final int[] indexes;
@@ -66,21 +68,28 @@ public class UndoableScrambleMutation implements UndoableMutationOperator<Permut
   @Override
   public final void undo(Permutation c) {
     if (c.length() >= 2) {
-      if (indexes[0] < indexes[1]) {
-        c.apply(
-            perm ->
-                System.arraycopy(last, indexes[0], perm, indexes[0], indexes[1] - indexes[0] + 1));
-      } else {
-        c.apply(
-            perm ->
-                System.arraycopy(last, indexes[1], perm, indexes[1], indexes[0] - indexes[1] + 1));
-      }
+      c.apply(this);
     }
   }
 
   @Override
   public UndoableScrambleMutation split() {
     return new UndoableScrambleMutation();
+  }
+
+  /**
+   * See {@link PermutationUnaryOperator} for details of this method. This method is not intended
+   * for direct usage. Use the {@link #undo} method instead.
+   *
+   * @param perm The raw representation of the permutation for undoing the most recent mutation.
+   */
+  @Override
+  public final void apply(int[] perm) {
+    if (indexes[0] < indexes[1]) {
+      System.arraycopy(last, indexes[0], perm, indexes[0], indexes[1] - indexes[0] + 1);
+    } else {
+      System.arraycopy(last, indexes[1], perm, indexes[1], indexes[0] - indexes[1] + 1);
+    }
   }
 
   /*

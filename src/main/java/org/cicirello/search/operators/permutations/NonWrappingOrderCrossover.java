@@ -22,6 +22,7 @@ package org.cicirello.search.operators.permutations;
 
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.permutations.PermutationBinaryOperator;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.util.IntegerList;
 
@@ -62,54 +63,63 @@ import org.cicirello.util.IntegerList;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class NonWrappingOrderCrossover implements CrossoverOperator<Permutation> {
+public final class NonWrappingOrderCrossover
+    implements CrossoverOperator<Permutation>, PermutationBinaryOperator {
 
   /** Constructs a non-wrapping order crossover (NWOX) operator. */
   public NonWrappingOrderCrossover() {}
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
-    c1.apply(
-        (raw1, raw2) -> {
-          int i = RandomIndexer.nextInt(raw1.length);
-          int j = RandomIndexer.nextInt(raw1.length);
-          if (j < i) {
-            int temp = i;
-            i = j;
-            j = temp;
-          }
-          boolean[] in1 = new boolean[raw1.length];
-          boolean[] in2 = new boolean[raw1.length];
-          for (int k = i; k <= j; k++) {
-            in1[raw1[k]] = true;
-            in2[raw2[k]] = true;
-          }
-          final int orderedCount = raw1.length - (j - i + 1);
-          if (orderedCount > 0) {
-            IntegerList list1 = new IntegerList(orderedCount);
-            IntegerList list2 = new IntegerList(orderedCount);
-            for (int k = 0; k < raw1.length; k++) {
-              if (!in2[raw1[k]]) {
-                list1.add(raw1[k]);
-              }
-              if (!in1[raw2[k]]) {
-                list2.add(raw2[k]);
-              }
-            }
-            int w = 0;
-            for (int k = 0; k < i; k++) {
-              raw1[k] = list2.get(w);
-              raw2[k] = list1.get(w);
-              w++;
-            }
-            for (int k = j + 1; k < raw1.length; k++) {
-              raw1[k] = list2.get(w);
-              raw2[k] = list1.get(w);
-              w++;
-            }
-          }
-        },
-        c2);
+    c1.apply(this, c2);
+  }
+
+  /**
+   * See {@link PermutationBinaryOperator} for details of this method. This method is not intended
+   * for direct usage. Use the {@link #cross} method instead.
+   *
+   * @param raw1 The raw representation of the first permutation.
+   * @param raw2 The raw representation of the second permutation.
+   */
+  @Override
+  public void apply(int[] raw1, int[] raw2) {
+    int i = RandomIndexer.nextInt(raw1.length);
+    int j = RandomIndexer.nextInt(raw1.length);
+    if (j < i) {
+      int temp = i;
+      i = j;
+      j = temp;
+    }
+    boolean[] in1 = new boolean[raw1.length];
+    boolean[] in2 = new boolean[raw1.length];
+    for (int k = i; k <= j; k++) {
+      in1[raw1[k]] = true;
+      in2[raw2[k]] = true;
+    }
+    final int orderedCount = raw1.length - (j - i + 1);
+    if (orderedCount > 0) {
+      IntegerList list1 = new IntegerList(orderedCount);
+      IntegerList list2 = new IntegerList(orderedCount);
+      for (int k = 0; k < raw1.length; k++) {
+        if (!in2[raw1[k]]) {
+          list1.add(raw1[k]);
+        }
+        if (!in1[raw2[k]]) {
+          list2.add(raw2[k]);
+        }
+      }
+      int w = 0;
+      for (int k = 0; k < i; k++) {
+        raw1[k] = list2.get(w);
+        raw2[k] = list1.get(w);
+        w++;
+      }
+      for (int k = j + 1; k < raw1.length; k++) {
+        raw1[k] = list2.get(w);
+        raw2[k] = list1.get(w);
+        w++;
+      }
+    }
   }
 
   @Override

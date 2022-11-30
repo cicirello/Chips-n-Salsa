@@ -20,6 +20,7 @@
 
 package org.cicirello.search.operators.reals;
 
+import java.util.function.DoubleBinaryOperator;
 import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.math.rand.RandomVariates;
 import org.cicirello.search.representations.RealValued;
@@ -62,7 +63,7 @@ public final class UndoableGaussianMutation<T extends RealValued>
    *
    * @param transformer The functional transformation of the mutation.
    */
-  UndoableGaussianMutation(double sigma, Transformation transformer) {
+  UndoableGaussianMutation(double sigma, DoubleBinaryOperator transformer) {
     super(sigma, transformer);
   }
 
@@ -76,7 +77,7 @@ public final class UndoableGaussianMutation<T extends RealValued>
    *
    * @param selector Chooses the indexes for a partial mutation.
    */
-  UndoableGaussianMutation(double sigma, Transformation transformer, Selector selector) {
+  UndoableGaussianMutation(double sigma, DoubleBinaryOperator transformer, Selector selector) {
     super(sigma, transformer, selector);
   }
 

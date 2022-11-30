@@ -20,6 +20,7 @@
 
 package org.cicirello.search.operators.reals;
 
+import java.util.function.DoubleBinaryOperator;
 import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.math.rand.RandomVariates;
 import org.cicirello.search.representations.RealValued;
@@ -60,7 +61,7 @@ public class GaussianMutation<T extends RealValued> extends AbstractRealMutation
    *
    * @param transformer The functional transformation of the mutation.
    */
-  GaussianMutation(double sigma, Transformation transformer) {
+  GaussianMutation(double sigma, DoubleBinaryOperator transformer) {
     super(sigma, transformer);
   }
 
@@ -74,7 +75,7 @@ public class GaussianMutation<T extends RealValued> extends AbstractRealMutation
    *
    * @param selector Chooses the indexes for a partial mutation.
    */
-  GaussianMutation(double sigma, Transformation transformer, Selector selector) {
+  GaussianMutation(double sigma, DoubleBinaryOperator transformer, Selector selector) {
     super(sigma, transformer, selector);
   }
 

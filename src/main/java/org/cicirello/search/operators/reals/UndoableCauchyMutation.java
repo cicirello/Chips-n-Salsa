@@ -20,6 +20,7 @@
 
 package org.cicirello.search.operators.reals;
 
+import java.util.function.DoubleBinaryOperator;
 import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.math.rand.RandomVariates;
 import org.cicirello.search.representations.RealValued;
@@ -66,7 +67,7 @@ public class UndoableCauchyMutation<T extends RealValued> extends AbstractUndoab
    *
    * @param transformer The functional transformation of the mutation.
    */
-  UndoableCauchyMutation(double scale, Transformation transformer) {
+  UndoableCauchyMutation(double scale, DoubleBinaryOperator transformer) {
     super(scale, transformer);
   }
 
@@ -80,7 +81,7 @@ public class UndoableCauchyMutation<T extends RealValued> extends AbstractUndoab
    *
    * @param selector Chooses the indexes for a partial mutation.
    */
-  UndoableCauchyMutation(double scale, Transformation transformer, Selector selector) {
+  UndoableCauchyMutation(double scale, DoubleBinaryOperator transformer, Selector selector) {
     super(scale, transformer, selector);
   }
 

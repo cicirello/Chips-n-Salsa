@@ -25,7 +25,6 @@ import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SimpleLocalMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.operators.Initializer;
-import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.Problem;
@@ -46,7 +45,7 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
   final IntegerCostOptimizationProblem<T> pOptInt;
   private final Initializer<T> initializer;
   ProgressTracker<T> tracker;
-  final IterableMutationOperator<T> mutation;
+
   private final OneClimb<T> climber;
 
   long neighborCount;
@@ -55,23 +54,18 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
    * Constructs a first descent hill climber object for real-valued optimization problem.
    *
    * @param problem An instance of an optimization problem to solve.
-   * @param mutation A mutation operator.
    * @param initializer The source of random initial states for each hill climb.
    * @param tracker A ProgressTracker object, which is used to keep track of the best solution found
    *     during the run, the time when it was found, and other related data.
    * @throws NullPointerException if any of the parameters are null.
    */
   AbstractHillClimber(
-      OptimizationProblem<T> problem,
-      IterableMutationOperator<T> mutation,
-      Initializer<T> initializer,
-      ProgressTracker<T> tracker) {
-    if (problem == null || mutation == null || initializer == null || tracker == null) {
+      OptimizationProblem<T> problem, Initializer<T> initializer, ProgressTracker<T> tracker) {
+    if (problem == null || initializer == null || tracker == null) {
       throw new NullPointerException();
     }
     pOpt = problem;
     pOptInt = null;
-    this.mutation = mutation;
     this.initializer = initializer;
     this.tracker = tracker;
     climber = initClimberDouble();
@@ -81,7 +75,6 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
    * Constructs a first descent hill climber object for integer-valued optimization problem.
    *
    * @param problem An instance of an optimization problem to solve.
-   * @param mutation A mutation operator.
    * @param initializer The source of random initial states for each hill climb.
    * @param tracker A ProgressTracker object, which is used to keep track of the best solution found
    *     during the run, the time when it was found, and other related data.
@@ -89,15 +82,13 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
    */
   AbstractHillClimber(
       IntegerCostOptimizationProblem<T> problem,
-      IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    if (problem == null || mutation == null || initializer == null || tracker == null) {
+    if (problem == null || initializer == null || tracker == null) {
       throw new NullPointerException();
     }
     pOptInt = (IntegerCostOptimizationProblem<T>) problem;
     pOpt = null;
-    this.mutation = mutation;
     this.initializer = initializer;
     this.tracker = tracker;
     climber = initClimberInt();
@@ -116,7 +107,6 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
     tracker = other.tracker;
 
     // split: not threadsafe
-    mutation = other.mutation.split();
     initializer = other.initializer.split();
 
     climber = pOptInt != null ? initClimberInt() : initClimberDouble();

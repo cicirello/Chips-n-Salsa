@@ -56,13 +56,11 @@ public class HillClimberTests {
         new SteepestDescentHillClimber<TestObject>(problem, mutation, init, tracker);
     assertEquals(problem, hc.pOptInt);
     assertEquals(null, hc.pOpt);
-    assertEquals(mutation, hc.mutation);
     assertEquals(tracker, hc.tracker);
 
     hc = new SteepestDescentHillClimber<TestObject>(problemDouble, mutation, init, tracker);
     assertEquals(problemDouble, hc.pOpt);
     assertEquals(null, hc.pOptInt);
-    assertEquals(mutation, hc.mutation);
     assertEquals(tracker, hc.tracker);
 
     NullPointerException thrown =
@@ -87,6 +85,10 @@ public class HillClimberTests {
     thrown =
         assertThrows(
             NullPointerException.class,
+            () -> new SteepestDescentHillClimber<TestObject>(problemDouble, null, init));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
             () ->
                 new SteepestDescentHillClimber<TestObject>(
                     (IntegerCostOptimizationProblem<TestObject>) null, mutation, init, tracker));
@@ -102,6 +104,10 @@ public class HillClimberTests {
         assertThrows(
             NullPointerException.class,
             () -> new SteepestDescentHillClimber<TestObject>(problem, mutation, init, null));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () -> new SteepestDescentHillClimber<TestObject>(problem, null, init));
   }
 
   @Test
@@ -469,14 +475,57 @@ public class HillClimberTests {
         new FirstDescentHillClimber<TestObject>(problem, mutation, init, tracker);
     assertEquals(problem, hc.pOptInt);
     assertEquals(null, hc.pOpt);
-    assertEquals(mutation, hc.mutation);
     assertEquals(tracker, hc.tracker);
 
     hc = new FirstDescentHillClimber<TestObject>(problemDouble, mutation, init, tracker);
     assertEquals(problemDouble, hc.pOpt);
     assertEquals(null, hc.pOptInt);
-    assertEquals(mutation, hc.mutation);
     assertEquals(tracker, hc.tracker);
+
+    NullPointerException thrown =
+        assertThrows(
+            NullPointerException.class,
+            () ->
+                new FirstDescentHillClimber<TestObject>(
+                    (OptimizationProblem<TestObject>) null, mutation, init, tracker));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () -> new FirstDescentHillClimber<TestObject>(problemDouble, null, init, tracker));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () -> new FirstDescentHillClimber<TestObject>(problemDouble, mutation, null, tracker));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () -> new FirstDescentHillClimber<TestObject>(problemDouble, mutation, init, null));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () -> new FirstDescentHillClimber<TestObject>(problemDouble, null, init));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () ->
+                new FirstDescentHillClimber<TestObject>(
+                    (IntegerCostOptimizationProblem<TestObject>) null, mutation, init, tracker));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () -> new FirstDescentHillClimber<TestObject>(problem, null, init, tracker));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () -> new FirstDescentHillClimber<TestObject>(problem, mutation, null, tracker));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () -> new FirstDescentHillClimber<TestObject>(problem, mutation, init, null));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () -> new FirstDescentHillClimber<TestObject>(problem, null, init));
   }
 
   @Test

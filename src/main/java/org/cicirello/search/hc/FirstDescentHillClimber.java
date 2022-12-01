@@ -47,6 +47,8 @@ import org.cicirello.util.Copyable;
  */
 public final class FirstDescentHillClimber<T extends Copyable<T>> extends AbstractHillClimber<T> {
 
+  private final IterableMutationOperator<T> mutation;
+
   /**
    * Constructs a first descent hill climber object for real-valued optimization problem.
    *
@@ -62,7 +64,11 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(problem, mutation, initializer, tracker);
+    super(problem, initializer, tracker);
+    if (mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
   }
 
   /**
@@ -80,7 +86,11 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(problem, mutation, initializer, tracker);
+    super(problem, initializer, tracker);
+    if (mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
   }
 
   /**
@@ -96,7 +106,11 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       OptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(problem, mutation, initializer, new ProgressTracker<T>());
+    super(problem, initializer, new ProgressTracker<T>());
+    if (mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
   }
 
   /**
@@ -112,7 +126,11 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IntegerCostOptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(problem, mutation, initializer, new ProgressTracker<T>());
+    super(problem, initializer, new ProgressTracker<T>());
+    if (mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
   }
 
   /*
@@ -122,6 +140,9 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
    */
   private FirstDescentHillClimber(FirstDescentHillClimber<T> other) {
     super(other);
+
+    // split: not threadsafe
+    mutation = other.mutation.split();
   }
 
   @Override

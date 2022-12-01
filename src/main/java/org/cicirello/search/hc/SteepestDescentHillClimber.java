@@ -49,6 +49,8 @@ import org.cicirello.util.Copyable;
 public final class SteepestDescentHillClimber<T extends Copyable<T>>
     extends AbstractHillClimber<T> {
 
+  private final IterableMutationOperator<T> mutation;
+
   /**
    * Constructs a steepest descent hill climber object for real-valued optimization problem.
    *
@@ -64,7 +66,11 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(problem, mutation, initializer, tracker);
+    super(problem, initializer, tracker);
+    if (mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
   }
 
   /**
@@ -82,7 +88,11 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(problem, mutation, initializer, tracker);
+    super(problem, initializer, tracker);
+    if (mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
   }
 
   /**
@@ -98,7 +108,11 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
       OptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(problem, mutation, initializer, new ProgressTracker<T>());
+    super(problem, initializer, new ProgressTracker<T>());
+    if (mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
   }
 
   /**
@@ -114,7 +128,11 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
       IntegerCostOptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(problem, mutation, initializer, new ProgressTracker<T>());
+    super(problem, initializer, new ProgressTracker<T>());
+    if (mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
   }
 
   /*
@@ -123,6 +141,9 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
    */
   private SteepestDescentHillClimber(SteepestDescentHillClimber<T> other) {
     super(other);
+
+    // split: not threadsafe
+    mutation = other.mutation.split();
   }
 
   @Override

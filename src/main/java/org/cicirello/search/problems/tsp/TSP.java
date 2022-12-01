@@ -54,15 +54,7 @@ public abstract class TSP extends BaseTSP {
 
   /* package-private constructor */
   TSP(int n, double w, RandomGenerator gen) {
-    this(
-        n,
-        w,
-        (x1, y1, x2, y2) -> {
-          double deltaX = x1 - x2;
-          double deltaY = y1 - y2;
-          return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        },
-        gen);
+    this(n, w, new EuclideanDistance(), gen);
   }
 
   /* package-private constructor */
@@ -84,14 +76,7 @@ public abstract class TSP extends BaseTSP {
 
   /* package-private constructor */
   TSP(double[] x, double[] y) {
-    this(
-        x,
-        y,
-        (x1, y1, x2, y2) -> {
-          double deltaX = x1 - x2;
-          double deltaY = y1 - y2;
-          return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        });
+    this(x, y, new EuclideanDistance());
   }
 
   /* package-private constructor */

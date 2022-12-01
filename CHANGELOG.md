@@ -11,8 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   enable easily introducing additional TSP edge distance functions.
 
 ### Changed
-* Refactored several permutation crossover and mutation operators for improved performance.
-* Refactored all real-valued mutation operators.
+* Refactored several classes to improve performance and/or maintainability, including the following:
+  * Several permutation crossover and mutation operators for improved performance
+  * All real-valued mutation operators
+  * SimulatedAnnealing
 * Refactored test cases for the LargestCommonSubgraph class (based on RefactorFirst scan).
 
 ### Deprecated

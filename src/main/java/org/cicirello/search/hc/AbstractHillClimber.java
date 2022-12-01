@@ -25,9 +25,6 @@ import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SimpleLocalMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.operators.Initializer;
-import org.cicirello.search.problems.IntegerCostOptimizationProblem;
-import org.cicirello.search.problems.OptimizationProblem;
-import org.cicirello.search.problems.Problem;
 import org.cicirello.util.Copyable;
 
 /**
@@ -41,57 +38,25 @@ import org.cicirello.util.Copyable;
 abstract class AbstractHillClimber<T extends Copyable<T>>
     implements Metaheuristic<T>, SimpleLocalMetaheuristic<T> {
 
-  final OptimizationProblem<T> pOpt;
-  final IntegerCostOptimizationProblem<T> pOptInt;
   private final Initializer<T> initializer;
   ProgressTracker<T> tracker;
-
-  private final OneClimb<T> climber;
 
   long neighborCount;
 
   /**
-   * Constructs a first descent hill climber object for real-valued optimization problem.
+   * Constructs a hill climber object.
    *
-   * @param problem An instance of an optimization problem to solve.
    * @param initializer The source of random initial states for each hill climb.
    * @param tracker A ProgressTracker object, which is used to keep track of the best solution found
    *     during the run, the time when it was found, and other related data.
    * @throws NullPointerException if any of the parameters are null.
    */
-  AbstractHillClimber(
-      OptimizationProblem<T> problem, Initializer<T> initializer, ProgressTracker<T> tracker) {
-    if (problem == null || initializer == null || tracker == null) {
+  AbstractHillClimber(Initializer<T> initializer, ProgressTracker<T> tracker) {
+    if (initializer == null || tracker == null) {
       throw new NullPointerException();
     }
-    pOpt = problem;
-    pOptInt = null;
     this.initializer = initializer;
     this.tracker = tracker;
-    climber = initClimberDouble();
-  }
-
-  /**
-   * Constructs a first descent hill climber object for integer-valued optimization problem.
-   *
-   * @param problem An instance of an optimization problem to solve.
-   * @param initializer The source of random initial states for each hill climb.
-   * @param tracker A ProgressTracker object, which is used to keep track of the best solution found
-   *     during the run, the time when it was found, and other related data.
-   * @throws NullPointerException if any of the parameters are null.
-   */
-  AbstractHillClimber(
-      IntegerCostOptimizationProblem<T> problem,
-      Initializer<T> initializer,
-      ProgressTracker<T> tracker) {
-    if (problem == null || initializer == null || tracker == null) {
-      throw new NullPointerException();
-    }
-    pOptInt = (IntegerCostOptimizationProblem<T>) problem;
-    pOpt = null;
-    this.initializer = initializer;
-    this.tracker = tracker;
-    climber = initClimberInt();
   }
 
   /*
@@ -99,17 +64,12 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
    * note: copies references to thread-safe components, and splits potentially non-threadsafe components
    */
   AbstractHillClimber(AbstractHillClimber<T> other) {
-    // these are threadsafe, so just copy references
-    pOpt = other.pOpt;
-    pOptInt = other.pOptInt;
 
     // this one must be shared.
     tracker = other.tracker;
 
     // split: not threadsafe
     initializer = other.initializer.split();
-
-    climber = pOptInt != null ? initClimberInt() : initClimberDouble();
 
     // use default of 0 for this one: neighborCount
   }
@@ -118,13 +78,13 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
   public final SolutionCostPair<T> optimize() {
     if (tracker.didFindBest() || tracker.isStopped()) return null;
     neighborCount++;
-    return climber.climbOnce(initializer.createCandidateSolution());
+    return climbOnce(initializer.createCandidateSolution());
   }
 
   @Override
   public final SolutionCostPair<T> optimize(T start) {
     if (tracker.didFindBest() || tracker.isStopped()) return null;
-    return climber.climbOnce(start.copy());
+    return climbOnce(start.copy());
   }
 
   /**
@@ -143,7 +103,7 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
     if (tracker.didFindBest() || tracker.isStopped()) return null;
     SolutionCostPair<T> best = null;
     for (int i = 0; i < numRestarts && !tracker.didFindBest() && !tracker.isStopped(); i++) {
-      SolutionCostPair<T> current = climber.climbOnce(initializer.createCandidateSolution());
+      SolutionCostPair<T> current = climbOnce(initializer.createCandidateSolution());
       neighborCount++;
       if (best == null || current.compareTo(best) < 0) best = current;
     }
@@ -158,11 +118,6 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
   @Override
   public final void setProgressTracker(ProgressTracker<T> tracker) {
     if (tracker != null) this.tracker = tracker;
-  }
-
-  @Override
-  public final Problem<T> getProblem() {
-    return (pOptInt != null) ? pOptInt : pOpt;
   }
 
   /**
@@ -181,10 +136,8 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
   public abstract AbstractHillClimber<T> split();
 
   interface OneClimb<T extends Copyable<T>> {
-    SolutionCostPair<T> climbOnce(T current);
+    SolutionCostPair<T> climb(T current);
   }
 
-  abstract OneClimb<T> initClimberInt();
-
-  abstract OneClimb<T> initClimberDouble();
+  abstract SolutionCostPair<T> climbOnce(T current);
 }

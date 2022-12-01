@@ -27,6 +27,7 @@ import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
+import org.cicirello.search.problems.Problem;
 import org.cicirello.util.Copyable;
 
 /**
@@ -50,6 +51,9 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
     extends AbstractHillClimber<T> {
 
   private final IterableMutationOperator<T> mutation;
+  private final OptimizationProblem<T> pOpt;
+  private final IntegerCostOptimizationProblem<T> pOptInt;
+  private final OneClimb<T> climber;
 
   /**
    * Constructs a steepest descent hill climber object for real-valued optimization problem.
@@ -66,11 +70,14 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(problem, initializer, tracker);
-    if (mutation == null) {
+    super(initializer, tracker);
+    if (problem == null || mutation == null) {
       throw new NullPointerException();
     }
     this.mutation = mutation;
+    pOpt = problem;
+    pOptInt = null;
+    climber = initClimberDouble();
   }
 
   /**
@@ -88,11 +95,14 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(problem, initializer, tracker);
-    if (mutation == null) {
+    super(initializer, tracker);
+    if (problem == null || mutation == null) {
       throw new NullPointerException();
     }
     this.mutation = mutation;
+    pOptInt = problem;
+    pOpt = null;
+    climber = initClimberInt();
   }
 
   /**
@@ -108,11 +118,14 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
       OptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(problem, initializer, new ProgressTracker<T>());
-    if (mutation == null) {
+    super(initializer, new ProgressTracker<T>());
+    if (problem == null || mutation == null) {
       throw new NullPointerException();
     }
     this.mutation = mutation;
+    pOpt = problem;
+    pOptInt = null;
+    climber = initClimberDouble();
   }
 
   /**
@@ -128,11 +141,14 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
       IntegerCostOptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(problem, initializer, new ProgressTracker<T>());
-    if (mutation == null) {
+    super(initializer, new ProgressTracker<T>());
+    if (problem == null || mutation == null) {
       throw new NullPointerException();
     }
     this.mutation = mutation;
+    pOptInt = problem;
+    pOpt = null;
+    climber = initClimberInt();
   }
 
   /*
@@ -142,8 +158,14 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
   private SteepestDescentHillClimber(SteepestDescentHillClimber<T> other) {
     super(other);
 
+    // these are threadsafe, so just copy references
+    pOpt = other.pOpt;
+    pOptInt = other.pOptInt;
+
     // split: not threadsafe
     mutation = other.mutation.split();
+
+    climber = pOptInt != null ? initClimberInt() : initClimberDouble();
   }
 
   @Override
@@ -152,6 +174,15 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
   }
 
   @Override
+  public final Problem<T> getProblem() {
+    return (pOptInt != null) ? pOptInt : pOpt;
+  }
+
+  @Override
+  final SolutionCostPair<T> climbOnce(T current) {
+    return climber.climb(current);
+  }
+
   OneClimb<T> initClimberInt() {
     return current -> {
       // compute cost of start
@@ -185,7 +216,6 @@ public final class SteepestDescentHillClimber<T extends Copyable<T>>
     };
   }
 
-  @Override
   OneClimb<T> initClimberDouble() {
     return current -> {
       // compute cost of start

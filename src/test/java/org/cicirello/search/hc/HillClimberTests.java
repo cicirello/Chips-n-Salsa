@@ -54,14 +54,12 @@ public class HillClimberTests {
 
     SteepestDescentHillClimber<TestObject> hc =
         new SteepestDescentHillClimber<TestObject>(problem, mutation, init, tracker);
-    assertEquals(problem, hc.pOptInt);
-    assertEquals(null, hc.pOpt);
     assertEquals(tracker, hc.tracker);
+    assertEquals(problem, hc.getProblem());
 
     hc = new SteepestDescentHillClimber<TestObject>(problemDouble, mutation, init, tracker);
-    assertEquals(problemDouble, hc.pOpt);
-    assertEquals(null, hc.pOptInt);
     assertEquals(tracker, hc.tracker);
+    assertEquals(problemDouble, hc.getProblem());
 
     NullPointerException thrown =
         assertThrows(
@@ -82,6 +80,12 @@ public class HillClimberTests {
         assertThrows(
             NullPointerException.class,
             () -> new SteepestDescentHillClimber<TestObject>(problemDouble, mutation, init, null));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () ->
+                new SteepestDescentHillClimber<TestObject>(
+                    (OptimizationProblem<TestObject>) null, mutation, init));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -108,6 +112,12 @@ public class HillClimberTests {
         assertThrows(
             NullPointerException.class,
             () -> new SteepestDescentHillClimber<TestObject>(problem, null, init));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () ->
+                new SteepestDescentHillClimber<TestObject>(
+                    (IntegerCostOptimizationProblem<TestObject>) null, mutation, init));
   }
 
   @Test
@@ -473,14 +483,12 @@ public class HillClimberTests {
 
     FirstDescentHillClimber<TestObject> hc =
         new FirstDescentHillClimber<TestObject>(problem, mutation, init, tracker);
-    assertEquals(problem, hc.pOptInt);
-    assertEquals(null, hc.pOpt);
     assertEquals(tracker, hc.tracker);
+    assertEquals(problem, hc.getProblem());
 
     hc = new FirstDescentHillClimber<TestObject>(problemDouble, mutation, init, tracker);
-    assertEquals(problemDouble, hc.pOpt);
-    assertEquals(null, hc.pOptInt);
     assertEquals(tracker, hc.tracker);
+    assertEquals(problemDouble, hc.getProblem());
 
     NullPointerException thrown =
         assertThrows(
@@ -509,6 +517,12 @@ public class HillClimberTests {
             NullPointerException.class,
             () ->
                 new FirstDescentHillClimber<TestObject>(
+                    (OptimizationProblem<TestObject>) null, mutation, init));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () ->
+                new FirstDescentHillClimber<TestObject>(
                     (IntegerCostOptimizationProblem<TestObject>) null, mutation, init, tracker));
     thrown =
         assertThrows(
@@ -526,6 +540,12 @@ public class HillClimberTests {
         assertThrows(
             NullPointerException.class,
             () -> new FirstDescentHillClimber<TestObject>(problem, null, init));
+    thrown =
+        assertThrows(
+            NullPointerException.class,
+            () ->
+                new FirstDescentHillClimber<TestObject>(
+                    (IntegerCostOptimizationProblem<TestObject>) null, mutation, init));
   }
 
   @Test
@@ -649,6 +669,36 @@ public class HillClimberTests {
         ProgressTracker<TestObject> tracker = hc.getProgressTracker();
         SolutionCostPair<TestObject> ts = tracker.getSolutionCostPair();
         assertEquals(2 * TestObject.OPT + 200, ts.getCost());
+        assertEquals(TestObject.OPT + 100, ts.getSolution().getA());
+        assertFalse(tracker.didFindBest());
+      }
+    }
+  }
+
+  @Test
+  public void testFirstSplitDouble() {
+    for (int r = 1; r <= 5; r++) {
+      for (int k = 0; k < r - 1; k++) {
+        TestObject.setB(r);
+        FirstDescentHillClimber<TestObject> hc =
+            new FirstDescentHillClimber<TestObject>(
+                new TestOpt(), new TestMutator(), new TestObject(1000));
+        assertEquals(0, hc.getTotalRunLength());
+        SolutionCostPair<TestObject> s = null;
+        for (int i = 0; i < r; i++) {
+          if (k == i) {
+            FirstDescentHillClimber<TestObject> split = hc.split();
+            split.optimize(1);
+          } else {
+            s = hc.optimize(1);
+          }
+        }
+        assertEquals((r - 1) * 26, hc.getTotalRunLength());
+        assertEquals(2 * TestObject.OPT + 200, s.getCostDouble());
+        assertEquals(TestObject.OPT + 100, s.getSolution().getA());
+        ProgressTracker<TestObject> tracker = hc.getProgressTracker();
+        SolutionCostPair<TestObject> ts = tracker.getSolutionCostPair();
+        assertEquals(2 * TestObject.OPT + 200, ts.getCostDouble());
         assertEquals(TestObject.OPT + 100, ts.getSolution().getA());
         assertFalse(tracker.didFindBest());
       }

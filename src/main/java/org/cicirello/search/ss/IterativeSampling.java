@@ -126,7 +126,6 @@ public final class IterativeSampling<T extends Copyable<T>> extends AbstractStoc
 
   @Override
   SolutionCostPair<T> sample() {
-    T s = initializer.createCandidateSolution();
-    return evaluateAndPackageSolution(s);
+    return evaluateAndPackageSolution(initializer.createCandidateSolution());
   }
 }

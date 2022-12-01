@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * All real-valued mutation operators
   * SimulatedAnnealing
   * Stochastic sampling classes
+  * Hill climber classes
 * Refactored test cases for the LargestCommonSubgraph class (based on RefactorFirst scan).
 
 ### Deprecated

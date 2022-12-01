@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Several permutation crossover and mutation operators for improved performance
   * All real-valued mutation operators
   * SimulatedAnnealing
+  * Stochastic sampling classes
 * Refactored test cases for the LargestCommonSubgraph class (based on RefactorFirst scan).
 
 ### Deprecated

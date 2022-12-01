@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -82,7 +82,8 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolutionMetaheuristic<T> {
+public final class SimulatedAnnealing<T extends Copyable<T>>
+    implements SingleSolutionMetaheuristic<T> {
 
   private final SimpleLocalMetaheuristic<T> hc;
   private final IntegerCostOptimizationProblem<T> pOptInt;
@@ -173,8 +174,6 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
     this.tracker = tracker;
     pOpt = problem;
     pOptInt = null;
-    // default on purpose: elapsedEvals = 0;
-    sr = initSingleRunDouble();
 
     this.hc = hc;
     if (hc != null) {
@@ -184,7 +183,12 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
       if (hc.getProgressTracker() != tracker) {
         hc.setProgressTracker(tracker);
       }
+      sr = new HCSingleRun(new DoubleSingleRun());
+    } else {
+      sr = new DoubleSingleRun();
     }
+
+    // default on purpose: elapsedEvals = 0;
   }
 
   /**
@@ -226,8 +230,6 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
     this.tracker = tracker;
     pOptInt = problem;
     pOpt = null;
-    // default on purpose: elapsedEvals = 0;
-    sr = initSingleRunInt();
 
     this.hc = hc;
     if (hc != null) {
@@ -237,7 +239,12 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
       if (hc.getProgressTracker() != tracker) {
         hc.setProgressTracker(tracker);
       }
+      sr = new HCSingleRun(new IntegerSingleRun());
+    } else {
+      sr = new IntegerSingleRun();
     }
+
+    // default on purpose: elapsedEvals = 0;
   }
 
   /**
@@ -526,9 +533,13 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
     initializer = other.initializer.split();
     mutation = other.mutation.split();
     anneal = other.anneal.split();
-    hc = other.hc != null ? other.hc.split() : null;
-
-    sr = pOptInt != null ? initSingleRunInt() : initSingleRunDouble();
+    if (other.hc != null) {
+      hc = other.hc.split();
+      sr = new HCSingleRun(pOptInt != null ? new IntegerSingleRun() : new DoubleSingleRun());
+    } else {
+      hc = null;
+      sr = pOptInt != null ? new IntegerSingleRun() : new DoubleSingleRun();
+    }
   }
 
   /**
@@ -642,8 +653,24 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
     SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current);
   }
 
-  private SingleRun<T> initSingleRunInt() {
-    return (int maxEvals, T current) -> {
+  private class HCSingleRun implements SingleRun<T> {
+
+    private final SingleRun<T> saRun;
+
+    private HCSingleRun(SingleRun<T> saRun) {
+      this.saRun = saRun;
+    }
+
+    @Override
+    public SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current) {
+      return hc.optimize(saRun.optimizeSingleRun(maxEvals, current).getSolution());
+    }
+  }
+
+  private class IntegerSingleRun implements SingleRun<T> {
+
+    @Override
+    public SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current) {
       // compute cost of start
       int currentCost = pOptInt.cost(current);
 
@@ -688,14 +715,14 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
         }
       }
       elapsedEvals += maxEvals;
-      return hc == null
-          ? new SolutionCostPair<T>(current, currentCost, pOptInt.isMinCost(currentCost))
-          : hc.optimize(current);
-    };
+      return new SolutionCostPair<T>(current, currentCost, pOptInt.isMinCost(currentCost));
+    }
   }
 
-  private SingleRun<T> initSingleRunDouble() {
-    return (int maxEvals, T current) -> {
+  private class DoubleSingleRun implements SingleRun<T> {
+
+    @Override
+    public SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current) {
       // compute cost of start
       double currentCost = pOpt.cost(current);
 
@@ -740,9 +767,7 @@ public class SimulatedAnnealing<T extends Copyable<T>> implements SingleSolution
         }
       }
       elapsedEvals += maxEvals;
-      return hc == null
-          ? new SolutionCostPair<T>(current, currentCost, pOpt.isMinCost(currentCost))
-          : hc.optimize(current);
-    };
+      return new SolutionCostPair<T>(current, currentCost, pOpt.isMinCost(currentCost));
+    }
   }
 }

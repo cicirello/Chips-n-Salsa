@@ -847,6 +847,187 @@ public class SimulatedAnnealingHCTests {
     assertEquals(elapsed, i_known.getTotalRunLength());
   }
 
+  @Test
+  public void testSplitNoSA_reopt_D() {
+    int elapsed = 0;
+    ProgressTracker<TestObject> t = d_known_hc.getProgressTracker();
+    assertNull(t.getSolution());
+    assertEquals(elapsed, d_known_hc.getTotalRunLength());
+    for (int i = 1; i <= 15; i++) {
+      SolutionCostPair<TestObject> result;
+      if (i == 2) {
+        SimulatedAnnealing<TestObject> split = d_known_hc.split();
+        assertEquals(t, split.getProgressTracker());
+        assertNull(result = split.reoptimize(100));
+        assertNull(result = split.reoptimize(100));
+      }
+      if (i <= 1) {
+        assertNotNull(result = d_known_hc.reoptimize(100));
+        assertEquals(600, result.getSolution().bar);
+      } else assertNull(result = d_known_hc.reoptimize(100));
+      int expected = 400;
+      assertEquals(expected, t.getCostDouble());
+      assertEquals(expected, pd_known.cost(t.getSolution()));
+      elapsed = 800;
+      assertEquals(elapsed, d_known_hc.getTotalRunLength());
+    }
+  }
+
+  @Test
+  public void testSplitNoSA_opt_D() {
+    int elapsed = 0;
+    ProgressTracker<TestObject> t = d_known_hc.getProgressTracker();
+    assertNull(t.getSolution());
+    assertEquals(elapsed, d_known_hc.getTotalRunLength());
+    for (int i = 1; i <= 15; i++) {
+      SolutionCostPair<TestObject> result;
+      if (i == 2) {
+        SimulatedAnnealing<TestObject> split = d_known_hc.split();
+        assertEquals(t, split.getProgressTracker());
+        assertNull(result = split.optimize(100));
+        assertNull(result = split.optimize(100));
+      }
+      if (i <= 1) {
+        assertNotNull(result = d_known_hc.optimize(100));
+        assertEquals(600, result.getSolution().bar);
+      } else assertNull(result = d_known_hc.optimize(100));
+      int expected = 400;
+      assertEquals(expected, t.getCostDouble());
+      assertEquals(expected, pd_known.cost(t.getSolution()));
+      elapsed = 800;
+      assertEquals(elapsed, d_known_hc.getTotalRunLength());
+    }
+  }
+
+  @Test
+  public void testSplitNoSA_specstart_D() {
+    TestObject start = new TestObject(100);
+
+    // Test with known min solution: int costs
+    int elapsed = 0;
+    ProgressTracker<TestObject> t = d_known_hc.getProgressTracker();
+    assertNull(t.getSolution());
+    assertEquals(elapsed, d_known_hc.getTotalRunLength());
+    for (int i = 1; i <= 15; i++) {
+      SolutionCostPair<TestObject> result;
+      if (i == 2) {
+        SimulatedAnnealing<TestObject> split = d_known_hc.split();
+        assertEquals(t, split.getProgressTracker());
+        assertNull(result = split.optimize(100, start));
+        assertNull(result = split.optimize(100, start));
+      }
+      if (i <= 1) {
+        assertNotNull(result = d_known_hc.optimize(100, start));
+        assertEquals(600, result.getSolution().bar);
+      } else assertNull(result = d_known_hc.optimize(100, start));
+      int expected = 400;
+      assertEquals(expected, t.getCostDouble());
+      assertEquals(expected, pd_known.cost(t.getSolution()));
+      elapsed = 700;
+      assertEquals(elapsed, d_known_hc.getTotalRunLength());
+    }
+  }
+
+  @Test
+  public void testSplitNoHC_reopt_D() {
+    int elapsed = 0;
+    ProgressTracker<TestObject> t = d_known.getProgressTracker();
+    assertNull(t.getSolution());
+    assertEquals(elapsed, d_known.getTotalRunLength());
+    for (int i = 1; i <= 15; i++) {
+      SolutionCostPair<TestObject> result;
+      if (i == 2) {
+        SimulatedAnnealing<TestObject> split = d_known.split();
+        assertEquals(t, split.getProgressTracker());
+        assertNotNull(result = split.reoptimize(100));
+        assertEquals(200, result.getSolution().bar);
+        assertNotNull(result = split.reoptimize(100));
+        assertEquals(300, result.getSolution().bar);
+      }
+      if (i < 2) {
+        assertNotNull(result = d_known.reoptimize(100));
+        assertEquals(100 * i, result.getSolution().bar);
+      } else if (i <= 4) {
+        assertNotNull(result = d_known.reoptimize(100));
+        assertEquals(100 * (i + 2), result.getSolution().bar);
+      } else assertNull(result = d_known.reoptimize(100));
+      int expected = 400;
+      if (i < 2) {
+        expected = 1000 - 100 * i;
+      } else if (i <= 4) {
+        expected = 1000 - 100 * (i + 2);
+      }
+      assertEquals(expected, t.getCostDouble());
+      assertEquals(expected, pd_known.cost(t.getSolution()));
+      elapsed += i <= 4 ? 100 : 0;
+      assertEquals(elapsed, d_known.getTotalRunLength());
+    }
+  }
+
+  @Test
+  public void testSplitNoHC_opt_D() {
+    int elapsed = 0;
+    ProgressTracker<TestObject> t = d_known.getProgressTracker();
+    assertNull(t.getSolution());
+    assertEquals(elapsed, d_known.getTotalRunLength());
+    SolutionCostPair<TestObject> result;
+    for (int i = 1; i <= 15; i++) {
+      if (i == 3) {
+        SimulatedAnnealing<TestObject> split = d_known.split();
+        assertEquals(t, split.getProgressTracker());
+        assertNotNull(result = split.optimize(100));
+        assertEquals(100, result.getSolution().bar);
+        assertNotNull(result = split.optimize(100));
+        assertEquals(100, result.getSolution().bar);
+      }
+      assertNotNull(result = d_known.optimize(100));
+      assertEquals(100, result.getSolution().bar);
+      assertEquals(900, t.getCostDouble());
+      assertEquals(900, pd_known.cost(t.getSolution()));
+      elapsed += 100;
+      assertEquals(elapsed, d_known.getTotalRunLength());
+    }
+    assertNotNull(result = d_known.optimize(1000));
+    assertEquals(600, result.getSolution().bar);
+    assertEquals(400, t.getCostDouble());
+    assertEquals(400, pd_known.cost(t.getSolution()));
+    elapsed += 600;
+    assertEquals(elapsed, d_known.getTotalRunLength());
+  }
+
+  @Test
+  public void testSplitNoHC_specStart_D() {
+    TestObject start = new TestObject(50);
+
+    int elapsed = 0;
+    ProgressTracker<TestObject> t = d_known.getProgressTracker();
+    assertNull(t.getSolution());
+    assertEquals(elapsed, i_known.getTotalRunLength());
+    SolutionCostPair<TestObject> result;
+    for (int i = 1; i <= 15; i++) {
+      if (i == 3) {
+        SimulatedAnnealing<TestObject> split = d_known.split();
+        assertEquals(t, split.getProgressTracker());
+        assertNotNull(result = split.optimize(100, start));
+        assertEquals(150, result.getSolution().bar);
+        assertNotNull(result = split.optimize(100, start));
+        assertEquals(150, result.getSolution().bar);
+      }
+      assertNotNull(result = d_known.optimize(100, start));
+      assertEquals(150, result.getSolution().bar);
+      assertEquals(850, t.getCostDouble());
+      assertEquals(850, pd_known.cost(t.getSolution()));
+      elapsed += 100;
+      assertEquals(elapsed, d_known.getTotalRunLength());
+    }
+    assertNotNull(result = d_known.optimize(1000, start));
+    assertEquals(600, result.getSolution().bar);
+    assertEquals(400, t.getCostDouble());
+    assertEquals(400, pd_known.cost(t.getSolution()));
+    elapsed += 550;
+    assertEquals(elapsed, d_known.getTotalRunLength());
+  }
+
   /*
    * Verify that solution at end of simulated annealing portion of search is correct by
    * using a hill climber that does nothing for the post processing portion.

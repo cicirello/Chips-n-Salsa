@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2022 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -27,6 +27,7 @@ import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
+import org.cicirello.search.problems.Problem;
 import org.cicirello.util.Copyable;
 
 /**
@@ -47,6 +48,11 @@ import org.cicirello.util.Copyable;
  */
 public final class FirstDescentHillClimber<T extends Copyable<T>> extends AbstractHillClimber<T> {
 
+  private final IterableMutationOperator<T> mutation;
+  private final OptimizationProblem<T> pOpt;
+  private final IntegerCostOptimizationProblem<T> pOptInt;
+  private final OneClimb<T> climber;
+
   /**
    * Constructs a first descent hill climber object for real-valued optimization problem.
    *
@@ -62,7 +68,14 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(problem, mutation, initializer, tracker);
+    super(initializer, tracker);
+    if (problem == null || mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
+    pOpt = problem;
+    pOptInt = null;
+    climber = new DoubleCostClimber();
   }
 
   /**
@@ -80,7 +93,14 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(problem, mutation, initializer, tracker);
+    super(initializer, tracker);
+    if (problem == null || mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
+    pOptInt = problem;
+    pOpt = null;
+    climber = new IntCostClimber();
   }
 
   /**
@@ -96,7 +116,14 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       OptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(problem, mutation, initializer, new ProgressTracker<T>());
+    super(initializer, new ProgressTracker<T>());
+    if (problem == null || mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
+    pOpt = problem;
+    pOptInt = null;
+    climber = new DoubleCostClimber();
   }
 
   /**
@@ -112,7 +139,14 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IntegerCostOptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(problem, mutation, initializer, new ProgressTracker<T>());
+    super(initializer, new ProgressTracker<T>());
+    if (problem == null || mutation == null) {
+      throw new NullPointerException();
+    }
+    this.mutation = mutation;
+    pOptInt = problem;
+    pOpt = null;
+    climber = new IntCostClimber();
   }
 
   /*
@@ -122,6 +156,15 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
    */
   private FirstDescentHillClimber(FirstDescentHillClimber<T> other) {
     super(other);
+
+    // these are threadsafe, so just copy references
+    pOpt = other.pOpt;
+    pOptInt = other.pOptInt;
+
+    // split: not threadsafe
+    mutation = other.mutation.split();
+
+    climber = pOptInt != null ? new IntCostClimber() : new DoubleCostClimber();
   }
 
   @Override
@@ -130,17 +173,29 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
   }
 
   @Override
-  OneClimb<T> initClimberInt() {
-    return current -> {
+  public final Problem<T> getProblem() {
+    return (pOptInt != null) ? pOptInt : pOpt;
+  }
+
+  @Override
+  final SolutionCostPair<T> climbOnce(T current) {
+    return climber.climb(current);
+  }
+
+  private class IntCostClimber implements OneClimb<T> {
+
+    @Override
+    public SolutionCostPair<T> climb(T current) {
       // compute cost of start
       int currentCost = pOptInt.cost(current);
       boolean keepClimbing = true;
+      int neighborCountIncrement = 0;
       while (keepClimbing) {
         keepClimbing = false;
         MutationIterator iter = mutation.iterator(current);
         while (iter.hasNext()) {
           iter.nextMutant();
-          neighborCount++;
+          neighborCountIncrement++;
           int cost = pOptInt.cost(current);
           if (cost < currentCost) {
             currentCost = cost;
@@ -150,27 +205,25 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
         }
         if (!keepClimbing) iter.rollback();
       }
-      // update tracker
-      boolean isMinCost = pOptInt.isMinCost(currentCost);
-      if (currentCost < tracker.getCost()) {
-        tracker.update(currentCost, current, isMinCost);
-      }
-      return new SolutionCostPair<T>(current, currentCost, isMinCost);
-    };
+      return reportSingleClimbStatus(
+          currentCost, current, pOptInt.isMinCost(currentCost), neighborCountIncrement);
+    }
   }
 
-  @Override
-  OneClimb<T> initClimberDouble() {
-    return current -> {
+  private class DoubleCostClimber implements OneClimb<T> {
+
+    @Override
+    public SolutionCostPair<T> climb(T current) {
       // compute cost of start
       double currentCost = pOpt.cost(current);
       boolean keepClimbing = true;
+      int neighborCountIncrement = 0;
       while (keepClimbing) {
         keepClimbing = false;
         MutationIterator iter = mutation.iterator(current);
         while (iter.hasNext()) {
           iter.nextMutant();
-          neighborCount++;
+          neighborCountIncrement++;
           double cost = pOpt.cost(current);
           if (cost < currentCost) {
             currentCost = cost;
@@ -180,12 +233,8 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
         }
         if (!keepClimbing) iter.rollback();
       }
-      // update tracker
-      boolean isMinCost = pOpt.isMinCost(currentCost);
-      if (currentCost < tracker.getCostDouble()) {
-        tracker.update(currentCost, current, isMinCost);
-      }
-      return new SolutionCostPair<T>(current, currentCost, isMinCost);
-    };
+      return reportSingleClimbStatus(
+          currentCost, current, pOpt.isMinCost(currentCost), neighborCountIncrement);
+    }
   }
 }

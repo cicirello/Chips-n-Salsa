@@ -39,9 +39,9 @@ import org.cicirello.util.Copyable;
 abstract class AbstractStochasticSampler<T extends Copyable<T>>
     implements SimpleMetaheuristic<T>, Metaheuristic<T> {
 
-  final OptimizationProblem<T> pOpt;
-  final IntegerCostOptimizationProblem<T> pOptInt;
-  ProgressTracker<T> tracker;
+  private final OptimizationProblem<T> pOpt;
+  private final IntegerCostOptimizationProblem<T> pOptInt;
+  private ProgressTracker<T> tracker;
   private int numGenerated;
 
   /**
@@ -152,7 +152,7 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>>
     return first;
   }
 
-  SolutionCostPair<T> evaluateAndPackageSolution(T complete) {
+  final SolutionCostPair<T> evaluateAndPackageSolution(T complete) {
     if (pOptInt != null) {
       int cost = pOptInt.cost(complete);
       // update tracker

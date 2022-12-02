@@ -39,9 +39,8 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
     implements Metaheuristic<T>, SimpleLocalMetaheuristic<T> {
 
   private final Initializer<T> initializer;
-  ProgressTracker<T> tracker;
-
-  long neighborCount;
+  private ProgressTracker<T> tracker;
+  private long neighborCount;
 
   /**
    * Constructs a hill climber object.
@@ -134,6 +133,26 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
 
   @Override
   public abstract AbstractHillClimber<T> split();
+
+  final SolutionCostPair<T> reportSingleClimbStatus(
+      int currentCost, T current, boolean isMinCost, long neighborCountIncrement) {
+    neighborCount = neighborCount + neighborCountIncrement;
+    // update tracker
+    if (currentCost < tracker.getCost()) {
+      tracker.update(currentCost, current, isMinCost);
+    }
+    return new SolutionCostPair<T>(current, currentCost, isMinCost);
+  }
+
+  final SolutionCostPair<T> reportSingleClimbStatus(
+      double currentCost, T current, boolean isMinCost, long neighborCountIncrement) {
+    neighborCount = neighborCount + neighborCountIncrement;
+    // update tracker
+    if (currentCost < tracker.getCostDouble()) {
+      tracker.update(currentCost, current, isMinCost);
+    }
+    return new SolutionCostPair<T>(current, currentCost, isMinCost);
+  }
 
   interface OneClimb<T extends Copyable<T>> {
     SolutionCostPair<T> climb(T current);

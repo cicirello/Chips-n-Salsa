@@ -54,11 +54,11 @@ public class HillClimberTests {
 
     SteepestDescentHillClimber<TestObject> hc =
         new SteepestDescentHillClimber<TestObject>(problem, mutation, init, tracker);
-    assertEquals(tracker, hc.tracker);
+    assertEquals(tracker, hc.getProgressTracker());
     assertEquals(problem, hc.getProblem());
 
     hc = new SteepestDescentHillClimber<TestObject>(problemDouble, mutation, init, tracker);
-    assertEquals(tracker, hc.tracker);
+    assertEquals(tracker, hc.getProgressTracker());
     assertEquals(problemDouble, hc.getProblem());
 
     NullPointerException thrown =
@@ -483,11 +483,11 @@ public class HillClimberTests {
 
     FirstDescentHillClimber<TestObject> hc =
         new FirstDescentHillClimber<TestObject>(problem, mutation, init, tracker);
-    assertEquals(tracker, hc.tracker);
+    assertEquals(tracker, hc.getProgressTracker());
     assertEquals(problem, hc.getProblem());
 
     hc = new FirstDescentHillClimber<TestObject>(problemDouble, mutation, init, tracker);
-    assertEquals(tracker, hc.tracker);
+    assertEquals(tracker, hc.getProgressTracker());
     assertEquals(problemDouble, hc.getProblem());
 
     NullPointerException thrown =

@@ -108,7 +108,7 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
     pOpt = problem;
     pOptInt = null;
     // default on purpose: elapsedEvals = 0;
-    sr = initSingleRunDouble();
+    sr = new DoubleCostSingleRun();
   }
 
   /**
@@ -135,7 +135,7 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
     pOptInt = problem;
     pOpt = null;
     // default on purpose: elapsedEvals = 0;
-    sr = initSingleRunInt();
+    sr = new IntCostSingleRun();
   }
 
   /*
@@ -154,7 +154,7 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
     initializer = other.initializer.split();
     mutation = other.mutation.split();
 
-    sr = pOptInt != null ? initSingleRunInt() : initSingleRunDouble();
+    sr = pOptInt != null ? new IntCostSingleRun() : new DoubleCostSingleRun();
   }
 
   /**
@@ -250,8 +250,10 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
     SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current);
   }
 
-  private SingleRun<T> initSingleRunInt() {
-    return (maxEvals, current) -> {
+  private class IntCostSingleRun implements SingleRun<T> {
+
+    @Override
+    public final SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current) {
       // compute cost of start
       int currentCost = pOptInt.cost(current);
 
@@ -294,11 +296,13 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       }
       elapsedEvals += maxEvals;
       return new SolutionCostPair<T>(current, currentCost, pOptInt.isMinCost(currentCost));
-    };
+    }
   }
 
-  private SingleRun<T> initSingleRunDouble() {
-    return (maxEvals, current) -> {
+  private class DoubleCostSingleRun implements SingleRun<T> {
+
+    @Override
+    public final SolutionCostPair<T> optimizeSingleRun(int maxEvals, T current) {
       // compute cost of start
       double currentCost = pOpt.cost(current);
 
@@ -341,6 +345,6 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       }
       elapsedEvals += maxEvals;
       return new SolutionCostPair<T>(current, currentCost, pOpt.isMinCost(currentCost));
-    };
+    }
   }
 }

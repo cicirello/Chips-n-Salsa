@@ -181,11 +181,10 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
         j++;
       }
     }
-    for (; i < left.length; i++, k++) {
-      indexes[k] = left[i];
-    }
-    for (; j < right.length; j++, k++) {
-      indexes[k] = right[j];
+    if (i < left.length) {
+      System.arraycopy(left, i, indexes, k, left.length - i);
+    } else {
+      System.arraycopy(right, j, indexes, k, right.length - j);
     }
   }
 
@@ -207,11 +206,10 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
         j++;
       }
     }
-    for (; i < left.length; i++, k++) {
-      indexes[k] = left[i];
-    }
-    for (; j < right.length; j++, k++) {
-      indexes[k] = right[j];
+    if (i < left.length) {
+      System.arraycopy(left, i, indexes, k, left.length - i);
+    } else {
+      System.arraycopy(right, j, indexes, k, right.length - j);
     }
   }
 }

@@ -21,7 +21,6 @@
 package org.cicirello.search.evo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.util.Copyable;
@@ -51,12 +50,10 @@ abstract class BasePopulation {
 
     private final ArrayList<PopulationMember.DoubleFitness<T>> pop;
     private final ArrayList<PopulationMember.DoubleFitness<T>> nextPop;
-    private final EliteSet.DoubleFitness<T> elite;
     private final boolean[] updated;
 
     private final FitnessFunction.Double<T> f;
     private final int MU;
-    private final int LAMBDA;
 
     private final int[] selected;
 
@@ -71,39 +68,30 @@ abstract class BasePopulation {
      * @param f The fitness function.
      * @param selection The selection operator.
      * @param tracker A ProgressTracker.
-     * @param numElite the number of elite members of the population.
      */
     public Double(
         int n,
         Initializer<T> initializer,
         FitnessFunction.Double<T> f,
         SelectionOperator selection,
-        ProgressTracker<T> tracker,
-        int numElite) {
+        ProgressTracker<T> tracker) {
       super(tracker);
-      if (n < 1) throw new IllegalArgumentException("population size n must be positive");
-      if (numElite >= n)
-        throw new IllegalArgumentException(
-            "number of elite population members must be less than population size");
+      if (n < 1) {
+        throw new IllegalArgumentException("population size n must be positive");
+      }
       if (initializer == null || f == null || selection == null || tracker == null) {
         throw new NullPointerException("passed a null object for a required parameter");
       }
       this.initializer = initializer;
       this.selection = selection;
 
-      elite = numElite > 0 ? new EliteSet.DoubleFitness<T>(numElite) : null;
-
       this.f = f;
-      if (numElite > 0) {
-        MU = n;
-        LAMBDA = n - numElite;
-      } else {
-        MU = LAMBDA = n;
-      }
+      MU = n;
+
       pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
-      selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
+      nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
+      selected = new int[MU];
+      updated = new boolean[MU];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
     }
 
@@ -116,7 +104,6 @@ abstract class BasePopulation {
       // these are threadsafe, so just copy references
       f = other.f;
       MU = other.MU;
-      LAMBDA = other.LAMBDA;
 
       // split these: not threadsafe
       initializer = other.initializer.split();
@@ -124,10 +111,9 @@ abstract class BasePopulation {
 
       // initialize these fresh: not threadsafe or otherwise needs its own
       pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
-      elite = other.elite != null ? new EliteSet.DoubleFitness<T>(MU - LAMBDA) : null;
-      selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
+      nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
+      selected = new int[MU];
+      updated = new boolean[MU];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
     }
 
@@ -155,7 +141,7 @@ abstract class BasePopulation {
 
     @Override
     public int mutableSize() {
-      return LAMBDA;
+      return MU;
     }
 
     /**
@@ -192,17 +178,6 @@ abstract class BasePopulation {
       for (PopulationMember.DoubleFitness<T> e : nextPop) {
         pop.add(e);
       }
-      if (elite != null) {
-        for (PopulationMember.DoubleFitness<T> e : elite) {
-          pop.add(e);
-        }
-        for (int i = 0; i < LAMBDA; i++) {
-          if (updated[i]) {
-            elite.offer(nextPop.get(i));
-            updated[i] = false;
-          }
-        }
-      }
       nextPop.clear();
     }
 
@@ -228,11 +203,6 @@ abstract class BasePopulation {
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
-      if (elite != null) {
-        elite.clear();
-        elite.offerAll(pop);
-        Arrays.fill(updated, false);
-      }
     }
   }
 
@@ -251,12 +221,10 @@ abstract class BasePopulation {
 
     private final ArrayList<PopulationMember.IntegerFitness<T>> pop;
     private final ArrayList<PopulationMember.IntegerFitness<T>> nextPop;
-    private final EliteSet.IntegerFitness<T> elite;
     private final boolean[] updated;
 
     private final FitnessFunction.Integer<T> f;
     private final int MU;
-    private final int LAMBDA;
 
     private final int[] selected;
 
@@ -278,32 +246,24 @@ abstract class BasePopulation {
         Initializer<T> initializer,
         FitnessFunction.Integer<T> f,
         SelectionOperator selection,
-        ProgressTracker<T> tracker,
-        int numElite) {
+        ProgressTracker<T> tracker) {
       super(tracker);
-      if (n < 1) throw new IllegalArgumentException("population size n must be positive");
-      if (numElite >= n)
-        throw new IllegalArgumentException(
-            "number of elite population members must be less than population size");
+      if (n < 1) {
+        throw new IllegalArgumentException("population size n must be positive");
+      }
       if (initializer == null || f == null || selection == null || tracker == null) {
         throw new NullPointerException("passed a null object for a required parameter");
       }
       this.initializer = initializer;
       this.selection = selection;
 
-      elite = numElite > 0 ? new EliteSet.IntegerFitness<T>(numElite) : null;
-
       this.f = f;
-      if (numElite > 0) {
-        MU = n;
-        LAMBDA = n - numElite;
-      } else {
-        MU = LAMBDA = n;
-      }
+      MU = n;
+
       pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
-      selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
+      nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
+      selected = new int[MU];
+      updated = new boolean[MU];
       bestFitness = java.lang.Integer.MIN_VALUE;
     }
 
@@ -316,7 +276,6 @@ abstract class BasePopulation {
       // these are threadsafe, so just copy references
       f = other.f;
       MU = other.MU;
-      LAMBDA = other.LAMBDA;
 
       // split these: not threadsafe
       initializer = other.initializer.split();
@@ -324,10 +283,9 @@ abstract class BasePopulation {
 
       // initialize these fresh: not threadsafe or otherwise needs its own
       pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
-      elite = other.elite != null ? new EliteSet.IntegerFitness<T>(MU - LAMBDA) : null;
-      selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
+      nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
+      selected = new int[MU];
+      updated = new boolean[MU];
       bestFitness = java.lang.Integer.MIN_VALUE;
     }
 
@@ -355,7 +313,7 @@ abstract class BasePopulation {
 
     @Override
     public int mutableSize() {
-      return LAMBDA;
+      return MU;
     }
 
     /**
@@ -392,17 +350,6 @@ abstract class BasePopulation {
       for (PopulationMember.IntegerFitness<T> e : nextPop) {
         pop.add(e);
       }
-      if (elite != null) {
-        for (PopulationMember.IntegerFitness<T> e : elite) {
-          pop.add(e);
-        }
-        for (int i = 0; i < LAMBDA; i++) {
-          if (updated[i]) {
-            elite.offer(nextPop.get(i));
-            updated[i] = false;
-          }
-        }
-      }
       nextPop.clear();
     }
 
@@ -428,11 +375,6 @@ abstract class BasePopulation {
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
-      if (elite != null) {
-        elite.clear();
-        elite.offerAll(pop);
-        Arrays.fill(updated, false);
-      }
     }
   }
 }

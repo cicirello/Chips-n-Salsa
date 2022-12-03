@@ -21,7 +21,6 @@
 package org.cicirello.search.evo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.SingleReal;
@@ -54,12 +53,10 @@ abstract class EvolvableParametersPopulation {
 
     private final ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>> pop;
     private final ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>> nextPop;
-    private final EliteSet.DoubleFitness<EncodingWithParameters<T>> elite;
     private final boolean[] updated;
 
     private final FitnessFunction.Double<T> f;
     private final int MU;
-    private final int LAMBDA;
 
     private final int[] selected;
 
@@ -76,7 +73,6 @@ abstract class EvolvableParametersPopulation {
      * @param f The fitness function.
      * @param selection The selection operator.
      * @param tracker A ProgressTracker.
-     * @param numElite the number of elite members of the population.
      */
     public DoubleFitness(
         int n,
@@ -84,34 +80,25 @@ abstract class EvolvableParametersPopulation {
         FitnessFunction.Double<T> f,
         SelectionOperator selection,
         ProgressTracker<T> tracker,
-        int numElite,
         int numParams) {
       super(tracker);
-      if (n < 1) throw new IllegalArgumentException("population size n must be positive");
-      if (numElite >= n)
-        throw new IllegalArgumentException(
-            "number of elite population members must be less than population size");
+      if (n < 1) {
+        throw new IllegalArgumentException("population size n must be positive");
+      }
       if (initializer == null || f == null || selection == null || tracker == null) {
         throw new NullPointerException("passed a null object for a required parameter");
       }
       this.initializer = initializer;
       this.selection = selection;
 
-      elite = numElite > 0 ? new EliteSet.DoubleFitness<EncodingWithParameters<T>>(numElite) : null;
-
       this.numParams = numParams;
 
       this.f = f;
-      if (numElite > 0) {
-        MU = n;
-        LAMBDA = n - numElite;
-      } else {
-        MU = LAMBDA = n;
-      }
+      MU = n;
       pop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
-      nextPop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(LAMBDA);
-      selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
+      nextPop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
+      selected = new int[MU];
+      updated = new boolean[MU];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
     }
 
@@ -124,7 +111,6 @@ abstract class EvolvableParametersPopulation {
       // these are threadsafe, so just copy references
       f = other.f;
       MU = other.MU;
-      LAMBDA = other.LAMBDA;
       numParams = other.numParams;
 
       // split these: not threadsafe
@@ -133,13 +119,9 @@ abstract class EvolvableParametersPopulation {
 
       // initialize these fresh: not threadsafe or otherwise needs its own
       pop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
-      nextPop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(LAMBDA);
-      elite =
-          other.elite != null
-              ? new EliteSet.DoubleFitness<EncodingWithParameters<T>>(MU - LAMBDA)
-              : null;
-      selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
+      nextPop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
+      selected = new int[MU];
+      updated = new boolean[MU];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
     }
 
@@ -172,7 +154,7 @@ abstract class EvolvableParametersPopulation {
 
     @Override
     public int mutableSize() {
-      return LAMBDA;
+      return MU;
     }
 
     /**
@@ -213,17 +195,6 @@ abstract class EvolvableParametersPopulation {
         e.getCandidate().mutate();
         pop.add(e);
       }
-      if (elite != null) {
-        for (PopulationMember.DoubleFitness<EncodingWithParameters<T>> e : elite) {
-          pop.add(e);
-        }
-        for (int i = 0; i < LAMBDA; i++) {
-          if (updated[i]) {
-            elite.offer(nextPop.get(i));
-            updated[i] = false;
-          }
-        }
-      }
       nextPop.clear();
     }
 
@@ -251,11 +222,6 @@ abstract class EvolvableParametersPopulation {
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
-      if (elite != null) {
-        elite.clear();
-        elite.offerAll(pop);
-        Arrays.fill(updated, false);
-      }
     }
   }
 
@@ -275,12 +241,10 @@ abstract class EvolvableParametersPopulation {
 
     private final ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>> pop;
     private final ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>> nextPop;
-    private final EliteSet.IntegerFitness<EncodingWithParameters<T>> elite;
     private final boolean[] updated;
 
     private final FitnessFunction.Integer<T> f;
     private final int MU;
-    private final int LAMBDA;
 
     private final int[] selected;
 
@@ -297,7 +261,6 @@ abstract class EvolvableParametersPopulation {
      * @param f The fitness function.
      * @param selection The selection operator.
      * @param tracker A ProgressTracker.
-     * @param numElite the number of elite members of the population.
      */
     public IntegerFitness(
         int n,
@@ -305,35 +268,25 @@ abstract class EvolvableParametersPopulation {
         FitnessFunction.Integer<T> f,
         SelectionOperator selection,
         ProgressTracker<T> tracker,
-        int numElite,
         int numParams) {
       super(tracker);
-      if (n < 1) throw new IllegalArgumentException("population size n must be positive");
-      if (numElite >= n)
-        throw new IllegalArgumentException(
-            "number of elite population members must be less than population size");
+      if (n < 1) {
+        throw new IllegalArgumentException("population size n must be positive");
+      }
       if (initializer == null || f == null || selection == null || tracker == null) {
         throw new NullPointerException("passed a null object for a required parameter");
       }
       this.initializer = initializer;
       this.selection = selection;
 
-      elite =
-          numElite > 0 ? new EliteSet.IntegerFitness<EncodingWithParameters<T>>(numElite) : null;
-
       this.numParams = numParams;
 
       this.f = f;
-      if (numElite > 0) {
-        MU = n;
-        LAMBDA = n - numElite;
-      } else {
-        MU = LAMBDA = n;
-      }
+      MU = n;
       pop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
-      nextPop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(LAMBDA);
-      selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
+      nextPop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
+      selected = new int[MU];
+      updated = new boolean[MU];
       bestFitness = java.lang.Integer.MIN_VALUE;
     }
 
@@ -346,7 +299,6 @@ abstract class EvolvableParametersPopulation {
       // these are threadsafe, so just copy references
       f = other.f;
       MU = other.MU;
-      LAMBDA = other.LAMBDA;
       numParams = other.numParams;
 
       // split these: not threadsafe
@@ -355,13 +307,9 @@ abstract class EvolvableParametersPopulation {
 
       // initialize these fresh: not threadsafe or otherwise needs its own
       pop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
-      nextPop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(LAMBDA);
-      elite =
-          other.elite != null
-              ? new EliteSet.IntegerFitness<EncodingWithParameters<T>>(MU - LAMBDA)
-              : null;
-      selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
+      nextPop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
+      selected = new int[MU];
+      updated = new boolean[MU];
       bestFitness = java.lang.Integer.MIN_VALUE;
     }
 
@@ -394,7 +342,7 @@ abstract class EvolvableParametersPopulation {
 
     @Override
     public int mutableSize() {
-      return LAMBDA;
+      return MU;
     }
 
     /**
@@ -435,17 +383,6 @@ abstract class EvolvableParametersPopulation {
         e.getCandidate().mutate();
         pop.add(e);
       }
-      if (elite != null) {
-        for (PopulationMember.IntegerFitness<EncodingWithParameters<T>> e : elite) {
-          pop.add(e);
-        }
-        for (int i = 0; i < LAMBDA; i++) {
-          if (updated[i]) {
-            elite.offer(nextPop.get(i));
-            updated[i] = false;
-          }
-        }
-      }
       nextPop.clear();
     }
 
@@ -473,11 +410,6 @@ abstract class EvolvableParametersPopulation {
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
-      if (elite != null) {
-        elite.clear();
-        elite.offerAll(pop);
-        Arrays.fill(updated, false);
-      }
     }
   }
 }

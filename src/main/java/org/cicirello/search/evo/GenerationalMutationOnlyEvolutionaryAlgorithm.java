@@ -90,7 +90,9 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.Double<T>(n, initializer, f, selection, tracker, eliteCount),
+        eliteCount > 0
+            ? new BaseElitistPopulation.Double<T>(n, initializer, f, selection, tracker, eliteCount)
+            : new BasePopulation.Double<T>(n, initializer, f, selection, tracker, eliteCount),
         f.getProblem(),
         mutation,
         mutationRate);
@@ -131,7 +133,10 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.Integer<T>(n, initializer, f, selection, tracker, eliteCount),
+        eliteCount > 0
+            ? new BaseElitistPopulation.Integer<T>(
+                n, initializer, f, selection, tracker, eliteCount)
+            : new BasePopulation.Integer<T>(n, initializer, f, selection, tracker, eliteCount),
         f.getProblem(),
         mutation,
         mutationRate);

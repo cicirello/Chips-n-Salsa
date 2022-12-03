@@ -46,7 +46,7 @@ abstract class EvolvableParametersPopulation {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  static final class Double<T extends Copyable<T>> extends AbstractPopulation<T>
+  static final class DoubleFitness<T extends Copyable<T>> extends AbstractPopulation<T>
       implements PopulationFitnessVector.Double {
 
     private final Initializer<T> initializer;
@@ -78,7 +78,7 @@ abstract class EvolvableParametersPopulation {
      * @param tracker A ProgressTracker.
      * @param numElite the number of elite members of the population.
      */
-    public Double(
+    public DoubleFitness(
         int n,
         Initializer<T> initializer,
         FitnessFunction.Double<T> f,
@@ -118,7 +118,7 @@ abstract class EvolvableParametersPopulation {
     /*
      * private constructor for use by split.
      */
-    private Double(EvolvableParametersPopulation.Double<T> other) {
+    private DoubleFitness(EvolvableParametersPopulation.DoubleFitness<T> other) {
       super(other);
 
       // these are threadsafe, so just copy references
@@ -144,8 +144,8 @@ abstract class EvolvableParametersPopulation {
     }
 
     @Override
-    public EvolvableParametersPopulation.Double<T> split() {
-      return new EvolvableParametersPopulation.Double<T>(this);
+    public EvolvableParametersPopulation.DoubleFitness<T> split() {
+      return new EvolvableParametersPopulation.DoubleFitness<T>(this);
     }
 
     @Override
@@ -267,7 +267,7 @@ abstract class EvolvableParametersPopulation {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  static final class Integer<T extends Copyable<T>> extends AbstractPopulation<T>
+  static final class IntegerFitness<T extends Copyable<T>> extends AbstractPopulation<T>
       implements PopulationFitnessVector.Integer {
 
     private final Initializer<T> initializer;
@@ -299,7 +299,7 @@ abstract class EvolvableParametersPopulation {
      * @param tracker A ProgressTracker.
      * @param numElite the number of elite members of the population.
      */
-    public Integer(
+    public IntegerFitness(
         int n,
         Initializer<T> initializer,
         FitnessFunction.Integer<T> f,
@@ -340,7 +340,7 @@ abstract class EvolvableParametersPopulation {
     /*
      * private constructor for use by split.
      */
-    private Integer(EvolvableParametersPopulation.Integer<T> other) {
+    private IntegerFitness(EvolvableParametersPopulation.IntegerFitness<T> other) {
       super(other);
 
       // these are threadsafe, so just copy references
@@ -366,8 +366,8 @@ abstract class EvolvableParametersPopulation {
     }
 
     @Override
-    public EvolvableParametersPopulation.Integer<T> split() {
-      return new EvolvableParametersPopulation.Integer<T>(this);
+    public EvolvableParametersPopulation.IntegerFitness<T> split() {
+      return new EvolvableParametersPopulation.IntegerFitness<T>(this);
     }
 
     @Override

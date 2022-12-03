@@ -41,8 +41,9 @@ public class AdaptiveGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersPopulation.Integer<TestObject> pop =
-        new EvolvableParametersPopulation.Integer<TestObject>(N, init, f, selection, tracker, 0, 2);
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
+            N, init, f, selection, tracker, 0, 2);
     pop.init();
 
     TestMutation mutation = new TestMutation();
@@ -69,8 +70,9 @@ public class AdaptiveGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersPopulation.Integer<TestObject> pop =
-        new EvolvableParametersPopulation.Integer<TestObject>(N, init, f, selection, tracker, 0, 2);
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
+            N, init, f, selection, tracker, 0, 2);
     pop.init();
 
     TestMutation mutation = new TestMutation();

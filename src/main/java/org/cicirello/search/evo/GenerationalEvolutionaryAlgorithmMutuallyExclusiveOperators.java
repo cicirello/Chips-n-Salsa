@@ -96,7 +96,10 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.Double<T>(n, initializer, f, selection, tracker, eliteCount),
+        eliteCount > 0
+            ? new BaseElitistPopulation.DoubleFitness<T>(
+                n, initializer, f, selection, tracker, eliteCount)
+            : new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, tracker),
         f.getProblem(),
         mutation,
         mutationRate,
@@ -146,7 +149,10 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.Integer<T>(n, initializer, f, selection, tracker, eliteCount),
+        eliteCount > 0
+            ? new BaseElitistPopulation.IntegerFitness<T>(
+                n, initializer, f, selection, tracker, eliteCount)
+            : new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, tracker),
         f.getProblem(),
         mutation,
         mutationRate,

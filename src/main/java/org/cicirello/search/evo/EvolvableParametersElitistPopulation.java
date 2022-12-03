@@ -21,22 +21,27 @@
 package org.cicirello.search.evo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.operators.Initializer;
+import org.cicirello.search.representations.SingleReal;
 import org.cicirello.util.Copyable;
 
 /**
- * The nested classes are for simple populations with double-valued and int-valued fitnesses.
+ * The nested classes are for populations with double-valued and int-valued fitnesses for use by EAs
+ * with parameters that evolve during the search. This class and its subclasses are for populations
+ * with elitism.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-abstract class BasePopulation {
+abstract class EvolvableParametersElitistPopulation {
 
-  private BasePopulation() {}
+  private EvolvableParametersElitistPopulation() {}
 
   /**
-   * The Population for an evolutionary algorithm where fitness values are type double.
+   * The Population for an evolutionary algorithm where fitness values are type double, and such
+   * that parameters evolve during the search.
    *
    * @param <T> The type of object under optimization.
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
@@ -48,16 +53,20 @@ abstract class BasePopulation {
     private final Initializer<T> initializer;
     private final SelectionOperator selection;
 
-    private final ArrayList<PopulationMember.DoubleFitness<T>> pop;
-    private final ArrayList<PopulationMember.DoubleFitness<T>> nextPop;
+    private final ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>> pop;
+    private final ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>> nextPop;
+    private final EliteSet.DoubleFitness<EncodingWithParameters<T>> elite;
     private final boolean[] updated;
 
     private final FitnessFunction.Double<T> f;
     private final int MU;
+    private final int LAMBDA;
 
     private final int[] selected;
 
     private double bestFitness;
+
+    private final int numParams;
 
     /**
      * Constructs the Population.
@@ -68,16 +77,26 @@ abstract class BasePopulation {
      * @param f The fitness function.
      * @param selection The selection operator.
      * @param tracker A ProgressTracker.
+     * @param numElite the number of elite members of the population.
      */
     public DoubleFitness(
         int n,
         Initializer<T> initializer,
         FitnessFunction.Double<T> f,
         SelectionOperator selection,
-        ProgressTracker<T> tracker) {
+        ProgressTracker<T> tracker,
+        int numElite,
+        int numParams) {
       super(tracker);
       if (n < 1) {
         throw new IllegalArgumentException("population size n must be positive");
+      }
+      if (numElite >= n) {
+        throw new IllegalArgumentException(
+            "number of elite population members must be less than population size");
+      }
+      if (numElite <= 0) {
+        throw new IllegalArgumentException("number of elite population members must be positive");
       }
       if (initializer == null || f == null || selection == null || tracker == null) {
         throw new NullPointerException("passed a null object for a required parameter");
@@ -85,46 +104,59 @@ abstract class BasePopulation {
       this.initializer = initializer;
       this.selection = selection;
 
+      elite = new EliteSet.DoubleFitness<EncodingWithParameters<T>>(numElite);
+
+      this.numParams = numParams;
+
       this.f = f;
       MU = n;
+      LAMBDA = n - numElite;
 
-      pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
-      selected = new int[MU];
-      updated = new boolean[MU];
+      pop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
+      nextPop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(LAMBDA);
+      selected = new int[LAMBDA];
+      updated = new boolean[LAMBDA];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
     }
 
     /*
      * private constructor for use by split.
      */
-    private DoubleFitness(BasePopulation.DoubleFitness<T> other) {
+    private DoubleFitness(EvolvableParametersElitistPopulation.DoubleFitness<T> other) {
       super(other);
 
       // these are threadsafe, so just copy references
       f = other.f;
       MU = other.MU;
+      LAMBDA = other.LAMBDA;
+      numParams = other.numParams;
 
       // split these: not threadsafe
       initializer = other.initializer.split();
       selection = other.selection.split();
 
       // initialize these fresh: not threadsafe or otherwise needs its own
-      pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
-      selected = new int[MU];
-      updated = new boolean[MU];
+      pop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
+      nextPop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(LAMBDA);
+      elite = new EliteSet.DoubleFitness<EncodingWithParameters<T>>(MU - LAMBDA);
+      selected = new int[LAMBDA];
+      updated = new boolean[LAMBDA];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
     }
 
     @Override
-    public BasePopulation.DoubleFitness<T> split() {
-      return new BasePopulation.DoubleFitness<T>(this);
+    public EvolvableParametersElitistPopulation.DoubleFitness<T> split() {
+      return new EvolvableParametersElitistPopulation.DoubleFitness<T>(this);
     }
 
     @Override
     public T get(int i) {
-      return nextPop.get(i).getCandidate();
+      return nextPop.get(i).getCandidate().getCandidate();
+    }
+
+    @Override
+    public SingleReal getParameter(int indexPop, int indexParam) {
+      return nextPop.get(indexPop).getCandidate().getParameter(indexParam);
     }
 
     @Override
@@ -141,7 +173,7 @@ abstract class BasePopulation {
 
     @Override
     public int mutableSize() {
-      return MU;
+      return LAMBDA;
     }
 
     /**
@@ -155,12 +187,14 @@ abstract class BasePopulation {
 
     @Override
     public void updateFitness(int i) {
-      double fit = f.fitness(nextPop.get(i).getCandidate());
+      double fit = f.fitness(nextPop.get(i).getCandidate().getCandidate());
       nextPop.get(i).setFitness(fit);
       updated[i] = true;
       if (fit > bestFitness) {
         bestFitness = fit;
-        setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).getCandidate().copy()));
+        setMostFit(
+            f.getProblem()
+                .getSolutionCostPair(nextPop.get(i).getCandidate().getCandidate().copy()));
       }
     }
 
@@ -175,9 +209,21 @@ abstract class BasePopulation {
     @Override
     public void replace() {
       pop.clear();
-      for (PopulationMember.DoubleFitness<T> e : nextPop) {
+      for (PopulationMember.DoubleFitness<EncodingWithParameters<T>> e : nextPop) {
+        // mutate the parameters before adding to the pop for next generation
+        e.getCandidate().mutate();
         pop.add(e);
       }
+      for (PopulationMember.DoubleFitness<EncodingWithParameters<T>> e : elite) {
+        pop.add(e);
+      }
+      for (int i = 0; i < LAMBDA; i++) {
+        if (updated[i]) {
+          elite.offer(nextPop.get(i));
+          updated[i] = false;
+        }
+      }
+
       nextPop.clear();
     }
 
@@ -196,18 +242,24 @@ abstract class BasePopulation {
       for (int i = 0; i < MU; i++) {
         T c = initializer.createCandidateSolution();
         double fit = f.fitness(c);
-        pop.add(new PopulationMember.DoubleFitness<T>(c, fit));
+        pop.add(
+            new PopulationMember.DoubleFitness<EncodingWithParameters<T>>(
+                new EncodingWithParameters<T>(c, numParams), fit));
         if (fit > bestFitness) {
           bestFitness = fit;
           newBest = c;
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
+      elite.clear();
+      elite.offerAll(pop);
+      Arrays.fill(updated, false);
     }
   }
 
   /**
-   * The Population for an evolutionary algorithm where fitness values are type int.
+   * The Population for an evolutionary algorithm where fitness values are type int, and such that
+   * parameters evolve during the search.
    *
    * @param <T> The type of object under optimization.
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
@@ -219,16 +271,20 @@ abstract class BasePopulation {
     private final Initializer<T> initializer;
     private final SelectionOperator selection;
 
-    private final ArrayList<PopulationMember.IntegerFitness<T>> pop;
-    private final ArrayList<PopulationMember.IntegerFitness<T>> nextPop;
+    private final ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>> pop;
+    private final ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>> nextPop;
+    private final EliteSet.IntegerFitness<EncodingWithParameters<T>> elite;
     private final boolean[] updated;
 
     private final FitnessFunction.Integer<T> f;
     private final int MU;
+    private final int LAMBDA;
 
     private final int[] selected;
 
     private int bestFitness;
+
+    private final int numParams;
 
     /**
      * Constructs the Population.
@@ -239,17 +295,26 @@ abstract class BasePopulation {
      * @param f The fitness function.
      * @param selection The selection operator.
      * @param tracker A ProgressTracker.
-     * @param numElite The number of elite population members.
+     * @param numElite the number of elite members of the population.
      */
     public IntegerFitness(
         int n,
         Initializer<T> initializer,
         FitnessFunction.Integer<T> f,
         SelectionOperator selection,
-        ProgressTracker<T> tracker) {
+        ProgressTracker<T> tracker,
+        int numElite,
+        int numParams) {
       super(tracker);
       if (n < 1) {
         throw new IllegalArgumentException("population size n must be positive");
+      }
+      if (numElite >= n) {
+        throw new IllegalArgumentException(
+            "number of elite population members must be less than population size");
+      }
+      if (numElite <= 0) {
+        throw new IllegalArgumentException("number of elite population members must be positive");
       }
       if (initializer == null || f == null || selection == null || tracker == null) {
         throw new NullPointerException("passed a null object for a required parameter");
@@ -257,46 +322,58 @@ abstract class BasePopulation {
       this.initializer = initializer;
       this.selection = selection;
 
+      elite = new EliteSet.IntegerFitness<EncodingWithParameters<T>>(numElite);
+
+      this.numParams = numParams;
+
       this.f = f;
       MU = n;
-
-      pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
-      selected = new int[MU];
-      updated = new boolean[MU];
+      LAMBDA = n - numElite;
+      pop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
+      nextPop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(LAMBDA);
+      selected = new int[LAMBDA];
+      updated = new boolean[LAMBDA];
       bestFitness = java.lang.Integer.MIN_VALUE;
     }
 
     /*
      * private constructor for use by split.
      */
-    private IntegerFitness(BasePopulation.IntegerFitness<T> other) {
+    private IntegerFitness(EvolvableParametersElitistPopulation.IntegerFitness<T> other) {
       super(other);
 
       // these are threadsafe, so just copy references
       f = other.f;
       MU = other.MU;
+      LAMBDA = other.LAMBDA;
+      numParams = other.numParams;
 
       // split these: not threadsafe
       initializer = other.initializer.split();
       selection = other.selection.split();
 
       // initialize these fresh: not threadsafe or otherwise needs its own
-      pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
-      selected = new int[MU];
-      updated = new boolean[MU];
+      pop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
+      nextPop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(LAMBDA);
+      elite = new EliteSet.IntegerFitness<EncodingWithParameters<T>>(MU - LAMBDA);
+      selected = new int[LAMBDA];
+      updated = new boolean[LAMBDA];
       bestFitness = java.lang.Integer.MIN_VALUE;
     }
 
     @Override
-    public BasePopulation.IntegerFitness<T> split() {
-      return new BasePopulation.IntegerFitness<T>(this);
+    public EvolvableParametersElitistPopulation.IntegerFitness<T> split() {
+      return new EvolvableParametersElitistPopulation.IntegerFitness<T>(this);
     }
 
     @Override
     public T get(int i) {
-      return nextPop.get(i).getCandidate();
+      return nextPop.get(i).getCandidate().getCandidate();
+    }
+
+    @Override
+    public SingleReal getParameter(int indexPop, int indexParam) {
+      return nextPop.get(indexPop).getCandidate().getParameter(indexParam);
     }
 
     @Override
@@ -313,7 +390,7 @@ abstract class BasePopulation {
 
     @Override
     public int mutableSize() {
-      return MU;
+      return LAMBDA;
     }
 
     /**
@@ -327,12 +404,14 @@ abstract class BasePopulation {
 
     @Override
     public void updateFitness(int i) {
-      int fit = f.fitness(nextPop.get(i).getCandidate());
+      int fit = f.fitness(nextPop.get(i).getCandidate().getCandidate());
       nextPop.get(i).setFitness(fit);
       updated[i] = true;
       if (fit > bestFitness) {
         bestFitness = fit;
-        setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).getCandidate().copy()));
+        setMostFit(
+            f.getProblem()
+                .getSolutionCostPair(nextPop.get(i).getCandidate().getCandidate().copy()));
       }
     }
 
@@ -347,9 +426,21 @@ abstract class BasePopulation {
     @Override
     public void replace() {
       pop.clear();
-      for (PopulationMember.IntegerFitness<T> e : nextPop) {
+      for (PopulationMember.IntegerFitness<EncodingWithParameters<T>> e : nextPop) {
+        // mutate the parameters before adding to the pop for next generation
+        e.getCandidate().mutate();
         pop.add(e);
       }
+      for (PopulationMember.IntegerFitness<EncodingWithParameters<T>> e : elite) {
+        pop.add(e);
+      }
+      for (int i = 0; i < LAMBDA; i++) {
+        if (updated[i]) {
+          elite.offer(nextPop.get(i));
+          updated[i] = false;
+        }
+      }
+
       nextPop.clear();
     }
 
@@ -368,13 +459,18 @@ abstract class BasePopulation {
       for (int i = 0; i < MU; i++) {
         T c = initializer.createCandidateSolution();
         int fit = f.fitness(c);
-        pop.add(new PopulationMember.IntegerFitness<T>(c, fit));
+        pop.add(
+            new PopulationMember.IntegerFitness<EncodingWithParameters<T>>(
+                new EncodingWithParameters<T>(c, numParams), fit));
         if (fit > bestFitness) {
           bestFitness = fit;
           newBest = c;
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
+      elite.clear();
+      elite.offerAll(pop);
+      Arrays.fill(updated, false);
     }
   }
 }

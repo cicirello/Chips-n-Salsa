@@ -27,6 +27,7 @@ import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
+import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.util.Copyable;
 import org.junit.jupiter.api.*;
@@ -41,8 +42,38 @@ public class AdaptiveGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersPopulation.Integer<TestObject> pop =
-        new EvolvableParametersPopulation.Integer<TestObject>(N, init, f, selection, tracker, 0, 2);
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
+            N, init, f, selection, tracker, 2);
+    pop.init();
+
+    TestMutation mutation = new TestMutation();
+    TestCrossover crossover = new TestCrossover();
+
+    AdaptiveGeneration<TestObject> ag = new AdaptiveGeneration<TestObject>(mutation, crossover);
+    int fitnessEvals = ag.apply(pop);
+    assertEquals(mutation.count + crossover.count, fitnessEvals);
+    assertNotEquals(2 * N, fitnessEvals);
+    assertNotEquals(0, fitnessEvals);
+
+    NullPointerException thrown =
+        assertThrows(
+            NullPointerException.class, () -> new AdaptiveGeneration<TestObject>(mutation, null));
+    thrown =
+        assertThrows(
+            NullPointerException.class, () -> new AdaptiveGeneration<TestObject>(null, crossover));
+  }
+
+  @Test
+  public void testAdaptiveGenerationDouble() {
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessDouble f = new TestFitnessDouble();
+    TestInitializer init = new TestInitializer();
+    final int N = 20;
+    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
+            N, init, f, selection, tracker, 2);
     pop.init();
 
     TestMutation mutation = new TestMutation();
@@ -69,8 +100,89 @@ public class AdaptiveGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersPopulation.Integer<TestObject> pop =
-        new EvolvableParametersPopulation.Integer<TestObject>(N, init, f, selection, tracker, 0, 2);
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
+            N, init, f, selection, tracker, 2);
+    pop.init();
+
+    TestMutation mutation = new TestMutation();
+    TestCrossover crossover = new TestCrossover();
+
+    AdaptiveGeneration<TestObject> ag =
+        new AdaptiveGeneration<TestObject>(mutation, crossover).split();
+    int fitnessEvals = ag.apply(pop);
+    assertEquals(mutation.count + crossover.count, fitnessEvals);
+    assertNotEquals(2 * N, fitnessEvals);
+  }
+
+  @Test
+  public void testAdaptiveGenerationElitist() {
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessInteger f = new TestFitnessInteger();
+    TestInitializer init = new TestInitializer();
+    final int N = 20;
+    EvolvableParametersElitistPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+            N + 1, init, f, selection, tracker, 1, 2);
+    pop.init();
+
+    TestMutation mutation = new TestMutation();
+    TestCrossover crossover = new TestCrossover();
+
+    AdaptiveGeneration<TestObject> ag = new AdaptiveGeneration<TestObject>(mutation, crossover);
+    int fitnessEvals = ag.apply(pop);
+    assertEquals(mutation.count + crossover.count, fitnessEvals);
+    assertNotEquals(2 * N, fitnessEvals);
+    assertNotEquals(0, fitnessEvals);
+
+    NullPointerException thrown =
+        assertThrows(
+            NullPointerException.class, () -> new AdaptiveGeneration<TestObject>(mutation, null));
+    thrown =
+        assertThrows(
+            NullPointerException.class, () -> new AdaptiveGeneration<TestObject>(null, crossover));
+  }
+
+  @Test
+  public void testAdaptiveGenerationDoubleElitist() {
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessDouble f = new TestFitnessDouble();
+    TestInitializer init = new TestInitializer();
+    final int N = 20;
+    EvolvableParametersElitistPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+            N + 1, init, f, selection, tracker, 1, 2);
+    pop.init();
+
+    TestMutation mutation = new TestMutation();
+    TestCrossover crossover = new TestCrossover();
+
+    AdaptiveGeneration<TestObject> ag = new AdaptiveGeneration<TestObject>(mutation, crossover);
+    int fitnessEvals = ag.apply(pop);
+    assertEquals(mutation.count + crossover.count, fitnessEvals);
+    assertNotEquals(2 * N, fitnessEvals);
+    assertNotEquals(0, fitnessEvals);
+
+    NullPointerException thrown =
+        assertThrows(
+            NullPointerException.class, () -> new AdaptiveGeneration<TestObject>(mutation, null));
+    thrown =
+        assertThrows(
+            NullPointerException.class, () -> new AdaptiveGeneration<TestObject>(null, crossover));
+  }
+
+  @Test
+  public void testAdaptiveGenerationSplitElitist() {
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessInteger f = new TestFitnessInteger();
+    TestInitializer init = new TestInitializer();
+    final int N = 20;
+    EvolvableParametersElitistPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+            N + 1, init, f, selection, tracker, 1, 2);
     pop.init();
 
     TestMutation mutation = new TestMutation();
@@ -145,12 +257,44 @@ public class AdaptiveGenerationTests {
     }
   }
 
+  private static class TestFitnessDouble implements FitnessFunction.Double<TestObject> {
+
+    private TestProblemDouble problem;
+    private int adjustment;
+
+    public TestFitnessDouble() {
+      problem = new TestProblemDouble();
+    }
+
+    public double fitness(TestObject c) {
+      return c.id + 10 + adjustment;
+    }
+
+    public Problem<TestObject> getProblem() {
+      return problem;
+    }
+
+    public void changeFitness(int adjustment) {
+      this.adjustment = adjustment;
+    }
+  }
+
   private static class TestProblemInteger implements IntegerCostOptimizationProblem<TestObject> {
     public int cost(TestObject c) {
       return 100 - c.id;
     }
 
     public int value(TestObject c) {
+      return cost(c);
+    }
+  }
+
+  private static class TestProblemDouble implements OptimizationProblem<TestObject> {
+    public double cost(TestObject c) {
+      return 100 - c.id;
+    }
+
+    public double value(TestObject c) {
       return cost(c);
     }
   }

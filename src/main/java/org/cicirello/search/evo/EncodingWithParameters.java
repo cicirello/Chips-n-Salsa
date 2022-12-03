@@ -36,7 +36,7 @@ import org.cicirello.util.Copyable;
 final class EncodingWithParameters<T extends Copyable<T>>
     implements Copyable<EncodingWithParameters<T>> {
 
-  final T candidate;
+  private final T candidate;
   private final SingleReal[] params;
   private final GaussianMutation<SingleReal> mutator;
   private static final GaussianMutation<GaussianMutation> mutationMutator =

@@ -25,8 +25,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.ProgressTracker;
 import org.junit.jupiter.api.*;
 
-/** JUnit test cases for BasePopulation. */
-public class BasePopulationTests extends SharedTestPopulations {
+/** JUnit test cases for BaseElitistPopulation. */
+public class BaseElitistPopulationTests extends SharedTestPopulations {
 
   @Test
   public void testExceptions() {
@@ -34,140 +34,196 @@ public class BasePopulationTests extends SharedTestPopulations {
         assertThrows(
             NullPointerException.class,
             () ->
-                new BasePopulation.DoubleFitness<TestObject>(
+                new BaseElitistPopulation.DoubleFitness<TestObject>(
                     10,
                     null,
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    1));
     thrown =
         assertThrows(
             NullPointerException.class,
             () ->
-                new BasePopulation.DoubleFitness<TestObject>(
+                new BaseElitistPopulation.DoubleFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     null,
                     new TestSelectionOp(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    1));
     thrown =
         assertThrows(
             NullPointerException.class,
             () ->
-                new BasePopulation.DoubleFitness<TestObject>(
+                new BaseElitistPopulation.DoubleFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     new TestFitnessDouble(),
                     null,
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    1));
     thrown =
         assertThrows(
             NullPointerException.class,
             () ->
-                new BasePopulation.DoubleFitness<TestObject>(
+                new BaseElitistPopulation.DoubleFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
-                    null));
+                    null,
+                    1));
 
     thrown =
         assertThrows(
             NullPointerException.class,
             () ->
-                new BasePopulation.IntegerFitness<TestObject>(
+                new BaseElitistPopulation.IntegerFitness<TestObject>(
                     10,
                     null,
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    1));
     thrown =
         assertThrows(
             NullPointerException.class,
             () ->
-                new BasePopulation.IntegerFitness<TestObject>(
+                new BaseElitistPopulation.IntegerFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     null,
                     new TestSelectionOp(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    1));
     thrown =
         assertThrows(
             NullPointerException.class,
             () ->
-                new BasePopulation.IntegerFitness<TestObject>(
+                new BaseElitistPopulation.IntegerFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     new TestFitnessInteger(),
                     null,
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    1));
     thrown =
         assertThrows(
             NullPointerException.class,
             () ->
-                new BasePopulation.IntegerFitness<TestObject>(
+                new BaseElitistPopulation.IntegerFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
-                    null));
+                    null,
+                    1));
 
     IllegalArgumentException thrown2 =
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new BasePopulation.DoubleFitness<TestObject>(
+                new BaseElitistPopulation.DoubleFitness<TestObject>(
                     0,
                     new TestInitializer(),
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    1));
     thrown2 =
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new BasePopulation.IntegerFitness<TestObject>(
+                new BaseElitistPopulation.DoubleFitness<TestObject>(
+                    10,
+                    new TestInitializer(),
+                    new TestFitnessDouble(),
+                    new TestSelectionOp(),
+                    new ProgressTracker<TestObject>(),
+                    0));
+    thrown2 =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new BaseElitistPopulation.IntegerFitness<TestObject>(
                     0,
                     new TestInitializer(),
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    1));
+    thrown2 =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new BaseElitistPopulation.IntegerFitness<TestObject>(
+                    10,
+                    new TestInitializer(),
+                    new TestFitnessInteger(),
+                    new TestSelectionOp(),
+                    new ProgressTracker<TestObject>(),
+                    0));
+    thrown2 =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new BaseElitistPopulation.DoubleFitness<TestObject>(
+                    10,
+                    new TestInitializer(),
+                    new TestFitnessDouble(),
+                    new TestSelectionOp(),
+                    new ProgressTracker<TestObject>(),
+                    10));
+    thrown2 =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new BaseElitistPopulation.IntegerFitness<TestObject>(
+                    10,
+                    new TestInitializer(),
+                    new TestFitnessInteger(),
+                    new TestSelectionOp(),
+                    new ProgressTracker<TestObject>(),
+                    10));
 
     final Population pop1 =
-        new BasePopulation.DoubleFitness<TestObject>(
+        new BaseElitistPopulation.DoubleFitness<TestObject>(
             3,
             new TestInitializer(),
             new TestFitnessDouble(),
             new TestSelectionOp(),
-            new ProgressTracker<TestObject>());
+            new ProgressTracker<TestObject>(),
+            1);
     UnsupportedOperationException thrown3 =
         assertThrows(UnsupportedOperationException.class, () -> pop1.getParameter(0, 0));
     final Population pop2 =
-        new BasePopulation.IntegerFitness<TestObject>(
+        new BaseElitistPopulation.IntegerFitness<TestObject>(
             3,
             new TestInitializer(),
             new TestFitnessInteger(),
             new TestSelectionOp(),
-            new ProgressTracker<TestObject>());
+            new ProgressTracker<TestObject>(),
+            1);
     thrown3 = assertThrows(UnsupportedOperationException.class, () -> pop2.getParameter(0, 0));
   }
 
   @Test
-  public void testBasePopulationDouble() {
+  public void testBasePopulationElitismDouble() {
     TestObject.reinit();
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestSelectionOp selection = new TestSelectionOp();
     TestFitnessDouble f = new TestFitnessDouble();
-    BasePopulation.DoubleFitness<TestObject> pop =
-        new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker);
+    BaseElitistPopulation.DoubleFitness<TestObject> pop =
+        new BaseElitistPopulation.DoubleFitness<TestObject>(
+            10, new TestInitializer(), f, selection, tracker, 3);
     verifyDouble(
         pop,
         f,
         tracker,
         selection,
-        p -> ((BasePopulation.DoubleFitness<TestObject>) p).getFitnessOfMostFit(),
-        0);
+        p -> ((BaseElitistPopulation.DoubleFitness<TestObject>) p).getFitnessOfMostFit(),
+        3);
   }
 
   @Test
@@ -176,69 +232,27 @@ public class BasePopulationTests extends SharedTestPopulations {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestSelectionOp selection = new TestSelectionOp();
     TestFitnessDouble f = new TestFitnessDouble();
-    BasePopulation.DoubleFitness<TestObject> pop =
-        new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker);
+    BaseElitistPopulation.DoubleFitness<TestObject> pop =
+        new BaseElitistPopulation.DoubleFitness<TestObject>(
+            11, new TestInitializer(), f, selection, tracker, 1);
     verifySelectCopies(pop);
   }
 
   @Test
-  public void testBasePopulationDoubleIntCost() {
-    TestObject.reinit();
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestSelectionOp selection = new TestSelectionOp();
-    TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
-    BasePopulation.DoubleFitness<TestObject> pop =
-        new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker);
-    verifyDoubleWithIntCost(
-        pop,
-        f,
-        tracker,
-        selection,
-        p -> ((BasePopulation.DoubleFitness<TestObject>) p).getFitnessOfMostFit(),
-        0);
-  }
-
-  @Test
-  public void testBasePopulationDoubleIntCost_SelectCopies() {
-    TestObject.reinit();
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestSelectionOp selection = new TestSelectionOp();
-    TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
-    BasePopulation.DoubleFitness<TestObject> pop =
-        new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker);
-    verifySelectCopies(pop);
-  }
-
-  @Test
-  public void testBasePopulationInteger() {
+  public void testBasePopulationElitismInteger() {
     TestObject.reinit();
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestSelectionOp selection = new TestSelectionOp();
     TestFitnessInteger f = new TestFitnessInteger();
-    BasePopulation.IntegerFitness<TestObject> pop =
-        new BasePopulation.IntegerFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker);
+    BaseElitistPopulation.IntegerFitness<TestObject> pop =
+        new BaseElitistPopulation.IntegerFitness<TestObject>(
+            10, new TestInitializer(), f, selection, tracker, 3);
     verifyInteger(
         pop,
         f,
         tracker,
         selection,
-        p -> ((BasePopulation.IntegerFitness<TestObject>) p).getFitnessOfMostFit(),
-        0);
-  }
-
-  @Test
-  public void testBasePopulationInteger_SelectCopies() {
-    TestObject.reinit();
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestSelectionOp selection = new TestSelectionOp();
-    TestFitnessInteger f = new TestFitnessInteger();
-    BasePopulation.IntegerFitness<TestObject> pop =
-        new BasePopulation.IntegerFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker);
-    verifySelectCopies(pop);
+        p -> ((BaseElitistPopulation.IntegerFitness<TestObject>) p).getFitnessOfMostFit(),
+        3);
   }
 }

@@ -208,7 +208,7 @@ public class OnePlusOneEATests {
       @Override
       public SolutionCostPair<TestObject> call() {
         started = true;
-        return ea.optimize(2000000);
+        return ea.optimize(16000000);
       }
     }
 
@@ -224,12 +224,15 @@ public class OnePlusOneEATests {
     Future<SolutionCostPair<TestObject>> future = threadPool.submit(thread);
     try {
       do {
-        Thread.sleep(20);
+        Thread.sleep(40);
       } while (!thread.started);
+      Thread.sleep(20);
       tracker.stop();
       SolutionCostPair<TestObject> pair = future.get();
     } catch (InterruptedException ex) {
+      // deliberately empty
     } catch (ExecutionException ex) {
+      // deliberately empty
     }
 
     tracker = new ProgressTracker<TestObject>();
@@ -239,12 +242,15 @@ public class OnePlusOneEATests {
     future = threadPool.submit(thread);
     try {
       do {
-        Thread.sleep(20);
+        Thread.sleep(40);
       } while (!thread.started);
+      Thread.sleep(20);
       tracker.stop();
       SolutionCostPair<TestObject> pair = future.get();
     } catch (InterruptedException ex) {
+      // deliberately empty
     } catch (ExecutionException ex) {
+      // deliberately empty
     }
     threadPool.shutdown();
   }

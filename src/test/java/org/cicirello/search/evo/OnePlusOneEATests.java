@@ -224,7 +224,7 @@ public class OnePlusOneEATests {
     Future<SolutionCostPair<TestObject>> future = threadPool.submit(thread);
     try {
       do {
-        Thread.sleep(20);
+        Thread.sleep(40);
       } while (!thread.started);
       tracker.stop();
       SolutionCostPair<TestObject> pair = future.get();
@@ -239,7 +239,7 @@ public class OnePlusOneEATests {
     future = threadPool.submit(thread);
     try {
       do {
-        Thread.sleep(20);
+        Thread.sleep(40);
       } while (!thread.started);
       tracker.stop();
       SolutionCostPair<TestObject> pair = future.get();

@@ -147,7 +147,7 @@ public class ParallelMetaheuristic<T extends Copyable<T>>
    */
   @Override
   public final SolutionCostPair<T> optimize(int runLength) {
-    return threadedOptimize(new CallableFactory(runLength));
+    return threadedOptimize(new CallableOptimizerFactory<T>(runLength));
   }
 
   /**
@@ -261,7 +261,7 @@ public class ParallelMetaheuristic<T extends Copyable<T>>
     }
     return bestParallelRun;
   }
-
+  /*
   private final class CallableFactory
       implements Function<Metaheuristic<T>, Callable<SolutionCostPair<T>>> {
 
@@ -289,5 +289,5 @@ public class ParallelMetaheuristic<T extends Copyable<T>>
         return m.optimize(runLength);
       }
     }
-  }
+  }*/
 }

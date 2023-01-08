@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-12-10
+## [Unreleased] - 2023-01-08
 
 ### Added
 * AdaptiveMutationOnlyEvolutionaryAlgorithm: An implementation of a mutation-only evolutionary algorithm 
@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Stochastic samplers
   * Hill climbers
   * Evolutionary algorithms
+  * Parallel metaheuristic and parallel multistarter classes
 * Refactored test cases for the LargestCommonSubgraph class (based on RefactorFirst scan).
 * Refactored test cases for the hill climber classes (based on RefactorFirst scan).
 

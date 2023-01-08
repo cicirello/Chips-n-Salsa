@@ -261,33 +261,4 @@ public class ParallelMetaheuristic<T extends Copyable<T>>
     }
     return bestParallelRun;
   }
-  /*
-  private final class CallableFactory
-      implements Function<Metaheuristic<T>, Callable<SolutionCostPair<T>>> {
-
-    private final int runLength;
-
-    private CallableFactory(int runLength) {
-      this.runLength = runLength;
-    }
-
-    @Override
-    public Callable<SolutionCostPair<T>> apply(Metaheuristic<T> m) {
-      return new CallOptimize(m);
-    }
-
-    private final class CallOptimize implements Callable<SolutionCostPair<T>> {
-
-      private final Metaheuristic<T> m;
-
-      private CallOptimize(Metaheuristic<T> m) {
-        this.m = m;
-      }
-
-      @Override
-      public SolutionCostPair<T> call() {
-        return m.optimize(runLength);
-      }
-    }
-  }*/
 }

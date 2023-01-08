@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -37,7 +37,6 @@ import org.cicirello.util.Copyable;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.21.2021
  */
 final class ParallelMultistarterUtil {
 
@@ -178,5 +177,25 @@ final class ParallelMultistarterUtil {
       restarters.add(new ReoptimizableMultistarter<T>(s, rs.next()));
     }
     return restarters;
+  }
+
+  static <T extends Copyable<T>> void verifyMultistarterCollection(
+      Collection<? extends Multistarter<T>> multistarters) {
+    ProgressTracker<T> t = null;
+    Problem<T> problem = null;
+    for (Multistarter<T> m : multistarters) {
+      if (problem == null) {
+        problem = m.getProblem();
+      } else if (m.getProblem() != problem) {
+        throw new IllegalArgumentException(
+            "All Multistarters in searches must solve the same problem.");
+      }
+      if (t == null) {
+        t = m.getProgressTracker();
+      } else if (m.getProgressTracker() != t) {
+        throw new IllegalArgumentException(
+            "All Multistarters must share a single ProgressTracker.");
+      }
+    }
   }
 }

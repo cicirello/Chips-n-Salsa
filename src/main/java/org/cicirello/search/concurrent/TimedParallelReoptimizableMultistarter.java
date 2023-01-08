@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -21,13 +21,10 @@
 package org.cicirello.search.concurrent;
 
 import java.util.Collection;
-import java.util.concurrent.Callable;
-import java.util.function.Function;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.ReoptimizableMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.restarts.ConstantRestartSchedule;
-import org.cicirello.search.restarts.Multistarter;
 import org.cicirello.search.restarts.ReoptimizableMultistarter;
 import org.cicirello.search.restarts.RestartSchedule;
 import org.cicirello.util.Copyable;
@@ -65,7 +62,6 @@ import org.cicirello.util.Copyable;
  * @param <T> The type of object being optimized.
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2021
  */
 public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>>
     extends TimedParallelMultistarter<T> implements ReoptimizableMetaheuristic<T> {
@@ -232,12 +228,8 @@ public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>>
    */
   @Override
   public SolutionCostPair<T> reoptimize(int time) {
-    return threadedOptimize(time, createReoptimizerCallable);
+    return threadedOptimize(time, new CallableReoptimizerFactory<T>(Integer.MAX_VALUE));
   }
-
-  private final Function<Multistarter<T>, Callable<SolutionCostPair<T>>> createReoptimizerCallable =
-      multistartSearch ->
-          () -> ((ReoptimizableMultistarter<T>) multistartSearch).reoptimize(Integer.MAX_VALUE);
 
   @Override
   public TimedParallelReoptimizableMultistarter<T> split() {

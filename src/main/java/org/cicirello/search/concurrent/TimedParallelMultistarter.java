@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,7 +22,6 @@ package org.cicirello.search.concurrent;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -69,7 +68,6 @@ import org.cicirello.util.Copyable;
  * @param <T> The type of object being optimized.
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.12.2021
  */
 public class TimedParallelMultistarter<T extends Copyable<T>>
     implements Metaheuristic<T>, AutoCloseable {
@@ -113,15 +111,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
    * @throws IllegalArgumentException if numThreads is less than 1.
    */
   public TimedParallelMultistarter(Metaheuristic<T> search, RestartSchedule r, int numThreads) {
-    if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
-    multistarters = new ArrayList<Multistarter<T>>();
-    multistarters.add(new Multistarter<T>(search, r));
-    for (int i = 1; i < numThreads; i++) {
-      multistarters.add(new Multistarter<T>(search.split(), r.split()));
-    }
-    threadPool = Executors.newFixedThreadPool(numThreads);
-    timeUnit = TIME_UNIT_MS;
-    history = null;
+    this(new Multistarter<T>(search, r), numThreads);
   }
 
   /**
@@ -136,20 +126,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
    */
   public TimedParallelMultistarter(
       Metaheuristic<T> search, Collection<? extends RestartSchedule> schedules) {
-    if (schedules.size() < 1)
-      throw new IllegalArgumentException("Must pass at least one schedule.");
-    multistarters = new ArrayList<Multistarter<T>>();
-    boolean addedFirst = false;
-    for (RestartSchedule r : schedules) {
-      if (addedFirst) multistarters.add(new Multistarter<T>(search.split(), r));
-      else {
-        multistarters.add(new Multistarter<T>(search, r));
-        addedFirst = true;
-      }
-    }
-    threadPool = Executors.newFixedThreadPool(multistarters.size());
-    timeUnit = TIME_UNIT_MS;
-    history = null;
+    this(ParallelMultistarterUtil.toMultistarters(search, schedules), false);
   }
 
   /**
@@ -171,32 +148,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
   public TimedParallelMultistarter(
       Collection<? extends Metaheuristic<T>> searches,
       Collection<? extends RestartSchedule> schedules) {
-    if (searches.size() != schedules.size()) {
-      throw new IllegalArgumentException(
-          "number of searches and number of schedules must be the same");
-    }
-    multistarters = new ArrayList<Multistarter<T>>();
-    Iterator<? extends RestartSchedule> rs = schedules.iterator();
-    ProgressTracker<T> t = null;
-    Problem<T> problem = null;
-    for (Metaheuristic<T> s : searches) {
-      if (problem == null) {
-        problem = s.getProblem();
-      } else if (s.getProblem() != problem) {
-        throw new IllegalArgumentException(
-            "All Metaheuristics in searches must solve the same problem.");
-      }
-      if (t == null) {
-        t = s.getProgressTracker();
-      } else if (s.getProgressTracker() != t) {
-        throw new IllegalArgumentException(
-            "All Metaheuristics in searches must share a single ProgressTracker.");
-      }
-      multistarters.add(new Multistarter<T>(s, rs.next()));
-    }
-    threadPool = Executors.newFixedThreadPool(multistarters.size());
-    timeUnit = TIME_UNIT_MS;
-    history = null;
+    this(ParallelMultistarterUtil.toMultistarters(searches, schedules), false);
   }
 
   /**
@@ -266,22 +218,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
   TimedParallelMultistarter(
       Collection<? extends Multistarter<T>> multistarters, boolean verifyState) {
     if (verifyState) {
-      ProgressTracker<T> t = null;
-      Problem<T> problem = null;
-      for (Multistarter<T> m : multistarters) {
-        if (problem == null) {
-          problem = m.getProblem();
-        } else if (m.getProblem() != problem) {
-          throw new IllegalArgumentException(
-              "All Multistarters in searches must solve the same problem.");
-        }
-        if (t == null) {
-          t = m.getProgressTracker();
-        } else if (m.getProgressTracker() != t) {
-          throw new IllegalArgumentException(
-              "All Multistarters must share a single ProgressTracker.");
-        }
-      }
+      ParallelMultistarterUtil.verifyMultistarterCollection(multistarters);
     }
     this.multistarters = new ArrayList<Multistarter<T>>();
     for (Multistarter<T> m : multistarters) {
@@ -388,11 +325,8 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
    */
   @Override
   public final SolutionCostPair<T> optimize(int time) {
-    return threadedOptimize(time, createOptimizerCallable);
+    return threadedOptimize(time, new CallableOptimizerFactory<T>(Integer.MAX_VALUE));
   }
-
-  private final Function<Multistarter<T>, Callable<SolutionCostPair<T>>> createOptimizerCallable =
-      multistartSearch -> () -> multistartSearch.optimize(Integer.MAX_VALUE);
 
   /**
    * Initiates an orderly shutdown of the thread pool used by this TimedParallelMultistarter. The
@@ -470,7 +404,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
    * optimize of this class, and reoptimize of subclass delegate work to this method.
    */
   final SolutionCostPair<T> threadedOptimize(
-      int time, Function<Multistarter<T>, Callable<SolutionCostPair<T>>> icf) {
+      int time, Function<Metaheuristic<T>, Callable<SolutionCostPair<T>>> icf) {
     if (threadPool.isShutdown()) {
       throw new IllegalStateException("Previously closed.");
     }
@@ -481,7 +415,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
     history = new ArrayList<SolutionCostPair<T>>(time);
     if (!tracker.didFindBest()) {
       ArrayList<Future<SolutionCostPair<T>>> futures = new ArrayList<Future<SolutionCostPair<T>>>();
-      for (Multistarter<T> m : multistarters) {
+      for (Metaheuristic<T> m : multistarters) {
         futures.add(threadPool.submit(icf.apply(m)));
       }
       for (int i = 0; i < time && !tracker.didFindBest(); i++) {

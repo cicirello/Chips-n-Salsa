@@ -218,22 +218,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
   TimedParallelMultistarter(
       Collection<? extends Multistarter<T>> multistarters, boolean verifyState) {
     if (verifyState) {
-      ProgressTracker<T> t = null;
-      Problem<T> problem = null;
-      for (Multistarter<T> m : multistarters) {
-        if (problem == null) {
-          problem = m.getProblem();
-        } else if (m.getProblem() != problem) {
-          throw new IllegalArgumentException(
-              "All Multistarters in searches must solve the same problem.");
-        }
-        if (t == null) {
-          t = m.getProgressTracker();
-        } else if (m.getProgressTracker() != t) {
-          throw new IllegalArgumentException(
-              "All Multistarters must share a single ProgressTracker.");
-        }
-      }
+      ParallelMultistarterUtil.verifyMultistarterCollection(multistarters);
     }
     this.multistarters = new ArrayList<Multistarter<T>>();
     for (Multistarter<T> m : multistarters) {

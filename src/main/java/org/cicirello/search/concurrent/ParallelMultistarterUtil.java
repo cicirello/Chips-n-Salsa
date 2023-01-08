@@ -178,4 +178,24 @@ final class ParallelMultistarterUtil {
     }
     return restarters;
   }
+
+  static <T extends Copyable<T>> void verifyMultistarterCollection(
+      Collection<? extends Multistarter<T>> multistarters) {
+    ProgressTracker<T> t = null;
+    Problem<T> problem = null;
+    for (Multistarter<T> m : multistarters) {
+      if (problem == null) {
+        problem = m.getProblem();
+      } else if (m.getProblem() != problem) {
+        throw new IllegalArgumentException(
+            "All Multistarters in searches must solve the same problem.");
+      }
+      if (t == null) {
+        t = m.getProgressTracker();
+      } else if (m.getProgressTracker() != t) {
+        throw new IllegalArgumentException(
+            "All Multistarters must share a single ProgressTracker.");
+      }
+    }
+  }
 }

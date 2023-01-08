@@ -61,7 +61,7 @@
 		<distribution>repo</distribution>
 		<comments>
 		Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
-		Copyright (C) 2002-2022 Vincent A. Cicirello.
+		Copyright (C) 2002-2023 Vincent A. Cicirello.
  
 		Chips-n-Salsa is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -296,7 +296,7 @@
 						<link>https://rho-mu.cicirello.org/api</link>
 						<link>https://core.cicirello.org/api</link>
 					</links>
-					<bottom><![CDATA[Copyright &copy; 2002-2022 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
+					<bottom><![CDATA[Copyright &copy; 2002-2023 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
 				</configuration>
 			</plugin>
 			<plugin>

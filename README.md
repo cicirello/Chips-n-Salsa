@@ -2,7 +2,7 @@
 
 # Chips-n-Salsa [![Mentioned in Awesome Machine Learning](https://awesome.re/mentioned-badge.svg)](https://github.com/josephmisiti/awesome-machine-learning)
 
-Copyright (C) 2002-2022 [Vincent A. Cicirello](https://www.cicirello.org/).
+Copyright (C) 2002-2023 [Vincent A. Cicirello](https://www.cicirello.org/).
 
 Website: https://chips-n-salsa.cicirello.org/
 

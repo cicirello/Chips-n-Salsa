@@ -22,7 +22,6 @@ package org.cicirello.search.concurrent;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -112,15 +111,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
    * @throws IllegalArgumentException if numThreads is less than 1.
    */
   public TimedParallelMultistarter(Metaheuristic<T> search, RestartSchedule r, int numThreads) {
-    if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
-    multistarters = new ArrayList<Multistarter<T>>();
-    multistarters.add(new Multistarter<T>(search, r));
-    for (int i = 1; i < numThreads; i++) {
-      multistarters.add(new Multistarter<T>(search.split(), r.split()));
-    }
-    threadPool = Executors.newFixedThreadPool(numThreads);
-    timeUnit = TIME_UNIT_MS;
-    history = null;
+    this(new Multistarter<T>(search, r), numThreads);
   }
 
   /**
@@ -135,20 +126,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
    */
   public TimedParallelMultistarter(
       Metaheuristic<T> search, Collection<? extends RestartSchedule> schedules) {
-    if (schedules.size() < 1)
-      throw new IllegalArgumentException("Must pass at least one schedule.");
-    multistarters = new ArrayList<Multistarter<T>>();
-    boolean addedFirst = false;
-    for (RestartSchedule r : schedules) {
-      if (addedFirst) multistarters.add(new Multistarter<T>(search.split(), r));
-      else {
-        multistarters.add(new Multistarter<T>(search, r));
-        addedFirst = true;
-      }
-    }
-    threadPool = Executors.newFixedThreadPool(multistarters.size());
-    timeUnit = TIME_UNIT_MS;
-    history = null;
+    this(ParallelMultistarterUtil.toMultistarters(search, schedules), false);
   }
 
   /**
@@ -170,32 +148,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
   public TimedParallelMultistarter(
       Collection<? extends Metaheuristic<T>> searches,
       Collection<? extends RestartSchedule> schedules) {
-    if (searches.size() != schedules.size()) {
-      throw new IllegalArgumentException(
-          "number of searches and number of schedules must be the same");
-    }
-    multistarters = new ArrayList<Multistarter<T>>();
-    Iterator<? extends RestartSchedule> rs = schedules.iterator();
-    ProgressTracker<T> t = null;
-    Problem<T> problem = null;
-    for (Metaheuristic<T> s : searches) {
-      if (problem == null) {
-        problem = s.getProblem();
-      } else if (s.getProblem() != problem) {
-        throw new IllegalArgumentException(
-            "All Metaheuristics in searches must solve the same problem.");
-      }
-      if (t == null) {
-        t = s.getProgressTracker();
-      } else if (s.getProgressTracker() != t) {
-        throw new IllegalArgumentException(
-            "All Metaheuristics in searches must share a single ProgressTracker.");
-      }
-      multistarters.add(new Multistarter<T>(s, rs.next()));
-    }
-    threadPool = Executors.newFixedThreadPool(multistarters.size());
-    timeUnit = TIME_UNIT_MS;
-    history = null;
+    this(ParallelMultistarterUtil.toMultistarters(searches, schedules), false);
   }
 
   /**

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -69,7 +69,6 @@ import org.cicirello.util.Copyable;
  * @param <T> The type of object being optimized.
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.12.2021
  */
 public class TimedParallelMultistarter<T extends Copyable<T>>
     implements Metaheuristic<T>, AutoCloseable {
@@ -388,11 +387,8 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
    */
   @Override
   public final SolutionCostPair<T> optimize(int time) {
-    return threadedOptimize(time, createOptimizerCallable);
+    return threadedOptimize(time, new CallableOptimizerFactory<T>(Integer.MAX_VALUE));
   }
-
-  private final Function<Multistarter<T>, Callable<SolutionCostPair<T>>> createOptimizerCallable =
-      multistartSearch -> () -> multistartSearch.optimize(Integer.MAX_VALUE);
 
   /**
    * Initiates an orderly shutdown of the thread pool used by this TimedParallelMultistarter. The
@@ -470,7 +466,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
    * optimize of this class, and reoptimize of subclass delegate work to this method.
    */
   final SolutionCostPair<T> threadedOptimize(
-      int time, Function<Multistarter<T>, Callable<SolutionCostPair<T>>> icf) {
+      int time, Function<Metaheuristic<T>, Callable<SolutionCostPair<T>>> icf) {
     if (threadPool.isShutdown()) {
       throw new IllegalStateException("Previously closed.");
     }
@@ -481,7 +477,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
     history = new ArrayList<SolutionCostPair<T>>(time);
     if (!tracker.didFindBest()) {
       ArrayList<Future<SolutionCostPair<T>>> futures = new ArrayList<Future<SolutionCostPair<T>>>();
-      for (Multistarter<T> m : multistarters) {
+      for (Metaheuristic<T> m : multistarters) {
         futures.add(threadPool.submit(icf.apply(m)));
       }
       for (int i = 0; i < time && !tracker.didFindBest(); i++) {

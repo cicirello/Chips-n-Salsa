@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -34,7 +34,6 @@ import org.cicirello.util.Copyable;
  * @param <T> The type of object being optimized.
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2021
  */
 public class ParallelReoptimizableMetaheuristic<T extends Copyable<T>>
     extends ParallelMetaheuristic<T> implements ReoptimizableMetaheuristic<T> {
@@ -103,8 +102,7 @@ public class ParallelReoptimizableMetaheuristic<T extends Copyable<T>>
    */
   @Override
   public final SolutionCostPair<T> reoptimize(int runLength) {
-    return threadedOptimize(
-        search -> () -> ((ReoptimizableMetaheuristic<T>) search).reoptimize(runLength));
+    return threadedOptimize(new CallableReoptimizerFactory<T>(runLength));
   }
 
   @Override

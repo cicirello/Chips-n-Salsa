@@ -21,7 +21,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../../script-dir/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../../script-dir/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../../../../../../script-dir/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -88,7 +88,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&gt;</code>, <code><a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code>, <code><a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
+<dd><code><a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/PermutationUnaryOperator.html" title="class or interface in org.cicirello.permutations" class="external-link">PermutationUnaryOperator</a></code>, <code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&gt;</code>, <code><a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code>, <code><a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</code></dd>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
@@ -97,7 +97,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">UndoableScrambleMutation</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
+implements <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;, <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/PermutationUnaryOperator.html" title="class or interface in org.cicirello.permutations" class="external-link">PermutationUnaryOperator</a></span></div>
 <div class="block">This class implements a scramble mutation on permutations, where one mutation consists in
  randomizing the order of a randomly selected subpermutation. This version of scramble mutation
  also supports the undo method. The pair of indexes that indicate the subpermutation to scramble
@@ -143,19 +143,24 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#mutate(org.cicirello.permutations.Permutation)" class="member-name-link">mutate</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#apply(int%5B%5D)" class="member-name-link">apply</a><wbr>(int[]&nbsp;perm)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">See <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/PermutationUnaryOperator.html" title="class or interface in org.cicirello.permutations" class="external-link"><code>PermutationUnaryOperator</code></a> for details of this method.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#mutate(org.cicirello.permutations.Permutation)" class="member-name-link">mutate</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Mutates a candidate solution to a problem, by randomly modifying its state.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="UndoableScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableScrambleMutation</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="UndoableScrambleMutation.html" title="class in org.cicirello.search.operators.permutations">UndoableScrambleMutation</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Generates a functionally identical copy of this object, for use in multithreaded
  implementations of search algorithms.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#undo(org.cicirello.permutations.Permutation)" class="member-name-link">undo</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#undo(org.cicirello.permutations.Permutation)" class="member-name-link">undo</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;c)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns a candidate solution to its previous state prior to the most recent mutation performed.</div>
 </div>
 </div>
@@ -256,6 +261,20 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 </dl>
 </section>
 </li>
+<li>
+<section class="detail" id="apply(int[])">
+<h3>apply</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">apply</span><wbr><span class="parameters">(int[]&nbsp;perm)</span></div>
+<div class="block">See <a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/PermutationUnaryOperator.html" title="class or interface in org.cicirello.permutations" class="external-link"><code>PermutationUnaryOperator</code></a> for details of this method. This method is not intended
+ for direct usage. Use the <a href="#undo(org.cicirello.permutations.Permutation)"><code>undo(org.cicirello.permutations.Permutation)</code></a> method instead.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/PermutationUnaryOperator.html#apply(int%5B%5D)" title="class or interface in org.cicirello.permutations" class="external-link">apply</a></code>&nbsp;in interface&nbsp;<code><a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/PermutationUnaryOperator.html" title="class or interface in org.cicirello.permutations" class="external-link">PermutationUnaryOperator</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>perm</code> - The raw representation of the permutation for undoing the most recent mutation.</dd>
+</dl>
+</section>
+</li>
 </ul>
 </section>
 </li>
@@ -265,7 +284,7 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 </main>
 <footer role="contentinfo">
 <hr>
-<p class="legal-copy"><small>Copyright &copy; 2002-2022 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
+<p class="legal-copy"><small>Copyright &copy; 2002-2023 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
 </footer>
 </div>
 </div>

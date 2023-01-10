@@ -21,7 +21,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../script-dir/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../script-dir/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../../../../../script-dir/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
@@ -336,6 +336,18 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="getProblem()">
+<h3>getProblem</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="FirstDescentHillClimber.html" title="type parameter in FirstDescentHillClimber">T</a>&gt;</span>&nbsp;<span class="element-name">getProblem</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#getProblem()">TrackableSearch</a></code></span></div>
+<div class="block">Gets a reference to the problem that this search is solving.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>a reference to the problem.</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="optimize()">
 <h3>optimize</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="FirstDescentHillClimber.html" title="type parameter in FirstDescentHillClimber">T</a>&gt;</span>&nbsp;<span class="element-name">optimize</span>()</div>
@@ -434,20 +446,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getProblem()">
-<h3>getProblem</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="FirstDescentHillClimber.html" title="type parameter in FirstDescentHillClimber">T</a>&gt;</span>&nbsp;<span class="element-name">getProblem</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../TrackableSearch.html#getProblem()">TrackableSearch</a></code></span></div>
-<div class="block">Gets a reference to the problem that this search is solving.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../TrackableSearch.html#getProblem()">getProblem</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></dd>
-<dt>Returns:</dt>
-<dd>a reference to the problem.</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="getTotalRunLength()">
 <h3>getTotalRunLength</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getTotalRunLength</span>()</div>
@@ -471,7 +469,7 @@ loadScripts(document, 'script');</script>
 </main>
 <footer role="contentinfo">
 <hr>
-<p class="legal-copy"><small>Copyright &copy; 2002-2022 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
+<p class="legal-copy"><small>Copyright &copy; 2002-2023 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
 </footer>
 </div>
 </div>

@@ -21,7 +21,7 @@
 <link rel="stylesheet" type="text/css" href="../../../../../../script-dir/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../../../script.js"></script>
-<script type="text/javascript" src="../../../../../../script-dir/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../../../../../../script-dir/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-use-page">
@@ -79,37 +79,41 @@ loadScripts(document, 'script');</script>
 <div class="block">This package includes classes and interfaces directly related to implementing evolutionary
  algorithms.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#org.cicirello.search.problems">org.cicirello.search.problems</a></div>
+<div class="col-first odd-row-color"><a href="#org.cicirello.search.hc">org.cicirello.search.hc</a></div>
 <div class="col-last odd-row-color">
+<div class="block">This package includes classes and interfaces directly related to implementing hill climbers.</div>
+</div>
+<div class="col-first even-row-color"><a href="#org.cicirello.search.problems">org.cicirello.search.problems</a></div>
+<div class="col-last even-row-color">
 <div class="block">Package of classes and interfaces related to representing computational problems, as well as
  classes implementing a variety of specific computational problems.</div>
 </div>
-<div class="col-first even-row-color"><a href="#org.cicirello.search.problems.binpack">org.cicirello.search.problems.binpack</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="#org.cicirello.search.problems.binpack">org.cicirello.search.problems.binpack</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Classes and interfaces related to the Bin Packing.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#org.cicirello.search.problems.scheduling">org.cicirello.search.problems.scheduling</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="#org.cicirello.search.problems.scheduling">org.cicirello.search.problems.scheduling</a></div>
+<div class="col-last even-row-color">
 <div class="block">Package of classes and interfaces related to representing and solving scheduling problems, which
  includes implementations of constructive heuristics for scheduling problems.</div>
 </div>
-<div class="col-first even-row-color"><a href="#org.cicirello.search.problems.tsp">org.cicirello.search.problems.tsp</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="#org.cicirello.search.problems.tsp">org.cicirello.search.problems.tsp</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Classes and interfaces related to the Traveling Salesperson Problem (TSP).</div>
 </div>
-<div class="col-first odd-row-color"><a href="#org.cicirello.search.restarts">org.cicirello.search.restarts</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="#org.cicirello.search.restarts">org.cicirello.search.restarts</a></div>
+<div class="col-last even-row-color">
 <div class="block">This package includes classes and interfaces related to implementing multistart metaheuristics
  (i.e., metaheuristics that periodically restart, and return the best solution across a number of
  such restarts).</div>
 </div>
-<div class="col-first even-row-color"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="#org.cicirello.search.sa">org.cicirello.search.sa</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This package includes classes and interfaces directly related to implementing simulated
  annealing.</div>
 </div>
-<div class="col-first odd-row-color"><a href="#org.cicirello.search.ss">org.cicirello.search.ss</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="#org.cicirello.search.ss">org.cicirello.search.ss</a></div>
+<div class="col-last even-row-color">
 <div class="block">This package includes classes and interfaces directly related to implementing stochastic sampling
  algorithms.</div>
 </div>
@@ -168,6 +172,23 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>final <a href="../Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html" title="type parameter in OnePlusOneEvolutionaryAlgorithm">T</a>&gt;</code></div>
 <div class="col-second even-row-color"><span class="type-name-label">OnePlusOneEvolutionaryAlgorithm.</span><code><a href="../../evo/OnePlusOneEvolutionaryAlgorithm.html#getProblem()" class="member-name-link">getProblem</a>()</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="org.cicirello.search.hc">
+<h2>Uses of <a href="../Problem.html" title="interface in org.cicirello.search.problems">Problem</a> in <a href="../../hc/package-summary.html">org.cicirello.search.hc</a></h2>
+<div class="caption"><span>Methods in <a href="../../hc/package-summary.html">org.cicirello.search.hc</a> that return <a href="../Problem.html" title="interface in org.cicirello.search.problems">Problem</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Method</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>final <a href="../Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="../../hc/FirstDescentHillClimber.html" title="type parameter in FirstDescentHillClimber">T</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">FirstDescentHillClimber.</span><code><a href="../../hc/FirstDescentHillClimber.html#getProblem()" class="member-name-link">getProblem</a>()</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>final <a href="../Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="../../hc/SteepestDescentHillClimber.html" title="type parameter in SteepestDescentHillClimber">T</a>&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">SteepestDescentHillClimber.</span><code><a href="../../hc/SteepestDescentHillClimber.html#getProblem()" class="member-name-link">getProblem</a>()</code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -565,7 +586,7 @@ loadScripts(document, 'script');</script>
 </main>
 <footer role="contentinfo">
 <hr>
-<p class="legal-copy"><small>Copyright &copy; 2002-2022 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
+<p class="legal-copy"><small>Copyright &copy; 2002-2023 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
 </footer>
 </div>
 </div>

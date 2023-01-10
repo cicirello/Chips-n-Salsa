@@ -4,12 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2023-01-08
+## [Unreleased] - 2023-01-10
 
 ### Added
-* AdaptiveMutationOnlyEvolutionaryAlgorithm: An implementation of a mutation-only evolutionary algorithm 
+* AdaptiveMutationOnlyEvolutionaryAlgorithm: Implementation of a mutation-only evolutionary algorithm 
   with mutation rates that evolve during the search.
-* Extracted a EuclideanDistance class from the TSP where previously default and only edge distance to
+* Extracted a EuclideanDistance class from the TSP (previously default and only edge distance) to
   enable easily introducing additional TSP edge distance functions.
 
 ### Changed
@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Parallel metaheuristic and parallel multistarter classes
 * Refactored test cases for the LargestCommonSubgraph class (based on RefactorFirst scan).
 * Refactored test cases for the hill climber classes (based on RefactorFirst scan).
+* Refactored test cases for the TSP class (based on RefactorFirst scan).
 
 ### Deprecated
 

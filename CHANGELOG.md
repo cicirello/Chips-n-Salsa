@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored test cases for the LargestCommonSubgraph class (based on RefactorFirst scan).
 * Refactored test cases for the hill climber classes (based on RefactorFirst scan).
 * Refactored test cases for the TSP class (based on RefactorFirst scan).
+* Refactored test cases for BoltzmannSelection and BoltzmannStochasticUniversalSampling (based on RefactorFirst scan).
 
 ### Deprecated
 

@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2023-01-10
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Dependencies
+
+### CI/CD
+
+### Other
+
+
+## [6.2.0] - 2023-01-10
+
+### Added
 * AdaptiveMutationOnlyEvolutionaryAlgorithm: Implementation of a mutation-only evolutionary algorithm 
   with mutation rates that evolve during the search.
 * Extracted a EuclideanDistance class from the TSP (previously default and only edge distance) to
@@ -26,19 +45,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored test cases for the TSP class (based on RefactorFirst scan).
 * Refactored test cases for BoltzmannSelection and BoltzmannStochasticUniversalSampling (based on RefactorFirst scan).
 
-### Deprecated
-
-### Removed
-
-### Fixed
-
 ### Dependencies
 * Bump jpt from 4.3.1 to 5.0.0
 * Bump rho-mu from 2.5.0 to 3.0.1
-
-### CI/CD
-
-### Other
 
 
 ## [6.1.0] - 2022-11-17

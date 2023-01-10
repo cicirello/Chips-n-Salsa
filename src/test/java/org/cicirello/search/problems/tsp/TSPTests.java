@@ -27,9 +27,7 @@ import org.cicirello.permutations.Permutation;
 import org.cicirello.search.SolutionCostPair;
 import org.junit.jupiter.api.*;
 
-/** 
- * JUnit tests for the TSP base class. The nested subclasses 
- * are tested in other test classes. */
+/** JUnit tests for the TSP base class. The nested subclasses are tested in other test classes. */
 public class TSPTests {
 
   @Test

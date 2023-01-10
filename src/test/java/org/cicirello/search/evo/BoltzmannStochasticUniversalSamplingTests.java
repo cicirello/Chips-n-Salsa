@@ -24,15 +24,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
 
-/** JUnit test cases for BoltzmannSelection. */
-public class BoltzmannSelectionTests {
+/** JUnit test cases for BoltzmannStochasticUniversalSampling. */
+public class BoltzmannStochasticUniversalSamplingTests {
 
   @Test
-  public void testBoltzmannSelectionExponential() {
+  public void testBoltzmannStochasticUniversalSamplingExponential() {
     double[] fitnesses = {0, 1, 2, 3, 4, 5};
     PopulationFitnessVector.Double vector = PopulationFitnessVector.Double.of(fitnesses.clone());
 
-    BoltzmannSelection selection = new BoltzmannSelection(1.0, 0.1, 0.5, false);
+    BoltzmannStochasticUniversalSampling selection =
+        new BoltzmannStochasticUniversalSampling(1.0, 0.1, 0.5, false);
     double[] weightedSum = selection.computeWeightRunningSum(vector);
     double expected = 0.0;
     double div = 1;
@@ -61,7 +62,7 @@ public class BoltzmannSelectionTests {
       expected += Math.exp(fitnesses[i] / div);
       assertEquals(expected, weightedSum[i]);
     }
-    BoltzmannSelection split = selection.split();
+    BoltzmannStochasticUniversalSampling split = selection.split();
     weightedSum = selection.computeWeightRunningSum(vector);
     expected = 0.0;
     div = 0.1;
@@ -165,24 +166,29 @@ public class BoltzmannSelectionTests {
 
     IllegalArgumentException thrown =
         assertThrows(
-            IllegalArgumentException.class, () -> new BoltzmannSelection(10.0, 0.0, 1.0, false));
+            IllegalArgumentException.class,
+            () -> new BoltzmannStochasticUniversalSampling(10.0, 0.0, 1.0, false));
     thrown =
         assertThrows(
-            IllegalArgumentException.class, () -> new BoltzmannSelection(0.09, 0.1, 1.0, false));
+            IllegalArgumentException.class,
+            () -> new BoltzmannStochasticUniversalSampling(0.09, 0.1, 1.0, false));
     thrown =
         assertThrows(
-            IllegalArgumentException.class, () -> new BoltzmannSelection(5.0, 0.1, 0.0, false));
+            IllegalArgumentException.class,
+            () -> new BoltzmannStochasticUniversalSampling(5.0, 0.1, 0.0, false));
     thrown =
         assertThrows(
-            IllegalArgumentException.class, () -> new BoltzmannSelection(5.0, 0.1, 1.0, false));
+            IllegalArgumentException.class,
+            () -> new BoltzmannStochasticUniversalSampling(5.0, 0.1, 1.0, false));
   }
 
   @Test
-  public void testBoltzmannSelectionExponentialInteger() {
+  public void testBoltzmannStochasticUniversalSamplingExponentialInteger() {
     int[] fitnesses = {0, 1, 2, 3, 4, 5};
     PopulationFitnessVector.Integer vector = PopulationFitnessVector.Integer.of(fitnesses.clone());
 
-    BoltzmannSelection selection = new BoltzmannSelection(1.0, 0.1, 0.5, false);
+    BoltzmannStochasticUniversalSampling selection =
+        new BoltzmannStochasticUniversalSampling(1.0, 0.1, 0.5, false);
     double[] weightedSum = selection.computeWeightRunningSum(vector);
     double expected = 0.0;
     double div = 1;
@@ -211,7 +217,7 @@ public class BoltzmannSelectionTests {
       expected += Math.exp(fitnesses[i] / div);
       assertEquals(expected, weightedSum[i]);
     }
-    BoltzmannSelection split = selection.split();
+    BoltzmannStochasticUniversalSampling split = selection.split();
     weightedSum = selection.computeWeightRunningSum(vector);
     expected = 0.0;
     div = 0.1;
@@ -315,11 +321,12 @@ public class BoltzmannSelectionTests {
   }
 
   @Test
-  public void testBoltzmannSelectionLinear() {
+  public void testBoltzmannStochasticUniversalSamplingLinear() {
     double[] fitnesses = {0, 1, 2, 3, 4, 5};
     PopulationFitnessVector.Double vector = PopulationFitnessVector.Double.of(fitnesses.clone());
 
-    BoltzmannSelection selection = new BoltzmannSelection(4.0, 0.1, 1.0, true);
+    BoltzmannStochasticUniversalSampling selection =
+        new BoltzmannStochasticUniversalSampling(4.0, 0.1, 1.0, true);
     double[] weightedSum = selection.computeWeightRunningSum(vector);
     double expected = 0.0;
     double div = 4;
@@ -348,7 +355,7 @@ public class BoltzmannSelectionTests {
       expected += Math.exp(fitnesses[i] / div);
       assertEquals(expected, weightedSum[i]);
     }
-    BoltzmannSelection split = selection.split();
+    BoltzmannStochasticUniversalSampling split = selection.split();
     weightedSum = selection.computeWeightRunningSum(vector);
     expected = 0.0;
     div = 0.1;
@@ -452,21 +459,25 @@ public class BoltzmannSelectionTests {
 
     IllegalArgumentException thrown =
         assertThrows(
-            IllegalArgumentException.class, () -> new BoltzmannSelection(10.0, 0.0, 1.0, true));
+            IllegalArgumentException.class,
+            () -> new BoltzmannStochasticUniversalSampling(10.0, 0.0, 1.0, true));
     thrown =
         assertThrows(
-            IllegalArgumentException.class, () -> new BoltzmannSelection(0.09, 0.1, 1.0, true));
+            IllegalArgumentException.class,
+            () -> new BoltzmannStochasticUniversalSampling(0.09, 0.1, 1.0, true));
     thrown =
         assertThrows(
-            IllegalArgumentException.class, () -> new BoltzmannSelection(5.0, 0.1, 0.0, true));
+            IllegalArgumentException.class,
+            () -> new BoltzmannStochasticUniversalSampling(5.0, 0.1, 0.0, true));
   }
 
   @Test
-  public void testBoltzmannSelectionLinearInteger() {
+  public void testBoltzmannStochasticUniversalSamplingLinearInteger() {
     int[] fitnesses = {0, 1, 2, 3, 4, 5};
     PopulationFitnessVector.Integer vector = PopulationFitnessVector.Integer.of(fitnesses.clone());
 
-    BoltzmannSelection selection = new BoltzmannSelection(4.0, 0.1, 1.0, true);
+    BoltzmannStochasticUniversalSampling selection =
+        new BoltzmannStochasticUniversalSampling(4.0, 0.1, 1.0, true);
     double[] weightedSum = selection.computeWeightRunningSum(vector);
     double expected = 0.0;
     double div = 4;
@@ -495,7 +506,7 @@ public class BoltzmannSelectionTests {
       expected += Math.exp(fitnesses[i] / div);
       assertEquals(expected, weightedSum[i]);
     }
-    BoltzmannSelection split = selection.split();
+    BoltzmannStochasticUniversalSampling split = selection.split();
     weightedSum = selection.computeWeightRunningSum(vector);
     expected = 0.0;
     div = 0.1;
@@ -599,11 +610,11 @@ public class BoltzmannSelectionTests {
   }
 
   @Test
-  public void testBoltzmannSelectionConstant() {
+  public void testBoltzmannStochasticUniversalSamplingConstant() {
     double[] fitnesses = {0, 1, 2, 3, 4, 5};
     PopulationFitnessVector.Double vector = PopulationFitnessVector.Double.of(fitnesses.clone());
 
-    BoltzmannSelection selection = new BoltzmannSelection(1.0);
+    BoltzmannStochasticUniversalSampling selection = new BoltzmannStochasticUniversalSampling(1.0);
     double[] weightedSum = selection.computeWeightRunningSum(vector);
     double expected = 1;
     for (int i = 0; i < fitnesses.length; i++) {
@@ -616,7 +627,7 @@ public class BoltzmannSelectionTests {
       assertEquals(expected, weightedSum[i]);
       if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
     }
-    BoltzmannSelection split = selection.split();
+    BoltzmannStochasticUniversalSampling split = selection.split();
     selection.init(1000);
     weightedSum = selection.computeWeightRunningSum(vector);
     expected = 1;
@@ -645,7 +656,7 @@ public class BoltzmannSelectionTests {
       if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
     }
 
-    selection = new BoltzmannSelection(0.5);
+    selection = new BoltzmannStochasticUniversalSampling(0.5);
     weightedSum = selection.computeWeightRunningSum(vector);
     expected = 1;
     for (int i = 0; i < fitnesses.length; i++) {
@@ -666,7 +677,7 @@ public class BoltzmannSelectionTests {
       if (i < fitnesses.length - 1) expected += Math.exp(2 * fitnesses[i + 1]);
     }
 
-    selection = new BoltzmannSelection(2.0);
+    selection = new BoltzmannStochasticUniversalSampling(2.0);
     weightedSum = selection.computeWeightRunningSum(vector);
     expected = 1;
     for (int i = 0; i < fitnesses.length; i++) {
@@ -688,15 +699,16 @@ public class BoltzmannSelectionTests {
     }
 
     IllegalArgumentException thrown =
-        assertThrows(IllegalArgumentException.class, () -> new BoltzmannSelection(0.0));
+        assertThrows(
+            IllegalArgumentException.class, () -> new BoltzmannStochasticUniversalSampling(0.0));
   }
 
   @Test
-  public void testBoltzmannSelectionConstantInteger() {
+  public void testBoltzmannStochasticUniversalSamplingConstantInteger() {
     int[] fitnesses = {0, 1, 2, 3, 4, 5};
     PopulationFitnessVector.Integer vector = PopulationFitnessVector.Integer.of(fitnesses.clone());
 
-    BoltzmannSelection selection = new BoltzmannSelection(1.0);
+    BoltzmannStochasticUniversalSampling selection = new BoltzmannStochasticUniversalSampling(1.0);
     double[] weightedSum = selection.computeWeightRunningSum(vector);
     double expected = 1;
     for (int i = 0; i < fitnesses.length; i++) {
@@ -709,7 +721,7 @@ public class BoltzmannSelectionTests {
       assertEquals(expected, weightedSum[i]);
       if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
     }
-    BoltzmannSelection split = selection.split();
+    BoltzmannStochasticUniversalSampling split = selection.split();
     selection.init(1000);
     weightedSum = selection.computeWeightRunningSum(vector);
     expected = 1;
@@ -738,7 +750,7 @@ public class BoltzmannSelectionTests {
       if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
     }
 
-    selection = new BoltzmannSelection(0.5);
+    selection = new BoltzmannStochasticUniversalSampling(0.5);
     weightedSum = selection.computeWeightRunningSum(vector);
     expected = 1;
     for (int i = 0; i < fitnesses.length; i++) {
@@ -759,7 +771,7 @@ public class BoltzmannSelectionTests {
       if (i < fitnesses.length - 1) expected += Math.exp(2 * fitnesses[i + 1]);
     }
 
-    selection = new BoltzmannSelection(2.0);
+    selection = new BoltzmannStochasticUniversalSampling(2.0);
     weightedSum = selection.computeWeightRunningSum(vector);
     expected = 1;
     for (int i = 0; i < fitnesses.length; i++) {
@@ -781,6 +793,7 @@ public class BoltzmannSelectionTests {
     }
 
     IllegalArgumentException thrown =
-        assertThrows(IllegalArgumentException.class, () -> new BoltzmannSelection(0.0));
+        assertThrows(
+            IllegalArgumentException.class, () -> new BoltzmannStochasticUniversalSampling(0.0));
   }
 }

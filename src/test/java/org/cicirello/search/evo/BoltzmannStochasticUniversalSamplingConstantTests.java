@@ -54,67 +54,13 @@ public class BoltzmannStochasticUniversalSamplingConstantTests {
       if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
     }
 
-    weightedSum = split.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
-    }
-    weightedSum = split.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
-    }
-    split.init(1000);
-    weightedSum = split.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
-    }
+    validateDouble(split, fitnesses, vector, 1.0);
 
     selection = new BoltzmannStochasticUniversalSampling(0.5);
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(2 * fitnesses[i + 1]);
-    }
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(2 * fitnesses[i + 1]);
-    }
-    selection.init(1000);
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(2 * fitnesses[i + 1]);
-    }
+    validateDouble(selection, fitnesses, vector, 2.0);
 
     selection = new BoltzmannStochasticUniversalSampling(2.0);
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(0.5 * fitnesses[i + 1]);
-    }
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(0.5 * fitnesses[i + 1]);
-    }
-    selection.init(1000);
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(0.5 * fitnesses[i + 1]);
-    }
+    validateDouble(selection, fitnesses, vector, 0.5);
 
     IllegalArgumentException thrown =
         assertThrows(
@@ -148,70 +94,68 @@ public class BoltzmannStochasticUniversalSamplingConstantTests {
       if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
     }
 
-    weightedSum = split.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
-    }
-    weightedSum = split.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
-    }
-    split.init(1000);
-    weightedSum = split.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(fitnesses[i + 1]);
-    }
+    validateInteger(split, fitnesses, vector, 1.0);
 
     selection = new BoltzmannStochasticUniversalSampling(0.5);
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(2 * fitnesses[i + 1]);
-    }
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(2 * fitnesses[i + 1]);
-    }
-    selection.init(1000);
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(2 * fitnesses[i + 1]);
-    }
+    validateInteger(selection, fitnesses, vector, 2.0);
 
     selection = new BoltzmannStochasticUniversalSampling(2.0);
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(0.5 * fitnesses[i + 1]);
-    }
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(0.5 * fitnesses[i + 1]);
-    }
-    selection.init(1000);
-    weightedSum = selection.computeWeightRunningSum(vector);
-    expected = 1;
-    for (int i = 0; i < fitnesses.length; i++) {
-      assertEquals(expected, weightedSum[i]);
-      if (i < fitnesses.length - 1) expected += Math.exp(0.5 * fitnesses[i + 1]);
-    }
+    validateInteger(selection, fitnesses, vector, 0.5);
 
     IllegalArgumentException thrown =
         assertThrows(
             IllegalArgumentException.class, () -> new BoltzmannStochasticUniversalSampling(0.0));
+  }
+
+  private void validateDouble(
+      BoltzmannStochasticUniversalSampling selection,
+      double[] fitnesses,
+      PopulationFitnessVector.Double vector,
+      double multiplier) {
+    double[] weightedSum = selection.computeWeightRunningSum(vector);
+    double expected = 1;
+    for (int i = 0; i < fitnesses.length; i++) {
+      assertEquals(expected, weightedSum[i]);
+      if (i < fitnesses.length - 1) expected += Math.exp(multiplier * fitnesses[i + 1]);
+    }
+    weightedSum = selection.computeWeightRunningSum(vector);
+    expected = 1;
+    for (int i = 0; i < fitnesses.length; i++) {
+      assertEquals(expected, weightedSum[i]);
+      if (i < fitnesses.length - 1) expected += Math.exp(multiplier * fitnesses[i + 1]);
+    }
+    selection.init(1000);
+    weightedSum = selection.computeWeightRunningSum(vector);
+    expected = 1;
+    for (int i = 0; i < fitnesses.length; i++) {
+      assertEquals(expected, weightedSum[i]);
+      if (i < fitnesses.length - 1) expected += Math.exp(multiplier * fitnesses[i + 1]);
+    }
+  }
+
+  private void validateInteger(
+      BoltzmannStochasticUniversalSampling selection,
+      int[] fitnesses,
+      PopulationFitnessVector.Integer vector,
+      double multiplier) {
+    double[] weightedSum = selection.computeWeightRunningSum(vector);
+    double expected = 1;
+    for (int i = 0; i < fitnesses.length; i++) {
+      assertEquals(expected, weightedSum[i]);
+      if (i < fitnesses.length - 1) expected += Math.exp(multiplier * fitnesses[i + 1]);
+    }
+    weightedSum = selection.computeWeightRunningSum(vector);
+    expected = 1;
+    for (int i = 0; i < fitnesses.length; i++) {
+      assertEquals(expected, weightedSum[i]);
+      if (i < fitnesses.length - 1) expected += Math.exp(multiplier * fitnesses[i + 1]);
+    }
+    selection.init(1000);
+    weightedSum = selection.computeWeightRunningSum(vector);
+    expected = 1;
+    for (int i = 0; i < fitnesses.length; i++) {
+      assertEquals(expected, weightedSum[i]);
+      if (i < fitnesses.length - 1) expected += Math.exp(multiplier * fitnesses[i + 1]);
+    }
   }
 }

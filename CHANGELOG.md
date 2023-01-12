@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Refactored several classes based on RefactorFirst scan, including the following:
+  * Test cases for all of the numeric representations
 
 ### Dependencies
 * Bump core from 2.4.3 to 2.4.4

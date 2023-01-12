@@ -27,10 +27,8 @@ import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
 import org.junit.jupiter.api.*;
 
-/**
- * JUnit tests for the HeuristicPermutationGenerator class.
- */
-public class HeuristicPermutationGeneratorTests extends SharedTestStochasticSampler {
+/** JUnit tests for the HeuristicPermutationGenerator class for problems with int-valued costs. */
+public class HeuristicPermutationGeneratorIntCostTests extends SharedTestStochasticSampler {
 
   @Test
   public void testWithIntCosts() {
@@ -105,40 +103,6 @@ public class HeuristicPermutationGeneratorTests extends SharedTestStochasticSamp
   }
 
   @Test
-  public void testWithDoubleCosts() {
-    for (int n = 0; n < 5; n++) {
-      DoubleProblem problem = new DoubleProblem();
-      DoubleHeuristic h = new DoubleHeuristic(problem, n);
-      HeuristicPermutationGenerator ch = new HeuristicPermutationGenerator(h);
-      assertEquals(0, ch.getTotalRunLength());
-      assertTrue(problem == ch.getProblem());
-      ProgressTracker<Permutation> tracker = ch.getProgressTracker();
-      SolutionCostPair<Permutation> solution = ch.optimize();
-      assertEquals(1, ch.getTotalRunLength());
-      assertEquals((n + 1) * n / 2, solution.getCostDouble(), 1E-10);
-      assertEquals((n + 1) * n / 2, tracker.getCostDouble(), 1E-10);
-      Permutation p = solution.getSolution();
-      assertEquals(n, p.length());
-      int evenStart = (n % 2 == 0) ? n - 2 : n - 1;
-      int oddStart = (n % 2 == 0) ? n - 1 : n - 2;
-      int i = 0;
-      for (int expected = evenStart; expected >= 0 && i < n; expected -= 2, i++) {
-        assertEquals(expected, p.get(i));
-      }
-      for (int expected = oddStart; expected > 0 && i < n; expected -= 2, i++) {
-        assertEquals(expected, p.get(i));
-      }
-      solution = ch.optimize();
-      assertEquals(2, ch.getTotalRunLength());
-      assertEquals((n + 1) * n / 2, solution.getCostDouble(), 1E-10);
-      assertEquals((n + 1) * n / 2, tracker.getCostDouble(), 1E-10);
-      tracker = new ProgressTracker<Permutation>();
-      ch.setProgressTracker(tracker);
-      assertTrue(tracker == ch.getProgressTracker());
-    }
-  }
-
-  @Test
   public void testWithIntCostsWithProgressTracker() {
     for (int n = 0; n < 5; n++) {
       ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
@@ -171,38 +135,6 @@ public class HeuristicPermutationGeneratorTests extends SharedTestStochasticSamp
   }
 
   @Test
-  public void testWithDoubleCostsWithProgressTracker() {
-    for (int n = 0; n < 5; n++) {
-      ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
-      DoubleProblem problem = new DoubleProblem();
-      DoubleHeuristic h = new DoubleHeuristic(problem, n);
-      HeuristicPermutationGenerator ch = new HeuristicPermutationGenerator(h, originalTracker);
-      assertEquals(0, ch.getTotalRunLength());
-      assertTrue(problem == ch.getProblem());
-      ProgressTracker<Permutation> tracker = ch.getProgressTracker();
-      assertTrue(originalTracker == tracker);
-      SolutionCostPair<Permutation> solution = ch.optimize();
-      assertEquals(1, ch.getTotalRunLength());
-      assertEquals((n + 1) * n / 2, solution.getCostDouble(), 1E-10);
-      assertEquals((n + 1) * n / 2, tracker.getCostDouble(), 1E-10);
-      Permutation p = solution.getSolution();
-      assertEquals(n, p.length());
-      int evenStart = (n % 2 == 0) ? n - 2 : n - 1;
-      int oddStart = (n % 2 == 0) ? n - 1 : n - 2;
-      int i = 0;
-      for (int expected = evenStart; expected >= 0 && i < n; expected -= 2, i++) {
-        assertEquals(expected, p.get(i));
-      }
-      for (int expected = oddStart; expected > 0 && i < n; expected -= 2, i++) {
-        assertEquals(expected, p.get(i));
-      }
-      tracker = new ProgressTracker<Permutation>();
-      ch.setProgressTracker(tracker);
-      assertTrue(tracker == ch.getProgressTracker());
-    }
-  }
-
-  @Test
   public void testWithIntCostsSplit() {
     for (int n = 0; n < 5; n++) {
       IntProblem problem = new IntProblem();
@@ -216,37 +148,6 @@ public class HeuristicPermutationGeneratorTests extends SharedTestStochasticSamp
       assertEquals(1, ch.getTotalRunLength());
       assertEquals((n + 1) * n / 2, solution.getCost());
       assertEquals((n + 1) * n / 2, tracker.getCost());
-      Permutation p = solution.getSolution();
-      assertEquals(n, p.length());
-      int evenStart = (n % 2 == 0) ? n - 2 : n - 1;
-      int oddStart = (n % 2 == 0) ? n - 1 : n - 2;
-      int i = 0;
-      for (int expected = evenStart; expected >= 0 && i < n; expected -= 2, i++) {
-        assertEquals(expected, p.get(i));
-      }
-      for (int expected = oddStart; expected > 0 && i < n; expected -= 2, i++) {
-        assertEquals(expected, p.get(i));
-      }
-      tracker = new ProgressTracker<Permutation>();
-      ch.setProgressTracker(tracker);
-      assertTrue(tracker == ch.getProgressTracker());
-    }
-  }
-
-  @Test
-  public void testWithDoubleCostsSplit() {
-    for (int n = 0; n < 5; n++) {
-      DoubleProblem problem = new DoubleProblem();
-      DoubleHeuristic h = new DoubleHeuristic(problem, n);
-      HeuristicPermutationGenerator chOriginal = new HeuristicPermutationGenerator(h);
-      HeuristicPermutationGenerator ch = chOriginal.split();
-      assertEquals(0, ch.getTotalRunLength());
-      assertTrue(problem == ch.getProblem());
-      ProgressTracker<Permutation> tracker = ch.getProgressTracker();
-      SolutionCostPair<Permutation> solution = ch.optimize();
-      assertEquals(1, ch.getTotalRunLength());
-      assertEquals((n + 1) * n / 2, solution.getCostDouble(), 1E-10);
-      assertEquals((n + 1) * n / 2, tracker.getCostDouble(), 1E-10);
       Permutation p = solution.getSolution();
       assertEquals(n, p.length());
       int evenStart = (n % 2 == 0) ? n - 2 : n - 1;

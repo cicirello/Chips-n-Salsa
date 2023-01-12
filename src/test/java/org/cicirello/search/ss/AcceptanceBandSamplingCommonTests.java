@@ -28,9 +28,15 @@ import org.junit.jupiter.api.*;
 /** JUnit tests for AcceptanceBandSampling not dependent on cost type. */
 public class AcceptanceBandSamplingCommonTests extends SharedTestStochasticSampler {
 
+  private IntProblem problem;
+
+  @BeforeEach
+  public void initProblem() {
+    problem = new IntProblem();
+  }
+
   @Test
   public void testConstructorExceptions() {
-    IntProblem problem = new IntProblem();
     IntHeuristic h = new IntHeuristic(problem, 5, 20);
     IllegalArgumentException thrown =
         assertThrows(
@@ -58,7 +64,6 @@ public class AcceptanceBandSamplingCommonTests extends SharedTestStochasticSampl
   public void testChooseBetaMax() {
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
-        IntProblem problem = new IntProblem();
         IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 1.0);
         for (int trial = 0; trial < 10; trial++) {
@@ -82,7 +87,6 @@ public class AcceptanceBandSamplingCommonTests extends SharedTestStochasticSampl
     }
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
-        IntProblem problem = new IntProblem();
         IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 1.0);
         for (int trial = 0; trial < 10; trial++) {
@@ -110,7 +114,6 @@ public class AcceptanceBandSamplingCommonTests extends SharedTestStochasticSampl
   public void testChooseBetaMin() {
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
-        IntProblem problem = new IntProblem();
         IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 0.0);
         for (int trial = 0; trial < 10; trial++) {
@@ -131,7 +134,6 @@ public class AcceptanceBandSamplingCommonTests extends SharedTestStochasticSampl
     }
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
-        IntProblem problem = new IntProblem();
         IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 0.0);
         for (int trial = 0; trial < 10; trial++) {
@@ -156,7 +158,6 @@ public class AcceptanceBandSamplingCommonTests extends SharedTestStochasticSampl
   public void testChooseBeta05() {
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
-        IntProblem problem = new IntProblem();
         IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 0.5);
         for (int trial = 0; trial < 10; trial++) {
@@ -182,7 +183,6 @@ public class AcceptanceBandSamplingCommonTests extends SharedTestStochasticSampl
     }
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
-        IntProblem problem = new IntProblem();
         IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 0.5);
         for (int trial = 0; trial < 10; trial++) {

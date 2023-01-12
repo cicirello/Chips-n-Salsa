@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -25,17 +25,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.problems.IntegerCostOptimizationProblem;
-import org.cicirello.search.problems.OptimizationProblem;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for AcceptanceBandSampling. */
-public class AcceptanceBandTests {
+public class AcceptanceBandTests extends SharedTestStochasticSampler {
 
   @Test
   public void testConstructorExceptions() {
     IntProblem problem = new IntProblem();
-    IntHeuristic h = new IntHeuristic(problem, 5);
+    IntHeuristic h = new IntHeuristic(problem, 5, 20);
     IllegalArgumentException thrown =
         assertThrows(
             IllegalArgumentException.class,
@@ -51,7 +49,7 @@ public class AcceptanceBandTests {
         assertThrows(
             NullPointerException.class,
             () -> new AcceptanceBandSampling<Permutation>(h, 0.5, null));
-    IntHeuristic hNullProblem = new IntHeuristic(null, 5);
+    IntHeuristic hNullProblem = new IntHeuristic(null, 5, 20);
     thrownNull =
         assertThrows(
             NullPointerException.class,
@@ -62,7 +60,7 @@ public class AcceptanceBandTests {
   public void testHeuristicNullIncremental() {
     for (int n = 0; n < 4; n++) {
       IntProblem problem = new IntProblem();
-      IntHeuristicNullIncremental h = new IntHeuristicNullIncremental(problem, n);
+      IntHeuristicNullIncremental h = new IntHeuristicNullIncremental(problem, n, 20);
       AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h);
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
@@ -87,7 +85,7 @@ public class AcceptanceBandTests {
   public void testWithIntCosts() {
     for (int n = 0; n < 10; n++) {
       IntProblem problem = new IntProblem();
-      IntHeuristic h = new IntHeuristic(problem, n);
+      IntHeuristic h = new IntHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h);
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
@@ -112,7 +110,7 @@ public class AcceptanceBandTests {
   public void testWithDoubleCosts() {
     for (int n = 0; n < 10; n++) {
       DoubleProblem problem = new DoubleProblem();
-      DoubleHeuristic h = new DoubleHeuristic(problem, n);
+      DoubleHeuristic h = new DoubleHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h);
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
@@ -137,7 +135,7 @@ public class AcceptanceBandTests {
   public void testWithIntCostsMultipleSamples() {
     for (int n = 0; n < 10; n++) {
       IntProblem problem = new IntProblem();
-      IntHeuristic h = new IntHeuristic(problem, n);
+      IntHeuristic h = new IntHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h);
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
@@ -162,7 +160,7 @@ public class AcceptanceBandTests {
   public void testWithDoubleCostsMultipleSamples() {
     for (int n = 0; n < 10; n++) {
       DoubleProblem problem = new DoubleProblem();
-      DoubleHeuristic h = new DoubleHeuristic(problem, n);
+      DoubleHeuristic h = new DoubleHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h);
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
@@ -188,7 +186,7 @@ public class AcceptanceBandTests {
     for (int n = 0; n < 10; n++) {
       ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
       IntProblem problem = new IntProblem();
-      IntHeuristic h = new IntHeuristic(problem, n);
+      IntHeuristic h = new IntHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> ch =
           new AcceptanceBandSampling<Permutation>(h, originalTracker);
       assertEquals(0, ch.getTotalRunLength());
@@ -212,7 +210,7 @@ public class AcceptanceBandTests {
     for (int n = 0; n < 10; n++) {
       ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
       DoubleProblem problem = new DoubleProblem();
-      DoubleHeuristic h = new DoubleHeuristic(problem, n);
+      DoubleHeuristic h = new DoubleHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> ch =
           new AcceptanceBandSampling<Permutation>(h, originalTracker);
       assertEquals(0, ch.getTotalRunLength());
@@ -235,7 +233,7 @@ public class AcceptanceBandTests {
   public void testWithIntCostsSplit() {
     for (int n = 0; n < 10; n++) {
       IntProblem problem = new IntProblem();
-      IntHeuristic h = new IntHeuristic(problem, n);
+      IntHeuristic h = new IntHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> chOriginal = new AcceptanceBandSampling<Permutation>(h);
       AcceptanceBandSampling<Permutation> ch = chOriginal.split();
       assertEquals(0, ch.getTotalRunLength());
@@ -257,7 +255,7 @@ public class AcceptanceBandTests {
   public void testWithDoubleCostsSplit() {
     for (int n = 0; n < 10; n++) {
       DoubleProblem problem = new DoubleProblem();
-      DoubleHeuristic h = new DoubleHeuristic(problem, n);
+      DoubleHeuristic h = new DoubleHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> chOriginal = new AcceptanceBandSampling<Permutation>(h);
       AcceptanceBandSampling<Permutation> ch = chOriginal.split();
       assertEquals(0, ch.getTotalRunLength());
@@ -280,7 +278,7 @@ public class AcceptanceBandTests {
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
         IntProblem problem = new IntProblem();
-        IntHeuristic h = new IntHeuristic(problem, n);
+        IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 1.0);
         for (int trial = 0; trial < 10; trial++) {
           double[] values = new double[n];
@@ -304,7 +302,7 @@ public class AcceptanceBandTests {
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
         IntProblem problem = new IntProblem();
-        IntHeuristic h = new IntHeuristic(problem, n);
+        IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 1.0);
         for (int trial = 0; trial < 10; trial++) {
           double[] values = new double[n];
@@ -332,7 +330,7 @@ public class AcceptanceBandTests {
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
         IntProblem problem = new IntProblem();
-        IntHeuristic h = new IntHeuristic(problem, n);
+        IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 0.0);
         for (int trial = 0; trial < 10; trial++) {
           double[] values = new double[n];
@@ -353,7 +351,7 @@ public class AcceptanceBandTests {
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
         IntProblem problem = new IntProblem();
-        IntHeuristic h = new IntHeuristic(problem, n);
+        IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 0.0);
         for (int trial = 0; trial < 10; trial++) {
           double[] values = new double[n];
@@ -378,7 +376,7 @@ public class AcceptanceBandTests {
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
         IntProblem problem = new IntProblem();
-        IntHeuristic h = new IntHeuristic(problem, n);
+        IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 0.5);
         for (int trial = 0; trial < 10; trial++) {
           double[] values = new double[n];
@@ -404,7 +402,7 @@ public class AcceptanceBandTests {
     for (int n = 1; n <= 10; n++) {
       for (int k = 1; k <= n; k++) {
         IntProblem problem = new IntProblem();
-        IntHeuristic h = new IntHeuristic(problem, n);
+        IntHeuristic h = new IntHeuristic(problem, n, 20);
         AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 0.5);
         for (int trial = 0; trial < 10; trial++) {
           double[] values = new double[n];
@@ -433,7 +431,7 @@ public class AcceptanceBandTests {
   public void testWithIntCostsBetaMax() {
     for (int n = 0; n < 10; n++) {
       IntProblem problem = new IntProblem();
-      IntHeuristic h = new IntHeuristic(problem, n);
+      IntHeuristic h = new IntHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 1.0);
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
@@ -458,7 +456,7 @@ public class AcceptanceBandTests {
   public void testWithDoubleCostsBetaMax() {
     for (int n = 0; n < 10; n++) {
       DoubleProblem problem = new DoubleProblem();
-      DoubleHeuristic h = new DoubleHeuristic(problem, n);
+      DoubleHeuristic h = new DoubleHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 1.0);
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
@@ -483,7 +481,7 @@ public class AcceptanceBandTests {
   public void testWithIntCostsBetaMin() {
     for (int n = 0; n < 10; n++) {
       IntProblem problem = new IntProblem();
-      IntHeuristic h = new IntHeuristic(problem, n);
+      IntHeuristic h = new IntHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 0.0);
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
@@ -508,7 +506,7 @@ public class AcceptanceBandTests {
   public void testWithDoubleCostsBetaMin() {
     for (int n = 0; n < 10; n++) {
       DoubleProblem problem = new DoubleProblem();
-      DoubleHeuristic h = new DoubleHeuristic(problem, n);
+      DoubleHeuristic h = new DoubleHeuristic(problem, n, 20);
       AcceptanceBandSampling<Permutation> ch = new AcceptanceBandSampling<Permutation>(h, 0.0);
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
@@ -526,172 +524,6 @@ public class AcceptanceBandTests {
       tracker = new ProgressTracker<Permutation>();
       ch.setProgressTracker(tracker);
       assertTrue(tracker == ch.getProgressTracker());
-    }
-  }
-
-  /*
-   * Fake heuristic designed for predictable test cases:
-   * designed to prefer even permutation elements (largest to smallest), followed by odd
-   * (largest to smallest).
-   */
-  private static class IntHeuristicNullIncremental extends IntHeuristic {
-    public IntHeuristicNullIncremental(IntProblem problem, int n) {
-      super(problem, n);
-    }
-
-    @Override
-    public IntIncEval createIncrementalEvaluation() {
-      return null;
-    }
-  }
-
-  /*
-   * Fake heuristic designed for predictable test cases:
-   * designed to prefer even permutation elements (largest to smallest), followed by odd
-   * (largest to smallest).
-   */
-  private static class IntHeuristic implements ConstructiveHeuristic<Permutation> {
-    private IntProblem problem;
-    private int n;
-
-    public IntHeuristic(IntProblem problem, int n) {
-      this.problem = problem;
-      this.n = n;
-    }
-
-    @Override
-    public IntProblem getProblem() {
-      return problem;
-    }
-
-    @Override
-    public int completeLength() {
-      return n;
-    }
-
-    @Override
-    public IntIncEval createIncrementalEvaluation() {
-      return new IntIncEval();
-    }
-
-    @Override
-    public double h(
-        Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
-      IntIncEval inc = (IntIncEval) incEval;
-      if (element % 2 == 0) return 20 + element;
-      else return element;
-    }
-
-    @Override
-    public final Partial<Permutation> createPartial(int n) {
-      return new PartialPermutation(n);
-    }
-  }
-
-  /*
-   * Fake heuristic designed for predictable test cases:
-   * designed to prefer even permutation elements (largest to smallest), followed by odd
-   * (largest to smallest).
-   */
-  private static class DoubleHeuristic implements ConstructiveHeuristic<Permutation> {
-    private DoubleProblem problem;
-    private int n;
-
-    public DoubleHeuristic(DoubleProblem problem, int n) {
-      this.problem = problem;
-      this.n = n;
-    }
-
-    @Override
-    public DoubleProblem getProblem() {
-      return problem;
-    }
-
-    @Override
-    public int completeLength() {
-      return n;
-    }
-
-    @Override
-    public DoubleIncEval createIncrementalEvaluation() {
-      return new DoubleIncEval();
-    }
-
-    @Override
-    public double h(
-        Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
-      DoubleIncEval inc = (DoubleIncEval) incEval;
-      if (element % 2 == 0) return 20 + element;
-      else return element;
-    }
-
-    @Override
-    public final Partial<Permutation> createPartial(int n) {
-      return new PartialPermutation(n);
-    }
-  }
-
-  /*
-   * Fake designed for predictable test cases.
-   */
-  private static class IntIncEval implements IncrementalEvaluation<Permutation> {
-    private int sum;
-
-    @Override
-    public void extend(Partial<Permutation> p, int element) {
-      sum += element + 1;
-    }
-  }
-
-  /*
-   * Fake designed for predictable test cases.
-   */
-  private static class DoubleIncEval implements IncrementalEvaluation<Permutation> {
-    private int sum;
-
-    @Override
-    public void extend(Partial<Permutation> p, int element) {
-      sum += element + 1;
-    }
-  }
-
-  /*
-   * We need a problem for the tests.
-   * Fake problem. Doesn't really matter for what we are testing.
-   */
-  private static class IntProblem implements IntegerCostOptimizationProblem<Permutation> {
-    @Override
-    public int cost(Permutation candidate) {
-      int sum = 0;
-      for (int i = 0; i < candidate.length(); i++) {
-        sum += candidate.get(i);
-      }
-      return sum + candidate.length();
-    }
-
-    @Override
-    public int value(Permutation candidate) {
-      return cost(candidate);
-    }
-  }
-
-  /*
-   * We need a problem for the tests.
-   * Fake problem. Doesn't really matter for what we are testing.
-   */
-  private static class DoubleProblem implements OptimizationProblem<Permutation> {
-    @Override
-    public double cost(Permutation candidate) {
-      int sum = 0;
-      for (int i = 0; i < candidate.length(); i++) {
-        sum += candidate.get(i);
-      }
-      return sum + candidate.length();
-    }
-
-    @Override
-    public double value(Permutation candidate) {
-      return cost(candidate);
     }
   }
 }

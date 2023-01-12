@@ -40,6 +40,10 @@ public class SharedTestStochasticSampler {
       super(problem, n);
     }
 
+    public IntHeuristicNullIncremental(IntProblem problem, int n, int alpha) {
+      super(problem, n, alpha);
+    }
+
     @Override
     public IntIncEval createIncrementalEvaluation() {
       return null;
@@ -54,10 +58,16 @@ public class SharedTestStochasticSampler {
   static class IntHeuristic implements ConstructiveHeuristic<Permutation> {
     private IntProblem problem;
     private int n;
+    private int alpha;
 
     public IntHeuristic(IntProblem problem, int n) {
+      this(problem, n, n);
+    }
+
+    public IntHeuristic(IntProblem problem, int n, int alpha) {
       this.problem = problem;
       this.n = n;
+      this.alpha = alpha;
     }
 
     @Override
@@ -79,7 +89,7 @@ public class SharedTestStochasticSampler {
     public double h(
         Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
       IntIncEval inc = (IntIncEval) incEval;
-      if (element % 2 == 0) return n + element;
+      if (element % 2 == 0) return alpha + element;
       else return element;
     }
 
@@ -97,10 +107,16 @@ public class SharedTestStochasticSampler {
   static class DoubleHeuristic implements ConstructiveHeuristic<Permutation> {
     private DoubleProblem problem;
     private int n;
+    private int alpha;
 
     public DoubleHeuristic(DoubleProblem problem, int n) {
+      this(problem, n, n);
+    }
+
+    public DoubleHeuristic(DoubleProblem problem, int n, int alpha) {
       this.problem = problem;
       this.n = n;
+      this.alpha = alpha;
     }
 
     @Override
@@ -122,7 +138,7 @@ public class SharedTestStochasticSampler {
     public double h(
         Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
       DoubleIncEval inc = (DoubleIncEval) incEval;
-      if (element % 2 == 0) return n + element;
+      if (element % 2 == 0) return alpha + element;
       else return element;
     }
 

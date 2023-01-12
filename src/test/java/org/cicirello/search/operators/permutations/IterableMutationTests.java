@@ -31,6 +31,13 @@ import org.junit.jupiter.api.*;
 /** JUnit tests for iterable mutation operators. */
 public class IterableMutationTests {
 
+  private IterableMutationValidator validator;
+
+  @BeforeEach
+  public void initValidator() {
+    validator = new IterableMutationValidator();
+  }
+
   @Test
   public void testAdjSwapIterator() {
     AdjacentSwapMutation m = new AdjacentSwapMutation();
@@ -47,7 +54,7 @@ public class IterableMutationTests {
       // (1) Verify that it generates the correct set of neighbors
       // (2) Verify that rollback() will rollback to original
       // (3) Verify that setSavepoint and rollback work correctly in combination
-      validate(m, original, expectedNeighbors);
+      validator.validate(m, original, expectedNeighbors);
     }
   }
 
@@ -69,7 +76,7 @@ public class IterableMutationTests {
       // (1) Verify that it generates the correct set of neighbors
       // (2) Verify that rollback() will rollback to original
       // (3) Verify that setSavepoint and rollback work correctly in combination
-      validate(m, original, expectedNeighbors);
+      validator.validate(m, original, expectedNeighbors);
     }
   }
 
@@ -84,7 +91,7 @@ public class IterableMutationTests {
       // (1) Verify that it generates the correct set of neighbors
       // (2) Verify that rollback() will rollback to original
       // (3) Verify that setSavepoint and rollback work correctly in combination
-      validate(m, original, expectedNeighbors);
+      validator.validate(m, original, expectedNeighbors);
     }
     // Now test for n >= 4.
     for (int n = 4; n <= 7; n++) {
@@ -102,7 +109,7 @@ public class IterableMutationTests {
       // (1) Verify that it generates the correct set of neighbors
       // (2) Verify that rollback() will rollback to original
       // (3) Verify that setSavepoint and rollback work correctly in combination
-      assertEquals(n * (n - 3) / 2, validate(m, original, expectedNeighbors));
+      assertEquals(n * (n - 3) / 2, validator.validate(m, original, expectedNeighbors));
     }
   }
 
@@ -124,7 +131,7 @@ public class IterableMutationTests {
       // (1) Verify that it generates the correct set of neighbors
       // (2) Verify that rollback() will rollback to original
       // (3) Verify that setSavepoint and rollback work correctly in combination
-      validate(m, original, expectedNeighbors);
+      validator.validate(m, original, expectedNeighbors);
     }
   }
 
@@ -147,7 +154,7 @@ public class IterableMutationTests {
       // (1) Verify that it generates the correct set of neighbors
       // (2) Verify that rollback() will rollback to original
       // (3) Verify that setSavepoint and rollback work correctly in combination
-      validate(m, original, expectedNeighbors);
+      validator.validate(m, original, expectedNeighbors);
     }
   }
 
@@ -171,7 +178,7 @@ public class IterableMutationTests {
       // (1) Verify that it generates the correct set of neighbors
       // (2) Verify that rollback() will rollback to original
       // (3) Verify that setSavepoint and rollback work correctly in combination
-      validate(m, original, expectedNeighbors);
+      validator.validate(m, original, expectedNeighbors);
     }
   }
 
@@ -197,7 +204,7 @@ public class IterableMutationTests {
       // (1) Verify that it generates the correct set of neighbors
       // (2) Verify that rollback() will rollback to original
       // (3) Verify that setSavepoint and rollback work correctly in combination
-      validate(m, original, expectedNeighbors);
+      validator.validate(m, original, expectedNeighbors);
     }
   }
 
@@ -220,7 +227,7 @@ public class IterableMutationTests {
         // (1) Verify that it generates the correct set of neighbors
         // (2) Verify that rollback() will rollback to original
         // (3) Verify that setSavepoint and rollback work correctly in combination
-        validate(m, original, expectedNeighbors);
+        validator.validate(m, original, expectedNeighbors);
       }
     }
   }
@@ -244,7 +251,7 @@ public class IterableMutationTests {
         // (1) Verify that it generates the correct set of neighbors
         // (2) Verify that rollback() will rollback to original
         // (3) Verify that setSavepoint and rollback work correctly in combination
-        validate(m, original, expectedNeighbors);
+        validator.validate(m, original, expectedNeighbors);
       }
     }
   }
@@ -269,7 +276,7 @@ public class IterableMutationTests {
         // (1) Verify that it generates the correct set of neighbors
         // (2) Verify that rollback() will rollback to original
         // (3) Verify that setSavepoint and rollback work correctly in combination
-        validate(m, original, expectedNeighbors);
+        validator.validate(m, original, expectedNeighbors);
       }
     }
   }
@@ -296,135 +303,140 @@ public class IterableMutationTests {
         // (1) Verify that it generates the correct set of neighbors
         // (2) Verify that rollback() will rollback to original
         // (3) Verify that setSavepoint and rollback work correctly in combination
-        validate(m, original, expectedNeighbors);
+        validator.validate(m, original, expectedNeighbors);
       }
     }
   }
 
-  private int validate(
-      IterableMutationOperator<Permutation> mutation,
-      Permutation original,
-      HashSet<Permutation> expectedNeighbors) {
-    Permutation p = original.copy();
-    MutationIterator iter = mutation.iterator(p);
-    HashSet<Permutation> neighbors = new HashSet<Permutation>();
-    int count = 0;
-    while (iter.hasNext()) {
-      iter.nextMutant();
-      neighbors.add(p.copy());
-      count++;
-    }
-    final MutationIterator iterNoMoreMutantsTest = iter;
-    IllegalStateException thrown =
-        assertThrows(
-            IllegalStateException.class,
-            () -> iterNoMoreMutantsTest.nextMutant(),
-            "verify nextMutant throws exception if no more mutants");
-    iter.rollback();
-    assertEquals(
-        expectedNeighbors.size(), neighbors.size(), "verify number of neighbors, n=" + p.length());
-    assertEquals(
-        expectedNeighbors,
-        neighbors,
-        "verify set of neighbors are as expected, original=" + original);
-    assertEquals(original, p, "verify rolled back to original");
-    assertEquals(expectedNeighbors.size(), count);
-    iter.rollback();
-    assertEquals(original, p, "verify extra rollback does nothing");
-    for (int i = 0; i < count; i++) {
-      iter = mutation.iterator(p);
-      Permutation saved = p.copy();
-      int j = 0;
+  private static class IterableMutationValidator {
+
+    private int validate(
+        IterableMutationOperator<Permutation> mutation,
+        Permutation original,
+        HashSet<Permutation> expectedNeighbors) {
+      Permutation p = original.copy();
+      MutationIterator iter = mutation.iterator(p);
+      HashSet<Permutation> neighbors = new HashSet<Permutation>();
+      int count = 0;
       while (iter.hasNext()) {
         iter.nextMutant();
-        if (j == i) {
-          iter.setSavepoint();
-          saved = p.copy();
-        }
-        j++;
+        neighbors.add(p.copy());
+        count++;
       }
-      iter.rollback();
-      assertEquals(
-          saved, p, "verify rolled back to last savepoint, original=" + original + " i=" + i);
-    }
-    // test rollback immediately after setSavepoint
-    for (int i = 0; i < count; i++) {
-      iter = mutation.iterator(p);
-      Permutation saved = p.copy();
-      int j = 0;
-      while (iter.hasNext()) {
-        iter.nextMutant();
-        if (j == i) {
-          iter.setSavepoint();
-          saved = p.copy();
-          break;
-        }
-        j++;
-      }
-      iter.rollback();
-      assertEquals(
-          saved,
-          p,
-          "rollback immediately after setSavepoint, verify rolled back to last savepoint, original="
-              + original
-              + " i="
-              + i);
-      final MutationIterator iterRolledWithoutIteratingOverAllTest = iter;
-      thrown =
+      final MutationIterator iterNoMoreMutantsTest = iter;
+      IllegalStateException thrown =
           assertThrows(
               IllegalStateException.class,
-              () -> iterRolledWithoutIteratingOverAllTest.nextMutant(),
-              "verify nextMutant throws exception if rolled back");
-      assertFalse(iter.hasNext());
-    }
-    // test rollback one step after setSavepoint
-    for (int i = 0; i < count - 1; i++) {
-      iter = mutation.iterator(p);
-      Permutation saved = p.copy();
-      int j = 0;
-      while (iter.hasNext()) {
-        iter.nextMutant();
-        if (j == i) {
-          iter.setSavepoint();
-          saved = p.copy();
-        } else if (j > i) {
-          break;
-        }
-        j++;
-      }
+              () -> iterNoMoreMutantsTest.nextMutant(),
+              "verify nextMutant throws exception if no more mutants");
       iter.rollback();
       assertEquals(
-          saved,
-          p,
-          "rollback one step after setSavepoint, verify rolled back to last savepoint, original="
-              + original
-              + " i="
-              + i);
-    }
-    // test rollback two steps after setSavepoint
-    for (int i = 0; i < count - 1; i++) {
-      iter = mutation.iterator(p);
-      Permutation saved = p.copy();
-      int j = 0;
-      while (iter.hasNext()) {
-        iter.nextMutant();
-        if (j == i) {
-          iter.setSavepoint();
-          saved = p.copy();
-        } else if (j > i + 1) {
-          break;
-        }
-        j++;
-      }
-      iter.rollback();
+          expectedNeighbors.size(),
+          neighbors.size(),
+          "verify number of neighbors, n=" + p.length());
       assertEquals(
-          saved,
-          p,
-          "rollback two steps after setSavepoint, verify rolled back to last savepoint, original="
-              + original
-              + " i="
-              + i);
+          expectedNeighbors,
+          neighbors,
+          "verify set of neighbors are as expected, original=" + original);
+      assertEquals(original, p, "verify rolled back to original");
+      assertEquals(expectedNeighbors.size(), count);
+      iter.rollback();
+      assertEquals(original, p, "verify extra rollback does nothing");
+      for (int i = 0; i < count; i++) {
+        iter = mutation.iterator(p);
+        Permutation saved = p.copy();
+        int j = 0;
+        while (iter.hasNext()) {
+          iter.nextMutant();
+          if (j == i) {
+            iter.setSavepoint();
+            saved = p.copy();
+          }
+          j++;
+        }
+        iter.rollback();
+        assertEquals(
+            saved, p, "verify rolled back to last savepoint, original=" + original + " i=" + i);
+      }
+      // test rollback immediately after setSavepoint
+      for (int i = 0; i < count; i++) {
+        iter = mutation.iterator(p);
+        Permutation saved = p.copy();
+        int j = 0;
+        while (iter.hasNext()) {
+          iter.nextMutant();
+          if (j == i) {
+            iter.setSavepoint();
+            saved = p.copy();
+            break;
+          }
+          j++;
+        }
+        iter.rollback();
+        assertEquals(
+            saved,
+            p,
+            "rollback immediately after setSavepoint, verify rolled back to last savepoint, original="
+                + original
+                + " i="
+                + i);
+        final MutationIterator iterRolledWithoutIteratingOverAllTest = iter;
+        thrown =
+            assertThrows(
+                IllegalStateException.class,
+                () -> iterRolledWithoutIteratingOverAllTest.nextMutant(),
+                "verify nextMutant throws exception if rolled back");
+        assertFalse(iter.hasNext());
+      }
+      // test rollback one step after setSavepoint
+      for (int i = 0; i < count - 1; i++) {
+        iter = mutation.iterator(p);
+        Permutation saved = p.copy();
+        int j = 0;
+        while (iter.hasNext()) {
+          iter.nextMutant();
+          if (j == i) {
+            iter.setSavepoint();
+            saved = p.copy();
+          } else if (j > i) {
+            break;
+          }
+          j++;
+        }
+        iter.rollback();
+        assertEquals(
+            saved,
+            p,
+            "rollback one step after setSavepoint, verify rolled back to last savepoint, original="
+                + original
+                + " i="
+                + i);
+      }
+      // test rollback two steps after setSavepoint
+      for (int i = 0; i < count - 1; i++) {
+        iter = mutation.iterator(p);
+        Permutation saved = p.copy();
+        int j = 0;
+        while (iter.hasNext()) {
+          iter.nextMutant();
+          if (j == i) {
+            iter.setSavepoint();
+            saved = p.copy();
+          } else if (j > i + 1) {
+            break;
+          }
+          j++;
+        }
+        iter.rollback();
+        assertEquals(
+            saved,
+            p,
+            "rollback two steps after setSavepoint, verify rolled back to last savepoint, original="
+                + original
+                + " i="
+                + i);
+      }
+      return count;
     }
-    return count;
   }
 }

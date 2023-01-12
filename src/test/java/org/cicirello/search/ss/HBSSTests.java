@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -25,12 +25,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.problems.IntegerCostOptimizationProblem;
-import org.cicirello.search.problems.OptimizationProblem;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for HeuristicBiasedStochasticSampling. */
-public class HBSSTests {
+public class HBSSTests extends SharedTestStochasticSampler {
 
   @Test
   public void testHeuristicNullIncremental() {
@@ -650,172 +648,6 @@ public class HBSSTests {
       tracker = new ProgressTracker<Permutation>();
       ch.setProgressTracker(tracker);
       assertTrue(tracker == ch.getProgressTracker());
-    }
-  }
-
-  /*
-   * Fake heuristic designed for predictable test cases:
-   * designed to prefer even permutation elements (largest to smallest), followed by odd
-   * (largest to smallest).
-   */
-  private static class IntHeuristicNullIncremental extends IntHeuristic {
-    public IntHeuristicNullIncremental(IntProblem problem, int n) {
-      super(problem, n);
-    }
-
-    @Override
-    public IntIncEval createIncrementalEvaluation() {
-      return null;
-    }
-  }
-
-  /*
-   * Fake heuristic designed for predictable test cases:
-   * designed to prefer even permutation elements (largest to smallest), followed by odd
-   * (largest to smallest).
-   */
-  private static class IntHeuristic implements ConstructiveHeuristic<Permutation> {
-    private IntProblem problem;
-    private int n;
-
-    public IntHeuristic(IntProblem problem, int n) {
-      this.problem = problem;
-      this.n = n;
-    }
-
-    @Override
-    public IntProblem getProblem() {
-      return problem;
-    }
-
-    @Override
-    public int completeLength() {
-      return n;
-    }
-
-    @Override
-    public IntIncEval createIncrementalEvaluation() {
-      return new IntIncEval();
-    }
-
-    @Override
-    public double h(
-        Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
-      IntIncEval inc = (IntIncEval) incEval;
-      if (element % 2 == 0) return n + element;
-      else return element;
-    }
-
-    @Override
-    public final Partial<Permutation> createPartial(int n) {
-      return new PartialPermutation(n);
-    }
-  }
-
-  /*
-   * Fake heuristic designed for predictable test cases:
-   * designed to prefer even permutation elements (largest to smallest), followed by odd
-   * (largest to smallest).
-   */
-  private static class DoubleHeuristic implements ConstructiveHeuristic<Permutation> {
-    private DoubleProblem problem;
-    private int n;
-
-    public DoubleHeuristic(DoubleProblem problem, int n) {
-      this.problem = problem;
-      this.n = n;
-    }
-
-    @Override
-    public DoubleProblem getProblem() {
-      return problem;
-    }
-
-    @Override
-    public int completeLength() {
-      return n;
-    }
-
-    @Override
-    public DoubleIncEval createIncrementalEvaluation() {
-      return new DoubleIncEval();
-    }
-
-    @Override
-    public double h(
-        Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
-      DoubleIncEval inc = (DoubleIncEval) incEval;
-      if (element % 2 == 0) return n + element;
-      else return element;
-    }
-
-    @Override
-    public final Partial<Permutation> createPartial(int n) {
-      return new PartialPermutation(n);
-    }
-  }
-
-  /*
-   * Fake designed for predictable test cases.
-   */
-  private static class IntIncEval implements IncrementalEvaluation<Permutation> {
-    private int sum;
-
-    @Override
-    public void extend(Partial<Permutation> p, int element) {
-      sum += element + 1;
-    }
-  }
-
-  /*
-   * Fake designed for predictable test cases.
-   */
-  private static class DoubleIncEval implements IncrementalEvaluation<Permutation> {
-    private int sum;
-
-    @Override
-    public void extend(Partial<Permutation> p, int element) {
-      sum += element + 1;
-    }
-  }
-
-  /*
-   * We need a problem for the tests.
-   * Fake problem. Doesn't really matter for what we are testing.
-   */
-  private static class IntProblem implements IntegerCostOptimizationProblem<Permutation> {
-    @Override
-    public int cost(Permutation candidate) {
-      int sum = 0;
-      for (int i = 0; i < candidate.length(); i++) {
-        sum += candidate.get(i);
-      }
-      return sum + candidate.length();
-    }
-
-    @Override
-    public int value(Permutation candidate) {
-      return cost(candidate);
-    }
-  }
-
-  /*
-   * We need a problem for the tests.
-   * Fake problem. Doesn't really matter for what we are testing.
-   */
-  private static class DoubleProblem implements OptimizationProblem<Permutation> {
-    @Override
-    public double cost(Permutation candidate) {
-      int sum = 0;
-      for (int i = 0; i < candidate.length(); i++) {
-        sum += candidate.get(i);
-      }
-      return sum + candidate.length();
-    }
-
-    @Override
-    public double value(Permutation candidate) {
-      return cost(candidate);
     }
   }
 }

@@ -27,7 +27,7 @@ import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
 import org.junit.jupiter.api.*;
 
-/** JUnit tests for AcceptanceBandSampling for problems with int-valued costs. */
+/** JUnit tests for AcceptanceBandSampling for problems with double-valued costs. */
 public class AcceptanceBandSamplingDoubleCostTests extends SharedTestStochasticSampler {
 
   @Test

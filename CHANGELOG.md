@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Test cases for all of the numeric representations
   * Test cases for ValueBiasedStochasticSampling
   * Test cases for HeuristicBiasedStochasticSampling
+  * Test cases for HeuristicSolutionGenerator
+  * Test cases for HeuristicPermutationGenerator
 
 ### Dependencies
 * Bump core from 2.4.3 to 2.4.4

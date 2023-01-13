@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Test cases for HeuristicPermutationGenerator
   * Test cases for AcceptanceBandSampling
   * Test cases for all of the iterable mutation operators
+  * Test cases for all of the mutation operators for permutations
 
 ### Dependencies
 * Bump core from 2.4.3 to 2.4.4

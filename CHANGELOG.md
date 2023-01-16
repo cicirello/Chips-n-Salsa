@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2023-01-13
+## [Unreleased] - 2023-01-16
 
 ### Added
 
@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Test cases for all of the mutation operators for permutations
   * Test cases for UniformMutation for integer representations
   * Test cases for all of the classic annealing schedules (linear, exponential, and logarithmic)
+  * Test cases for all of the restart schedules
 
 ### Dependencies
 * Bump core from 2.4.3 to 2.4.4

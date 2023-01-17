@@ -267,46 +267,14 @@ public class BitVectorTests {
     // p = 1.0 case
     for (int n = 0; n <= 64; n++) {
       BitVector b = new BitVector(n, 1.0);
-      assertEquals(n, b.length());
-      assertEquals(n, b.countOnes());
-      assertEquals(0, b.countZeros());
-      for (int i = 0; i < n; i++) {
-        assertEquals(1, b.getBit(i));
-        assertTrue(b.isOne(i));
-        assertFalse(b.isZero(i));
-      }
-      if (n > 0) {
-        for (int i = 0; i <= (n - 1) / 32 - 1; i++) {
-          assertEquals(0xffffffff, b.get32(i), "get32(" + i + ") with n=" + n);
-        }
-        int i = (n - 1) / 32;
-        assertEquals(0xffffffff >>> (32 - (n & 0x1f)), b.get32(i), "get32(" + i + ") with n=" + n);
-      }
-      BitVector b2 = b.copy();
-      assertTrue(b != b2);
-      assertEquals(b, b2);
-      assertEquals(b.hashCode(), b2.hashCode());
+      validateAllOnes(b, n);
     }
     // p = 0.25, 0.5, 0.75 cases
     double[] pCases = {0.5, 0.25, 0.75};
     for (double p : pCases) {
       for (int n = 0; n <= 64; n++) {
         BitVector b = new BitVector(n, p);
-        assertEquals(n, b.length());
-        assertEquals(n, b.countZeros() + b.countOnes());
-        for (int i = 0; i < n; i++) {
-          int bit = b.getBit(i);
-          assertTrue(bit == 0 || bit == 1);
-          assertNotEquals(b.isOne(i), b.isZero(i));
-        }
-        BitVector b2 = b.copy();
-        assertEquals(n, b2.length());
-        assertTrue(b != b2);
-        assertEquals(b, b2);
-        assertEquals(b.hashCode(), b2.hashCode());
-        for (int i = 0; i < n; i++) {
-          assertEquals(b.getBit(i), b2.getBit(i));
-        }
+        validateRandomBitVector(b, n);
       }
     }
   }
@@ -315,22 +283,30 @@ public class BitVectorTests {
   public void testConstructorRandom() {
     for (int n = 0; n <= 64; n++) {
       BitVector b = new BitVector(n, true);
-      assertEquals(n, b.length());
-      assertEquals(n, b.countZeros() + b.countOnes());
-      for (int i = 0; i < n; i++) {
-        int bit = b.getBit(i);
-        assertTrue(bit == 0 || bit == 1);
-        assertNotEquals(b.isOne(i), b.isZero(i));
-      }
-      BitVector b2 = b.copy();
-      assertEquals(n, b2.length());
-      assertTrue(b != b2);
-      assertEquals(b, b2);
-      assertEquals(b.hashCode(), b2.hashCode());
-      for (int i = 0; i < n; i++) {
-        assertEquals(b.getBit(i), b2.getBit(i));
-      }
+      validateRandomBitVector(b, n);
     }
+  }
+
+  private void validateAllOnes(BitVector b, int n) {
+    assertEquals(n, b.length());
+    assertEquals(n, b.countOnes());
+    assertEquals(0, b.countZeros());
+    for (int i = 0; i < n; i++) {
+      assertEquals(1, b.getBit(i));
+      assertTrue(b.isOne(i));
+      assertFalse(b.isZero(i));
+    }
+    if (n > 0) {
+      for (int i = 0; i <= (n - 1) / 32 - 1; i++) {
+        assertEquals(0xffffffff, b.get32(i), "get32(" + i + ") with n=" + n);
+      }
+      int i = (n - 1) / 32;
+      assertEquals(0xffffffff >>> (32 - (n & 0x1f)), b.get32(i), "get32(" + i + ") with n=" + n);
+    }
+    BitVector b2 = b.copy();
+    assertTrue(b != b2);
+    assertEquals(b, b2);
+    assertEquals(b.hashCode(), b2.hashCode());
   }
 
   @Test
@@ -338,9 +314,8 @@ public class BitVectorTests {
     for (int k = 1; k <= 2; k++) {
       int[] zeros = new int[k];
       int[] ones = new int[k];
-      for (int j = 0; j < k; j++) {
-        ones[j] = 0xffffffff;
-      }
+      Arrays.fill(ones, 0xffffffff);
+
       for (int n = 32 * k - 31; n <= 32 * k; n++) {
         BitVector b0 = new BitVector(n, zeros);
         assertEquals(n, b0.length());
@@ -351,10 +326,8 @@ public class BitVectorTests {
           assertFalse(b0.isOne(i));
           assertTrue(b0.isZero(i));
         }
-        if (n > 0) {
-          for (int i = 0; i <= (n - 1) / 32; i++) {
-            assertEquals(0, b0.get32(i), "get32(" + i + ") with n=" + n);
-          }
+        for (int i = 0; i <= (n - 1) / 32; i++) {
+          assertEquals(0, b0.get32(i), "get32(" + i + ") with n=" + n);
         }
         BitVector b1 = new BitVector(n, ones);
         assertEquals(n, b1.length());
@@ -365,31 +338,26 @@ public class BitVectorTests {
           assertTrue(b1.isOne(i));
           assertFalse(b1.isZero(i));
         }
-        if (n > 0) {
-          for (int i = 0; i < (n - 1) / 32; i++) {
-            assertEquals(0xffffffff, b1.get32(i), "get32(" + i + ") with n=" + n);
-          }
-          assertEquals(
-              0xffffffff >>> (((n - 1) / 32 + 1) * 32 - n),
-              b1.get32((n - 1) / 32),
-              "get32(" + ((n - 1) / 32) + ") with n=" + n);
+        for (int i = 0; i < (n - 1) / 32; i++) {
+          assertEquals(0xffffffff, b1.get32(i), "get32(" + i + ") with n=" + n);
         }
+        assertEquals(
+            0xffffffff >>> (((n - 1) / 32 + 1) * 32 - n),
+            b1.get32((n - 1) / 32),
+            "get32(" + ((n - 1) / 32) + ") with n=" + n);
         BitVector b2 = b0.copy();
         assertEquals(n, b2.length());
         assertTrue(b0 != b2);
         assertEquals(b0, b2);
         assertEquals(b0.hashCode(), b2.hashCode());
-        for (int i = 0; i < n; i++) {
-          assertEquals(b0.getBit(i), b2.getBit(i));
-        }
+        validateSameBitsRange(b0, b2, 0, n);
+
         b2 = b1.copy();
         assertEquals(n, b2.length());
         assertTrue(b1 != b2);
         assertEquals(b1, b2);
         assertEquals(b1.hashCode(), b2.hashCode());
-        for (int i = 0; i < n; i++) {
-          assertEquals(b1.getBit(i), b2.getBit(i));
-        }
+        validateSameBitsRange(b1, b2, 0, n);
       }
     }
   }
@@ -411,9 +379,7 @@ public class BitVectorTests {
       b0.and(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validateSameBitsRange(bExpected, b0, 0, n);
     }
     for (int n = 33; n <= 64; n++) {
       // Consider a truth table with the columns: x, y, x AND Y.
@@ -430,9 +396,7 @@ public class BitVectorTests {
       b0.and(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validateSameBitsRange(bExpected, b0, 0, n);
     }
     // verify that 0 length doesn't throw an exception
     BitVector b0 = new BitVector(0);
@@ -459,9 +423,7 @@ public class BitVectorTests {
       b0.or(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validateSameBitsRange(bExpected, b0, 0, n);
     }
     for (int n = 33; n <= 64; n++) {
       // Consider a truth table with the columns: x, y, x OR Y.
@@ -478,9 +440,7 @@ public class BitVectorTests {
       b0.or(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validateSameBitsRange(bExpected, b0, 0, n);
     }
     // verify that 0 length doesn't throw an exception
     BitVector b0 = new BitVector(0);
@@ -507,9 +467,7 @@ public class BitVectorTests {
       b0.xor(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validateSameBitsRange(bExpected, b0, 0, n);
     }
     for (int n = 33; n <= 64; n++) {
       // Consider a truth table with the columns: x, y, x XOR Y.
@@ -526,9 +484,7 @@ public class BitVectorTests {
       b0.xor(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validateSameBitsRange(bExpected, b0, 0, n);
     }
     // verify that 0 length doesn't throw an exception
     BitVector b0 = new BitVector(0);
@@ -543,9 +499,7 @@ public class BitVectorTests {
     for (int n = 0; n <= 64; n++) {
       BitVector b0 = new BitVector(n);
       b0.not();
-      for (int i = 0; i < n; i++) {
-        assertEquals(1, b0.getBit(i));
-      }
+      validateRange(b0, 0, n, 1);
       if (n >= 32) {
         assertEquals(0xffffffff, b0.get32(0));
         if (n > 32) assertEquals(0xffffffff >>> 64 - n, b0.get32(1));
@@ -553,9 +507,7 @@ public class BitVectorTests {
         assertEquals(0xffffffff >>> 32 - n, b0.get32(0));
       }
       b0.not();
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, b0.getBit(i));
-      }
+      validateRange(b0, 0, n, 0);
       if (n > 0) assertEquals(0, b0.get32(0));
       if (n > 32) assertEquals(0, b0.get32(1));
     }
@@ -566,9 +518,7 @@ public class BitVectorTests {
       BitVector bExpected = new BitVector(n, expected);
       b.not();
       assertEquals(bExpected, b);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b.getBit(i));
-      }
+      validateSameBitsRange(bExpected, b, 0, n);
     }
     for (int n = 33; n <= 64; n++) {
       int[] bits = {0x55555555, 0x55555555 & (0xffffffff >>> (64 - n))};
@@ -577,9 +527,7 @@ public class BitVectorTests {
       BitVector bExpected = new BitVector(n, expected);
       b.not();
       assertEquals(bExpected, b);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b.getBit(i));
-      }
+      validateSameBitsRange(bExpected, b, 0, n);
     }
   }
 
@@ -593,18 +541,14 @@ public class BitVectorTests {
       for (int shift = 0; shift <= n; shift++) {
         BitVector shifted = original.copy();
         shifted.shiftLeft(shift);
-        for (int i = 0; i < shift; i++) {
-          assertEquals(0, shifted.getBit(i));
-        }
+        validateRange(shifted, 0, shift, 0);
         for (int i = shift; i < n; i++) {
           assertEquals(original.getBit(i - shift), shifted.getBit(i));
         }
       }
       BitVector shifted = original.copy();
       shifted.shiftLeft(n + 1);
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, shifted.getBit(i));
-      }
+      validateRange(shifted, 0, n, 0);
     }
     BitVector original = new BitVector(0);
     original.shiftLeft(1);
@@ -624,15 +568,11 @@ public class BitVectorTests {
         for (int i = 0; i + shift < n; i++) {
           assertEquals(original.getBit(i + shift), shifted.getBit(i));
         }
-        for (int i = n - shift; i < n; i++) {
-          assertEquals(0, shifted.getBit(i));
-        }
+        validateRange(shifted, n - shift, n, 0);
       }
       BitVector shifted = original.copy();
       shifted.shiftRight(n + 1);
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, shifted.getBit(i));
-      }
+      validateRange(shifted, 0, n, 0);
     }
     BitVector original = new BitVector(0);
     original.shiftRight(1);
@@ -657,19 +597,17 @@ public class BitVectorTests {
       Arrays.fill(c, '0');
       String expected = new String(c);
       assertEquals(expected, b0.toString());
-    }
-    for (int n = 0; n <= 96; n++) {
+
       // tests with all 1s
       BitVector b1 = new BitVector(n);
       b1.not();
-      char[] c = new char[n];
       Arrays.fill(c, '1');
-      String expected = new String(c);
+      expected = new String(c);
       assertEquals(expected, b1.toString());
     }
     for (int n = 1; n <= 64; n++) {
-      // test with exactly one 1.
       for (int i = 0; i < n; i++) {
+        // test with exactly one 1.
         BitVector b = new BitVector(n);
         b.flip(i);
         char[] c = new char[n];
@@ -677,18 +615,14 @@ public class BitVectorTests {
         c[n - 1 - i] = '1';
         String expected = new String(c);
         assertEquals(expected, b.toString());
-      }
-    }
-    for (int n = 1; n <= 64; n++) {
-      // test with exactly one 0.
-      for (int i = 0; i < n; i++) {
-        BitVector b = new BitVector(n);
+
+        // test with exactly one 0.
+        b = new BitVector(n);
         b.flip(i);
         b.not();
-        char[] c = new char[n];
         Arrays.fill(c, '1');
         c[n - 1 - i] = '0';
-        String expected = new String(c);
+        expected = new String(c);
         assertEquals(expected, b.toString());
       }
     }
@@ -719,5 +653,41 @@ public class BitVectorTests {
     thrownBounds = assertThrows(IndexOutOfBoundsException.class, () -> b.get32(1));
     thrownBounds = assertThrows(IndexOutOfBoundsException.class, () -> b.set32(-1, 0));
     thrownBounds = assertThrows(IndexOutOfBoundsException.class, () -> b.set32(1, 0));
+  }
+
+  private void validateRandomBitVector(BitVector b, int n) {
+    assertEquals(n, b.length());
+    assertEquals(n, b.countZeros() + b.countOnes());
+    for (int i = 0; i < n; i++) {
+      int bit = b.getBit(i);
+      assertTrue(bit == 0 || bit == 1);
+      assertNotEquals(b.isOne(i), b.isZero(i));
+    }
+    BitVector b2 = b.copy();
+    assertEquals(n, b2.length());
+    assertTrue(b != b2);
+    assertEquals(b, b2);
+    assertEquals(b.hashCode(), b2.hashCode());
+    validateSameBitsRange(b, b2, 0, n);
+  }
+
+  /*
+   * Validate all bits in a range equal to a specific bit value, range indexes are
+   * from i (inclusive) to j (exclusive).
+   */
+  private void validateRange(BitVector b, int i, int j, int bitValue) {
+    for (int k = i; k < j; k++) {
+      assertEquals(bitValue, b.getBit(k));
+    }
+  }
+
+  /*
+   * Validate all bits in a range equal, range indexes are
+   * from i (inclusive) to j (exclusive).
+   */
+  private void validateSameBitsRange(BitVector expected, BitVector b, int i, int j) {
+    for (int k = i; k < j; k++) {
+      assertEquals(expected.getBit(k), b.getBit(k));
+    }
   }
 }

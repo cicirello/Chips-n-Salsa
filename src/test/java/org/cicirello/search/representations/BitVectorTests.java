@@ -124,9 +124,8 @@ public class BitVectorTests {
     int[] values = {0x55555555, 0xaaaaaaaa};
     for (int n = 1; n <= 64; n++) {
       BitVector b = new BitVector(n);
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, b.getBit(i));
-      }
+      validateRange(b, 0, n, 0);
+
       assertEquals(0, b.get32(0));
       if (n > 32) assertEquals(0, b.get32(1));
       b.set32(0, 0x55555555);
@@ -200,81 +199,25 @@ public class BitVectorTests {
   @Test
   public void testConstructorAllZeros() {
     for (int n = 0; n <= 64; n++) {
-      BitVector b = new BitVector(n);
-      assertEquals(n, b.length());
-      assertEquals(0, b.countOnes());
-      assertEquals(n, b.countZeros());
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, b.getBit(i));
-        assertFalse(b.isOne(i));
-        assertTrue(b.isZero(i));
-      }
-      if (n > 0) {
-        for (int i = 0; i <= (n - 1) / 32; i++) {
-          assertEquals(0, b.get32(i), "get32(" + i + ") with n=" + n);
-        }
-      }
-      BitVector b2 = b.copy();
-      assertTrue(b != b2);
-      assertEquals(b, b2);
-      assertEquals(b.hashCode(), b2.hashCode());
-    }
-    for (int n = 0; n <= 64; n++) {
-      BitVector b = new BitVector(n, false);
-      assertEquals(n, b.length());
-      assertEquals(0, b.countOnes());
-      assertEquals(n, b.countZeros());
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, b.getBit(i));
-        assertFalse(b.isOne(i));
-        assertTrue(b.isZero(i));
-      }
-      if (n > 0) {
-        for (int i = 0; i <= (n - 1) / 32; i++) {
-          assertEquals(0, b.get32(i), "get32(" + i + ") with n=" + n);
-        }
-      }
-      BitVector b2 = b.copy();
-      assertTrue(b != b2);
-      assertEquals(b, b2);
-      assertEquals(b.hashCode(), b2.hashCode());
+      validateAllZeros(new BitVector(n), n);
+      validateAllZeros(new BitVector(n, false), n);
     }
   }
 
   @Test
   public void testConstructorBitMask() {
-    // p = 0.0 case
-    for (int n = 0; n <= 64; n++) {
-      BitVector b = new BitVector(n, 0.0);
-      assertEquals(n, b.length());
-      assertEquals(0, b.countOnes());
-      assertEquals(n, b.countZeros());
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, b.getBit(i));
-        assertFalse(b.isOne(i));
-        assertTrue(b.isZero(i));
-      }
-      if (n > 0) {
-        for (int i = 0; i <= (n - 1) / 32; i++) {
-          assertEquals(0, b.get32(i), "get32(" + i + ") with n=" + n);
-        }
-      }
-      BitVector b2 = b.copy();
-      assertTrue(b != b2);
-      assertEquals(b, b2);
-      assertEquals(b.hashCode(), b2.hashCode());
-    }
-    // p = 1.0 case
-    for (int n = 0; n <= 64; n++) {
-      BitVector b = new BitVector(n, 1.0);
-      validateAllOnes(b, n);
-    }
-    // p = 0.25, 0.5, 0.75 cases
     double[] pCases = {0.5, 0.25, 0.75};
-    for (double p : pCases) {
-      for (int n = 0; n <= 64; n++) {
-        BitVector b = new BitVector(n, p);
-        validateRandomBitVector(b, n);
+
+    for (int n = 0; n <= 64; n++) {
+      // p = 0.0 case
+      validateAllZeros(new BitVector(n, 0.0), n);
+
+      // p = 1.0 case
+      validateAllOnes(new BitVector(n, 1.0), n);
+
+      // p = 0.25, 0.5, 0.75 cases
+      for (double p : pCases) {
+        validateRandomBitVector(new BitVector(n, p), n);
       }
     }
   }
@@ -287,28 +230,6 @@ public class BitVectorTests {
     }
   }
 
-  private void validateAllOnes(BitVector b, int n) {
-    assertEquals(n, b.length());
-    assertEquals(n, b.countOnes());
-    assertEquals(0, b.countZeros());
-    for (int i = 0; i < n; i++) {
-      assertEquals(1, b.getBit(i));
-      assertTrue(b.isOne(i));
-      assertFalse(b.isZero(i));
-    }
-    if (n > 0) {
-      for (int i = 0; i <= (n - 1) / 32 - 1; i++) {
-        assertEquals(0xffffffff, b.get32(i), "get32(" + i + ") with n=" + n);
-      }
-      int i = (n - 1) / 32;
-      assertEquals(0xffffffff >>> (32 - (n & 0x1f)), b.get32(i), "get32(" + i + ") with n=" + n);
-    }
-    BitVector b2 = b.copy();
-    assertTrue(b != b2);
-    assertEquals(b, b2);
-    assertEquals(b.hashCode(), b2.hashCode());
-  }
-
   @Test
   public void testConstructorFromIntArray() {
     for (int k = 1; k <= 2; k++) {
@@ -318,46 +239,10 @@ public class BitVectorTests {
 
       for (int n = 32 * k - 31; n <= 32 * k; n++) {
         BitVector b0 = new BitVector(n, zeros);
-        assertEquals(n, b0.length());
-        assertEquals(0, b0.countOnes());
-        assertEquals(n, b0.countZeros());
-        for (int i = 0; i < n; i++) {
-          assertEquals(0, b0.getBit(i));
-          assertFalse(b0.isOne(i));
-          assertTrue(b0.isZero(i));
-        }
-        for (int i = 0; i <= (n - 1) / 32; i++) {
-          assertEquals(0, b0.get32(i), "get32(" + i + ") with n=" + n);
-        }
-        BitVector b1 = new BitVector(n, ones);
-        assertEquals(n, b1.length());
-        assertEquals(n, b1.countOnes());
-        assertEquals(0, b1.countZeros());
-        for (int i = 0; i < n; i++) {
-          assertEquals(1, b1.getBit(i));
-          assertTrue(b1.isOne(i));
-          assertFalse(b1.isZero(i));
-        }
-        for (int i = 0; i < (n - 1) / 32; i++) {
-          assertEquals(0xffffffff, b1.get32(i), "get32(" + i + ") with n=" + n);
-        }
-        assertEquals(
-            0xffffffff >>> (((n - 1) / 32 + 1) * 32 - n),
-            b1.get32((n - 1) / 32),
-            "get32(" + ((n - 1) / 32) + ") with n=" + n);
-        BitVector b2 = b0.copy();
-        assertEquals(n, b2.length());
-        assertTrue(b0 != b2);
-        assertEquals(b0, b2);
-        assertEquals(b0.hashCode(), b2.hashCode());
-        validateSameBitsRange(b0, b2, 0, n);
+        validateAllZeros(b0, n);
 
-        b2 = b1.copy();
-        assertEquals(n, b2.length());
-        assertTrue(b1 != b2);
-        assertEquals(b1, b2);
-        assertEquals(b1.hashCode(), b2.hashCode());
-        validateSameBitsRange(b1, b2, 0, n);
+        BitVector b1 = new BitVector(n, ones);
+        validateAllOnes(b1, n);
       }
     }
   }
@@ -653,6 +538,48 @@ public class BitVectorTests {
     thrownBounds = assertThrows(IndexOutOfBoundsException.class, () -> b.get32(1));
     thrownBounds = assertThrows(IndexOutOfBoundsException.class, () -> b.set32(-1, 0));
     thrownBounds = assertThrows(IndexOutOfBoundsException.class, () -> b.set32(1, 0));
+  }
+
+  private void validateAllOnes(BitVector b, int n) {
+    assertEquals(n, b.length());
+    assertEquals(n, b.countOnes());
+    assertEquals(0, b.countZeros());
+    for (int i = 0; i < n; i++) {
+      assertEquals(1, b.getBit(i));
+      assertTrue(b.isOne(i));
+      assertFalse(b.isZero(i));
+    }
+    if (n > 0) {
+      for (int i = 0; i <= (n - 1) / 32 - 1; i++) {
+        assertEquals(0xffffffff, b.get32(i), "get32(" + i + ") with n=" + n);
+      }
+      int i = (n - 1) / 32;
+      assertEquals(0xffffffff >>> (32 - (n & 0x1f)), b.get32(i), "get32(" + i + ") with n=" + n);
+    }
+    BitVector b2 = b.copy();
+    assertTrue(b != b2);
+    assertEquals(b, b2);
+    assertEquals(b.hashCode(), b2.hashCode());
+  }
+
+  private void validateAllZeros(BitVector b, int n) {
+    assertEquals(n, b.length());
+    assertEquals(0, b.countOnes());
+    assertEquals(n, b.countZeros());
+    for (int i = 0; i < n; i++) {
+      assertEquals(0, b.getBit(i));
+      assertFalse(b.isOne(i));
+      assertTrue(b.isZero(i));
+    }
+    if (n > 0) {
+      for (int i = 0; i <= (n - 1) / 32; i++) {
+        assertEquals(0, b.get32(i), "get32(" + i + ") with n=" + n);
+      }
+    }
+    BitVector b2 = b.copy();
+    assertTrue(b != b2);
+    assertEquals(b, b2);
+    assertEquals(b.hashCode(), b2.hashCode());
   }
 
   private void validateRandomBitVector(BitVector b, int n) {

@@ -94,76 +94,47 @@ public class BitVectorExchangeBitsTests {
   public void testExchangeBits_PartialBlocksAtEnds() {
     // Swapped bits opposite
     for (int n = 96; n <= 128; n += 32) {
-      // b1 0s
       for (int i = 1; i < 32; i++) {
         for (int j = n - 32; j < n - 1; j++) {
+          // b1 0s
           BitVector b1 = new BitVector(n);
           BitVector b2 = new BitVector(n);
           b2.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-      // b2 0s
-      for (int i = 1; i < 32; i++) {
-        for (int j = n - 32; j < n - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b1, 0, i, 0);
+          validateRange(b2, 0, i, 1);
+          validateRange(b1, i, j + 1, 1);
+          validateRange(b2, i, j + 1, 0);
+          validateRange(b1, j + 1, i, 0);
+          validateRange(b2, j + 1, i, 1);
+
+          // b2 0s
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           b1.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 96; n <= 128; n += 32) {
-      for (int i = 1; i < 32; i++) {
-        for (int j = n - 32; j < n - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b2, 0, i, 0);
+          validateRange(b1, 0, i, 1);
+          validateRange(b2, i, j + 1, 1);
+          validateRange(b1, i, j + 1, 0);
+          validateRange(b2, j + 1, i, 0);
+          validateRange(b1, j + 1, i, 1);
+
+          // Swapped bits same as 0.
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 96; n <= 128; n += 32) {
-      for (int i = 1; i < 32; i++) {
-        for (int j = n - 32; j < n - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b1, 0, n, 0);
+          validateRange(b2, 0, n, 0);
+
+          // Swapped bits same as 1.
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           b1.not();
           b2.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
+          validateRange(b1, 0, n, 1);
+          validateRange(b2, 0, n, 1);
         }
       }
     }
@@ -173,76 +144,47 @@ public class BitVectorExchangeBitsTests {
   public void testExchangeBits_MultipleWholeBlocks() {
     // Swapped bits opposite
     for (int n = 32; n <= 128; n += 32) {
-      // b1 0s
       for (int i = 0; i < n; i += 32) {
         for (int j = i + 63; j < n; j += 32) {
+          // b1 0s
           BitVector b1 = new BitVector(n);
           BitVector b2 = new BitVector(n);
           b2.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-      // b2 0s
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i + 63; j < n; j += 32) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b1, 0, i, 0);
+          validateRange(b2, 0, i, 1);
+          validateRange(b1, i, j + 1, 1);
+          validateRange(b2, i, j + 1, 0);
+          validateRange(b1, j + 1, i, 0);
+          validateRange(b2, j + 1, i, 1);
+
+          // b2 0s
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           b1.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 128; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i + 63; j < n; j += 32) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b2, 0, i, 0);
+          validateRange(b1, 0, i, 1);
+          validateRange(b2, i, j + 1, 1);
+          validateRange(b1, i, j + 1, 0);
+          validateRange(b2, j + 1, i, 0);
+          validateRange(b1, j + 1, i, 1);
+
+          // Swapped bits same as 0.
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 128; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i + 63; j < n; j += 32) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b1, 0, n, 0);
+          validateRange(b2, 0, n, 0);
+
+          // Swapped bits same as 1.
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           b1.not();
           b2.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
+          validateRange(b1, 0, n, 1);
+          validateRange(b2, 0, n, 1);
         }
       }
     }
@@ -252,73 +194,47 @@ public class BitVectorExchangeBitsTests {
   public void testExchangeBits_SingleWholeBlock() {
     // Swapped bits opposite
     for (int n = 32; n <= 96; n += 32) {
-      // b1 0s
       for (int i = 0; i < n; i += 32) {
         int j = i + 31;
+        // b1 0s
         BitVector b1 = new BitVector(n);
         BitVector b2 = new BitVector(n);
         b2.not();
         BitVector.exchangeBits(b1, b2, i, j);
-        for (int k = 0; k < i; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-        for (int k = i; k <= j; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-        for (int k = j + 1; k < i; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-      }
-      // b2 0s
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
+        validateRange(b1, 0, i, 0);
+        validateRange(b2, 0, i, 1);
+        validateRange(b1, i, j + 1, 1);
+        validateRange(b2, i, j + 1, 0);
+        validateRange(b1, j + 1, i, 0);
+        validateRange(b2, j + 1, i, 1);
+
+        // b2 0s
+        b1 = new BitVector(n);
+        b2 = new BitVector(n);
         b1.not();
         BitVector.exchangeBits(b1, b2, i, j);
-        for (int k = 0; k < i; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-        for (int k = i; k <= j; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-        for (int k = j + 1; k < i; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
+        validateRange(b2, 0, i, 0);
+        validateRange(b1, 0, i, 1);
+        validateRange(b2, i, j + 1, 1);
+        validateRange(b1, i, j + 1, 0);
+        validateRange(b2, j + 1, i, 0);
+        validateRange(b1, j + 1, i, 1);
+
+        // Swapped bits same as 0.
+        b1 = new BitVector(n);
+        b2 = new BitVector(n);
         BitVector.exchangeBits(b1, b2, i, j);
-        for (int k = 0; k < n; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
+        validateRange(b1, 0, n, 0);
+        validateRange(b2, 0, n, 0);
+
+        // Swapped bits same as 1.
+        b1 = new BitVector(n);
+        b2 = new BitVector(n);
         b1.not();
         b2.not();
         BitVector.exchangeBits(b1, b2, i, j);
-        for (int k = 0; k < n; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
+        validateRange(b1, 0, n, 1);
+        validateRange(b2, 0, n, 1);
       }
     }
   }
@@ -327,76 +243,47 @@ public class BitVectorExchangeBitsTests {
   public void testExchangeBits_SinglePartialBlock0() {
     // Swapped bits opposite
     for (int n = 32; n <= 96; n += 32) {
-      // b1 0s
       for (int i = 0; i < n; i += 32) {
         for (int j = i; j < i + 31; j++) {
+          // b1 0s
           BitVector b1 = new BitVector(n);
           BitVector b2 = new BitVector(n);
           b2.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-      // b2 0s
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i; j < i + 31; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b1, 0, i, 0);
+          validateRange(b2, 0, i, 1);
+          validateRange(b1, i, j + 1, 1);
+          validateRange(b2, i, j + 1, 0);
+          validateRange(b1, j + 1, i, 0);
+          validateRange(b2, j + 1, i, 1);
+
+          // b2 0s
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           b1.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i; j < i + 31; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b2, 0, i, 0);
+          validateRange(b1, 0, i, 1);
+          validateRange(b2, i, j + 1, 1);
+          validateRange(b1, i, j + 1, 0);
+          validateRange(b2, j + 1, i, 0);
+          validateRange(b1, j + 1, i, 1);
+
+          // Swapped bits same as 0.
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i; j < i + 31; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b1, 0, n, 0);
+          validateRange(b2, 0, n, 0);
+
+          // Swapped bits same as 1.
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           b1.not();
           b2.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
+          validateRange(b1, 0, n, 1);
+          validateRange(b2, 0, n, 1);
         }
       }
     }
@@ -406,76 +293,47 @@ public class BitVectorExchangeBitsTests {
   public void testExchangeBits_SinglePartialBlock31() {
     // Swapped bits opposite
     for (int n = 32; n <= 96; n += 32) {
-      // b1 0s
       for (int j = 31; j < n; j += 32) {
         for (int i = j; i > j - 31; i--) {
+          // b1 0s
           BitVector b1 = new BitVector(n);
           BitVector b2 = new BitVector(n);
           b2.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-      // b2 0s
-      for (int j = 31; j < n; j += 32) {
-        for (int i = j; i > j - 31; i--) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b1, 0, i, 0);
+          validateRange(b2, 0, i, 1);
+          validateRange(b1, i, j + 1, 1);
+          validateRange(b2, i, j + 1, 0);
+          validateRange(b1, j + 1, i, 0);
+          validateRange(b2, j + 1, i, 1);
+
+          // b2 0s
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           b1.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int j = 31; j < n; j += 32) {
-        for (int i = j; i > j - 31; i--) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b2, 0, i, 0);
+          validateRange(b1, 0, i, 1);
+          validateRange(b2, i, j + 1, 1);
+          validateRange(b1, i, j + 1, 0);
+          validateRange(b2, j + 1, i, 0);
+          validateRange(b1, j + 1, i, 1);
+
+          // Swapped bits same as 0.
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int j = 31; j < n; j += 32) {
-        for (int i = j; i > j - 31; i--) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b1, 0, n, 0);
+          validateRange(b2, 0, n, 0);
+
+          // Swapped bits same as 1.
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           b1.not();
           b2.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
+          validateRange(b1, 0, n, 1);
+          validateRange(b2, 0, n, 1);
         }
       }
     }
@@ -485,80 +343,48 @@ public class BitVectorExchangeBitsTests {
   public void testExchangeBits_SinglePartialBlockMiddle() {
     // Swapped bits opposite
     for (int n = 32; n <= 96; n += 32) {
-      // b1 0s
       for (int i = 1; i < n; i += 2) {
         int m = (i / 32) * 32 + 32;
         for (int j = i; j < m - 1; j++) {
+          // b1 0s
           BitVector b1 = new BitVector(n);
           BitVector b2 = new BitVector(n);
           b2.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-      // b2 0s
-      for (int i = 1; i < n; i += 2) {
-        int m = (i / 32) * 32 + 32;
-        for (int j = i; j < m - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b1, 0, i, 0);
+          validateRange(b2, 0, i, 1);
+          validateRange(b1, i, j + 1, 1);
+          validateRange(b2, i, j + 1, 0);
+          validateRange(b1, j + 1, i, 0);
+          validateRange(b2, j + 1, i, 1);
+
+          // b2 0s
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           b1.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 1; i < n; i += 2) {
-        int m = (i / 32) * 32 + 32;
-        for (int j = i; j < m - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b2, 0, i, 0);
+          validateRange(b1, 0, i, 1);
+          validateRange(b2, i, j + 1, 1);
+          validateRange(b1, i, j + 1, 0);
+          validateRange(b2, j + 1, i, 0);
+          validateRange(b1, j + 1, i, 1);
+
+          // Swapped bits same as 0.
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 1; i < n; i += 2) {
-        int m = (i / 32) * 32 + 32;
-        for (int j = i; j < m - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
+          validateRange(b1, 0, n, 0);
+          validateRange(b2, 0, n, 0);
+
+          // Swapped bits same as 1.
+          b1 = new BitVector(n);
+          b2 = new BitVector(n);
           b1.not();
           b2.not();
           BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
+          validateRange(b1, 0, n, 1);
+          validateRange(b2, 0, n, 1);
         }
       }
     }
@@ -568,74 +394,59 @@ public class BitVectorExchangeBitsTests {
   public void testExchangeBits_SingleWholeBlock_IndexesReversed() {
     // Swapped bits opposite
     for (int n = 32; n <= 96; n += 32) {
-      // b1 0s
       for (int i = 0; i < n; i += 32) {
         int j = i + 31;
+
+        // b1 0s
         BitVector b1 = new BitVector(n);
         BitVector b2 = new BitVector(n);
         b2.not();
         BitVector.exchangeBits(b1, b2, j, i);
-        for (int k = 0; k < i; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-        for (int k = i; k <= j; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-        for (int k = j + 1; k < i; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-      }
-      // b2 0s
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
+        validateRange(b1, 0, i, 0);
+        validateRange(b2, 0, i, 1);
+        validateRange(b1, i, j + 1, 1);
+        validateRange(b2, i, j + 1, 0);
+        validateRange(b1, j + 1, i, 0);
+        validateRange(b2, j + 1, i, 1);
+
+        // b2 0s
+        b1 = new BitVector(n);
+        b2 = new BitVector(n);
         b1.not();
         BitVector.exchangeBits(b1, b2, j, i);
-        for (int k = 0; k < i; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-        for (int k = i; k <= j; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-        for (int k = j + 1; k < i; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
+        validateRange(b2, 0, i, 0);
+        validateRange(b1, 0, i, 1);
+        validateRange(b2, i, j + 1, 1);
+        validateRange(b1, i, j + 1, 0);
+        validateRange(b2, j + 1, i, 0);
+        validateRange(b1, j + 1, i, 1);
+
+        // Swapped bits same as 0.
+        b1 = new BitVector(n);
+        b2 = new BitVector(n);
         BitVector.exchangeBits(b1, b2, j, i);
-        for (int k = 0; k < n; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
+        validateRange(b1, 0, n, 0);
+        validateRange(b2, 0, n, 0);
+
+        // Swapped bits same as 1.
+        b1 = new BitVector(n);
+        b2 = new BitVector(n);
         b1.not();
         b2.not();
         BitVector.exchangeBits(b1, b2, j, i);
-        for (int k = 0; k < n; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
+        validateRange(b1, 0, n, 1);
+        validateRange(b2, 0, n, 1);
       }
+    }
+  }
+
+  /*
+   * Validate all bit in a range equal to a specific bit value, range indexes are
+   * from i (inclusive) to j (exclusive).
+   */
+  private void validateRange(BitVector b, int i, int j, int bitValue) {
+    for (int k = i; k < j; k++) {
+      assertEquals(bitValue, b.getBit(k));
     }
   }
 }

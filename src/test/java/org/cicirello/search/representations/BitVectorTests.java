@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -28,616 +28,10 @@ import org.junit.jupiter.api.*;
 /** JUnit test cases for the BitVector class. */
 public class BitVectorTests {
 
-  @Test
-  public void testExchangeBits_Exceptions() {
-    IndexOutOfBoundsException thrown =
-        assertThrows(
-            IndexOutOfBoundsException.class,
-            () -> BitVector.exchangeBits(new BitVector(32), new BitVector(32), -1, 1));
-    thrown =
-        assertThrows(
-            IndexOutOfBoundsException.class,
-            () -> BitVector.exchangeBits(new BitVector(32), new BitVector(32), 1, -1));
-    thrown =
-        assertThrows(
-            IndexOutOfBoundsException.class,
-            () -> BitVector.exchangeBits(new BitVector(32), new BitVector(32), 32, 1));
-    thrown =
-        assertThrows(
-            IndexOutOfBoundsException.class,
-            () -> BitVector.exchangeBits(new BitVector(32), new BitVector(32), 1, 32));
-    IllegalArgumentException thrown2 =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> BitVector.exchangeBits(new BitVector(32), new BitVector(33), 1, 1));
-    thrown2 =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> BitVector.exchangeBits(new BitVector(32), new BitVector(32), new BitVector(31)));
-    thrown2 =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> BitVector.exchangeBits(new BitVector(32), new BitVector(31), new BitVector(32)));
-    thrown2 =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> BitVector.exchangeBits(new BitVector(31), new BitVector(32), new BitVector(32)));
-  }
+  private final BitVectorValidator validator;
 
-  @Test
-  public void testExchangeBitsViaMask() {
-    int[] maskBits = {
-      0xffffffff, 0x00000000, 0xff00ff00, 0x00ff00ff, 0x00ff00ff, 0xff00ff00, 0xff00ff00, 0x00ff00ff
-    };
-    int[] bits1 = {
-      0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xff00ff00, 0x00ff00ff, 0xff00ff00, 0x00ff00ff
-    };
-    int[] bits2 = {
-      0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0x00ff00ff, 0xff00ff00, 0x00ff00ff, 0xff00ff00
-    };
-    int[] expected1 = {
-      0xffffffff, 0x00000000, 0xff00ff00, 0x00ff00ff, 0xffffffff, 0xffffffff, 0x00000000, 0x00000000
-    };
-    int[] expected2 = {
-      0x00000000, 0xffffffff, 0x00ff00ff, 0xff00ff00, 0x00000000, 0x00000000, 0xffffffff, 0xffffffff
-    };
-    BitVector b1 = new BitVector(bits1.length * 32, bits1);
-    BitVector b2 = new BitVector(bits2.length * 32, bits2);
-    BitVector bMask = new BitVector(maskBits.length * 32, maskBits);
-    BitVector bExpect1 = new BitVector(expected1.length * 32, expected1);
-    BitVector bExpect2 = new BitVector(expected2.length * 32, expected2);
-    BitVector.exchangeBits(b1, b2, bMask);
-    assertEquals(bExpect1, b1);
-    assertEquals(bExpect2, b2);
-  }
-
-  @Test
-  public void testExchangeBits_PartialBlocksAtEnds() {
-    // Swapped bits opposite
-    for (int n = 96; n <= 128; n += 32) {
-      // b1 0s
-      for (int i = 1; i < 32; i++) {
-        for (int j = n - 32; j < n - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b2.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-      // b2 0s
-      for (int i = 1; i < 32; i++) {
-        for (int j = n - 32; j < n - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b1.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 96; n <= 128; n += 32) {
-      for (int i = 1; i < 32; i++) {
-        for (int j = n - 32; j < n - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 96; n <= 128; n += 32) {
-      for (int i = 1; i < 32; i++) {
-        for (int j = n - 32; j < n - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b1.not();
-          b2.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-    }
-  }
-
-  @Test
-  public void testExchangeBits_MultipleWholeBlocks() {
-    // Swapped bits opposite
-    for (int n = 32; n <= 128; n += 32) {
-      // b1 0s
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i + 63; j < n; j += 32) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b2.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-      // b2 0s
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i + 63; j < n; j += 32) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b1.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 128; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i + 63; j < n; j += 32) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 128; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i + 63; j < n; j += 32) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b1.not();
-          b2.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-    }
-  }
-
-  @Test
-  public void testExchangeBits_SingleWholeBlock() {
-    // Swapped bits opposite
-    for (int n = 32; n <= 96; n += 32) {
-      // b1 0s
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
-        b2.not();
-        BitVector.exchangeBits(b1, b2, i, j);
-        for (int k = 0; k < i; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-        for (int k = i; k <= j; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-        for (int k = j + 1; k < i; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-      }
-      // b2 0s
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
-        b1.not();
-        BitVector.exchangeBits(b1, b2, i, j);
-        for (int k = 0; k < i; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-        for (int k = i; k <= j; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-        for (int k = j + 1; k < i; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
-        BitVector.exchangeBits(b1, b2, i, j);
-        for (int k = 0; k < n; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
-        b1.not();
-        b2.not();
-        BitVector.exchangeBits(b1, b2, i, j);
-        for (int k = 0; k < n; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-      }
-    }
-  }
-
-  @Test
-  public void testExchangeBits_SinglePartialBlock0() {
-    // Swapped bits opposite
-    for (int n = 32; n <= 96; n += 32) {
-      // b1 0s
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i; j < i + 31; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b2.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-      // b2 0s
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i; j < i + 31; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b1.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i; j < i + 31; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        for (int j = i; j < i + 31; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b1.not();
-          b2.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-    }
-  }
-
-  @Test
-  public void testExchangeBits_SinglePartialBlock31() {
-    // Swapped bits opposite
-    for (int n = 32; n <= 96; n += 32) {
-      // b1 0s
-      for (int j = 31; j < n; j += 32) {
-        for (int i = j; i > j - 31; i--) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b2.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-      // b2 0s
-      for (int j = 31; j < n; j += 32) {
-        for (int i = j; i > j - 31; i--) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b1.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int j = 31; j < n; j += 32) {
-        for (int i = j; i > j - 31; i--) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int j = 31; j < n; j += 32) {
-        for (int i = j; i > j - 31; i--) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b1.not();
-          b2.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-    }
-  }
-
-  @Test
-  public void testExchangeBits_SinglePartialBlockMiddle() {
-    // Swapped bits opposite
-    for (int n = 32; n <= 96; n += 32) {
-      // b1 0s
-      for (int i = 1; i < n; i += 2) {
-        int m = (i / 32) * 32 + 32;
-        for (int j = i; j < m - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b2.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-      // b2 0s
-      for (int i = 1; i < n; i += 2) {
-        int m = (i / 32) * 32 + 32;
-        for (int j = i; j < m - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b1.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-          for (int k = i; k <= j; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-          for (int k = j + 1; k < i; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 1; i < n; i += 2) {
-        int m = (i / 32) * 32 + 32;
-        for (int j = i; j < m - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(0, b1.getBit(k));
-            assertEquals(0, b2.getBit(k));
-          }
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 1; i < n; i += 2) {
-        int m = (i / 32) * 32 + 32;
-        for (int j = i; j < m - 1; j++) {
-          BitVector b1 = new BitVector(n);
-          BitVector b2 = new BitVector(n);
-          b1.not();
-          b2.not();
-          BitVector.exchangeBits(b1, b2, i, j);
-          for (int k = 0; k < n; k++) {
-            assertEquals(1, b1.getBit(k));
-            assertEquals(1, b2.getBit(k));
-          }
-        }
-      }
-    }
-  }
-
-  @Test
-  public void testExchangeBits_SingleWholeBlock_IndexesReversed() {
-    // Swapped bits opposite
-    for (int n = 32; n <= 96; n += 32) {
-      // b1 0s
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
-        b2.not();
-        BitVector.exchangeBits(b1, b2, j, i);
-        for (int k = 0; k < i; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-        for (int k = i; k <= j; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-        for (int k = j + 1; k < i; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-      }
-      // b2 0s
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
-        b1.not();
-        BitVector.exchangeBits(b1, b2, j, i);
-        for (int k = 0; k < i; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-        for (int k = i; k <= j; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-        for (int k = j + 1; k < i; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-      }
-    }
-    // Swapped bits same as 0.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
-        BitVector.exchangeBits(b1, b2, j, i);
-        for (int k = 0; k < n; k++) {
-          assertEquals(0, b1.getBit(k));
-          assertEquals(0, b2.getBit(k));
-        }
-      }
-    }
-    // Swapped bits same as 1.
-    for (int n = 32; n <= 96; n += 32) {
-      for (int i = 0; i < n; i += 32) {
-        int j = i + 31;
-        BitVector b1 = new BitVector(n);
-        BitVector b2 = new BitVector(n);
-        b1.not();
-        b2.not();
-        BitVector.exchangeBits(b1, b2, j, i);
-        for (int k = 0; k < n; k++) {
-          assertEquals(1, b1.getBit(k));
-          assertEquals(1, b2.getBit(k));
-        }
-      }
-    }
+  public BitVectorTests() {
+    validator = new BitVectorValidator();
   }
 
   @Test
@@ -736,9 +130,8 @@ public class BitVectorTests {
     int[] values = {0x55555555, 0xaaaaaaaa};
     for (int n = 1; n <= 64; n++) {
       BitVector b = new BitVector(n);
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, b.getBit(i));
-      }
+      validator.validateRange(b, 0, n, 0);
+
       assertEquals(0, b.get32(0));
       if (n > 32) assertEquals(0, b.get32(1));
       b.set32(0, 0x55555555);
@@ -812,113 +205,25 @@ public class BitVectorTests {
   @Test
   public void testConstructorAllZeros() {
     for (int n = 0; n <= 64; n++) {
-      BitVector b = new BitVector(n);
-      assertEquals(n, b.length());
-      assertEquals(0, b.countOnes());
-      assertEquals(n, b.countZeros());
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, b.getBit(i));
-        assertFalse(b.isOne(i));
-        assertTrue(b.isZero(i));
-      }
-      if (n > 0) {
-        for (int i = 0; i <= (n - 1) / 32; i++) {
-          assertEquals(0, b.get32(i), "get32(" + i + ") with n=" + n);
-        }
-      }
-      BitVector b2 = b.copy();
-      assertTrue(b != b2);
-      assertEquals(b, b2);
-      assertEquals(b.hashCode(), b2.hashCode());
-    }
-    for (int n = 0; n <= 64; n++) {
-      BitVector b = new BitVector(n, false);
-      assertEquals(n, b.length());
-      assertEquals(0, b.countOnes());
-      assertEquals(n, b.countZeros());
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, b.getBit(i));
-        assertFalse(b.isOne(i));
-        assertTrue(b.isZero(i));
-      }
-      if (n > 0) {
-        for (int i = 0; i <= (n - 1) / 32; i++) {
-          assertEquals(0, b.get32(i), "get32(" + i + ") with n=" + n);
-        }
-      }
-      BitVector b2 = b.copy();
-      assertTrue(b != b2);
-      assertEquals(b, b2);
-      assertEquals(b.hashCode(), b2.hashCode());
+      validator.validateAllZeros(new BitVector(n), n);
+      validator.validateAllZeros(new BitVector(n, false), n);
     }
   }
 
   @Test
   public void testConstructorBitMask() {
-    // p = 0.0 case
-    for (int n = 0; n <= 64; n++) {
-      BitVector b = new BitVector(n, 0.0);
-      assertEquals(n, b.length());
-      assertEquals(0, b.countOnes());
-      assertEquals(n, b.countZeros());
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, b.getBit(i));
-        assertFalse(b.isOne(i));
-        assertTrue(b.isZero(i));
-      }
-      if (n > 0) {
-        for (int i = 0; i <= (n - 1) / 32; i++) {
-          assertEquals(0, b.get32(i), "get32(" + i + ") with n=" + n);
-        }
-      }
-      BitVector b2 = b.copy();
-      assertTrue(b != b2);
-      assertEquals(b, b2);
-      assertEquals(b.hashCode(), b2.hashCode());
-    }
-    // p = 1.0 case
-    for (int n = 0; n <= 64; n++) {
-      BitVector b = new BitVector(n, 1.0);
-      assertEquals(n, b.length());
-      assertEquals(n, b.countOnes());
-      assertEquals(0, b.countZeros());
-      for (int i = 0; i < n; i++) {
-        assertEquals(1, b.getBit(i));
-        assertTrue(b.isOne(i));
-        assertFalse(b.isZero(i));
-      }
-      if (n > 0) {
-        for (int i = 0; i <= (n - 1) / 32 - 1; i++) {
-          assertEquals(0xffffffff, b.get32(i), "get32(" + i + ") with n=" + n);
-        }
-        int i = (n - 1) / 32;
-        assertEquals(0xffffffff >>> (32 - (n & 0x1f)), b.get32(i), "get32(" + i + ") with n=" + n);
-      }
-      BitVector b2 = b.copy();
-      assertTrue(b != b2);
-      assertEquals(b, b2);
-      assertEquals(b.hashCode(), b2.hashCode());
-    }
-    // p = 0.25, 0.5, 0.75 cases
     double[] pCases = {0.5, 0.25, 0.75};
-    for (double p : pCases) {
-      for (int n = 0; n <= 64; n++) {
-        BitVector b = new BitVector(n, p);
-        assertEquals(n, b.length());
-        assertEquals(n, b.countZeros() + b.countOnes());
-        for (int i = 0; i < n; i++) {
-          int bit = b.getBit(i);
-          assertTrue(bit == 0 || bit == 1);
-          assertNotEquals(b.isOne(i), b.isZero(i));
-        }
-        BitVector b2 = b.copy();
-        assertEquals(n, b2.length());
-        assertTrue(b != b2);
-        assertEquals(b, b2);
-        assertEquals(b.hashCode(), b2.hashCode());
-        for (int i = 0; i < n; i++) {
-          assertEquals(b.getBit(i), b2.getBit(i));
-        }
+
+    for (int n = 0; n <= 64; n++) {
+      // p = 0.0 case
+      validator.validateAllZeros(new BitVector(n, 0.0), n);
+
+      // p = 1.0 case
+      validator.validateAllOnes(new BitVector(n, 1.0), n);
+
+      // p = 0.25, 0.5, 0.75 cases
+      for (double p : pCases) {
+        validator.validateRandomBitVector(new BitVector(n, p), n);
       }
     }
   }
@@ -927,21 +232,7 @@ public class BitVectorTests {
   public void testConstructorRandom() {
     for (int n = 0; n <= 64; n++) {
       BitVector b = new BitVector(n, true);
-      assertEquals(n, b.length());
-      assertEquals(n, b.countZeros() + b.countOnes());
-      for (int i = 0; i < n; i++) {
-        int bit = b.getBit(i);
-        assertTrue(bit == 0 || bit == 1);
-        assertNotEquals(b.isOne(i), b.isZero(i));
-      }
-      BitVector b2 = b.copy();
-      assertEquals(n, b2.length());
-      assertTrue(b != b2);
-      assertEquals(b, b2);
-      assertEquals(b.hashCode(), b2.hashCode());
-      for (int i = 0; i < n; i++) {
-        assertEquals(b.getBit(i), b2.getBit(i));
-      }
+      validator.validateRandomBitVector(b, n);
     }
   }
 
@@ -950,363 +241,15 @@ public class BitVectorTests {
     for (int k = 1; k <= 2; k++) {
       int[] zeros = new int[k];
       int[] ones = new int[k];
-      for (int j = 0; j < k; j++) {
-        ones[j] = 0xffffffff;
-      }
+      Arrays.fill(ones, 0xffffffff);
+
       for (int n = 32 * k - 31; n <= 32 * k; n++) {
         BitVector b0 = new BitVector(n, zeros);
-        assertEquals(n, b0.length());
-        assertEquals(0, b0.countOnes());
-        assertEquals(n, b0.countZeros());
-        for (int i = 0; i < n; i++) {
-          assertEquals(0, b0.getBit(i));
-          assertFalse(b0.isOne(i));
-          assertTrue(b0.isZero(i));
-        }
-        if (n > 0) {
-          for (int i = 0; i <= (n - 1) / 32; i++) {
-            assertEquals(0, b0.get32(i), "get32(" + i + ") with n=" + n);
-          }
-        }
+        validator.validateAllZeros(b0, n);
+
         BitVector b1 = new BitVector(n, ones);
-        assertEquals(n, b1.length());
-        assertEquals(n, b1.countOnes());
-        assertEquals(0, b1.countZeros());
-        for (int i = 0; i < n; i++) {
-          assertEquals(1, b1.getBit(i));
-          assertTrue(b1.isOne(i));
-          assertFalse(b1.isZero(i));
-        }
-        if (n > 0) {
-          for (int i = 0; i < (n - 1) / 32; i++) {
-            assertEquals(0xffffffff, b1.get32(i), "get32(" + i + ") with n=" + n);
-          }
-          assertEquals(
-              0xffffffff >>> (((n - 1) / 32 + 1) * 32 - n),
-              b1.get32((n - 1) / 32),
-              "get32(" + ((n - 1) / 32) + ") with n=" + n);
-        }
-        BitVector b2 = b0.copy();
-        assertEquals(n, b2.length());
-        assertTrue(b0 != b2);
-        assertEquals(b0, b2);
-        assertEquals(b0.hashCode(), b2.hashCode());
-        for (int i = 0; i < n; i++) {
-          assertEquals(b0.getBit(i), b2.getBit(i));
-        }
-        b2 = b1.copy();
-        assertEquals(n, b2.length());
-        assertTrue(b1 != b2);
-        assertEquals(b1, b2);
-        assertEquals(b1.hashCode(), b2.hashCode());
-        for (int i = 0; i < n; i++) {
-          assertEquals(b1.getBit(i), b2.getBit(i));
-        }
+        validator.validateAllOnes(b1, n);
       }
-    }
-  }
-
-  @Test
-  public void testIteratorSkip() {
-    for (int s = 0; s <= 65; s++) {
-      BitVector b = new BitVector(s + 1);
-      b.flip(s);
-      final BitVector.BitIterator iter = b.bitIterator();
-      iter.skip(s);
-      assertEquals(1, iter.nextBit());
-      IllegalArgumentException thrown =
-          assertThrows(IllegalArgumentException.class, () -> iter.skip(1));
-    }
-    for (int s = 0; s <= 65; s++) {
-      BitVector b = new BitVector(s + 32);
-      b.flip(31 + s);
-      BitVector.BitIterator iter = b.bitIterator();
-      iter.skip(31);
-      iter.skip(s);
-      assertEquals(1, iter.nextBit());
-    }
-  }
-
-  @Test
-  public void testBitIteratorNextLargeBitBlock() {
-    int[][] bits = {
-      {0xaaaaaaaa, 0xaaaaaaaa}, // use for k = 1
-      {0xe4e4e4e4, 0xe4e4e4e4}, // use for k = 2
-      {0x88fac688, 0xc688fac6}, // use for k = 3
-      {0x76543210, 0xfedcba98}, // use for k = 4
-      {0x8a418820, 0xc5a92839} // use for k = 5
-    };
-    // small block cases
-    for (int n = 1; n <= 64; n++) {
-      int modulus = 2;
-      for (int i = 0; i < bits.length; i++) {
-        int[] array;
-        if (n > 32) array = bits[i];
-        else {
-          array = new int[1];
-          array[0] = bits[i][0];
-        }
-        BitVector b = new BitVector(n, array);
-        int k = i + 1;
-        BitVector.BitIterator iter = b.bitIterator(k);
-        int counter = 0;
-        int leftOver = n;
-        int numCalls = 0;
-        while (iter.hasNext()) {
-          int[] x = iter.nextLargeBitBlock(Math.min(k, iter.numRemainingBits()));
-          assertEquals(1, x.length);
-          numCalls++;
-          if (iter.hasNext()) {
-            assertEquals(counter, x[0], "n,k=" + n + "," + k);
-          } else {
-            int mask = 0xffffffff >>> (32 - leftOver);
-            assertEquals(counter & mask, x[0], "n,k=" + n + "," + k);
-          }
-          leftOver -= k;
-          counter++;
-          counter %= modulus;
-        }
-        int expectedCalls = n / k;
-        if (n % k != 0) expectedCalls++;
-        assertEquals(expectedCalls, numCalls);
-        modulus *= 2;
-      }
-    }
-    // large block cases
-    final int FIRST_32 = 0xF8F4F2F1;
-    for (int i = 0; i < bits.length; i++) {
-      int[] temp = bits[i];
-      bits[i] = new int[3];
-      bits[i][0] = FIRST_32;
-      bits[i][1] = temp[0];
-      bits[i][2] = temp[1];
-    }
-    int[] last4 = {0xA, 0x4, 0x8, 0x0, 0x0};
-    for (int i = 0; i < bits.length; i++) {
-      BitVector b = new BitVector(96, bits[i]);
-      BitVector.BitIterator iter = b.bitIterator();
-      int[] observed = iter.nextLargeBitBlock(36);
-      assertEquals(2, observed.length);
-      assertEquals(FIRST_32, observed[0]);
-      assertEquals(last4[i], observed[1]);
-      iter = b.bitIterator();
-      observed = iter.nextLargeBitBlock(32);
-      assertEquals(1, observed.length);
-      assertEquals(FIRST_32, observed[0]);
-    }
-    last4 = new int[] {0xA, 0x4, 0x6, 0x8, 0x9};
-    for (int i = 0; i < bits.length; i++) {
-      BitVector b = new BitVector(96, bits[i]);
-      BitVector.BitIterator iter = b.bitIterator();
-      int[] observed = iter.nextLargeBitBlock(68);
-      assertEquals(3, observed.length);
-      assertEquals(FIRST_32, observed[0]);
-      assertEquals(bits[i][1], observed[1]);
-      assertEquals(last4[i], observed[2]);
-      iter = b.bitIterator();
-      observed = iter.nextLargeBitBlock(64);
-      assertEquals(2, observed.length);
-      assertEquals(FIRST_32, observed[0]);
-      assertEquals(bits[i][1], observed[1]);
-    }
-    IllegalArgumentException thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              BitVector b = new BitVector(35);
-              BitVector.BitIterator iter = b.bitIterator();
-              iter.nextLargeBitBlock(36);
-            });
-  }
-
-  @Test
-  public void testBitIteratorNextBitBlock() {
-    int[][] bits = {
-      {0xaaaaaaaa, 0xaaaaaaaa}, // use for k = 1
-      {0xe4e4e4e4, 0xe4e4e4e4}, // use for k = 2
-      {0x88fac688, 0xc688fac6}, // use for k = 3
-      {0x76543210, 0xfedcba98}, // use for k = 4
-      {0x8a418820, 0xc5a92839} // use for k = 5
-    };
-    for (int n = 1; n <= 64; n++) {
-      int modulus = 2;
-      for (int i = 0; i < bits.length; i++) {
-        int[] array;
-        if (n > 32) array = bits[i];
-        else {
-          array = new int[1];
-          array[0] = bits[i][0];
-        }
-        BitVector b = new BitVector(n, array);
-        int k = i + 1;
-        BitVector.BitIterator iter = b.bitIterator(k);
-        int counter = 0;
-        int leftOver = n;
-        int numCalls = 0;
-        while (iter.hasNext()) {
-          int x = iter.nextBitBlock();
-          numCalls++;
-          if (iter.hasNext()) {
-            assertEquals(counter, x, "n,k=" + n + "," + k);
-          } else {
-            int mask = 0xffffffff >>> (32 - leftOver);
-            assertEquals(counter & mask, x, "n,k=" + n + "," + k);
-          }
-          leftOver -= k;
-          counter++;
-          counter %= modulus;
-        }
-        int expectedCalls = n / k;
-        if (n % k != 0) expectedCalls++;
-        assertEquals(expectedCalls, numCalls);
-        modulus *= 2;
-      }
-    }
-  }
-
-  @Test
-  public void testBitIteratorNextBitBlockWithParam() {
-    int[][] bits = {
-      {0xaaaaaaaa, 0xaaaaaaaa}, // use for k = 1
-      {0xe4e4e4e4, 0xe4e4e4e4}, // use for k = 2
-      {0x88fac688, 0xc688fac6}, // use for k = 3
-      {0x76543210, 0xfedcba98}, // use for k = 4
-      {0x8a418820, 0xc5a92839} // use for k = 5
-    };
-    for (int n = 1; n <= 64; n++) {
-      int modulus = 2;
-      for (int i = 0; i < bits.length; i++) {
-        int[] array;
-        if (n > 32) array = bits[i];
-        else {
-          array = new int[1];
-          array[0] = bits[i][0];
-        }
-        BitVector b = new BitVector(n, array);
-        int k = i + 1;
-        // initialize with block size other than k to confirm default can be overridden
-        final BitVector.BitIterator iter = b.bitIterator(k != 32 ? 32 : 30);
-        int counter = 0;
-        int leftOver = n;
-        int numCalls = 0;
-        while (iter.hasNext()) {
-          // get a block by overriding default block size
-          int x = iter.nextBitBlock(k);
-          numCalls++;
-          if (iter.hasNext()) {
-            assertEquals(counter, x, "n,k=" + n + "," + k);
-          } else {
-            int mask = 0xffffffff >>> (32 - leftOver);
-            assertEquals(counter & mask, x, "n,k=" + n + "," + k);
-          }
-          leftOver -= k;
-          counter++;
-          counter %= modulus;
-        }
-        IllegalStateException thrown =
-            assertThrows(IllegalStateException.class, () -> iter.nextBitBlock(k));
-        int expectedCalls = n / k;
-        if (n % k != 0) expectedCalls++;
-        assertEquals(expectedCalls, numCalls);
-        modulus *= 2;
-      }
-    }
-  }
-
-  @Test
-  public void testBitIteratorDefaultBlockSizeNextBitBlockWithParam() {
-    int[][] bits = {
-      {0xaaaaaaaa, 0xaaaaaaaa}, // use for k = 1
-      {0xe4e4e4e4, 0xe4e4e4e4}, // use for k = 2
-      {0x88fac688, 0xc688fac6}, // use for k = 3
-      {0x76543210, 0xfedcba98}, // use for k = 4
-      {0x8a418820, 0xc5a92839} // use for k = 5
-    };
-    for (int n = 1; n <= 64; n++) {
-      int modulus = 2;
-      for (int i = 0; i < bits.length; i++) {
-        int[] array;
-        if (n > 32) array = bits[i];
-        else {
-          array = new int[1];
-          array[0] = bits[i][0];
-        }
-        BitVector b = new BitVector(n, array);
-        int k = i + 1;
-        // initialize with default block size of 1 to confirm can be overridden
-        BitVector.BitIterator iter = b.bitIterator();
-        int counter = 0;
-        int leftOver = n;
-        int numCalls = 0;
-        while (iter.hasNext()) {
-          // get a block by overriding default block size
-          int x = iter.nextBitBlock(k);
-          numCalls++;
-          if (iter.hasNext()) {
-            assertEquals(counter, x, "n,k=" + n + "," + k);
-          } else {
-            int mask = 0xffffffff >>> (32 - leftOver);
-            assertEquals(counter & mask, x, "n,k=" + n + "," + k);
-          }
-          leftOver -= k;
-          counter++;
-          counter %= modulus;
-        }
-        int expectedCalls = n / k;
-        if (n % k != 0) expectedCalls++;
-        assertEquals(expectedCalls, numCalls);
-        modulus *= 2;
-      }
-    }
-  }
-
-  @Test
-  public void testBitIteratorNextBit() {
-    int[][] bits = {
-      {0xaaaaaaaa, 0xaaaaaaaa},
-      {0xaaaaaaaa}
-    };
-    for (int n = 1; n <= 64; n++) {
-      int[] array = (n > 32) ? bits[0] : bits[1];
-      BitVector b = new BitVector(n, array);
-      // deliberately have k != 1 to confirm nextBit ignores blocksize
-      BitVector.BitIterator iter = b.bitIterator(10);
-      int counter = 0;
-      int leftOver = n;
-      while (iter.hasNext()) {
-        assertEquals(n - counter, iter.numRemainingBits());
-        int x = iter.nextBit();
-        assertEquals(counter % 2, x, "n=" + n);
-        leftOver--;
-        counter++;
-      }
-      assertEquals(n, counter);
-      assertEquals(0, iter.numRemainingBits());
-    }
-  }
-
-  @Test
-  public void testBitIteratorDefaultBlockSize() {
-    int[][] bits = {
-      {0xaaaaaaaa, 0xaaaaaaaa},
-      {0xaaaaaaaa}
-    };
-    for (int n = 1; n <= 64; n++) {
-      int[] array = (n > 32) ? bits[0] : bits[1];
-      BitVector b = new BitVector(n, array);
-      final BitVector.BitIterator iter = b.bitIterator();
-      int counter = 0;
-      int leftOver = n;
-      while (iter.hasNext()) {
-        int x = iter.nextBitBlock();
-        assertEquals(counter % 2, x, "n=" + n);
-        leftOver--;
-        counter++;
-      }
-      assertEquals(n, counter);
-      IllegalStateException thrown =
-          assertThrows(IllegalStateException.class, () -> iter.nextBitBlock());
-      thrown = assertThrows(IllegalStateException.class, () -> iter.nextBit());
     }
   }
 
@@ -1327,9 +270,7 @@ public class BitVectorTests {
       b0.and(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validator.validateSameBitsRange(bExpected, b0, 0, n);
     }
     for (int n = 33; n <= 64; n++) {
       // Consider a truth table with the columns: x, y, x AND Y.
@@ -1346,9 +287,7 @@ public class BitVectorTests {
       b0.and(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validator.validateSameBitsRange(bExpected, b0, 0, n);
     }
     // verify that 0 length doesn't throw an exception
     BitVector b0 = new BitVector(0);
@@ -1375,9 +314,7 @@ public class BitVectorTests {
       b0.or(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validator.validateSameBitsRange(bExpected, b0, 0, n);
     }
     for (int n = 33; n <= 64; n++) {
       // Consider a truth table with the columns: x, y, x OR Y.
@@ -1394,9 +331,7 @@ public class BitVectorTests {
       b0.or(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validator.validateSameBitsRange(bExpected, b0, 0, n);
     }
     // verify that 0 length doesn't throw an exception
     BitVector b0 = new BitVector(0);
@@ -1423,9 +358,7 @@ public class BitVectorTests {
       b0.xor(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validator.validateSameBitsRange(bExpected, b0, 0, n);
     }
     for (int n = 33; n <= 64; n++) {
       // Consider a truth table with the columns: x, y, x XOR Y.
@@ -1442,9 +375,7 @@ public class BitVectorTests {
       b0.xor(b1);
       assertEquals(b1copy, b1, "explicit param shouldn't change");
       assertEquals(bExpected, b0);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b0.getBit(i));
-      }
+      validator.validateSameBitsRange(bExpected, b0, 0, n);
     }
     // verify that 0 length doesn't throw an exception
     BitVector b0 = new BitVector(0);
@@ -1459,9 +390,7 @@ public class BitVectorTests {
     for (int n = 0; n <= 64; n++) {
       BitVector b0 = new BitVector(n);
       b0.not();
-      for (int i = 0; i < n; i++) {
-        assertEquals(1, b0.getBit(i));
-      }
+      validator.validateRange(b0, 0, n, 1);
       if (n >= 32) {
         assertEquals(0xffffffff, b0.get32(0));
         if (n > 32) assertEquals(0xffffffff >>> 64 - n, b0.get32(1));
@@ -1469,9 +398,7 @@ public class BitVectorTests {
         assertEquals(0xffffffff >>> 32 - n, b0.get32(0));
       }
       b0.not();
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, b0.getBit(i));
-      }
+      validator.validateRange(b0, 0, n, 0);
       if (n > 0) assertEquals(0, b0.get32(0));
       if (n > 32) assertEquals(0, b0.get32(1));
     }
@@ -1482,9 +409,7 @@ public class BitVectorTests {
       BitVector bExpected = new BitVector(n, expected);
       b.not();
       assertEquals(bExpected, b);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b.getBit(i));
-      }
+      validator.validateSameBitsRange(bExpected, b, 0, n);
     }
     for (int n = 33; n <= 64; n++) {
       int[] bits = {0x55555555, 0x55555555 & (0xffffffff >>> (64 - n))};
@@ -1493,9 +418,7 @@ public class BitVectorTests {
       BitVector bExpected = new BitVector(n, expected);
       b.not();
       assertEquals(bExpected, b);
-      for (int i = 0; i < n; i++) {
-        assertEquals(bExpected.getBit(i), b.getBit(i));
-      }
+      validator.validateSameBitsRange(bExpected, b, 0, n);
     }
   }
 
@@ -1509,18 +432,14 @@ public class BitVectorTests {
       for (int shift = 0; shift <= n; shift++) {
         BitVector shifted = original.copy();
         shifted.shiftLeft(shift);
-        for (int i = 0; i < shift; i++) {
-          assertEquals(0, shifted.getBit(i));
-        }
+        validator.validateRange(shifted, 0, shift, 0);
         for (int i = shift; i < n; i++) {
           assertEquals(original.getBit(i - shift), shifted.getBit(i));
         }
       }
       BitVector shifted = original.copy();
       shifted.shiftLeft(n + 1);
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, shifted.getBit(i));
-      }
+      validator.validateRange(shifted, 0, n, 0);
     }
     BitVector original = new BitVector(0);
     original.shiftLeft(1);
@@ -1540,15 +459,11 @@ public class BitVectorTests {
         for (int i = 0; i + shift < n; i++) {
           assertEquals(original.getBit(i + shift), shifted.getBit(i));
         }
-        for (int i = n - shift; i < n; i++) {
-          assertEquals(0, shifted.getBit(i));
-        }
+        validator.validateRange(shifted, n - shift, n, 0);
       }
       BitVector shifted = original.copy();
       shifted.shiftRight(n + 1);
-      for (int i = 0; i < n; i++) {
-        assertEquals(0, shifted.getBit(i));
-      }
+      validator.validateRange(shifted, 0, n, 0);
     }
     BitVector original = new BitVector(0);
     original.shiftRight(1);
@@ -1573,19 +488,17 @@ public class BitVectorTests {
       Arrays.fill(c, '0');
       String expected = new String(c);
       assertEquals(expected, b0.toString());
-    }
-    for (int n = 0; n <= 96; n++) {
+
       // tests with all 1s
       BitVector b1 = new BitVector(n);
       b1.not();
-      char[] c = new char[n];
       Arrays.fill(c, '1');
-      String expected = new String(c);
+      expected = new String(c);
       assertEquals(expected, b1.toString());
     }
     for (int n = 1; n <= 64; n++) {
-      // test with exactly one 1.
       for (int i = 0; i < n; i++) {
+        // test with exactly one 1.
         BitVector b = new BitVector(n);
         b.flip(i);
         char[] c = new char[n];
@@ -1593,18 +506,14 @@ public class BitVectorTests {
         c[n - 1 - i] = '1';
         String expected = new String(c);
         assertEquals(expected, b.toString());
-      }
-    }
-    for (int n = 1; n <= 64; n++) {
-      // test with exactly one 0.
-      for (int i = 0; i < n; i++) {
-        BitVector b = new BitVector(n);
+
+        // test with exactly one 0.
+        b = new BitVector(n);
         b.flip(i);
         b.not();
-        char[] c = new char[n];
         Arrays.fill(c, '1');
         c[n - 1 - i] = '0';
-        String expected = new String(c);
+        expected = new String(c);
         assertEquals(expected, b.toString());
       }
     }
@@ -1623,11 +532,6 @@ public class BitVectorTests {
     thrown = assertThrows(IllegalArgumentException.class, () -> b.and(b2));
     thrown = assertThrows(IllegalArgumentException.class, () -> b.or(b2));
     thrown = assertThrows(IllegalArgumentException.class, () -> b.xor(b2));
-    thrown = assertThrows(IllegalArgumentException.class, () -> b.bitIterator(0));
-    thrown = assertThrows(IllegalArgumentException.class, () -> b.bitIterator(33));
-    final BitVector.BitIterator iter = b.bitIterator();
-    thrown = assertThrows(IllegalArgumentException.class, () -> iter.nextBitBlock(0));
-    thrown = assertThrows(IllegalArgumentException.class, () -> iter.nextBitBlock(33));
 
     IndexOutOfBoundsException thrownBounds =
         assertThrows(IndexOutOfBoundsException.class, () -> b.getBit(-1));
@@ -1640,5 +544,86 @@ public class BitVectorTests {
     thrownBounds = assertThrows(IndexOutOfBoundsException.class, () -> b.get32(1));
     thrownBounds = assertThrows(IndexOutOfBoundsException.class, () -> b.set32(-1, 0));
     thrownBounds = assertThrows(IndexOutOfBoundsException.class, () -> b.set32(1, 0));
+  }
+
+  private static class BitVectorValidator {
+
+    private void validateAllOnes(BitVector b, int n) {
+      assertEquals(n, b.length());
+      assertEquals(n, b.countOnes());
+      assertEquals(0, b.countZeros());
+      for (int i = 0; i < n; i++) {
+        assertEquals(1, b.getBit(i));
+        assertTrue(b.isOne(i));
+        assertFalse(b.isZero(i));
+      }
+      if (n > 0) {
+        for (int i = 0; i <= (n - 1) / 32 - 1; i++) {
+          assertEquals(0xffffffff, b.get32(i), "get32(" + i + ") with n=" + n);
+        }
+        int i = (n - 1) / 32;
+        assertEquals(0xffffffff >>> (32 - (n & 0x1f)), b.get32(i), "get32(" + i + ") with n=" + n);
+      }
+      BitVector b2 = b.copy();
+      assertTrue(b != b2);
+      assertEquals(b, b2);
+      assertEquals(b.hashCode(), b2.hashCode());
+    }
+
+    private void validateAllZeros(BitVector b, int n) {
+      assertEquals(n, b.length());
+      assertEquals(0, b.countOnes());
+      assertEquals(n, b.countZeros());
+      for (int i = 0; i < n; i++) {
+        assertEquals(0, b.getBit(i));
+        assertFalse(b.isOne(i));
+        assertTrue(b.isZero(i));
+      }
+      if (n > 0) {
+        for (int i = 0; i <= (n - 1) / 32; i++) {
+          assertEquals(0, b.get32(i), "get32(" + i + ") with n=" + n);
+        }
+      }
+      BitVector b2 = b.copy();
+      assertTrue(b != b2);
+      assertEquals(b, b2);
+      assertEquals(b.hashCode(), b2.hashCode());
+    }
+
+    private void validateRandomBitVector(BitVector b, int n) {
+      assertEquals(n, b.length());
+      assertEquals(n, b.countZeros() + b.countOnes());
+      for (int i = 0; i < n; i++) {
+        int bit = b.getBit(i);
+        assertTrue(bit == 0 || bit == 1);
+        assertNotEquals(b.isOne(i), b.isZero(i));
+      }
+      BitVector b2 = b.copy();
+      assertEquals(n, b2.length());
+      assertTrue(b != b2);
+      assertEquals(b, b2);
+      assertEquals(b.hashCode(), b2.hashCode());
+      validateSameBitsRange(b, b2, 0, n);
+    }
+
+    /*
+     * Validate all bits in a range equal to a specific bit value, range indexes are
+     * from i (inclusive) to j (exclusive).
+     */
+    private void validateRange(BitVector b, int i, int j, int bitValue) {
+      for (int k = i; k < j; k++) {
+        assertEquals(bitValue, b.getBit(k));
+      }
+    }
+
+    /*
+     * Validate all bits in a range equal, range indexes are
+     * from i (inclusive) to j (exclusive).
+     */
+    private void validateSameBitsRange(BitVector expected, BitVector b, int i, int j) {
+      for (int k = i; k < j; k++) {
+        assertEquals(expected.getBit(k), b.getBit(k));
+      }
+    }
   }
 }

@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Refactored WeightedStaticScheduling to extract internal package-access classes for reading and 
+  writing instances to and from OR-library formatted files.
 * Refactored CommonDuedateScheduling (based on RefactorFirst scan) to extract internal 
   package-access classes for reading and writing instances to and from OR-library formatted files.
 * Refactored several classes based on RefactorFirst scan, including the following:

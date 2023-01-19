@@ -345,22 +345,8 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
     PrintWriter out =
         new PrintWriter(
             new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8), true);
-    toFile(out);
+    CommonDuedateInstanceWriter instanceWriter = new CommonDuedateInstanceWriter(this);
+    instanceWriter.toFile(out);
     out.close();
-  }
-
-  /*
-   * package-private to ease unit testing
-   */
-  void toFile(PrintWriter out) {
-    out.println(1);
-    out.println(process.length);
-    for (int i = 0; i < process.length; i++) {
-      out.print(process[i]);
-      out.print("\t");
-      out.print(earlyWeights[i]);
-      out.print("\t");
-      out.println(weights[i]);
-    }
   }
 }

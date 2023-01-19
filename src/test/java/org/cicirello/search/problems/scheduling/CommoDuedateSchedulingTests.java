@@ -26,7 +26,7 @@ import org.cicirello.permutations.Permutation;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for CommoDuedateScheduling. */
-public class CDDTests {
+public class CommoDuedateSchedulingTests {
 
   @Test
   public void testConstructorExceptions() {

@@ -22,23 +22,23 @@ package org.cicirello.search.problems.scheduling;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import org.junit.jupiter.api.*;
 
-/** JUnit tests for CommoDuedateInstanceReader. */
+/** JUnit tests for CommoDuedateInstanceReader and CommonDuedateInstanceWriter. */
 public class CommonDuedateInstanceIOTests {
 
-  /*
-  	@BeforeAll
-    public static void createOutputDirectory() {
-      File directory = new File("target/testcasedata");
-      if (!directory.exists()) {
-        directory.mkdir();
-      }
+  @BeforeAll
+  public static void createOutputDirectory() {
+    File directory = new File("target/testcasedata");
+    if (!directory.exists()) {
+      directory.mkdir();
     }
-  */
+  }
 
   @Test
   public void testExceptions() {
@@ -87,9 +87,10 @@ public class CommonDuedateInstanceIOTests {
     for (int n = 1; n <= 5; n++) {
       for (int i = 0; i < h.length; i++) {
         CommonDuedateScheduling s = new CommonDuedateScheduling(n, h[i], 42);
+        CommonDuedateInstanceWriter instanceWriter = new CommonDuedateInstanceWriter(s);
         StringWriter sOut = new StringWriter();
         PrintWriter out = new PrintWriter(sOut);
-        s.toFile(out);
+        instanceWriter.toFile(out);
         CommonDuedateInstanceReader instanceReader =
             new CommonDuedateInstanceReader(new StringReader(sOut.toString()), 0, h[i]);
         int[] process = instanceReader.processTimes();
@@ -113,28 +114,25 @@ public class CommonDuedateInstanceIOTests {
     }
   }
 
-  /*
   @Test
   public void testReadWriteToFile() {
-    String contents = "1\n3\n1\t2\t3\n4\t5\t6\n7\t8\t9\n";
-    CommonDuedateScheduling original =
-        new CommonDuedateScheduling(new StringReader(contents), 0, 0.5);
+    CommonDuedateScheduling original = new CommonDuedateScheduling(7, 0.5, 42);
     try {
       String file = "target/testcasedata/cdd.testcase.data";
       original.toFile(file);
       CommonDuedateScheduling s = new CommonDuedateScheduling(file, 0, 0.5);
-      assertEquals(3, s.numberOfJobs());
+      assertEquals(7, s.numberOfJobs());
       int duedate = s.getDueDate(0);
-      assertEquals(6, duedate);
-      for (int job = 0; job < 3; job++) {
-        assertEquals(3 * job + 1, s.getProcessingTime(job));
-        assertEquals(3 * job + 2, s.getEarlyWeight(job));
-        assertEquals(3 * job + 3, s.getWeight(job));
+      assertEquals(original.getDueDate(0), duedate);
+      for (int job = 0; job < 7; job++) {
+        assertEquals(original.getProcessingTime(job), s.getProcessingTime(job));
+        assertEquals(original.getEarlyWeight(job), s.getEarlyWeight(job));
+        assertEquals(original.getWeight(job), s.getWeight(job));
+        assertEquals(original.getDueDate(job), s.getDueDate(job));
         assertEquals(duedate, s.getDueDate(job));
       }
     } catch (FileNotFoundException ex) {
       fail("File reading/writing caused exception: " + ex);
     }
-  }*/
-
+  }
 }

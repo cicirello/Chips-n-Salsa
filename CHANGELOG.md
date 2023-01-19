@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Test cases for all constructive heuristics for scheduling problems
   * Test cases for the BitVector class
   * Test cases for CommonDuedateScheduling
+  * Test cases for WeightedStaticSchedulingWithSetups
 
 ### Dependencies
 * Bump core from 2.4.3 to 2.4.4

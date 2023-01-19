@@ -23,33 +23,29 @@ package org.cicirello.search.problems.scheduling;
 import java.io.PrintWriter;
 
 /**
- * Package-access file writer for common duedate scheduling instances in the format of the
- * OR-Library. Writes an instance data file that follows the format specified in the <a
- * href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/schinfo.html>OR-Library of J.E. Beasley</a>.
- * The <a
- * href=https://github.com/cicirello/scheduling-benchmarks/tree/master/common-due-date>description</a>,
+ * Outputs a description of the instance data in the format described by the <a
+ * href=http://people.brunel.ac.uk/~mastjjb/jeb/orlib/wtinfo.html>OR-Library of J.E. Beasley</a>.
+ * The <a href=https://github.com/cicirello/scheduling-benchmarks/tree/master/wt>description</a>,
  * along with a set of benchmark instances, is mirrored in the following GitHub repository: <a
  * href=https://github.com/cicirello/scheduling-benchmarks>https://github.com/cicirello/scheduling-benchmarks</a>
  *
- * <p>The first line of the file has the number of instances in the file. This is then followed by
- * the data for each instance in the following form. Number of jobs, n, for the instance on a line
- * by itself. This is then followed by n lines, one for each job, where the line consists of 3
- * integers: process time, earliness weight, and tardiness weight. These are separated by
- * whitespace.
+ * <p>The only different with that format is that this stores only the one instance in the file. But
+ * for consistency with the original format, you do need to know the number of jobs for the instance
+ * (or you can determine this by counting number of integers in the file and dividing by 3.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-final class CommonDuedateInstanceWriter {
+final class WeightedStaticSchedulingWriter {
 
-  private final CommonDuedateScheduling s;
+  private final WeightedStaticScheduling s;
 
   /**
    * Initialize the instance writer.
    *
    * @param s the instance
    */
-  public CommonDuedateInstanceWriter(CommonDuedateScheduling s) {
+  public WeightedStaticSchedulingWriter(WeightedStaticScheduling s) {
     this.s = s;
   }
 
@@ -59,15 +55,21 @@ final class CommonDuedateInstanceWriter {
    * @param out The destination
    */
   public void toFile(PrintWriter out) {
-    out.println(1);
     int n = s.numberOfJobs();
-    out.println(n);
     for (int i = 0; i < n; i++) {
       out.print(s.getProcessingTime(i));
-      out.print("\t");
-      out.print(s.getEarlyWeight(i));
-      out.print("\t");
-      out.println(s.getWeight(i));
+      if (i == n - 1) out.println();
+      else out.print(" ");
+    }
+    for (int i = 0; i < n; i++) {
+      out.print(s.getWeight(i));
+      if (i == n - 1) out.println();
+      else out.print(" ");
+    }
+    for (int i = 0; i < n; i++) {
+      out.print(s.getDueDate(i));
+      if (i == n - 1) out.println();
+      else out.print(" ");
     }
   }
 }

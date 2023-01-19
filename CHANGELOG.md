@@ -9,14 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+* Refactored WeightedStaticScheduling to extract internal package-access classes for reading and 
+  writing instances to and from OR-library formatted files.
+* Refactored WeightedStaticSchedulingWithSetups to extract internal package-access classes for reading and 
+  writing instances to and from the format of Cicirello (2003).
+* Refactored CommonDuedateScheduling to extract internal package-access classes for reading and writing 
+  instances to and from OR-library formatted files.
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
-* Refactored CommonDuedateScheduling (based on RefactorFirst scan) to extract internal 
-  package-access classes for reading and writing instances to and from OR-library formatted files.
 * Refactored several classes based on RefactorFirst scan, including the following:
   * Test cases for all of the numeric representations
   * Test cases for ValueBiasedStochasticSampling
@@ -32,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Test cases for all constructive heuristics for scheduling problems
   * Test cases for the BitVector class
   * Test cases for CommonDuedateScheduling
+  * Test cases for WeightedStaticSchedulingWithSetups
 
 ### Dependencies
 * Bump core from 2.4.3 to 2.4.4

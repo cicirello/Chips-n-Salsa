@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2023-01-17
+## [Unreleased] - 2023-01-19
 
 ### Added
 
@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Refactored CommonDuedateScheduling (based on RefactorFirst scan) to extract internal 
+  package-access classes for reading and writing instances to and from OR-library formatted files.
 * Refactored several classes based on RefactorFirst scan, including the following:
   * Test cases for all of the numeric representations
   * Test cases for ValueBiasedStochasticSampling
@@ -29,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Test cases for all of the restart schedules
   * Test cases for all constructive heuristics for scheduling problems
   * Test cases for the BitVector class
+  * Test cases for CommonDuedateScheduling
 
 ### Dependencies
 * Bump core from 2.4.3 to 2.4.4

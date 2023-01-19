@@ -112,16 +112,16 @@ public class CommoDuedateSchedulingTests {
       Permutation p2 = new Permutation(perm2);
       int[] c1 = s.getCompletionTimes(p1);
       int expected = 0;
-	  int[] c2 = s.getCompletionTimes(p2);
+      int[] c2 = s.getCompletionTimes(p2);
       int expected2 = 0;
       for (int x = 0; x < n; x++) {
         expected += s.getProcessingTime(p1.get(x));
         assertEquals(expected, c1[p1.get(x)], "forward");
-		
-		expected2 += s.getProcessingTime(p2.get(x));
+
+        expected2 += s.getProcessingTime(p2.get(x));
         assertEquals(expected2, c2[p2.get(x)], "backward");
       }
-	  
+
       final int nPlus = n + 1;
       IllegalArgumentException thrown =
           assertThrows(
@@ -197,128 +197,22 @@ public class CommoDuedateSchedulingTests {
   @Test
   public void testCompletionTimeCalculationWithH05() {
     double h = 0.5;
-    for (int n = 1; n <= 10; n++) {
-      CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = ArrayFiller.create(n);
-      int[] perm2 = ArrayFiller.createReverse(n);
-      Permutation p1 = new Permutation(perm1);
-      Permutation p2 = new Permutation(perm2);
-      int[] c1 = s.getCompletionTimes(p1);
-      int duedate = s.getDueDate(0);
-      int earlySum = 0;
-      int tardySum = 0;
-      int onTimeJob = -1;
-      for (int x = 0; x < n; x++) {
-        if (c1[x] < duedate) earlySum += s.getEarlyWeight(x);
-        else if (c1[x] > duedate) tardySum += s.getWeight(x);
-        else onTimeJob = x;
-      }
-      String message = "Forward: earlySum,tardySum=" + earlySum + "," + tardySum;
-      int notEarlySumOfTardy = tardySum;
-      if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-      assertTrue(earlySum <= notEarlySumOfTardy, message);
-      int delay = c1[p1.get(0)] - s.getProcessingTime(p1.get(0));
-      if (onTimeJob >= 0 && delay > 0) {
-        assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
-      } else {
-        assertTrue(delay == 0 && earlySum <= tardySum, "case with no ontime jobs");
-      }
-      int expected = delay;
-      for (int x = 0; x < n; x++) {
-        expected += s.getProcessingTime(p1.get(x));
-        assertEquals(expected, c1[p1.get(x)], "forward");
-      }
-      int[] c2 = s.getCompletionTimes(p2);
-      earlySum = 0;
-      tardySum = 0;
-      onTimeJob = -1;
-      for (int x = 0; x < n; x++) {
-        if (c2[x] < duedate) earlySum += s.getEarlyWeight(x);
-        else if (c2[x] > duedate) tardySum += s.getWeight(x);
-        else onTimeJob = x;
-      }
-      message = "Backward: earlySum,tardySum,n=" + earlySum + "," + tardySum + "," + n;
-      notEarlySumOfTardy = tardySum;
-      if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-      assertTrue(earlySum <= notEarlySumOfTardy, message);
-      delay = c2[p2.get(0)] - s.getProcessingTime(p2.get(0));
-      if (onTimeJob >= 0 && delay > 0) {
-        assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
-      } else {
-        assertTrue(delay == 0 && earlySum <= tardySum, "case with no ontime jobs");
-      }
-      expected = delay;
-      for (int x = 0; x < n; x++) {
-        expected += s.getProcessingTime(p2.get(x));
-        assertEquals(expected, c2[p2.get(x)], "backward");
-      }
-    }
+    validateCompletionTimeCalculation(h);
   }
 
   @Test
   public void testCompletionTimeCalculationWithH025() {
     double h = 0.25;
-    for (int n = 1; n <= 10; n++) {
-      CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = ArrayFiller.create(n);
-      int[] perm2 = ArrayFiller.createReverse(n);
-      Permutation p1 = new Permutation(perm1);
-      Permutation p2 = new Permutation(perm2);
-      int[] c1 = s.getCompletionTimes(p1);
-      int duedate = s.getDueDate(0);
-      int earlySum = 0;
-      int tardySum = 0;
-      int onTimeJob = -1;
-      for (int x = 0; x < n; x++) {
-        if (c1[x] < duedate) earlySum += s.getEarlyWeight(x);
-        else if (c1[x] > duedate) tardySum += s.getWeight(x);
-        else onTimeJob = x;
-      }
-      String message = "Forward: earlySum,tardySum=" + earlySum + "," + tardySum;
-      int notEarlySumOfTardy = tardySum;
-      if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-      assertTrue(earlySum <= notEarlySumOfTardy, message);
-      int delay = c1[p1.get(0)] - s.getProcessingTime(p1.get(0));
-      if (onTimeJob >= 0 && delay > 0) {
-        assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
-      } else {
-        assertTrue(delay == 0 && earlySum <= tardySum, "case with no ontime jobs");
-      }
-      int expected = delay;
-      for (int x = 0; x < n; x++) {
-        expected += s.getProcessingTime(p1.get(x));
-        assertEquals(expected, c1[p1.get(x)], "forward");
-      }
-      int[] c2 = s.getCompletionTimes(p2);
-      earlySum = 0;
-      tardySum = 0;
-      onTimeJob = -1;
-      for (int x = 0; x < n; x++) {
-        if (c2[x] < duedate) earlySum += s.getEarlyWeight(x);
-        else if (c2[x] > duedate) tardySum += s.getWeight(x);
-        else onTimeJob = x;
-      }
-      message = "Backward: earlySum,tardySum,n=" + earlySum + "," + tardySum + "," + n;
-      notEarlySumOfTardy = tardySum;
-      if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-      assertTrue(earlySum <= notEarlySumOfTardy, message);
-      delay = c2[p2.get(0)] - s.getProcessingTime(p2.get(0));
-      if (onTimeJob >= 0 && delay > 0) {
-        assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
-      } else {
-        assertTrue(delay == 0 && earlySum <= tardySum, "case with no ontime jobs");
-      }
-      expected = delay;
-      for (int x = 0; x < n; x++) {
-        expected += s.getProcessingTime(p2.get(x));
-        assertEquals(expected, c2[p2.get(x)], "backward");
-      }
-    }
+    validateCompletionTimeCalculation(h);
   }
 
   @Test
   public void testCompletionTimeCalculationWithH075() {
     double h = 0.75;
+    validateCompletionTimeCalculation(h);
+  }
+
+  private void validateCompletionTimeCalculation(double h) {
     for (int n = 1; n <= 10; n++) {
       CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
       int[] perm1 = ArrayFiller.create(n);

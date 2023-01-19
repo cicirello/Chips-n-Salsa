@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,25 +22,11 @@ package org.cicirello.search.problems.scheduling;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.Scanner;
 import org.cicirello.permutations.Permutation;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for the WeightedStaticSchedulingWithSetups class. */
 public class WeightedStaticSetupsTests {
-
-  @BeforeAll
-  public static void createOutputDirectory() {
-    File directory = new File("target/testcasedata");
-    if (!directory.exists()) {
-      directory.mkdir();
-    }
-  }
 
   @Test
   public void testConstructorExceptions() {
@@ -72,108 +58,6 @@ public class WeightedStaticSetupsTests {
         assertThrows(
             IllegalArgumentException.class,
             () -> new WeightedStaticSchedulingWithSetups(1, 0.5, 0.5, 1.0000001));
-  }
-
-  @Test
-  public void testReadWriteInstanceData() {
-    double[] tau = {0.0, 0.5, 1.0};
-    double[] r = {0.0, 0.5, 1.0};
-    double[] eta = {0.0, 0.5, 1.0};
-    int instance = 0;
-    for (int n = 1; n <= 5; n++) {
-      for (int i = 0; i < tau.length; i++) {
-        for (int j = 0; j < r.length; j++) {
-          for (int k = 0; k < eta.length; k++) {
-            WeightedStaticSchedulingWithSetups s =
-                new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
-            StringWriter sOut = new StringWriter();
-            PrintWriter out = new PrintWriter(sOut);
-            s.toFile(out, instance);
-            WeightedStaticSchedulingWithSetups s2 =
-                new WeightedStaticSchedulingWithSetups(new StringReader(sOut.toString()));
-            assertEquals(s.numberOfJobs(), s2.numberOfJobs());
-            for (int job = 0; job < n; job++) {
-              assertEquals(s.getProcessingTime(job), s2.getProcessingTime(job));
-              assertEquals(s.getDueDate(job), s2.getDueDate(job));
-              assertEquals(s.getWeight(job), s2.getWeight(job));
-              assertEquals(s.getSetupTime(job), s2.getSetupTime(job));
-              for (int job2 = 0; job2 < n; job2++) {
-                assertEquals(s.getSetupTime(job, job2), s2.getSetupTime(job, job2));
-              }
-            }
-            Scanner scan = new Scanner(sOut.toString());
-            String line = scan.nextLine();
-            Scanner lineScanner = new Scanner(line);
-            assertEquals("Problem", lineScanner.next());
-            assertEquals("Instance:", lineScanner.next());
-            assertEquals(instance, lineScanner.nextInt(), "Instance number");
-            lineScanner.close();
-            line = scan.nextLine();
-            lineScanner = new Scanner(line);
-            assertEquals("Problem", lineScanner.next());
-            assertEquals("Size:", lineScanner.next());
-            assertEquals(n, lineScanner.nextInt(), "Number of jobs");
-            lineScanner.close();
-            assertEquals("Begin Generator Parameters", scan.nextLine());
-            assertEquals("End Generator Parameters", scan.nextLine());
-            assertEquals("Begin Problem Specification", scan.nextLine());
-            assertEquals("Process Times:", scan.nextLine());
-            for (int x = 0; x < n; x++) scan.nextLine();
-            assertEquals("Weights:", scan.nextLine());
-            for (int x = 0; x < n; x++) scan.nextLine();
-            assertEquals("Duedates:", scan.nextLine());
-            for (int x = 0; x < n; x++) scan.nextLine();
-            assertEquals("Setup Times:", scan.nextLine());
-            int n2 = n * n;
-            for (int x = 0; x < n2; x++) scan.nextLine();
-            assertEquals("End Problem Specification", scan.nextLine());
-            scan.close();
-            instance++;
-          }
-        }
-      }
-    }
-  }
-
-  @Test
-  public void testReadWriteToFile() {
-    String contents = "Problem Instance: -1\nProblem Size: 3\n";
-    contents += "Begin Generator Parameters\nEnd Generator Parameters\n";
-    contents += "Begin Problem Specification\n";
-    contents += "Process Times:\n1\n2\n3\n";
-    contents += "Weights:\n4\n5\n6\n";
-    contents += "Duedates:\n7\n8\n9\n";
-    contents += "Setup Times:\n";
-    contents += "-1 0 10\n";
-    contents += "-1 1 11\n";
-    contents += "-1 2 12\n";
-    contents += "0 1 14\n";
-    contents += "0 2 15\n";
-    contents += "1 0 16\n";
-    contents += "1 2 18\n";
-    contents += "2 0 19\n";
-    contents += "2 1 20\n";
-    WeightedStaticSchedulingWithSetups original =
-        new WeightedStaticSchedulingWithSetups(new StringReader(contents));
-    try {
-      String file = "target/testcasedata/wss.testcase.data";
-      original.toFile(file);
-      WeightedStaticSchedulingWithSetups s = new WeightedStaticSchedulingWithSetups(file);
-      assertEquals(3, s.numberOfJobs());
-      for (int job = 0; job < 3; job++) {
-        assertEquals(job + 1, s.getProcessingTime(job));
-        assertEquals(job + 4, s.getWeight(job));
-        assertEquals(job + 7, s.getDueDate(job));
-        assertEquals(job + 10, s.getSetupTime(job));
-        for (int from = 0; from < 3; from++) {
-          if (from != job) {
-            assertEquals(3 * from + job + 13, s.getSetupTime(from, job));
-          }
-        }
-      }
-    } catch (FileNotFoundException ex) {
-      fail("File reading/writing caused exception: " + ex);
-    }
   }
 
   @Test

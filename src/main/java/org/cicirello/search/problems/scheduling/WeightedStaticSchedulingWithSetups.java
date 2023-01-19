@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -27,7 +27,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
 import java.util.SplittableRandom;
 import java.util.random.RandomGenerator;
 import org.cicirello.math.rand.RandomIndexer;
@@ -109,7 +108,6 @@ import org.cicirello.permutations.Permutation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.13.2021
  */
 public final class WeightedStaticSchedulingWithSetups
     implements SingleMachineSchedulingProblemData {
@@ -221,7 +219,13 @@ public final class WeightedStaticSchedulingWithSetups
    *     regular file, or for some other reason cannot be opened for reading
    */
   public WeightedStaticSchedulingWithSetups(String filename) throws FileNotFoundException {
-    this(new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8));
+    WeightedStaticSchedulingWithSetupsReader instanceReader =
+        new WeightedStaticSchedulingWithSetupsReader(
+            new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8));
+    process = instanceReader.process();
+    duedates = instanceReader.duedates();
+    weights = instanceReader.weights();
+    setups = instanceReader.setups();
   }
 
   private WeightedStaticSchedulingWithSetups(
@@ -271,51 +275,6 @@ public final class WeightedStaticSchedulingWithSetups
         }
       }
     }
-  }
-
-  /*
-   * Parser for benchmark scheduling instance data files that is described in:
-   * Vincent A. Cicirello (2003). "Weighted Tardiness Scheduling with
-   * Sequence-Dependent Setups: A Benchmark Library". Technical Report,
-   * Intelligent Coordination and Logistics Laboratory, Robotics Institute,
-   * Carnegie Mellon University, Pittsburgh, PA, February 2003.
-   *
-   * Some instance files can be found at: https://www.cicirello.org/datasets/wtsds/
-   * And also at: http://dx.doi.org/10.7910/DVN/VHA0VQ
-   *
-   * package-private to ease unit testing
-   */
-  WeightedStaticSchedulingWithSetups(Readable file) {
-    Scanner in = new Scanner(file);
-    while (!in.next().equals("Size:"))
-      ;
-    final int n = in.nextInt();
-    duedates = new int[n];
-    weights = new int[n];
-    process = new int[n];
-    setups = new int[n][n];
-    while (!in.nextLine().equals("Process Times:"))
-      ;
-    for (int i = 0; i < n; i++) {
-      process[i] = in.nextInt();
-    }
-    while (!in.hasNextInt()) in.next();
-    for (int i = 0; i < n; i++) {
-      weights[i] = in.nextInt();
-    }
-    while (!in.hasNextInt()) in.next();
-    for (int i = 0; i < n; i++) {
-      duedates[i] = in.nextInt();
-    }
-    while (!in.hasNextInt()) in.next();
-    while (in.hasNextInt()) {
-      int i = in.nextInt();
-      int j = in.nextInt();
-      int setup = in.nextInt();
-      if (i == -1) i = j;
-      setups[i][j] = setup;
-    }
-    in.close();
   }
 
   @Override
@@ -432,43 +391,9 @@ public final class WeightedStaticSchedulingWithSetups
     PrintWriter out =
         new PrintWriter(
             new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8), true);
-    toFile(out, instanceNumber);
+    WeightedStaticSchedulingWithSetupsWriter instanceWriter =
+        new WeightedStaticSchedulingWithSetupsWriter(this);
+    instanceWriter.toFile(out, instanceNumber);
     out.close();
-  }
-
-  /*
-   * package-private to ease unit testing
-   */
-  void toFile(PrintWriter out, int instanceNumber) {
-    out.print("Problem Instance: ");
-    out.println(instanceNumber);
-    out.print("Problem Size: ");
-    out.println(numberOfJobs());
-    out.println("Begin Generator Parameters");
-    out.println("End Generator Parameters");
-    out.println("Begin Problem Specification");
-    out.println("Process Times:");
-    for (int p : process) {
-      out.println(p);
-    }
-    out.println("Weights:");
-    for (int w : weights) {
-      out.println(w);
-    }
-    out.println("Duedates:");
-    for (int d : duedates) {
-      out.println(d);
-    }
-    out.println("Setup Times:");
-    for (int i = 0; i < setups.length; i++) {
-      for (int j = 0; j < setups[i].length; j++) {
-        if (i == j) {
-          out.printf("%d %d %d\n", -1, j, setups[i][j]);
-        } else {
-          out.printf("%d %d %d\n", i, j, setups[i][j]);
-        }
-      }
-    }
-    out.println("End Problem Specification");
   }
 }

@@ -47,9 +47,7 @@ final class CommonDuedateInstanceWriter {
   /**
    * Initialize the instance writer.
    *
-   * @param process Array of process times
-   * @param earlyWeights Array of early weights
-   * @param weights Array of weights
+   * @param s the instance
    */
   public CommonDuedateInstanceWriter(CommonDuedateScheduling s) {
     this.s = s;

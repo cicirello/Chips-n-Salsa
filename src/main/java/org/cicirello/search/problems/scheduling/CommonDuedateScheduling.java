@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -27,7 +27,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
 import java.util.SplittableRandom;
 import java.util.random.RandomGenerator;
 import org.cicirello.math.rand.RandomIndexer;
@@ -58,7 +57,6 @@ import org.cicirello.permutations.Permutation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.13.2021
  */
 public final class CommonDuedateScheduling implements SingleMachineSchedulingProblemData {
 
@@ -178,10 +176,15 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
    */
   public CommonDuedateScheduling(String filename, int instanceNumber, double h)
       throws FileNotFoundException {
-    this(
-        new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8),
-        instanceNumber,
-        h);
+    CommonDuedateInstanceReader instanceReader =
+        new CommonDuedateInstanceReader(
+            new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8),
+            instanceNumber,
+            h);
+    process = instanceReader.processTimes();
+    earlyWeights = instanceReader.earlyWeights();
+    weights = instanceReader.weights();
+    duedate = instanceReader.duedate();
   }
 
   /*
@@ -206,53 +209,6 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
       weights[i] = MIN_TARDINESS_WEIGHT + RandomIndexer.nextInt(T_RANGE, generator);
     }
     duedate = (int) (totalP * h);
-  }
-
-  /*
-   * Parser for benchmark common duedate scheduling instances from the OR-Library.
-   *
-   * package-private to ease unit testing.
-   *
-   */
-  CommonDuedateScheduling(Readable file, int instanceNumber, double h) {
-    if (instanceNumber < 0)
-      throw new IllegalArgumentException("instanceNumber must be nonnegative");
-    if (h < 0 || h > 1) throw new IllegalArgumentException("h must be in [0.0, 1.0]");
-    Scanner in = new Scanner(file);
-
-    String line = in.nextLine();
-    Scanner lineScanner = new Scanner(line);
-    int numInstances = lineScanner.nextInt();
-    lineScanner.close();
-    if (instanceNumber >= numInstances) {
-      in.close();
-      throw new IllegalArgumentException("instanceNumber is too high.");
-    }
-
-    for (int i = 0; i < instanceNumber; i++) {
-      skipInstance(in);
-    }
-
-    line = in.nextLine();
-    lineScanner = new Scanner(line);
-    int numJobs = lineScanner.nextInt();
-    lineScanner.close();
-
-    process = new int[numJobs];
-    earlyWeights = new int[numJobs];
-    weights = new int[numJobs];
-    int totalP = 0;
-    for (int i = 0; i < numJobs; i++) {
-      lineScanner = new Scanner(in.nextLine());
-      process[i] = lineScanner.nextInt();
-      totalP += process[i];
-      earlyWeights[i] = lineScanner.nextInt();
-      weights[i] = lineScanner.nextInt();
-      lineScanner.close();
-    }
-    duedate = (int) (totalP * h);
-
-    in.close();
   }
 
   /**
@@ -405,16 +361,6 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
       out.print(earlyWeights[i]);
       out.print("\t");
       out.println(weights[i]);
-    }
-  }
-
-  private void skipInstance(Scanner in) {
-    String line = in.nextLine();
-    Scanner lineScanner = new Scanner(line);
-    int numJobs = lineScanner.nextInt();
-    lineScanner.close();
-    for (int i = 0; i < numJobs; i++) {
-      in.nextLine();
     }
   }
 }

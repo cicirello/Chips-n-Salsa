@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,24 +22,11 @@ package org.cicirello.search.problems.scheduling;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
 import org.cicirello.permutations.Permutation;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for CommoDuedateScheduling. */
 public class CDDTests {
-
-  @BeforeAll
-  public static void createOutputDirectory() {
-    File directory = new File("target/testcasedata");
-    if (!directory.exists()) {
-      directory.mkdir();
-    }
-  }
 
   @Test
   public void testConstructorExceptions() {
@@ -59,84 +46,6 @@ public class CDDTests {
     thrown =
         assertThrows(
             IllegalArgumentException.class, () -> new CommonDuedateScheduling(1, 1.00001, 42));
-    String contents = "2\n3\n1\t2\t3\n1\t2\t3\n1\t2\t3\n4\n1\t1\t1\n2\t2\t2\n3\t3\t3\n4\t4\t4\n";
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new CommonDuedateScheduling(new StringReader(contents), 1, -0.000001));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new CommonDuedateScheduling(new StringReader(contents), 1, 1.000001));
-  }
-
-  @Test
-  public void testReadSkippingInstance() {
-    String contents = "2\n3\n1\t2\t3\n1\t2\t3\n1\t2\t3\n4\n1\t1\t1\n2\t2\t2\n3\t3\t3\n4\t4\t4\n";
-    CommonDuedateScheduling s = new CommonDuedateScheduling(new StringReader(contents), 1, 0.5);
-    assertEquals(4, s.numberOfJobs());
-    int duedate = s.getDueDate(0);
-    for (int job = 0; job < 4; job++) {
-      assertEquals(job + 1, s.getProcessingTime(job));
-      assertEquals(job + 1, s.getEarlyWeight(job));
-      assertEquals(job + 1, s.getWeight(job));
-      assertEquals(duedate, s.getDueDate(job));
-    }
-    IllegalArgumentException thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new CommonDuedateScheduling(new StringReader(contents), -1, 0.5));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new CommonDuedateScheduling(new StringReader(contents), 2, 0.5));
-  }
-
-  @Test
-  public void testReadWriteInstanceData() {
-    double[] h = {0.0, 0.25, 0.5, 0.75, 1.0};
-    for (int n = 1; n <= 5; n++) {
-      for (int i = 0; i < h.length; i++) {
-        CommonDuedateScheduling s = new CommonDuedateScheduling(n, h[i], 42);
-        StringWriter sOut = new StringWriter();
-        PrintWriter out = new PrintWriter(sOut);
-        s.toFile(out);
-        CommonDuedateScheduling s2 =
-            new CommonDuedateScheduling(new StringReader(sOut.toString()), 0, h[i]);
-        assertEquals(s.numberOfJobs(), s2.numberOfJobs());
-        int duedate = s.getDueDate(0);
-        for (int job = 0; job < n; job++) {
-          assertEquals(s.getProcessingTime(job), s2.getProcessingTime(job));
-          assertEquals(s.getEarlyWeight(job), s2.getEarlyWeight(job));
-          assertEquals(s.getWeight(job), s2.getWeight(job));
-          assertEquals(s.getDueDate(job), s2.getDueDate(job));
-          assertEquals(duedate, s2.getDueDate(job));
-        }
-      }
-    }
-  }
-
-  @Test
-  public void testReadWriteToFile() {
-    String contents = "1\n3\n1\t2\t3\n4\t5\t6\n7\t8\t9\n";
-    CommonDuedateScheduling original =
-        new CommonDuedateScheduling(new StringReader(contents), 0, 0.5);
-    try {
-      String file = "target/testcasedata/cdd.testcase.data";
-      original.toFile(file);
-      CommonDuedateScheduling s = new CommonDuedateScheduling(file, 0, 0.5);
-      assertEquals(3, s.numberOfJobs());
-      int duedate = s.getDueDate(0);
-      assertEquals(6, duedate);
-      for (int job = 0; job < 3; job++) {
-        assertEquals(3 * job + 1, s.getProcessingTime(job));
-        assertEquals(3 * job + 2, s.getEarlyWeight(job));
-        assertEquals(3 * job + 3, s.getWeight(job));
-        assertEquals(duedate, s.getDueDate(job));
-      }
-    } catch (FileNotFoundException ex) {
-      fail("File reading/writing caused exception: " + ex);
-    }
   }
 
   @Test

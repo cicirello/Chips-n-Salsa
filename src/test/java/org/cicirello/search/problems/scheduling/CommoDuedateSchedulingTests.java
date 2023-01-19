@@ -23,6 +23,7 @@ package org.cicirello.search.problems.scheduling;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.cicirello.permutations.Permutation;
+import org.cicirello.util.ArrayFiller;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for CommoDuedateScheduling. */
@@ -105,26 +106,22 @@ public class CommoDuedateSchedulingTests {
     double h = 0.0;
     for (int n = 1; n <= 10; n++) {
       final CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = new int[n];
-      int[] perm2 = new int[n];
-      for (int i = 0; i < n; i++) {
-        perm1[i] = i;
-        perm2[n - 1 - i] = i;
-      }
+      int[] perm1 = ArrayFiller.create(n);
+      int[] perm2 = ArrayFiller.createReverse(n);
       Permutation p1 = new Permutation(perm1);
       Permutation p2 = new Permutation(perm2);
       int[] c1 = s.getCompletionTimes(p1);
       int expected = 0;
+	  int[] c2 = s.getCompletionTimes(p2);
+      int expected2 = 0;
       for (int x = 0; x < n; x++) {
         expected += s.getProcessingTime(p1.get(x));
         assertEquals(expected, c1[p1.get(x)], "forward");
+		
+		expected2 += s.getProcessingTime(p2.get(x));
+        assertEquals(expected2, c2[p2.get(x)], "backward");
       }
-      int[] c2 = s.getCompletionTimes(p2);
-      expected = 0;
-      for (int x = 0; x < n; x++) {
-        expected += s.getProcessingTime(p2.get(x));
-        assertEquals(expected, c2[p2.get(x)], "backward");
-      }
+	  
       final int nPlus = n + 1;
       IllegalArgumentException thrown =
           assertThrows(
@@ -137,12 +134,8 @@ public class CommoDuedateSchedulingTests {
     double h = 1.0;
     for (int n = 1; n <= 10; n++) {
       CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = new int[n];
-      int[] perm2 = new int[n];
-      for (int i = 0; i < n; i++) {
-        perm1[i] = i;
-        perm2[n - 1 - i] = i;
-      }
+      int[] perm1 = ArrayFiller.create(n);
+      int[] perm2 = ArrayFiller.createReverse(n);
       Permutation p1 = new Permutation(perm1);
       Permutation p2 = new Permutation(perm2);
       int[] c1 = s.getCompletionTimes(p1);
@@ -206,12 +199,8 @@ public class CommoDuedateSchedulingTests {
     double h = 0.5;
     for (int n = 1; n <= 10; n++) {
       CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = new int[n];
-      int[] perm2 = new int[n];
-      for (int i = 0; i < n; i++) {
-        perm1[i] = i;
-        perm2[n - 1 - i] = i;
-      }
+      int[] perm1 = ArrayFiller.create(n);
+      int[] perm2 = ArrayFiller.createReverse(n);
       Permutation p1 = new Permutation(perm1);
       Permutation p2 = new Permutation(perm2);
       int[] c1 = s.getCompletionTimes(p1);
@@ -271,12 +260,8 @@ public class CommoDuedateSchedulingTests {
     double h = 0.25;
     for (int n = 1; n <= 10; n++) {
       CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = new int[n];
-      int[] perm2 = new int[n];
-      for (int i = 0; i < n; i++) {
-        perm1[i] = i;
-        perm2[n - 1 - i] = i;
-      }
+      int[] perm1 = ArrayFiller.create(n);
+      int[] perm2 = ArrayFiller.createReverse(n);
       Permutation p1 = new Permutation(perm1);
       Permutation p2 = new Permutation(perm2);
       int[] c1 = s.getCompletionTimes(p1);
@@ -336,12 +321,8 @@ public class CommoDuedateSchedulingTests {
     double h = 0.75;
     for (int n = 1; n <= 10; n++) {
       CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = new int[n];
-      int[] perm2 = new int[n];
-      for (int i = 0; i < n; i++) {
-        perm1[i] = i;
-        perm2[n - 1 - i] = i;
-      }
+      int[] perm1 = ArrayFiller.create(n);
+      int[] perm2 = ArrayFiller.createReverse(n);
       Permutation p1 = new Permutation(perm1);
       Permutation p2 = new Permutation(perm2);
       int[] c1 = s.getCompletionTimes(p1);

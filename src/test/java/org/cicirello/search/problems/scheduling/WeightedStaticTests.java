@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,24 +22,11 @@ package org.cicirello.search.problems.scheduling;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
 import org.cicirello.permutations.Permutation;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for the WeightedStaticScheduling class. */
 public class WeightedStaticTests {
-
-  @BeforeAll
-  public static void createOutputDirectory() {
-    File directory = new File("target/testcasedata");
-    if (!directory.exists()) {
-      directory.mkdir();
-    }
-  }
 
   @Test
   public void testConstructorExceptions() {
@@ -59,63 +46,6 @@ public class WeightedStaticTests {
     thrown =
         assertThrows(
             IllegalArgumentException.class, () -> new WeightedStaticScheduling(1, 0.5, 1.00000001));
-  }
-
-  @Test
-  public void testReadSkippingInstance() {
-    int n = 3;
-    String contents = "1 1 1\n2 2 2\n3 3 3\n9 8 7\n6 5 4\n3 2 1\n";
-    WeightedStaticScheduling s = new WeightedStaticScheduling(new StringReader(contents), n, 1);
-    assertEquals(n, s.numberOfJobs());
-    for (int job = 0; job < n; job++) {
-      assertEquals(9 - job, s.getProcessingTime(job));
-      assertEquals(6 - job, s.getWeight(job));
-      assertEquals(3 - job, s.getDueDate(job));
-    }
-  }
-
-  @Test
-  public void testReadWriteInstanceData() {
-    double[] rdd = {0.25, 0.5, 0.75, 1.0};
-    double[] tf = {0.0, 0.25, 0.5, 0.75, 1.0};
-    for (int n = 1; n < 5; n++) {
-      for (int r = 0; r < rdd.length; r++) {
-        for (int t = 0; t < tf.length; t++) {
-          WeightedStaticScheduling s = new WeightedStaticScheduling(n, rdd[r], tf[t], 42);
-          StringWriter sOut = new StringWriter();
-          PrintWriter out = new PrintWriter(sOut);
-          s.toFile(out);
-          WeightedStaticScheduling s2 =
-              new WeightedStaticScheduling(new StringReader(sOut.toString()), n, 0);
-          assertEquals(s.numberOfJobs(), s2.numberOfJobs());
-          for (int job = 0; job < n; job++) {
-            assertEquals(s.getProcessingTime(job), s2.getProcessingTime(job));
-            assertEquals(s.getDueDate(job), s2.getDueDate(job));
-            assertEquals(s.getWeight(job), s2.getWeight(job));
-          }
-        }
-      }
-    }
-  }
-
-  @Test
-  public void testReadWriteToFile() {
-    String contents = "1 2 3\n4 5 6\n7 8 9\n";
-    WeightedStaticScheduling original =
-        new WeightedStaticScheduling(new StringReader(contents), 3, 0);
-    try {
-      String file = "target/testcasedata/ws.testcase.data";
-      original.toFile(file);
-      WeightedStaticScheduling s = new WeightedStaticScheduling(file, 3, 0);
-      assertEquals(3, s.numberOfJobs());
-      for (int job = 0; job < 3; job++) {
-        assertEquals(job + 1, s.getProcessingTime(job));
-        assertEquals(job + 4, s.getWeight(job));
-        assertEquals(job + 7, s.getDueDate(job));
-      }
-    } catch (FileNotFoundException ex) {
-      fail("File reading/writing caused exception: " + ex);
-    }
   }
 
   @Test

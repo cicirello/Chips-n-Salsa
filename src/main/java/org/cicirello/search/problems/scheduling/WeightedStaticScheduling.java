@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -27,7 +27,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
 import java.util.SplittableRandom;
 import java.util.random.RandomGenerator;
 import org.cicirello.math.rand.RandomIndexer;
@@ -64,7 +63,6 @@ import org.cicirello.permutations.Permutation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.13.2021
  */
 public final class WeightedStaticScheduling implements SingleMachineSchedulingProblemData {
 
@@ -156,10 +154,14 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
    */
   public WeightedStaticScheduling(String filename, int n, int instanceNumber)
       throws FileNotFoundException {
-    this(
-        new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8),
-        n,
-        instanceNumber);
+    WeightedStaticSchedulingReader instanceReader =
+        new WeightedStaticSchedulingReader(
+            new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8),
+            n,
+            instanceNumber);
+    this.process = instanceReader.process();
+    this.duedates = instanceReader.duedates();
+    this.weights = instanceReader.weights();
   }
 
   private WeightedStaticScheduling(int n, double rdd, double tf, RandomGenerator rand) {
@@ -182,47 +184,6 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
     for (int i = 0; i < n; i++) {
       int d = (int) Math.round(rand.nextDouble(D_LOWER_BOUND, D_UPPER_BOUND));
       duedates[i] = d < 0 ? 0 : d;
-    }
-  }
-
-  /*
-   * Parser for benchmark scheduling instances from the OR-Library.
-   *
-   * package-private to ease unit testing.
-   *
-   * @param file the file
-   * @param n the number of jobs
-   * @param instanceNumber the instance number (the file may contain many instances). for the
-   * first instance, this should be 0.
-   */
-  WeightedStaticScheduling(Readable file, int n, int instanceNumber) {
-    try (Scanner in = new Scanner(file)) {
-      // Format from the benchmark library is a bit weird:
-      // - It contains many instances.
-      // - No labeling info, so you need to know the number of jobs, n.
-      // - First instance: n process times, followed by n weights, followed
-      //   by n duedates.  This is then followed by second instance (n process times,
-      //   n weights, and then n duedates), etc.  No instance separators.
-
-      // First, skip to the instance we need:
-      int skipCount = instanceNumber * n * 3;
-      for (int i = 0; i < skipCount; i++) in.nextInt();
-
-      // Get process times:
-      process = new int[n];
-      for (int i = 0; i < n; i++) {
-        process[i] = in.nextInt();
-      }
-      // Get weights times:
-      weights = new int[n];
-      for (int i = 0; i < n; i++) {
-        weights[i] = in.nextInt();
-      }
-      // Get duedates times:
-      duedates = new int[n];
-      for (int i = 0; i < n; i++) {
-        duedates[i] = in.nextInt();
-      }
     }
   }
 
@@ -292,28 +253,8 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
     PrintWriter out =
         new PrintWriter(
             new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8), true);
-    toFile(out);
+    WeightedStaticSchedulingWriter instanceWriter = new WeightedStaticSchedulingWriter(this);
+    instanceWriter.toFile(out);
     out.close();
-  }
-
-  /*
-   * package-private to ease unit testing
-   */
-  void toFile(PrintWriter out) {
-    for (int i = 0; i < process.length; i++) {
-      out.print(process[i]);
-      if (i == process.length - 1) out.println();
-      else out.print(" ");
-    }
-    for (int i = 0; i < weights.length; i++) {
-      out.print(weights[i]);
-      if (i == weights.length - 1) out.println();
-      else out.print(" ");
-    }
-    for (int i = 0; i < duedates.length; i++) {
-      out.print(duedates[i]);
-      if (i == duedates.length - 1) out.println();
-      else out.print(" ");
-    }
   }
 }

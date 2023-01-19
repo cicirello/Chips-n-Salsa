@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,24 +22,12 @@ package org.cicirello.search.problems.scheduling;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.util.ArrayFiller;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for CommoDuedateScheduling. */
-public class CDDTests {
-
-  @BeforeAll
-  public static void createOutputDirectory() {
-    File directory = new File("target/testcasedata");
-    if (!directory.exists()) {
-      directory.mkdir();
-    }
-  }
+public class CommoDuedateSchedulingTests {
 
   @Test
   public void testConstructorExceptions() {
@@ -59,84 +47,6 @@ public class CDDTests {
     thrown =
         assertThrows(
             IllegalArgumentException.class, () -> new CommonDuedateScheduling(1, 1.00001, 42));
-    String contents = "2\n3\n1\t2\t3\n1\t2\t3\n1\t2\t3\n4\n1\t1\t1\n2\t2\t2\n3\t3\t3\n4\t4\t4\n";
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new CommonDuedateScheduling(new StringReader(contents), 1, -0.000001));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new CommonDuedateScheduling(new StringReader(contents), 1, 1.000001));
-  }
-
-  @Test
-  public void testReadSkippingInstance() {
-    String contents = "2\n3\n1\t2\t3\n1\t2\t3\n1\t2\t3\n4\n1\t1\t1\n2\t2\t2\n3\t3\t3\n4\t4\t4\n";
-    CommonDuedateScheduling s = new CommonDuedateScheduling(new StringReader(contents), 1, 0.5);
-    assertEquals(4, s.numberOfJobs());
-    int duedate = s.getDueDate(0);
-    for (int job = 0; job < 4; job++) {
-      assertEquals(job + 1, s.getProcessingTime(job));
-      assertEquals(job + 1, s.getEarlyWeight(job));
-      assertEquals(job + 1, s.getWeight(job));
-      assertEquals(duedate, s.getDueDate(job));
-    }
-    IllegalArgumentException thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new CommonDuedateScheduling(new StringReader(contents), -1, 0.5));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new CommonDuedateScheduling(new StringReader(contents), 2, 0.5));
-  }
-
-  @Test
-  public void testReadWriteInstanceData() {
-    double[] h = {0.0, 0.25, 0.5, 0.75, 1.0};
-    for (int n = 1; n <= 5; n++) {
-      for (int i = 0; i < h.length; i++) {
-        CommonDuedateScheduling s = new CommonDuedateScheduling(n, h[i], 42);
-        StringWriter sOut = new StringWriter();
-        PrintWriter out = new PrintWriter(sOut);
-        s.toFile(out);
-        CommonDuedateScheduling s2 =
-            new CommonDuedateScheduling(new StringReader(sOut.toString()), 0, h[i]);
-        assertEquals(s.numberOfJobs(), s2.numberOfJobs());
-        int duedate = s.getDueDate(0);
-        for (int job = 0; job < n; job++) {
-          assertEquals(s.getProcessingTime(job), s2.getProcessingTime(job));
-          assertEquals(s.getEarlyWeight(job), s2.getEarlyWeight(job));
-          assertEquals(s.getWeight(job), s2.getWeight(job));
-          assertEquals(s.getDueDate(job), s2.getDueDate(job));
-          assertEquals(duedate, s2.getDueDate(job));
-        }
-      }
-    }
-  }
-
-  @Test
-  public void testReadWriteToFile() {
-    String contents = "1\n3\n1\t2\t3\n4\t5\t6\n7\t8\t9\n";
-    CommonDuedateScheduling original =
-        new CommonDuedateScheduling(new StringReader(contents), 0, 0.5);
-    try {
-      String file = "target/testcasedata/cdd.testcase.data";
-      original.toFile(file);
-      CommonDuedateScheduling s = new CommonDuedateScheduling(file, 0, 0.5);
-      assertEquals(3, s.numberOfJobs());
-      int duedate = s.getDueDate(0);
-      assertEquals(6, duedate);
-      for (int job = 0; job < 3; job++) {
-        assertEquals(3 * job + 1, s.getProcessingTime(job));
-        assertEquals(3 * job + 2, s.getEarlyWeight(job));
-        assertEquals(3 * job + 3, s.getWeight(job));
-        assertEquals(duedate, s.getDueDate(job));
-      }
-    } catch (FileNotFoundException ex) {
-      fail("File reading/writing caused exception: " + ex);
-    }
   }
 
   @Test
@@ -196,26 +106,22 @@ public class CDDTests {
     double h = 0.0;
     for (int n = 1; n <= 10; n++) {
       final CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = new int[n];
-      int[] perm2 = new int[n];
-      for (int i = 0; i < n; i++) {
-        perm1[i] = i;
-        perm2[n - 1 - i] = i;
-      }
+      int[] perm1 = ArrayFiller.create(n);
+      int[] perm2 = ArrayFiller.createReverse(n);
       Permutation p1 = new Permutation(perm1);
       Permutation p2 = new Permutation(perm2);
       int[] c1 = s.getCompletionTimes(p1);
       int expected = 0;
+      int[] c2 = s.getCompletionTimes(p2);
+      int expected2 = 0;
       for (int x = 0; x < n; x++) {
         expected += s.getProcessingTime(p1.get(x));
         assertEquals(expected, c1[p1.get(x)], "forward");
+
+        expected2 += s.getProcessingTime(p2.get(x));
+        assertEquals(expected2, c2[p2.get(x)], "backward");
       }
-      int[] c2 = s.getCompletionTimes(p2);
-      expected = 0;
-      for (int x = 0; x < n; x++) {
-        expected += s.getProcessingTime(p2.get(x));
-        assertEquals(expected, c2[p2.get(x)], "backward");
-      }
+
       final int nPlus = n + 1;
       IllegalArgumentException thrown =
           assertThrows(
@@ -228,12 +134,8 @@ public class CDDTests {
     double h = 1.0;
     for (int n = 1; n <= 10; n++) {
       CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = new int[n];
-      int[] perm2 = new int[n];
-      for (int i = 0; i < n; i++) {
-        perm1[i] = i;
-        perm2[n - 1 - i] = i;
-      }
+      int[] perm1 = ArrayFiller.create(n);
+      int[] perm2 = ArrayFiller.createReverse(n);
       Permutation p1 = new Permutation(perm1);
       Permutation p2 = new Permutation(perm2);
       int[] c1 = s.getCompletionTimes(p1);
@@ -295,144 +197,26 @@ public class CDDTests {
   @Test
   public void testCompletionTimeCalculationWithH05() {
     double h = 0.5;
-    for (int n = 1; n <= 10; n++) {
-      CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = new int[n];
-      int[] perm2 = new int[n];
-      for (int i = 0; i < n; i++) {
-        perm1[i] = i;
-        perm2[n - 1 - i] = i;
-      }
-      Permutation p1 = new Permutation(perm1);
-      Permutation p2 = new Permutation(perm2);
-      int[] c1 = s.getCompletionTimes(p1);
-      int duedate = s.getDueDate(0);
-      int earlySum = 0;
-      int tardySum = 0;
-      int onTimeJob = -1;
-      for (int x = 0; x < n; x++) {
-        if (c1[x] < duedate) earlySum += s.getEarlyWeight(x);
-        else if (c1[x] > duedate) tardySum += s.getWeight(x);
-        else onTimeJob = x;
-      }
-      String message = "Forward: earlySum,tardySum=" + earlySum + "," + tardySum;
-      int notEarlySumOfTardy = tardySum;
-      if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-      assertTrue(earlySum <= notEarlySumOfTardy, message);
-      int delay = c1[p1.get(0)] - s.getProcessingTime(p1.get(0));
-      if (onTimeJob >= 0 && delay > 0) {
-        assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
-      } else {
-        assertTrue(delay == 0 && earlySum <= tardySum, "case with no ontime jobs");
-      }
-      int expected = delay;
-      for (int x = 0; x < n; x++) {
-        expected += s.getProcessingTime(p1.get(x));
-        assertEquals(expected, c1[p1.get(x)], "forward");
-      }
-      int[] c2 = s.getCompletionTimes(p2);
-      earlySum = 0;
-      tardySum = 0;
-      onTimeJob = -1;
-      for (int x = 0; x < n; x++) {
-        if (c2[x] < duedate) earlySum += s.getEarlyWeight(x);
-        else if (c2[x] > duedate) tardySum += s.getWeight(x);
-        else onTimeJob = x;
-      }
-      message = "Backward: earlySum,tardySum,n=" + earlySum + "," + tardySum + "," + n;
-      notEarlySumOfTardy = tardySum;
-      if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-      assertTrue(earlySum <= notEarlySumOfTardy, message);
-      delay = c2[p2.get(0)] - s.getProcessingTime(p2.get(0));
-      if (onTimeJob >= 0 && delay > 0) {
-        assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
-      } else {
-        assertTrue(delay == 0 && earlySum <= tardySum, "case with no ontime jobs");
-      }
-      expected = delay;
-      for (int x = 0; x < n; x++) {
-        expected += s.getProcessingTime(p2.get(x));
-        assertEquals(expected, c2[p2.get(x)], "backward");
-      }
-    }
+    validateCompletionTimeCalculation(h);
   }
 
   @Test
   public void testCompletionTimeCalculationWithH025() {
     double h = 0.25;
-    for (int n = 1; n <= 10; n++) {
-      CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = new int[n];
-      int[] perm2 = new int[n];
-      for (int i = 0; i < n; i++) {
-        perm1[i] = i;
-        perm2[n - 1 - i] = i;
-      }
-      Permutation p1 = new Permutation(perm1);
-      Permutation p2 = new Permutation(perm2);
-      int[] c1 = s.getCompletionTimes(p1);
-      int duedate = s.getDueDate(0);
-      int earlySum = 0;
-      int tardySum = 0;
-      int onTimeJob = -1;
-      for (int x = 0; x < n; x++) {
-        if (c1[x] < duedate) earlySum += s.getEarlyWeight(x);
-        else if (c1[x] > duedate) tardySum += s.getWeight(x);
-        else onTimeJob = x;
-      }
-      String message = "Forward: earlySum,tardySum=" + earlySum + "," + tardySum;
-      int notEarlySumOfTardy = tardySum;
-      if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-      assertTrue(earlySum <= notEarlySumOfTardy, message);
-      int delay = c1[p1.get(0)] - s.getProcessingTime(p1.get(0));
-      if (onTimeJob >= 0 && delay > 0) {
-        assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
-      } else {
-        assertTrue(delay == 0 && earlySum <= tardySum, "case with no ontime jobs");
-      }
-      int expected = delay;
-      for (int x = 0; x < n; x++) {
-        expected += s.getProcessingTime(p1.get(x));
-        assertEquals(expected, c1[p1.get(x)], "forward");
-      }
-      int[] c2 = s.getCompletionTimes(p2);
-      earlySum = 0;
-      tardySum = 0;
-      onTimeJob = -1;
-      for (int x = 0; x < n; x++) {
-        if (c2[x] < duedate) earlySum += s.getEarlyWeight(x);
-        else if (c2[x] > duedate) tardySum += s.getWeight(x);
-        else onTimeJob = x;
-      }
-      message = "Backward: earlySum,tardySum,n=" + earlySum + "," + tardySum + "," + n;
-      notEarlySumOfTardy = tardySum;
-      if (onTimeJob >= 0) notEarlySumOfTardy += s.getWeight(onTimeJob);
-      assertTrue(earlySum <= notEarlySumOfTardy, message);
-      delay = c2[p2.get(0)] - s.getProcessingTime(p2.get(0));
-      if (onTimeJob >= 0 && delay > 0) {
-        assertTrue(earlySum + s.getEarlyWeight(onTimeJob) >= tardySum);
-      } else {
-        assertTrue(delay == 0 && earlySum <= tardySum, "case with no ontime jobs");
-      }
-      expected = delay;
-      for (int x = 0; x < n; x++) {
-        expected += s.getProcessingTime(p2.get(x));
-        assertEquals(expected, c2[p2.get(x)], "backward");
-      }
-    }
+    validateCompletionTimeCalculation(h);
   }
 
   @Test
   public void testCompletionTimeCalculationWithH075() {
     double h = 0.75;
+    validateCompletionTimeCalculation(h);
+  }
+
+  private void validateCompletionTimeCalculation(double h) {
     for (int n = 1; n <= 10; n++) {
       CommonDuedateScheduling s = new CommonDuedateScheduling(n, h, 42);
-      int[] perm1 = new int[n];
-      int[] perm2 = new int[n];
-      for (int i = 0; i < n; i++) {
-        perm1[i] = i;
-        perm2[n - 1 - i] = i;
-      }
+      int[] perm1 = ArrayFiller.create(n);
+      int[] perm2 = ArrayFiller.createReverse(n);
       Permutation p1 = new Permutation(perm1);
       Permutation p2 = new Permutation(perm2);
       int[] c1 = s.getCompletionTimes(p1);

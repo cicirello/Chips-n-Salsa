@@ -27,11 +27,10 @@ import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.ReoptimizableMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.problems.OptimizationProblem;
-import org.cicirello.util.Copyable;
 import org.junit.jupiter.api.*;
 
 /** Test validation common to multiple test classes for testing parallel multistarters. */
-public class ParallelMultistarterTwoThreadsValidator {
+public class ParallelMultistarterTwoThreadsValidator extends ParallelMultistarterValidator {
 
   static class TestRestartedMetaheuristic implements ReoptimizableMetaheuristic<TestObject> {
 
@@ -143,34 +142,6 @@ public class ParallelMultistarterTwoThreadsValidator {
           break;
       }
       return c;
-    }
-  }
-
-  static class TestObject implements Copyable<TestObject> {
-
-    public TestObject() {}
-
-    @Override
-    public TestObject copy() {
-      return new TestObject();
-    }
-  }
-
-  static class TestProblem implements OptimizationProblem<TestObject> {
-    public double cost(TestObject o) {
-      return 5;
-    }
-
-    public boolean isMinCost(double c) {
-      return false;
-    }
-
-    public double minCost() {
-      return -10000;
-    }
-
-    public double value(TestObject o) {
-      return 5;
     }
   }
 }

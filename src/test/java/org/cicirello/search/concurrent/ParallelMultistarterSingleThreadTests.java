@@ -32,7 +32,7 @@ import org.cicirello.search.restarts.RestartSchedule;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for ParallelMultistarter using a single thread. */
-public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterOneThreadValidator {
+public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterValidator {
 
   @Test
   public void testInterruptParallelOptimize() {

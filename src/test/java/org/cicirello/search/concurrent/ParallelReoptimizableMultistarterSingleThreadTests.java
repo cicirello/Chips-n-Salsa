@@ -33,7 +33,7 @@ import org.junit.jupiter.api.*;
 
 /** JUnit tests for ParallelReoptimizableMultistarter using a single thread. */
 public class ParallelReoptimizableMultistarterSingleThreadTests
-    extends ParallelMultistarterOneThreadValidator {
+    extends ParallelMultistarterValidator {
 
   @Test
   public void testInterruptParallelOptimize() {

@@ -33,7 +33,7 @@ import org.junit.jupiter.api.*;
 
 /** JUnit tests for ParallelReoptimizableMultistarter using 2 threads. */
 public class ParallelReoptimizableMultistarterTwoThreadsTests
-    extends ParallelMultistarterTwoThreadsValidator {
+    extends ParallelMultistarterValidator {
 
   // optimize tests
 

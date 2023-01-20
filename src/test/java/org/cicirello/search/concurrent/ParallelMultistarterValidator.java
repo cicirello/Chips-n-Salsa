@@ -204,4 +204,80 @@ public class ParallelMultistarterValidator {
       return 5;
     }
   }
+
+  static class TestInterrupted extends TestRestartedMetaheuristic {
+
+    public volatile int count;
+
+    public TestInterrupted(int id, TestProblem problem, ProgressTracker<TestObject> tracker) {
+      super(problem);
+      setProgressTracker(tracker);
+    }
+
+    @Override
+    public SolutionCostPair<TestObject> optimize(int runLength) {
+      count++;
+      for (int i = 0; i < runLength; i++) {
+        try {
+          Thread.sleep(10);
+        } catch (InterruptedException ex) {
+          TestObject obj = new TestObject();
+          return new SolutionCostPair<TestObject>(obj, problem.cost(obj), false);
+        }
+      }
+      return null;
+    }
+
+    @Override
+    public SolutionCostPair<TestObject> reoptimize(int runLength) {
+      count++;
+      for (int i = 0; i < runLength; i++) {
+        try {
+          Thread.sleep(10);
+        } catch (InterruptedException ex) {
+          TestObject obj = new TestObject();
+          return new SolutionCostPair<TestObject>(obj, problem.cost(obj), false);
+        }
+      }
+      return null;
+    }
+  }
+
+  static class TestOptThrowsExceptions extends TestRestartedMetaheuristic {
+
+    boolean throwException;
+    boolean returnsNull;
+
+    public TestOptThrowsExceptions(
+        int id, TestProblem problem, ProgressTracker<TestObject> tracker) {
+      super(problem);
+      setProgressTracker(tracker);
+      throwException = id == 2;
+      returnsNull = id == 3;
+    }
+
+    @Override
+    public SolutionCostPair<TestObject> optimize(int runLength) {
+      if (throwException) {
+        throw new RuntimeException("Testing exception handling");
+      } else if (returnsNull) {
+        return null;
+      } else {
+        TestObject obj = new TestObject();
+        return new SolutionCostPair<TestObject>(obj, problem.cost(obj), false);
+      }
+    }
+
+    @Override
+    public SolutionCostPair<TestObject> reoptimize(int runLength) {
+      if (throwException) {
+        throw new RuntimeException("Testing exception handling");
+      } else if (returnsNull) {
+        return null;
+      } else {
+        TestObject obj = new TestObject();
+        return new SolutionCostPair<TestObject>(obj, problem.cost(obj), false);
+      }
+    }
+  }
 }

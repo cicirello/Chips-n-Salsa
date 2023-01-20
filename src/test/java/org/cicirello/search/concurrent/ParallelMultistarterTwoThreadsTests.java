@@ -32,7 +32,7 @@ import org.cicirello.search.restarts.RestartSchedule;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for ParallelMultistarter using 2 threads. */
-public class ParallelMultistarterTwoThreadsTests extends ParallelMultistarterTwoThreadsValidator {
+public class ParallelMultistarterTwoThreadsTests extends ParallelMultistarterValidator {
 
   @Test
   public void testConstantLength_Constructor1() {

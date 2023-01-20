@@ -34,14 +34,29 @@ public class ParallelMultistarterTwoThreadsValidator extends ParallelMultistarte
   static class TestRestartedMetaheuristic extends AbstractTestRestartedMetaheuristic
       implements ReoptimizableMetaheuristic<TestObject> {
 
-    private static OptimizationProblem<TestObject> problem = new TestProblem();
+    private final OptimizationProblem<TestObject> problem;
+    ;
 
     public TestRestartedMetaheuristic() {
+      this(new TestProblem());
+    }
+
+    public TestRestartedMetaheuristic(TestProblem p) {
       super();
+      problem = p;
     }
 
     public TestRestartedMetaheuristic(int stopAtEval, int findBestAtEval) {
       this(stopAtEval, findBestAtEval, new SplittableRandom(42), new ProgressTracker<TestObject>());
+    }
+
+    public TestRestartedMetaheuristic(int stopAtEval, int findBestAtEval, TestProblem p) {
+      this(
+          stopAtEval,
+          findBestAtEval,
+          new SplittableRandom(42),
+          new ProgressTracker<TestObject>(),
+          p);
     }
 
     public TestRestartedMetaheuristic(
@@ -49,11 +64,22 @@ public class ParallelMultistarterTwoThreadsValidator extends ParallelMultistarte
         int findBestAtEval,
         SplittableRandom rand,
         ProgressTracker<TestObject> tracker) {
+      this(stopAtEval, findBestAtEval, rand, tracker, new TestProblem());
+    }
+
+    public TestRestartedMetaheuristic(
+        int stopAtEval,
+        int findBestAtEval,
+        SplittableRandom rand,
+        ProgressTracker<TestObject> tracker,
+        TestProblem p) {
       super(stopAtEval, findBestAtEval, rand, tracker);
+      problem = p;
     }
 
     public TestRestartedMetaheuristic(TestRestartedMetaheuristic other) {
       super(other);
+      problem = other.problem;
     }
 
     @Override

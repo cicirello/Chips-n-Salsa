@@ -134,7 +134,7 @@ public class ParallelMultistarterOneThreadValidator extends ParallelMultistarter
 
     public TestRestartedMetaheuristic(TestRestartedMetaheuristic other) {
       super(other);
-      problem = new TestProblem();
+      problem = other.problem;
     }
 
     @Override

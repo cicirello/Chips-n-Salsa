@@ -86,8 +86,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
       for (int re = 1; re <= 5; re++) {
         ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
             new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-        heurs.add(new TestRestartedMetaheuristic());
-        heurs.add(new TestRestartedMetaheuristic());
+        TestProblem problem = new TestProblem();
+        heurs.add(new TestRestartedMetaheuristic(problem));
+        heurs.add(new TestRestartedMetaheuristic(problem));
         heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
         ArrayList<RestartSchedule> schedules = new ArrayList<RestartSchedule>();
         schedules.add(new ConstantRestartSchedule(r));
@@ -106,8 +107,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
       for (int re = 1; re <= 5; re++) {
         ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
             new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-        heurs.add(new TestRestartedMetaheuristic());
-        heurs.add(new TestRestartedMetaheuristic());
+        TestProblem problem = new TestProblem();
+        heurs.add(new TestRestartedMetaheuristic(problem));
+        heurs.add(new TestRestartedMetaheuristic(problem));
         heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
@@ -138,9 +140,10 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
       for (int re = 1; re <= 5; re++) {
         ArrayList<ReoptimizableMultistarter<TestObject>> heurs =
             new ArrayList<ReoptimizableMultistarter<TestObject>>();
-        TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+        TestProblem problem = new TestProblem();
+        TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(problem);
         heurs.add(new ReoptimizableMultistarter<TestObject>(heur, r));
-        TestRestartedMetaheuristic heur2 = new TestRestartedMetaheuristic();
+        TestRestartedMetaheuristic heur2 = new TestRestartedMetaheuristic(problem);
         heur2.setProgressTracker(heur.getProgressTracker());
         heurs.add(new ReoptimizableMultistarter<TestObject>(heur2, r));
         ParallelReoptimizableMultistarter<TestObject> restarter =
@@ -211,8 +214,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
               new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-          heurs.add(new TestRestartedMetaheuristic(early, early + 1));
-          heurs.add(new TestRestartedMetaheuristic(early, early + 1));
+          TestProblem problem = new TestProblem();
+          heurs.add(new TestRestartedMetaheuristic(early, early + 1, problem));
+          heurs.add(new TestRestartedMetaheuristic(early, early + 1, problem));
           heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
           ArrayList<RestartSchedule> schedules = new ArrayList<RestartSchedule>();
           schedules.add(new ConstantRestartSchedule(r));
@@ -235,8 +239,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
               new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-          heurs.add(new TestRestartedMetaheuristic(early, early + 1));
-          heurs.add(new TestRestartedMetaheuristic(early, early + 1));
+          TestProblem problem = new TestProblem();
+          heurs.add(new TestRestartedMetaheuristic(early, early + 1, problem));
+          heurs.add(new TestRestartedMetaheuristic(early, early + 1, problem));
           heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
@@ -274,9 +279,12 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMultistarter<TestObject>> heurs =
               new ArrayList<ReoptimizableMultistarter<TestObject>>();
-          TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early, early + 1);
+          TestProblem problem = new TestProblem();
+          TestRestartedMetaheuristic heur =
+              new TestRestartedMetaheuristic(early, early + 1, problem);
           heurs.add(new ReoptimizableMultistarter<TestObject>(heur, r));
-          TestRestartedMetaheuristic heur2 = new TestRestartedMetaheuristic(early, early + 1);
+          TestRestartedMetaheuristic heur2 =
+              new TestRestartedMetaheuristic(early, early + 1, problem);
           heur2.setProgressTracker(heur.getProgressTracker());
           heurs.add(new ReoptimizableMultistarter<TestObject>(heur2, r));
           ParallelReoptimizableMultistarter<TestObject> restarter =
@@ -348,8 +356,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
               new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-          heurs.add(new TestRestartedMetaheuristic(early + 1, early));
-          heurs.add(new TestRestartedMetaheuristic(early + 1, early));
+          TestProblem problem = new TestProblem();
+          heurs.add(new TestRestartedMetaheuristic(early + 1, early, problem));
+          heurs.add(new TestRestartedMetaheuristic(early + 1, early, problem));
           heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
           ArrayList<RestartSchedule> schedules = new ArrayList<RestartSchedule>();
           schedules.add(new ConstantRestartSchedule(r));
@@ -372,8 +381,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
               new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-          heurs.add(new TestRestartedMetaheuristic(early + 1, early));
-          heurs.add(new TestRestartedMetaheuristic(early + 1, early));
+          TestProblem problem = new TestProblem();
+          heurs.add(new TestRestartedMetaheuristic(early + 1, early, problem));
+          heurs.add(new TestRestartedMetaheuristic(early + 1, early, problem));
           heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
@@ -411,9 +421,12 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMultistarter<TestObject>> heurs =
               new ArrayList<ReoptimizableMultistarter<TestObject>>();
-          TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early + 1, early);
+          TestProblem problem = new TestProblem();
+          TestRestartedMetaheuristic heur =
+              new TestRestartedMetaheuristic(early + 1, early, problem);
           heurs.add(new ReoptimizableMultistarter<TestObject>(heur, r));
-          TestRestartedMetaheuristic heur2 = new TestRestartedMetaheuristic(early + 1, early);
+          TestRestartedMetaheuristic heur2 =
+              new TestRestartedMetaheuristic(early + 1, early, problem);
           heurs.add(new ReoptimizableMultistarter<TestObject>(heur2, r));
           heur2.setProgressTracker(heur.getProgressTracker());
           ParallelReoptimizableMultistarter<TestObject> restarter =
@@ -476,8 +489,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
       for (int re = 1; re <= 5; re++) {
         ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
             new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-        heurs.add(new TestRestartedMetaheuristic());
-        heurs.add(new TestRestartedMetaheuristic());
+        TestProblem problem = new TestProblem();
+        heurs.add(new TestRestartedMetaheuristic(problem));
+        heurs.add(new TestRestartedMetaheuristic(problem));
         heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
         ArrayList<RestartSchedule> schedules = new ArrayList<RestartSchedule>();
         schedules.add(new ConstantRestartSchedule(r));
@@ -496,8 +510,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
       for (int re = 1; re <= 5; re++) {
         ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
             new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-        heurs.add(new TestRestartedMetaheuristic());
-        heurs.add(new TestRestartedMetaheuristic());
+        TestProblem problem = new TestProblem();
+        heurs.add(new TestRestartedMetaheuristic(problem));
+        heurs.add(new TestRestartedMetaheuristic(problem));
         heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
@@ -528,9 +543,10 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
       for (int re = 1; re <= 5; re++) {
         ArrayList<ReoptimizableMultistarter<TestObject>> heurs =
             new ArrayList<ReoptimizableMultistarter<TestObject>>();
-        TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
+        TestProblem problem = new TestProblem();
+        TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(problem);
         heurs.add(new ReoptimizableMultistarter<TestObject>(heur, r));
-        TestRestartedMetaheuristic heur2 = new TestRestartedMetaheuristic();
+        TestRestartedMetaheuristic heur2 = new TestRestartedMetaheuristic(problem);
         heur2.setProgressTracker(heur.getProgressTracker());
         heurs.add(new ReoptimizableMultistarter<TestObject>(heur2, r));
         ParallelReoptimizableMultistarter<TestObject> restarter =
@@ -601,8 +617,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
               new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-          heurs.add(new TestRestartedMetaheuristic(early, early + 1));
-          heurs.add(new TestRestartedMetaheuristic(early, early + 1));
+          TestProblem problem = new TestProblem();
+          heurs.add(new TestRestartedMetaheuristic(early, early + 1, problem));
+          heurs.add(new TestRestartedMetaheuristic(early, early + 1, problem));
           heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
           ArrayList<RestartSchedule> schedules = new ArrayList<RestartSchedule>();
           schedules.add(new ConstantRestartSchedule(r));
@@ -625,8 +642,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
               new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-          heurs.add(new TestRestartedMetaheuristic(early, early + 1));
-          heurs.add(new TestRestartedMetaheuristic(early, early + 1));
+          TestProblem problem = new TestProblem();
+          heurs.add(new TestRestartedMetaheuristic(early, early + 1, problem));
+          heurs.add(new TestRestartedMetaheuristic(early, early + 1, problem));
           heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
@@ -664,9 +682,12 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMultistarter<TestObject>> heurs =
               new ArrayList<ReoptimizableMultistarter<TestObject>>();
-          TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early, early + 1);
+          TestProblem problem = new TestProblem();
+          TestRestartedMetaheuristic heur =
+              new TestRestartedMetaheuristic(early, early + 1, problem);
           heurs.add(new ReoptimizableMultistarter<TestObject>(heur, r));
-          TestRestartedMetaheuristic heur2 = new TestRestartedMetaheuristic(early, early + 1);
+          TestRestartedMetaheuristic heur2 =
+              new TestRestartedMetaheuristic(early, early + 1, problem);
           heur2.setProgressTracker(heur.getProgressTracker());
           heurs.add(new ReoptimizableMultistarter<TestObject>(heur2, r));
           ParallelReoptimizableMultistarter<TestObject> restarter =
@@ -738,8 +759,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
               new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-          heurs.add(new TestRestartedMetaheuristic(early + 1, early));
-          heurs.add(new TestRestartedMetaheuristic(early + 1, early));
+          TestProblem problem = new TestProblem();
+          heurs.add(new TestRestartedMetaheuristic(early + 1, early, problem));
+          heurs.add(new TestRestartedMetaheuristic(early + 1, early, problem));
           heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
           ArrayList<RestartSchedule> schedules = new ArrayList<RestartSchedule>();
           schedules.add(new ConstantRestartSchedule(r));
@@ -762,8 +784,9 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMetaheuristic<TestObject>> heurs =
               new ArrayList<ReoptimizableMetaheuristic<TestObject>>();
-          heurs.add(new TestRestartedMetaheuristic(early + 1, early));
-          heurs.add(new TestRestartedMetaheuristic(early + 1, early));
+          TestProblem problem = new TestProblem();
+          heurs.add(new TestRestartedMetaheuristic(early + 1, early, problem));
+          heurs.add(new TestRestartedMetaheuristic(early + 1, early, problem));
           heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
@@ -801,9 +824,12 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         for (int early = r - 5, i = 1; early < max; early += r, i++) {
           ArrayList<ReoptimizableMultistarter<TestObject>> heurs =
               new ArrayList<ReoptimizableMultistarter<TestObject>>();
-          TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early + 1, early);
+          TestProblem problem = new TestProblem();
+          TestRestartedMetaheuristic heur =
+              new TestRestartedMetaheuristic(early + 1, early, problem);
           heurs.add(new ReoptimizableMultistarter<TestObject>(heur, r));
-          TestRestartedMetaheuristic heur2 = new TestRestartedMetaheuristic(early + 1, early);
+          TestRestartedMetaheuristic heur2 =
+              new TestRestartedMetaheuristic(early + 1, early, problem);
           heurs.add(new ReoptimizableMultistarter<TestObject>(heur2, r));
           heur2.setProgressTracker(heur.getProgressTracker());
           ParallelReoptimizableMultistarter<TestObject> restarter =

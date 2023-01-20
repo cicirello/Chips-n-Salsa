@@ -34,6 +34,12 @@ import org.junit.jupiter.api.*;
 /** JUnit tests for ParallelMultistarter using a single thread. */
 public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterValidator {
 
+  private final OptimizeValidator optValidator;
+
+  public ParallelMultistarterSingleThreadTests() {
+    optValidator = new OptimizeValidator();
+  }
+
   @Test
   public void testInterruptParallelOptimize() {
     class ParallelSearch implements Runnable {
@@ -136,7 +142,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
         TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
         ParallelMultistarter<TestObject> restarter =
             new ParallelMultistarter<TestObject>(heur, r, 1);
-        verifyConstantLength(restarter, heur, r, re, 1);
+        optValidator.verifyConstantLength(restarter, heur, r, re, 1);
         restarter.close();
       }
     }
@@ -223,7 +229,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
         TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
         ParallelMultistarter<TestObject> restarter =
             new ParallelMultistarter<TestObject>(heur, new ConstantRestartSchedule(r), 1);
-        verifyConstantLength(restarter, heur, r, re, 1);
+        optValidator.verifyConstantLength(restarter, heur, r, re, 1);
         restarter.close();
       }
     }
@@ -243,7 +249,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
         schedules.add(new ConstantRestartSchedule(r));
         ParallelMultistarter<TestObject> restarter =
             new ParallelMultistarter<TestObject>(heur, schedules);
-        verifyConstantLength(restarter, heur, r, re, 1);
+        optValidator.verifyConstantLength(restarter, heur, r, re, 1);
         restarter.close();
       }
     }
@@ -265,7 +271,8 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
         schedules.add(new ConstantRestartSchedule(r));
         ParallelMultistarter<TestObject> restarter =
             new ParallelMultistarter<TestObject>(heurs, schedules);
-        verifyConstantLength(restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, 1);
+        optValidator.verifyConstantLength(
+            restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, 1);
         restarter.close();
       }
     }
@@ -322,7 +329,8 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
         ArrayList<Metaheuristic<TestObject>> heurs = new ArrayList<Metaheuristic<TestObject>>();
         heurs.add(new TestRestartedMetaheuristic());
         ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs, r);
-        verifyConstantLength(restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, 1);
+        optValidator.verifyConstantLength(
+            restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, 1);
         restarter.close();
       }
     }
@@ -371,7 +379,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
         Multistarter<TestObject> multiStarter = new Multistarter<TestObject>(heur, r);
         ParallelMultistarter<TestObject> restarter =
             new ParallelMultistarter<TestObject>(multiStarter, 1);
-        verifyConstantLength(restarter, heur, r, re, 1);
+        optValidator.verifyConstantLength(restarter, heur, r, re, 1);
         restarter.close();
       }
     }
@@ -394,7 +402,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
         TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
         heurs.add(new Multistarter<TestObject>(heur, r));
         ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs);
-        verifyConstantLength(restarter, heur, r, re, 1);
+        optValidator.verifyConstantLength(restarter, heur, r, re, 1);
         restarter.close();
       }
     }
@@ -435,7 +443,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early, early + 1);
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(heur, r, 1);
-          verifyConstantLengthStopped(restarter, heur, r, re, early, i, true);
+          optValidator.verifyConstantLengthStopped(restarter, heur, r, re, early, i, true);
           restarter.close();
         }
       }
@@ -451,7 +459,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early, early + 1);
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(heur, new ConstantRestartSchedule(r), 1);
-          verifyConstantLengthStopped(restarter, heur, r, re, early, i, true);
+          optValidator.verifyConstantLengthStopped(restarter, heur, r, re, early, i, true);
           restarter.close();
         }
       }
@@ -469,7 +477,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           schedules.add(new ConstantRestartSchedule(r));
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(heur, schedules);
-          verifyConstantLengthStopped(restarter, heur, r, re, early, i, true);
+          optValidator.verifyConstantLengthStopped(restarter, heur, r, re, early, i, true);
           restarter.close();
         }
       }
@@ -488,7 +496,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           schedules.add(new ConstantRestartSchedule(r));
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(heurs, schedules);
-          verifyConstantLengthStopped(
+          optValidator.verifyConstantLengthStopped(
               restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, true);
           restarter.close();
         }
@@ -506,7 +514,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           heurs.add(new TestRestartedMetaheuristic(early, early + 1));
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(heurs, r);
-          verifyConstantLengthStopped(
+          optValidator.verifyConstantLengthStopped(
               restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, true);
           restarter.close();
         }
@@ -524,7 +532,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           Multistarter<TestObject> multiStarter = new Multistarter<TestObject>(heur, r);
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(multiStarter, 1);
-          verifyConstantLengthStopped(restarter, heur, r, re, early, i, true);
+          optValidator.verifyConstantLengthStopped(restarter, heur, r, re, early, i, true);
           restarter.close();
         }
       }
@@ -541,7 +549,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early, early + 1);
           heurs.add(new Multistarter<TestObject>(heur, r));
           ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs);
-          verifyConstantLengthStopped(restarter, heur, r, re, early, i, true);
+          optValidator.verifyConstantLengthStopped(restarter, heur, r, re, early, i, true);
           restarter.close();
         }
       }
@@ -557,7 +565,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early + 1, early);
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(heur, r, 1);
-          verifyConstantLengthBest(restarter, heur, r, re, early, i, true);
+          optValidator.verifyConstantLengthBest(restarter, heur, r, re, early, i, true);
           restarter.close();
         }
       }
@@ -573,7 +581,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early + 1, early);
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(heur, new ConstantRestartSchedule(r), 1);
-          verifyConstantLengthBest(restarter, heur, r, re, early, i, true);
+          optValidator.verifyConstantLengthBest(restarter, heur, r, re, early, i, true);
           restarter.close();
         }
       }
@@ -591,7 +599,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           schedules.add(new ConstantRestartSchedule(r));
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(heur, schedules);
-          verifyConstantLengthBest(restarter, heur, r, re, early, i, true);
+          optValidator.verifyConstantLengthBest(restarter, heur, r, re, early, i, true);
           restarter.close();
         }
       }
@@ -610,7 +618,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           schedules.add(new ConstantRestartSchedule(r));
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(heurs, schedules);
-          verifyConstantLengthBest(
+          optValidator.verifyConstantLengthBest(
               restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, true);
           restarter.close();
         }
@@ -628,7 +636,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           heurs.add(new TestRestartedMetaheuristic(early + 1, early));
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(heurs, r);
-          verifyConstantLengthBest(
+          optValidator.verifyConstantLengthBest(
               restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, true);
           restarter.close();
         }
@@ -646,7 +654,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           Multistarter<TestObject> multiStarter = new Multistarter<TestObject>(heur, r);
           ParallelMultistarter<TestObject> restarter =
               new ParallelMultistarter<TestObject>(multiStarter, 1);
-          verifyConstantLengthBest(restarter, heur, r, re, early, i, true);
+          optValidator.verifyConstantLengthBest(restarter, heur, r, re, early, i, true);
           restarter.close();
         }
       }
@@ -663,7 +671,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
           TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early + 1, early);
           heurs.add(new Multistarter<TestObject>(heur, r));
           ParallelMultistarter<TestObject> restarter = new ParallelMultistarter<TestObject>(heurs);
-          verifyConstantLengthBest(restarter, heur, r, re, early, i, true);
+          optValidator.verifyConstantLengthBest(restarter, heur, r, re, early, i, true);
           restarter.close();
         }
       }

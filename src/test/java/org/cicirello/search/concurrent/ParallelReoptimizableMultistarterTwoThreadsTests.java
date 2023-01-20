@@ -23,9 +23,7 @@ package org.cicirello.search.concurrent;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.ReoptimizableMetaheuristic;
-import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.restarts.ConstantRestartSchedule;
 import org.cicirello.search.restarts.ReoptimizableMultistarter;
 import org.cicirello.search.restarts.RestartSchedule;
@@ -34,6 +32,12 @@ import org.junit.jupiter.api.*;
 /** JUnit tests for ParallelReoptimizableMultistarter using 2 threads. */
 public class ParallelReoptimizableMultistarterTwoThreadsTests
     extends ParallelMultistarterValidator {
+
+  private final OptimizeValidator optValidator;
+
+  public ParallelReoptimizableMultistarterTwoThreadsTests() {
+    optValidator = new OptimizeValidator();
+  }
 
   // optimize tests
 
@@ -44,7 +48,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heur, r, 2);
-        verifyConstantLength(restarter, heur, r, re, 2);
+        optValidator.verifyConstantLength(restarter, heur, r, re, 2);
         restarter.close();
       }
     }
@@ -58,7 +62,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(
                 heur, new ConstantRestartSchedule(r), 2);
-        verifyConstantLength(restarter, heur, r, re, 2);
+        optValidator.verifyConstantLength(restarter, heur, r, re, 2);
         restarter.close();
       }
     }
@@ -74,7 +78,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         schedules.add(new ConstantRestartSchedule(r));
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heur, schedules);
-        verifyConstantLength(restarter, heur, r, re, 2);
+        optValidator.verifyConstantLength(restarter, heur, r, re, 2);
         restarter.close();
       }
     }
@@ -95,7 +99,8 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         schedules.add(new ConstantRestartSchedule(r));
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heurs, schedules);
-        verifyConstantLength(restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, 2);
+        optValidator.verifyConstantLength(
+            restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, 2);
         restarter.close();
       }
     }
@@ -113,7 +118,8 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
-        verifyConstantLength(restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, 2);
+        optValidator.verifyConstantLength(
+            restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, 2);
         restarter.close();
       }
     }
@@ -128,7 +134,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
             new ReoptimizableMultistarter<TestObject>(heur, r);
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(multiStarter, 2);
-        verifyConstantLength(restarter, heur, r, re, 2);
+        optValidator.verifyConstantLength(restarter, heur, r, re, 2);
         restarter.close();
       }
     }
@@ -148,7 +154,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         heurs.add(new ReoptimizableMultistarter<TestObject>(heur2, r));
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heurs);
-        verifyConstantLength(restarter, heur, r, re, 2);
+        optValidator.verifyConstantLength(restarter, heur, r, re, 2);
         restarter.close();
       }
     }
@@ -163,7 +169,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early, early + 1);
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heur, r, 2);
-          verifyConstantLengthStopped(restarter, heur, r, re, early, i, false);
+          optValidator.verifyConstantLengthStopped(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -180,7 +186,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(
                   heur, new ConstantRestartSchedule(r), 2);
-          verifyConstantLengthStopped(restarter, heur, r, re, early, i, false);
+          optValidator.verifyConstantLengthStopped(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -199,7 +205,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           schedules.add(new ConstantRestartSchedule(r));
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heur, schedules);
-          verifyConstantLengthStopped(restarter, heur, r, re, early, i, false);
+          optValidator.verifyConstantLengthStopped(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -223,7 +229,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           schedules.add(new ConstantRestartSchedule(r));
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, schedules);
-          verifyConstantLengthStopped(
+          optValidator.verifyConstantLengthStopped(
               restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, false);
           restarter.close();
         }
@@ -245,7 +251,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
-          verifyConstantLengthStopped(
+          optValidator.verifyConstantLengthStopped(
               restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, false);
           restarter.close();
         }
@@ -264,7 +270,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
               new ReoptimizableMultistarter<TestObject>(heur, r);
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(multiStarter, 2);
-          verifyConstantLengthStopped(restarter, heur, r, re, early, i, false);
+          optValidator.verifyConstantLengthStopped(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -289,7 +295,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           heurs.add(new ReoptimizableMultistarter<TestObject>(heur2, r));
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs);
-          verifyConstantLengthStopped(restarter, heur, r, re, early, i, false);
+          optValidator.verifyConstantLengthStopped(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -305,7 +311,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early + 1, early);
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heur, r, 2);
-          verifyConstantLengthBest(restarter, heur, r, re, early, i, false);
+          optValidator.verifyConstantLengthBest(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -322,7 +328,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(
                   heur, new ConstantRestartSchedule(r), 2);
-          verifyConstantLengthBest(restarter, heur, r, re, early, i, false);
+          optValidator.verifyConstantLengthBest(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -341,7 +347,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           schedules.add(new ConstantRestartSchedule(r));
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heur, schedules);
-          verifyConstantLengthBest(restarter, heur, r, re, early, i, false);
+          optValidator.verifyConstantLengthBest(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -365,7 +371,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           schedules.add(new ConstantRestartSchedule(r));
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, schedules);
-          verifyConstantLengthBest(
+          optValidator.verifyConstantLengthBest(
               restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, false);
           restarter.close();
         }
@@ -387,7 +393,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
-          verifyConstantLengthBest(
+          optValidator.verifyConstantLengthBest(
               restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, false);
           restarter.close();
         }
@@ -406,7 +412,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
               new ReoptimizableMultistarter<TestObject>(heur, r);
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(multiStarter, 2);
-          verifyConstantLengthBest(restarter, heur, r, re, early, i, false);
+          optValidator.verifyConstantLengthBest(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -431,7 +437,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           heur2.setProgressTracker(heur.getProgressTracker());
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs);
-          verifyConstantLengthBest(restarter, heur, r, re, early, i, false);
+          optValidator.verifyConstantLengthBest(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -447,7 +453,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic();
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heur, r, 2);
-        verifyConstantLengthRe(restarter, heur, r, re);
+        verifyConstantLengthRe(restarter, heur, r, re, 2);
         restarter.close();
       }
     }
@@ -461,7 +467,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(
                 heur, new ConstantRestartSchedule(r), 2);
-        verifyConstantLengthRe(restarter, heur, r, re);
+        verifyConstantLengthRe(restarter, heur, r, re, 2);
         restarter.close();
       }
     }
@@ -477,7 +483,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         schedules.add(new ConstantRestartSchedule(r));
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heur, schedules);
-        verifyConstantLengthRe(restarter, heur, r, re);
+        verifyConstantLengthRe(restarter, heur, r, re, 2);
         restarter.close();
       }
     }
@@ -498,7 +504,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         schedules.add(new ConstantRestartSchedule(r));
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heurs, schedules);
-        verifyConstantLengthRe(restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re);
+        verifyConstantLengthRe(restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, 2);
         restarter.close();
       }
     }
@@ -516,7 +522,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         heurs.get(1).setProgressTracker(heurs.get(0).getProgressTracker());
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
-        verifyConstantLengthRe(restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re);
+        verifyConstantLengthRe(restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, 2);
         restarter.close();
       }
     }
@@ -531,7 +537,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
             new ReoptimizableMultistarter<TestObject>(heur, r);
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(multiStarter, 2);
-        verifyConstantLengthRe(restarter, heur, r, re);
+        verifyConstantLengthRe(restarter, heur, r, re, 2);
         restarter.close();
       }
     }
@@ -551,7 +557,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
         heurs.add(new ReoptimizableMultistarter<TestObject>(heur2, r));
         ParallelReoptimizableMultistarter<TestObject> restarter =
             new ParallelReoptimizableMultistarter<TestObject>(heurs);
-        verifyConstantLengthRe(restarter, heur, r, re);
+        verifyConstantLengthRe(restarter, heur, r, re, 2);
         restarter.close();
       }
     }
@@ -566,7 +572,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early, early + 1);
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heur, r, 2);
-          verifyConstantLengthStoppedRe(restarter, heur, r, re, early, i);
+          verifyConstantLengthStoppedRe(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -583,7 +589,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(
                   heur, new ConstantRestartSchedule(r), 2);
-          verifyConstantLengthStoppedRe(restarter, heur, r, re, early, i);
+          verifyConstantLengthStoppedRe(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -602,7 +608,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           schedules.add(new ConstantRestartSchedule(r));
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heur, schedules);
-          verifyConstantLengthStoppedRe(restarter, heur, r, re, early, i);
+          verifyConstantLengthStoppedRe(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -627,7 +633,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, schedules);
           verifyConstantLengthStoppedRe(
-              restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i);
+              restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, false);
           restarter.close();
         }
       }
@@ -649,7 +655,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
           verifyConstantLengthStoppedRe(
-              restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i);
+              restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, false);
           restarter.close();
         }
       }
@@ -667,7 +673,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
               new ReoptimizableMultistarter<TestObject>(heur, r);
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(multiStarter, 2);
-          verifyConstantLengthStoppedRe(restarter, heur, r, re, early, i);
+          verifyConstantLengthStoppedRe(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -692,7 +698,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           heurs.add(new ReoptimizableMultistarter<TestObject>(heur2, r));
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs);
-          verifyConstantLengthStoppedRe(restarter, heur, r, re, early, i);
+          verifyConstantLengthStoppedRe(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -708,7 +714,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(early + 1, early);
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heur, r, 2);
-          verifyConstantLengthBestRe(restarter, heur, r, re, early, i);
+          verifyConstantLengthBestRe(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -725,7 +731,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(
                   heur, new ConstantRestartSchedule(r), 2);
-          verifyConstantLengthBestRe(restarter, heur, r, re, early, i);
+          verifyConstantLengthBestRe(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -744,7 +750,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           schedules.add(new ConstantRestartSchedule(r));
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heur, schedules);
-          verifyConstantLengthBestRe(restarter, heur, r, re, early, i);
+          verifyConstantLengthBestRe(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -769,7 +775,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, schedules);
           verifyConstantLengthBestRe(
-              restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i);
+              restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, false);
           restarter.close();
         }
       }
@@ -791,7 +797,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs, r);
           verifyConstantLengthBestRe(
-              restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i);
+              restarter, (TestRestartedMetaheuristic) heurs.get(0), r, re, early, i, false);
           restarter.close();
         }
       }
@@ -809,7 +815,7 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
               new ReoptimizableMultistarter<TestObject>(heur, r);
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(multiStarter, 2);
-          verifyConstantLengthBestRe(restarter, heur, r, re, early, i);
+          verifyConstantLengthBestRe(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
@@ -834,85 +840,10 @@ public class ParallelReoptimizableMultistarterTwoThreadsTests
           heur2.setProgressTracker(heur.getProgressTracker());
           ParallelReoptimizableMultistarter<TestObject> restarter =
               new ParallelReoptimizableMultistarter<TestObject>(heurs);
-          verifyConstantLengthBestRe(restarter, heur, r, re, early, i);
+          verifyConstantLengthBestRe(restarter, heur, r, re, early, i, false);
           restarter.close();
         }
       }
     }
-  }
-
-
-  private void verifyConstantLengthRe(
-      ParallelReoptimizableMultistarter<TestObject> restarter,
-      TestRestartedMetaheuristic heur,
-      int r,
-      int re) {
-    ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
-    assertNotNull(tracker);
-    assertEquals(0, restarter.getTotalRunLength());
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
-    assertEquals(0, heur.optCounter);
-    assertEquals(0, heur.reoptCounter);
-    SolutionCostPair<TestObject> pair = restarter.reoptimize(re);
-    assertNotNull(pair);
-    assertTrue(pair.getCost() > 1);
-    assertEquals(2 * re * r, restarter.getTotalRunLength());
-    assertEquals(re, heur.reoptCounter);
-    assertEquals(0, heur.optCounter);
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
-  }
-
-  private void verifyConstantLengthStoppedRe(
-      ParallelReoptimizableMultistarter<TestObject> restarter,
-      TestRestartedMetaheuristic heur,
-      int r,
-      int re,
-      int early,
-      int i) {
-    ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
-    assertNotNull(tracker);
-    assertEquals(0, restarter.getTotalRunLength());
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
-    assertEquals(0, heur.optCounter);
-    assertEquals(0, heur.reoptCounter);
-    SolutionCostPair<TestObject> pair = restarter.reoptimize(re);
-    assertNotNull(pair);
-    assertTrue(pair.getCost() > 1);
-    assertTrue(
-        2 * early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early,
-        "total run length");
-    assertTrue(i >= heur.reoptCounter, "num calls to reoptimize");
-    assertEquals(0, heur.optCounter);
-    assertFalse(tracker.didFindBest());
-    assertTrue(tracker.isStopped());
-  }
-
-  private void verifyConstantLengthBestRe(
-      ParallelReoptimizableMultistarter<TestObject> restarter,
-      TestRestartedMetaheuristic heur,
-      int r,
-      int re,
-      int early,
-      int i) {
-    ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
-    assertNotNull(tracker);
-    assertEquals(0, restarter.getTotalRunLength());
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
-    assertEquals(0, heur.optCounter);
-    assertEquals(0, heur.reoptCounter);
-    SolutionCostPair<TestObject> pair = restarter.reoptimize(re);
-    assertNotNull(pair);
-    assertEquals(1, pair.getCost());
-    assertTrue(
-        2 * early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early,
-        "total run length");
-    assertTrue(i >= heur.reoptCounter, "num calls to optimize");
-    assertEquals(0, heur.optCounter);
-    assertTrue(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
   }
 }

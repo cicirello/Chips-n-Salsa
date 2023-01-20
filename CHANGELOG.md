@@ -9,16 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Dependencies
+
+### CI/CD
+
+### Other
+
+
+## [6.2.1] - 2023-01-20
+
+### Changed
 * Refactored WeightedStaticScheduling to extract internal package-access classes for reading and 
   writing instances to and from OR-library formatted files.
 * Refactored WeightedStaticSchedulingWithSetups to extract internal package-access classes for reading and 
   writing instances to and from the format of Cicirello (2003).
 * Refactored CommonDuedateScheduling to extract internal package-access classes for reading and writing 
   instances to and from OR-library formatted files.
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 * Refactored several classes based on RefactorFirst scan, including the following:
@@ -44,10 +57,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Bump core from 2.4.3 to 2.4.4
 * Bump rho-mu from 3.0.1 to 3.0.2
 * Bump jpt from 5.0.0 to 5.0.1
-
-### CI/CD
-
-### Other
 
 
 ## [6.2.0] - 2023-01-10

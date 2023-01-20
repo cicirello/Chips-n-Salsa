@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Test cases for CommonDuedateScheduling
   * Test cases for WeightedStaticSchedulingWithSetups
   * Test cases for the parallel metaheuristic and parallel multistarter classes
+  * Test cases for the timed parallel multistarters
 
 ### Dependencies
 * Bump core from 2.4.3 to 2.4.4

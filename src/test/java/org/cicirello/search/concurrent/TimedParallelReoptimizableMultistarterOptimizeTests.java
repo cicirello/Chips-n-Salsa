@@ -23,22 +23,19 @@ package org.cicirello.search.concurrent;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.restarts.ConstantRestartSchedule;
-import org.cicirello.search.restarts.Multistarter;
-import org.cicirello.search.restarts.ParallelVariableAnnealingLength;
 import org.junit.jupiter.api.*;
 
-/** JUnit tests for TimedParallelMultistarter. */
-public class TimedParallelMultistarterTests extends TimedParallelMultistarterValidator {
+/** JUnit tests for the TimedParallelReoptimizableMultistarter optimize method. */
+public class TimedParallelReoptimizableMultistarterOptimizeTests
+    extends TimedParallelMultistarterValidator {
 
   @Test
-  public void testParallelOptimizeSomeThreadFindsBest() {
+  public void testParallelOptimizeSomeThreadFindsBest_Reopt() {
     class ParallelSearch implements Runnable {
 
-      TimedParallelMultistarter<TestObject> restarter;
+      TimedParallelReoptimizableMultistarter<TestObject> restarter;
       ArrayList<TestInterrupted> metaheuristics;
       ProgressTracker<TestObject> tracker;
 
@@ -48,17 +45,13 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
 
         metaheuristics = new ArrayList<TestInterrupted>();
         metaheuristics.add(new TestInterrupted(1, problem, tracker));
-        restarter = new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
+        restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
       }
 
       @Override
       public void run() {
         restarter.setTimeUnit(10);
         restarter.optimize(1000);
-      }
-
-      public void close() {
-        restarter.close();
       }
     }
 
@@ -79,11 +72,11 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
     } catch (InterruptedException ex) {
     }
     assertFalse(t.isAlive());
-    search.close();
+    search.restarter.close();
   }
 
   @Test
-  public void testParallelOptimizeImprovementMade() {
+  public void testParallelOptimizeImprovementMade_Reopt() {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestProblem problem = new TestProblem();
 
@@ -91,18 +84,18 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
     metaheuristics.add(new TestImprovementMade(1000, problem, tracker));
     metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
     metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
-    TimedParallelMultistarter<TestObject> restarter =
-        new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
-    restarter.setTimeUnit(50);
+    TimedParallelReoptimizableMultistarter<TestObject> restarter =
+        new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
+    restarter.setTimeUnit(100);
     assertNotNull(restarter.optimize(1));
     restarter.close();
   }
 
   @Test
-  public void testInterruptParallelOptimize() {
+  public void testInterruptParallelOptimize_Reopt() {
     class ParallelSearch implements Runnable {
 
-      TimedParallelMultistarter<TestObject> restarter;
+      TimedParallelReoptimizableMultistarter<TestObject> restarter;
       ArrayList<TestInterrupted> metaheuristics;
 
       ParallelSearch() {
@@ -113,7 +106,7 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
         metaheuristics.add(new TestInterrupted(1, problem, tracker));
         metaheuristics.add(new TestInterrupted(2, problem, tracker));
         metaheuristics.add(new TestInterrupted(3, problem, tracker));
-        restarter = new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
+        restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
       }
 
       @Override
@@ -143,19 +136,7 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
   }
 
   @Test
-  public void testOptimizeExceptions() {
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestProblem problem = new TestProblem();
-    TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
-    TimedParallelMultistarter<TestObject> restarter =
-        new TimedParallelMultistarter<TestObject>(heur, 1, 1);
-    restarter.close();
-    IllegalStateException thrown =
-        assertThrows(IllegalStateException.class, () -> restarter.optimize(1));
-  }
-
-  @Test
-  public void testOptimizeMetaheuristicThrowsException() {
+  public void testOptimizeMetaheuristicThrowsException_Reopt() {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestProblem problem = new TestProblem();
 
@@ -163,8 +144,8 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
     metaheuristics.add(new TestOptThrowsExceptions(1, tracker, problem));
     metaheuristics.add(new TestOptThrowsExceptions(2, tracker, problem));
     metaheuristics.add(new TestOptThrowsExceptions(3, tracker, problem));
-    TimedParallelMultistarter<TestObject> restarter =
-        new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
+    TimedParallelReoptimizableMultistarter<TestObject> restarter =
+        new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
     restarter.setTimeUnit(100);
     SolutionCostPair<TestObject> solution = restarter.optimize(1);
     assertTrue(solution == null || 0 == solution.getCost());
@@ -172,52 +153,7 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
   }
 
   @Test
-  public void testSetProgressTrackerNull() {
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestProblem problem = new TestProblem();
-    TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
-    TimedParallelMultistarter<TestObject> restarter =
-        new TimedParallelMultistarter<TestObject>(heur, 1, 1);
-    restarter.setProgressTracker(null);
-    assertEquals(tracker, restarter.getProgressTracker());
-    restarter.close();
-  }
-
-  @Test
-  public void testOptimizeStoppedFoundBest() {
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestProblem problem = new TestProblem();
-    TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
-    TimedParallelMultistarter<TestObject> restarter =
-        new TimedParallelMultistarter<TestObject>(heur, 1, 1);
-    long expected = restarter.getTotalRunLength();
-    // replaced call to deprecated setFoundBest()
-    restarter.getProgressTracker().update(0, new TestObject(0), true);
-    restarter.optimize(1);
-    assertEquals(expected, restarter.getTotalRunLength());
-    restarter.close();
-  }
-
-  @Test
-  public void testSetTimeUnitException() {
-    final int T = 1;
-    ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(T);
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestProblem problem = new TestProblem();
-    for (int i = 1; i <= T; i++) {
-      searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
-    }
-    List<ParallelVariableAnnealingLength> schedules =
-        ParallelVariableAnnealingLength.createRestartSchedules(T);
-    final TimedParallelMultistarter<TestObject> tpm =
-        new TimedParallelMultistarter<TestObject>(searches, schedules);
-    IllegalArgumentException thrown =
-        assertThrows(IllegalArgumentException.class, () -> tpm.setTimeUnit(0));
-    tpm.close();
-  }
-
-  @Test
-  public void testTimedParallelMultistarterOne() {
+  public void testTimedParallelReoptimizableMultistarterOne() {
     int numThreads = 1;
     ArrayList<TestRestartedMetaheuristic> searches =
         new ArrayList<TestRestartedMetaheuristic>(numThreads);
@@ -226,8 +162,8 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
     for (int i = 1; i <= numThreads; i++) {
       searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
     }
-    TimedParallelMultistarter<TestObject> tpm =
-        new TimedParallelMultistarter<TestObject>(searches, 1000);
+    TimedParallelReoptimizableMultistarter<TestObject> tpm =
+        new TimedParallelReoptimizableMultistarter<TestObject>(searches, 1000);
     assertEquals(1000, tpm.getTimeUnit());
     tpm.setTimeUnit(10);
     assertEquals(10, tpm.getTimeUnit());
@@ -289,7 +225,7 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
   }
 
   @Test
-  public void testTimedParallelMultistarterThree() {
+  public void testTimedParallelReoptimizableMultistarterThree() {
     int numThreads = 3;
     final int NUM_TIME_CYCLES = 20;
     ArrayList<TestRestartedMetaheuristic> searches =
@@ -299,8 +235,8 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
     for (int i = 1; i <= numThreads; i++) {
       searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
     }
-    TimedParallelMultistarter<TestObject> tpm =
-        new TimedParallelMultistarter<TestObject>(searches, 1000);
+    TimedParallelReoptimizableMultistarter<TestObject> tpm =
+        new TimedParallelReoptimizableMultistarter<TestObject>(searches, 1000);
     assertEquals(1000, tpm.getTimeUnit());
     tpm.setTimeUnit(10);
     assertEquals(10, tpm.getTimeUnit());
@@ -337,6 +273,7 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
         "verifying runtime, actual=" + actualRunTime + " ns, should be at least 80000000 ns");
 
     // verify can call optimize again
+    tpm.setTimeUnit(20);
     solution = tpm.optimize(1);
     assertTrue(solution.getCostDouble() >= tracker.getCostDouble());
     combinedRun = 0;
@@ -362,163 +299,29 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
   }
 
   @Test
-  public void testTimedParallelMultistarterVariousConstructors() {
-    final int T = 3;
-    ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(T);
+  public void testOptimizeStoppedFoundBest() {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestProblem problem = new TestProblem();
-    for (int i = 1; i <= T; i++) {
-      searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
-    }
-    List<ParallelVariableAnnealingLength> schedules =
-        ParallelVariableAnnealingLength.createRestartSchedules(T);
-    TimedParallelMultistarter<TestObject> tpm =
-        new TimedParallelMultistarter<TestObject>(searches, schedules);
-    tpm.close();
-    tpm = new TimedParallelMultistarter<TestObject>(searches.get(0), 1000, T);
-    tpm.close();
-    tpm =
-        new TimedParallelMultistarter<TestObject>(
-            searches.get(0), new ConstantRestartSchedule(1000), T);
-    tpm.close();
-    tpm = new TimedParallelMultistarter<TestObject>(searches.get(0), schedules);
-    tpm.close();
-    tpm =
-        new TimedParallelMultistarter<TestObject>(
-            new Multistarter<TestObject>(searches.get(0), 1000), T);
-    tpm.close();
-    ArrayList<Multistarter<TestObject>> starters = new ArrayList<Multistarter<TestObject>>(T);
-    for (int i = 0; i < T; i++) {
-      starters.add(new Multistarter<TestObject>(searches.get(0), 1000));
-    }
-    tpm = new TimedParallelMultistarter<TestObject>(starters);
-    tpm.close();
-    TimedParallelMultistarter<TestObject> split = tpm.split();
-    assertTrue(split != tpm);
-    split.close();
-    tpm = new TimedParallelMultistarter<TestObject>(starters);
-    split = tpm.split();
-    tpm.close();
-    split.close();
-    assertTrue(split != tpm);
+    TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
+    TimedParallelReoptimizableMultistarter<TestObject> restarter =
+        new TimedParallelReoptimizableMultistarter<TestObject>(heur, 1, 1);
+    long expected = restarter.getTotalRunLength();
+    // replaced call to deprecated setFoundBest()
+    restarter.getProgressTracker().update(0, new TestObject(0), true);
+    restarter.optimize(1);
+    assertEquals(expected, restarter.getTotalRunLength());
+    restarter.close();
   }
 
   @Test
-  public void testTimedParallelMultistarterVariousConstructorsExceptions() {
-    final int T = 3;
-    ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(T);
+  public void testOptimizeExceptions() {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestProblem problem = new TestProblem();
-    for (int i = 1; i <= T; i++) {
-      searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
-    }
-    List<ParallelVariableAnnealingLength> schedules =
-        ParallelVariableAnnealingLength.createRestartSchedules(T + 1);
-    IllegalArgumentException thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new TimedParallelMultistarter<TestObject>(searches, schedules));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new TimedParallelMultistarter<TestObject>(searches, 0));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              searches.add(
-                  new TestRestartedMetaheuristic(
-                      T + 1, new ProgressTracker<TestObject>(), problem));
-              new TimedParallelMultistarter<TestObject>(searches, schedules);
-            });
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              new TimedParallelMultistarter<TestObject>(searches, 1);
-            });
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              ArrayList<Multistarter<TestObject>> starters =
-                  new ArrayList<Multistarter<TestObject>>(T);
-              for (int i = 0; i <= T; i++) {
-                starters.add(new Multistarter<TestObject>(searches.get(i), 1000));
-              }
-              new TimedParallelMultistarter<TestObject>(starters);
-            });
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              searches.set(T, new TestRestartedMetaheuristic(T + 1, tracker, new TestProblem()));
-              new TimedParallelMultistarter<TestObject>(searches, schedules);
-            });
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              new TimedParallelMultistarter<TestObject>(searches, 1);
-            });
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              ArrayList<Multistarter<TestObject>> starters =
-                  new ArrayList<Multistarter<TestObject>>(T);
-              for (int i = 0; i <= T; i++) {
-                starters.add(new Multistarter<TestObject>(searches.get(i), 1000));
-              }
-              new TimedParallelMultistarter<TestObject>(starters);
-            });
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new TimedParallelMultistarter<TestObject>(searches.get(0), 0, T));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new TimedParallelMultistarter<TestObject>(searches.get(0), 1, 0));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () ->
-                new TimedParallelMultistarter<TestObject>(
-                    searches.get(0), new ConstantRestartSchedule(1000), 0));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () ->
-                new TimedParallelMultistarter<TestObject>(
-                    new Multistarter<TestObject>(searches.get(0), 1000), 0));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class,
-            () ->
-                new TimedParallelMultistarter<TestObject>(
-                    searches.get(0), new ArrayList<ParallelVariableAnnealingLength>()));
-  }
-
-  @Test
-  public void testTimedParallelMultistarterSetProgressTracker() {
-    final int T = 3;
-    ArrayList<TestRestartedMetaheuristic> searches = new ArrayList<TestRestartedMetaheuristic>(T);
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestProblem problem = new TestProblem();
-    for (int i = 1; i <= T; i++) {
-      searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
-    }
-    List<ParallelVariableAnnealingLength> schedules =
-        ParallelVariableAnnealingLength.createRestartSchedules(T);
-    TimedParallelMultistarter<TestObject> tpm =
-        new TimedParallelMultistarter<TestObject>(searches, schedules);
-    ProgressTracker<TestObject> tracker2 = new ProgressTracker<TestObject>();
-    tpm.setProgressTracker(tracker2);
-    tpm.close();
-    assertTrue(tracker2 == tpm.getProgressTracker());
-    for (TestRestartedMetaheuristic s : searches) {
-      assertTrue(tracker2 == s.getProgressTracker());
-    }
+    TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
+    TimedParallelReoptimizableMultistarter<TestObject> restarter =
+        new TimedParallelReoptimizableMultistarter<TestObject>(heur, 1, 1);
+    restarter.close();
+    IllegalStateException thrown =
+        assertThrows(IllegalStateException.class, () -> restarter.optimize(1));
   }
 }

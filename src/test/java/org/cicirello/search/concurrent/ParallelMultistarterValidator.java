@@ -34,7 +34,7 @@ import org.junit.jupiter.api.*;
 public class ParallelMultistarterValidator {
 
   void verifyConstantLength(
-      ParallelMultistarter<TestObject> restarter,
+      ParallelMetaheuristic<TestObject> restarter,
       TestRestartedMetaheuristic heur,
       int r,
       int re,

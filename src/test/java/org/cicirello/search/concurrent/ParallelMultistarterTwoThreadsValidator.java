@@ -22,75 +22,7 @@ package org.cicirello.search.concurrent;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.SplittableRandom;
-import org.cicirello.search.ProgressTracker;
-import org.cicirello.search.ReoptimizableMetaheuristic;
-import org.cicirello.search.problems.OptimizationProblem;
 import org.junit.jupiter.api.*;
 
 /** Test validation common to multiple test classes for testing parallel multistarters. */
-public class ParallelMultistarterTwoThreadsValidator extends ParallelMultistarterValidator {
-
-  static class TestRestartedMetaheuristic extends AbstractTestRestartedMetaheuristic
-      implements ReoptimizableMetaheuristic<TestObject> {
-
-    private final OptimizationProblem<TestObject> problem;
-    ;
-
-    public TestRestartedMetaheuristic() {
-      this(new TestProblem());
-    }
-
-    public TestRestartedMetaheuristic(TestProblem p) {
-      super();
-      problem = p;
-    }
-
-    public TestRestartedMetaheuristic(int stopAtEval, int findBestAtEval) {
-      this(stopAtEval, findBestAtEval, new SplittableRandom(42), new ProgressTracker<TestObject>());
-    }
-
-    public TestRestartedMetaheuristic(int stopAtEval, int findBestAtEval, TestProblem p) {
-      this(
-          stopAtEval,
-          findBestAtEval,
-          new SplittableRandom(42),
-          new ProgressTracker<TestObject>(),
-          p);
-    }
-
-    public TestRestartedMetaheuristic(
-        int stopAtEval,
-        int findBestAtEval,
-        SplittableRandom rand,
-        ProgressTracker<TestObject> tracker) {
-      this(stopAtEval, findBestAtEval, rand, tracker, new TestProblem());
-    }
-
-    public TestRestartedMetaheuristic(
-        int stopAtEval,
-        int findBestAtEval,
-        SplittableRandom rand,
-        ProgressTracker<TestObject> tracker,
-        TestProblem p) {
-      super(stopAtEval, findBestAtEval, rand, tracker);
-      problem = p;
-    }
-
-    public TestRestartedMetaheuristic(TestRestartedMetaheuristic other) {
-      super(other);
-      problem = other.problem;
-    }
-
-    @Override
-    public TestRestartedMetaheuristic split() {
-      return new TestRestartedMetaheuristic(this);
-    }
-
-    @Override
-    public OptimizationProblem<TestObject> getProblem() {
-      // not used by tests.
-      return problem;
-    }
-  }
-}
+public class ParallelMultistarterTwoThreadsValidator extends ParallelMultistarterValidator {}

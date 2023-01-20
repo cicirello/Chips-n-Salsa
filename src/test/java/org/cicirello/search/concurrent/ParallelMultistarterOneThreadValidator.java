@@ -22,11 +22,8 @@ package org.cicirello.search.concurrent;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.SplittableRandom;
 import org.cicirello.search.ProgressTracker;
-import org.cicirello.search.ReoptimizableMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.problems.OptimizationProblem;
 import org.junit.jupiter.api.*;
 
 /** Test validation common to multiple test classes for testing parallel multistarters. */
@@ -105,47 +102,6 @@ public class ParallelMultistarterOneThreadValidator extends ParallelMultistarter
         TestObject obj = new TestObject();
         return new SolutionCostPair<TestObject>(obj, problem.cost(obj), false);
       }
-    }
-  }
-
-  static class TestRestartedMetaheuristic extends AbstractTestRestartedMetaheuristic
-      implements ReoptimizableMetaheuristic<TestObject> {
-
-    public final OptimizationProblem<TestObject> problem;
-
-    public TestRestartedMetaheuristic() {
-      super();
-      problem = new TestProblem();
-    }
-
-    public TestRestartedMetaheuristic(TestProblem p) {
-      super();
-      problem = p;
-    }
-
-    public TestRestartedMetaheuristic(int stopAtEval, int findBestAtEval) {
-      this(stopAtEval, findBestAtEval, new SplittableRandom(42));
-    }
-
-    public TestRestartedMetaheuristic(int stopAtEval, int findBestAtEval, SplittableRandom rand) {
-      super(stopAtEval, findBestAtEval, rand);
-      problem = new TestProblem();
-    }
-
-    public TestRestartedMetaheuristic(TestRestartedMetaheuristic other) {
-      super(other);
-      problem = other.problem;
-    }
-
-    @Override
-    public TestRestartedMetaheuristic split() {
-      return new TestRestartedMetaheuristic(this);
-    }
-
-    @Override
-    public OptimizationProblem<TestObject> getProblem() {
-      // not used by tests.
-      return problem;
     }
   }
 }

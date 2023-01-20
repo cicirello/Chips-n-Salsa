@@ -33,8 +33,7 @@ import org.junit.jupiter.api.*;
 /** Test validation common to multiple test classes for testing parallel multistarters. */
 public class ParallelMultistarterValidator {
 
-  abstract static class AbstractTestRestartedMetaheuristic
-      implements ReoptimizableMetaheuristic<TestObject> {
+  static class TestRestartedMetaheuristic implements ReoptimizableMetaheuristic<TestObject> {
 
     private ProgressTracker<TestObject> tracker;
     private int elapsed;
@@ -44,29 +43,52 @@ public class ParallelMultistarterValidator {
     int optCounter;
     int reoptCounter;
     private final SplittableRandom rand;
+    public final TestProblem problem;
 
-    public AbstractTestRestartedMetaheuristic() {
-      tracker = new ProgressTracker<TestObject>();
-      elapsed = 0;
-      stopAtEval = findBestAtEval = Integer.MAX_VALUE;
-      which = 0;
-      rand = new SplittableRandom(42);
+    public TestRestartedMetaheuristic() {
+      this(new TestProblem());
     }
 
-    public AbstractTestRestartedMetaheuristic(int stopAtEval, int findBestAtEval) {
+    public TestRestartedMetaheuristic(TestProblem p) {
+      this(
+          Integer.MAX_VALUE,
+          Integer.MAX_VALUE,
+          new SplittableRandom(42),
+          new ProgressTracker<TestObject>(),
+          p);
+    }
+
+    public TestRestartedMetaheuristic(int stopAtEval, int findBestAtEval) {
       this(stopAtEval, findBestAtEval, new SplittableRandom(42));
     }
 
-    public AbstractTestRestartedMetaheuristic(
-        int stopAtEval, int findBestAtEval, SplittableRandom rand) {
+    public TestRestartedMetaheuristic(int stopAtEval, int findBestAtEval, TestProblem p) {
+      this(
+          stopAtEval,
+          findBestAtEval,
+          new SplittableRandom(42),
+          new ProgressTracker<TestObject>(),
+          p);
+    }
+
+    public TestRestartedMetaheuristic(int stopAtEval, int findBestAtEval, SplittableRandom rand) {
       this(stopAtEval, findBestAtEval, rand, new ProgressTracker<TestObject>());
     }
 
-    public AbstractTestRestartedMetaheuristic(
+    public TestRestartedMetaheuristic(
         int stopAtEval,
         int findBestAtEval,
         SplittableRandom rand,
         ProgressTracker<TestObject> tracker) {
+      this(stopAtEval, findBestAtEval, rand, tracker, new TestProblem());
+    }
+
+    public TestRestartedMetaheuristic(
+        int stopAtEval,
+        int findBestAtEval,
+        SplittableRandom rand,
+        ProgressTracker<TestObject> tracker,
+        TestProblem problem) {
       this.tracker = tracker;
       elapsed = 0;
       this.stopAtEval = stopAtEval;
@@ -75,10 +97,23 @@ public class ParallelMultistarterValidator {
       else if (stopAtEval > findBestAtEval) which = 2;
       else which = 0;
       this.rand = rand;
+      this.problem = problem;
     }
 
-    public AbstractTestRestartedMetaheuristic(AbstractTestRestartedMetaheuristic other) {
-      this(other.stopAtEval, other.findBestAtEval, other.rand.split(), other.tracker);
+    public TestRestartedMetaheuristic(TestRestartedMetaheuristic other) {
+      this(
+          other.stopAtEval, other.findBestAtEval, other.rand.split(), other.tracker, other.problem);
+    }
+
+    @Override
+    public TestRestartedMetaheuristic split() {
+      return new TestRestartedMetaheuristic(this);
+    }
+
+    @Override
+    public OptimizationProblem<TestObject> getProblem() {
+      // not used by tests.
+      return problem;
     }
 
     @Override

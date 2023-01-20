@@ -209,6 +209,24 @@ public class ParallelMultistarterValidator {
       assertTrue(tracker.didFindBest());
       assertFalse(tracker.isStopped());
     }
+
+    void verifyConstantLengthSplit(
+        ParallelMetaheuristic<TestObject> restarter,
+        TestRestartedMetaheuristic heur,
+        int r,
+        int re) {
+      ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
+      assertNotNull(tracker);
+      assertEquals(0, restarter.getTotalRunLength());
+      assertFalse(tracker.didFindBest());
+      assertFalse(tracker.isStopped());
+      SolutionCostPair<TestObject> pair = restarter.optimize(re);
+      assertNotNull(pair);
+      assertTrue(pair.getCost() > 1);
+      assertEquals(re * r, restarter.getTotalRunLength());
+      assertFalse(tracker.didFindBest());
+      assertFalse(tracker.isStopped());
+    }
   }
 
   static class TestRestartedMetaheuristic implements ReoptimizableMetaheuristic<TestObject> {

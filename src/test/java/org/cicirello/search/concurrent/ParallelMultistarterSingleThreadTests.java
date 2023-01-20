@@ -163,7 +163,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
         ParallelMultistarter<TestObject> restarter1 =
             new ParallelMultistarter<TestObject>(heur, r, 1);
         ParallelMultistarter<TestObject> restarter = restarter1.split();
-        verifyConstantLengthSplit(restarter, heur, r, re);
+        optValidator.verifyConstantLengthSplit(restarter, heur, r, re);
         restarter1.close();
         restarter.close();
         assertTrue(restarter != restarter1);
@@ -187,7 +187,7 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
         ParallelMetaheuristic<TestObject> restarter1 =
             new ParallelMetaheuristic<TestObject>(multi, 1);
         ParallelMetaheuristic<TestObject> restarter = restarter1.split();
-        verifyConstantLengthSplitMetaheuristic(restarter, heur, r, re);
+        optValidator.verifyConstantLengthSplit(restarter, heur, r, re);
         restarter1.close();
         restarter.close();
         assertTrue(restarter != restarter1);
@@ -676,35 +676,5 @@ public class ParallelMultistarterSingleThreadTests extends ParallelMultistarterV
         }
       }
     }
-  }
-
-  private void verifyConstantLengthSplit(
-      ParallelMultistarter<TestObject> restarter, TestRestartedMetaheuristic heur, int r, int re) {
-    ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
-    assertNotNull(tracker);
-    assertEquals(0, restarter.getTotalRunLength());
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
-    SolutionCostPair<TestObject> pair = restarter.optimize(re);
-    assertNotNull(pair);
-    assertTrue(pair.getCost() > 1);
-    assertEquals(re * r, restarter.getTotalRunLength());
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
-  }
-
-  private void verifyConstantLengthSplitMetaheuristic(
-      ParallelMetaheuristic<TestObject> restarter, TestRestartedMetaheuristic heur, int r, int re) {
-    ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
-    assertNotNull(tracker);
-    assertEquals(0, restarter.getTotalRunLength());
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
-    SolutionCostPair<TestObject> pair = restarter.optimize(re);
-    assertNotNull(pair);
-    assertTrue(pair.getCost() > 1);
-    assertEquals(re * r, restarter.getTotalRunLength());
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
   }
 }

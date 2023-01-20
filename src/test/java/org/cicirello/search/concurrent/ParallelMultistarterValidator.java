@@ -33,6 +33,93 @@ import org.junit.jupiter.api.*;
 /** Test validation common to multiple test classes for testing parallel multistarters. */
 public class ParallelMultistarterValidator {
 
+  void verifyConstantLength(
+      ParallelMultistarter<TestObject> restarter,
+      TestRestartedMetaheuristic heur,
+      int r,
+      int re,
+      int numThreads) {
+    ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
+    assertNotNull(tracker);
+    assertEquals(0, restarter.getTotalRunLength());
+    assertFalse(tracker.didFindBest());
+    assertFalse(tracker.isStopped());
+    assertEquals(0, heur.optCounter);
+    assertEquals(0, heur.reoptCounter);
+    SolutionCostPair<TestObject> pair = restarter.optimize(re);
+    assertNotNull(pair);
+    assertTrue(pair.getCost() > 1);
+    assertEquals(numThreads * re * r, restarter.getTotalRunLength());
+    assertEquals(re, heur.optCounter);
+    assertEquals(0, heur.reoptCounter);
+    assertFalse(tracker.didFindBest());
+    assertFalse(tracker.isStopped());
+  }
+
+  void verifyConstantLengthStopped(
+      ParallelMetaheuristic<TestObject> restarter,
+      TestRestartedMetaheuristic heur,
+      int r,
+      int re,
+      int early,
+      int i,
+      boolean oneThread) {
+    ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
+    assertNotNull(tracker);
+    assertEquals(0, restarter.getTotalRunLength());
+    assertFalse(tracker.didFindBest());
+    assertFalse(tracker.isStopped());
+    assertEquals(0, heur.optCounter);
+    assertEquals(0, heur.reoptCounter);
+    SolutionCostPair<TestObject> pair = restarter.optimize(re);
+    assertNotNull(pair);
+    assertTrue(pair.getCost() > 1);
+    if (oneThread) {
+      assertEquals(early, restarter.getTotalRunLength());
+      assertEquals(i, heur.optCounter);
+    } else {
+      assertTrue(
+          2 * early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early,
+          "total run length");
+      assertTrue(i >= heur.optCounter, "num calls to optimize");
+    }
+    assertEquals(0, heur.reoptCounter);
+    assertFalse(tracker.didFindBest());
+    assertTrue(tracker.isStopped());
+  }
+
+  void verifyConstantLengthBest(
+      ParallelMetaheuristic<TestObject> restarter,
+      TestRestartedMetaheuristic heur,
+      int r,
+      int re,
+      int early,
+      int i,
+      boolean oneThread) {
+    ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
+    assertNotNull(tracker);
+    assertEquals(0, restarter.getTotalRunLength());
+    assertFalse(tracker.didFindBest());
+    assertFalse(tracker.isStopped());
+    assertEquals(0, heur.optCounter);
+    assertEquals(0, heur.reoptCounter);
+    SolutionCostPair<TestObject> pair = restarter.optimize(re);
+    assertNotNull(pair);
+    assertEquals(1, pair.getCost());
+    if (oneThread) {
+      assertEquals(early, restarter.getTotalRunLength());
+      assertEquals(i, heur.optCounter);
+    } else {
+      assertTrue(
+          2 * early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early,
+          "total run length");
+      assertTrue(i >= heur.optCounter, "num calls to optimize");
+    }
+    assertEquals(0, heur.reoptCounter);
+    assertTrue(tracker.didFindBest());
+    assertFalse(tracker.isStopped());
+  }
+
   static class TestRestartedMetaheuristic implements ReoptimizableMetaheuristic<TestObject> {
 
     private ProgressTracker<TestObject> tracker;

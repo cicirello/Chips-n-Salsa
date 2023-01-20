@@ -108,33 +108,18 @@ public class ParallelMultistarterOneThreadValidator extends ParallelMultistarter
     }
   }
 
-  static class TestRestartedMetaheuristic implements ReoptimizableMetaheuristic<TestObject> {
+  static class TestRestartedMetaheuristic extends AbstractTestRestartedMetaheuristic
+      implements ReoptimizableMetaheuristic<TestObject> {
 
-    private ProgressTracker<TestObject> tracker;
-    private int elapsed;
-    private final int stopAtEval;
-    private final int findBestAtEval;
-    private final int which; // 0 for both at same time, 1 for stop, 2 for best
-    int optCounter;
-    int reoptCounter;
-    private final SplittableRandom rand;
     public final OptimizationProblem<TestObject> problem;
 
     public TestRestartedMetaheuristic() {
-      tracker = new ProgressTracker<TestObject>();
-      elapsed = 0;
-      stopAtEval = findBestAtEval = Integer.MAX_VALUE;
-      which = 0;
-      rand = new SplittableRandom(42);
+      super();
       problem = new TestProblem();
     }
 
     public TestRestartedMetaheuristic(TestProblem p) {
-      tracker = new ProgressTracker<TestObject>();
-      elapsed = 0;
-      stopAtEval = findBestAtEval = Integer.MAX_VALUE;
-      which = 0;
-      rand = new SplittableRandom(42);
+      super();
       problem = p;
     }
 
@@ -143,86 +128,24 @@ public class ParallelMultistarterOneThreadValidator extends ParallelMultistarter
     }
 
     public TestRestartedMetaheuristic(int stopAtEval, int findBestAtEval, SplittableRandom rand) {
-      tracker = new ProgressTracker<TestObject>();
-      elapsed = 0;
-      this.stopAtEval = stopAtEval;
-      this.findBestAtEval = findBestAtEval;
-      if (stopAtEval < findBestAtEval) which = 1;
-      else if (stopAtEval > findBestAtEval) which = 2;
-      else which = 0;
-      this.rand = rand;
+      super(stopAtEval, findBestAtEval, rand);
+      problem = new TestProblem();
+    }
+
+    public TestRestartedMetaheuristic(TestRestartedMetaheuristic other) {
+      super(other);
       problem = new TestProblem();
     }
 
     @Override
     public TestRestartedMetaheuristic split() {
-      return new TestRestartedMetaheuristic(stopAtEval, findBestAtEval, rand.split());
-    }
-
-    @Override
-    public ProgressTracker<TestObject> getProgressTracker() {
-      return tracker;
-    }
-
-    @Override
-    public void setProgressTracker(ProgressTracker<TestObject> tracker) {
-      if (tracker != null) this.tracker = tracker;
+      return new TestRestartedMetaheuristic(this);
     }
 
     @Override
     public OptimizationProblem<TestObject> getProblem() {
       // not used by tests.
       return problem;
-    }
-
-    @Override
-    public long getTotalRunLength() {
-      return elapsed;
-    }
-
-    @Override
-    public SolutionCostPair<TestObject> optimize(int runLength) {
-      optCounter++;
-      int c = update(runLength);
-      return new SolutionCostPair<TestObject>(new TestObject(), c, false);
-    }
-
-    @Override
-    public SolutionCostPair<TestObject> reoptimize(int runLength) {
-      reoptCounter++;
-      int c = update(runLength);
-      return new SolutionCostPair<TestObject>(new TestObject(), c, false);
-    }
-
-    private int update(int runLength) {
-      elapsed += runLength;
-      int c = rand.nextInt(18) + 2;
-      switch (which) {
-        case 0:
-          if (elapsed >= stopAtEval) {
-            elapsed = stopAtEval;
-            tracker.stop();
-            // Replaces old call to deprecated setFoundBest()
-            tracker.update(1, new TestObject(), true);
-            c = 1;
-          }
-          break;
-        case 1:
-          if (elapsed >= stopAtEval) {
-            elapsed = stopAtEval;
-            tracker.stop();
-          }
-          break;
-        case 2:
-          if (elapsed >= findBestAtEval) {
-            elapsed = findBestAtEval;
-            // Replaces old call to deprecated setFoundBest()
-            tracker.update(1, new TestObject(), true);
-            c = 1;
-          }
-          break;
-      }
-      return c;
     }
   }
 }

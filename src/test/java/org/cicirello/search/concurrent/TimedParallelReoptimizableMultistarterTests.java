@@ -36,50 +36,6 @@ public class TimedParallelReoptimizableMultistarterTests
     extends TimedParallelMultistarterValidator {
 
   @Test
-  public void testParallelOptimizeSomeThreadFindsBest_Reopt() {
-    class ParallelSearch implements Runnable {
-
-      TimedParallelReoptimizableMultistarter<TestObject> restarter;
-      ArrayList<TestInterrupted> metaheuristics;
-      ProgressTracker<TestObject> tracker;
-
-      ParallelSearch() {
-        tracker = new ProgressTracker<TestObject>();
-        TestProblem problem = new TestProblem();
-
-        metaheuristics = new ArrayList<TestInterrupted>();
-        metaheuristics.add(new TestInterrupted(1, problem, tracker));
-        restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
-      }
-
-      @Override
-      public void run() {
-        restarter.setTimeUnit(10);
-        restarter.optimize(1000);
-      }
-    }
-
-    ParallelSearch search = new ParallelSearch();
-    Thread t = new Thread(search);
-    t.start();
-    while (search.metaheuristics.get(0).count < 1) {
-      try {
-        Thread.sleep(10);
-      } catch (InterruptedException ex) {
-        break;
-      }
-    }
-    // replaced deprecated call to setFoundBest()
-    search.tracker.update(-10000.0, new TestObject(-10000), true);
-    try {
-      t.join(1000);
-    } catch (InterruptedException ex) {
-    }
-    assertFalse(t.isAlive());
-    search.restarter.close();
-  }
-
-  @Test
   public void testParallelReoptimizeSomeThreadFindsBest_Reopt() {
     class ParallelSearch implements Runnable {
 
@@ -124,22 +80,6 @@ public class TimedParallelReoptimizableMultistarterTests
   }
 
   @Test
-  public void testParallelOptimizeImprovementMade_Reopt() {
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestProblem problem = new TestProblem();
-
-    ArrayList<TestImprovementMade> metaheuristics = new ArrayList<TestImprovementMade>();
-    metaheuristics.add(new TestImprovementMade(1000, problem, tracker));
-    metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
-    metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
-    TimedParallelReoptimizableMultistarter<TestObject> restarter =
-        new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
-    restarter.setTimeUnit(100);
-    assertNotNull(restarter.optimize(1));
-    restarter.close();
-  }
-
-  @Test
   public void testParallelReoptimizeImprovementMade_Reopt() {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestProblem problem = new TestProblem();
@@ -153,50 +93,6 @@ public class TimedParallelReoptimizableMultistarterTests
     restarter.setTimeUnit(50);
     assertNotNull(restarter.reoptimize(1));
     restarter.close();
-  }
-
-  @Test
-  public void testInterruptParallelOptimize_Reopt() {
-    class ParallelSearch implements Runnable {
-
-      TimedParallelReoptimizableMultistarter<TestObject> restarter;
-      ArrayList<TestInterrupted> metaheuristics;
-
-      ParallelSearch() {
-        ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-        TestProblem problem = new TestProblem();
-
-        metaheuristics = new ArrayList<TestInterrupted>();
-        metaheuristics.add(new TestInterrupted(1, problem, tracker));
-        metaheuristics.add(new TestInterrupted(2, problem, tracker));
-        metaheuristics.add(new TestInterrupted(3, problem, tracker));
-        restarter = new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
-      }
-
-      @Override
-      public void run() {
-        restarter.setTimeUnit(10);
-        restarter.optimize(1000);
-      }
-    }
-
-    ParallelSearch search = new ParallelSearch();
-    Thread t = new Thread(search);
-    t.start();
-    while (search.metaheuristics.get(0).count < 1) {
-      try {
-        Thread.sleep(10);
-      } catch (InterruptedException ex) {
-        break;
-      }
-    }
-    t.interrupt();
-    try {
-      t.join(1000);
-    } catch (InterruptedException ex) {
-    }
-    assertFalse(t.isAlive());
-    search.restarter.close();
   }
 
   @Test
@@ -244,23 +140,6 @@ public class TimedParallelReoptimizableMultistarterTests
   }
 
   @Test
-  public void testOptimizeMetaheuristicThrowsException_Reopt() {
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestProblem problem = new TestProblem();
-
-    ArrayList<TestOptThrowsExceptions> metaheuristics = new ArrayList<TestOptThrowsExceptions>();
-    metaheuristics.add(new TestOptThrowsExceptions(1, tracker, problem));
-    metaheuristics.add(new TestOptThrowsExceptions(2, tracker, problem));
-    metaheuristics.add(new TestOptThrowsExceptions(3, tracker, problem));
-    TimedParallelReoptimizableMultistarter<TestObject> restarter =
-        new TimedParallelReoptimizableMultistarter<TestObject>(metaheuristics, 1);
-    restarter.setTimeUnit(100);
-    SolutionCostPair<TestObject> solution = restarter.optimize(1);
-    assertTrue(solution == null || 0 == solution.getCost());
-    restarter.close();
-  }
-
-  @Test
   public void testReoptimizeMetaheuristicThrowsException_Reopt() {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestProblem problem = new TestProblem();
@@ -278,7 +157,7 @@ public class TimedParallelReoptimizableMultistarterTests
   }
 
   @Test
-  public void testOptimizeExceptions_Reopt() {
+  public void testReoptimizeExceptions() {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestProblem problem = new TestProblem();
     TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
@@ -286,8 +165,7 @@ public class TimedParallelReoptimizableMultistarterTests
         new TimedParallelReoptimizableMultistarter<TestObject>(heur, 1, 1);
     restarter.close();
     IllegalStateException thrown =
-        assertThrows(IllegalStateException.class, () -> restarter.optimize(1));
-    thrown = assertThrows(IllegalStateException.class, () -> restarter.reoptimize(1));
+        assertThrows(IllegalStateException.class, () -> restarter.reoptimize(1));
   }
 
   @Test
@@ -303,7 +181,7 @@ public class TimedParallelReoptimizableMultistarterTests
   }
 
   @Test
-  public void testOptimizeStoppedFoundBest_Reopt() {
+  public void testReoptimizeStoppedFoundBest() {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestProblem problem = new TestProblem();
     TestRestartedMetaheuristic heur = new TestRestartedMetaheuristic(1, tracker, problem);
@@ -312,8 +190,6 @@ public class TimedParallelReoptimizableMultistarterTests
     long expected = restarter.getTotalRunLength();
     // replaced call to deprecated setFoundBest()
     restarter.getProgressTracker().update(0, new TestObject(0), true);
-    restarter.optimize(1);
-    assertEquals(expected, restarter.getTotalRunLength());
     restarter.reoptimize(1);
     assertEquals(expected, restarter.getTotalRunLength());
     restarter.close();
@@ -497,152 +373,6 @@ public class TimedParallelReoptimizableMultistarterTests
     for (TestRestartedMetaheuristic s : searches) {
       assertTrue(tracker2 == s.getProgressTracker());
     }
-  }
-
-  @Test
-  public void testTimedParallelReoptimizableMultistarterOne() {
-    int numThreads = 1;
-    ArrayList<TestRestartedMetaheuristic> searches =
-        new ArrayList<TestRestartedMetaheuristic>(numThreads);
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestProblem problem = new TestProblem();
-    for (int i = 1; i <= numThreads; i++) {
-      searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
-    }
-    TimedParallelReoptimizableMultistarter<TestObject> tpm =
-        new TimedParallelReoptimizableMultistarter<TestObject>(searches, 1000);
-    assertEquals(1000, tpm.getTimeUnit());
-    tpm.setTimeUnit(10);
-    assertEquals(10, tpm.getTimeUnit());
-    assertTrue(tracker == tpm.getProgressTracker());
-    assertTrue(problem == tpm.getProblem());
-    assertEquals(0, tpm.getTotalRunLength());
-    assertNull(tpm.getSearchHistory());
-    long time1 = System.nanoTime();
-    SolutionCostPair<TestObject> solution = tpm.optimize(8);
-    long time2 = System.nanoTime();
-    int combinedRun = 0;
-    for (TestRestartedMetaheuristic search : searches) {
-      assertEquals(0, search.reoptimizeCalled);
-      assertTrue(search.optimizeCalled > 0);
-      assertTrue(search.totalRunLength >= (search.optimizeCalled - 1) * 1001);
-      assertTrue(search.totalRunLength <= search.optimizeCalled * 1001);
-      combinedRun += search.totalRunLength;
-    }
-    assertEquals(combinedRun, tpm.getTotalRunLength());
-    ArrayList<SolutionCostPair<TestObject>> history = tpm.getSearchHistory();
-    assertEquals(8, history.size());
-    for (int i = 1; i < history.size(); i++) {
-      assertTrue(history.get(i).getCostDouble() <= history.get(i - 1).getCostDouble());
-      assertTrue(history.get(i).getCostDouble() >= tracker.getCostDouble());
-      TestObject s = history.get(i).getSolution();
-      if (s != null) {
-        assertEquals(problem.cost(s), history.get(i).getCostDouble(), 0.0);
-      }
-    }
-    assertEquals(solution.getCostDouble(), tracker.getCostDouble(), 0.0);
-    long actualRunTime = time2 - time1;
-    assertTrue(
-        actualRunTime >= 80000000,
-        "verifying runtime, actual=" + actualRunTime + " ns, should be at least 80000000 ns");
-
-    // verify can call optimize again
-    solution = tpm.optimize(1);
-    assertTrue(solution.getCostDouble() >= tracker.getCostDouble());
-    combinedRun = 0;
-    for (TestRestartedMetaheuristic search : searches) {
-      assertEquals(0, search.reoptimizeCalled);
-      assertTrue(search.optimizeCalled > 0);
-      String msg = "trl=" + search.totalRunLength + ", #optCalled=" + search.optimizeCalled;
-      assertTrue(search.totalRunLength >= (search.optimizeCalled - 2) * 1001, msg);
-      assertTrue(search.totalRunLength <= search.optimizeCalled * 1001, msg);
-      combinedRun += search.totalRunLength;
-    }
-    assertEquals(combinedRun, tpm.getTotalRunLength());
-    history = tpm.getSearchHistory();
-    assertEquals(1, history.size());
-    assertTrue(history.get(0).getCostDouble() >= tracker.getCostDouble());
-    TestObject s = history.get(0).getSolution();
-    if (s != null) {
-      assertEquals(problem.cost(s), history.get(0).getCostDouble(), 0.0);
-    }
-
-    // Close the parallel multistarter
-    tpm.close();
-  }
-
-  @Test
-  public void testTimedParallelReoptimizableMultistarterThree() {
-    int numThreads = 3;
-    final int NUM_TIME_CYCLES = 20;
-    ArrayList<TestRestartedMetaheuristic> searches =
-        new ArrayList<TestRestartedMetaheuristic>(numThreads);
-    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
-    TestProblem problem = new TestProblem();
-    for (int i = 1; i <= numThreads; i++) {
-      searches.add(new TestRestartedMetaheuristic(i, tracker, problem));
-    }
-    TimedParallelReoptimizableMultistarter<TestObject> tpm =
-        new TimedParallelReoptimizableMultistarter<TestObject>(searches, 1000);
-    assertEquals(1000, tpm.getTimeUnit());
-    tpm.setTimeUnit(10);
-    assertEquals(10, tpm.getTimeUnit());
-    assertTrue(tracker == tpm.getProgressTracker());
-    assertTrue(problem == tpm.getProblem());
-    assertEquals(0, tpm.getTotalRunLength());
-    assertNull(tpm.getSearchHistory());
-    long time1 = System.nanoTime();
-    SolutionCostPair<TestObject> solution = tpm.optimize(NUM_TIME_CYCLES);
-    long time2 = System.nanoTime();
-    int combinedRun = 0;
-    for (TestRestartedMetaheuristic search : searches) {
-      assertEquals(0, search.reoptimizeCalled);
-      assertTrue(search.optimizeCalled > 0);
-      assertTrue(search.totalRunLength >= (search.optimizeCalled - 1) * 1001);
-      assertTrue(search.totalRunLength <= search.optimizeCalled * 1001);
-      combinedRun += search.totalRunLength;
-    }
-    assertEquals(combinedRun, tpm.getTotalRunLength());
-    ArrayList<SolutionCostPair<TestObject>> history = tpm.getSearchHistory();
-    assertEquals(NUM_TIME_CYCLES, history.size());
-    for (int i = 1; i < history.size(); i++) {
-      assertTrue(history.get(i).getCostDouble() <= history.get(i - 1).getCostDouble());
-      assertTrue(history.get(i).getCostDouble() >= tracker.getCostDouble());
-      TestObject s = history.get(i).getSolution();
-      if (s != null) {
-        assertEquals(problem.cost(s), history.get(i).getCostDouble(), 0.0);
-      }
-    }
-    assertEquals(solution.getCostDouble(), tracker.getCostDouble(), 0.0);
-    long actualRunTime = time2 - time1;
-    assertTrue(
-        actualRunTime >= 80000000,
-        "verifying runtime, actual=" + actualRunTime + " ns, should be at least 80000000 ns");
-
-    // verify can call optimize again
-    tpm.setTimeUnit(20);
-    solution = tpm.optimize(1);
-    assertTrue(solution.getCostDouble() >= tracker.getCostDouble());
-    combinedRun = 0;
-    for (TestRestartedMetaheuristic search : searches) {
-      assertEquals(0, search.reoptimizeCalled);
-      assertTrue(search.optimizeCalled > 0);
-      String msg = "trl=" + search.totalRunLength + ", #optCalled=" + search.optimizeCalled;
-      assertTrue(search.totalRunLength >= (search.optimizeCalled - 2) * 1001, msg);
-      assertTrue(search.totalRunLength <= search.optimizeCalled * 1001, msg);
-      combinedRun += search.totalRunLength;
-    }
-    assertEquals(combinedRun, tpm.getTotalRunLength());
-    history = tpm.getSearchHistory();
-    assertEquals(1, history.size());
-    assertTrue(history.get(0).getCostDouble() >= tracker.getCostDouble());
-    TestObject s = history.get(0).getSolution();
-    if (s != null) {
-      assertEquals(problem.cost(s), history.get(0).getCostDouble(), 0.0);
-    }
-
-    // Close the parallel multistarter
-    tpm.close();
   }
 
   @Test

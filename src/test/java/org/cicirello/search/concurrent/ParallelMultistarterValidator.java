@@ -59,7 +59,15 @@ public class ParallelMultistarterValidator {
 
     public AbstractTestRestartedMetaheuristic(
         int stopAtEval, int findBestAtEval, SplittableRandom rand) {
-      tracker = new ProgressTracker<TestObject>();
+      this(stopAtEval, findBestAtEval, rand, new ProgressTracker<TestObject>());
+    }
+
+    public AbstractTestRestartedMetaheuristic(
+        int stopAtEval,
+        int findBestAtEval,
+        SplittableRandom rand,
+        ProgressTracker<TestObject> tracker) {
+      this.tracker = tracker;
       elapsed = 0;
       this.stopAtEval = stopAtEval;
       this.findBestAtEval = findBestAtEval;
@@ -70,7 +78,7 @@ public class ParallelMultistarterValidator {
     }
 
     public AbstractTestRestartedMetaheuristic(AbstractTestRestartedMetaheuristic other) {
-      this(other.stopAtEval, other.findBestAtEval, other.rand.split());
+      this(other.stopAtEval, other.findBestAtEval, other.rand.split(), other.tracker);
     }
 
     @Override

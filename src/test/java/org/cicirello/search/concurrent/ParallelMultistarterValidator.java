@@ -33,91 +33,93 @@ import org.junit.jupiter.api.*;
 /** Test validation common to multiple test classes for testing parallel multistarters. */
 public class ParallelMultistarterValidator {
 
-  void verifyConstantLengthRe(
-      ParallelReoptimizableMultistarter<TestObject> restarter,
-      TestRestartedMetaheuristic heur,
-      int r,
-      int re,
-      int numThreads) {
-    ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
-    assertNotNull(tracker);
-    assertEquals(0, restarter.getTotalRunLength());
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
-    assertEquals(0, heur.optCounter);
-    assertEquals(0, heur.reoptCounter);
-    SolutionCostPair<TestObject> pair = restarter.reoptimize(re);
-    assertNotNull(pair);
-    assertTrue(pair.getCost() > 1);
-    assertEquals(numThreads * re * r, restarter.getTotalRunLength());
-    assertEquals(re, heur.reoptCounter);
-    assertEquals(0, heur.optCounter);
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
-  }
-
-  void verifyConstantLengthStoppedRe(
-      ParallelReoptimizableMultistarter<TestObject> restarter,
-      TestRestartedMetaheuristic heur,
-      int r,
-      int re,
-      int early,
-      int i,
-      boolean oneThread) {
-    ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
-    assertNotNull(tracker);
-    assertEquals(0, restarter.getTotalRunLength());
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
-    assertEquals(0, heur.optCounter);
-    assertEquals(0, heur.reoptCounter);
-    SolutionCostPair<TestObject> pair = restarter.reoptimize(re);
-    assertNotNull(pair);
-    assertTrue(pair.getCost() > 1);
-    if (oneThread) {
-      assertEquals(early, restarter.getTotalRunLength());
-      assertEquals(i, heur.reoptCounter);
-    } else {
-      assertTrue(
-          2 * early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early,
-          "total run length");
-      assertTrue(i >= heur.reoptCounter, "num calls to reoptimize");
+  static class ReoptimizeValidator extends OptimizeValidator {
+    void verifyConstantLengthRe(
+        ParallelReoptimizableMultistarter<TestObject> restarter,
+        TestRestartedMetaheuristic heur,
+        int r,
+        int re,
+        int numThreads) {
+      ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
+      assertNotNull(tracker);
+      assertEquals(0, restarter.getTotalRunLength());
+      assertFalse(tracker.didFindBest());
+      assertFalse(tracker.isStopped());
+      assertEquals(0, heur.optCounter);
+      assertEquals(0, heur.reoptCounter);
+      SolutionCostPair<TestObject> pair = restarter.reoptimize(re);
+      assertNotNull(pair);
+      assertTrue(pair.getCost() > 1);
+      assertEquals(numThreads * re * r, restarter.getTotalRunLength());
+      assertEquals(re, heur.reoptCounter);
+      assertEquals(0, heur.optCounter);
+      assertFalse(tracker.didFindBest());
+      assertFalse(tracker.isStopped());
     }
-    assertEquals(0, heur.optCounter);
-    assertFalse(tracker.didFindBest());
-    assertTrue(tracker.isStopped());
-  }
 
-  void verifyConstantLengthBestRe(
-      ParallelReoptimizableMultistarter<TestObject> restarter,
-      TestRestartedMetaheuristic heur,
-      int r,
-      int re,
-      int early,
-      int i,
-      boolean oneThread) {
-    ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
-    assertNotNull(tracker);
-    assertEquals(0, restarter.getTotalRunLength());
-    assertFalse(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
-    assertEquals(0, heur.optCounter);
-    assertEquals(0, heur.reoptCounter);
-    SolutionCostPair<TestObject> pair = restarter.reoptimize(re);
-    assertNotNull(pair);
-    assertEquals(1, pair.getCost());
-    if (oneThread) {
-      assertEquals(early, restarter.getTotalRunLength());
-      assertEquals(i, heur.reoptCounter);
-    } else {
-      assertTrue(
-          2 * early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early,
-          "total run length");
-      assertTrue(i >= heur.reoptCounter, "num calls to optimize");
+    void verifyConstantLengthStoppedRe(
+        ParallelReoptimizableMultistarter<TestObject> restarter,
+        TestRestartedMetaheuristic heur,
+        int r,
+        int re,
+        int early,
+        int i,
+        boolean oneThread) {
+      ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
+      assertNotNull(tracker);
+      assertEquals(0, restarter.getTotalRunLength());
+      assertFalse(tracker.didFindBest());
+      assertFalse(tracker.isStopped());
+      assertEquals(0, heur.optCounter);
+      assertEquals(0, heur.reoptCounter);
+      SolutionCostPair<TestObject> pair = restarter.reoptimize(re);
+      assertNotNull(pair);
+      assertTrue(pair.getCost() > 1);
+      if (oneThread) {
+        assertEquals(early, restarter.getTotalRunLength());
+        assertEquals(i, heur.reoptCounter);
+      } else {
+        assertTrue(
+            2 * early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early,
+            "total run length");
+        assertTrue(i >= heur.reoptCounter, "num calls to reoptimize");
+      }
+      assertEquals(0, heur.optCounter);
+      assertFalse(tracker.didFindBest());
+      assertTrue(tracker.isStopped());
     }
-    assertEquals(0, heur.optCounter);
-    assertTrue(tracker.didFindBest());
-    assertFalse(tracker.isStopped());
+
+    void verifyConstantLengthBestRe(
+        ParallelReoptimizableMultistarter<TestObject> restarter,
+        TestRestartedMetaheuristic heur,
+        int r,
+        int re,
+        int early,
+        int i,
+        boolean oneThread) {
+      ProgressTracker<TestObject> tracker = restarter.getProgressTracker();
+      assertNotNull(tracker);
+      assertEquals(0, restarter.getTotalRunLength());
+      assertFalse(tracker.didFindBest());
+      assertFalse(tracker.isStopped());
+      assertEquals(0, heur.optCounter);
+      assertEquals(0, heur.reoptCounter);
+      SolutionCostPair<TestObject> pair = restarter.reoptimize(re);
+      assertNotNull(pair);
+      assertEquals(1, pair.getCost());
+      if (oneThread) {
+        assertEquals(early, restarter.getTotalRunLength());
+        assertEquals(i, heur.reoptCounter);
+      } else {
+        assertTrue(
+            2 * early >= restarter.getTotalRunLength() && restarter.getTotalRunLength() >= early,
+            "total run length");
+        assertTrue(i >= heur.reoptCounter, "num calls to optimize");
+      }
+      assertEquals(0, heur.optCounter);
+      assertTrue(tracker.didFindBest());
+      assertFalse(tracker.isStopped());
+    }
   }
 
   static class OptimizeValidator {

@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Dependencies
 * Bump core from 2.4.4 to 2.4.6
+* Bump rho-mu from 3.0.2 to 3.0.3
 
 ### CI/CD
 

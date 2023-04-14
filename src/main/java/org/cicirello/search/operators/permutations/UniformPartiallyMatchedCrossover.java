@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,6 +22,7 @@ package org.cicirello.search.operators.permutations;
 
 import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.permutations.PermutationFullBinaryOperator;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
@@ -60,7 +61,8 @@ import org.cicirello.search.operators.CrossoverOperator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class UniformPartiallyMatchedCrossover implements CrossoverOperator<Permutation> {
+public final class UniformPartiallyMatchedCrossover
+    implements CrossoverOperator<Permutation>, PermutationFullBinaryOperator {
 
   private final double u;
 
@@ -87,7 +89,7 @@ public final class UniformPartiallyMatchedCrossover implements CrossoverOperator
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
-    internalCross(c1, c2, RandomSampler.sample(c1.length(), u));
+    c1.apply(this, c2);
   }
 
   @Override
@@ -96,25 +98,43 @@ public final class UniformPartiallyMatchedCrossover implements CrossoverOperator
     return this;
   }
 
+  /**
+   * See {@link PermutationFullBinaryOperator} for details of this method. This method is not
+   * intended for direct usage. Use the {@link #cross} method instead.
+   *
+   * @param raw1 The raw representation of the first permutation.
+   * @param raw2 The raw representation of the second permutation.
+   * @param p1 The first permutation.
+   * @param p2 The second permutation.
+   */
+  @Override
+  public void apply(int[] raw1, int[] raw2, Permutation p1, Permutation p2) {
+    internalCross(raw1, raw2, p1, p2, RandomSampler.sample(raw1.length, u));
+  }
+
   /*
    * package private to facilitate unit testing
    */
-  final void internalCross(Permutation c1, Permutation c2, int[] indexes) {
+  final void internalCross(int[] raw1, int[] raw2, Permutation c1, Permutation c2, int[] indexes) {
     int[] inv1 = c1.getInverse();
     int[] inv2 = c2.getInverse();
-    int[] old1 = c1.toArray();
-    int[] old2 = c2.toArray();
+    int[] old1 = raw1.clone();
+    int[] old2 = raw2.clone();
     for (int k : indexes) {
       int g = inv1[old2[k]];
       if (k != g) {
-        c1.swap(k, g);
-        inv1[c1.get(g)] = g;
+        int temp = raw1[k];
+        raw1[k] = raw1[g];
+        raw1[g] = temp;
+        inv1[raw1[g]] = g;
         inv1[old2[k]] = k;
       }
       g = inv2[old1[k]];
       if (k != g) {
-        c2.swap(k, g);
-        inv2[c2.get(g)] = g;
+        int temp = raw2[k];
+        raw2[k] = raw2[g];
+        raw2[g] = temp;
+        inv2[raw2[g]] = g;
         inv2[old1[k]] = k;
       }
     }

@@ -76,7 +76,7 @@ public class TwoChangeMutationTests extends PermutationMutationValidator {
       for (int j = 0; j < expected2[i].length; j++) {
         Permutation p = new Permutation(perm);
         m.internalMutate(p, j, i + 1);
-        assertEquals(expected2[i][j], p);
+        assertEquals(expected2[i][j], p, "i,j=" + i + "," + j);
       }
     }
     // test internal mutate for n = 6

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,6 +22,7 @@ package org.cicirello.search.operators.permutations;
 
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.permutations.PermutationFullUnaryOperator;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.operators.UndoableMutationOperator;
@@ -83,10 +84,11 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 4.15.2021
  */
 public final class TwoChangeMutation
-    implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
+    implements UndoableMutationOperator<Permutation>,
+        IterableMutationOperator<Permutation>,
+        PermutationFullUnaryOperator {
 
   // needed to implement undo
   private int a;
@@ -106,7 +108,7 @@ public final class TwoChangeMutation
   @Override
   public final void undo(Permutation c) {
     if (c.length() >= 4) {
-      internalMutate(c);
+      c.apply(this);
     }
   }
 
@@ -140,29 +142,39 @@ public final class TwoChangeMutation
     } else {
       a = first;
     }
-    internalMutate(c);
+    c.apply(this);
   }
 
-  private void internalMutate(Permutation c) {
-    if (b - a < (c.length() >> 1)) {
+  /**
+   * See {@link PermutationFullUnaryOperator} for details of this method. This method is not
+   * intended for direct usage. Use the {@link #mutate} method instead.
+   *
+   * @param raw The raw representation of the permutation.
+   * @param c The permutation.
+   */
+  @Override
+  public void apply(int[] raw, Permutation c) {
+    if (b - a < (raw.length >> 1)) {
       c.reverse(a, b);
     } else {
-      int rightCount = c.length() - b - 1;
+      int rightCount = raw.length - b - 1;
       int i = a - 1;
       int j = b + 1;
-      if (a < rightCount) {
-        for (; i >= 0; i--, j++) {
-          c.swap(i, j);
-        }
-        c.reverse(j, c.length() - 1);
-      } else if (a > rightCount) {
-        for (; j < c.length(); i--, j++) {
-          c.swap(i, j);
+      if (a > rightCount) {
+        for (; j < raw.length; i--, j++) {
+          int temp = raw[i];
+          raw[i] = raw[j];
+          raw[j] = temp;
         }
         c.reverse(0, i);
       } else {
         for (; i >= 0; i--, j++) {
-          c.swap(i, j);
+          int temp = raw[i];
+          raw[i] = raw[j];
+          raw[j] = temp;
+        }
+        if (a < rightCount) {
+          c.reverse(j, raw.length - 1);
         }
       }
     }

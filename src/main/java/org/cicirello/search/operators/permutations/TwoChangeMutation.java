@@ -158,24 +158,23 @@ public final class TwoChangeMutation
       c.reverse(a, b);
     } else {
       int rightCount = raw.length - b - 1;
-      int i = a - 1;
-      int j = b + 1;
+      int i;
+      int j;
       if (a > rightCount) {
-        for (; j < raw.length; i--, j++) {
-          int temp = raw[i];
-          raw[i] = raw[j];
-          raw[j] = temp;
-        }
-        c.reverse(0, i);
+        j = raw.length - 1;
+        i = a - rightCount;
+        c.reverse(0, i - 1);
       } else {
-        for (; i >= 0; i--, j++) {
-          int temp = raw[i];
-          raw[i] = raw[j];
-          raw[j] = temp;
-        }
+        i = 0;
+        j = b + a;
         if (a < rightCount) {
-          c.reverse(j, raw.length - 1);
+          c.reverse(j + 1, raw.length - 1);
         }
+      }
+      for (; j > b; i++, j--) {
+        int temp = raw[i];
+        raw[i] = raw[j];
+        raw[j] = temp;
       }
     }
   }

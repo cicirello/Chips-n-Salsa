@@ -118,17 +118,22 @@ public class PMXAndRelatedTests {
         new Permutation(new int[] {8, 7, 6, 5, 4, 3, 2, 1, 0})
       }
     };
+    final int[][] wrapper = new int[2][];
     for (int k = 0; k < indexes.length; k++) {
       int i = indexes[k][0];
       int j = indexes[k][1];
       Permutation child1 = new Permutation(p1);
       Permutation child2 = new Permutation(p2);
-      pmx.internalCross(child1, child2, i, j);
+      child1.apply(raw -> wrapper[0] = raw);
+      child2.apply(raw -> wrapper[1] = raw);
+      pmx.internalCross(wrapper[0], wrapper[1], child1, child2, i, j);
       assertEquals(expected[k][0], child1);
       assertEquals(expected[k][1], child2);
       child1 = new Permutation(p1);
       child2 = new Permutation(p2);
-      pmx.internalCross(child1, child2, j, i);
+      child1.apply(raw -> wrapper[0] = raw);
+      child2.apply(raw -> wrapper[1] = raw);
+      pmx.internalCross(wrapper[0], wrapper[1], child1, child2, j, i);
       assertEquals(expected[k][0], child1);
       assertEquals(expected[k][1], child2);
     }

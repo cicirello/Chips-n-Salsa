@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
+import java.util.Arrays;
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.permutations.PermutationFullBinaryOperator;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
@@ -62,14 +64,15 @@ import org.cicirello.search.operators.CrossoverOperator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class PartiallyMatchedCrossover implements CrossoverOperator<Permutation> {
+public final class PartiallyMatchedCrossover
+    implements CrossoverOperator<Permutation>, PermutationFullBinaryOperator {
 
   /** Constructs a partially matched crossover (PMX) operator. */
   public PartiallyMatchedCrossover() {}
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
-    internalCross(c1, c2, RandomIndexer.nextInt(c1.length()), RandomIndexer.nextInt(c1.length()));
+    c1.apply(this, c2);
   }
 
   @Override
@@ -78,30 +81,51 @@ public final class PartiallyMatchedCrossover implements CrossoverOperator<Permut
     return this;
   }
 
+  /**
+   * See {@link PermutationFullBinaryOperator} for details of this method. This method is not
+   * intended for direct usage. Use the {@link #cross} method instead.
+   *
+   * @param raw1 The raw representation of the first permutation.
+   * @param raw2 The raw representation of the second permutation.
+   * @param p1 The first permutation.
+   * @param p2 The second permutation.
+   */
+  @Override
+  public void apply(int[] raw1, int[] raw2, Permutation p1, Permutation p2) {
+    internalCross(
+        raw1, raw2, p1, p2, RandomIndexer.nextInt(raw1.length), RandomIndexer.nextInt(raw1.length));
+  }
+
   /*
    * package private to facilitate unit testing
    */
-  final void internalCross(Permutation c1, Permutation c2, int i, int j) {
+  final void internalCross(int[] raw1, int[] raw2, Permutation c1, Permutation c2, int i, int j) {
+    int k;
     if (j < i) {
-      int temp = i;
-      i = j;
-      j = temp;
+      k = j;
+      j = i;
+    } else {
+      k = i;
     }
     int[] inv1 = c1.getInverse();
     int[] inv2 = c2.getInverse();
-    int[] old1 = c1.get(i, j);
-    int[] old2 = c2.get(i, j);
-    for (int k = i, h = 0; k <= j; k++, h++) {
+    int[] old1 = Arrays.copyOfRange(raw1, k, j + 1);
+    int[] old2 = Arrays.copyOfRange(raw2, k, j + 1);
+    for (int h = 0; k <= j; k++, h++) {
       int g = inv1[old2[h]];
       if (k != g) {
-        c1.swap(k, g);
-        inv1[c1.get(g)] = g;
+        int temp = raw1[k];
+        raw1[k] = raw1[g];
+        raw1[g] = temp;
+        inv1[raw1[g]] = g;
         inv1[old2[h]] = k;
       }
       g = inv2[old1[h]];
       if (k != g) {
-        c2.swap(k, g);
-        inv2[c2.get(g)] = g;
+        int temp = raw2[k];
+        raw2[k] = raw2[g];
+        raw2[g] = temp;
+        inv2[raw2[g]] = g;
         inv2[old1[h]] = k;
       }
     }

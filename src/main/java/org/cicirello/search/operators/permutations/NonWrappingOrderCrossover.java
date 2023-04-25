@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -24,7 +24,7 @@ import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationBinaryOperator;
 import org.cicirello.search.operators.CrossoverOperator;
-import org.cicirello.util.IntegerList;
+import org.cicirello.util.IntegerArray;
 
 /**
  * Implementation of non-wrapping order crossover (NWOX). NWOX selects a random subsection similar
@@ -90,16 +90,16 @@ public final class NonWrappingOrderCrossover
       i = j;
       j = temp;
     }
-    boolean[] in1 = new boolean[raw1.length];
-    boolean[] in2 = new boolean[raw1.length];
-    for (int k = i; k <= j; k++) {
-      in1[raw1[k]] = true;
-      in2[raw2[k]] = true;
-    }
     final int orderedCount = raw1.length - (j - i + 1);
     if (orderedCount > 0) {
-      IntegerList list1 = new IntegerList(orderedCount);
-      IntegerList list2 = new IntegerList(orderedCount);
+      boolean[] in1 = new boolean[raw1.length];
+      boolean[] in2 = new boolean[raw1.length];
+      for (int k = i; k <= j; k++) {
+        in1[raw1[k]] = true;
+        in2[raw2[k]] = true;
+      }
+      IntegerArray list1 = new IntegerArray(orderedCount);
+      IntegerArray list2 = new IntegerArray(orderedCount);
       for (int k = 0; k < raw1.length; k++) {
         if (!in2[raw1[k]]) {
           list1.add(raw1[k]);
@@ -108,17 +108,11 @@ public final class NonWrappingOrderCrossover
           list2.add(raw2[k]);
         }
       }
-      int w = 0;
-      for (int k = 0; k < i; k++) {
-        raw1[k] = list2.get(w);
-        raw2[k] = list1.get(w);
-        w++;
-      }
-      for (int k = j + 1; k < raw1.length; k++) {
-        raw1[k] = list2.get(w);
-        raw2[k] = list1.get(w);
-        w++;
-      }
+      int rightSide = orderedCount - i;
+      System.arraycopy(list2.array(), 0, raw1, 0, i);
+      System.arraycopy(list1.array(), 0, raw2, 0, i);
+      System.arraycopy(list2.array(), i, raw1, j + 1, rightSide);
+      System.arraycopy(list1.array(), i, raw2, j + 1, rightSide);
     }
   }
 

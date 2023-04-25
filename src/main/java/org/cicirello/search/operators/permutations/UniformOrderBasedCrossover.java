@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -24,7 +24,7 @@ import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationBinaryOperator;
 import org.cicirello.search.operators.CrossoverOperator;
-import org.cicirello.util.IntegerList;
+import org.cicirello.util.IntegerArray;
 
 /**
  * Implementation of uniform order-based crossover (UOBX). UOBX is controlled by a parameter U,
@@ -92,18 +92,18 @@ public final class UniformOrderBasedCrossover
   @Override
   public void apply(int[] raw1, int[] raw2) {
     int[] indexes = RandomSampler.sample(raw1.length, u);
-    boolean[] mask = new boolean[raw1.length];
-    boolean[] in1 = new boolean[raw1.length];
-    boolean[] in2 = new boolean[raw1.length];
-    for (int k : indexes) {
-      mask[k] = true;
-      in1[raw1[k]] = true;
-      in2[raw2[k]] = true;
-    }
-    final int orderedCount = raw1.length - indexes.length;
-    if (orderedCount > 0) {
-      IntegerList list1 = new IntegerList(orderedCount);
-      IntegerList list2 = new IntegerList(orderedCount);
+    if (indexes.length < raw1.length) {
+      final int orderedCount = raw1.length - indexes.length;
+      boolean[] mask = new boolean[raw1.length];
+      boolean[] in1 = new boolean[raw1.length];
+      boolean[] in2 = new boolean[raw1.length];
+      for (int k : indexes) {
+        mask[k] = true;
+        in1[raw1[k]] = true;
+        in2[raw2[k]] = true;
+      }
+      IntegerArray list1 = new IntegerArray(orderedCount);
+      IntegerArray list2 = new IntegerArray(orderedCount);
       for (int k = 0; k < raw1.length; k++) {
         if (!in2[raw1[k]]) {
           list1.add(raw1[k]);

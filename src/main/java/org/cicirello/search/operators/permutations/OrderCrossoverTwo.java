@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -24,7 +24,7 @@ import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationFullBinaryOperator;
 import org.cicirello.search.operators.CrossoverOperator;
-import org.cicirello.util.IntegerList;
+import org.cicirello.util.IntegerArray;
 
 /**
  * Implementation of the crossover operator for permutations that is often referred to as Order
@@ -127,8 +127,8 @@ public final class OrderCrossoverTwo
   final void internalCross(int[] raw1, int[] raw2, Permutation p1, Permutation p2, boolean[] mask) {
     int[] inv1 = p1.getInverse();
     int[] inv2 = p2.getInverse();
-    IntegerList elementOrder1 = new IntegerList(raw1.length);
-    IntegerList elementOrder2 = new IntegerList(raw1.length);
+    IntegerArray elementOrder1 = new IntegerArray(raw1.length);
+    IntegerArray elementOrder2 = new IntegerArray(raw1.length);
     boolean[] indexes1 = new boolean[raw1.length];
     boolean[] indexes2 = new boolean[raw1.length];
     for (int i = 0; i < mask.length; i++) {

@@ -33,7 +33,7 @@
  * href="https://github.com/josephmisiti/awesome-machine-learning"><img
  * src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome Machine Learning"
  * width="110" height="20"></a> <a
- * href="https://central.sonatype.com/search?namespace=org.cicirello&q=chips-n-salsa"><img
+ * href="https://central.sonatype.com/artifact/org.cicirello/chips-n-salsa/"><img
  * src="https://img.shields.io/maven-central/v/org.cicirello/chips-n-salsa.svg?logo=apachemaven"
  * alt="Maven Central" height="20" width="153"></a> <a
  * href="https://github.com/cicirello/Chips-n-Salsa/releases"><img

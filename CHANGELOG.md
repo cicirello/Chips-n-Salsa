@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2023-05-15
 
 ### Added
+* NaiveGenerationalEvolutionaryAlgorithm: This is the typical implementation of a generational EA. It is temporarily added to the library in this release for a specific research purpose. You should instead use the existing GenerationalEvolutionaryAlgorithm class, which is logically and statistically equivalent, as well as highly optimized.
 
 ### Changed
 * Refactored and optimized:
@@ -19,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * UniformPartiallyMatchedCrossover
 
 ### Deprecated
+* The new NaiveGenerationalEvolutionaryAlgorithm class is deprecated upon introduction. It is temporarily added to the library in this release for a specific research purpose. Once that research purpose is served, it will be removed from the library with no further notice. That future removal will not be considered a breaking change due to the prominent notice in the class's documentation upon introduction. You should instead use the existing GenerationalEvolutionaryAlgorithm class, which is logically and statistically equivalent, but is highly optimized.
 
 ### Removed
 

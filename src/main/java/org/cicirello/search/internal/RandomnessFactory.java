@@ -35,6 +35,8 @@ public final class RandomnessFactory {
   private static RandomGeneratorFactory<RandomGenerator.SplittableGenerator> factory =
       RandomGeneratorFactory.of("SplittableRandom");
 
+  private static final Object lock = new Object();
+
   /* private to prevent instantiation */
   private RandomnessFactory() {}
 
@@ -46,7 +48,9 @@ public final class RandomnessFactory {
   public static void configure(
       RandomGeneratorFactory<RandomGenerator.SplittableGenerator> factory) {
     if (factory != null) {
-      RandomnessFactory.factory = factory;
+      synchronized (lock) {
+        RandomnessFactory.factory = factory;
+      }
     }
   }
 
@@ -58,7 +62,9 @@ public final class RandomnessFactory {
    *     RandomGeneratorFactory
    */
   public static EnhancedSplittableGenerator createEnhancedSplittableGenerator() {
-    return new EnhancedSplittableGenerator(factory.create());
+    synchronized (lock) {
+      return new EnhancedSplittableGenerator(factory.create());
+    }
   }
 
   /**
@@ -75,6 +81,8 @@ public final class RandomnessFactory {
    *     RandomGeneratorFactory
    */
   public static RandomGenerator.SplittableGenerator createSplittableGenerator() {
-    return factory.create();
+    synchronized (lock) {
+      return factory.create();
+    }
   }
 }

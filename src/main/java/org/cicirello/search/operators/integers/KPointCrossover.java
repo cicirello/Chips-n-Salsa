@@ -60,7 +60,7 @@ public final class KPointCrossover<T extends IntegerVector> implements Crossover
   }
 
   /* private to support split() only */
-  private KPointCrossover(KPointCrossover other) {
+  private KPointCrossover(KPointCrossover<T> other) {
     indexes = new int[other.indexes.length];
     generator = other.generator.split();
   }

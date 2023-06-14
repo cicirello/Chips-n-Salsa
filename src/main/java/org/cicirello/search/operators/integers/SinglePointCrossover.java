@@ -47,7 +47,7 @@ public final class SinglePointCrossover<T extends IntegerVector> implements Cros
   }
 
   /* private to support split() only */
-  private SinglePointCrossover(SinglePointCrossover other) {
+  private SinglePointCrossover(SinglePointCrossover<T> other) {
     generator = other.generator.split();
   }
 

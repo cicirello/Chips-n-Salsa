@@ -49,7 +49,7 @@ public final class TwoPointCrossover<T extends IntegerVector> implements Crossov
   }
 
   /* private to support split() only */
-  private TwoPointCrossover(TwoPointCrossover other) {
+  private TwoPointCrossover(TwoPointCrossover<T> other) {
     indexes = new int[2];
     generator = other.generator.split();
   }

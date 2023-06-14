@@ -32,25 +32,48 @@ import org.cicirello.math.rand.EnhancedSplittableGenerator;
  */
 public final class RandomnessFactory {
 
-  private static RandomGeneratorFactory<RandomGenerator.SplittableGenerator> factory =
-      RandomGeneratorFactory.of("SplittableRandom");
+  private static final String DEFAULT_ALGORITHM_NAME = "SplittableRandom";
+
+  private static volatile RandomGenerator.SplittableGenerator next =
+      RandomGenerator.SplittableGenerator.of(DEFAULT_ALGORITHM_NAME);
 
   private static final Object lock = new Object();
 
   /* private to prevent instantiation */
   private RandomnessFactory() {}
 
+  /** Configures the RandomnessFactory with the default PRNG algorithm. */
+  public static void configureDefault() {
+    synchronized (lock) {
+      next = RandomGenerator.SplittableGenerator.of(DEFAULT_ALGORITHM_NAME);
+    }
+  }
+
   /**
    * Configures the RandomnessFactory.
    *
-   * @param factory a RandomGeneratorFactory that creates RandomGenerator.SplittableGenerators
+   * @param next the next random number generator for this factory to base subsequent random
+   *     generators
    */
-  public static void configure(
-      RandomGeneratorFactory<RandomGenerator.SplittableGenerator> factory) {
-    if (factory != null) {
+  public static void configure(RandomGenerator.SplittableGenerator next) {
+    if (next != null) {
       synchronized (lock) {
-        RandomnessFactory.factory = factory;
+        RandomnessFactory.next = next;
       }
+    }
+  }
+
+  /**
+   * Configures the RandomnessFactory from a seed. That is, the initial random number generator is
+   * seeded as specified, with all others split from it.
+   *
+   * @param seed the seed for the next random number generator
+   */
+  public static void configure(long seed) {
+    RandomGeneratorFactory<RandomGenerator.SplittableGenerator> factory =
+        RandomGeneratorFactory.of(DEFAULT_ALGORITHM_NAME);
+    synchronized (lock) {
+      next = factory.create(seed);
     }
   }
 
@@ -62,14 +85,12 @@ public final class RandomnessFactory {
    *     RandomGeneratorFactory
    */
   public static EnhancedSplittableGenerator createEnhancedSplittableGenerator() {
-    synchronized (lock) {
-      return new EnhancedSplittableGenerator(factory.create());
-    }
+    return new EnhancedSplittableGenerator(createSplittableGenerator());
   }
 
   /**
    * Creates instances of RandomGenerator.SplittableGenerator from the currently configured
-   * RandomGeneratorFactory. In most cases, you should be using {@.ink
+   * RandomGeneratorFactory. In most cases, you should be using {@link
    * #createEnhancedSplittableGenerator} instead. The one exception to that, where you should use
    * this method, is if your use-case involves passing the random number generator to a method that
    * uses one of rho-mu's utility classes but which is outside this library. For example, the
@@ -82,7 +103,9 @@ public final class RandomnessFactory {
    */
   public static RandomGenerator.SplittableGenerator createSplittableGenerator() {
     synchronized (lock) {
-      return factory.create();
+      RandomGenerator.SplittableGenerator result = next;
+      next = result.split();
+      return result;
     }
   }
 }

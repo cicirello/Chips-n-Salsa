@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.SplittableRandom;
 import java.util.random.RandomGenerator;
-import java.util.random.RandomGeneratorFactory;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.junit.jupiter.api.*;
 
@@ -32,7 +31,13 @@ import org.junit.jupiter.api.*;
 public class RandomnessFactoryTests {
 
   @Test
-  public void testRandomnessFactory() {
+  public void testSeeded() {
+    // To ensure independence from rest of test cases, start by
+    // configuring the default (in case other test cases changed this).
+    RandomnessFactory.configureDefault();
+
+    RandomnessFactory.configure(42L);
+
     RandomGenerator.SplittableGenerator[] facts = new RandomGenerator.SplittableGenerator[5];
     facts[0] = RandomnessFactory.createSplittableGenerator();
     facts[1] = RandomnessFactory.createSplittableGenerator();
@@ -45,7 +50,60 @@ public class RandomnessFactoryTests {
     }
     verifyDifferent(facts);
 
-    RandomnessFactory.configure(RandomGeneratorFactory.of("L64X128MixRandom"));
+    facts[0] = RandomnessFactory.createEnhancedSplittableGenerator();
+    facts[1] = RandomnessFactory.createEnhancedSplittableGenerator();
+    facts[2] = facts[0].split();
+    facts[3] = facts[1].split();
+    facts[4] = facts[1].split();
+    for (int i = 0; i < facts.length; i++) {
+      assertTrue(facts[i] instanceof EnhancedSplittableGenerator);
+    }
+    verifyDifferent(facts);
+
+    RandomnessFactory.configure(42L);
+    facts[0] = RandomnessFactory.createSplittableGenerator();
+    RandomnessFactory.configure(42L);
+    facts[1] = RandomnessFactory.createSplittableGenerator();
+    facts[2] = facts[0].split();
+    facts[3] = facts[1].split();
+
+    verifySame(facts[0], facts[1]);
+    verifySame(facts[2], facts[3]);
+
+    RandomnessFactory.configure(42L);
+    facts[0] = RandomnessFactory.createEnhancedSplittableGenerator();
+    RandomnessFactory.configure(42L);
+    facts[1] = RandomnessFactory.createEnhancedSplittableGenerator();
+    facts[2] = facts[0].split();
+    facts[3] = facts[1].split();
+
+    verifySame(facts[0], facts[1]);
+    verifySame(facts[2], facts[3]);
+
+    // To ensure independence from rest of test cases, finish by
+    // configuring the default.
+    RandomnessFactory.configureDefault();
+  }
+
+  @Test
+  public void testRandomnessFactory() {
+    // To ensure independence from rest of test cases, start by
+    // configuring the default (in case other test cases changed this).
+    RandomnessFactory.configureDefault();
+
+    RandomGenerator.SplittableGenerator[] facts = new RandomGenerator.SplittableGenerator[5];
+    facts[0] = RandomnessFactory.createSplittableGenerator();
+    facts[1] = RandomnessFactory.createSplittableGenerator();
+    facts[2] = facts[0].split();
+    facts[3] = facts[1].split();
+    facts[4] = facts[1].split();
+    for (int i = 0; i < facts.length; i++) {
+      assertFalse(facts[i] instanceof EnhancedSplittableGenerator);
+      assertTrue(facts[i] instanceof SplittableRandom);
+    }
+    verifyDifferent(facts);
+
+    RandomnessFactory.configure(RandomGenerator.SplittableGenerator.of("L64X128MixRandom"));
     facts[0] = RandomnessFactory.createSplittableGenerator();
     facts[1] = RandomnessFactory.createSplittableGenerator();
     facts[2] = facts[0].split();
@@ -77,6 +135,18 @@ public class RandomnessFactoryTests {
       assertTrue(facts[i] instanceof EnhancedSplittableGenerator);
     }
     verifyDifferent(facts);
+
+    // To ensure independence from rest of test cases, finish by
+    // configuring the default (in case other test cases changed this).
+    RandomnessFactory.configureDefault();
+  }
+
+  private void verifySame(
+      RandomGenerator.SplittableGenerator s1, RandomGenerator.SplittableGenerator s2) {
+    final int MIN = 10;
+    for (int i = 0; i < MIN; i++) {
+      assertEquals(s1.nextLong(), s2.nextLong());
+    }
   }
 
   private void verifyDifferent(RandomGenerator.SplittableGenerator[] facts) {

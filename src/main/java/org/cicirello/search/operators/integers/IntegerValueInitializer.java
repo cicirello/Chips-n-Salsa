@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.operators.integers;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.SingleInteger;
 
@@ -43,6 +44,7 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
   private final int min;
   private final int max;
   private final boolean bounded;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Construct a IntegerValueInitializer that generates random solutions uniformly in the interval
@@ -60,6 +62,7 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
     this.b = b;
     bounded = false;
     min = max = 0;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -83,21 +86,31 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
     this.min = min;
     this.max = max;
     bounded = true;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  /* private to support split() only */
+  private IntegerValueInitializer(IntegerValueInitializer other) {
+    a = other.a;
+    b = other.b;
+    min = other.min;
+    max = other.max;
+    bounded = other.bounded;
+    generator = other.generator.split();
   }
 
   @Override
   public final SingleInteger createCandidateSolution() {
     if (bounded) {
-      return new BoundedInteger(a + RandomIndexer.nextInt(b - a));
+      return new BoundedInteger(a + generator.nextInt(b - a));
     } else {
-      return new SingleInteger(a + RandomIndexer.nextInt(b - a));
+      return new SingleInteger(a + generator.nextInt(b - a));
     }
   }
 
   @Override
   public IntegerValueInitializer split() {
-    // thread-safe so can simply return this.
-    return this;
+    return new IntegerValueInitializer(this);
   }
 
   @Override

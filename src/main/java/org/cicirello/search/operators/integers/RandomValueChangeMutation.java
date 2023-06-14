@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,8 @@
 
 package org.cicirello.search.operators.integers;
 
-import org.cicirello.math.rand.RandomIndexer;
-import org.cicirello.math.rand.RandomSampler;
-import org.cicirello.math.rand.RandomVariates;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.representations.IntegerValued;
 
@@ -54,6 +53,7 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
   private final int min_k;
   private int[] indexes;
   private int lastK;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a RandomValueChangeMutation operator that always mutates exactly one integer from
@@ -109,6 +109,7 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
     this.b = b;
     this.p = p <= 0.0 ? 0.0 : (p >= 1.0 ? 1.0 : p);
     min_k = k <= 0 ? 0 : k;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -120,17 +121,18 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
     p = other.p;
     min_k = other.min_k;
     range = other.range;
+    generator = other.generator.split();
   }
 
   @Override
   public void mutate(T c) {
     if (c.length() == 0) return;
     int min = c.length() < min_k ? c.length() : min_k;
-    lastK = p > 0 ? RandomVariates.nextBinomial(c.length(), p) : min;
+    lastK = p > 0 ? generator.nextBinomial(c.length(), p) : min;
     if (lastK < min) lastK = min;
-    indexes = RandomSampler.sample(c.length(), lastK, indexes);
+    indexes = generator.sample(c.length(), lastK, indexes);
     for (int i = 0; i < lastK; i++) {
-      int v = a + RandomIndexer.nextInt(range - 1);
+      int v = a + generator.nextInt(range - 1);
       if (v >= c.get(indexes[i])) v++;
       c.set(indexes[i], v);
     }
@@ -138,7 +140,7 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
 
   @Override
   public RandomValueChangeMutation<T> split() {
-    return new RandomValueChangeMutation<T>(a, b, p, min_k);
+    return new RandomValueChangeMutation<T>(this);
   }
 
   /**
@@ -173,11 +175,11 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
    */
   void restorableMutate(T c, int[] old) {
     int min = c.length() < min_k ? c.length() : min_k;
-    lastK = p > 0 ? RandomVariates.nextBinomial(c.length(), p) : min;
+    lastK = p > 0 ? generator.nextBinomial(c.length(), p) : min;
     if (lastK < min) lastK = min;
-    indexes = RandomSampler.sample(c.length(), lastK, indexes);
+    indexes = generator.sample(c.length(), lastK, indexes);
     for (int i = 0; i < lastK; i++) {
-      int v = a + RandomIndexer.nextInt(range - 1);
+      int v = a + generator.nextInt(range - 1);
       old[i] = c.get(indexes[i]);
       if (v >= old[i]) v++;
       c.set(indexes[i], v);

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,7 @@
 
 package org.cicirello.search.problems;
 
-import java.util.SplittableRandom;
-import java.util.random.RandomGenerator;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 
 /**
@@ -157,7 +155,7 @@ public final class QuadraticAssignmentProblem
   public static QuadraticAssignmentProblem createUniformRandomInstance(
       int size, int minCost, int maxCost, int minDistance, int maxDistance) {
     return createUniformRandomInstance(
-        size, minCost, maxCost, minDistance, maxDistance, new SplittableRandom());
+        size, minCost, maxCost, minDistance, maxDistance, new EnhancedSplittableGenerator());
   }
 
   /**
@@ -179,11 +177,16 @@ public final class QuadraticAssignmentProblem
   public static QuadraticAssignmentProblem createUniformRandomInstance(
       int size, int minCost, int maxCost, int minDistance, int maxDistance, long seed) {
     return createUniformRandomInstance(
-        size, minCost, maxCost, minDistance, maxDistance, new SplittableRandom(seed));
+        size, minCost, maxCost, minDistance, maxDistance, new EnhancedSplittableGenerator(seed));
   }
 
   private static QuadraticAssignmentProblem createUniformRandomInstance(
-      int size, int minCost, int maxCost, int minDistance, int maxDistance, RandomGenerator gen) {
+      int size,
+      int minCost,
+      int maxCost,
+      int minDistance,
+      int maxDistance,
+      EnhancedSplittableGenerator gen) {
     if (size < 1) throw new IllegalArgumentException("size must be at least 1");
     if (maxCost < minCost) throw new IllegalArgumentException("maxCost must be at least minCost");
     if (maxDistance < minDistance)
@@ -193,13 +196,14 @@ public final class QuadraticAssignmentProblem
         createRandomMatrix(size, minDistance, maxDistance, gen));
   }
 
-  private static int[][] createRandomMatrix(int size, int min, int max, RandomGenerator gen) {
+  private static int[][] createRandomMatrix(
+      int size, int min, int max, EnhancedSplittableGenerator gen) {
     int[][] matrix = new int[size][size];
     int bound = max - min + 1;
     for (int i = 0; i < size; i++) {
       for (int j = i + 1; j < size; j++) {
-        matrix[i][j] = min + RandomIndexer.nextInt(bound, gen);
-        matrix[j][i] = min + RandomIndexer.nextInt(bound, gen);
+        matrix[i][j] = min + gen.nextInt(bound);
+        matrix[j][i] = min + gen.nextInt(bound);
       }
     }
     return matrix;

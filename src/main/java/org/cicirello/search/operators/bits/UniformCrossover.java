@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,6 +20,8 @@
 
 package org.cicirello.search.operators.bits;
 
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.representations.BitVector;
 
@@ -39,10 +41,12 @@ import org.cicirello.search.representations.BitVector;
 public final class UniformCrossover implements CrossoverOperator<BitVector> {
 
   private final double p;
+  private final EnhancedSplittableGenerator generator;
 
   /** Constructs a uniform crossover operator with a probability of exchanging each bit of p=0.5. */
   public UniformCrossover() {
     p = 0.5;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -54,6 +58,15 @@ public final class UniformCrossover implements CrossoverOperator<BitVector> {
    */
   public UniformCrossover(double p) {
     this.p = p <= 0.0 ? 0.0 : (p >= 1.0 ? 1.0 : p);
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  /*
+   * private to support split() only
+   */
+  private UniformCrossover(UniformCrossover other) {
+    p = other.p;
+    generator = other.generator.split();
   }
 
   /**
@@ -63,12 +76,11 @@ public final class UniformCrossover implements CrossoverOperator<BitVector> {
    */
   @Override
   public void cross(BitVector c1, BitVector c2) {
-    BitVector.exchangeBits(c1, c2, new BitVector(c1.length(), p));
+    BitVector.exchangeBits(c1, c2, new BitVector(c1.length(), p, generator));
   }
 
   @Override
   public UniformCrossover split() {
-    // Maintains no mutable state, so just return this.
-    return this;
+    return new UniformCrossover(this);
   }
 }

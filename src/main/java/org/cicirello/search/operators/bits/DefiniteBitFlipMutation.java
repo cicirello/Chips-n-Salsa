@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,8 @@
 
 package org.cicirello.search.operators.bits;
 
-import org.cicirello.math.rand.RandomIndexer;
-import org.cicirello.math.rand.RandomSampler;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.operators.UndoableMutationOperator;
@@ -64,6 +64,7 @@ public final class DefiniteBitFlipMutation
 
   private final int b;
   private int[] flipped;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a DefiniteBitFlipMutation operator.
@@ -76,6 +77,7 @@ public final class DefiniteBitFlipMutation
   public DefiniteBitFlipMutation(int b) {
     if (b < 1) throw new IllegalArgumentException("b must be at least 1");
     this.b = b;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -83,13 +85,14 @@ public final class DefiniteBitFlipMutation
    */
   private DefiniteBitFlipMutation(DefiniteBitFlipMutation other) {
     b = other.b;
+    generator = other.generator.split();
   }
 
   @Override
   public void mutate(BitVector c) {
     flipped =
-        RandomSampler.sample(
-            c.length(), RandomIndexer.nextBiasedInt(min(b, c.length())) + 1, (int[]) null);
+        generator.sample(
+            c.length(), generator.nextBiasedInt(Math.min(b, c.length())) + 1, (int[]) null);
     for (int i = 0; i < flipped.length; i++) {
       c.flip(flipped[i]);
     }
@@ -111,10 +114,6 @@ public final class DefiniteBitFlipMutation
 
   @Override
   public MutationIterator iterator(BitVector c) {
-    return new BitFlipIterator(c, min(b, c.length()));
-  }
-
-  private static int min(int x, int y) {
-    return x < y ? x : y;
+    return new BitFlipIterator(c, Math.min(b, c.length()));
   }
 }

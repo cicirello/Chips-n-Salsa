@@ -20,7 +20,8 @@
 
 package org.cicirello.search.operators.bits;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.representations.BitVector;
 
@@ -35,8 +36,19 @@ import org.cicirello.search.representations.BitVector;
  */
 public final class SinglePointCrossover implements CrossoverOperator<BitVector> {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs a single point crossover operator. */
-  public SinglePointCrossover() {}
+  public SinglePointCrossover() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  /*
+   * private to support split() only
+   */
+  private SinglePointCrossover(SinglePointCrossover other) {
+    generator = other.generator.split();
+  }
 
   /**
    * {@inheritDoc}
@@ -46,13 +58,11 @@ public final class SinglePointCrossover implements CrossoverOperator<BitVector> 
    */
   @Override
   public void cross(BitVector c1, BitVector c2) {
-    BitVector.exchangeBits(c1, c2, 0, RandomIndexer.nextInt(c1.length() - 1));
+    BitVector.exchangeBits(c1, c2, 0, generator.nextInt(c1.length() - 1));
   }
 
   @Override
   public SinglePointCrossover split() {
-    // Doesn't maintain any state, so safe to use with multiple threads.
-    // Just return this.
-    return this;
+    return new SinglePointCrossover(this);
   }
 }

@@ -22,6 +22,7 @@ package org.cicirello.search.problems;
 
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class is an implementation of the Quadratic Assignment Problem (QAP), an NP-Hard
@@ -155,7 +156,12 @@ public final class QuadraticAssignmentProblem
   public static QuadraticAssignmentProblem createUniformRandomInstance(
       int size, int minCost, int maxCost, int minDistance, int maxDistance) {
     return createUniformRandomInstance(
-        size, minCost, maxCost, minDistance, maxDistance, new EnhancedSplittableGenerator());
+        size,
+        minCost,
+        maxCost,
+        minDistance,
+        maxDistance,
+        RandomnessFactory.createEnhancedSplittableGenerator());
   }
 
   /**

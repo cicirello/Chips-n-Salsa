@@ -31,6 +31,24 @@ import org.junit.jupiter.api.*;
 public class RandomnessFactoryTests {
 
   @Test
+  public void testThreadLocal() {
+    // To ensure independence from rest of test cases, start by
+    // configuring the default (in case other test cases changed this).
+    RandomnessFactory.configureDefault();
+
+    EnhancedSplittableGenerator threadLocal =
+        RandomnessFactory.threadLocalEnhancedSplittableGenerator();
+    int x = threadLocal.nextInt(100);
+    EnhancedSplittableGenerator threadLocalSecondCall =
+        RandomnessFactory.threadLocalEnhancedSplittableGenerator();
+    assertSame(threadLocal, threadLocalSecondCall);
+
+    // To ensure independence from rest of test cases, finish by
+    // configuring the default.
+    RandomnessFactory.configureDefault();
+  }
+
+  @Test
   public void testSeeded() {
     // To ensure independence from rest of test cases, start by
     // configuring the default (in case other test cases changed this).

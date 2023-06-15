@@ -39,6 +39,14 @@ public final class RandomnessFactory {
 
   private static final Object lock = new Object();
 
+  /*
+   * Also support ThreadLocal instances of EnhancedSplittableGenerator
+   * for cases where it isn't convenient to maintain a generator within a component
+   * of the library.
+   */
+  private static final ThreadLocal<EnhancedSplittableGenerator> threadLocal =
+      new ThreadLocal<EnhancedSplittableGenerator>();
+
   /* private to prevent instantiation */
   private RandomnessFactory() {}
 
@@ -107,5 +115,20 @@ public final class RandomnessFactory {
       next = result.split();
       return result;
     }
+  }
+
+  /*
+   * Gets the ThreadLocal instance of EnhancedSplittableGenerator if one exists for the
+   * current thread, creating one if necessary by splitting.
+   *
+   * @return the ThreadLocal instance of EnhancedSplittableGenerator for the current thread
+   */
+  public static EnhancedSplittableGenerator threadLocalEnhancedSplittableGenerator() {
+    EnhancedSplittableGenerator local = threadLocal.get();
+    if (local == null) {
+      local = createEnhancedSplittableGenerator();
+      threadLocal.set(local);
+    }
+    return local;
   }
 }

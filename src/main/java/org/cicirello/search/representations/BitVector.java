@@ -21,6 +21,7 @@
 package org.cicirello.search.representations;
 
 import java.util.Arrays;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.util.Copyable;
@@ -112,7 +113,7 @@ public final class BitVector implements Copyable<BitVector> {
    * @throws IllegalArgumentException if bitLength &lt; 0.
    * @throws NullPointerException if generator is null.
    */
-  public BitVector(int bitLength, EnhancedSplittableGenerator generator) {
+  public BitVector(int bitLength, EnhancedRandomGenerator generator) {
     if (bitLength < 0) throw new IllegalArgumentException("bitLength must be non-negative");
     bits = new int[(bitLength + 31) >> 5];
     this.bitLength = bitLength;
@@ -134,7 +135,7 @@ public final class BitVector implements Copyable<BitVector> {
    * @throws IllegalArgumentException if bitLength &lt; 0.
    * @throws NullPointerException if generator is null.
    */
-  public BitVector(int bitLength, double p, EnhancedSplittableGenerator generator) {
+  public BitVector(int bitLength, double p, EnhancedRandomGenerator generator) {
     if (bitLength < 0) throw new IllegalArgumentException("bitLength must be non-negative");
     bits = new int[(bitLength + 31) >> 5];
     this.bitLength = bitLength;

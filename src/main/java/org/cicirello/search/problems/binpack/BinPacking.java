@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,10 +20,10 @@
 
 package org.cicirello.search.problems.binpack;
 
-import java.util.SplittableRandom;
-import java.util.random.RandomGenerator;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.util.IntegerList;
 
@@ -188,7 +188,10 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
      * @throws NegativeArraySizeException if numItems is negative.
      */
     public UniformRandom(int numItems, int capacity, int minSize, int maxSize) {
-      super(capacity, createItems(numItems, minSize, maxSize, new SplittableRandom()));
+      super(
+          capacity,
+          createItems(
+              numItems, minSize, maxSize, RandomnessFactory.createEnhancedSplittableGenerator()));
     }
 
     /**
@@ -205,16 +208,18 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
      * @throws NegativeArraySizeException if numItems is negative.
      */
     public UniformRandom(int numItems, int capacity, int minSize, int maxSize, long seed) {
-      super(capacity, createItems(numItems, minSize, maxSize, new SplittableRandom(seed)));
+      super(
+          capacity, createItems(numItems, minSize, maxSize, new EnhancedSplittableGenerator(seed)));
     }
 
-    private static int[] createItems(int numItems, int minSize, int maxSize, RandomGenerator gen) {
+    private static int[] createItems(
+        int numItems, int minSize, int maxSize, EnhancedRandomGenerator gen) {
       if (minSize > maxSize)
         throw new IllegalArgumentException("min and max sizes are inconsistent");
       int[] items = new int[numItems];
       int bound = maxSize - minSize + 1;
       for (int i = 0; i < numItems; i++) {
-        items[i] = minSize + RandomIndexer.nextInt(bound, gen);
+        items[i] = minSize + gen.nextInt(bound);
       }
       return items;
     }
@@ -253,7 +258,9 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
      * @throws NegativeArraySizeException if numItemTriplets is negative.
      */
     public Triplet(int numItemTriplets) {
-      super(CAPACITY, createItems(numItemTriplets, new SplittableRandom()));
+      super(
+          CAPACITY,
+          createItems(numItemTriplets, RandomnessFactory.createEnhancedSplittableGenerator()));
     }
 
     /**
@@ -266,18 +273,18 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
      * @throws NegativeArraySizeException if numItemTriplets is negative.
      */
     public Triplet(int numItemTriplets, long seed) {
-      super(CAPACITY, createItems(numItemTriplets, new SplittableRandom(seed)));
+      super(CAPACITY, createItems(numItemTriplets, new EnhancedSplittableGenerator(seed)));
     }
 
-    private static int[] createItems(int numItemTriplets, RandomGenerator gen) {
+    private static int[] createItems(int numItemTriplets, EnhancedRandomGenerator gen) {
       int[] items = new int[numItemTriplets * 3];
       int i = 0;
       for (int t = 0; t < numItemTriplets; t++) {
-        items[i] = MIN_INTERVAL_1 + RandomIndexer.nextInt(BOUND_INTERVAL_1, gen);
+        items[i] = MIN_INTERVAL_1 + gen.nextInt(BOUND_INTERVAL_1);
         int space = CAPACITY - items[i];
         i++;
         int bound = (space >> 1) - MIN_INTERVAL_2 + ((space & 0x1) != 0 ? 1 : 0);
-        items[i] = MIN_INTERVAL_2 + RandomIndexer.nextInt(bound, gen);
+        items[i] = MIN_INTERVAL_2 + gen.nextInt(bound);
         space -= items[i];
         i++;
         items[i] = space;
@@ -287,9 +294,9 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
       return items;
     }
 
-    private static void shuffle(int[] items, RandomGenerator gen) {
+    private static void shuffle(int[] items, EnhancedRandomGenerator gen) {
       for (int bound = items.length; bound > 1; bound--) {
-        int j = RandomIndexer.nextInt(bound, gen);
+        int j = gen.nextInt(bound);
         int i = bound - 1;
         if (i != j) {
           int temp = items[i];

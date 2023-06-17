@@ -22,6 +22,7 @@ package org.cicirello.search.internal;
 
 import java.util.random.RandomGenerator;
 import java.util.random.RandomGeneratorFactory;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 
 /**
@@ -33,6 +34,7 @@ import org.cicirello.math.rand.EnhancedSplittableGenerator;
 public final class RandomnessFactory {
 
   private static final String DEFAULT_ALGORITHM_NAME = "SplittableRandom";
+  private static final String DEFAULT_SEEDED_ALGORITHM_NAME = "SplittableRandom";
 
   private static volatile RandomGenerator.SplittableGenerator next =
       RandomGenerator.SplittableGenerator.of(DEFAULT_ALGORITHM_NAME);
@@ -130,5 +132,18 @@ public final class RandomnessFactory {
       threadLocal.set(local);
     }
     return local;
+  }
+
+  /**
+   * Creates an instance of a seeded EnhancedRandomGenerator for cases where seeded randomness is
+   * needed for reproducible random sequences (e.g., to enable recreating the same instance of a
+   * problem.
+   *
+   * @param seed the seed
+   */
+  public static EnhancedRandomGenerator createSeededEnhancedRandomGenerator(long seed) {
+    RandomGeneratorFactory<RandomGenerator> factory =
+        RandomGeneratorFactory.of(DEFAULT_SEEDED_ALGORITHM_NAME);
+    return new EnhancedRandomGenerator(factory.create(seed));
   }
 }

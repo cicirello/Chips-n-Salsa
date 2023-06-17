@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.SplittableRandom;
 import java.util.random.RandomGenerator;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.junit.jupiter.api.*;
 
@@ -46,6 +47,15 @@ public class RandomnessFactoryTests {
     // To ensure independence from rest of test cases, finish by
     // configuring the default.
     RandomnessFactory.configureDefault();
+  }
+
+  @Test
+  public void testSeededOneTimeInstance() {
+    EnhancedRandomGenerator[] facts = new EnhancedRandomGenerator[2];
+    facts[0] = RandomnessFactory.createSeededEnhancedRandomGenerator(42L);
+    facts[1] = RandomnessFactory.createSeededEnhancedRandomGenerator(42L);
+
+    verifySameInstance(facts[0], facts[1]);
   }
 
   @Test
@@ -161,6 +171,13 @@ public class RandomnessFactoryTests {
 
   private void verifySame(
       RandomGenerator.SplittableGenerator s1, RandomGenerator.SplittableGenerator s2) {
+    final int MIN = 10;
+    for (int i = 0; i < MIN; i++) {
+      assertEquals(s1.nextLong(), s2.nextLong());
+    }
+  }
+
+  private void verifySameInstance(EnhancedRandomGenerator s1, EnhancedRandomGenerator s2) {
     final int MIN = 10;
     for (int i = 0; i < MIN; i++) {
       assertEquals(s1.nextLong(), s2.nextLong());

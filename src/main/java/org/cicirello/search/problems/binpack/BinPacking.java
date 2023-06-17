@@ -21,7 +21,6 @@
 package org.cicirello.search.problems.binpack;
 
 import org.cicirello.math.rand.EnhancedRandomGenerator;
-import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
@@ -191,7 +190,10 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
       super(
           capacity,
           createItems(
-              numItems, minSize, maxSize, RandomnessFactory.createEnhancedSplittableGenerator()));
+              numItems,
+              minSize,
+              maxSize,
+              RandomnessFactory.threadLocalEnhancedSplittableGenerator()));
     }
 
     /**
@@ -209,7 +211,12 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
      */
     public UniformRandom(int numItems, int capacity, int minSize, int maxSize, long seed) {
       super(
-          capacity, createItems(numItems, minSize, maxSize, new EnhancedSplittableGenerator(seed)));
+          capacity,
+          createItems(
+              numItems,
+              minSize,
+              maxSize,
+              RandomnessFactory.createSeededEnhancedRandomGenerator(seed)));
     }
 
     private static int[] createItems(
@@ -260,7 +267,7 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
     public Triplet(int numItemTriplets) {
       super(
           CAPACITY,
-          createItems(numItemTriplets, RandomnessFactory.createEnhancedSplittableGenerator()));
+          createItems(numItemTriplets, RandomnessFactory.threadLocalEnhancedSplittableGenerator()));
     }
 
     /**
@@ -273,7 +280,10 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
      * @throws NegativeArraySizeException if numItemTriplets is negative.
      */
     public Triplet(int numItemTriplets, long seed) {
-      super(CAPACITY, createItems(numItemTriplets, new EnhancedSplittableGenerator(seed)));
+      super(
+          CAPACITY,
+          createItems(
+              numItemTriplets, RandomnessFactory.createSeededEnhancedRandomGenerator(seed)));
     }
 
     private static int[] createItems(int numItemTriplets, EnhancedRandomGenerator gen) {

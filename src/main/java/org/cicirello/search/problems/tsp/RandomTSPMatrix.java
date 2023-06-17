@@ -21,7 +21,6 @@
 package org.cicirello.search.problems.tsp;
 
 import org.cicirello.math.rand.EnhancedRandomGenerator;
-import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
@@ -116,7 +115,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
           maxDistance,
           symmetric,
           triangleInequality,
-          RandomnessFactory.createEnhancedSplittableGenerator());
+          RandomnessFactory.threadLocalEnhancedSplittableGenerator());
     }
 
     /**
@@ -135,7 +134,12 @@ public abstract class RandomTSPMatrix extends BaseTSP {
      */
     public Integer(
         int n, int maxDistance, boolean symmetric, boolean triangleInequality, long seed) {
-      this(n, maxDistance, symmetric, triangleInequality, new EnhancedSplittableGenerator(seed));
+      this(
+          n,
+          maxDistance,
+          symmetric,
+          triangleInequality,
+          RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
     }
 
     /**
@@ -367,7 +371,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
           maxDistance,
           symmetric,
           triangleInequality,
-          RandomnessFactory.createEnhancedSplittableGenerator());
+          RandomnessFactory.threadLocalEnhancedSplittableGenerator());
     }
 
     /**
@@ -386,7 +390,12 @@ public abstract class RandomTSPMatrix extends BaseTSP {
      */
     public Double(
         int n, double maxDistance, boolean symmetric, boolean triangleInequality, long seed) {
-      this(n, maxDistance, symmetric, triangleInequality, new EnhancedSplittableGenerator(seed));
+      this(
+          n,
+          maxDistance,
+          symmetric,
+          triangleInequality,
+          RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
     }
 
     /**

@@ -20,7 +20,7 @@
 
 package org.cicirello.search.problems;
 
-import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.internal.RandomnessFactory;
 
@@ -161,7 +161,7 @@ public final class QuadraticAssignmentProblem
         maxCost,
         minDistance,
         maxDistance,
-        RandomnessFactory.createEnhancedSplittableGenerator());
+        RandomnessFactory.threadLocalEnhancedSplittableGenerator());
   }
 
   /**
@@ -183,7 +183,12 @@ public final class QuadraticAssignmentProblem
   public static QuadraticAssignmentProblem createUniformRandomInstance(
       int size, int minCost, int maxCost, int minDistance, int maxDistance, long seed) {
     return createUniformRandomInstance(
-        size, minCost, maxCost, minDistance, maxDistance, new EnhancedSplittableGenerator(seed));
+        size,
+        minCost,
+        maxCost,
+        minDistance,
+        maxDistance,
+        RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
   }
 
   private static QuadraticAssignmentProblem createUniformRandomInstance(
@@ -192,7 +197,7 @@ public final class QuadraticAssignmentProblem
       int maxCost,
       int minDistance,
       int maxDistance,
-      EnhancedSplittableGenerator gen) {
+      EnhancedRandomGenerator gen) {
     if (size < 1) throw new IllegalArgumentException("size must be at least 1");
     if (maxCost < minCost) throw new IllegalArgumentException("maxCost must be at least minCost");
     if (maxDistance < minDistance)
@@ -203,7 +208,7 @@ public final class QuadraticAssignmentProblem
   }
 
   private static int[][] createRandomMatrix(
-      int size, int min, int max, EnhancedSplittableGenerator gen) {
+      int size, int min, int max, EnhancedRandomGenerator gen) {
     int[][] matrix = new int[size][size];
     int bound = max - min + 1;
     for (int i = 0; i < size; i++) {

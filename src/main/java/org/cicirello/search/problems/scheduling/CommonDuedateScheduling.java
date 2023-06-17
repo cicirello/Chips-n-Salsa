@@ -27,10 +27,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.SplittableRandom;
-import java.util.random.RandomGenerator;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class represents and generates instances of a common duedate scheduling problem, in which
@@ -115,7 +114,7 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
    * @throws IllegalArgumentException if n &lt; 0 or h &lt; 0 or h &gt; 1
    */
   public CommonDuedateScheduling(int n, double h) {
-    this(n, h, new SplittableRandom());
+    this(n, h, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
   }
 
   /**
@@ -135,7 +134,7 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
    * @throws IllegalArgumentException if n &lt; 0 or h &lt; 0 or h &gt; 1
    */
   public CommonDuedateScheduling(int n, double h, long seed) {
-    this(n, h, new SplittableRandom(seed));
+    this(n, h, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
   }
 
   /**
@@ -192,7 +191,7 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
    * the description of the the instance generator used to generate the instances
    * in the OR-Library.
    */
-  private CommonDuedateScheduling(int n, double h, RandomGenerator generator) {
+  private CommonDuedateScheduling(int n, double h, EnhancedRandomGenerator generator) {
     if (n < 0) throw new IllegalArgumentException("n must be nonnegative");
     if (h < 0 || h > 1) throw new IllegalArgumentException("h must be in [0.0, 1.0]");
     process = new int[n];
@@ -203,10 +202,10 @@ public final class CommonDuedateScheduling implements SingleMachineSchedulingPro
     final int T_RANGE = MAX_TARDINESS_WEIGHT - MIN_TARDINESS_WEIGHT + 1;
     int totalP = 0;
     for (int i = 0; i < n; i++) {
-      process[i] = MIN_PROCESS_TIME + RandomIndexer.nextInt(P_RANGE, generator);
+      process[i] = MIN_PROCESS_TIME + generator.nextInt(P_RANGE);
       totalP += process[i];
-      earlyWeights[i] = MIN_EARLINESS_WEIGHT + RandomIndexer.nextInt(E_RANGE, generator);
-      weights[i] = MIN_TARDINESS_WEIGHT + RandomIndexer.nextInt(T_RANGE, generator);
+      earlyWeights[i] = MIN_EARLINESS_WEIGHT + generator.nextInt(E_RANGE);
+      weights[i] = MIN_TARDINESS_WEIGHT + generator.nextInt(T_RANGE);
     }
     duedate = (int) (totalP * h);
   }

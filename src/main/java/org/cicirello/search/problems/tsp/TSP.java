@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,10 @@
 
 package org.cicirello.search.problems.tsp;
 
-import java.util.SplittableRandom;
-import java.util.random.RandomGenerator;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
 
@@ -53,12 +54,12 @@ public abstract class TSP extends BaseTSP {
   final TSPEdgeDistance d;
 
   /* package-private constructor */
-  TSP(int n, double w, RandomGenerator gen) {
+  TSP(int n, double w, EnhancedRandomGenerator gen) {
     this(n, w, new EuclideanDistance(), gen);
   }
 
   /* package-private constructor */
-  TSP(int n, double w, TSPEdgeDistance distance, RandomGenerator gen) {
+  TSP(int n, double w, TSPEdgeDistance distance, EnhancedRandomGenerator gen) {
     if (n < 2) {
       throw new IllegalArgumentException("Must be at least 2 cities.");
     }
@@ -146,7 +147,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Double(int n, double w) {
-      super(n, w, new SplittableRandom());
+      super(n, w, RandomnessFactory.createEnhancedSplittableGenerator());
     }
 
     /**
@@ -159,7 +160,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Double(int n, double w, TSPEdgeDistance distance) {
-      super(n, w, distance, new SplittableRandom());
+      super(n, w, distance, RandomnessFactory.createEnhancedSplittableGenerator());
     }
 
     /**
@@ -174,7 +175,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Double(int n, double w, long seed) {
-      super(n, w, new SplittableRandom(seed));
+      super(n, w, new EnhancedSplittableGenerator(seed));
     }
 
     /**
@@ -189,7 +190,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Double(int n, double w, TSPEdgeDistance distance, long seed) {
-      super(n, w, distance, new SplittableRandom(seed));
+      super(n, w, distance, new EnhancedSplittableGenerator(seed));
     }
 
     /**
@@ -277,7 +278,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Integer(int n, double w) {
-      super(n, w, new SplittableRandom());
+      super(n, w, RandomnessFactory.createEnhancedSplittableGenerator());
     }
 
     /**
@@ -290,7 +291,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Integer(int n, double w, TSPEdgeDistance distance) {
-      super(n, w, distance, new SplittableRandom());
+      super(n, w, distance, RandomnessFactory.createEnhancedSplittableGenerator());
     }
 
     /**
@@ -306,7 +307,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Integer(int n, double w, long seed) {
-      super(n, w, new SplittableRandom(seed));
+      super(n, w, new EnhancedSplittableGenerator(seed));
     }
 
     /**
@@ -321,7 +322,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Integer(int n, double w, TSPEdgeDistance distance, long seed) {
-      super(n, w, distance, new SplittableRandom(seed));
+      super(n, w, distance, new EnhancedSplittableGenerator(seed));
     }
 
     /**
@@ -412,7 +413,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public DoubleMatrix(int n, double w) {
-      super(n, w, new SplittableRandom());
+      super(n, w, RandomnessFactory.createEnhancedSplittableGenerator());
       weights = computeWeights();
     }
 
@@ -426,7 +427,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public DoubleMatrix(int n, double w, TSPEdgeDistance distance) {
-      super(n, w, distance, new SplittableRandom());
+      super(n, w, distance, RandomnessFactory.createEnhancedSplittableGenerator());
       weights = computeWeights();
     }
 
@@ -442,7 +443,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public DoubleMatrix(int n, double w, long seed) {
-      super(n, w, new SplittableRandom(seed));
+      super(n, w, new EnhancedSplittableGenerator(seed));
       weights = computeWeights();
     }
 
@@ -458,7 +459,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public DoubleMatrix(int n, double w, TSPEdgeDistance distance, long seed) {
-      super(n, w, distance, new SplittableRandom(seed));
+      super(n, w, distance, new EnhancedSplittableGenerator(seed));
       weights = computeWeights();
     }
 
@@ -557,7 +558,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public IntegerMatrix(int n, double w) {
-      super(n, w, new SplittableRandom());
+      super(n, w, RandomnessFactory.createEnhancedSplittableGenerator());
       weights = computeWeights();
     }
 
@@ -571,7 +572,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public IntegerMatrix(int n, double w, TSPEdgeDistance distance) {
-      super(n, w, distance, new SplittableRandom());
+      super(n, w, distance, RandomnessFactory.createEnhancedSplittableGenerator());
       weights = computeWeights();
     }
 
@@ -588,7 +589,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public IntegerMatrix(int n, double w, long seed) {
-      super(n, w, new SplittableRandom(seed));
+      super(n, w, new EnhancedSplittableGenerator(seed));
       weights = computeWeights();
     }
 
@@ -604,7 +605,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public IntegerMatrix(int n, double w, TSPEdgeDistance distance, long seed) {
-      super(n, w, distance, new SplittableRandom(seed));
+      super(n, w, distance, new EnhancedSplittableGenerator(seed));
       weights = computeWeights();
     }
 

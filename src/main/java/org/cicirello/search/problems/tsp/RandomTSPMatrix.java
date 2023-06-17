@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,10 +20,10 @@
 
 package org.cicirello.search.problems.tsp;
 
-import java.util.SplittableRandom;
-import java.util.random.RandomGenerator;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
 
@@ -111,7 +111,12 @@ public abstract class RandomTSPMatrix extends BaseTSP {
      * @throws IllegalArgumentException if maxDistance &lt; 1.
      */
     public Integer(int n, int maxDistance, boolean symmetric, boolean triangleInequality) {
-      this(n, maxDistance, symmetric, triangleInequality, new SplittableRandom());
+      this(
+          n,
+          maxDistance,
+          symmetric,
+          triangleInequality,
+          RandomnessFactory.createEnhancedSplittableGenerator());
     }
 
     /**
@@ -130,7 +135,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
      */
     public Integer(
         int n, int maxDistance, boolean symmetric, boolean triangleInequality, long seed) {
-      this(n, maxDistance, symmetric, triangleInequality, new SplittableRandom(seed));
+      this(n, maxDistance, symmetric, triangleInequality, new EnhancedSplittableGenerator(seed));
     }
 
     /**
@@ -164,7 +169,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
         int maxDistance,
         boolean symmetric,
         boolean triangleInequality,
-        RandomGenerator gen) {
+        EnhancedRandomGenerator gen) {
       if (n < 2) throw new IllegalArgumentException("n must be at least 2");
       if (maxDistance < 1) throw new IllegalArgumentException("maxDistance must be at least 1");
       d = new int[n][n];
@@ -229,19 +234,19 @@ public abstract class RandomTSPMatrix extends BaseTSP {
       return d[i][j];
     }
 
-    private void symmetricInitD(int maxDistance, RandomGenerator gen) {
+    private void symmetricInitD(int maxDistance, EnhancedRandomGenerator gen) {
       for (int i = 0; i < d.length; i++) {
         for (int j = i + 1; j < d.length; j++) {
-          d[i][j] = d[j][i] = 1 + RandomIndexer.nextInt(maxDistance, gen);
+          d[i][j] = d[j][i] = 1 + gen.nextInt(maxDistance);
         }
       }
     }
 
-    private void asymmetricInitD(int maxDistance, RandomGenerator gen) {
+    private void asymmetricInitD(int maxDistance, EnhancedRandomGenerator gen) {
       for (int i = 0; i < d.length; i++) {
         for (int j = 0; j < d.length; j++) {
           if (i != j) {
-            d[i][j] = 1 + RandomIndexer.nextInt(maxDistance, gen);
+            d[i][j] = 1 + gen.nextInt(maxDistance);
           }
         }
       }
@@ -357,7 +362,12 @@ public abstract class RandomTSPMatrix extends BaseTSP {
      * @throws IllegalArgumentException if maxDistance &lt; 0.0.
      */
     public Double(int n, double maxDistance, boolean symmetric, boolean triangleInequality) {
-      this(n, maxDistance, symmetric, triangleInequality, new SplittableRandom());
+      this(
+          n,
+          maxDistance,
+          symmetric,
+          triangleInequality,
+          RandomnessFactory.createEnhancedSplittableGenerator());
     }
 
     /**
@@ -376,7 +386,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
      */
     public Double(
         int n, double maxDistance, boolean symmetric, boolean triangleInequality, long seed) {
-      this(n, maxDistance, symmetric, triangleInequality, new SplittableRandom(seed));
+      this(n, maxDistance, symmetric, triangleInequality, new EnhancedSplittableGenerator(seed));
     }
 
     /**
@@ -410,7 +420,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
         double maxDistance,
         boolean symmetric,
         boolean triangleInequality,
-        RandomGenerator gen) {
+        EnhancedRandomGenerator gen) {
       if (n < 2) throw new IllegalArgumentException("n must be at least 2");
       if (maxDistance < 0) throw new IllegalArgumentException("maxDistance must be non-negative");
       d = new double[n][n];
@@ -475,7 +485,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
       return d[i][j];
     }
 
-    private void symmetricInitD(double maxDistance, RandomGenerator gen) {
+    private void symmetricInitD(double maxDistance, EnhancedRandomGenerator gen) {
       for (int i = 0; i < d.length; i++) {
         for (int j = i + 1; j < d.length; j++) {
           d[i][j] = d[j][i] = gen.nextDouble(maxDistance);
@@ -483,7 +493,7 @@ public abstract class RandomTSPMatrix extends BaseTSP {
       }
     }
 
-    private void asymmetricInitD(double maxDistance, RandomGenerator gen) {
+    private void asymmetricInitD(double maxDistance, EnhancedRandomGenerator gen) {
       for (int i = 0; i < d.length; i++) {
         for (int j = 0; j < d.length; j++) {
           if (i != j) {

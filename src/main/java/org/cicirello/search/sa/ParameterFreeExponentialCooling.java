@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.sa;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class implements a parameter-free version of the classic cooling schedule for simulated
@@ -88,13 +89,19 @@ public final class ParameterFreeExponentialCooling implements AnnealingSchedule 
   private int maxEvals;
   private int numEstSamples;
 
+  private final EnhancedSplittableGenerator generator;
+
   /**
    * Constructs a exponential cooling schedule that uses first few samples to estimate cost
    * difference between random neighbors, and then uses that estimate to set the initial
    * temperature, alpha, and step size.
    */
   public ParameterFreeExponentialCooling() {
-    // deliberately empty
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private ParameterFreeExponentialCooling(ParameterFreeExponentialCooling other) {
+    generator = other.generator.split();
   }
 
   @Override
@@ -116,8 +123,7 @@ public final class ParameterFreeExponentialCooling implements AnnealingSchedule 
     } else {
       boolean doAccept =
           neighborCost <= currentCost
-              || ThreadLocalRandom.current().nextDouble()
-                  < Math.exp((currentCost - neighborCost) / t);
+              || generator.nextDouble() < Math.exp((currentCost - neighborCost) / t);
       stepCounter++;
       if (stepCounter == steps && t > 0.001) {
         stepCounter = 0;
@@ -129,7 +135,7 @@ public final class ParameterFreeExponentialCooling implements AnnealingSchedule 
 
   @Override
   public ParameterFreeExponentialCooling split() {
-    return new ParameterFreeExponentialCooling();
+    return new ParameterFreeExponentialCooling(this);
   }
 
   private void estimationStep(double neighborCost, double currentCost) {

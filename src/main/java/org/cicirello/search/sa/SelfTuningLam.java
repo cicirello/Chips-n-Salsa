@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.sa;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class implements the Self-Tuning Lam annealing schedule, which is an improved variation of
@@ -77,7 +78,6 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.16.2021
  */
 public final class SelfTuningLam implements AnnealingSchedule {
 
@@ -107,6 +107,8 @@ public final class SelfTuningLam implements AnnealingSchedule {
   private static final double LAM_RATE_01 = 0.8072615745900611;
   private static final double LAM_RATE_02 = 0.6808590431613767;
 
+  private final EnhancedSplittableGenerator generator;
+
   /**
    * Default constructor. The Self-Tuning Lam annealing schedule, unlike other annealing schedules,
    * has no control parameters other than the run length (the maxEvals parameter of the {@link
@@ -114,6 +116,12 @@ public final class SelfTuningLam implements AnnealingSchedule {
    */
   public SelfTuningLam() {
     lastMaxEvals = -1;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private SelfTuningLam(SelfTuningLam other) {
+    lastMaxEvals = -1;
+    generator = other.generator.split();
   }
 
   @Override
@@ -177,8 +185,7 @@ public final class SelfTuningLam implements AnnealingSchedule {
     } else {
       boolean doAccept =
           neighborCost <= currentCost
-              || ThreadLocalRandom.current().nextDouble()
-                  < Math.exp((currentCost - neighborCost) / t);
+              || generator.nextDouble() < Math.exp((currentCost - neighborCost) / t);
       updateSchedule(doAccept);
       return doAccept;
     }
@@ -186,7 +193,7 @@ public final class SelfTuningLam implements AnnealingSchedule {
 
   @Override
   public SelfTuningLam split() {
-    return new SelfTuningLam();
+    return new SelfTuningLam(this);
   }
 
   private void doPhaseZeroUpdate(double neighborCost, double currentCost) {

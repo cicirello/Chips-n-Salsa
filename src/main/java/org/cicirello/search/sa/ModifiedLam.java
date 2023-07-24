@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.sa;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class implements an optimized variant of the Modified Lam annealing schedule. The Modified
@@ -69,7 +70,6 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 1.22.2021
  */
 public final class ModifiedLam implements AnnealingSchedule {
 
@@ -86,6 +86,8 @@ public final class ModifiedLam implements AnnealingSchedule {
 
   private int lastMaxEvals;
 
+  private final EnhancedSplittableGenerator generator;
+
   /**
    * Default constructor. The Modified Lam annealing schedule, unlike other annealing schedules, has
    * no control parameters other than the run length (the maxEvals parameter of the {@link #init}
@@ -93,6 +95,12 @@ public final class ModifiedLam implements AnnealingSchedule {
    */
   public ModifiedLam() {
     lastMaxEvals = -1;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private ModifiedLam(ModifiedLam other) {
+    lastMaxEvals = -1;
+    generator = other.generator.split();
   }
 
   @Override
@@ -118,15 +126,14 @@ public final class ModifiedLam implements AnnealingSchedule {
   public boolean accept(double neighborCost, double currentCost) {
     boolean doAccept =
         neighborCost <= currentCost
-            || ThreadLocalRandom.current().nextDouble()
-                < Math.exp((currentCost - neighborCost) / t);
+            || generator.nextDouble() < Math.exp((currentCost - neighborCost) / t);
     updateSchedule(doAccept);
     return doAccept;
   }
 
   @Override
   public ModifiedLam split() {
-    return new ModifiedLam();
+    return new ModifiedLam(this);
   }
 
   private void updateSchedule(boolean doAccept) {

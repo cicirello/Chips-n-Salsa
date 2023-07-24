@@ -23,8 +23,9 @@ package org.cicirello.search.ss;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntSupplier;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.concurrent.Splittable;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.util.Copyable;
@@ -61,8 +62,7 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>>
     implements ConstructiveHeuristic<T> {
 
   private final ArrayList<ConstructiveHeuristic<T>> heuristics;
-  private final int NUM_H;
-  private final IntSupplier heuristicSelector;
+  private final HeuristicSupplier heuristicSelector;
 
   /**
    * Constructs the HybridConstructiveHeuristic, where the heuristic is chosen uniformly at random
@@ -96,26 +96,8 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>>
   public HybridConstructiveHeuristic(
       List<? extends ConstructiveHeuristic<T>> heuristics, boolean roundRobin) {
     this.heuristics = initializeHeuristics(heuristics);
-    NUM_H = heuristics.size();
-    if (roundRobin) {
-      heuristicSelector =
-          new IntSupplier() {
-            AtomicInteger lastHeuristic = new AtomicInteger(NUM_H - 1);
-
-            @Override
-            public int getAsInt() {
-              return lastHeuristic.updateAndGet(
-                  (h) -> {
-                    h++;
-                    if (h == NUM_H) h = 0;
-                    return h;
-                  });
-            }
-          };
-    } else {
-      heuristicSelector =
-          () -> RandomnessFactory.threadLocalEnhancedSplittableGenerator().nextBiasedInt(NUM_H);
-    }
+    heuristicSelector =
+        roundRobin ? new RoundRobin(heuristics.size()) : new RandomHeuristic(heuristics.size());
   }
 
   /**
@@ -145,26 +127,20 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>>
           "The number of weights must be the same as the number of heuristics.");
     }
     this.heuristics = initializeHeuristics(heuristics);
-    NUM_H = weights.length;
-    final int[] choice = weights.clone();
-    if (choice[0] <= 0) {
-      throw new IllegalArgumentException("All weights must be positive.");
+    heuristicSelector = new WeightedHeuristic(weights);
+  }
+
+  private HybridConstructiveHeuristic(HybridConstructiveHeuristic<T> other) {
+    heuristicSelector = other.heuristicSelector.split();
+    heuristics = new ArrayList<ConstructiveHeuristic<T>>(other.heuristics.size());
+    for (ConstructiveHeuristic<T> h : other.heuristics) {
+      heuristics.add(h.split());
     }
-    for (int i = 1; i < NUM_H; i++) {
-      if (choice[i] <= 0) {
-        throw new IllegalArgumentException("All weights must be positive.");
-      }
-      choice[i] += choice[i - 1];
-    }
-    heuristicSelector =
-        () -> {
-          int which =
-              Arrays.binarySearch(
-                  choice,
-                  RandomnessFactory.threadLocalEnhancedSplittableGenerator()
-                      .nextInt(choice[NUM_H - 1]));
-          return which < 0 ? -(which + 1) : which + 1;
-        };
+  }
+
+  @Override
+  public HybridConstructiveHeuristic<T> split() {
+    return new HybridConstructiveHeuristic<T>(this);
   }
 
   private ArrayList<ConstructiveHeuristic<T>> initializeHeuristics(
@@ -241,6 +217,99 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>>
     @Override
     public void extend(Partial<U> p, int element) {
       incEval.extend(p, element);
+    }
+  }
+
+  private static interface HeuristicSupplier extends IntSupplier, Splittable<HeuristicSupplier> {
+
+    @Override
+    HeuristicSupplier split();
+  }
+
+  private static final class RoundRobin implements HeuristicSupplier {
+
+    private int lastHeuristic;
+    private final int NUM_H;
+
+    private RoundRobin(int NUM_H) {
+      this.lastHeuristic = -1;
+      this.NUM_H = NUM_H;
+    }
+
+    @Override
+    public int getAsInt() {
+      lastHeuristic++;
+      if (lastHeuristic == NUM_H) {
+        lastHeuristic = 0;
+      }
+      return lastHeuristic;
+    }
+
+    @Override
+    public RoundRobin split() {
+      return new RoundRobin(NUM_H);
+    }
+  }
+
+  private static final class RandomHeuristic implements HeuristicSupplier {
+
+    private final EnhancedSplittableGenerator generator;
+    private final int NUM_H;
+
+    private RandomHeuristic(int NUM_H) {
+      this.NUM_H = NUM_H;
+      generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    }
+
+    private RandomHeuristic(RandomHeuristic other) {
+      NUM_H = other.NUM_H;
+      generator = other.generator.split();
+    }
+
+    @Override
+    public int getAsInt() {
+      return generator.nextBiasedInt(NUM_H);
+    }
+
+    @Override
+    public RandomHeuristic split() {
+      return new RandomHeuristic(this);
+    }
+  }
+
+  private static final class WeightedHeuristic implements HeuristicSupplier {
+
+    private final int[] choice;
+    private final EnhancedSplittableGenerator generator;
+
+    private WeightedHeuristic(int[] weights) {
+      choice = weights.clone();
+      if (choice[0] <= 0) {
+        throw new IllegalArgumentException("All weights must be positive.");
+      }
+      for (int i = 1; i < choice.length; i++) {
+        if (choice[i] <= 0) {
+          throw new IllegalArgumentException("All weights must be positive.");
+        }
+        choice[i] += choice[i - 1];
+      }
+      generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    }
+
+    private WeightedHeuristic(WeightedHeuristic other) {
+      choice = other.choice.clone();
+      generator = other.generator.split();
+    }
+
+    @Override
+    public WeightedHeuristic split() {
+      return new WeightedHeuristic(this);
+    }
+
+    @Override
+    public int getAsInt() {
+      int which = Arrays.binarySearch(choice, generator.nextInt(choice[choice.length - 1]));
+      return which < 0 ? -(which + 1) : which + 1;
     }
   }
 }

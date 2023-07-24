@@ -239,7 +239,7 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>>
   private HeuristicBiasedStochasticSampling(HeuristicBiasedStochasticSampling<T> other) {
     super(other);
     bias = other.bias;
-    heuristic = other.heuristic;
+    heuristic = other.heuristic.split();
     biases = other.biases;
     generator = other.generator.split();
   }

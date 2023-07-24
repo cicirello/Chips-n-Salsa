@@ -89,10 +89,11 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
    * package-private for use by split method, and subclasses in same package
    */
   HeuristicSolutionGenerator(HeuristicSolutionGenerator<T> other) {
+    heuristic = other.heuristic.split();
+
     // these are threadsafe, so just copy references
     pOpt = other.pOpt;
     pOptInt = other.pOptInt;
-    heuristic = other.heuristic;
 
     // this one must be shared.
     tracker = other.tracker;

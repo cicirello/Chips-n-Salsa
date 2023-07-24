@@ -178,7 +178,7 @@ public final class AcceptanceBandSampling<T extends Copyable<T>>
    */
   private AcceptanceBandSampling(AcceptanceBandSampling<T> other) {
     super(other);
-    heuristic = other.heuristic;
+    heuristic = other.heuristic.split();
     acceptancePercentage = other.acceptancePercentage;
     generator = other.generator.split();
   }

@@ -211,7 +211,7 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
   private ValueBiasedStochasticSampling(ValueBiasedStochasticSampling<T> other) {
     super(other);
     bias = other.bias;
-    heuristic = other.heuristic;
+    heuristic = other.heuristic.split();
     generator = other.generator.split();
   }
 

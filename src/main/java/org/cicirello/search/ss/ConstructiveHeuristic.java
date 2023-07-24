@@ -20,6 +20,7 @@
 
 package org.cicirello.search.ss;
 
+import org.cicirello.search.concurrent.Splittable;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.util.Copyable;
 
@@ -34,7 +35,8 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public interface ConstructiveHeuristic<T extends Copyable<T>> {
+public interface ConstructiveHeuristic<T extends Copyable<T>>
+    extends Splittable<ConstructiveHeuristic<T>> {
 
   /**
    * Heuristically evaluates the possible addition of an element to the end of a Partial. Higher
@@ -100,4 +102,15 @@ public interface ConstructiveHeuristic<T extends Copyable<T>> {
    * @return the instance of the optimization problem that is the subject of this heuristic.
    */
   Problem<T> getProblem();
+
+  /**
+   * {@inheritDoc}
+   *
+   * <p>The default implementation simply returns this, which is appropriate in all cases where an
+   * instance of the heuristic can be safely shared by multiple threads.
+   */
+  @Override
+  default ConstructiveHeuristic<T> split() {
+    return this;
+  }
 }

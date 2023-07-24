@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,10 @@
 
 package org.cicirello.search.ss;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.util.Copyable;
 
 /**
@@ -126,6 +127,7 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
 
   private final BiasFunction bias;
   private final ConstructiveHeuristic<T> heuristic;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a ValueBiasedStochasticSampling search object. A ProgressTracker is created for you.
@@ -200,6 +202,7 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
     super(heuristic.getProblem(), tracker);
     this.bias = bias;
     this.heuristic = heuristic;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -209,6 +212,7 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
     super(other);
     bias = other.bias;
     heuristic = other.heuristic;
+    generator = other.generator.split();
   }
 
   @Override
@@ -285,7 +289,6 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
     int n = heuristic.completeLength();
     Partial<T> p = heuristic.createPartial(n);
     double[] b = new double[n];
-    ThreadLocalRandom r = ThreadLocalRandom.current();
     while (!p.isComplete()) {
       int k = p.numExtensions();
       if (k == 1) {
@@ -298,7 +301,7 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
           b[i] = heuristic.h(p, p.getExtension(i), incEval);
         }
         adjustForBias(b, k);
-        int which = select(b, k, r.nextDouble());
+        int which = select(b, k, generator.nextDouble());
         if (incEval != null) {
           incEval.extend(p, p.getExtension(which));
         }

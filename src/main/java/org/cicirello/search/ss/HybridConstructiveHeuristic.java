@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntSupplier;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.util.Copyable;
 
@@ -113,7 +113,8 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>>
             }
           };
     } else {
-      heuristicSelector = () -> RandomIndexer.nextBiasedInt(NUM_H);
+      heuristicSelector =
+          () -> RandomnessFactory.threadLocalEnhancedSplittableGenerator().nextBiasedInt(NUM_H);
     }
   }
 
@@ -157,7 +158,11 @@ public final class HybridConstructiveHeuristic<T extends Copyable<T>>
     }
     heuristicSelector =
         () -> {
-          int which = Arrays.binarySearch(choice, RandomIndexer.nextInt(choice[NUM_H - 1]));
+          int which =
+              Arrays.binarySearch(
+                  choice,
+                  RandomnessFactory.threadLocalEnhancedSplittableGenerator()
+                      .nextInt(choice[NUM_H - 1]));
           return which < 0 ? -(which + 1) : which + 1;
         };
   }

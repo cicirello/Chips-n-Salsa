@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,10 @@
 
 package org.cicirello.search.ss;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.util.Copyable;
 
 /**
@@ -100,6 +101,8 @@ public final class AcceptanceBandSampling<T extends Copyable<T>>
   private final ConstructiveHeuristic<T> heuristic;
   private final double acceptancePercentage;
 
+  private final EnhancedSplittableGenerator generator;
+
   /**
    * Constructs an AcceptanceBandSampling search object. Uses a default value of beta = 0.1. This
    * default has the effect of considering all heuristic values within 10% of that of the option
@@ -167,6 +170,7 @@ public final class AcceptanceBandSampling<T extends Copyable<T>>
       throw new IllegalArgumentException("beta must be in the interval: [0.0, 1.0].");
     }
     acceptancePercentage = 1.0 - beta;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -176,6 +180,7 @@ public final class AcceptanceBandSampling<T extends Copyable<T>>
     super(other);
     heuristic = other.heuristic;
     acceptancePercentage = other.acceptancePercentage;
+    generator = other.generator.split();
   }
 
   @Override
@@ -195,7 +200,7 @@ public final class AcceptanceBandSampling<T extends Copyable<T>>
         n++;
       }
     }
-    return equivalents[RandomIndexer.nextInt(n)];
+    return equivalents[generator.nextInt(n)];
   }
 
   @Override

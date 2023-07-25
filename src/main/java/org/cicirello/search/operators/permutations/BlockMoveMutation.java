@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.operators.UndoableMutationOperator;
@@ -53,8 +54,16 @@ public class BlockMoveMutation
   // needed to implement undo
   private final int[] indexes;
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs a BlockMoveMutation mutation operator. */
   public BlockMoveMutation() {
+    this(RandomnessFactory.createEnhancedSplittableGenerator());
+  }
+
+  /** package access for use by subclass */
+  BlockMoveMutation(EnhancedSplittableGenerator generator) {
+    this.generator = generator;
     indexes = new int[3];
   }
 
@@ -73,7 +82,7 @@ public class BlockMoveMutation
 
   @Override
   public BlockMoveMutation split() {
-    return new BlockMoveMutation();
+    return new BlockMoveMutation(generator.split());
   }
 
   /**
@@ -103,7 +112,7 @@ public class BlockMoveMutation
     // Note 2: Without loss of generality, the indexes are generated to
     // move the block earlier in the permutation.  We can do this because
     // a "block move" essentially swaps two adjacent "blocks."
-    RandomIndexer.nextIntTriple(n + 1, indexes, true);
+    generator.nextIntTriple(n + 1, indexes, true);
     if (indexes[2] == n) indexes[2] = indexes[1];
   }
 }

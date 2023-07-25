@@ -46,9 +46,10 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  * elements. Note that a 2-cycle is simply a swap.
  *
  * <p>The runtime of the {@link #mutate(Permutation) mutate} method is O(min(n, kmax<sup>2</sup>)),
- * and derives from the combination of algorithms utilized by the {@link RandomSampler
- * RandomSampler} class in sampling k random integers. For small values of kmax, the runtime is
- * essentially constant. The runtime of the {@link #undo(Permutation) undo} method is O(kmax).
+ * and derives from the combination of algorithms utilized by the {@link EnhancedSplittableGenerator
+ * EnhancedSplittableGenerator} class in sampling k random integers. For small values of kmax, the
+ * runtime is essentially constant. The runtime of the {@link #undo(Permutation) undo} method is
+ * O(kmax).
  *
  * <p>Cycle mutation in both of its forms, including Cycle(kmax), was introduced in the following
  * article:

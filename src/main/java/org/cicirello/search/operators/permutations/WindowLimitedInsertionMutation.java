@@ -71,7 +71,6 @@ public final class WindowLimitedInsertionMutation
    * @throws IllegalArgumentException if windowLimit &le; 0
    */
   public WindowLimitedInsertionMutation(int windowLimit) {
-    super();
     if (windowLimit <= 0) throw new IllegalArgumentException("window limit must be positive");
     limit = windowLimit;
     generator = RandomnessFactory.createEnhancedSplittableGenerator();

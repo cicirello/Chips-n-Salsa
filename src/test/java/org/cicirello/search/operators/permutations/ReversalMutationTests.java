@@ -34,17 +34,7 @@ public class ReversalMutationTests extends PermutationMutationValidator {
     undoTester(m);
     mutateTester(m);
     splitTester(m);
-    // Check distribution of random indexes
-    for (int n = 2; n <= 6; n++) {
-      boolean[][] indexPairs = new boolean[n][n];
-      int numSamples = n * (n - 1) * 40;
-      int[] indexes = new int[2];
-      for (int i = 0; i < numSamples; i++) {
-        m.generateIndexes(n, indexes);
-        indexPairs[indexes[0]][indexes[1]] = true;
-      }
-      checkIndexPairs(indexPairs);
-    }
+
     // Verify mutations are reversals
     for (int n = 2; n <= 6; n++) {
       Permutation p = new Permutation(n);

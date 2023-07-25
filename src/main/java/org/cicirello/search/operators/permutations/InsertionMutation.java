@@ -71,7 +71,9 @@ public final class InsertionMutation
 
   @Override
   public final void undo(Permutation c) {
-    if (c.length() >= 2) c.removeAndInsert(indexes[1], indexes[0]);
+    if (c.length() >= 2) {
+      c.removeAndInsert(indexes[1], indexes[0]);
+    }
   }
 
   @Override

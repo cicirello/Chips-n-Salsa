@@ -20,8 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.operators.UndoableMutationOperator;
@@ -41,14 +42,22 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class InsertionMutation
+public final class InsertionMutation
     implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 
   // needed to implement undo
   private final int[] indexes;
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs an InsertionMutation mutation operator. */
   public InsertionMutation() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    indexes = new int[2];
+  }
+
+  private InsertionMutation(InsertionMutation other) {
+    generator = other.generator.split();
     indexes = new int[2];
   }
 
@@ -67,7 +76,7 @@ public class InsertionMutation
 
   @Override
   public InsertionMutation split() {
-    return new InsertionMutation();
+    return new InsertionMutation(this);
   }
 
   /**
@@ -85,11 +94,9 @@ public class InsertionMutation
   }
 
   /*
-   * This package access method allows the window limited version
-   * implemented as a subclass to change how indexes are generated
-   * without modifying the mutate method.
+   * package access to support unit testing and for access by windowed version
    */
   void generateIndexes(int n, int[] indexes) {
-    RandomIndexer.nextIntPair(n, indexes);
+    generator.nextIntPair(n, indexes);
   }
 }

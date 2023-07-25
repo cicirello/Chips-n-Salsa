@@ -22,7 +22,10 @@ package org.cicirello.search.operators.permutations;
 
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
+import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
+import org.cicirello.search.operators.UndoableMutationOperator;
 
 /**
  * This class implements a window-limited version of the {@link BlockMoveMutation} mutation operator
@@ -45,9 +48,15 @@ import org.cicirello.search.operators.MutationIterator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
+public final class WindowLimitedBlockMoveMutation
+    implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 
   private final int limit;
+  private final BlockMoveMutation unlimited;
+  private final EnhancedSplittableGenerator generator;
+
+  // needed to implement undo
+  private final int[] indexes;
 
   /**
    * Constructs a WindowLimitedBlockMoveMutation mutation operator with a default window limit of
@@ -64,14 +73,31 @@ public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
    * @throws IllegalArgumentException if windowLimit &le; 0
    */
   public WindowLimitedBlockMoveMutation(int windowLimit) {
-    super();
     if (windowLimit <= 0) throw new IllegalArgumentException("window limit must be positive");
     limit = windowLimit;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    unlimited = new BlockMoveMutation(generator);
+    indexes = new int[3];
   }
 
   private WindowLimitedBlockMoveMutation(WindowLimitedBlockMoveMutation other) {
-    super(other);
     limit = other.limit;
+    generator = other.generator.split();
+    unlimited = new BlockMoveMutation(generator);
+    indexes = new int[3];
+  }
+
+  @Override
+  public void mutate(Permutation c) {
+    if (c.length() >= 2) {
+      generateIndexes(c.length(), indexes);
+      c.removeAndInsert(indexes[1], indexes[2] - indexes[1] + 1, indexes[0]);
+    }
+  }
+
+  @Override
+  public void undo(Permutation c) {
+    c.removeAndInsert(indexes[0], indexes[2] - indexes[1] + 1, indexes[1]);
   }
 
   @Override
@@ -84,10 +110,10 @@ public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
     return new WindowLimitedBlockMoveIterator(p, limit);
   }
 
-  @Override
-  final void generateIndexes(int n, int[] indexes, EnhancedSplittableGenerator generator) {
+  /** package access to support unit testing */
+  void generateIndexes(int n, int[] indexes) {
     if (limit >= n) {
-      super.generateIndexes(n, indexes, generator);
+      unlimited.generateIndexes(n, indexes);
       return;
     }
     // Note 1: The nextWindowedIntTriple method returns 3 all different indexes,

@@ -48,7 +48,7 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class BlockMoveMutation
+public final class BlockMoveMutation
     implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 
   // needed to implement undo
@@ -58,18 +58,21 @@ public class BlockMoveMutation
 
   /** Constructs a BlockMoveMutation mutation operator. */
   public BlockMoveMutation() {
-    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    this(RandomnessFactory.createEnhancedSplittableGenerator());
+  }
+
+  /** package access for use by window limited, within package */
+  BlockMoveMutation(EnhancedSplittableGenerator generator) {
+    this.generator = generator;
     indexes = new int[3];
   }
 
-  /** package access for use by subclass */
-  BlockMoveMutation(BlockMoveMutation other) {
-    generator = other.generator.split();
-    indexes = new int[3];
+  private BlockMoveMutation(BlockMoveMutation other) {
+    this(other.generator.split());
   }
 
   @Override
-  public final void mutate(Permutation c) {
+  public void mutate(Permutation c) {
     if (c.length() >= 2) {
       generateIndexes(c.length(), indexes);
       c.removeAndInsert(indexes[1], indexes[2] - indexes[1] + 1, indexes[0]);
@@ -77,7 +80,7 @@ public class BlockMoveMutation
   }
 
   @Override
-  public final void undo(Permutation c) {
+  public void undo(Permutation c) {
     c.removeAndInsert(indexes[0], indexes[2] - indexes[1] + 1, indexes[1]);
   }
 
@@ -101,11 +104,9 @@ public class BlockMoveMutation
   }
 
   /*
-   * This package access method allows the window limited version
-   * implemented as a subclass to change how indexes are generated
-   * without modifying the mutate method.
+   * package access to support unit testing
    */
-  void generateIndexes(int n, int[] indexes, EnhancedSplittableGenerator generator) {
+  void generateIndexes(int n, int[] indexes) {
     // Note 1: The nextIntTriple method returns 3 all different indexes,
     // but a removed block of length 1 would require 2 identical indexes.
     // To handle this, add 1 to n, and map an index beyond end of permutation
@@ -115,9 +116,5 @@ public class BlockMoveMutation
     // a "block move" essentially swaps two adjacent "blocks."
     generator.nextIntTriple(n + 1, indexes, true);
     if (indexes[2] == n) indexes[2] = indexes[1];
-  }
-
-  final void generateIndexes(int n, int[] indexes) {
-    generateIndexes(n, indexes, generator);
   }
 }

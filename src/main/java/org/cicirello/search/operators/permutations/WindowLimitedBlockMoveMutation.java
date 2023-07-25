@@ -22,7 +22,6 @@ package org.cicirello.search.operators.permutations;
 
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
-import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.MutationIterator;
 
 /**
@@ -50,8 +49,6 @@ public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
 
   private final int limit;
 
-  private final EnhancedSplittableGenerator generator;
-
   /**
    * Constructs a WindowLimitedBlockMoveMutation mutation operator with a default window limit of
    * Integer.MAX_VALUE.
@@ -67,19 +64,19 @@ public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
    * @throws IllegalArgumentException if windowLimit &le; 0
    */
   public WindowLimitedBlockMoveMutation(int windowLimit) {
-    this(RandomnessFactory.createEnhancedSplittableGenerator(), windowLimit);
-  }
-
-  private WindowLimitedBlockMoveMutation(EnhancedSplittableGenerator generator, int windowLimit) {
-    super(generator);
+    super();
     if (windowLimit <= 0) throw new IllegalArgumentException("window limit must be positive");
     limit = windowLimit;
-    this.generator = generator;
+  }
+
+  private WindowLimitedBlockMoveMutation(WindowLimitedBlockMoveMutation other) {
+    super(other);
+    limit = other.limit;
   }
 
   @Override
   public WindowLimitedBlockMoveMutation split() {
-    return new WindowLimitedBlockMoveMutation(generator.split(), limit);
+    return new WindowLimitedBlockMoveMutation(this);
   }
 
   @Override
@@ -88,9 +85,9 @@ public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
   }
 
   @Override
-  final void generateIndexes(int n, int[] indexes) {
+  final void generateIndexes(int n, int[] indexes, EnhancedSplittableGenerator generator) {
     if (limit >= n) {
-      super.generateIndexes(n, indexes);
+      super.generateIndexes(n, indexes, generator);
       return;
     }
     // Note 1: The nextWindowedIntTriple method returns 3 all different indexes,

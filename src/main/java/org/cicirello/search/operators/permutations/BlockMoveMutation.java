@@ -58,12 +58,13 @@ public class BlockMoveMutation
 
   /** Constructs a BlockMoveMutation mutation operator. */
   public BlockMoveMutation() {
-    this(RandomnessFactory.createEnhancedSplittableGenerator());
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    indexes = new int[3];
   }
 
   /** package access for use by subclass */
-  BlockMoveMutation(EnhancedSplittableGenerator generator) {
-    this.generator = generator;
+  BlockMoveMutation(BlockMoveMutation other) {
+    generator = other.generator.split();
     indexes = new int[3];
   }
 
@@ -82,7 +83,7 @@ public class BlockMoveMutation
 
   @Override
   public BlockMoveMutation split() {
-    return new BlockMoveMutation(generator.split());
+    return new BlockMoveMutation(this);
   }
 
   /**
@@ -104,7 +105,7 @@ public class BlockMoveMutation
    * implemented as a subclass to change how indexes are generated
    * without modifying the mutate method.
    */
-  void generateIndexes(int n, int[] indexes) {
+  void generateIndexes(int n, int[] indexes, EnhancedSplittableGenerator generator) {
     // Note 1: The nextIntTriple method returns 3 all different indexes,
     // but a removed block of length 1 would require 2 identical indexes.
     // To handle this, add 1 to n, and map an index beyond end of permutation
@@ -114,5 +115,9 @@ public class BlockMoveMutation
     // a "block move" essentially swaps two adjacent "blocks."
     generator.nextIntTriple(n + 1, indexes, true);
     if (indexes[2] == n) indexes[2] = indexes[1];
+  }
+
+  final void generateIndexes(int n, int[] indexes) {
+    generateIndexes(n, indexes, generator);
   }
 }

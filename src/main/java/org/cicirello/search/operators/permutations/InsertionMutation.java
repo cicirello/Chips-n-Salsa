@@ -62,7 +62,7 @@ public final class InsertionMutation
   }
 
   @Override
-  public final void mutate(Permutation c) {
+  public void mutate(Permutation c) {
     if (c.length() >= 2) {
       generator.nextIntPair(c.length(), indexes);
       c.removeAndInsert(indexes[0], indexes[1]);
@@ -70,7 +70,7 @@ public final class InsertionMutation
   }
 
   @Override
-  public final void undo(Permutation c) {
+  public void undo(Permutation c) {
     if (c.length() >= 2) {
       c.removeAndInsert(indexes[1], indexes[0]);
     }

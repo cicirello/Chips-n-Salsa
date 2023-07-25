@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
+import org.cicirello.search.operators.MutationOperator;
 
 /**
  * This class implements a window-limited version of the {@link ScrambleMutation} mutation operator
@@ -41,11 +44,12 @@ import org.cicirello.math.rand.RandomIndexer;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 4.13.2021
  */
-public final class WindowLimitedScrambleMutation extends ScrambleMutation {
+public final class WindowLimitedScrambleMutation implements MutationOperator<Permutation> {
 
   private final int limit;
+  private final int[] indexes;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a WindowLimitedScrambleMutation mutation operator with a default window limit of
@@ -62,22 +66,39 @@ public final class WindowLimitedScrambleMutation extends ScrambleMutation {
    * @throws IllegalArgumentException if windowLimit &le; 0
    */
   public WindowLimitedScrambleMutation(int windowLimit) {
-    super();
     if (windowLimit <= 0) throw new IllegalArgumentException("window limit must be positive");
     limit = windowLimit;
+    indexes = new int[2];
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private WindowLimitedScrambleMutation(WindowLimitedScrambleMutation other) {
+    limit = other.limit;
+    generator = other.generator.split();
+    indexes = new int[2];
+  }
+
+  @Override
+  public void mutate(Permutation c) {
+    if (c.length() >= 2) {
+      generateIndexes(c.length(), indexes);
+      c.scramble(indexes[0], indexes[1]);
+    }
   }
 
   @Override
   public WindowLimitedScrambleMutation split() {
-    return new WindowLimitedScrambleMutation(limit);
+    return new WindowLimitedScrambleMutation(this);
   }
 
-  @Override
-  final void generateIndexes(int n, int[] indexes) {
+  /*
+   * package access to support unit testing
+   */
+  void generateIndexes(int n, int[] indexes) {
     if (limit >= n) {
-      super.generateIndexes(n, indexes);
+      generator.nextIntPair(n, indexes);
     } else {
-      RandomIndexer.nextWindowedIntPair(n, limit, indexes);
+      generator.nextWindowedIntPair(n, limit, indexes);
     }
   }
 }

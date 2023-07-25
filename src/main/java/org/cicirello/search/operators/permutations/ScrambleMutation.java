@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.MutationOperator;
 
 /**
@@ -37,34 +38,32 @@ import org.cicirello.search.operators.MutationOperator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class ScrambleMutation implements MutationOperator<Permutation> {
+public final class ScrambleMutation implements MutationOperator<Permutation> {
 
   private final int[] indexes;
+  private final EnhancedSplittableGenerator generator;
 
   /** Constructs a ScrambleMutation mutation operator. */
   public ScrambleMutation() {
     indexes = new int[2];
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private ScrambleMutation(ScrambleMutation other) {
+    generator = other.generator.split();
+    indexes = new int[2];
   }
 
   @Override
-  public final void mutate(Permutation c) {
+  public void mutate(Permutation c) {
     if (c.length() >= 2) {
-      generateIndexes(c.length(), indexes);
+      generator.nextIntPair(c.length(), indexes);
       c.scramble(indexes[0], indexes[1]);
     }
   }
 
   @Override
   public ScrambleMutation split() {
-    return new ScrambleMutation();
-  }
-
-  /*
-   * This package access method allows the window limited version
-   * implemented as a subclass to change how indexes are generated
-   * without modifying the mutate method.
-   */
-  void generateIndexes(int n, int[] indexes) {
-    RandomIndexer.nextIntPair(n, indexes);
+    return new ScrambleMutation(this);
   }
 }

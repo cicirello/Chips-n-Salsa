@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -45,7 +45,17 @@ public class OX2Tests extends SharedTestCodeOrderingCrossovers {
       assertEquals(p1, parent1);
       assertEquals(p2, parent2);
     }
-    assertSame(ox2, ox2.split());
+    OrderCrossoverTwo s = ox2.split();
+    assertNotSame(ox2, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(p1);
+      Permutation parent1 = new Permutation(p1);
+      Permutation parent2 = new Permutation(p2);
+      s.cross(parent1, parent2);
+      assertEquals(p1, parent1);
+      assertEquals(p2, parent2);
+    }
   }
 
   @Test
@@ -57,6 +67,19 @@ public class OX2Tests extends SharedTestCodeOrderingCrossovers {
       Permutation parent1 = new Permutation(p1);
       Permutation parent2 = new Permutation(p2);
       ox2.cross(parent1, parent2);
+      // the near 0 u should essentially keep all of the parents
+      // other than a low probability statistical anomaly
+      assertEquals(p1, parent1);
+      assertEquals(p2, parent2);
+    }
+    OrderCrossoverTwo s = ox2.split();
+    assertNotSame(ox2, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation parent1 = new Permutation(p1);
+      Permutation parent2 = new Permutation(p2);
+      s.cross(parent1, parent2);
       // the near 0 u should essentially keep all of the parents
       // other than a low probability statistical anomaly
       assertEquals(p1, parent1);
@@ -78,6 +101,19 @@ public class OX2Tests extends SharedTestCodeOrderingCrossovers {
       assertEquals(p2, parent1);
       assertEquals(p1, parent2);
     }
+    OrderCrossoverTwo s = ox2.split();
+    assertNotSame(ox2, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation parent1 = new Permutation(p1);
+      Permutation parent2 = new Permutation(p2);
+      s.cross(parent1, parent2);
+      // the near 1.0 u should essentially swap the parents
+      // other than a low probability statistical anomaly
+      assertEquals(p2, parent1);
+      assertEquals(p1, parent2);
+    }
   }
 
   @Test
@@ -86,6 +122,47 @@ public class OX2Tests extends SharedTestCodeOrderingCrossovers {
     // Does not validate behavior of the OX2.
 
     OrderCrossoverTwo ox2 = new OrderCrossoverTwo();
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation parent1 = new Permutation(p1);
+      Permutation parent2 = new Permutation(p2);
+      ox2.cross(parent1, parent2);
+      assertTrue(validPermutation(parent1));
+      assertTrue(validPermutation(parent2));
+    }
+
+    ox2 = new OrderCrossoverTwo(0.25);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation parent1 = new Permutation(p1);
+      Permutation parent2 = new Permutation(p2);
+      ox2.cross(parent1, parent2);
+      assertTrue(validPermutation(parent1));
+      assertTrue(validPermutation(parent2));
+    }
+
+    ox2 = new OrderCrossoverTwo(0.75);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation parent1 = new Permutation(p1);
+      Permutation parent2 = new Permutation(p2);
+      ox2.cross(parent1, parent2);
+      assertTrue(validPermutation(parent1));
+      assertTrue(validPermutation(parent2));
+    }
+  }
+
+  @Test
+  public void testOX2ValiditySplit() {
+    // Validates children as valid permutations only.
+    // Does not validate behavior of the OX2.
+
+    OrderCrossoverTwo original = new OrderCrossoverTwo();
+    OrderCrossoverTwo ox2 = original.split();
+
     for (int n = 1; n <= 32; n *= 2) {
       Permutation p1 = new Permutation(n);
       Permutation p2 = new Permutation(n);

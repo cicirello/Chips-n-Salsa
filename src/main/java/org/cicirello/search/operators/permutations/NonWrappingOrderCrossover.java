@@ -20,9 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationBinaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.util.IntegerArray;
 
@@ -66,8 +67,16 @@ import org.cicirello.util.IntegerArray;
 public final class NonWrappingOrderCrossover
     implements CrossoverOperator<Permutation>, PermutationBinaryOperator {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs a non-wrapping order crossover (NWOX) operator. */
-  public NonWrappingOrderCrossover() {}
+  public NonWrappingOrderCrossover() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private NonWrappingOrderCrossover(NonWrappingOrderCrossover other) {
+    generator = other.generator.split();
+  }
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
@@ -83,8 +92,8 @@ public final class NonWrappingOrderCrossover
    */
   @Override
   public void apply(int[] raw1, int[] raw2) {
-    int i = RandomIndexer.nextInt(raw1.length);
-    int j = RandomIndexer.nextInt(raw1.length);
+    int i = generator.nextInt(raw1.length);
+    int j = generator.nextInt(raw1.length);
     if (j < i) {
       int temp = i;
       i = j;
@@ -118,7 +127,6 @@ public final class NonWrappingOrderCrossover
 
   @Override
   public NonWrappingOrderCrossover split() {
-    // doesn't maintain any state, so safe to return this
-    return this;
+    return new NonWrappingOrderCrossover(this);
   }
 }

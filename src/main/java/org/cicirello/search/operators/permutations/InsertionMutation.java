@@ -64,7 +64,7 @@ public final class InsertionMutation
   @Override
   public final void mutate(Permutation c) {
     if (c.length() >= 2) {
-      generateIndexes(c.length(), indexes);
+      generator.nextIntPair(c.length(), indexes);
       c.removeAndInsert(indexes[0], indexes[1]);
     }
   }
@@ -91,12 +91,5 @@ public final class InsertionMutation
   @Override
   public MutationIterator iterator(Permutation p) {
     return new InsertionIterator(p);
-  }
-
-  /*
-   * package access to support unit testing and for access by windowed version
-   */
-  void generateIndexes(int n, int[] indexes) {
-    generator.nextIntPair(n, indexes);
   }
 }

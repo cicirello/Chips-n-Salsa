@@ -115,6 +115,8 @@ public final class BlockMoveMutation
     // move the block earlier in the permutation.  We can do this because
     // a "block move" essentially swaps two adjacent "blocks."
     generator.nextIntTriple(n + 1, indexes, true);
-    if (indexes[2] == n) indexes[2] = indexes[1];
+    if (indexes[2] == n) {
+      indexes[2] = indexes[1];
+    }
   }
 }

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,10 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
-import java.util.concurrent.ThreadLocalRandom;
-import org.cicirello.math.rand.RandomIndexer;
-import org.cicirello.math.rand.RandomSampler;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.UndoableMutationOperator;
 
 /**
@@ -75,6 +74,8 @@ public final class CycleAlphaMutation implements UndoableMutationOperator<Permut
   private int lastN;
   private double term;
 
+  private final EnhancedSplittableGenerator generator;
+
   /**
    * Constructs an CycleAlphaMutation mutation operator.
    *
@@ -87,21 +88,25 @@ public final class CycleAlphaMutation implements UndoableMutationOperator<Permut
       throw new IllegalArgumentException("alpha is outside allowed range");
     logAlpha = Math.log(alpha);
     this.alpha = alpha;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private CycleAlphaMutation(CycleAlphaMutation other) {
+    generator = other.generator.split();
+    alpha = other.alpha;
+    logAlpha = other.logAlpha;
   }
 
   @Override
   public final void mutate(Permutation c) {
     if (c.length() >= 2) {
       indexes =
-          RandomSampler.sample(
-              c.length(),
-              computeK(c.length(), ThreadLocalRandom.current().nextDouble()),
-              (int[]) null);
+          generator.sample(c.length(), computeK(c.length(), generator.nextDouble()), (int[]) null);
       if (indexes.length > 2) {
         // randomize order of indexes if there are more than 2 of them
         // (no need to randomize order if only 2 indexes)
         for (int j = indexes.length - 1; j > 0; j--) {
-          int i = RandomIndexer.nextInt(j + 1);
+          int i = generator.nextInt(j + 1);
           if (i != j) {
             int temp = indexes[i];
             indexes[i] = indexes[j];
@@ -129,7 +134,7 @@ public final class CycleAlphaMutation implements UndoableMutationOperator<Permut
 
   @Override
   public CycleAlphaMutation split() {
-    return new CycleAlphaMutation(alpha);
+    return new CycleAlphaMutation(this);
   }
 
   /*

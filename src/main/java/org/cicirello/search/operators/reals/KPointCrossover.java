@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.operators.reals;
 
-import org.cicirello.math.rand.RandomSampler;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.representations.RealVector;
 
@@ -40,6 +41,7 @@ import org.cicirello.search.representations.RealVector;
 public final class KPointCrossover<T extends RealVector> implements CrossoverOperator<T> {
 
   private final int[] indexes;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a K-point crossover operator.
@@ -54,6 +56,12 @@ public final class KPointCrossover<T extends RealVector> implements CrossoverOpe
       throw new IllegalArgumentException("Must specify at least k=1 cross points");
     }
     indexes = new int[k];
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private KPointCrossover(KPointCrossover<T> other) {
+    indexes = new int[other.indexes.length];
+    generator = other.generator.split();
   }
 
   /**
@@ -65,7 +73,7 @@ public final class KPointCrossover<T extends RealVector> implements CrossoverOpe
    */
   @Override
   public void cross(RealVector c1, RealVector c2) {
-    RandomSampler.sample(c1.length(), indexes.length, indexes);
+    generator.sample(c1.length(), indexes.length, indexes);
     sort(indexes);
     int i = 1;
     for (; i < indexes.length; i += 2) {
@@ -81,7 +89,7 @@ public final class KPointCrossover<T extends RealVector> implements CrossoverOpe
   public KPointCrossover<T> split() {
     // Need to construct a fresh instance.
     // Maintains state that cannot be shared.
-    return new KPointCrossover<T>(indexes.length);
+    return new KPointCrossover<T>(this);
   }
 
   private void sort(int[] indexes) {

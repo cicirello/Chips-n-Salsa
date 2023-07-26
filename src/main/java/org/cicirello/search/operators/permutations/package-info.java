@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -19,11 +19,14 @@
  */
 
 /**
- * This package includes classes that implement mutation operators for permutations, and other
- * operators required by simulated annealing and other related metaheuristics. The classes of this
- * package depend upon the Permutation class, and other classes, from the JPT (JavaPermutationTools)
- * API, version 2 or higher. More information on the JPT can be found at the website for that
- * library: <a href=https://jpt.cicirello.org/ target=_top>JPT</a>.
+ * This package includes classes that implement local search and evolutionary operators for
+ * permutations, such as mutation operators, crossover operators, and initializers. The classes of
+ * this package depend upon the {@link org.cicirello.permutations.Permutation Permutation} class,
+ * and other classes, from <a href="https://jpt.cicirello.org/">JavaPermutationTools (JPT)</a>. More
+ * information on JPT, see its website: <a
+ * href="https://jpt.cicirello.org/">https://jpt.cicirello.org/</a>. Or you can go directly to <a
+ * href="https://jpt.cicirello.org/api/org.cicirello.jpt/module-summary.html">JPT's API
+ * documentation</a>.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

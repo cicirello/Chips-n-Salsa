@@ -20,8 +20,8 @@
 
 package org.cicirello.search.operators.reals;
 
-import java.util.function.DoubleBinaryOperator;
-import java.util.function.IntFunction;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.representations.RealValued;
 
@@ -37,6 +37,7 @@ abstract class AbstractRealMutation<T extends RealValued>
 
   private double param;
   private final InternalMutator<T> m;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs the mutation operator.
@@ -45,9 +46,10 @@ abstract class AbstractRealMutation<T extends RealValued>
    *     Cauchy, radius for a uniform, etc.
    * @param transformer The functional transformation of the mutation.
    */
-  AbstractRealMutation(double param, DoubleBinaryOperator transformer) {
+  AbstractRealMutation(double param, RandomizedDoubleBinaryOperator transformer) {
     this.param = param;
     m = new InternalTotalMutator<T>(transformer);
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -59,19 +61,21 @@ abstract class AbstractRealMutation<T extends RealValued>
    * @param selector Chooses the indexes for a partial mutation.
    */
   AbstractRealMutation(
-      double param, DoubleBinaryOperator transformer, IntFunction<int[]> selector) {
+      double param, RandomizedDoubleBinaryOperator transformer, IndexSelector selector) {
     this.param = param;
     m = new InternalPartialMutator<T>(transformer, selector);
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   AbstractRealMutation(AbstractRealMutation<T> other) {
     param = other.param;
     m = other.m;
+    generator = other.generator.split();
   }
 
   @Override
   public void mutate(T c) {
-    m.mutate(c, param);
+    m.mutate(c, param, generator);
   }
 
   @Override
@@ -130,6 +134,31 @@ abstract class AbstractRealMutation<T extends RealValued>
   public abstract AbstractRealMutation<T> split();
 
   @FunctionalInterface
+  static interface RandomizedDoubleBinaryOperator {
+
+    /**
+     * Applies this operator to the given operands.
+     *
+     * @param left the first operand
+     * @param right the second operand
+     * @param r the source of randomness
+     */
+    double applyAsDouble(double left, double right, EnhancedSplittableGenerator r);
+  }
+
+  @FunctionalInterface
+  static interface IndexSelector {
+
+    /**
+     * Applies this function to select indexes.
+     *
+     * @param length the length of the vector
+     * @param r the source of randomness
+     */
+    int[] apply(int length, EnhancedSplittableGenerator r);
+  }
+
+  @FunctionalInterface
   private static interface InternalMutator<T1 extends RealValued> {
 
     /**
@@ -137,23 +166,24 @@ abstract class AbstractRealMutation<T extends RealValued>
      *
      * @param c The real-valued candidate solution
      * @param param The mutation parameter
+     * @param r the source of randomness
      */
-    void mutate(T1 c, double param);
+    void mutate(T1 c, double param, EnhancedSplittableGenerator r);
   }
 
   private static class InternalTotalMutator<T1 extends RealValued> implements InternalMutator<T1> {
 
-    private final DoubleBinaryOperator mutator;
+    private final RandomizedDoubleBinaryOperator mutator;
 
-    private InternalTotalMutator(DoubleBinaryOperator mutator) {
+    private InternalTotalMutator(RandomizedDoubleBinaryOperator mutator) {
       this.mutator = mutator;
     }
 
     @Override
-    public void mutate(T1 c, double param) {
+    public void mutate(T1 c, double param, EnhancedSplittableGenerator r) {
       final int n = c.length();
       for (int i = 0; i < n; i++) {
-        c.set(i, mutator.applyAsDouble(c.get(i), param));
+        c.set(i, mutator.applyAsDouble(c.get(i), param, r));
       }
     }
   }
@@ -161,19 +191,19 @@ abstract class AbstractRealMutation<T extends RealValued>
   private static class InternalPartialMutator<T1 extends RealValued>
       implements InternalMutator<T1> {
 
-    private final DoubleBinaryOperator mutator;
-    private final IntFunction<int[]> selector;
+    private final RandomizedDoubleBinaryOperator mutator;
+    private final IndexSelector selector;
 
-    private InternalPartialMutator(DoubleBinaryOperator mutator, IntFunction<int[]> selector) {
+    private InternalPartialMutator(RandomizedDoubleBinaryOperator mutator, IndexSelector selector) {
       this.mutator = mutator;
       this.selector = selector;
     }
 
     @Override
-    public void mutate(T1 c, double param) {
-      int[] indexes = selector.apply(c.length());
+    public void mutate(T1 c, double param, EnhancedSplittableGenerator r) {
+      int[] indexes = selector.apply(c.length(), r);
       for (int i : indexes) {
-        c.set(i, mutator.applyAsDouble(c.get(i), param));
+        c.set(i, mutator.applyAsDouble(c.get(i), param, r));
       }
     }
   }

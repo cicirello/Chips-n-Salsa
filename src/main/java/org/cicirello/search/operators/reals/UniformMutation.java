@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,10 +20,6 @@
 
 package org.cicirello.search.operators.reals;
 
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.DoubleBinaryOperator;
-import java.util.function.IntFunction;
-import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.search.representations.RealValued;
 import org.cicirello.util.Copyable;
 
@@ -58,7 +54,7 @@ public class UniformMutation<T extends RealValued> extends AbstractRealMutation<
    *
    * @param transformer The functional transformation of the mutation.
    */
-  UniformMutation(double radius, DoubleBinaryOperator transformer) {
+  UniformMutation(double radius, RandomizedDoubleBinaryOperator transformer) {
     super(radius, transformer);
   }
 
@@ -72,7 +68,8 @@ public class UniformMutation<T extends RealValued> extends AbstractRealMutation<
    *
    * @param selector Chooses the indexes for a partial mutation.
    */
-  UniformMutation(double radius, DoubleBinaryOperator transformer, IntFunction<int[]> selector) {
+  UniformMutation(
+      double radius, RandomizedDoubleBinaryOperator transformer, IndexSelector selector) {
     super(radius, transformer, selector);
   }
 
@@ -101,8 +98,7 @@ public class UniformMutation<T extends RealValued> extends AbstractRealMutation<
    * @return A Uniform mutation operator.
    */
   public static <T extends RealValued> UniformMutation<T> createUniformMutation(double radius) {
-    return new UniformMutation<T>(
-        radius, (old, param) -> old + ThreadLocalRandom.current().nextDouble(-param, param));
+    return new UniformMutation<T>(radius, (old, param, r) -> old + r.nextDouble(-param, param));
   }
 
   /**
@@ -121,8 +117,8 @@ public class UniformMutation<T extends RealValued> extends AbstractRealMutation<
       throw new IllegalArgumentException("upperBound must be at least lowerBound");
     return new UniformMutation<T>(
         radius,
-        (old, param) -> {
-          double mutated = old + ThreadLocalRandom.current().nextDouble(-param, param);
+        (old, param, r) -> {
+          double mutated = old + r.nextDouble(-param, param);
           if (mutated <= lowerBound) return lowerBound;
           if (mutated >= upperBound) return upperBound;
           return mutated;
@@ -145,8 +141,8 @@ public class UniformMutation<T extends RealValued> extends AbstractRealMutation<
     if (k < 1) throw new IllegalArgumentException("k must be at least 1");
     return new UniformMutation<T>(
         radius,
-        (old, param) -> old + ThreadLocalRandom.current().nextDouble(-param, param),
-        n -> RandomSampler.sample(n, k < n ? k : n, (int[]) null));
+        (old, param, r) -> old + r.nextDouble(-param, param),
+        (n, r) -> r.sample(n, k < n ? k : n, (int[]) null));
   }
 
   /**
@@ -167,9 +163,7 @@ public class UniformMutation<T extends RealValued> extends AbstractRealMutation<
       return createUniformMutation(radius);
     }
     return new UniformMutation<T>(
-        radius,
-        (old, param) -> old + ThreadLocalRandom.current().nextDouble(-param, param),
-        n -> RandomSampler.sample(n, p));
+        radius, (old, param, r) -> old + r.nextDouble(-param, param), (n, r) -> r.sample(n, p));
   }
 
   @Override

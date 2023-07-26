@@ -20,9 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomSampler;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationBinaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.util.IntegerArray;
 
@@ -59,6 +60,7 @@ public final class UniformOrderBasedCrossover
     implements CrossoverOperator<Permutation>, PermutationBinaryOperator {
 
   private final double u;
+  private final EnhancedSplittableGenerator generator;
 
   /** Constructs a uniform order-based crossover (UOBX) operator, with a default U=0.5. */
   public UniformOrderBasedCrossover() {
@@ -75,6 +77,12 @@ public final class UniformOrderBasedCrossover
   public UniformOrderBasedCrossover(double u) {
     if (u <= 0 || u >= 1.0) throw new IllegalArgumentException("u must be: 0.0 < u < 1.0");
     this.u = u;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private UniformOrderBasedCrossover(UniformOrderBasedCrossover other) {
+    generator = other.generator.split();
+    u = other.u;
   }
 
   @Override
@@ -91,7 +99,7 @@ public final class UniformOrderBasedCrossover
    */
   @Override
   public void apply(int[] raw1, int[] raw2) {
-    int[] indexes = RandomSampler.sample(raw1.length, u);
+    int[] indexes = generator.sample(raw1.length, u);
     if (indexes.length < raw1.length) {
       final int orderedCount = raw1.length - indexes.length;
       boolean[] mask = new boolean[raw1.length];
@@ -125,7 +133,6 @@ public final class UniformOrderBasedCrossover
 
   @Override
   public UniformOrderBasedCrossover split() {
-    // doesn't maintain any mutable state, so safe to return this
-    return this;
+    return new UniformOrderBasedCrossover(this);
   }
 }

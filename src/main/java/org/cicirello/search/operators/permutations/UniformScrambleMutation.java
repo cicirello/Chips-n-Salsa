@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,11 @@
 
 package org.cicirello.search.operators.permutations;
 
+import java.util.random.RandomGenerator;
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.math.rand.RandomSampler;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.MutationOperator;
 
 /**
@@ -41,6 +43,7 @@ public final class UniformScrambleMutation implements MutationOperator<Permutati
 
   private final double u;
   private final boolean guaranteeChange;
+  private final RandomGenerator.SplittableGenerator generator;
 
   /**
    * Constructs a UniformScrambleMutation mutation operator.
@@ -68,21 +71,28 @@ public final class UniformScrambleMutation implements MutationOperator<Permutati
     if (u < 0 || u > 1.0) throw new IllegalArgumentException("u must be in [0.0, 1.0].");
     this.u = u;
     this.guaranteeChange = guaranteeChange;
+    generator = RandomnessFactory.createSplittableGenerator();
+  }
+
+  private UniformScrambleMutation(UniformScrambleMutation other) {
+    generator = other.generator.split();
+    guaranteeChange = other.guaranteeChange;
+    u = other.u;
   }
 
   @Override
   public final void mutate(Permutation c) {
     if (c.length() >= 2) {
-      int[] indexes = RandomSampler.sample(c.length(), u);
+      int[] indexes = RandomSampler.sample(c.length(), u, generator);
       if (guaranteeChange && indexes.length < 2) {
-        indexes = RandomIndexer.nextIntPair(c.length(), null);
+        indexes = RandomIndexer.nextIntPair(c.length(), null, generator);
       }
-      c.scramble(indexes);
+      c.scramble(indexes, generator);
     }
   }
 
   @Override
   public UniformScrambleMutation split() {
-    return new UniformScrambleMutation(u, guaranteeChange);
+    return new UniformScrambleMutation(this);
   }
 }

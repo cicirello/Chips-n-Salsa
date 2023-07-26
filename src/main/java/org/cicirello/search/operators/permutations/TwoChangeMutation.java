@@ -20,9 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationFullUnaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.operators.UndoableMutationOperator;
@@ -94,19 +95,26 @@ public final class TwoChangeMutation
   private int a;
   private int b;
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs an TwoChangeMutation mutation operator. */
-  public TwoChangeMutation() {}
+  public TwoChangeMutation() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private TwoChangeMutation(TwoChangeMutation other) {
+    generator = other.generator.split();
+  }
 
   @Override
-  public final void mutate(Permutation c) {
+  public void mutate(Permutation c) {
     if (c.length() >= 4) {
-      internalMutate(
-          c, RandomIndexer.nextInt(c.length()), 1 + RandomIndexer.nextInt(c.length() - 3));
+      internalMutate(c, generator.nextInt(c.length()), 1 + generator.nextInt(c.length() - 3));
     }
   }
 
   @Override
-  public final void undo(Permutation c) {
+  public void undo(Permutation c) {
     if (c.length() >= 4) {
       c.apply(this);
     }
@@ -114,7 +122,7 @@ public final class TwoChangeMutation
 
   @Override
   public TwoChangeMutation split() {
-    return new TwoChangeMutation();
+    return new TwoChangeMutation(this);
   }
 
   /**

@@ -40,7 +40,10 @@ import org.cicirello.search.operators.MutationOperator;
  * V. A. Cicirello, <a href="https://www.cicirello.org/publications/cicirello2014bict.html"
  * target=_top>"On the Effects of Window-Limits on the Distance Profiles of Permutation Neighborhood
  * Operators,"</a> in Proceedings of the 8th International Conference on Bioinspired Information and
- * Communications Technologies, pages 28–35, December 2014.
+ * Communications Technologies, pages 28-35, December 2014. <a
+ * href="https://www.cicirello.org/publications/cicirello-bict-2014.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2014bict.bib">[BIB]</a> <a
+ * href="http://dl.acm.org/citation.cfm?id=2744531">[From the ACM Digital Library]</a>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

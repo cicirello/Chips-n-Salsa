@@ -111,11 +111,16 @@ import org.cicirello.util.Copyable;
  *       href="https://www.cicirello.org/publications/cicirello2003thesis.html"
  *       target=_top>"Boosting Stochastic Problem Solvers Through Online Self-Analysis of
  *       Performance."</a> PhD thesis, Ph.D. in Robotics, The Robotics Institute, School of Computer
- *       Science, Carnegie Mellon University, Pittsburgh, PA, July 2003.
+ *       Science, Carnegie Mellon University, Pittsburgh, PA, July 2003. <a
+ *       href="https://www.cicirello.org/publications/cicirello_vincent_2003_1.pdf">[PDF]</a> <a
+ *       href="https://www.cicirello.org/publications/cicirello2003thesis.bib">[BIB]</a>
  *   <li>Vincent A. Cicirello and Stephen F. Smith. <a
  *       href="https://www.cicirello.org/publications/cicirello2005jheur.html"
  *       target=_top>"Enhancing Stochastic Search Performance by Value-Biased Randomization of
- *       Heuristics."</a> Journal of Heuristics, 11(1):5-34, January 2005.
+ *       Heuristics."</a> Journal of Heuristics, 11(1):5-34, January 2005. doi:<a
+ *       href="https://doi.org/10.1007/s10732-005-6997-8">10.1007/s10732-005-6997-8</a>. <a
+ *       href="https://www.cicirello.org/publications/HEURISTICS2005.pdf">[PDF]</a> <a
+ *       href="https://www.cicirello.org/publications/cicirello2005jheur.bib">[BIB]</a>
  * </ul>
  *
  * @param <T> The type of object under optimization.

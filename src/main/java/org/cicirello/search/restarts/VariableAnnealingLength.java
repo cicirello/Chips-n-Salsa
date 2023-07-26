@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -40,10 +40,13 @@ import java.util.List;
  * first few run lengths in the sequence are: 1000, 2000, 4000, ....
  *
  * <p>The VAL restart schedule was introduced in:<br>
- * Vincent A. Cicirello. <a href=https://www.cicirello.org/publications/cicirello2017SoCS2.html
- * target=_top>"Variable Annealing Length and Parallelism in Simulated Annealing."</a> In
- * Proceedings of the Tenth International Symposium on Combinatorial Search (SoCS 2017), pages 2-10.
- * AAAI Press, June 2017.
+ * Vincent A. Cicirello. <a href="https://www.cicirello.org/publications/cicirello2017SoCS2.html"
+ * target="_top">"Variable Annealing Length and Parallelism in Simulated Annealing."</a> In
+ * <i>Proceedings of the Tenth International Symposium on Combinatorial Search (SoCS 2017)</i>,
+ * pages 2-10. AAAI Press, June 2017. doi:<a
+ * href="https://doi.org/10.1609/socs.v8i1.18424">10.1609/socs.v8i1.18424</a>. <a
+ * href="https://www.cicirello.org/publications/SoCS2017-Cicirello.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2017SoCS2.bib">[BIB]</a>
  *
  * <p>This class supports both the original schedule as defined above, as well as including a
  * parameter to specify the initial run length r<sub>0</sub> as something other than 1000. In this
@@ -56,7 +59,6 @@ import java.util.List;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 1.25.2021
  */
 public final class VariableAnnealingLength implements RestartSchedule {
 

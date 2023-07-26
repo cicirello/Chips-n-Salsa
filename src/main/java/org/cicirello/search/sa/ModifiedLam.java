@@ -33,10 +33,12 @@ import org.cicirello.search.internal.RandomnessFactory;
  *
  * <p>This optimized version of the Modified Lam is described in the following article:<br>
  * Vincent A. Cicirello. 2020. <a
- * href=https://www.cicirello.org/publications/eai.16-12-2020.167653.pdf>Optimizing the Modified Lam
+ * href=https://www.cicirello.org/publications/cicirello2020inis2.html>Optimizing the Modified Lam
  * Annealing Schedule</a>. <i>Industrial Networks and Intelligent Systems</i>, 7(25): 1-11, Article
  * e1 (December 2020). doi:<a
- * href=https://doi.org/10.4108/eai.16-12-2020.167653>10.4108/eai.16-12-2020.167653</a>.
+ * href=https://doi.org/10.4108/eai.16-12-2020.167653>10.4108/eai.16-12-2020.167653</a>. <a
+ * href="https://www.cicirello.org/publications/eai.16-12-2020.167653.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2020inis2.bib">[BIB]</a>
  *
  * <p>This optimized Java implementation is significantly faster than the implementation that would
  * result from a direct implementation as described originally by Boyan (1998). Specifically, in the

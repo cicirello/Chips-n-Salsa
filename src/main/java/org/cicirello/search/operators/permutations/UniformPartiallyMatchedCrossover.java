@@ -53,6 +53,8 @@ import org.cicirello.search.operators.CrossoverOperator;
  * href="https://www.cicirello.org/publications/cicirello2000gecco.html">Modeling GA Performance for
  * Control Parameter Optimization</a>. <i>Proceedings of the Genetic and Evolutionary Computation
  * Conference (GECCO-2000)</i>, pages 235-242. Morgan Kaufmann Publishers, July 2000. <a
+ * href="https://www.cicirello.org/publications/gecco2000-cicirello.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2000gecco.bib">[BIB]</a> <a
  * href="http://dl.acm.org/citation.cfm?id=2933750">[From ACM Digital Library]</a>
  *
  * <p>The worst case runtime of a call to {@link #cross cross} is O(N), where N is the length of the

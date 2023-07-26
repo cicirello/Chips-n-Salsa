@@ -59,7 +59,11 @@ import org.cicirello.util.IntegerArray;
  * Crossover: An Order Preserving Crossover Operator that Respects Absolute Position</a>.
  * <i>Proceedings of the Genetic and Evolutionary Computation Conference (GECCO'06)</i>, volume 2,
  * pages 1125-1131. ACM Press, July 2006. doi:<a
- * href="http://dx.doi.org/10.1145/1143997.1144177">10.1145/1143997.1144177</a>
+ * href="https://doi.org/10.1145/1143997.1144177">10.1145/1143997.1144177</a>. <a
+ * href="https://www.cicirello.org/publications/GECCO2006.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2006gecco.bib">[BIB]</a> <a
+ * href="https://dl.acm.org/doi/10.1145/1143997.1144177?cid=81100638594">[From the ACM Digital
+ * Library]</a>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

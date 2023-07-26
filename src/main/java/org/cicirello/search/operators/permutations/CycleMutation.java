@@ -55,9 +55,12 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  * article:
  *
  * <p>Vincent A. Cicirello. 2022. <a
- * href="https://www.cicirello.org/publications/applsci-12-05506.pdf">Cycle Mutation: Evolving
+ * href="https://www.cicirello.org/publications/cicirello2022applsci.html">Cycle Mutation: Evolving
  * Permutations via Cycle Induction</a>, <i>Applied Sciences</i>, 12(11), Article 5506 (June 2022).
- * doi:<a href="https://doi.org/10.3390/app12115506">10.3390/app12115506</a>
+ * doi:<a href="https://doi.org/10.3390/app12115506">10.3390/app12115506</a>. <a
+ * href="https://www.cicirello.org/publications/applsci-12-05506.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2022applsci.bib">[BIB]</a> <a
+ * href="http://arxiv.org/abs/2205.14125">[arXiv]</a>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>

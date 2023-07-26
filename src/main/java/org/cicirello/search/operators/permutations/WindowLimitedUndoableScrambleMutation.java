@@ -20,7 +20,8 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import java.util.random.RandomGenerator;
+import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationUnaryOperator;
 import org.cicirello.search.internal.RandomnessFactory;
@@ -55,7 +56,7 @@ public final class WindowLimitedUndoableScrambleMutation
   private final int limit;
   private int[] last;
   private final int[] indexes;
-  private final EnhancedSplittableGenerator generator;
+  private final RandomGenerator.SplittableGenerator generator;
 
   /**
    * Constructs a WindowLimitedUndoableScrambleMutation mutation operator with a default window
@@ -76,7 +77,7 @@ public final class WindowLimitedUndoableScrambleMutation
     if (windowLimit <= 0) throw new IllegalArgumentException("window limit must be positive");
     limit = windowLimit;
     indexes = new int[2];
-    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    generator = RandomnessFactory.createSplittableGenerator();
   }
 
   private WindowLimitedUndoableScrambleMutation(WindowLimitedUndoableScrambleMutation other) {
@@ -90,7 +91,7 @@ public final class WindowLimitedUndoableScrambleMutation
     if (c.length() >= 2) {
       last = c.toArray();
       generateIndexes(c.length(), indexes);
-      c.scramble(indexes[0], indexes[1]);
+      c.scramble(indexes[0], indexes[1], generator);
     }
   }
 
@@ -126,9 +127,9 @@ public final class WindowLimitedUndoableScrambleMutation
    */
   void generateIndexes(int n, int[] indexes) {
     if (limit >= n) {
-      generator.nextIntPair(n, indexes);
+      RandomIndexer.nextIntPair(n, indexes, generator);
     } else {
-      generator.nextWindowedIntPair(n, limit, indexes);
+      RandomIndexer.nextWindowedIntPair(n, limit, indexes, generator);
     }
   }
 }

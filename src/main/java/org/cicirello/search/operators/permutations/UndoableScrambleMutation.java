@@ -20,7 +20,8 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import java.util.random.RandomGenerator;
+import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationUnaryOperator;
 import org.cicirello.search.internal.RandomnessFactory;
@@ -51,12 +52,12 @@ public final class UndoableScrambleMutation
 
   private int[] last;
   private final int[] indexes;
-  private final EnhancedSplittableGenerator generator;
+  private final RandomGenerator.SplittableGenerator generator;
 
   /** Constructs an UndoableScrambleMutation mutation operator. */
   public UndoableScrambleMutation() {
     indexes = new int[2];
-    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    generator = RandomnessFactory.createSplittableGenerator();
   }
 
   private UndoableScrambleMutation(UndoableScrambleMutation other) {
@@ -68,8 +69,8 @@ public final class UndoableScrambleMutation
   public void mutate(Permutation c) {
     if (c.length() >= 2) {
       last = c.toArray();
-      generator.nextIntPair(c.length(), indexes);
-      c.scramble(indexes[0], indexes[1]);
+      RandomIndexer.nextIntPair(c.length(), indexes, generator);
+      c.scramble(indexes[0], indexes[1], generator);
     }
   }
 

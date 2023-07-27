@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,7 +22,7 @@ package org.cicirello.search.problems.tsp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.SplittableRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.problems.OptimizationProblem;
@@ -243,7 +243,7 @@ public class TSPHeuristicsTests {
 
     public TSPSubClassExplicitWeights(double[][] edgeWeights) {
       // note that this test ignores this and overrides behavior
-      super(edgeWeights.length, 100, new SplittableRandom(42));
+      super(edgeWeights.length, 100, new EnhancedSplittableGenerator(42));
       this.edgeWeights = edgeWeights;
     }
 

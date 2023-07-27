@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,6 +22,7 @@ package org.cicirello.search.evo;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.util.Copyable;
 import org.junit.jupiter.api.*;
 
@@ -30,9 +31,10 @@ public class EncodingWithParametersTests {
 
   @Test
   public void testConstructorForceRatesConstant() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     TestObject obj = new TestObject(5);
     EncodingWithParameters<TestObject> ewp =
-        new EncodingWithParameters<TestObject>(obj, 3, 0.4, 0.4 + Math.ulp(0.4));
+        new EncodingWithParameters<TestObject>(obj, 3, 0.4, 0.4 + Math.ulp(0.4), generator);
     assertSame(obj, ewp.getCandidate());
     assertEquals(3, ewp.length());
     for (int i = 0; i < 3; i++) {
@@ -49,8 +51,10 @@ public class EncodingWithParametersTests {
 
   @Test
   public void testConstructorDefaults() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     TestObject obj = new TestObject(5);
-    EncodingWithParameters<TestObject> ewp = new EncodingWithParameters<TestObject>(obj, 3);
+    EncodingWithParameters<TestObject> ewp =
+        new EncodingWithParameters<TestObject>(obj, 3, generator);
     assertSame(obj, ewp.getCandidate());
     assertEquals(3, ewp.length());
     double[] beforeMutate = new double[3];
@@ -78,19 +82,25 @@ public class EncodingWithParametersTests {
 
   @Test
   public void testEqualsAndHashCode() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     TestObject obj1 = new TestObject(5);
     TestObject obj2 = new TestObject(5);
-    EncodingWithParameters<TestObject> ewp1 = new EncodingWithParameters<TestObject>(obj1, 3);
-    EncodingWithParameters<TestObject> ewp2 = new EncodingWithParameters<TestObject>(obj2, 3);
+    EncodingWithParameters<TestObject> ewp1 =
+        new EncodingWithParameters<TestObject>(obj1, 3, generator);
+    EncodingWithParameters<TestObject> ewp2 =
+        new EncodingWithParameters<TestObject>(obj2, 3, generator);
     for (int i = 0; i < 3 && parametersAreEqual(ewp1, ewp2); i++) {
-      ewp2 = new EncodingWithParameters<TestObject>(obj2, 3);
+      ewp2 = new EncodingWithParameters<TestObject>(obj2, 3, generator);
     }
-    EncodingWithParameters<TestObject> ewp3 = new EncodingWithParameters<TestObject>(obj1, 3);
+    EncodingWithParameters<TestObject> ewp3 =
+        new EncodingWithParameters<TestObject>(obj1, 3, generator);
     for (int i = 0; i < 3 && parametersAreEqual(ewp1, ewp3); i++) {
-      ewp3 = new EncodingWithParameters<TestObject>(obj1, 3);
+      ewp3 = new EncodingWithParameters<TestObject>(obj1, 3, generator);
     }
-    EncodingWithParameters<TestObject> ewp4 = new EncodingWithParameters<TestObject>(obj2, 2);
-    EncodingWithParameters<TestObject> ewp5 = new EncodingWithParameters<TestObject>(obj1, 2);
+    EncodingWithParameters<TestObject> ewp4 =
+        new EncodingWithParameters<TestObject>(obj2, 2, generator);
+    EncodingWithParameters<TestObject> ewp5 =
+        new EncodingWithParameters<TestObject>(obj1, 2, generator);
     assertEquals(ewp1, ewp2);
     assertEquals(ewp1, ewp3);
     assertEquals(ewp1, ewp4);
@@ -112,11 +122,12 @@ public class EncodingWithParametersTests {
     assertEquals(ewp3.hashCode(), ewp5.hashCode());
     assertEquals(ewp4.hashCode(), ewp5.hashCode());
     TestObject obj3 = new TestObject(4);
-    EncodingWithParameters<TestObject> different = new EncodingWithParameters<TestObject>(obj3, 3);
+    EncodingWithParameters<TestObject> different =
+        new EncodingWithParameters<TestObject>(obj3, 3, generator);
     assertNotEquals(ewp1, different);
     assertNotEquals(ewp2, different);
     assertNotEquals(ewp3, different);
-    different = new EncodingWithParameters<TestObject>(obj3, 2);
+    different = new EncodingWithParameters<TestObject>(obj3, 2, generator);
     assertNotEquals(ewp4, different);
     assertNotEquals(ewp5, different);
 
@@ -130,8 +141,10 @@ public class EncodingWithParametersTests {
 
   @Test
   public void testCopy() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     TestObject obj = new TestObject(5);
-    EncodingWithParameters<TestObject> ewp = new EncodingWithParameters<TestObject>(obj, 3);
+    EncodingWithParameters<TestObject> ewp =
+        new EncodingWithParameters<TestObject>(obj, 3, generator);
     EncodingWithParameters<TestObject> copy = ewp.copy();
     assertEquals(ewp.getCandidate(), copy.getCandidate());
     assertNotSame(ewp.getCandidate(), copy.getCandidate());

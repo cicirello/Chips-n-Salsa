@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,10 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
-import java.util.concurrent.ThreadLocalRandom;
-import org.cicirello.math.rand.RandomIndexer;
-import org.cicirello.math.rand.RandomSampler;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.UndoableMutationOperator;
 
 /**
@@ -58,9 +57,12 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  * article:
  *
  * <p>Vincent A. Cicirello. 2022. <a
- * href="https://www.cicirello.org/publications/applsci-12-05506.pdf">Cycle Mutation: Evolving
+ * href="https://www.cicirello.org/publications/cicirello2022applsci.html">Cycle Mutation: Evolving
  * Permutations via Cycle Induction</a>, <i>Applied Sciences</i>, 12(11), Article 5506 (June 2022).
- * doi:<a href="https://doi.org/10.3390/app12115506">10.3390/app12115506</a>
+ * doi:<a href="https://doi.org/10.3390/app12115506">10.3390/app12115506</a>. <a
+ * href="https://www.cicirello.org/publications/applsci-12-05506.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2022applsci.bib">[BIB]</a> <a
+ * href="http://arxiv.org/abs/2205.14125">[arXiv]</a>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
@@ -75,6 +77,8 @@ public final class CycleAlphaMutation implements UndoableMutationOperator<Permut
   private int lastN;
   private double term;
 
+  private final EnhancedSplittableGenerator generator;
+
   /**
    * Constructs an CycleAlphaMutation mutation operator.
    *
@@ -87,21 +91,25 @@ public final class CycleAlphaMutation implements UndoableMutationOperator<Permut
       throw new IllegalArgumentException("alpha is outside allowed range");
     logAlpha = Math.log(alpha);
     this.alpha = alpha;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private CycleAlphaMutation(CycleAlphaMutation other) {
+    generator = other.generator.split();
+    alpha = other.alpha;
+    logAlpha = other.logAlpha;
   }
 
   @Override
   public final void mutate(Permutation c) {
     if (c.length() >= 2) {
       indexes =
-          RandomSampler.sample(
-              c.length(),
-              computeK(c.length(), ThreadLocalRandom.current().nextDouble()),
-              (int[]) null);
+          generator.sample(c.length(), computeK(c.length(), generator.nextDouble()), (int[]) null);
       if (indexes.length > 2) {
         // randomize order of indexes if there are more than 2 of them
         // (no need to randomize order if only 2 indexes)
         for (int j = indexes.length - 1; j > 0; j--) {
-          int i = RandomIndexer.nextInt(j + 1);
+          int i = generator.nextInt(j + 1);
           if (i != j) {
             int temp = indexes[i];
             indexes[i] = indexes[j];
@@ -129,7 +137,7 @@ public final class CycleAlphaMutation implements UndoableMutationOperator<Permut
 
   @Override
   public CycleAlphaMutation split() {
-    return new CycleAlphaMutation(alpha);
+    return new CycleAlphaMutation(this);
   }
 
   /*

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -23,7 +23,8 @@ package org.cicirello.search.operators;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * A WeightedHybridCrossover enables using multiple crossover operators, such that each time the
@@ -43,6 +44,7 @@ public final class WeightedHybridCrossover<T> implements CrossoverOperator<T> {
 
   private final ArrayList<CrossoverOperator<T>> ops;
   private final int[] choice;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a WeightedHybridCrossover from a Collection of CrossoverOperators.
@@ -70,6 +72,7 @@ public final class WeightedHybridCrossover<T> implements CrossoverOperator<T> {
     for (CrossoverOperator<T> op : ops) {
       this.ops.add(op);
     }
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -81,11 +84,12 @@ public final class WeightedHybridCrossover<T> implements CrossoverOperator<T> {
       ops.add(op.split());
     }
     choice = other.choice.clone();
+    generator = other.generator.split();
   }
 
   @Override
   public void cross(T c1, T c2) {
-    int value = RandomIndexer.nextInt(choice[choice.length - 1]);
+    int value = generator.nextInt(choice[choice.length - 1]);
     int i = Arrays.binarySearch(choice, value);
     if (i < 0) i = -(i + 1);
     else i++;

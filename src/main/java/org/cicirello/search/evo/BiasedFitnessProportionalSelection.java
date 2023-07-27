@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -60,12 +60,18 @@ public class BiasedFitnessProportionalSelection extends FitnessProportionalSelec
     this.bias = bias;
   }
 
+  /* package private for use by subclasses in same package */
+  BiasedFitnessProportionalSelection(BiasedFitnessProportionalSelection other) {
+    super(other);
+
+    // The FitnessBiasFunction interface's contract is that implementations
+    // must be threadsafe and thread efficient, so just copy reference.
+    bias = other.bias;
+  }
+
   @Override
   public BiasedFitnessProportionalSelection split() {
-    // The FitnessBiasFunction interface's contract is that implementations
-    // must be threadsafe and thread efficient, so assume that the only state,
-    // the bias function meets that contract.
-    return this;
+    return new BiasedFitnessProportionalSelection(this);
   }
 
   @Override

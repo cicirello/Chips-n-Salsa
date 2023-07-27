@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,10 @@
 
 package org.cicirello.search.ss;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.util.Copyable;
 
 /**
@@ -110,11 +111,16 @@ import org.cicirello.util.Copyable;
  *       href="https://www.cicirello.org/publications/cicirello2003thesis.html"
  *       target=_top>"Boosting Stochastic Problem Solvers Through Online Self-Analysis of
  *       Performance."</a> PhD thesis, Ph.D. in Robotics, The Robotics Institute, School of Computer
- *       Science, Carnegie Mellon University, Pittsburgh, PA, July 2003.
+ *       Science, Carnegie Mellon University, Pittsburgh, PA, July 2003. <a
+ *       href="https://www.cicirello.org/publications/cicirello_vincent_2003_1.pdf">[PDF]</a> <a
+ *       href="https://www.cicirello.org/publications/cicirello2003thesis.bib">[BIB]</a>
  *   <li>Vincent A. Cicirello and Stephen F. Smith. <a
  *       href="https://www.cicirello.org/publications/cicirello2005jheur.html"
  *       target=_top>"Enhancing Stochastic Search Performance by Value-Biased Randomization of
- *       Heuristics."</a> Journal of Heuristics, 11(1):5-34, January 2005.
+ *       Heuristics."</a> Journal of Heuristics, 11(1):5-34, January 2005. doi:<a
+ *       href="https://doi.org/10.1007/s10732-005-6997-8">10.1007/s10732-005-6997-8</a>. <a
+ *       href="https://www.cicirello.org/publications/HEURISTICS2005.pdf">[PDF]</a> <a
+ *       href="https://www.cicirello.org/publications/cicirello2005jheur.bib">[BIB]</a>
  * </ul>
  *
  * @param <T> The type of object under optimization.
@@ -126,6 +132,7 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
 
   private final BiasFunction bias;
   private final ConstructiveHeuristic<T> heuristic;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a ValueBiasedStochasticSampling search object. A ProgressTracker is created for you.
@@ -200,6 +207,7 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
     super(heuristic.getProblem(), tracker);
     this.bias = bias;
     this.heuristic = heuristic;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -208,7 +216,8 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
   private ValueBiasedStochasticSampling(ValueBiasedStochasticSampling<T> other) {
     super(other);
     bias = other.bias;
-    heuristic = other.heuristic;
+    heuristic = other.heuristic.split();
+    generator = other.generator.split();
   }
 
   @Override
@@ -285,7 +294,6 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
     int n = heuristic.completeLength();
     Partial<T> p = heuristic.createPartial(n);
     double[] b = new double[n];
-    ThreadLocalRandom r = ThreadLocalRandom.current();
     while (!p.isComplete()) {
       int k = p.numExtensions();
       if (k == 1) {
@@ -298,7 +306,7 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
           b[i] = heuristic.h(p, p.getExtension(i), incEval);
         }
         adjustForBias(b, k);
-        int which = select(b, k, r.nextDouble());
+        int which = select(b, k, generator.nextDouble());
         if (incEval != null) {
           incEval.extend(p, p.getExtension(which));
         }

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -21,9 +21,10 @@
 package org.cicirello.search.operators.permutations;
 
 import java.util.Arrays;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationBinaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
@@ -75,8 +76,16 @@ import org.cicirello.search.operators.CrossoverOperator;
 public final class EdgeRecombination
     implements CrossoverOperator<Permutation>, PermutationBinaryOperator {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs a edge recombination operator. */
-  public EdgeRecombination() {}
+  public EdgeRecombination() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private EdgeRecombination(EdgeRecombination other) {
+    generator = other.generator.split();
+  }
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
@@ -87,8 +96,7 @@ public final class EdgeRecombination
 
   @Override
   public EdgeRecombination split() {
-    // doesn't maintain any state, so safe to return this
-    return this;
+    return new EdgeRecombination(this);
   }
 
   /**
@@ -111,7 +119,7 @@ public final class EdgeRecombination
       // 1. record that we used raw[i-1]
       map.used(raw[i - 1]);
       // 2. pick an adjacent element of raw[i-1] and add to raw[i]
-      raw[i] = map.pick(raw[i - 1]);
+      raw[i] = map.pick(raw[i - 1], generator);
     }
   }
 
@@ -181,7 +189,7 @@ public final class EdgeRecombination
       }
     }
 
-    final int pick(int from) {
+    final int pick(int from, EnhancedSplittableGenerator generator) {
       if (count[from] == 1) {
         return adj[from][0];
       }
@@ -200,7 +208,7 @@ public final class EdgeRecombination
         if (num > 1) {
           // The num can be at most 3, so nextBiasedInt's lack of rejection sampling
           // should introduce an extremely negligible bias away from uniformity.
-          return adj[from][minIndexes[RandomIndexer.nextBiasedInt(num)]];
+          return adj[from][minIndexes[generator.nextBiasedInt(num)]];
         }
         return adj[from][minIndexes[0]];
       }
@@ -211,7 +219,7 @@ public final class EdgeRecombination
       // NOTE: Test cases include unit tests of this specific method that include
       // an extra call after the permutation is complete to artificially create a
       // scenario that ends up here. Try to confirm if a real scenario exists.
-      return anyRemaining();
+      return anyRemaining(generator);
     }
 
     final void used(int element) {
@@ -231,7 +239,7 @@ public final class EdgeRecombination
       adj[list][i] = adj[list][count[list]];
     }
 
-    final int anyRemaining() {
+    final int anyRemaining(EnhancedSplittableGenerator generator) {
       int[] minIndexes = new int[adj.length];
       int num = 0;
       for (int i = 0; i < done.length; i++) {
@@ -252,7 +260,7 @@ public final class EdgeRecombination
         // The num should be very small, so nextBiasedInt's lack of rejection sampling
         // should introduce an extremely negligible bias away from uniformity. In fact, this
         // case is believed extremely statistically rare.
-        return minIndexes[RandomIndexer.nextBiasedInt(num)];
+        return minIndexes[generator.nextBiasedInt(num)];
       }
       if (num == 1) {
         return minIndexes[0];

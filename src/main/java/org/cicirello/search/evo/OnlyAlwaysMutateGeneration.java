@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -56,9 +56,6 @@ final class OnlyAlwaysMutateGeneration<T extends Copyable<T>> implements Generat
   public int apply(Population<T> pop) {
     pop.select();
     final int count = pop.mutableSize();
-    // Since select() randomizes ordering, just use a binomial
-    // to get count of how many to mutate and mutate the first count individuals.
-    // Although if M is 1.0 just mutate them all without computing the binomial.
     for (int j = 0; j < count; j++) {
       mutation.mutate(pop.get(j));
       pop.updateFitness(j);

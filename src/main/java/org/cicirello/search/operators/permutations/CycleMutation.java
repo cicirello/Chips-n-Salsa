@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
-import org.cicirello.math.rand.RandomSampler;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.UndoableMutationOperator;
 
 /**
@@ -46,17 +46,21 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  * elements. Note that a 2-cycle is simply a swap.
  *
  * <p>The runtime of the {@link #mutate(Permutation) mutate} method is O(min(n, kmax<sup>2</sup>)),
- * and derives from the combination of algorithms utilized by the {@link RandomSampler
- * RandomSampler} class in sampling k random integers. For small values of kmax, the runtime is
- * essentially constant. The runtime of the {@link #undo(Permutation) undo} method is O(kmax).
+ * and derives from the combination of algorithms utilized by the {@link EnhancedSplittableGenerator
+ * EnhancedSplittableGenerator} class in sampling k random integers. For small values of kmax, the
+ * runtime is essentially constant. The runtime of the {@link #undo(Permutation) undo} method is
+ * O(kmax).
  *
  * <p>Cycle mutation in both of its forms, including Cycle(kmax), was introduced in the following
  * article:
  *
  * <p>Vincent A. Cicirello. 2022. <a
- * href="https://www.cicirello.org/publications/applsci-12-05506.pdf">Cycle Mutation: Evolving
+ * href="https://www.cicirello.org/publications/cicirello2022applsci.html">Cycle Mutation: Evolving
  * Permutations via Cycle Induction</a>, <i>Applied Sciences</i>, 12(11), Article 5506 (June 2022).
- * doi:<a href="https://doi.org/10.3390/app12115506">10.3390/app12115506</a>
+ * doi:<a href="https://doi.org/10.3390/app12115506">10.3390/app12115506</a>. <a
+ * href="https://www.cicirello.org/publications/applsci-12-05506.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2022applsci.bib">[BIB]</a> <a
+ * href="http://arxiv.org/abs/2205.14125">[arXiv]</a>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
@@ -65,6 +69,7 @@ public final class CycleMutation implements UndoableMutationOperator<Permutation
 
   private int[] indexes;
   private final int bound;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs an CycleMutation mutation operator.
@@ -75,21 +80,27 @@ public final class CycleMutation implements UndoableMutationOperator<Permutation
   public CycleMutation(int kmax) {
     if (kmax < 2) throw new IllegalArgumentException("kmax too low");
     bound = kmax - 1;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private CycleMutation(CycleMutation other) {
+    generator = other.generator.split();
+    bound = other.bound;
   }
 
   @Override
   public final void mutate(Permutation c) {
     if (c.length() >= 2) {
       indexes =
-          RandomSampler.sample(
+          generator.sample(
               c.length(),
-              2 + RandomIndexer.nextInt(bound < c.length() ? bound : c.length() - 1),
+              2 + generator.nextInt(bound < c.length() ? bound : c.length() - 1),
               (int[]) null);
       if (indexes.length > 2) {
         // randomize order of indexes if there are more than 2 of them
         // (no need to randomize order if only 2 indexes)
         for (int j = indexes.length - 1; j > 0; j--) {
-          int i = RandomIndexer.nextInt(j + 1);
+          int i = generator.nextInt(j + 1);
           if (i != j) {
             int temp = indexes[i];
             indexes[i] = indexes[j];
@@ -117,6 +128,6 @@ public final class CycleMutation implements UndoableMutationOperator<Permutation
 
   @Override
   public CycleMutation split() {
-    return new CycleMutation(bound + 1);
+    return new CycleMutation(this);
   }
 }

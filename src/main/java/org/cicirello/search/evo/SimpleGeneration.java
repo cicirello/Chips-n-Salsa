@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import org.cicirello.math.rand.RandomSampler;
-import org.cicirello.math.rand.RandomVariates;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.util.Copyable;
@@ -40,6 +40,7 @@ final class SimpleGeneration<T extends Copyable<T>> implements Generation<T> {
   private final double M;
   private final CrossoverOperator<T> crossover;
   private final double C;
+  private final EnhancedSplittableGenerator generator;
 
   SimpleGeneration(
       MutationOperator<T> mutation,
@@ -63,12 +64,14 @@ final class SimpleGeneration<T extends Copyable<T>> implements Generation<T> {
     C = crossoverRate < 1.0 ? crossoverRate : 1.0;
     this.mutation = mutation;
     this.crossover = crossover;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   SimpleGeneration(SimpleGeneration<T> other) {
     // Must be split
     mutation = other.mutation.split();
     crossover = other.crossover.split();
+    generator = other.generator.split();
 
     // primitives
     M = other.M;
@@ -86,7 +89,7 @@ final class SimpleGeneration<T extends Copyable<T>> implements Generation<T> {
     // Since select() above randomizes ordering, just use a binomial
     // to get count of number of pairs of parents to cross and cross the first
     // count pairs of parents. Pair up parents with indexes: first and (first + count).
-    final int count = RandomVariates.nextBinomial(pop.mutableSize() >> 1, C);
+    final int count = generator.nextBinomial(pop.mutableSize() >> 1, C);
     for (int first = 0; first < count; first++) {
       int second = first + count;
       crossover.cross(pop.get(first), pop.get(second));
@@ -94,7 +97,7 @@ final class SimpleGeneration<T extends Copyable<T>> implements Generation<T> {
       pop.updateFitness(second);
     }
     // Choose which to mutate based on M and mutate them
-    int[] operateOnThese = RandomSampler.sample(pop.mutableSize(), M);
+    int[] operateOnThese = generator.sample(pop.mutableSize(), M);
     for (int j = 0; j < operateOnThese.length; j++) {
       mutation.mutate(pop.get(operateOnThese[j]));
       pop.updateFitness(operateOnThese[j]);

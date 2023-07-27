@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,12 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
+import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
+import org.cicirello.search.operators.UndoableMutationOperator;
 
 /**
  * This class implements a window-limited version of the {@link BlockMoveMutation} mutation operator
@@ -40,15 +43,23 @@ import org.cicirello.search.operators.MutationIterator;
  * V. A. Cicirello, <a href="https://www.cicirello.org/publications/cicirello2014bict.html"
  * target=_top>"On the Effects of Window-Limits on the Distance Profiles of Permutation Neighborhood
  * Operators,"</a> in Proceedings of the 8th International Conference on Bioinspired Information and
- * Communications Technologies, pages 28–35, December 2014.
+ * Communications Technologies, pages 28-35, December 2014. <a
+ * href="https://www.cicirello.org/publications/cicirello-bict-2014.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2014bict.bib">[BIB]</a> <a
+ * href="http://dl.acm.org/citation.cfm?id=2744531">[From the ACM Digital Library]</a>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.9.2019
  */
-public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
+public final class WindowLimitedBlockMoveMutation
+    implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 
   private final int limit;
+  private final BlockMoveMutation unlimited;
+  private final EnhancedSplittableGenerator generator;
+
+  // needed to implement undo
+  private final int[] indexes;
 
   /**
    * Constructs a WindowLimitedBlockMoveMutation mutation operator with a default window limit of
@@ -65,14 +76,36 @@ public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
    * @throws IllegalArgumentException if windowLimit &le; 0
    */
   public WindowLimitedBlockMoveMutation(int windowLimit) {
-    super();
     if (windowLimit <= 0) throw new IllegalArgumentException("window limit must be positive");
     limit = windowLimit;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    unlimited = new BlockMoveMutation(generator);
+    indexes = new int[3];
+  }
+
+  private WindowLimitedBlockMoveMutation(WindowLimitedBlockMoveMutation other) {
+    limit = other.limit;
+    generator = other.generator.split();
+    unlimited = new BlockMoveMutation(generator);
+    indexes = new int[3];
+  }
+
+  @Override
+  public void mutate(Permutation c) {
+    if (c.length() >= 2) {
+      generateIndexes(c.length(), indexes);
+      c.removeAndInsert(indexes[1], indexes[2] - indexes[1] + 1, indexes[0]);
+    }
+  }
+
+  @Override
+  public void undo(Permutation c) {
+    c.removeAndInsert(indexes[0], indexes[2] - indexes[1] + 1, indexes[1]);
   }
 
   @Override
   public WindowLimitedBlockMoveMutation split() {
-    return new WindowLimitedBlockMoveMutation(limit);
+    return new WindowLimitedBlockMoveMutation(this);
   }
 
   @Override
@@ -80,10 +113,10 @@ public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
     return new WindowLimitedBlockMoveIterator(p, limit);
   }
 
-  @Override
-  final void generateIndexes(int n, int[] indexes) {
+  /** package access to support unit testing */
+  void generateIndexes(int n, int[] indexes) {
     if (limit >= n) {
-      super.generateIndexes(n, indexes);
+      unlimited.generateIndexes(n, indexes);
       return;
     }
     // Note 1: The nextWindowedIntTriple method returns 3 all different indexes,
@@ -95,7 +128,9 @@ public final class WindowLimitedBlockMoveMutation extends BlockMoveMutation {
     // Note 2: Without loss of generality, the indexes are generated to
     // move the block earlier in the permutation.  We can do this because
     // a "block move" essentially swaps two adjacent "blocks."
-    RandomIndexer.nextWindowedIntTriple(n + 1, limit + 1, indexes, true);
-    if (indexes[2] == n || indexes[2] - indexes[0] > limit) indexes[2] = indexes[1];
+    generator.nextWindowedIntTriple(n + 1, limit + 1, indexes, true);
+    if (indexes[2] == n || indexes[2] - indexes[0] > limit) {
+      indexes[2] = indexes[1];
+    }
   }
 }

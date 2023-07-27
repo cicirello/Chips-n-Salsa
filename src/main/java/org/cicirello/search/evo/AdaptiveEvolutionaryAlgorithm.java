@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -58,12 +58,16 @@ import org.cicirello.util.Copyable;
  * randomly in the interval [0.05, 0.15], and constrained to the interval [0.01, 0.2].
  *
  * <p>This specific form of adaptive control parameters is based on the approach described in the
- * following paper:<br>
- * Vincent A. Cicirello. <a
+ * following paper:
+ *
+ * <p>Vincent A. Cicirello. <a
  * href="https://www.cicirello.org/publications/cicirello2015bict.html">Genetic Algorithm Parameter
  * Control: Application to Scheduling with Sequence-Dependent Setups</a>. In <i>Proceedings of the
  * 9th International Conference on Bio-inspired Information and Communications Technologies</i>,
- * pages 136-143. December 2015.
+ * pages 136-143. December 2015. <a
+ * href="https://www.cicirello.org/publications/cicirello-bict-2015.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2015bict.bib">[BIB]</a> <a
+ * href="http://dl.acm.org/citation.cfm?id=2954825">[From the ACM Digital Library]</a>
  *
  * <p>The crossover, mutation, and selection operators are completely configurable by passing
  * instances of classes that implement the {@link CrossoverOperator}, {@link MutationOperator}, and

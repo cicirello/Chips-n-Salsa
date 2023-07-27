@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationBinaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
@@ -73,6 +74,7 @@ public final class UniformPrecedencePreservativeCrossover
     implements CrossoverOperator<Permutation>, PermutationBinaryOperator {
 
   private final double u;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs an instance of the uniform version of the precedence preservative crossover (PPX)
@@ -93,6 +95,12 @@ public final class UniformPrecedencePreservativeCrossover
   public UniformPrecedencePreservativeCrossover(double u) {
     if (u <= 0 || u >= 1.0) throw new IllegalArgumentException("u must be: 0.0 < u < 1.0");
     this.u = u;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private UniformPrecedencePreservativeCrossover(UniformPrecedencePreservativeCrossover other) {
+    generator = other.generator.split();
+    u = other.u;
   }
 
   @Override
@@ -102,8 +110,7 @@ public final class UniformPrecedencePreservativeCrossover
 
   @Override
   public UniformPrecedencePreservativeCrossover split() {
-    // doesn't maintain any mutable state, so safe to return this
-    return this;
+    return new UniformPrecedencePreservativeCrossover(this);
   }
 
   /**
@@ -115,7 +122,7 @@ public final class UniformPrecedencePreservativeCrossover
    */
   @Override
   public void apply(int[] raw1, int[] raw2) {
-    internalCross(raw1, raw2, RandomIndexer.arrayMask(raw1.length, u));
+    internalCross(raw1, raw2, generator.arrayMask(raw1.length, u));
   }
 
   /*

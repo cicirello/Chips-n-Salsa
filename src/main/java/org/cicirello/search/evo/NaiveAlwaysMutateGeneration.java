@@ -20,7 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.util.Copyable;
@@ -49,18 +50,21 @@ final class NaiveAlwaysMutateGeneration<T extends Copyable<T>> implements Genera
   private final MutationOperator<T> mutation;
   private final CrossoverOperator<T> crossover;
   private final double C;
+  private final EnhancedSplittableGenerator generator;
 
   NaiveAlwaysMutateGeneration(
       MutationOperator<T> mutation, CrossoverOperator<T> crossover, double crossoverRate) {
     C = crossoverRate;
     this.mutation = mutation;
     this.crossover = crossover;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   NaiveAlwaysMutateGeneration(NaiveAlwaysMutateGeneration<T> other) {
     // Must be split
     mutation = other.mutation.split();
     crossover = other.crossover.split();
+    generator = other.generator.split();
 
     // primitives
     C = other.C;
@@ -80,7 +84,7 @@ final class NaiveAlwaysMutateGeneration<T extends Copyable<T>> implements Genera
     final int count = LAMBDA >> 1;
     int numEvals = 0;
     for (int first = 0; first < count; first++) {
-      if (ThreadLocalRandom.current().nextDouble() < C) {
+      if (generator.nextDouble() < C) {
         int second = first + count;
         crossover.cross(pop.get(first), pop.get(second));
         pop.updateFitness(first);

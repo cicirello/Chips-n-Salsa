@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -19,7 +19,8 @@
  */
 package org.cicirello.search.operators.integers;
 
-import org.cicirello.math.rand.RandomSampler;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.representations.IntegerVector;
 
@@ -42,12 +43,14 @@ import org.cicirello.search.representations.IntegerVector;
 public final class UniformCrossover<T extends IntegerVector> implements CrossoverOperator<T> {
 
   private final double p;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a uniform crossover operator with a probability of exchanging each value of p=0.5.
    */
   public UniformCrossover() {
     p = 0.5;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -59,6 +62,12 @@ public final class UniformCrossover<T extends IntegerVector> implements Crossove
    */
   public UniformCrossover(double p) {
     this.p = p <= 0.0 ? 0.0 : (p >= 1.0 ? 1.0 : p);
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private UniformCrossover(UniformCrossover<T> other) {
+    p = other.p;
+    generator = other.generator.split();
   }
 
   /**
@@ -68,7 +77,7 @@ public final class UniformCrossover<T extends IntegerVector> implements Crossove
    */
   @Override
   public void cross(IntegerVector c1, IntegerVector c2) {
-    int[] indexes = RandomSampler.sample(c1.length(), p);
+    int[] indexes = generator.sample(c1.length(), p);
     for (int i : indexes) {
       int temp = c1.get(i);
       c1.set(i, c2.get(i));
@@ -78,7 +87,6 @@ public final class UniformCrossover<T extends IntegerVector> implements Crossove
 
   @Override
   public UniformCrossover<T> split() {
-    // Maintains no mutable state, so just return this.
-    return this;
+    return new UniformCrossover<T>(this);
   }
 }

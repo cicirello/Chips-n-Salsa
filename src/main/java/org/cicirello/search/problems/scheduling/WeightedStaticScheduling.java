@@ -27,10 +27,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.SplittableRandom;
-import java.util.random.RandomGenerator;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class provides a representation of, and means of generating, instances of single machine
@@ -112,7 +111,7 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
    *     or tf &gt; 0.
    */
   public WeightedStaticScheduling(int n, double rdd, double tf, long seed) {
-    this(n, rdd, tf, new SplittableRandom(seed));
+    this(n, rdd, tf, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
   }
 
   /**
@@ -127,7 +126,7 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
    *     or tf &gt; 0.
    */
   public WeightedStaticScheduling(int n, double rdd, double tf) {
-    this(n, rdd, tf, new SplittableRandom());
+    this(n, rdd, tf, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
   }
 
   /**
@@ -164,7 +163,7 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
     this.weights = instanceReader.weights();
   }
 
-  private WeightedStaticScheduling(int n, double rdd, double tf, RandomGenerator rand) {
+  private WeightedStaticScheduling(int n, double rdd, double tf, EnhancedRandomGenerator rand) {
     if (n <= 0) throw new IllegalArgumentException("n must be positive");
     if (rdd <= 0.0 || rdd > 1.0) throw new IllegalArgumentException("rdd must be in (0.0, 1.0]");
     if (tf < 0.0 || tf > 1.0) throw new IllegalArgumentException("tf must be in [0.0, 1.0]");
@@ -175,9 +174,9 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
 
     int totalProcessTime = 0;
     for (int i = 0; i < n; i++) {
-      process[i] = MIN_PROCESS_TIME + RandomIndexer.nextInt(PROCESS_TIME_SPAN, rand);
+      process[i] = MIN_PROCESS_TIME + rand.nextInt(PROCESS_TIME_SPAN);
       totalProcessTime += process[i];
-      weights[i] = MIN_WEIGHT + RandomIndexer.nextInt(WEIGHT_SPAN, rand);
+      weights[i] = MIN_WEIGHT + rand.nextInt(WEIGHT_SPAN);
     }
     final double D_LOWER_BOUND = totalProcessTime * (1.0 - tf - rdd / 2.0);
     final double D_UPPER_BOUND = totalProcessTime * (1.0 - tf + rdd / 2.0);

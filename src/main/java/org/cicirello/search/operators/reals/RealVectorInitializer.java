@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -21,7 +21,8 @@
 package org.cicirello.search.operators.reals;
 
 import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.BoundedRealVector;
 import org.cicirello.search.representations.RealVector;
@@ -44,6 +45,7 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
   private final double[] b;
   private final double[] min;
   private final double[] max;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Construct a RealVectorInitializer that generates random solutions such that the values of all n
@@ -64,6 +66,7 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
     this.a = new double[] {a};
     this.b = new double[] {b};
     min = max = null;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -92,6 +95,7 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
     this.a = a.clone();
     this.b = b.clone();
     min = max = null;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -118,6 +122,7 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
     this.b = new double[] {b > max ? max + Math.ulp(max) : b};
     this.min = new double[] {min};
     this.max = new double[] {max};
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -155,6 +160,7 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
     }
     this.min = new double[] {min};
     this.max = new double[] {max};
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -199,6 +205,7 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
     }
     this.min = min.clone();
     this.max = max.clone();
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   private RealVectorInitializer(RealVectorInitializer other) {
@@ -207,17 +214,18 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
     a = other.a.clone();
     b = other.b.clone();
     x = new double[a.length];
+    generator = other.generator.split();
   }
 
   @Override
   public final RealVector createCandidateSolution() {
     if (a.length > 1) {
       for (int i = 0; i < x.length; i++) {
-        x[i] = ThreadLocalRandom.current().nextDouble(a[i], b[i]);
+        x[i] = generator.nextDouble(a[i], b[i]);
       }
     } else {
       for (int i = 0; i < x.length; i++) {
-        x[i] = ThreadLocalRandom.current().nextDouble(a[0], b[0]);
+        x[i] = generator.nextDouble(a[0], b[0]);
       }
     }
     if (min != null) {

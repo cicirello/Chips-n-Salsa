@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationBinaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
@@ -70,8 +71,16 @@ import org.cicirello.search.operators.CrossoverOperator;
 public final class PrecedencePreservativeCrossover
     implements CrossoverOperator<Permutation>, PermutationBinaryOperator {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs a precedence preservative crossover (PPX) operator. */
-  public PrecedencePreservativeCrossover() {}
+  public PrecedencePreservativeCrossover() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private PrecedencePreservativeCrossover(PrecedencePreservativeCrossover other) {
+    generator = other.generator.split();
+  }
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
@@ -80,8 +89,7 @@ public final class PrecedencePreservativeCrossover
 
   @Override
   public PrecedencePreservativeCrossover split() {
-    // doesn't maintain any state, so safe to return this
-    return this;
+    return new PrecedencePreservativeCrossover(this);
   }
 
   /**
@@ -93,8 +101,7 @@ public final class PrecedencePreservativeCrossover
    */
   @Override
   public void apply(int[] raw1, int[] raw2) {
-    internalCross(
-        raw1, raw2, RandomIndexer.nextInt(raw1.length), RandomIndexer.nextInt(raw1.length));
+    internalCross(raw1, raw2, generator.nextInt(raw1.length), generator.nextInt(raw1.length));
   }
 
   /*

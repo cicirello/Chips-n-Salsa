@@ -22,7 +22,7 @@ package org.cicirello.search.problems.tsp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.SplittableRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.SolutionCostPair;
 import org.junit.jupiter.api.*;
@@ -41,7 +41,7 @@ public class TSPTests {
             n,
             w,
             (x1, y1, x2, y2) -> Math.abs(x1 - x2) + Math.abs(y1 - y2),
-            new SplittableRandom(42));
+            new EnhancedSplittableGenerator(42));
         LENGTH = n;
         WIDTH = w;
       }
@@ -116,7 +116,7 @@ public class TSPTests {
       private final double WIDTH;
 
       public TSPSubClass(int n, double w) {
-        super(n, w, new SplittableRandom(42));
+        super(n, w, new EnhancedSplittableGenerator(42));
         LENGTH = n;
         WIDTH = w;
       }

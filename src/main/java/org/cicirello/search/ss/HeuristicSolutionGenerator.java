@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -89,10 +89,11 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
    * package-private for use by split method, and subclasses in same package
    */
   HeuristicSolutionGenerator(HeuristicSolutionGenerator<T> other) {
+    heuristic = other.heuristic.split();
+
     // these are threadsafe, so just copy references
     pOpt = other.pOpt;
     pOptInt = other.pOptInt;
-    heuristic = other.heuristic;
 
     // this one must be shared.
     tracker = other.tracker;

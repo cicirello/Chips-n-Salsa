@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,7 @@
 
 package org.cicirello.search.evo;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.operators.reals.GaussianMutation;
 import org.cicirello.search.representations.SingleReal;
 import org.cicirello.util.Copyable;
@@ -42,19 +42,23 @@ final class EncodingWithParameters<T extends Copyable<T>>
   private static final GaussianMutation<GaussianMutation> mutationMutator =
       GaussianMutation.createGaussianMutation(0.01, 0.01, 0.2);
 
-  EncodingWithParameters(T candidate, int numParams) {
-    this(candidate, numParams, 0.1, 1.0);
+  EncodingWithParameters(T candidate, int numParams, EnhancedSplittableGenerator generator) {
+    this(candidate, numParams, 0.1, 1.0, generator);
   }
 
-  EncodingWithParameters(T candidate, int numParams, double minRate, double maxRate) {
+  EncodingWithParameters(
+      T candidate,
+      int numParams,
+      double minRate,
+      double maxRate,
+      EnhancedSplittableGenerator generator) {
     this.candidate = candidate;
     params = new SingleReal[numParams];
     for (int i = 0; i < numParams; i++) {
-      params[i] = new SingleReal(ThreadLocalRandom.current().nextDouble(minRate, maxRate));
+      params[i] = new SingleReal(generator.nextDouble(minRate, maxRate));
     }
     mutator =
-        GaussianMutation.createGaussianMutation(
-            ThreadLocalRandom.current().nextDouble(0.05, 0.15), minRate, maxRate);
+        GaussianMutation.createGaussianMutation(generator.nextDouble(0.05, 0.15), minRate, maxRate);
   }
 
   private EncodingWithParameters(EncodingWithParameters<T> other) {

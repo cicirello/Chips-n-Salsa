@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -23,7 +23,8 @@ package org.cicirello.search.operators;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * A WeightedHybridMutation enables using multiple mutation operators for the search, such that each
@@ -43,6 +44,7 @@ public final class WeightedHybridMutation<T> implements MutationOperator<T> {
 
   private final ArrayList<MutationOperator<T>> mutationOps;
   private final int[] choice;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a WeightedHybridMutation from a Collection of MutationOperators.
@@ -71,6 +73,7 @@ public final class WeightedHybridMutation<T> implements MutationOperator<T> {
     for (MutationOperator<T> op : mutationOps) {
       this.mutationOps.add(op);
     }
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -82,11 +85,12 @@ public final class WeightedHybridMutation<T> implements MutationOperator<T> {
       mutationOps.add(op.split());
     }
     choice = other.choice.clone();
+    generator = other.generator.split();
   }
 
   @Override
   public void mutate(T c) {
-    int value = RandomIndexer.nextInt(choice[choice.length - 1]);
+    int value = generator.nextInt(choice[choice.length - 1]);
     int i = Arrays.binarySearch(choice, value);
     if (i < 0) i = -(i + 1);
     else i++;

@@ -54,7 +54,8 @@ public class NWOXTests extends SharedTestCodeOrderingCrossovers {
         validateOrderingUOBX(parent2, p1, fixedPoints);
       }
     }
-    assertSame(nwox, nwox.split());
+    NonWrappingOrderCrossover s = nwox.split();
+    assertNotSame(nwox, s);
     final int n = 2000;
     final int RUNS = 4;
     boolean passed = false;
@@ -64,6 +65,35 @@ public class NWOXTests extends SharedTestCodeOrderingCrossovers {
       Permutation parent1 = new Permutation(p1);
       Permutation parent2 = new Permutation(p2);
       nwox.cross(parent1, parent2);
+      assertTrue(validPermutation(parent1));
+      assertTrue(validPermutation(parent2));
+      boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
+      int[] startAndEnd = findStartAndEnd(fixedPoints);
+      passed =
+          validateOrderingNWOX(parent1, p2, startAndEnd)
+              && validateOrderingNWOX(parent2, p1, startAndEnd);
+    }
+    // The following may on infrequent occasions exhibit a false failure.
+    // This is due to the above findStartAndEnd heuristically guessing what
+    // the random cross region was. I believe the probability of a false
+    // failure is very approximately (2/n)^RUNS, which for 3 runs of n=2000 is about 1 in
+    // 1000000000. Rerun if fails.
+    assertTrue(
+        passed,
+        "This may infrequently result in a false failure because test case heuristically guesses where the random cross region was. Rerun if fails.");
+    // assertTrue(validateOrderingNWOX(parent1, p2, startAndEnd), "This may infrequently result in a
+    // false failure because test case heuristically guesses where the random cross region was.
+    // Rerun if fails.");
+    // assertTrue(validateOrderingNWOX(parent2, p1, startAndEnd), "This may infrequently result in a
+    // false failure because test case heuristically guesses where the random cross region was.
+    // Rerun if fails.");
+    passed = false;
+    for (int run = 0; run < RUNS && !passed; run++) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation parent1 = new Permutation(p1);
+      Permutation parent2 = new Permutation(p2);
+      s.cross(parent1, parent2);
       assertTrue(validPermutation(parent1));
       assertTrue(validPermutation(parent2));
       boolean[] fixedPoints = findFixedPoints(parent1, parent2, p1, p2);
@@ -100,7 +130,17 @@ public class NWOXTests extends SharedTestCodeOrderingCrossovers {
       assertEquals(p1, parent1);
       assertEquals(p2, parent2);
     }
-    assertSame(nwox, nwox.split());
+    NonWrappingOrderCrossover s = nwox.split();
+    assertNotSame(nwox, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(p1);
+      Permutation parent1 = new Permutation(p1);
+      Permutation parent2 = new Permutation(p2);
+      s.cross(parent1, parent2);
+      assertEquals(p1, parent1);
+      assertEquals(p2, parent2);
+    }
   }
 
   private boolean validateOrderingNWOX(Permutation child, Permutation order, int[] startAndEnd) {

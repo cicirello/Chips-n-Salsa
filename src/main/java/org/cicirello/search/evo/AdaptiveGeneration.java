@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.util.Copyable;
@@ -45,6 +46,7 @@ final class AdaptiveGeneration<T extends Copyable<T>> implements Generation<T> {
 
   private final MutationOperator<T> mutation;
   private final CrossoverOperator<T> crossover;
+  private final EnhancedSplittableGenerator generator;
 
   AdaptiveGeneration(MutationOperator<T> mutation, CrossoverOperator<T> crossover) {
     if (mutation == null) {
@@ -55,12 +57,14 @@ final class AdaptiveGeneration<T extends Copyable<T>> implements Generation<T> {
     }
     this.mutation = mutation;
     this.crossover = crossover;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   AdaptiveGeneration(AdaptiveGeneration<T> other) {
     // Must be split
     mutation = other.mutation.split();
     crossover = other.crossover.split();
+    generator = other.generator.split();
   }
 
   @Override
@@ -75,10 +79,9 @@ final class AdaptiveGeneration<T extends Copyable<T>> implements Generation<T> {
     // and can be used as parents.
     final int LAMBDA = pop.mutableSize();
     int count = 0;
-    ThreadLocalRandom r = ThreadLocalRandom.current();
     for (int second = 1; second < LAMBDA; second += 2) {
       int first = second - 1;
-      if (r.nextDouble() < pop.getParameter(first, 0).get()) {
+      if (generator.nextDouble() < pop.getParameter(first, 0).get()) {
         crossover.cross(pop.get(first), pop.get(second));
         pop.updateFitness(first);
         pop.updateFitness(second);
@@ -86,7 +89,7 @@ final class AdaptiveGeneration<T extends Copyable<T>> implements Generation<T> {
       }
     }
     for (int j = 0; j < LAMBDA; j++) {
-      if (r.nextDouble() < pop.getParameter(j, 1).get()) {
+      if (generator.nextDouble() < pop.getParameter(j, 1).get()) {
         mutation.mutate(pop.get(j));
         pop.updateFitness(j);
         count++;

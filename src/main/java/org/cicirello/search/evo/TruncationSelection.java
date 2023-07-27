@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class implements truncation selection for evolutionary algorithms. In truncation selection,
@@ -55,6 +56,7 @@ import org.cicirello.math.rand.RandomIndexer;
 public final class TruncationSelection implements SelectionOperator {
 
   private final int k;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a truncation selection operator that selects uniformly at random from the k most fit
@@ -69,6 +71,12 @@ public final class TruncationSelection implements SelectionOperator {
   public TruncationSelection(int k) {
     if (k < 1) throw new IllegalArgumentException();
     this.k = k;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private TruncationSelection(TruncationSelection other) {
+    generator = other.generator.split();
+    k = other.k;
   }
 
   @Override
@@ -101,21 +109,19 @@ public final class TruncationSelection implements SelectionOperator {
 
   @Override
   public TruncationSelection split() {
-    // Since this selection operator maintains no mutable state, it is
-    // safe for multiple threads to share a single instance, so just return this.
-    return this;
+    return new TruncationSelection(this);
   }
 
   private void internalSelect(int[] selectFrom, int[] selected, int truncateCount) {
     for (int i = 0; i < selected.length; i++) {
-      selected[i] = selectFrom[truncateCount + RandomIndexer.nextInt(k)];
+      selected[i] = selectFrom[truncateCount + generator.nextInt(k)];
     }
   }
 
   private void internalSelect(int[] selected, int n) {
     // case when k is at least as large as population... thus nothing truncated
     for (int i = 0; i < selected.length; i++) {
-      selected[i] = RandomIndexer.nextInt(n);
+      selected[i] = generator.nextInt(n);
     }
   }
 
@@ -242,31 +248,39 @@ public final class TruncationSelection implements SelectionOperator {
 
   private int indexOfMedian(
       PopulationFitnessVector.Integer fitnesses, int[] indexes, int a, int b, int c) {
-    if (isMedian(fitnesses, indexes, a, b, c)) return c;
-    if (isMedian(fitnesses, indexes, b, c, a)) return a;
-    return b;
+    return fitnesses.getFitness(indexes[a]) < fitnesses.getFitness(indexes[b])
+        ? medianByInsertion(fitnesses, indexes, a, b, c)
+        : medianByInsertion(fitnesses, indexes, b, a, c);
   }
 
   private int indexOfMedian(
       PopulationFitnessVector.Double fitnesses, int[] indexes, int a, int b, int c) {
-    if (isMedian(fitnesses, indexes, a, b, c)) return c;
-    if (isMedian(fitnesses, indexes, b, c, a)) return a;
-    return b;
+    return fitnesses.getFitness(indexes[a]) < fitnesses.getFitness(indexes[b])
+        ? medianByInsertion(fitnesses, indexes, a, b, c)
+        : medianByInsertion(fitnesses, indexes, b, a, c);
   }
 
-  private boolean isMedian(
-      PopulationFitnessVector.Integer fitnesses, int[] indexes, int other1, int other2, int check) {
-    return (fitnesses.getFitness(indexes[check]) >= fitnesses.getFitness(indexes[other1])
-            && fitnesses.getFitness(indexes[check]) <= fitnesses.getFitness(indexes[other2]))
-        || (fitnesses.getFitness(indexes[check]) <= fitnesses.getFitness(indexes[other1])
-            && fitnesses.getFitness(indexes[check]) >= fitnesses.getFitness(indexes[other2]));
+  /*
+   * Handles case where relative order of 2 elements is known.
+   */
+  private static int medianByInsertion(
+      PopulationFitnessVector.Integer fitnesses, int[] indexes, int low, int high, int unknown) {
+    return fitnesses.getFitness(indexes[unknown]) < fitnesses.getFitness(indexes[low])
+        ? low
+        : fitnesses.getFitness(indexes[unknown]) > fitnesses.getFitness(indexes[high])
+            ? high
+            : unknown;
   }
 
-  private boolean isMedian(
-      PopulationFitnessVector.Double fitnesses, int[] indexes, int other1, int other2, int check) {
-    return (fitnesses.getFitness(indexes[check]) >= fitnesses.getFitness(indexes[other1])
-            && fitnesses.getFitness(indexes[check]) <= fitnesses.getFitness(indexes[other2]))
-        || (fitnesses.getFitness(indexes[check]) <= fitnesses.getFitness(indexes[other1])
-            && fitnesses.getFitness(indexes[check]) >= fitnesses.getFitness(indexes[other2]));
+  /*
+   * Handles case where relative order of 2 elements is known.
+   */
+  private static int medianByInsertion(
+      PopulationFitnessVector.Double fitnesses, int[] indexes, int low, int high, int unknown) {
+    return fitnesses.getFitness(indexes[unknown]) < fitnesses.getFitness(indexes[low])
+        ? low
+        : fitnesses.getFitness(indexes[unknown]) > fitnesses.getFitness(indexes[high])
+            ? high
+            : unknown;
   }
 }

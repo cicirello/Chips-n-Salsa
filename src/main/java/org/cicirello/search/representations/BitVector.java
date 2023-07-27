@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -21,8 +21,9 @@
 package org.cicirello.search.representations;
 
 import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
-import org.cicirello.math.rand.RandomSampler;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.util.Copyable;
 
 /**
@@ -65,8 +66,10 @@ public final class BitVector implements Copyable<BitVector> {
     this.bitLength = bitLength;
     lastIntMask = 0xffffffff >>> ((bits.length << 5) - bitLength);
     if (randomize && bits.length > 0) {
+      EnhancedSplittableGenerator generator =
+          RandomnessFactory.threadLocalEnhancedSplittableGenerator();
       for (int i = 0; i < bits.length; i++) {
-        bits[i] = ThreadLocalRandom.current().nextInt();
+        bits[i] = generator.nextInt();
       }
       bits[bits.length - 1] &= lastIntMask;
     }
@@ -99,6 +102,40 @@ public final class BitVector implements Copyable<BitVector> {
    * @throws IllegalArgumentException if bitLength &lt; 0 .
    */
   public BitVector(int bitLength, double p) {
+    this(bitLength, p, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
+  }
+
+  /**
+   * Initializes the BitVector as a random vector of bits, with 0 and 1 equally likely for each bit.
+   *
+   * @param bitLength The length of the bit vector in number of bits.
+   * @param generator The source of randomness.
+   * @throws IllegalArgumentException if bitLength &lt; 0.
+   * @throws NullPointerException if generator is null.
+   */
+  public BitVector(int bitLength, EnhancedRandomGenerator generator) {
+    if (bitLength < 0) throw new IllegalArgumentException("bitLength must be non-negative");
+    bits = new int[(bitLength + 31) >> 5];
+    this.bitLength = bitLength;
+    lastIntMask = 0xffffffff >>> ((bits.length << 5) - bitLength);
+    if (bits.length > 0) {
+      for (int i = 0; i < bits.length; i++) {
+        bits[i] = generator.nextInt();
+      }
+      bits[bits.length - 1] &= lastIntMask;
+    }
+  }
+
+  /**
+   * Initializes a bit vector randomly given probability of 1-bit.
+   *
+   * @param bitLength The length of the bit vector in number of bits.
+   * @param p The probability, in [0.0, 1.0], that each bit is a 1.
+   * @param generator The source of randomness.
+   * @throws IllegalArgumentException if bitLength &lt; 0.
+   * @throws NullPointerException if generator is null.
+   */
+  public BitVector(int bitLength, double p, EnhancedRandomGenerator generator) {
     if (bitLength < 0) throw new IllegalArgumentException("bitLength must be non-negative");
     bits = new int[(bitLength + 31) >> 5];
     this.bitLength = bitLength;
@@ -106,7 +143,7 @@ public final class BitVector implements Copyable<BitVector> {
     if (bitLength > 0) {
       if (p == 0.5) {
         for (int i = 0; i < bits.length; i++) {
-          bits[i] = ThreadLocalRandom.current().nextInt();
+          bits[i] = generator.nextInt();
         }
         bits[bits.length - 1] &= lastIntMask;
       } else if (p >= 1.0) {
@@ -115,7 +152,7 @@ public final class BitVector implements Copyable<BitVector> {
         }
         bits[bits.length - 1] = lastIntMask;
       } else if (p > 0.0) {
-        int[] bitsToSet = RandomSampler.sample(bitLength, p);
+        int[] bitsToSet = generator.sample(bitLength, p);
         for (int index : bitsToSet) {
           int i = index >> 5;
           bits[i] ^= (1 << (index - (i << 5)));

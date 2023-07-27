@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.UndoableMutationOperator;
 
 /**
@@ -60,7 +61,6 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2021
  */
 public final class ThreeOptMutation implements UndoableMutationOperator<Permutation> {
 
@@ -70,18 +70,26 @@ public final class ThreeOptMutation implements UndoableMutationOperator<Permutat
   private int lastRotation;
 
   private final TwoChangeMutation twoChange;
+  private final EnhancedSplittableGenerator generator;
 
   /** Constructs a ThreeOptMutation operator. */
   public ThreeOptMutation() {
     indexes = new int[3];
     twoChange = new TwoChangeMutation();
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private ThreeOptMutation(ThreeOptMutation other) {
+    generator = other.generator.split();
+    twoChange = other.twoChange.split();
+    indexes = new int[3];
   }
 
   @Override
-  public final void mutate(Permutation c) {
+  public void mutate(Permutation c) {
     if (c.length() >= 5) {
-      RandomIndexer.nextIntTriple(c.length(), indexes, true);
-      which = RandomIndexer.nextBiasedInt(4);
+      generator.nextIntTriple(c.length(), indexes, true);
+      which = generator.nextBiasedInt(4);
       threeOrTwoChange(indexes, which, c);
     } else if (c.length() == 4) {
       twoChange.mutate(c);
@@ -89,7 +97,7 @@ public final class ThreeOptMutation implements UndoableMutationOperator<Permutat
   }
 
   @Override
-  public final void undo(Permutation c) {
+  public void undo(Permutation c) {
     if (c.length() >= 5) {
       undoThreeOrTwoChange(indexes, which, c);
     } else if (c.length() == 4) {
@@ -99,7 +107,7 @@ public final class ThreeOptMutation implements UndoableMutationOperator<Permutat
 
   @Override
   public ThreeOptMutation split() {
-    return new ThreeOptMutation();
+    return new ThreeOptMutation(this);
   }
 
   /*

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,6 @@
 
 package org.cicirello.search.operators.reals;
 
-import java.util.function.DoubleBinaryOperator;
-import java.util.function.IntFunction;
 import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.search.representations.RealValued;
 
@@ -46,7 +44,7 @@ abstract class AbstractUndoableRealMutation<T extends RealValued> extends Abstra
    *     Cauchy, radius for a uniform, etc.
    * @param transformer The functional transformation of the mutation.
    */
-  AbstractUndoableRealMutation(double param, DoubleBinaryOperator transformer) {
+  AbstractUndoableRealMutation(double param, RandomizedDoubleBinaryOperator transformer) {
     super(param, transformer);
   }
 
@@ -59,7 +57,7 @@ abstract class AbstractUndoableRealMutation<T extends RealValued> extends Abstra
    * @param selector Chooses the indexes for a partial mutation.
    */
   AbstractUndoableRealMutation(
-      double param, DoubleBinaryOperator transformer, IntFunction<int[]> selector) {
+      double param, RandomizedDoubleBinaryOperator transformer, IndexSelector selector) {
     super(param, transformer, selector);
   }
 

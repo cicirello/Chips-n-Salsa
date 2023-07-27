@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,6 +20,8 @@
 
 package org.cicirello.search.operators.bits;
 
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.BitVector;
 
@@ -34,6 +36,7 @@ import org.cicirello.search.representations.BitVector;
 public final class BitVectorInitializer implements Initializer<BitVector> {
 
   private final int bitLength;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Construct a BitVectorInitializer for creating random BitVectors of a specified length.
@@ -44,16 +47,24 @@ public final class BitVectorInitializer implements Initializer<BitVector> {
   public BitVectorInitializer(int bitLength) {
     if (bitLength < 0) throw new IllegalArgumentException("bitLength must be non-negative.");
     this.bitLength = bitLength;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  /*
+   * private to support split() only
+   */
+  private BitVectorInitializer(BitVectorInitializer other) {
+    bitLength = other.bitLength;
+    generator = other.generator.split();
   }
 
   @Override
   public BitVector createCandidateSolution() {
-    return new BitVector(bitLength, true);
+    return new BitVector(bitLength, generator);
   }
 
   @Override
   public BitVectorInitializer split() {
-    // thread-safe so can simply return this.
-    return this;
+    return new BitVectorInitializer(this);
   }
 }

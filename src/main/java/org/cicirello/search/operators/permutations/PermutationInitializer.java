@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
+import java.util.random.RandomGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
 
 /**
@@ -41,6 +43,9 @@ public final class PermutationInitializer implements Initializer<Permutation> {
 
   private final int n;
 
+  // Don't need a EnhancedSplittableGenerator here due to how Permutation is implemented
+  private final RandomGenerator.SplittableGenerator generator;
+
   /**
    * Constructs a PermutationInitializer.
    *
@@ -51,16 +56,21 @@ public final class PermutationInitializer implements Initializer<Permutation> {
   public PermutationInitializer(int n) {
     if (n < 0) throw new IllegalArgumentException("n must be non-negative");
     this.n = n;
+    generator = RandomnessFactory.createSplittableGenerator();
+  }
+
+  private PermutationInitializer(PermutationInitializer other) {
+    generator = other.generator.split();
+    n = other.n;
   }
 
   @Override
   public Permutation createCandidateSolution() {
-    return new Permutation(n);
+    return new Permutation(n, generator);
   }
 
   @Override
   public PermutationInitializer split() {
-    // class is thread-safe, and immutable so just return this.
-    return this;
+    return new PermutationInitializer(this);
   }
 }

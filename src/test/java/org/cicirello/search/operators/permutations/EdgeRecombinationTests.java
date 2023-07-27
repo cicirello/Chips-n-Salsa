@@ -22,6 +22,7 @@ package org.cicirello.search.operators.permutations;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.junit.jupiter.api.*;
 
@@ -32,110 +33,115 @@ public class EdgeRecombinationTests {
 
   @Test
   public void testEdgeMapAnyRemaining() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {0, 1, 2, 3, 4, 5, 6, 7};
     int[] raw2 = {2, 7, 3, 6, 0, 5, 1, 4};
     boolean[] used = new boolean[raw1.length];
     EdgeRecombination.EdgeMap map = new EdgeRecombination.EdgeMap(raw1, raw2);
     for (int i = 0; i < raw1.length; i++) {
-      int element = map.anyRemaining();
+      int element = map.anyRemaining(generator);
       assertFalse(used[element]);
       map.used(element);
       used[element] = true;
     }
-    assertEquals(-1, map.anyRemaining());
+    assertEquals(-1, map.anyRemaining(generator));
   }
 
   @Test
   public void testEdgeMapAnyRemainingWithCommonEdges() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {0, 1, 2, 3, 4, 5, 6, 7};
     int[] raw2 = {7, 2, 3, 4, 0, 5, 1, 6};
     boolean[] used = new boolean[raw1.length];
     EdgeRecombination.EdgeMap map = new EdgeRecombination.EdgeMap(raw1, raw2);
     for (int i = 0; i < raw1.length; i++) {
-      int element = map.anyRemaining();
+      int element = map.anyRemaining(generator);
       assertFalse(used[element]);
       map.used(element);
       used[element] = true;
     }
-    assertEquals(-1, map.anyRemaining());
+    assertEquals(-1, map.anyRemaining(generator));
   }
 
   @Test
   public void testEdgeMapPick() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {0, 1, 2, 3, 4, 5, 6, 7};
     int[] raw2 = {2, 7, 3, 6, 0, 5, 1, 4};
     boolean[] used = new boolean[raw1.length];
     EdgeRecombination.EdgeMap map2 = new EdgeRecombination.EdgeMap(raw1, raw2);
     EdgeRecombination.EdgeMap map1 = new EdgeRecombination.EdgeMap(map2);
     map1.used(0);
-    int element = map1.pick(0);
+    int element = map1.pick(0, generator);
     assertTrue(element == 7 || element == 1 || element == 5 || element == 6);
     map1.used(5);
-    element = map1.pick(5);
+    element = map1.pick(5, generator);
     assertTrue(element == 1 || element == 6);
     map1.used(1);
-    element = map1.pick(1);
+    element = map1.pick(1, generator);
     assertEquals(4, element);
     map1.used(4);
-    element = map1.pick(4);
+    element = map1.pick(4, generator);
     assertEquals(2, element);
     map1.used(2);
-    element = map1.pick(2);
+    element = map1.pick(2, generator);
     assertTrue(element == 3 || element == 7);
     map1.used(7);
-    element = map1.pick(7);
+    element = map1.pick(7, generator);
     assertTrue(element == 3 || element == 6);
     map1.used(3);
-    element = map1.pick(3);
+    element = map1.pick(3, generator);
     assertEquals(6, element);
     map1.used(6);
-    element = map1.pick(6);
+    element = map1.pick(6, generator);
     assertEquals(-1, element);
   }
 
   @Test
   public void testEdgeMapPickAllCommon() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {7, 6, 5, 4, 3, 2, 1, 0};
     int[] raw2 = {0, 1, 2, 3, 4, 5, 6, 7};
     boolean[] used = new boolean[raw1.length];
     EdgeRecombination.EdgeMap map1 = new EdgeRecombination.EdgeMap(raw1, raw2);
     EdgeRecombination.EdgeMap map2 = new EdgeRecombination.EdgeMap(map1);
     map1.used(7);
-    int element = map1.pick(7);
+    int element = map1.pick(7, generator);
     assertTrue(element == 0 || element == 6);
     map1.used(0);
-    element = map1.pick(0);
+    element = map1.pick(0, generator);
     assertEquals(1, element);
     map1.used(1);
-    element = map1.pick(1);
+    element = map1.pick(1, generator);
     assertEquals(2, element);
     map1.used(2);
-    element = map1.pick(2);
+    element = map1.pick(2, generator);
     assertEquals(3, element);
     map1.used(3);
-    element = map1.pick(3);
+    element = map1.pick(3, generator);
     assertEquals(4, element);
     map1.used(4);
-    element = map1.pick(4);
+    element = map1.pick(4, generator);
     assertEquals(5, element);
     map1.used(5);
-    element = map1.pick(5);
+    element = map1.pick(5, generator);
     assertEquals(6, element);
     map1.used(6);
-    element = map1.pick(6);
+    element = map1.pick(6, generator);
     assertEquals(-1, element);
   }
 
   @Test
   public void testEdgeMapLength2() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {1, 0};
     int[] raw2 = {0, 1};
     EdgeRecombination.EdgeMap map1 = new EdgeRecombination.EdgeMap(raw1, raw2);
     map1.used(1);
-    int element = map1.pick(1);
+    int element = map1.pick(1, generator);
     assertEquals(0, element);
     map1.used(0);
-    element = map1.pick(0);
+    element = map1.pick(0, generator);
     assertEquals(-1, element);
   }
 
@@ -151,45 +157,58 @@ public class EdgeRecombinationTests {
       assertTrue(validPermutation(child1));
       assertTrue(validPermutation(child2));
     }
-    assertSame(er, er.split());
+    EdgeRecombination s = er.split();
+    assertNotSame(er, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation child1 = new Permutation(p1);
+      Permutation child2 = new Permutation(p2);
+      s.cross(child1, child2);
+      assertTrue(validPermutation(child1));
+      assertTrue(validPermutation(child2));
+    }
   }
 
   // EnhancedEdgeRecombination tests
 
   @Test
   public void testEnhancedEdgeMapAnyRemaining() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {0, 1, 2, 3, 4, 5, 6, 7};
     int[] raw2 = {2, 7, 3, 6, 0, 5, 1, 4};
     boolean[] used = new boolean[raw1.length];
     EnhancedEdgeRecombination.EnhancedEdgeMap map =
         new EnhancedEdgeRecombination.EnhancedEdgeMap(raw1, raw2);
     for (int i = 0; i < raw1.length; i++) {
-      int element = map.anyRemaining();
+      int element = map.anyRemaining(generator);
       assertFalse(used[element]);
       map.used(element);
       used[element] = true;
     }
-    assertEquals(-1, map.anyRemaining());
+    assertEquals(-1, map.anyRemaining(generator));
   }
 
   @Test
   public void testEnhancedEdgeMapAnyRemainingWithCommonEdges() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {0, 1, 2, 3, 4, 5, 6, 7};
     int[] raw2 = {7, 2, 3, 4, 0, 5, 1, 6};
     boolean[] used = new boolean[raw1.length];
     EnhancedEdgeRecombination.EnhancedEdgeMap map =
         new EnhancedEdgeRecombination.EnhancedEdgeMap(raw1, raw2);
     for (int i = 0; i < raw1.length; i++) {
-      int element = map.anyRemaining();
+      int element = map.anyRemaining(generator);
       assertFalse(used[element]);
       map.used(element);
       used[element] = true;
     }
-    assertEquals(-1, map.anyRemaining());
+    assertEquals(-1, map.anyRemaining(generator));
   }
 
   @Test
   public void testEnhancedEdgeMapPick() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {0, 1, 2, 3, 4, 5, 6, 7};
     int[] raw2 = {2, 7, 3, 6, 0, 5, 1, 4};
     boolean[] used = new boolean[raw1.length];
@@ -198,33 +217,34 @@ public class EdgeRecombinationTests {
     EnhancedEdgeRecombination.EnhancedEdgeMap map1 =
         new EnhancedEdgeRecombination.EnhancedEdgeMap(map2);
     map1.used(0);
-    int element = map1.pick(0);
+    int element = map1.pick(0, generator);
     assertTrue(element == 7 || element == 1 || element == 5 || element == 6);
     map1.used(5);
-    element = map1.pick(5);
+    element = map1.pick(5, generator);
     assertTrue(element == 1 || element == 6);
     map1.used(1);
-    element = map1.pick(1);
+    element = map1.pick(1, generator);
     assertEquals(4, element);
     map1.used(4);
-    element = map1.pick(4);
+    element = map1.pick(4, generator);
     assertEquals(2, element);
     map1.used(2);
-    element = map1.pick(2);
+    element = map1.pick(2, generator);
     assertTrue(element == 3 || element == 7);
     map1.used(7);
-    element = map1.pick(7);
+    element = map1.pick(7, generator);
     assertTrue(element == 3 || element == 6);
     map1.used(3);
-    element = map1.pick(3);
+    element = map1.pick(3, generator);
     assertEquals(6, element);
     map1.used(6);
-    element = map1.pick(6);
+    element = map1.pick(6, generator);
     assertEquals(-1, element);
   }
 
   @Test
   public void testEnhancedEdgeMapPickAllCommon() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {7, 6, 5, 4, 3, 2, 1, 0};
     int[] raw2 = {0, 1, 2, 3, 4, 5, 6, 7};
     boolean[] used = new boolean[raw1.length];
@@ -233,33 +253,34 @@ public class EdgeRecombinationTests {
     EnhancedEdgeRecombination.EnhancedEdgeMap map2 =
         new EnhancedEdgeRecombination.EnhancedEdgeMap(map1);
     map1.used(7);
-    int element = map1.pick(7);
+    int element = map1.pick(7, generator);
     assertTrue(element == 0 || element == 6);
     map1.used(0);
-    element = map1.pick(0);
+    element = map1.pick(0, generator);
     assertEquals(1, element);
     map1.used(1);
-    element = map1.pick(1);
+    element = map1.pick(1, generator);
     assertEquals(2, element);
     map1.used(2);
-    element = map1.pick(2);
+    element = map1.pick(2, generator);
     assertEquals(3, element);
     map1.used(3);
-    element = map1.pick(3);
+    element = map1.pick(3, generator);
     assertEquals(4, element);
     map1.used(4);
-    element = map1.pick(4);
+    element = map1.pick(4, generator);
     assertEquals(5, element);
     map1.used(5);
-    element = map1.pick(5);
+    element = map1.pick(5, generator);
     assertEquals(6, element);
     map1.used(6);
-    element = map1.pick(6);
+    element = map1.pick(6, generator);
     assertEquals(-1, element);
   }
 
   @Test
   public void testEnhancedEdgeMapPickCommonSequence() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {7, 6, 5, 4, 3, 2, 1, 0};
     int[] raw2 = {3, 1, 7, 6, 5, 4, 2, 0};
     int[] raw3 = {0, 3, 1, 4, 5, 6, 7, 2};
@@ -270,100 +291,102 @@ public class EdgeRecombinationTests {
         new EnhancedEdgeRecombination.EnhancedEdgeMap(raw1, raw3);
     // raw1 vs raw 2
     map1.used(7);
-    int element = map1.pick(7);
+    int element = map1.pick(7, generator);
     assertEquals(6, element);
     map1.used(6);
-    element = map1.pick(6);
+    element = map1.pick(6, generator);
     assertEquals(5, element);
     map1.used(5);
-    element = map1.pick(5);
+    element = map1.pick(5, generator);
     assertEquals(4, element);
     map1.used(4);
-    element = map1.pick(4);
+    element = map1.pick(4, generator);
     assertTrue(element == 3 || element == 2);
     map1.used(2);
-    element = map1.pick(2);
+    element = map1.pick(2, generator);
     assertTrue(element == 3 || element == 1 || element == 0);
     map1.used(3);
-    element = map1.pick(3);
+    element = map1.pick(3, generator);
     assertTrue(element == 1 || element == 0);
     map1.used(1);
-    element = map1.pick(1);
+    element = map1.pick(1, generator);
     assertEquals(0, element);
     map1.used(0);
-    element = map1.pick(0);
+    element = map1.pick(0, generator);
     assertEquals(-1, element);
     // raw1 vs raw3
     map2.used(7);
-    element = map2.pick(7);
+    element = map2.pick(7, generator);
     assertEquals(6, element);
     map2.used(6);
-    element = map2.pick(6);
+    element = map2.pick(6, generator);
     assertEquals(5, element);
     map2.used(5);
-    element = map2.pick(5);
+    element = map2.pick(5, generator);
     assertEquals(4, element);
     map2.used(4);
-    element = map2.pick(4);
+    element = map2.pick(4, generator);
     assertTrue(element == 3 || element == 1);
     map2.used(1);
-    element = map2.pick(1);
+    element = map2.pick(1, generator);
     assertTrue(element == 3 || element == 2 || element == 0);
     map2.used(3);
-    element = map2.pick(3);
+    element = map2.pick(3, generator);
     assertTrue(element == 2 || element == 0);
     map2.used(2);
-    element = map2.pick(2);
+    element = map2.pick(2, generator);
     assertEquals(0, element);
     map2.used(0);
-    element = map2.pick(0);
+    element = map2.pick(0, generator);
     assertEquals(-1, element);
   }
 
   @Test
   public void testEnhancedEdgeMapPickCommonSequenceMiddle() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {3, 1, 7, 6, 5, 4, 0, 2};
     int[] raw2 = {0, 3, 4, 5, 6, 7, 2, 1};
     boolean[] used = new boolean[raw1.length];
     EnhancedEdgeRecombination.EnhancedEdgeMap map1 =
         new EnhancedEdgeRecombination.EnhancedEdgeMap(raw1, raw2);
     map1.used(3);
-    int element = map1.pick(3);
+    int element = map1.pick(3, generator);
     assertEquals(4, element);
     map1.used(4);
-    element = map1.pick(4);
+    element = map1.pick(4, generator);
     assertEquals(5, element);
     map1.used(5);
-    element = map1.pick(5);
+    element = map1.pick(5, generator);
     assertEquals(6, element);
     map1.used(6);
-    element = map1.pick(6);
+    element = map1.pick(6, generator);
     assertEquals(7, element);
     map1.used(7);
-    element = map1.pick(7);
+    element = map1.pick(7, generator);
     assertTrue(element == 2 || element == 1);
     map1.used(2);
-    element = map1.pick(2);
+    element = map1.pick(2, generator);
     assertTrue(element == 0 || element == 1);
     map1.used(0);
-    element = map1.pick(0);
+    element = map1.pick(0, generator);
     assertEquals(1, element);
     map1.used(1);
-    element = map1.pick(1);
+    element = map1.pick(1, generator);
     assertEquals(-1, element);
   }
 
   @Test
   public void testEnhancedEdgeMapLength2() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42);
     int[] raw1 = {1, 0};
     int[] raw2 = {0, 1};
     EnhancedEdgeRecombination.EnhancedEdgeMap map1 =
         new EnhancedEdgeRecombination.EnhancedEdgeMap(raw1, raw2);
     map1.used(1);
-    int element = map1.pick(1);
+    int element = map1.pick(1, generator);
     assertEquals(0, element);
     map1.used(0);
-    element = map1.pick(0);
+    element = map1.pick(0, generator);
     assertEquals(-1, element);
   }
 
@@ -379,7 +402,17 @@ public class EdgeRecombinationTests {
       assertTrue(validPermutation(child1));
       assertTrue(validPermutation(child2));
     }
-    assertSame(er, er.split());
+    EnhancedEdgeRecombination s = er.split();
+    assertNotSame(er, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation child1 = new Permutation(p1);
+      Permutation child2 = new Permutation(p2);
+      s.cross(child1, child2);
+      assertTrue(validPermutation(child1));
+      assertTrue(validPermutation(child2));
+    }
   }
 
   // Shared code

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.operators.UndoableMutationOperator;
@@ -41,33 +42,43 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class InsertionMutation
+public final class InsertionMutation
     implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 
   // needed to implement undo
   private final int[] indexes;
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs an InsertionMutation mutation operator. */
   public InsertionMutation() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    indexes = new int[2];
+  }
+
+  private InsertionMutation(InsertionMutation other) {
+    generator = other.generator.split();
     indexes = new int[2];
   }
 
   @Override
-  public final void mutate(Permutation c) {
+  public void mutate(Permutation c) {
     if (c.length() >= 2) {
-      generateIndexes(c.length(), indexes);
+      generator.nextIntPair(c.length(), indexes);
       c.removeAndInsert(indexes[0], indexes[1]);
     }
   }
 
   @Override
-  public final void undo(Permutation c) {
-    if (c.length() >= 2) c.removeAndInsert(indexes[1], indexes[0]);
+  public void undo(Permutation c) {
+    if (c.length() >= 2) {
+      c.removeAndInsert(indexes[1], indexes[0]);
+    }
   }
 
   @Override
   public InsertionMutation split() {
-    return new InsertionMutation();
+    return new InsertionMutation(this);
   }
 
   /**
@@ -82,14 +93,5 @@ public class InsertionMutation
   @Override
   public MutationIterator iterator(Permutation p) {
     return new InsertionIterator(p);
-  }
-
-  /*
-   * This package access method allows the window limited version
-   * implemented as a subclass to change how indexes are generated
-   * without modifying the mutate method.
-   */
-  void generateIndexes(int n, int[] indexes) {
-    RandomIndexer.nextIntPair(n, indexes);
   }
 }

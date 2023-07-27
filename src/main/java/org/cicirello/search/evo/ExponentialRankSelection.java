@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -59,11 +59,14 @@ public final class ExponentialRankSelection extends AbstractRouletteWheelSelecti
     this.c = c;
   }
 
+  private ExponentialRankSelection(ExponentialRankSelection other) {
+    super(other);
+    c = other.c;
+  }
+
   @Override
   public ExponentialRankSelection split() {
-    // Since this selection operator maintains no mutable state, it is
-    // safe for multiple threads to share a single instance, so just return this.
-    return this;
+    return new ExponentialRankSelection(this);
   }
 
   @Override

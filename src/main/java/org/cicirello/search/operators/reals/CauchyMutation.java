@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,10 +20,6 @@
 
 package org.cicirello.search.operators.reals;
 
-import java.util.function.DoubleBinaryOperator;
-import java.util.function.IntFunction;
-import org.cicirello.math.rand.RandomSampler;
-import org.cicirello.math.rand.RandomVariates;
 import org.cicirello.search.representations.RealValued;
 import org.cicirello.util.Copyable;
 
@@ -67,7 +63,7 @@ public class CauchyMutation<T extends RealValued> extends AbstractRealMutation<T
    *
    * @param transformer The functional transformation of the mutation.
    */
-  CauchyMutation(double scale, DoubleBinaryOperator transformer) {
+  CauchyMutation(double scale, RandomizedDoubleBinaryOperator transformer) {
     super(scale, transformer);
   }
 
@@ -81,7 +77,7 @@ public class CauchyMutation<T extends RealValued> extends AbstractRealMutation<T
    *
    * @param selector Chooses the indexes for a partial mutation.
    */
-  CauchyMutation(double scale, DoubleBinaryOperator transformer, IntFunction<int[]> selector) {
+  CauchyMutation(double scale, RandomizedDoubleBinaryOperator transformer, IndexSelector selector) {
     super(scale, transformer, selector);
   }
 
@@ -110,7 +106,7 @@ public class CauchyMutation<T extends RealValued> extends AbstractRealMutation<T
    * @return A Cauchy mutation operator.
    */
   public static <T extends RealValued> CauchyMutation<T> createCauchyMutation(double scale) {
-    return new CauchyMutation<T>(scale, (old, param) -> old + RandomVariates.nextCauchy(param));
+    return new CauchyMutation<T>(scale, (old, param, r) -> old + r.nextCauchy(param));
   }
 
   /**
@@ -129,8 +125,8 @@ public class CauchyMutation<T extends RealValued> extends AbstractRealMutation<T
       throw new IllegalArgumentException("upperBound must be at least lowerBound");
     return new CauchyMutation<T>(
         scale,
-        (old, param) -> {
-          double mutated = old + RandomVariates.nextCauchy(param);
+        (old, param, r) -> {
+          double mutated = old + r.nextCauchy(param);
           if (mutated <= lowerBound) return lowerBound;
           if (mutated >= upperBound) return upperBound;
           return mutated;
@@ -152,8 +148,8 @@ public class CauchyMutation<T extends RealValued> extends AbstractRealMutation<T
     if (k < 1) throw new IllegalArgumentException("k must be at least 1");
     return new CauchyMutation<T>(
         scale,
-        (old, param) -> old + RandomVariates.nextCauchy(param),
-        n -> RandomSampler.sample(n, k < n ? k : n, (int[]) null));
+        (old, param, r) -> old + r.nextCauchy(param),
+        (n, r) -> r.sample(n, k < n ? k : n, (int[]) null));
   }
 
   /**
@@ -174,9 +170,7 @@ public class CauchyMutation<T extends RealValued> extends AbstractRealMutation<T
       return createCauchyMutation(scale);
     }
     return new CauchyMutation<T>(
-        scale,
-        (old, param) -> old + RandomVariates.nextCauchy(param),
-        n -> RandomSampler.sample(n, p));
+        scale, (old, param, r) -> old + r.nextCauchy(param), (n, r) -> r.sample(n, p));
   }
 
   @Override

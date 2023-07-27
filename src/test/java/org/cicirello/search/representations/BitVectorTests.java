@@ -23,6 +23,7 @@ package org.cicirello.search.representations;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.junit.jupiter.api.*;
 
 /** JUnit test cases for the BitVector class. */
@@ -229,9 +230,37 @@ public class BitVectorTests {
   }
 
   @Test
+  public void testConstructorBitMaskWithPRNG() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42L);
+    double[] pCases = {0.5, 0.25, 0.75};
+
+    for (int n = 0; n <= 64; n++) {
+      // p = 0.0 case
+      validator.validateAllZeros(new BitVector(n, 0.0, generator), n);
+
+      // p = 1.0 case
+      validator.validateAllOnes(new BitVector(n, 1.0, generator), n);
+
+      // p = 0.25, 0.5, 0.75 cases
+      for (double p : pCases) {
+        validator.validateRandomBitVector(new BitVector(n, p, generator), n);
+      }
+    }
+  }
+
+  @Test
   public void testConstructorRandom() {
     for (int n = 0; n <= 64; n++) {
       BitVector b = new BitVector(n, true);
+      validator.validateRandomBitVector(b, n);
+    }
+  }
+
+  @Test
+  public void testConstructorRandomWithPRNG() {
+    EnhancedSplittableGenerator generator = new EnhancedSplittableGenerator(42L);
+    for (int n = 0; n <= 64; n++) {
+      BitVector b = new BitVector(n, generator);
       validator.validateRandomBitVector(b, n);
     }
   }
@@ -525,6 +554,9 @@ public class BitVectorTests {
         assertThrows(IllegalArgumentException.class, () -> new BitVector(-1));
     thrown = assertThrows(IllegalArgumentException.class, () -> new BitVector(-1, new int[1]));
     thrown = assertThrows(IllegalArgumentException.class, () -> new BitVector(-1, 0.5));
+    EnhancedSplittableGenerator gen = new EnhancedSplittableGenerator(42L);
+    thrown = assertThrows(IllegalArgumentException.class, () -> new BitVector(-1, 0.5, gen));
+    thrown = assertThrows(IllegalArgumentException.class, () -> new BitVector(-1, gen));
     thrown = assertThrows(IllegalArgumentException.class, () -> new BitVector(32, new int[2]));
     thrown = assertThrows(IllegalArgumentException.class, () -> new BitVector(33, new int[1]));
     final BitVector b = new BitVector(32);

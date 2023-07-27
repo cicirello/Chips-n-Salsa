@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.operators.UndoableMutationOperator;
@@ -35,19 +36,25 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.22.2021
  */
 public final class AdjacentSwapMutation
     implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 
   private int index;
+  private final EnhancedSplittableGenerator generator;
 
   /** Constructs an AdjacentSwapMutation mutation operator. */
-  public AdjacentSwapMutation() {}
+  public AdjacentSwapMutation() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private AdjacentSwapMutation(AdjacentSwapMutation other) {
+    generator = other.generator.split();
+  }
 
   @Override
   public void mutate(Permutation c) {
-    if (c.length() >= 2) c.swap(index = RandomIndexer.nextInt(c.length() - 1), index + 1);
+    if (c.length() >= 2) c.swap(index = generator.nextInt(c.length() - 1), index + 1);
   }
 
   @Override
@@ -57,7 +64,7 @@ public final class AdjacentSwapMutation
 
   @Override
   public AdjacentSwapMutation split() {
-    return new AdjacentSwapMutation();
+    return new AdjacentSwapMutation(this);
   }
 
   /**

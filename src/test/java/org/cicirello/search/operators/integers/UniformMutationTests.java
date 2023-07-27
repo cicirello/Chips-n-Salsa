@@ -39,7 +39,10 @@ public class UniformMutationTests {
     validator = new UniformMutationValidator();
   }
 
-  @Test
+  // During refactoring, removed unnecessary equals and hashCode methods
+  // that nobody should ever want to use. If restored, uncomment next line
+  // to restore tests.
+  // @Test
   public void testEquals() {
     UniformMutation<IntegerValued> g1 = UniformMutation.createUniformMutation(1);
     UniformMutation<IntegerValued> g2 = UniformMutation.createUniformMutation(1);
@@ -60,17 +63,24 @@ public class UniformMutationTests {
     assertFalse(p1.equals(null));
     assertFalse(p1.equals("hello"));
     assertFalse(p1.equals(g1));
-    p1 = UndoableUniformMutation.createUniformMutation(1, 1);
-    p2 = UndoableUniformMutation.createUniformMutation(2, 1);
-    p3 = UndoableUniformMutation.createUniformMutation(1, 2);
-    p4 = UndoableUniformMutation.createUniformMutation(1, 0.5);
-    p5 = UndoableUniformMutation.createUniformMutation(1, 0.25);
+  }
+
+  // During refactoring, removed unnecessary equals and hashCode methods
+  // that nobody should ever want to use. If restored, uncomment next line
+  // to restore tests.
+  // @Test
+  public void testEqualsUndoable() {
+    UndoableUniformMutation p1 = UndoableUniformMutation.createUniformMutation(1, 1);
+    UndoableUniformMutation p2 = UndoableUniformMutation.createUniformMutation(2, 1);
+    UndoableUniformMutation p3 = UndoableUniformMutation.createUniformMutation(1, 2);
+    UndoableUniformMutation p4 = UndoableUniformMutation.createUniformMutation(1, 0.5);
+    UndoableUniformMutation p5 = UndoableUniformMutation.createUniformMutation(1, 0.25);
     assertNotEquals(p1, p2);
     assertNotEquals(p1, p3);
     assertNotEquals(p4, p5);
     assertFalse(p1.equals(null));
     assertFalse(p1.equals("hello"));
-    g1 = UndoableUniformMutation.createUniformMutation(1);
+    UndoableUniformMutation g1 = UndoableUniformMutation.createUniformMutation(1);
     assertFalse(p1.equals(g1));
   }
 
@@ -93,7 +103,7 @@ public class UniformMutationTests {
 
   @Test
   public void testUniformMutation1() {
-    UniformMutation<IntegerValued> g1 = UniformMutation.createUniformMutation(1);
+    UniformMutation<IntegerValued> g1 = UniformMutation.createUniformMutation();
     assertEquals(1, g1.get(0));
     validator.verifyMutate1(g1);
 
@@ -101,7 +111,7 @@ public class UniformMutationTests {
     assertEquals(5, g5.get(0));
     validator.verifyMutate1(g5);
 
-    UndoableUniformMutation<IntegerValued> g1u = UndoableUniformMutation.createUniformMutation(1);
+    UndoableUniformMutation<IntegerValued> g1u = UndoableUniformMutation.createUniformMutation();
     assertEquals(1, g1u.get(0));
     validator.verifyMutate1(g1u);
     validator.verifyUndo(g1u);
@@ -115,38 +125,41 @@ public class UniformMutationTests {
 
     UndoableUniformMutation<IntegerValued> g5copyU = g5u.split();
     assertEquals(5, g5copyU.get(0));
-    assertEquals(g5u, g5copyU);
-    assertEquals(g5u.hashCode(), g5copyU.hashCode());
+    // assertEquals(g5u, g5copyU);
+    // assertEquals(g5u.hashCode(), g5copyU.hashCode());
     validator.verifyMutate1(g5copyU);
     validator.verifyUndo(g5copyU);
     validator.verifySplitUndo(g5copyU);
 
     g5copyU = g5u.copy();
     assertEquals(5, g5copyU.get(0));
-    assertEquals(g5u, g5copyU);
-    assertEquals(g5u.hashCode(), g5copyU.hashCode());
+    // assertEquals(g5u, g5copyU);
+    // assertEquals(g5u.hashCode(), g5copyU.hashCode());
     validator.verifyMutate1(g5copyU);
     validator.verifyUndo(g5copyU);
     validator.verifySplitUndo(g5copyU);
 
     UniformMutation<IntegerValued> g5split = g5.split();
     assertEquals(5, g5split.get(0));
-    assertEquals(g5, g5split);
+    // assertEquals(g5, g5split);
     assertTrue(g5 != g5split);
-    assertEquals(g5.hashCode(), g5split.hashCode());
+    // assertEquals(g5.hashCode(), g5split.hashCode());
     validator.verifyMutate1(g5split);
 
     UniformMutation<IntegerValued> g5copyM = g5.copy();
     assertEquals(5, g5copyM.get(0));
-    assertEquals(g5, g5copyM);
+    // assertEquals(g5, g5copyM);
     assertTrue(g5 != g5copyM);
-    assertEquals(g5.hashCode(), g5copyM.hashCode());
+    // assertEquals(g5.hashCode(), g5copyM.hashCode());
     validator.verifyMutate1(g5copyM);
 
     UniformMutation<IntegerValued> g3 = g5;
     g3.set(0, 3);
     assertEquals(3, g3.get(0));
     validator.verifyMutate1(g3);
+
+    g3.set(new int[] {7});
+    assertEquals(7, g3.get(0));
   }
 
   @Test
@@ -173,32 +186,32 @@ public class UniformMutationTests {
 
       UndoableUniformMutation<IntegerValued> g5copy = g5.copy();
       assertEquals(5, g5copy.get(0));
-      assertEquals(g5, g5copy);
-      assertEquals(g5.hashCode(), g5copy.hashCode());
+      // assertEquals(g5, g5copy);
+      // assertEquals(g5.hashCode(), g5copy.hashCode());
       validator.verifyMutate1(g5copy, k);
       validator.verifyUndo(g5copy);
       validator.verifySplitUndo(g5copy);
 
       UniformMutation<IntegerValued> g5copyDis = g5dis.copy();
       assertEquals(5, g5copyDis.get(0));
-      assertEquals(g5dis, g5copyDis);
-      assertEquals(g5dis.hashCode(), g5copyDis.hashCode());
+      // assertEquals(g5dis, g5copyDis);
+      // assertEquals(g5dis.hashCode(), g5copyDis.hashCode());
       validator.verifyMutate1(g5copyDis, k);
 
       UndoableUniformMutation<IntegerValued> g5split = g5.split();
       assertEquals(5, g5split.get(0));
-      assertEquals(g5, g5split);
+      // assertEquals(g5, g5split);
       assertTrue(g5 != g5split);
-      assertEquals(g5.hashCode(), g5split.hashCode());
+      // assertEquals(g5.hashCode(), g5split.hashCode());
       validator.verifyMutate1(g5split, k);
       validator.verifyUndo(g5split);
       validator.verifySplitUndo(g5split);
 
       UniformMutation<IntegerValued> g5splitDis = g5dis.split();
       assertEquals(5, g5splitDis.get(0));
-      assertEquals(g5dis, g5splitDis);
+      // assertEquals(g5dis, g5splitDis);
       assertTrue(g5dis != g5splitDis);
-      assertEquals(g5dis.hashCode(), g5splitDis.hashCode());
+      // assertEquals(g5dis.hashCode(), g5splitDis.hashCode());
       validator.verifyMutate1(g5splitDis, k);
 
       UndoableUniformMutation<IntegerValued> g3 = g5;
@@ -230,32 +243,32 @@ public class UniformMutationTests {
 
       UndoableUniformMutation<IntegerValued> g5copy = g5.copy();
       assertEquals(5, g5copy.get(0));
-      assertEquals(g5, g5copy);
-      assertEquals(g5.hashCode(), g5copy.hashCode());
+      // assertEquals(g5, g5copy);
+      // assertEquals(g5.hashCode(), g5copy.hashCode());
       validator.verifyMutate1(g5copy, k);
       validator.verifyUndo(g5copy);
       validator.verifySplitUndo(g5copy);
 
       UniformMutation<IntegerValued> g5copyDis = g5dis.copy();
       assertEquals(5, g5copyDis.get(0));
-      assertEquals(g5dis, g5copyDis);
-      assertEquals(g5dis.hashCode(), g5copyDis.hashCode());
+      // assertEquals(g5dis, g5copyDis);
+      // assertEquals(g5dis.hashCode(), g5copyDis.hashCode());
       validator.verifyMutate1(g5copyDis, k);
 
       UndoableUniformMutation<IntegerValued> g5split = g5.split();
       assertEquals(5, g5split.get(0));
-      assertEquals(g5, g5split);
+      // assertEquals(g5, g5split);
       assertTrue(g5 != g5split);
-      assertEquals(g5.hashCode(), g5split.hashCode());
+      // assertEquals(g5.hashCode(), g5split.hashCode());
       validator.verifyMutate1(g5split, k);
       validator.verifyUndo(g5split);
       validator.verifySplitUndo(g5split);
 
       UniformMutation<IntegerValued> g5splitDis = g5dis.split();
       assertEquals(5, g5splitDis.get(0));
-      assertEquals(g5dis, g5splitDis);
+      // assertEquals(g5dis, g5splitDis);
       assertTrue(g5dis != g5splitDis);
-      assertEquals(g5dis.hashCode(), g5splitDis.hashCode());
+      // assertEquals(g5dis.hashCode(), g5splitDis.hashCode());
       validator.verifyMutate1(g5splitDis, k);
 
       UndoableUniformMutation<IntegerValued> g3 = g5;
@@ -279,6 +292,134 @@ public class UniformMutationTests {
         assertThrows(
             IllegalArgumentException.class,
             () -> UndoableUniformMutation.createUniformMutation(1, 0.0));
+    thrown =
+        assertThrows(
+            IllegalArgumentException.class, () -> UniformMutation.createUniformMutation(1, 2, 1));
+    thrown =
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> UndoableUniformMutation.createUniformMutation(1, 2, 1));
+  }
+
+  @Test
+  public void testConstrainedUniformMutation() {
+    {
+      UniformMutation<IntegerValued> g1 = UniformMutation.createUniformMutation(1, -10, 10);
+      assertEquals(1, g1.get(0));
+      validator.verifyMutate1(g1);
+
+      UniformMutation<IntegerValued> g5 = UniformMutation.createUniformMutation(5, -10, 10);
+      assertEquals(5, g5.get(0));
+      validator.verifyMutate1(g5);
+
+      UniformMutation<IntegerValued> g = UniformMutation.createUniformMutation(1, 2, 5);
+      IntegerVector r = new IntegerVector(new int[] {-1000, -100, -50, 0, 3, 50, 100, 1000});
+      g.mutate(r);
+      assertEquals(2, r.get(0));
+      assertEquals(2, r.get(1));
+      assertEquals(2, r.get(2));
+      assertTrue(r.get(3) >= 2 && r.get(3) <= 5);
+      assertTrue(r.get(4) >= 2 && r.get(4) <= 5);
+      assertEquals(5, r.get(5));
+      assertEquals(5, r.get(6));
+      assertEquals(5, r.get(7));
+      g = UniformMutation.createUniformMutation(1, 4, 4);
+      r = new IntegerVector(new int[] {-1000, -100, -50, 0, 3, 50, 100, 1000});
+      g.mutate(r);
+      for (int i = 0; i < 7; i++) {
+        assertEquals(4, r.get(i));
+      }
+    }
+    // copy
+    {
+      UniformMutation<IntegerValued> g1 = UniformMutation.createUniformMutation(1, -10, 10).copy();
+      assertEquals(1, g1.get(0));
+      validator.verifyMutate1(g1);
+
+      UniformMutation<IntegerValued> g5 = UniformMutation.createUniformMutation(5, -10, 10).copy();
+      assertEquals(5, g5.get(0));
+      validator.verifyMutate1(g5);
+
+      UniformMutation<IntegerValued> g = UniformMutation.createUniformMutation(1, 2, 5).copy();
+      IntegerVector r = new IntegerVector(new int[] {-1000, -100, -50, 0, 3, 50, 100, 1000});
+      g.mutate(r);
+      assertEquals(2, r.get(0));
+      assertEquals(2, r.get(1));
+      assertEquals(2, r.get(2));
+      assertTrue(r.get(3) >= 2 && r.get(3) <= 5);
+      assertTrue(r.get(4) >= 2 && r.get(4) <= 5);
+      assertEquals(5, r.get(5));
+      assertEquals(5, r.get(6));
+      assertEquals(5, r.get(7));
+      g = UniformMutation.createUniformMutation(1, 4, 4).copy();
+      r = new IntegerVector(new int[] {-1000, -100, -50, 0, 3, 50, 100, 1000});
+      g.mutate(r);
+      for (int i = 0; i < 7; i++) {
+        assertEquals(4, r.get(i));
+      }
+    }
+    // split
+    {
+      UniformMutation<IntegerValued> g1 = UniformMutation.createUniformMutation(1, -10, 10).split();
+      assertEquals(1, g1.get(0));
+      validator.verifyMutate1(g1);
+
+      UniformMutation<IntegerValued> g5 = UniformMutation.createUniformMutation(5, -10, 10).split();
+      assertEquals(5, g5.get(0));
+      validator.verifyMutate1(g5);
+
+      UniformMutation<IntegerValued> g = UniformMutation.createUniformMutation(1, 2, 5).split();
+      IntegerVector r = new IntegerVector(new int[] {-1000, -100, -50, 0, 3, 50, 100, 1000});
+      g.mutate(r);
+      assertEquals(2, r.get(0));
+      assertEquals(2, r.get(1));
+      assertEquals(2, r.get(2));
+      assertTrue(r.get(3) >= 2 && r.get(3) <= 5);
+      assertTrue(r.get(4) >= 2 && r.get(4) <= 5);
+      assertEquals(5, r.get(5));
+      assertEquals(5, r.get(6));
+      assertEquals(5, r.get(7));
+      g = UniformMutation.createUniformMutation(1, 4, 4).split();
+      r = new IntegerVector(new int[] {-1000, -100, -50, 0, 3, 50, 100, 1000});
+      g.mutate(r);
+      for (int i = 0; i < 7; i++) {
+        assertEquals(4, r.get(i));
+      }
+    }
+  }
+
+  @Test
+  public void testUndoableConstrainedUniformMutation() {
+    UndoableUniformMutation<IntegerValued> g1 =
+        UndoableUniformMutation.createUniformMutation(1, -10, 10);
+    assertEquals(1, g1.get(0));
+    validator.verifyMutate1(g1);
+    validator.verifyUndo(g1);
+
+    UndoableUniformMutation<IntegerValued> g5 =
+        UndoableUniformMutation.createUniformMutation(5, -10, 10);
+    assertEquals(5, g5.get(0));
+    validator.verifyMutate1(g5);
+    validator.verifyUndo(g5);
+
+    UndoableUniformMutation<IntegerValued> g =
+        UndoableUniformMutation.createUniformMutation(1, 2, 5);
+    IntegerVector r = new IntegerVector(new int[] {-1000, -100, -50, 0, 3, 50, 100, 1000});
+    g.mutate(r);
+    assertEquals(2, r.get(0));
+    assertEquals(2, r.get(1));
+    assertEquals(2, r.get(2));
+    assertTrue(r.get(3) >= 2 && r.get(3) <= 5);
+    assertTrue(r.get(4) >= 2 && r.get(4) <= 5);
+    assertEquals(5, r.get(5));
+    assertEquals(5, r.get(6));
+    assertEquals(5, r.get(7));
+    g = UndoableUniformMutation.createUniformMutation(1, 4, 4);
+    r = new IntegerVector(new int[] {-1000, -100, -50, 0, 3, 50, 100, 1000});
+    g.mutate(r);
+    for (int i = 0; i < 7; i++) {
+      assertEquals(4, r.get(i));
+    }
   }
 
   private static class UniformMutationValidator {
@@ -288,7 +429,7 @@ public class UniformMutationTests {
     // and decreasing values.  This constant controls the max number of trials
     // executed in verifying this.  E.g., pass if at least 1 out of MAX_TRIALS
     // increases value, and if at least 1 out of MAX_TRIALS decreases.
-    // A Uniform is symmetric about 0.0, so approximately half of mutations
+    // A Uniform is symmetric about 0, so approximately half of mutations
     // should decrease and approximately half should increase.
     private static final int MAX_TRIALS = 100;
 
@@ -320,7 +461,7 @@ public class UniformMutationTests {
       }
     }
 
-    private void verifyMutate1(UniformMutation<IntegerValued> m) {
+    private void verifyMutate1(AbstractIntegerMutation<IntegerValued> m) {
       int countLow = 0;
       int countHigh = 0;
       for (int i = 0; i < MAX_TRIALS && (countLow == 0 || countHigh == 0); i++) {
@@ -358,7 +499,7 @@ public class UniformMutationTests {
       }
     }
 
-    private void verifyMutate1(UniformMutation<IntegerValued> m, double p) {
+    private void verifyMutate1(AbstractIntegerMutation<IntegerValued> m, double p) {
       int countLow = 0;
       int countHigh = 0;
       final int TRIALS = (int) (2 * MAX_TRIALS / p);
@@ -399,7 +540,7 @@ public class UniformMutationTests {
       }
     }
 
-    private void verifyMutate1(UniformMutation<IntegerValued> m, int K) {
+    private void verifyMutate1(AbstractIntegerMutation<IntegerValued> m, int K) {
       int countLow = 0;
       int countHigh = 0;
       for (int i = 0; i < MAX_TRIALS && (countLow == 0 || countHigh == 0); i++) {
@@ -420,7 +561,7 @@ public class UniformMutationTests {
         final int z = j;
         int[] low = new int[z];
         int[] high = new int[z];
-        final int TRIALS = (int) (2 * MAX_TRIALS / (K < j ? 1.0 * K / j : 1));
+        final int TRIALS = (int) (2 * MAX_TRIALS / (K < j ? 1.0 * K / j : 1.0));
         for (int i = 0; i < TRIALS; i++) {
           IntegerVector f = new IntegerVector(v.clone());
           m.mutate(f);

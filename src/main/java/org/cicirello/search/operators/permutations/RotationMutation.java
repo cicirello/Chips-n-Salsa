@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.operators.UndoableMutationOperator;
@@ -45,13 +46,20 @@ public final class RotationMutation
     implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 
   private int r;
+  private final EnhancedSplittableGenerator generator;
 
   /** Constructs an RotationMutation mutation operator. */
-  public RotationMutation() {}
+  public RotationMutation() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private RotationMutation(RotationMutation other) {
+    generator = other.generator.split();
+  }
 
   @Override
   public void mutate(Permutation c) {
-    if (c.length() > 1) c.rotate(r = 1 + RandomIndexer.nextInt(c.length() - 1));
+    if (c.length() > 1) c.rotate(r = 1 + generator.nextInt(c.length() - 1));
   }
 
   @Override
@@ -61,7 +69,7 @@ public final class RotationMutation
 
   @Override
   public RotationMutation split() {
-    return new RotationMutation();
+    return new RotationMutation(this);
   }
 
   /**

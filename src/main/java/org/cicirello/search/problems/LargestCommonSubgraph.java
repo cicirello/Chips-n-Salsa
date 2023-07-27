@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,9 +22,9 @@ package org.cicirello.search.problems;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SplittableRandom;
-import java.util.random.RandomGenerator;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.representations.BitVector;
 
 /**
@@ -69,9 +69,11 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
   public LargestCommonSubgraph(int v, double density, boolean isomorphic) {
     this(v);
     if (isomorphic) {
-      createIsomorphicRandomInstanceData(v, density, new SplittableRandom());
+      createIsomorphicRandomInstanceData(
+          v, density, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
     } else {
-      createRandomInstanceData(v, v, density, density, new SplittableRandom());
+      createRandomInstanceData(
+          v, v, density, density, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
     }
   }
 
@@ -91,9 +93,11 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
   public LargestCommonSubgraph(int v1, int v2, double density1, double density2) {
     this(v2 > v1 ? v2 : v1);
     if (v1 < v2 || (v1 == v2 && density1 <= density2)) {
-      createRandomInstanceData(v1, v2, density1, density2, new SplittableRandom());
+      createRandomInstanceData(
+          v1, v2, density1, density2, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
     } else {
-      createRandomInstanceData(v2, v1, density2, density1, new SplittableRandom());
+      createRandomInstanceData(
+          v2, v1, density2, density1, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
     }
   }
 
@@ -112,9 +116,11 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
   public LargestCommonSubgraph(int v, double density, boolean isomorphic, long seed) {
     this(v);
     if (isomorphic) {
-      createIsomorphicRandomInstanceData(v, density, new SplittableRandom(seed));
+      createIsomorphicRandomInstanceData(
+          v, density, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
     } else {
-      createRandomInstanceData(v, v, density, density, new SplittableRandom(seed));
+      createRandomInstanceData(
+          v, v, density, density, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
     }
   }
 
@@ -135,9 +141,11 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
   public LargestCommonSubgraph(int v1, int v2, double density1, double density2, long seed) {
     this(v2 > v1 ? v2 : v1);
     if (v1 < v2 || (v1 == v2 && density1 <= density2)) {
-      createRandomInstanceData(v1, v2, density1, density2, new SplittableRandom(seed));
+      createRandomInstanceData(
+          v1, v2, density1, density2, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
     } else {
-      createRandomInstanceData(v2, v1, density2, density1, new SplittableRandom(seed));
+      createRandomInstanceData(
+          v2, v1, density2, density1, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
     }
   }
 
@@ -184,7 +192,8 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
    * @throws IllegalArgumentException if k is not less than n/2 or if k is negative.
    */
   public static LargestCommonSubgraph createInstanceGeneralizedPetersenGraph(int n, int k) {
-    return createInstanceGeneralizedPetersenGraph(n, k, new Permutation(2 * n));
+    return createInstanceGeneralizedPetersenGraph(
+        n, k, new Permutation(2 * n, RandomnessFactory.threadLocalEnhancedSplittableGenerator()));
   }
 
   /**
@@ -208,7 +217,7 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
   public static LargestCommonSubgraph createInstanceGeneralizedPetersenGraph(
       int n, int k, long seed) {
     return createInstanceGeneralizedPetersenGraph(
-        n, k, new Permutation(2 * n, new SplittableRandom(seed)));
+        n, k, new Permutation(2 * n, RandomnessFactory.createSeededEnhancedRandomGenerator(seed)));
   }
 
   private LargestCommonSubgraph(int largerV) {
@@ -278,7 +287,8 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
     return adjacencyMatrixG2[u].isOne(v);
   }
 
-  private void createIsomorphicRandomInstanceData(int v, double density, RandomGenerator gen) {
+  private void createIsomorphicRandomInstanceData(
+      int v, double density, EnhancedRandomGenerator gen) {
     if (v <= 0) {
       throw new IllegalArgumentException("Graphs must have at least 1 vertex.");
     }
@@ -305,7 +315,7 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
   }
 
   private void createRandomInstanceData(
-      int v1, int v2, double density1, double density2, RandomGenerator gen) {
+      int v1, int v2, double density1, double density2, EnhancedRandomGenerator gen) {
     if (v1 <= 0) {
       throw new IllegalArgumentException("Graphs must have at least 1 vertex.");
     }

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.util.Copyable;
 
@@ -43,17 +44,20 @@ import org.cicirello.util.Copyable;
 final class AdaptiveMutationOnlyGeneration<T extends Copyable<T>> implements Generation<T> {
 
   private final MutationOperator<T> mutation;
+  private final EnhancedSplittableGenerator generator;
 
   AdaptiveMutationOnlyGeneration(MutationOperator<T> mutation) {
     if (mutation == null) {
       throw new NullPointerException("mutation must be non-null");
     }
     this.mutation = mutation;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   AdaptiveMutationOnlyGeneration(AdaptiveMutationOnlyGeneration<T> other) {
     // Must be split
     mutation = other.mutation.split();
+    generator = other.generator.split();
   }
 
   @Override
@@ -66,9 +70,8 @@ final class AdaptiveMutationOnlyGeneration<T extends Copyable<T>> implements Gen
     pop.select();
     final int LAMBDA = pop.mutableSize();
     int count = 0;
-    ThreadLocalRandom r = ThreadLocalRandom.current();
     for (int j = 0; j < LAMBDA; j++) {
-      if (r.nextDouble() < pop.getParameter(j, 0).get()) {
+      if (generator.nextDouble() < pop.getParameter(j, 0).get()) {
         mutation.mutate(pop.get(j));
         pop.updateFitness(j);
         count++;

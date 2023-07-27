@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.operators.reals;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.representations.RealVector;
 
@@ -38,8 +39,16 @@ import org.cicirello.search.representations.RealVector;
  */
 public final class SinglePointCrossover<T extends RealVector> implements CrossoverOperator<T> {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs a single point crossover operator. */
-  public SinglePointCrossover() {}
+  public SinglePointCrossover() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private SinglePointCrossover(SinglePointCrossover<T> other) {
+    generator = other.generator.split();
+  }
 
   /**
    * {@inheritDoc}
@@ -48,13 +57,11 @@ public final class SinglePointCrossover<T extends RealVector> implements Crossov
    */
   @Override
   public void cross(RealVector c1, RealVector c2) {
-    RealVector.exchange(c1, c2, 0, RandomIndexer.nextInt(c1.length() - 1));
+    RealVector.exchange(c1, c2, 0, generator.nextInt(c1.length() - 1));
   }
 
   @Override
   public SinglePointCrossover<T> split() {
-    // Doesn't maintain any state, so safe to use with multiple threads.
-    // Just return this.
-    return this;
+    return new SinglePointCrossover<T>(this);
   }
 }

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import org.cicirello.math.rand.RandomVariates;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.util.Copyable;
@@ -40,6 +41,7 @@ final class AlwaysMutateGeneration<T extends Copyable<T>> implements Generation<
   private final MutationOperator<T> mutation;
   private final CrossoverOperator<T> crossover;
   private final double C;
+  private final EnhancedSplittableGenerator generator;
 
   AlwaysMutateGeneration(
       MutationOperator<T> mutation, CrossoverOperator<T> crossover, double crossoverRate) {
@@ -55,12 +57,14 @@ final class AlwaysMutateGeneration<T extends Copyable<T>> implements Generation<
     C = crossoverRate < 1.0 ? crossoverRate : 1.0;
     this.mutation = mutation;
     this.crossover = crossover;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   AlwaysMutateGeneration(AlwaysMutateGeneration<T> other) {
     // Must be split
     mutation = other.mutation.split();
     crossover = other.crossover.split();
+    generator = other.generator.split();
 
     // primitives
     C = other.C;
@@ -78,7 +82,7 @@ final class AlwaysMutateGeneration<T extends Copyable<T>> implements Generation<
     // to get count of number of pairs of parents to cross and cross the first
     // count pairs of parents. Pair up parents with indexes: first and (first + count).
     final int LAMBDA = pop.mutableSize();
-    final int count = RandomVariates.nextBinomial(LAMBDA >> 1, C);
+    final int count = generator.nextBinomial(LAMBDA >> 1, C);
     for (int first = 0; first < count; first++) {
       int second = first + count;
       crossover.cross(pop.get(first), pop.get(second));

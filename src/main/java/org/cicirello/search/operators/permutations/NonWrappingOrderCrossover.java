@@ -20,9 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationBinaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.util.IntegerArray;
 
@@ -58,7 +59,11 @@ import org.cicirello.util.IntegerArray;
  * Crossover: An Order Preserving Crossover Operator that Respects Absolute Position</a>.
  * <i>Proceedings of the Genetic and Evolutionary Computation Conference (GECCO'06)</i>, volume 2,
  * pages 1125-1131. ACM Press, July 2006. doi:<a
- * href="http://dx.doi.org/10.1145/1143997.1144177">10.1145/1143997.1144177</a>
+ * href="https://doi.org/10.1145/1143997.1144177">10.1145/1143997.1144177</a>. <a
+ * href="https://www.cicirello.org/publications/GECCO2006.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2006gecco.bib">[BIB]</a> <a
+ * href="https://dl.acm.org/doi/10.1145/1143997.1144177?cid=81100638594">[From the ACM Digital
+ * Library]</a>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
@@ -66,8 +71,16 @@ import org.cicirello.util.IntegerArray;
 public final class NonWrappingOrderCrossover
     implements CrossoverOperator<Permutation>, PermutationBinaryOperator {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs a non-wrapping order crossover (NWOX) operator. */
-  public NonWrappingOrderCrossover() {}
+  public NonWrappingOrderCrossover() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private NonWrappingOrderCrossover(NonWrappingOrderCrossover other) {
+    generator = other.generator.split();
+  }
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
@@ -83,8 +96,8 @@ public final class NonWrappingOrderCrossover
    */
   @Override
   public void apply(int[] raw1, int[] raw2) {
-    int i = RandomIndexer.nextInt(raw1.length);
-    int j = RandomIndexer.nextInt(raw1.length);
+    int i = generator.nextInt(raw1.length);
+    int j = generator.nextInt(raw1.length);
     if (j < i) {
       int temp = i;
       i = j;
@@ -118,7 +131,6 @@ public final class NonWrappingOrderCrossover
 
   @Override
   public NonWrappingOrderCrossover split() {
-    // doesn't maintain any state, so safe to return this
-    return this;
+    return new NonWrappingOrderCrossover(this);
   }
 }

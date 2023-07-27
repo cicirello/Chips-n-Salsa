@@ -52,12 +52,16 @@ public class CycleCrossoverTests {
   @Test
   public void testIdenticalPermutations() {
     CycleCrossover cross = new CycleCrossover();
+    CycleCrossover s = cross.split();
     for (int n = 1; n <= 16; n *= 2) {
       Permutation p1 = new Permutation(n);
       Permutation p2 = new Permutation(p1);
       Permutation parent1 = new Permutation(p1);
       Permutation parent2 = new Permutation(p2);
       cross.cross(parent1, parent2);
+      assertEquals(p1, parent1);
+      assertEquals(p2, parent2);
+      s.cross(parent1, parent2);
       assertEquals(p1, parent1);
       assertEquals(p2, parent2);
     }
@@ -81,6 +85,13 @@ public class CycleCrossoverTests {
   @Test
   public void testTypicalCase() {
     CycleCrossover cross = new CycleCrossover();
+    validateTypicalCase(cross);
+    CycleCrossover s = cross.split();
+    assertNotSame(cross, s);
+    validateTypicalCase(s);
+  }
+
+  private void validateTypicalCase(CycleCrossover cross) {
     int[] perm1 = {8, 7, 6, 5, 4, 3, 2, 1, 0};
     int[] perm2 = {4, 3, 5, 2, 0, 1, 6, 7, 8};
     Permutation p1 = new Permutation(perm1);
@@ -93,6 +104,5 @@ public class CycleCrossoverTests {
     assertEquals(1, dist.distance(p2, parent2));
     assertEquals(2, dist.distance(p2, parent1));
     assertEquals(2, dist.distance(p1, parent2));
-    assertSame(cross, cross.split());
   }
 }

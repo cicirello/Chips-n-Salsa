@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.sa;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class implements the classic and most commonly encountered cooling schedule for simulated
@@ -52,6 +53,7 @@ public final class ExponentialCooling implements AnnealingSchedule {
   private final double alpha;
   private final int steps;
   private int stepCounter;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs an exponential cooling schedule for simulated annealing.
@@ -71,6 +73,7 @@ public final class ExponentialCooling implements AnnealingSchedule {
     t = this.t0 = t0;
     this.alpha = alpha;
     this.steps = steps <= 0 ? 1 : steps;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -84,12 +87,7 @@ public final class ExponentialCooling implements AnnealingSchedule {
    * @throws IllegalArgumentException if t0 &le; 0 or alpha &le; 0 or alpha &ge; 1.
    */
   public ExponentialCooling(double t0, double alpha) {
-    if (t0 <= 0) throw new IllegalArgumentException("Initial temperature must be positive");
-    if (alpha <= 0 || alpha >= 1)
-      throw new IllegalArgumentException("alpha must be in interval (0,1)");
-    t = this.t0 = t0;
-    this.alpha = alpha;
-    this.steps = 1;
+    this(t0, alpha, 1);
   }
 
   /*
@@ -99,6 +97,7 @@ public final class ExponentialCooling implements AnnealingSchedule {
     t = t0 = other.t0;
     alpha = other.alpha;
     steps = other.steps;
+    generator = other.generator.split();
   }
 
   @Override
@@ -111,8 +110,7 @@ public final class ExponentialCooling implements AnnealingSchedule {
   public boolean accept(double neighborCost, double currentCost) {
     boolean doAccept =
         neighborCost <= currentCost
-            || ThreadLocalRandom.current().nextDouble()
-                < Math.exp((currentCost - neighborCost) / t);
+            || generator.nextDouble() < Math.exp((currentCost - neighborCost) / t);
     stepCounter++;
     if (stepCounter == steps && t > 0.001) {
       stepCounter = 0;

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,7 +22,8 @@ package org.cicirello.search.operators;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * A HybridMutation enables using multiple mutation operators for the search, such that each time
@@ -38,6 +39,7 @@ public final class HybridUndoableMutation<T> implements UndoableMutationOperator
 
   private final ArrayList<UndoableMutationOperator<T>> mutationOps;
   private int last;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a HybridUndoableMutation from a Collection of MutationOperators.
@@ -53,6 +55,7 @@ public final class HybridUndoableMutation<T> implements UndoableMutationOperator
       this.mutationOps.add(op);
     }
     last = -1;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -64,11 +67,12 @@ public final class HybridUndoableMutation<T> implements UndoableMutationOperator
       mutationOps.add(op.split());
     }
     last = -1;
+    generator = other.generator.split();
   }
 
   @Override
   public void mutate(T c) {
-    mutationOps.get(last = RandomIndexer.nextBiasedInt(mutationOps.size())).mutate(c);
+    mutationOps.get(last = generator.nextBiasedInt(mutationOps.size())).mutate(c);
   }
 
   @Override

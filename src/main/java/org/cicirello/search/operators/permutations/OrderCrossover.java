@@ -20,9 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationBinaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.util.IntegerArray;
 
@@ -59,8 +60,16 @@ import org.cicirello.util.IntegerArray;
 public final class OrderCrossover
     implements CrossoverOperator<Permutation>, PermutationBinaryOperator {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs an order crossover (OX) operator. */
-  public OrderCrossover() {}
+  public OrderCrossover() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private OrderCrossover(OrderCrossover other) {
+    generator = other.generator.split();
+  }
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
@@ -76,8 +85,8 @@ public final class OrderCrossover
    */
   @Override
   public void apply(int[] raw1, int[] raw2) {
-    int i = RandomIndexer.nextInt(raw1.length);
-    int j = RandomIndexer.nextInt(raw1.length);
+    int i = generator.nextInt(raw1.length);
+    int j = generator.nextInt(raw1.length);
     if (j < i) {
       int temp = i;
       i = j;
@@ -111,7 +120,6 @@ public final class OrderCrossover
 
   @Override
   public OrderCrossover split() {
-    // doesn't maintain any state, so safe to return this
-    return this;
+    return new OrderCrossover(this);
   }
 }

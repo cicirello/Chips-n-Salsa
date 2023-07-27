@@ -21,9 +21,10 @@
 package org.cicirello.search.operators.permutations;
 
 import java.util.Arrays;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationFullBinaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
@@ -67,8 +68,16 @@ import org.cicirello.search.operators.CrossoverOperator;
 public final class PartiallyMatchedCrossover
     implements CrossoverOperator<Permutation>, PermutationFullBinaryOperator {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs a partially matched crossover (PMX) operator. */
-  public PartiallyMatchedCrossover() {}
+  public PartiallyMatchedCrossover() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private PartiallyMatchedCrossover(PartiallyMatchedCrossover other) {
+    generator = other.generator.split();
+  }
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
@@ -77,8 +86,7 @@ public final class PartiallyMatchedCrossover
 
   @Override
   public PartiallyMatchedCrossover split() {
-    // doesn't maintain any state, so safe to return this
-    return this;
+    return new PartiallyMatchedCrossover(this);
   }
 
   /**
@@ -93,7 +101,7 @@ public final class PartiallyMatchedCrossover
   @Override
   public void apply(int[] raw1, int[] raw2, Permutation p1, Permutation p2) {
     internalCross(
-        raw1, raw2, p1, p2, RandomIndexer.nextInt(raw1.length), RandomIndexer.nextInt(raw1.length));
+        raw1, raw2, p1, p2, generator.nextInt(raw1.length), generator.nextInt(raw1.length));
   }
 
   /*

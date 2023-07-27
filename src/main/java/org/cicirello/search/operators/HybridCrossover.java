@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,7 +22,8 @@ package org.cicirello.search.operators;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * A HybridCrossover enables using multiple crossover operators for the evolutionary algorithm, such
@@ -37,6 +38,7 @@ import org.cicirello.math.rand.RandomIndexer;
 public final class HybridCrossover<T> implements CrossoverOperator<T> {
 
   private final ArrayList<CrossoverOperator<T>> crossoverOps;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a HybridCrossover from a Collection of CrossoverOperator.
@@ -51,6 +53,7 @@ public final class HybridCrossover<T> implements CrossoverOperator<T> {
     for (CrossoverOperator<T> op : crossoverOps) {
       this.crossoverOps.add(op);
     }
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -61,11 +64,12 @@ public final class HybridCrossover<T> implements CrossoverOperator<T> {
     for (CrossoverOperator<T> op : other.crossoverOps) {
       crossoverOps.add(op.split());
     }
+    generator = other.generator.split();
   }
 
   @Override
   public void cross(T c1, T c2) {
-    crossoverOps.get(RandomIndexer.nextBiasedInt(crossoverOps.size())).cross(c1, c2);
+    crossoverOps.get(generator.nextBiasedInt(crossoverOps.size())).cross(c1, c2);
   }
 
   @Override

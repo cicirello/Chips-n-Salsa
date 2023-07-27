@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,7 +22,9 @@ package org.cicirello.search.evo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.ProgressTracker;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.SingleReal;
 import org.cicirello.util.Copyable;
@@ -67,6 +69,8 @@ abstract class EvolvableParametersElitistPopulation {
     private double bestFitness;
 
     private final int numParams;
+
+    private final EnhancedSplittableGenerator generator;
 
     /**
      * Constructs the Population.
@@ -117,6 +121,7 @@ abstract class EvolvableParametersElitistPopulation {
       selected = new int[LAMBDA];
       updated = new boolean[LAMBDA];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
+      generator = RandomnessFactory.createEnhancedSplittableGenerator();
     }
 
     /*
@@ -134,6 +139,7 @@ abstract class EvolvableParametersElitistPopulation {
       // split these: not threadsafe
       initializer = other.initializer.split();
       selection = other.selection.split();
+      generator = other.generator.split();
 
       // initialize these fresh: not threadsafe or otherwise needs its own
       pop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
@@ -244,7 +250,7 @@ abstract class EvolvableParametersElitistPopulation {
         double fit = f.fitness(c);
         pop.add(
             new PopulationMember.DoubleFitness<EncodingWithParameters<T>>(
-                new EncodingWithParameters<T>(c, numParams), fit));
+                new EncodingWithParameters<T>(c, numParams, generator), fit));
         if (fit > bestFitness) {
           bestFitness = fit;
           newBest = c;
@@ -285,6 +291,8 @@ abstract class EvolvableParametersElitistPopulation {
     private int bestFitness;
 
     private final int numParams;
+
+    private final EnhancedSplittableGenerator generator;
 
     /**
      * Constructs the Population.
@@ -334,6 +342,7 @@ abstract class EvolvableParametersElitistPopulation {
       selected = new int[LAMBDA];
       updated = new boolean[LAMBDA];
       bestFitness = java.lang.Integer.MIN_VALUE;
+      generator = RandomnessFactory.createEnhancedSplittableGenerator();
     }
 
     /*
@@ -351,6 +360,7 @@ abstract class EvolvableParametersElitistPopulation {
       // split these: not threadsafe
       initializer = other.initializer.split();
       selection = other.selection.split();
+      generator = other.generator.split();
 
       // initialize these fresh: not threadsafe or otherwise needs its own
       pop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
@@ -461,7 +471,7 @@ abstract class EvolvableParametersElitistPopulation {
         int fit = f.fitness(c);
         pop.add(
             new PopulationMember.IntegerFitness<EncodingWithParameters<T>>(
-                new EncodingWithParameters<T>(c, numParams), fit));
+                new EncodingWithParameters<T>(c, numParams, generator), fit));
         if (fit > bestFitness) {
           bestFitness = fit;
           newBest = c;

@@ -20,9 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomSampler;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationFullBinaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
@@ -53,6 +54,8 @@ import org.cicirello.search.operators.CrossoverOperator;
  * href="https://www.cicirello.org/publications/cicirello2000gecco.html">Modeling GA Performance for
  * Control Parameter Optimization</a>. <i>Proceedings of the Genetic and Evolutionary Computation
  * Conference (GECCO-2000)</i>, pages 235-242. Morgan Kaufmann Publishers, July 2000. <a
+ * href="https://www.cicirello.org/publications/gecco2000-cicirello.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2000gecco.bib">[BIB]</a> <a
  * href="http://dl.acm.org/citation.cfm?id=2933750">[From ACM Digital Library]</a>
  *
  * <p>The worst case runtime of a call to {@link #cross cross} is O(N), where N is the length of the
@@ -65,6 +68,7 @@ public final class UniformPartiallyMatchedCrossover
     implements CrossoverOperator<Permutation>, PermutationFullBinaryOperator {
 
   private final double u;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a uniform partially matched crossover (UPMX) operator, with a default u = 1.0 / 3.0.
@@ -85,6 +89,12 @@ public final class UniformPartiallyMatchedCrossover
   public UniformPartiallyMatchedCrossover(double u) {
     if (u <= 0 || u >= 1.0) throw new IllegalArgumentException("u must be: 0.0 < u < 1.0");
     this.u = u;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private UniformPartiallyMatchedCrossover(UniformPartiallyMatchedCrossover other) {
+    generator = other.generator.split();
+    u = other.u;
   }
 
   @Override
@@ -94,8 +104,7 @@ public final class UniformPartiallyMatchedCrossover
 
   @Override
   public UniformPartiallyMatchedCrossover split() {
-    // doesn't maintain any mutable state, so safe to return this.
-    return this;
+    return new UniformPartiallyMatchedCrossover(this);
   }
 
   /**
@@ -109,7 +118,7 @@ public final class UniformPartiallyMatchedCrossover
    */
   @Override
   public void apply(int[] raw1, int[] raw2, Permutation p1, Permutation p2) {
-    internalCross(raw1, raw2, p1, p2, RandomSampler.sample(raw1.length, u));
+    internalCross(raw1, raw2, p1, p2, generator.sample(raw1.length, u));
   }
 
   /*

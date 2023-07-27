@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,10 +20,10 @@
 
 package org.cicirello.search.ss;
 
-import java.util.concurrent.ThreadLocalRandom;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.util.Copyable;
 
 /**
@@ -125,6 +125,8 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>>
   private final BiasFunction bias;
   private final ConstructiveHeuristic<T> heuristic;
   private final double[] biases;
+
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a HeuristicBiasedStochasticSampling search object. A ProgressTracker is created for
@@ -228,6 +230,7 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>>
     this.bias = bias;
     this.heuristic = heuristic;
     biases = precomputeBiases(heuristic.completeLength());
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -236,8 +239,9 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>>
   private HeuristicBiasedStochasticSampling(HeuristicBiasedStochasticSampling<T> other) {
     super(other);
     bias = other.bias;
-    heuristic = other.heuristic;
+    heuristic = other.heuristic.split();
     biases = other.biases;
+    generator = other.generator.split();
   }
 
   @Override
@@ -314,7 +318,7 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>>
   }
 
   private int randomizedPartition(int[] indexes, double[] v, int first, int last) {
-    int pivot = first + RandomIndexer.nextBiasedInt(last - first + 1);
+    int pivot = first + generator.nextBiasedInt(last - first + 1);
     int temp = indexes[pivot];
     indexes[pivot] = indexes[last];
     indexes[last] = temp;
@@ -342,7 +346,6 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>>
     Partial<T> p = heuristic.createPartial(n);
     double[] v = new double[n];
     int[] extensions = new int[n];
-    ThreadLocalRandom r = ThreadLocalRandom.current();
     while (!p.isComplete()) {
       int k = p.numExtensions();
       if (k == 1) {
@@ -351,7 +354,7 @@ public final class HeuristicBiasedStochasticSampling<T extends Copyable<T>>
         }
         p.extend(0);
       } else {
-        int chosenRank = 1 + select(biases, k, r.nextDouble(biases[k - 1]));
+        int chosenRank = 1 + select(biases, k, generator.nextDouble(biases[k - 1]));
         for (int i = 0; i < k; i++) {
           v[i] = heuristic.h(p, p.getExtension(i), incEval);
           extensions[i] = i;

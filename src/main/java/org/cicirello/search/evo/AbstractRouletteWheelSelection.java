@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This abstract class serves as a base class for selection operators that select population members
@@ -32,18 +33,23 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 abstract class AbstractRouletteWheelSelection extends AbstractWeightedSelection {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Construct a roulette wheel selection operator */
-  public AbstractRouletteWheelSelection() {}
+  public AbstractRouletteWheelSelection() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  /* package private for use by subclasses in same package */
+  AbstractRouletteWheelSelection(AbstractRouletteWheelSelection other) {
+    generator = other.generator.split();
+  }
 
   @Override
   final void selectAll(double[] normalizedWeights, int[] selected) {
     for (int i = 0; i < selected.length; i++) {
       selected[i] =
-          selectOne(
-              normalizedWeights,
-              0,
-              normalizedWeights.length - 1,
-              ThreadLocalRandom.current().nextDouble());
+          selectOne(normalizedWeights, 0, normalizedWeights.length - 1, generator.nextDouble());
     }
   }
 }

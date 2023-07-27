@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,9 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
 import org.cicirello.search.operators.UndoableMutationOperator;
@@ -47,19 +48,31 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class BlockMoveMutation
+public final class BlockMoveMutation
     implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 
   // needed to implement undo
   private final int[] indexes;
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs a BlockMoveMutation mutation operator. */
   public BlockMoveMutation() {
+    this(RandomnessFactory.createEnhancedSplittableGenerator());
+  }
+
+  /** package access for use by window limited, within package */
+  BlockMoveMutation(EnhancedSplittableGenerator generator) {
+    this.generator = generator;
     indexes = new int[3];
   }
 
+  private BlockMoveMutation(BlockMoveMutation other) {
+    this(other.generator.split());
+  }
+
   @Override
-  public final void mutate(Permutation c) {
+  public void mutate(Permutation c) {
     if (c.length() >= 2) {
       generateIndexes(c.length(), indexes);
       c.removeAndInsert(indexes[1], indexes[2] - indexes[1] + 1, indexes[0]);
@@ -67,13 +80,13 @@ public class BlockMoveMutation
   }
 
   @Override
-  public final void undo(Permutation c) {
+  public void undo(Permutation c) {
     c.removeAndInsert(indexes[0], indexes[2] - indexes[1] + 1, indexes[1]);
   }
 
   @Override
   public BlockMoveMutation split() {
-    return new BlockMoveMutation();
+    return new BlockMoveMutation(this);
   }
 
   /**
@@ -91,9 +104,7 @@ public class BlockMoveMutation
   }
 
   /*
-   * This package access method allows the window limited version
-   * implemented as a subclass to change how indexes are generated
-   * without modifying the mutate method.
+   * package access to support unit testing
    */
   void generateIndexes(int n, int[] indexes) {
     // Note 1: The nextIntTriple method returns 3 all different indexes,
@@ -103,7 +114,9 @@ public class BlockMoveMutation
     // Note 2: Without loss of generality, the indexes are generated to
     // move the block earlier in the permutation.  We can do this because
     // a "block move" essentially swaps two adjacent "blocks."
-    RandomIndexer.nextIntTriple(n + 1, indexes, true);
-    if (indexes[2] == n) indexes[2] = indexes[1];
+    generator.nextIntTriple(n + 1, indexes, true);
+    if (indexes[2] == n) {
+      indexes[2] = indexes[1];
+    }
   }
 }

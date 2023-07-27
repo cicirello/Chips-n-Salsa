@@ -20,7 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.util.Copyable;
@@ -48,6 +49,7 @@ final class NaiveSimpleGeneration<T extends Copyable<T>> implements Generation<T
   private final double M;
   private final CrossoverOperator<T> crossover;
   private final double C;
+  private final EnhancedSplittableGenerator generator;
 
   NaiveSimpleGeneration(
       MutationOperator<T> mutation,
@@ -58,12 +60,14 @@ final class NaiveSimpleGeneration<T extends Copyable<T>> implements Generation<T
     C = crossoverRate;
     this.mutation = mutation;
     this.crossover = crossover;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   NaiveSimpleGeneration(NaiveSimpleGeneration<T> other) {
     // Must be split
     mutation = other.mutation.split();
     crossover = other.crossover.split();
+    generator = other.generator.split();
 
     // primitives
     M = other.M;
@@ -84,7 +88,7 @@ final class NaiveSimpleGeneration<T extends Copyable<T>> implements Generation<T
     // Since select() above randomizes ordering, just pair up parents with indexes: first and (first
     // + count).
     for (int first = 0; first < count; first++) {
-      if (ThreadLocalRandom.current().nextDouble() < C) {
+      if (generator.nextDouble() < C) {
         int second = first + count;
         crossover.cross(pop.get(first), pop.get(second));
         pop.updateFitness(first);
@@ -94,7 +98,7 @@ final class NaiveSimpleGeneration<T extends Copyable<T>> implements Generation<T
     }
     // Choose which to mutate based on M and mutate them
     for (int j = 0; j < N; j++) {
-      if (ThreadLocalRandom.current().nextDouble() < M) {
+      if (generator.nextDouble() < M) {
         mutation.mutate(pop.get(j));
         pop.updateFitness(j);
         numEvals++;

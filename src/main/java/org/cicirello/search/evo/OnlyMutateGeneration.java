@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import org.cicirello.math.rand.RandomVariates;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.util.Copyable;
 
@@ -35,6 +36,7 @@ final class OnlyMutateGeneration<T extends Copyable<T>> implements Generation<T>
 
   private final MutationOperator<T> mutation;
   private final double M;
+  private final EnhancedSplittableGenerator generator;
 
   OnlyMutateGeneration(MutationOperator<T> mutation, double mutationRate) {
     if (mutation == null) {
@@ -46,11 +48,13 @@ final class OnlyMutateGeneration<T extends Copyable<T>> implements Generation<T>
     this.mutation = mutation;
     // no need to check if > 1 because would use OnlyAlwaysMutateGeneration in that case
     M = mutationRate;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   OnlyMutateGeneration(OnlyMutateGeneration<T> other) {
     // Must be split
     mutation = other.mutation.split();
+    generator = other.generator.split();
 
     // primitives
     M = other.M;
@@ -64,7 +68,7 @@ final class OnlyMutateGeneration<T extends Copyable<T>> implements Generation<T>
   @Override
   public int apply(Population<T> pop) {
     pop.select();
-    final int count = RandomVariates.nextBinomial(pop.mutableSize(), M);
+    final int count = generator.nextBinomial(pop.mutableSize(), M);
     // Since select() randomizes ordering, just use a binomial
     // to get count of how many to mutate and mutate the first count individuals.
     // Although if M is 1.0 just mutate them all without computing the binomial.

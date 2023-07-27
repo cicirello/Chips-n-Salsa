@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationFullBinaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 
 /**
@@ -52,8 +53,16 @@ import org.cicirello.search.operators.CrossoverOperator;
 public final class CycleCrossover
     implements CrossoverOperator<Permutation>, PermutationFullBinaryOperator {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs a cycle crossover (CX) operator. */
-  public CycleCrossover() {}
+  public CycleCrossover() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private CycleCrossover(CycleCrossover other) {
+    generator = other.generator.split();
+  }
 
   @Override
   public void cross(Permutation c1, Permutation c2) {
@@ -62,8 +71,7 @@ public final class CycleCrossover
 
   @Override
   public CycleCrossover split() {
-    // doesn't maintain any state, so safe to return this
-    return this;
+    return new CycleCrossover(this);
   }
 
   /**
@@ -81,7 +89,7 @@ public final class CycleCrossover
     int[] cycle = new int[raw1.length];
     int count = 0;
     int[] inv1 = p1.getInverse();
-    int i = RandomIndexer.nextInt(raw1.length);
+    int i = generator.nextInt(raw1.length);
     while (!inCycle[i]) {
       inCycle[i] = true;
       cycle[count] = i;

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,12 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
+import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
+import org.cicirello.search.operators.UndoableMutationOperator;
 
 /**
  * This class implements a window-limited version of the {@link ReversalMutation} mutation operator
@@ -39,14 +42,22 @@ import org.cicirello.search.operators.MutationIterator;
  * V. A. Cicirello, <a href="https://www.cicirello.org/publications/cicirello2014bict.html"
  * target=_top>"On the Effects of Window-Limits on the Distance Profiles of Permutation Neighborhood
  * Operators,"</a> in Proceedings of the 8th International Conference on Bioinspired Information and
- * Communications Technologies, pages 28–35, December 2014.
+ * Communications Technologies, pages 28-35, December 2014. <a
+ * href="https://www.cicirello.org/publications/cicirello-bict-2014.pdf">[PDF]</a> <a
+ * href="https://www.cicirello.org/publications/cicirello2014bict.bib">[BIB]</a> <a
+ * href="http://dl.acm.org/citation.cfm?id=2744531">[From the ACM Digital Library]</a>
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class WindowLimitedReversalMutation extends ReversalMutation {
+public final class WindowLimitedReversalMutation
+    implements UndoableMutationOperator<Permutation>, IterableMutationOperator<Permutation> {
 
   private final int limit;
+  private final EnhancedSplittableGenerator generator;
+
+  // needed to implement undo
+  private final int[] indexes;
 
   /**
    * Constructs a WindowLimitedReversalMutation mutation operator with a default window limit of
@@ -66,11 +77,34 @@ public final class WindowLimitedReversalMutation extends ReversalMutation {
     super();
     if (windowLimit <= 0) throw new IllegalArgumentException("window limit must be positive");
     limit = windowLimit;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    indexes = new int[2];
+  }
+
+  private WindowLimitedReversalMutation(WindowLimitedReversalMutation other) {
+    limit = other.limit;
+    generator = other.generator.split();
+    indexes = new int[2];
+  }
+
+  @Override
+  public void mutate(Permutation c) {
+    if (c.length() >= 2) {
+      generateIndexes(c.length(), indexes);
+      c.reverse(indexes[0], indexes[1]);
+    }
+  }
+
+  @Override
+  public void undo(Permutation c) {
+    if (c.length() >= 2) {
+      c.reverse(indexes[0], indexes[1]);
+    }
   }
 
   @Override
   public WindowLimitedReversalMutation split() {
-    return new WindowLimitedReversalMutation(limit);
+    return new WindowLimitedReversalMutation(this);
   }
 
   /**
@@ -94,12 +128,14 @@ public final class WindowLimitedReversalMutation extends ReversalMutation {
     return new WindowLimitedReversalIterator(p, limit);
   }
 
-  @Override
-  final void generateIndexes(int n, int[] indexes) {
+  /*
+   * package access to support unit testing
+   */
+  void generateIndexes(int n, int[] indexes) {
     if (limit >= n) {
-      super.generateIndexes(n, indexes);
+      generator.nextIntPair(n, indexes);
     } else {
-      RandomIndexer.nextWindowedIntPair(n, limit, indexes);
+      generator.nextWindowedIntPair(n, limit, indexes);
     }
   }
 }

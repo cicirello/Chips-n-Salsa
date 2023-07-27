@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.sa;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class implements logarithmic cooling, a classic annealing schedule. This annealing schedule
@@ -51,6 +52,7 @@ public final class LogarithmicCooling implements AnnealingSchedule {
   private double t;
   private final double c;
   private int stepCounter;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a logarithmic cooling schedule with a specified initial temperature.
@@ -61,6 +63,7 @@ public final class LogarithmicCooling implements AnnealingSchedule {
   public LogarithmicCooling(double t0) {
     if (t0 <= 0) throw new IllegalArgumentException("initial temperature must be positive");
     t = this.c = t0;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -68,6 +71,7 @@ public final class LogarithmicCooling implements AnnealingSchedule {
    */
   private LogarithmicCooling(LogarithmicCooling other) {
     t = c = other.c;
+    generator = other.generator.split();
   }
 
   /**
@@ -86,8 +90,7 @@ public final class LogarithmicCooling implements AnnealingSchedule {
   public boolean accept(double neighborCost, double currentCost) {
     boolean doAccept =
         neighborCost <= currentCost
-            || ThreadLocalRandom.current().nextDouble()
-                < Math.exp((currentCost - neighborCost) / t);
+            || generator.nextDouble() < Math.exp((currentCost - neighborCost) / t);
     stepCounter++;
     t = c / StrictMath.log(StrictMath.E + stepCounter);
     return doAccept;

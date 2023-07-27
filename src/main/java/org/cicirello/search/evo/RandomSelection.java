@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class implements a simple random selection operator that selects members of the population
@@ -37,8 +38,16 @@ import org.cicirello.math.rand.RandomIndexer;
  */
 public final class RandomSelection implements SelectionOperator {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Constructs the random selection operator. */
-  public RandomSelection() {}
+  public RandomSelection() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private RandomSelection(RandomSelection other) {
+    generator = other.generator.split();
+  }
 
   @Override
   public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
@@ -52,15 +61,13 @@ public final class RandomSelection implements SelectionOperator {
 
   @Override
   public RandomSelection split() {
-    // Since this selection operator maintains no state, it is
-    // safe for multiple threads to share a single instance, so just return this.
-    return this;
+    return new RandomSelection(this);
   }
 
   private void internalSelect(PopulationFitnessVector fitnesses, int[] selected) {
     final int N = fitnesses.size();
     for (int i = 0; i < selected.length; i++) {
-      selected[i] = RandomIndexer.nextInt(N);
+      selected[i] = generator.nextInt(N);
     }
   }
 }

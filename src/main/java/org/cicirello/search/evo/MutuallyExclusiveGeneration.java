@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import org.cicirello.math.rand.RandomVariates;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.util.Copyable;
@@ -39,6 +40,7 @@ final class MutuallyExclusiveGeneration<T extends Copyable<T>> implements Genera
   private final double M_PRIME;
   private final CrossoverOperator<T> crossover;
   private final double C;
+  private final EnhancedSplittableGenerator generator;
 
   MutuallyExclusiveGeneration(
       MutationOperator<T> mutation,
@@ -65,12 +67,14 @@ final class MutuallyExclusiveGeneration<T extends Copyable<T>> implements Genera
     M_PRIME = C < 1.0 ? mutationRate / (1.0 - C) : 0.0;
     this.mutation = mutation;
     this.crossover = crossover;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   MutuallyExclusiveGeneration(MutuallyExclusiveGeneration<T> other) {
     // Must be split
     mutation = other.mutation.split();
     crossover = other.crossover.split();
+    generator = other.generator.split();
 
     // primitives
     M_PRIME = other.M_PRIME;
@@ -89,7 +93,7 @@ final class MutuallyExclusiveGeneration<T extends Copyable<T>> implements Genera
     // to get count of number of pairs of parents to cross and cross the first
     // count pairs of parents. Pair up parents with indexes: first and (first + count).
     final int LAMBDA = pop.mutableSize();
-    final int count = RandomVariates.nextBinomial(LAMBDA >> 1, C);
+    final int count = generator.nextBinomial(LAMBDA >> 1, C);
     for (int first = 0; first < count; first++) {
       int second = first + count;
       crossover.cross(pop.get(first), pop.get(second));
@@ -100,7 +104,7 @@ final class MutuallyExclusiveGeneration<T extends Copyable<T>> implements Genera
     int mutateCount = 0;
     if (crossed < LAMBDA && M_PRIME > 0.0) {
       mutateCount =
-          M_PRIME < 1.0 ? RandomVariates.nextBinomial(LAMBDA - crossed, M_PRIME) : LAMBDA - crossed;
+          M_PRIME < 1.0 ? generator.nextBinomial(LAMBDA - crossed, M_PRIME) : LAMBDA - crossed;
       for (int j = crossed + mutateCount - 1; j >= crossed; j--) {
         mutation.mutate(pop.get(j));
         pop.updateFitness(j);

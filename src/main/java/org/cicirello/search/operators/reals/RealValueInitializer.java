@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.operators.reals;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.SingleReal;
 
@@ -42,6 +43,7 @@ public final class RealValueInitializer implements Initializer<SingleReal> {
   private final double min;
   private final double max;
   private final boolean bounded;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Construct a RealValueInitializer that generates random solutions uniformly in the interval [a,
@@ -59,6 +61,7 @@ public final class RealValueInitializer implements Initializer<SingleReal> {
     this.b = b;
     bounded = false;
     min = max = 0;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -82,21 +85,31 @@ public final class RealValueInitializer implements Initializer<SingleReal> {
     this.min = min;
     this.max = max;
     bounded = true;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  /* private to support split() only */
+  private RealValueInitializer(RealValueInitializer other) {
+    a = other.a;
+    b = other.b;
+    min = other.min;
+    max = other.max;
+    bounded = other.bounded;
+    generator = other.generator.split();
   }
 
   @Override
   public final SingleReal createCandidateSolution() {
     if (bounded) {
-      return new BoundedReal(ThreadLocalRandom.current().nextDouble(a, b));
+      return new BoundedReal(generator.nextDouble(a, b));
     } else {
-      return new SingleReal(ThreadLocalRandom.current().nextDouble(a, b));
+      return new SingleReal(generator.nextDouble(a, b));
     }
   }
 
   @Override
   public RealValueInitializer split() {
-    // thread-safe so can simply return this.
-    return this;
+    return new RealValueInitializer(this);
   }
 
   @Override

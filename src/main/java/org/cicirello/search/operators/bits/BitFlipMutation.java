@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,6 +20,8 @@
 
 package org.cicirello.search.operators.bits;
 
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.search.representations.BitVector;
 
@@ -45,6 +47,7 @@ public final class BitFlipMutation implements UndoableMutationOperator<BitVector
 
   private final double m;
   private BitVector bitMask;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a BitFlipMutation operator with a specified mutation rate.
@@ -58,6 +61,7 @@ public final class BitFlipMutation implements UndoableMutationOperator<BitVector
   public BitFlipMutation(double m) {
     if (m <= 0 || m >= 1) throw new IllegalArgumentException("m constrained by: 0.0 < m < 1.0");
     this.m = m;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /*
@@ -65,12 +69,13 @@ public final class BitFlipMutation implements UndoableMutationOperator<BitVector
    */
   private BitFlipMutation(BitFlipMutation other) {
     m = other.m;
+    generator = other.generator.split();
     // deliberately don't copy bitMask (each instance needs to maintain its own for undo)
   }
 
   @Override
   public void mutate(BitVector c) {
-    bitMask = new BitVector(c.length(), m);
+    bitMask = new BitVector(c.length(), m, generator);
     c.xor(bitMask);
   }
 

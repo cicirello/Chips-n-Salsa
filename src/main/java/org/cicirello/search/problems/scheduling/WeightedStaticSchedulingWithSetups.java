@@ -27,10 +27,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.SplittableRandom;
-import java.util.random.RandomGenerator;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
 import org.cicirello.permutations.Permutation;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class provides a representation of, and means of generating, instances of single machine
@@ -172,7 +171,7 @@ public final class WeightedStaticSchedulingWithSetups
    *     the interval [0.0, 1.0].
    */
   public WeightedStaticSchedulingWithSetups(int n, double tau, double r, double eta, long seed) {
-    this(n, tau, r, eta, new SplittableRandom(seed));
+    this(n, tau, r, eta, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
   }
 
   /**
@@ -191,7 +190,7 @@ public final class WeightedStaticSchedulingWithSetups
    *     the interval [0.0, 1.0].
    */
   public WeightedStaticSchedulingWithSetups(int n, double tau, double r, double eta) {
-    this(n, tau, r, eta, new SplittableRandom());
+    this(n, tau, r, eta, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
   }
 
   /**
@@ -229,7 +228,7 @@ public final class WeightedStaticSchedulingWithSetups
   }
 
   private WeightedStaticSchedulingWithSetups(
-      int n, double tau, double r, double eta, RandomGenerator rand) {
+      int n, double tau, double r, double eta, EnhancedRandomGenerator rand) {
     if (n <= 0) throw new IllegalArgumentException("n must be positive");
     if (tau < 0.0 || tau > 1.0) throw new IllegalArgumentException("tau must be in [0.0, 1.0]");
     if (r < 0.0 || r > 1.0) throw new IllegalArgumentException("r must be in [0.0, 1.0]");
@@ -248,11 +247,11 @@ public final class WeightedStaticSchedulingWithSetups
     int sumSetupMatrix = 0;
 
     for (int i = 0; i < n; i++) {
-      process[i] = MIN_PROCESS_TIME + RandomIndexer.nextInt(PROCESS_TIME_SPAN, rand);
+      process[i] = MIN_PROCESS_TIME + rand.nextInt(PROCESS_TIME_SPAN);
       totalProcessTime += process[i];
-      weights[i] = MIN_WEIGHT + RandomIndexer.nextInt(WEIGHT_SPAN, rand);
+      weights[i] = MIN_WEIGHT + rand.nextInt(WEIGHT_SPAN);
       for (int j = 0; j < n; j++) {
-        setups[j][i] = RandomIndexer.nextInt(SETUP_BOUND, rand);
+        setups[j][i] = rand.nextInt(SETUP_BOUND);
         sumSetupMatrix += setups[j][i];
       }
     }
@@ -269,9 +268,9 @@ public final class WeightedStaticSchedulingWithSetups
     for (int i = 0; i < n; i++) {
       if (AVERAGE_DUEDATE > 0.0) {
         if (rand.nextDouble() < tau) {
-          duedates[i] = MIN_DUEDATE + RandomIndexer.nextInt(D_SPAN_1, rand);
+          duedates[i] = MIN_DUEDATE + rand.nextInt(D_SPAN_1);
         } else {
-          duedates[i] = AVE_DUEDATE_INT + RandomIndexer.nextInt(D_SPAN_2, rand);
+          duedates[i] = AVE_DUEDATE_INT + rand.nextInt(D_SPAN_2);
         }
       }
     }

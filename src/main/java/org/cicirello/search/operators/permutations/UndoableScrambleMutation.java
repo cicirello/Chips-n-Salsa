@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,11 @@
 
 package org.cicirello.search.operators.permutations;
 
+import java.util.random.RandomGenerator;
 import org.cicirello.math.rand.RandomIndexer;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationUnaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.UndoableMutationOperator;
 
 /**
@@ -45,28 +47,35 @@ import org.cicirello.search.operators.UndoableMutationOperator;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class UndoableScrambleMutation
+public final class UndoableScrambleMutation
     implements UndoableMutationOperator<Permutation>, PermutationUnaryOperator {
 
   private int[] last;
   private final int[] indexes;
+  private final RandomGenerator.SplittableGenerator generator;
 
   /** Constructs an UndoableScrambleMutation mutation operator. */
   public UndoableScrambleMutation() {
     indexes = new int[2];
+    generator = RandomnessFactory.createSplittableGenerator();
+  }
+
+  private UndoableScrambleMutation(UndoableScrambleMutation other) {
+    generator = other.generator.split();
+    indexes = new int[2];
   }
 
   @Override
-  public final void mutate(Permutation c) {
+  public void mutate(Permutation c) {
     if (c.length() >= 2) {
       last = c.toArray();
-      generateIndexes(c.length(), indexes);
-      c.scramble(indexes[0], indexes[1]);
+      RandomIndexer.nextIntPair(c.length(), indexes, generator);
+      c.scramble(indexes[0], indexes[1], generator);
     }
   }
 
   @Override
-  public final void undo(Permutation c) {
+  public void undo(Permutation c) {
     if (c.length() >= 2) {
       c.apply(this);
     }
@@ -74,7 +83,7 @@ public class UndoableScrambleMutation
 
   @Override
   public UndoableScrambleMutation split() {
-    return new UndoableScrambleMutation();
+    return new UndoableScrambleMutation(this);
   }
 
   /**
@@ -84,20 +93,11 @@ public class UndoableScrambleMutation
    * @param perm The raw representation of the permutation for undoing the most recent mutation.
    */
   @Override
-  public final void apply(int[] perm) {
+  public void apply(int[] perm) {
     if (indexes[0] < indexes[1]) {
       System.arraycopy(last, indexes[0], perm, indexes[0], indexes[1] - indexes[0] + 1);
     } else {
       System.arraycopy(last, indexes[1], perm, indexes[1], indexes[0] - indexes[1] + 1);
     }
-  }
-
-  /*
-   * This package access method allows the window limited version
-   * implemented as a subclass to change how indexes are generated
-   * without modifying the mutate method.
-   */
-  void generateIndexes(int n, int[] indexes) {
-    RandomIndexer.nextIntPair(n, indexes);
   }
 }

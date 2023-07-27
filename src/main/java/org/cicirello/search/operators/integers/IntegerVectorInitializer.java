@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -21,7 +21,8 @@
 package org.cicirello.search.operators.integers;
 
 import java.util.Arrays;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.BoundedIntegerVector;
 import org.cicirello.search.representations.IntegerVector;
@@ -45,6 +46,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
   private final int[] b;
   private final int[] min;
   private final int[] max;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Construct a IntegerVectorInitializer that generates random solutions such that the values of
@@ -65,6 +67,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
     this.a = new int[] {a};
     this.b = new int[] {b};
     min = max = null;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -93,6 +96,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
     this.a = a.clone();
     this.b = b.clone();
     min = max = null;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -119,6 +123,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
     this.b = new int[] {b > max + 1 ? max + 1 : b};
     this.min = new int[] {min};
     this.max = new int[] {max};
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -156,6 +161,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
     }
     this.min = new int[] {min};
     this.max = new int[] {max};
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -200,6 +206,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
     }
     this.min = min.clone();
     this.max = max.clone();
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   private IntegerVectorInitializer(IntegerVectorInitializer other) {
@@ -208,17 +215,18 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
     a = other.a.clone();
     b = other.b.clone();
     x = new int[a.length];
+    generator = other.generator.split();
   }
 
   @Override
   public final IntegerVector createCandidateSolution() {
     if (a.length > 1) {
       for (int i = 0; i < x.length; i++) {
-        x[i] = a[i] + RandomIndexer.nextInt(b[i] - a[i]);
+        x[i] = a[i] + generator.nextInt(b[i] - a[i]);
       }
     } else {
       for (int i = 0; i < x.length; i++) {
-        x[i] = a[0] + RandomIndexer.nextInt(b[0] - a[0]);
+        x[i] = a[0] + generator.nextInt(b[0] - a[0]);
       }
     }
     if (min != null) {

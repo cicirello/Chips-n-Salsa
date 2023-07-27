@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -40,7 +40,17 @@ public class PPXTests {
       assertEquals(p1, child1);
       assertEquals(p2, child2);
     }
-    assertSame(ppx, ppx.split());
+    PrecedencePreservativeCrossover s = ppx.split();
+    assertNotSame(ppx, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(p1);
+      Permutation child1 = new Permutation(p1);
+      Permutation child2 = new Permutation(p2);
+      s.cross(child1, child2);
+      assertEquals(p1, child1);
+      assertEquals(p2, child2);
+    }
   }
 
   @Test
@@ -55,7 +65,17 @@ public class PPXTests {
       assertTrue(validPermutation(child1));
       assertTrue(validPermutation(child2));
     }
-    assertSame(ppx, ppx.split());
+    PrecedencePreservativeCrossover s = ppx.split();
+    assertNotSame(ppx, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation child1 = new Permutation(p1);
+      Permutation child2 = new Permutation(p2);
+      s.cross(child1, child2);
+      assertTrue(validPermutation(child1));
+      assertTrue(validPermutation(child2));
+    }
   }
 
   @Test
@@ -107,7 +127,17 @@ public class PPXTests {
       assertEquals(p1, child1);
       assertEquals(p2, child2);
     }
-    assertSame(ppx, ppx.split());
+    UniformPrecedencePreservativeCrossover s = ppx.split();
+    assertNotSame(ppx, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(p1);
+      Permutation child1 = new Permutation(p1);
+      Permutation child2 = new Permutation(p2);
+      s.cross(child1, child2);
+      assertEquals(p1, child1);
+      assertEquals(p2, child2);
+    }
   }
 
   @Test
@@ -122,6 +152,18 @@ public class PPXTests {
       assertTrue(validPermutation(child1));
       assertTrue(validPermutation(child2));
     }
+    UniformPrecedencePreservativeCrossover s = ppx.split();
+    assertNotSame(ppx, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation child1 = new Permutation(p1);
+      Permutation child2 = new Permutation(p2);
+      s.cross(child1, child2);
+      assertTrue(validPermutation(child1));
+      assertTrue(validPermutation(child2));
+    }
+
     ppx = new UniformPrecedencePreservativeCrossover(0.25);
     for (int n = 1; n <= 32; n *= 2) {
       Permutation p1 = new Permutation(n);
@@ -132,6 +174,18 @@ public class PPXTests {
       assertTrue(validPermutation(child1));
       assertTrue(validPermutation(child2));
     }
+    s = ppx.split();
+    assertNotSame(ppx, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation child1 = new Permutation(p1);
+      Permutation child2 = new Permutation(p2);
+      s.cross(child1, child2);
+      assertTrue(validPermutation(child1));
+      assertTrue(validPermutation(child2));
+    }
+
     ppx = new UniformPrecedencePreservativeCrossover(0.75);
     for (int n = 1; n <= 32; n *= 2) {
       Permutation p1 = new Permutation(n);
@@ -139,6 +193,17 @@ public class PPXTests {
       Permutation child1 = new Permutation(p1);
       Permutation child2 = new Permutation(p2);
       ppx.cross(child1, child2);
+      assertTrue(validPermutation(child1));
+      assertTrue(validPermutation(child2));
+    }
+    s = ppx.split();
+    assertNotSame(ppx, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation child1 = new Permutation(p1);
+      Permutation child2 = new Permutation(p2);
+      s.cross(child1, child2);
       assertTrue(validPermutation(child1));
       assertTrue(validPermutation(child2));
     }
@@ -182,6 +247,19 @@ public class PPXTests {
       assertEquals(p2, parent1);
       assertEquals(p1, parent2);
     }
+    UniformPrecedencePreservativeCrossover s = ppx.split();
+    assertNotSame(ppx, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation parent1 = new Permutation(p1);
+      Permutation parent2 = new Permutation(p2);
+      s.cross(parent1, parent2);
+      // the near 0 u should essentially swap the parents
+      // other than a low probability statistical anomaly
+      assertEquals(p2, parent1);
+      assertEquals(p1, parent2);
+    }
   }
 
   @Test
@@ -194,6 +272,19 @@ public class PPXTests {
       Permutation parent1 = new Permutation(p1);
       Permutation parent2 = new Permutation(p2);
       ppx.cross(parent1, parent2);
+      // the near 1.0 u should essentially keep all of the parents
+      // other than a low probability statistical anomaly
+      assertEquals(p1, parent1);
+      assertEquals(p2, parent2);
+    }
+    UniformPrecedencePreservativeCrossover s = ppx.split();
+    assertNotSame(ppx, s);
+    for (int n = 1; n <= 32; n *= 2) {
+      Permutation p1 = new Permutation(n);
+      Permutation p2 = new Permutation(n);
+      Permutation parent1 = new Permutation(p1);
+      Permutation parent2 = new Permutation(p2);
+      s.cross(parent1, parent2);
       // the near 1.0 u should essentially keep all of the parents
       // other than a low probability statistical anomaly
       assertEquals(p1, parent1);

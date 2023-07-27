@@ -137,7 +137,11 @@ module org.cicirello.chips_n_salsa {
   // space of Permutations may return Permutation
   // objects, defined in this module.
   requires transitive org.cicirello.jpt;
-  requires org.cicirello.rho_mu;
+
+  // This needs to be transitive because some methods
+  // take instances of a class from this dependency as
+  // a parameter.
+  requires transitive org.cicirello.rho_mu;
 
   // This needs to be transitive due to how Copyable interface
   // is used.

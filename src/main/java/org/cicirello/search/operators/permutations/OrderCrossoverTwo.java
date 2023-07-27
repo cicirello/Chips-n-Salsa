@@ -20,9 +20,10 @@
 
 package org.cicirello.search.operators.permutations;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.permutations.PermutationFullBinaryOperator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.util.IntegerArray;
 
@@ -76,6 +77,7 @@ public final class OrderCrossoverTwo
     implements CrossoverOperator<Permutation>, PermutationFullBinaryOperator {
 
   private final double u;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs Syswerda's order crossover operator, often referred to as OX2. Uses a default U=0.5.
@@ -94,6 +96,12 @@ public final class OrderCrossoverTwo
   public OrderCrossoverTwo(double u) {
     if (u <= 0 || u >= 1.0) throw new IllegalArgumentException("u must be: 0.0 < u < 1.0");
     this.u = u;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private OrderCrossoverTwo(OrderCrossoverTwo other) {
+    generator = other.generator.split();
+    u = other.u;
   }
 
   @Override
@@ -103,8 +111,7 @@ public final class OrderCrossoverTwo
 
   @Override
   public OrderCrossoverTwo split() {
-    // doesn't maintain any mutable state, so safe to return this
-    return this;
+    return new OrderCrossoverTwo(this);
   }
 
   /**
@@ -118,7 +125,7 @@ public final class OrderCrossoverTwo
    */
   @Override
   public void apply(int[] raw1, int[] raw2, Permutation p1, Permutation p2) {
-    internalCross(raw1, raw2, p1, p2, RandomIndexer.arrayMask(raw1.length, u));
+    internalCross(raw1, raw2, p1, p2, generator.arrayMask(raw1.length, u));
   }
 
   /*

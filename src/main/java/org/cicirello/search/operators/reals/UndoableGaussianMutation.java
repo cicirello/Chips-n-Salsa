@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,10 +20,6 @@
 
 package org.cicirello.search.operators.reals;
 
-import java.util.function.DoubleBinaryOperator;
-import java.util.function.IntFunction;
-import org.cicirello.math.rand.RandomSampler;
-import org.cicirello.math.rand.RandomVariates;
 import org.cicirello.search.representations.RealValued;
 import org.cicirello.util.Copyable;
 
@@ -64,7 +60,7 @@ public final class UndoableGaussianMutation<T extends RealValued>
    *
    * @param transformer The functional transformation of the mutation.
    */
-  UndoableGaussianMutation(double sigma, DoubleBinaryOperator transformer) {
+  UndoableGaussianMutation(double sigma, RandomizedDoubleBinaryOperator transformer) {
     super(sigma, transformer);
   }
 
@@ -79,7 +75,7 @@ public final class UndoableGaussianMutation<T extends RealValued>
    * @param selector Chooses the indexes for a partial mutation.
    */
   UndoableGaussianMutation(
-      double sigma, DoubleBinaryOperator transformer, IntFunction<int[]> selector) {
+      double sigma, RandomizedDoubleBinaryOperator transformer, IndexSelector selector) {
     super(sigma, transformer, selector);
   }
 
@@ -110,8 +106,7 @@ public final class UndoableGaussianMutation<T extends RealValued>
    */
   public static <T extends RealValued> UndoableGaussianMutation<T> createGaussianMutation(
       double sigma) {
-    return new UndoableGaussianMutation<T>(
-        sigma, (old, param) -> old + RandomVariates.nextGaussian(param));
+    return new UndoableGaussianMutation<T>(sigma, (old, param, r) -> old + r.nextGaussian(param));
   }
 
   /**
@@ -131,8 +126,8 @@ public final class UndoableGaussianMutation<T extends RealValued>
       throw new IllegalArgumentException("upperBound must be at least lowerBound");
     return new UndoableGaussianMutation<T>(
         sigma,
-        (old, param) -> {
-          double mutated = old + RandomVariates.nextGaussian(param);
+        (old, param, r) -> {
+          double mutated = old + r.nextGaussian(param);
           if (mutated <= lowerBound) return lowerBound;
           if (mutated >= upperBound) return upperBound;
           return mutated;
@@ -155,8 +150,8 @@ public final class UndoableGaussianMutation<T extends RealValued>
     if (k < 1) throw new IllegalArgumentException("k must be at least 1");
     return new UndoableGaussianMutation<T>(
         sigma,
-        (old, param) -> old + RandomVariates.nextGaussian(param),
-        n -> RandomSampler.sample(n, k < n ? k : n, (int[]) null));
+        (old, param, r) -> old + r.nextGaussian(param),
+        (n, r) -> r.sample(n, k < n ? k : n, (int[]) null));
   }
 
   /**
@@ -177,9 +172,7 @@ public final class UndoableGaussianMutation<T extends RealValued>
       return createGaussianMutation(sigma);
     }
     return new UndoableGaussianMutation<T>(
-        sigma,
-        (old, param) -> old + RandomVariates.nextGaussian(param),
-        n -> RandomSampler.sample(n, p));
+        sigma, (old, param, r) -> old + r.nextGaussian(param), (n, r) -> r.sample(n, p));
   }
 
   @Override

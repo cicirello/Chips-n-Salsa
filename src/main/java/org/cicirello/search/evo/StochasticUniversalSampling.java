@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import java.util.concurrent.ThreadLocalRandom;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class implements Stochastic Universal Sampling (SUS), a selection operator for evolutionary
@@ -54,20 +54,27 @@ import org.cicirello.math.rand.RandomIndexer;
  */
 public class StochasticUniversalSampling extends AbstractWeightedSelection {
 
+  private final EnhancedSplittableGenerator generator;
+
   /** Construct an SUS operator. */
-  public StochasticUniversalSampling() {}
+  public StochasticUniversalSampling() {
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  /* package private for use by subclasses in same package */
+  StochasticUniversalSampling(StochasticUniversalSampling other) {
+    generator = other.generator.split();
+  }
 
   @Override
   public StochasticUniversalSampling split() {
-    // Since this selection operator maintains no mutable state, it is
-    // safe for multiple threads to share a single instance, so just return this.
-    return this;
+    return new StochasticUniversalSampling(this);
   }
 
   @Override
   final void selectAll(double[] normalizedWeights, int[] selected) {
     double increment = 1.0 / selected.length;
-    double pointer = ThreadLocalRandom.current().nextDouble(increment);
+    double pointer = generator.nextDouble(increment);
     int j = selected[0] = selectOne(normalizedWeights, 0, normalizedWeights.length - 1, pointer);
     for (int i = 1; i < selected.length; i++) {
       pointer += increment;
@@ -81,7 +88,7 @@ public class StochasticUniversalSampling extends AbstractWeightedSelection {
 
   private void randomize(int[] selected) {
     for (int i = selected.length - 1; i > 0; i--) {
-      int j = RandomIndexer.nextInt(i + 1);
+      int j = generator.nextInt(i + 1);
       if (i != j) {
         int temp = selected[i];
         selected[i] = selected[j];

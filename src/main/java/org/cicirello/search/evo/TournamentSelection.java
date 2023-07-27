@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,8 @@
 
 package org.cicirello.search.evo;
 
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 
 /**
  * This class implements tournament selection for evolutionary algorithms. In tournament selection,
@@ -41,10 +42,12 @@ import org.cicirello.math.rand.RandomIndexer;
 public final class TournamentSelection implements SelectionOperator {
 
   private final int k;
+  private final EnhancedSplittableGenerator generator;
 
   /** Constructs a binary tournament selection operator, i.e., k = 2. */
   public TournamentSelection() {
     k = 2;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /**
@@ -56,6 +59,12 @@ public final class TournamentSelection implements SelectionOperator {
   public TournamentSelection(int k) {
     if (k < 2) throw new IllegalArgumentException("The tournament size must be at least 2.");
     this.k = k;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  private TournamentSelection(TournamentSelection other) {
+    generator = other.generator.split();
+    k = other.k;
   }
 
   @Override
@@ -74,15 +83,13 @@ public final class TournamentSelection implements SelectionOperator {
 
   @Override
   public TournamentSelection split() {
-    // Since this selection operator maintains no mutable state, it is
-    // safe for multiple threads to share a single instance, so just return this.
-    return this;
+    return new TournamentSelection(this);
   }
 
   private int tournament(PopulationFitnessVector.Integer fitnesses) {
-    int choose = RandomIndexer.nextInt(fitnesses.size());
+    int choose = generator.nextInt(fitnesses.size());
     for (int j = 1; j < k; j++) {
-      int other = RandomIndexer.nextInt(fitnesses.size());
+      int other = generator.nextInt(fitnesses.size());
       if (fitnesses.getFitness(other) > fitnesses.getFitness(choose)) {
         choose = other;
       }
@@ -91,9 +98,9 @@ public final class TournamentSelection implements SelectionOperator {
   }
 
   private int tournament(PopulationFitnessVector.Double fitnesses) {
-    int choose = RandomIndexer.nextInt(fitnesses.size());
+    int choose = generator.nextInt(fitnesses.size());
     for (int j = 1; j < k; j++) {
-      int other = RandomIndexer.nextInt(fitnesses.size());
+      int other = generator.nextInt(fitnesses.size());
       if (fitnesses.getFitness(other) > fitnesses.getFitness(choose)) {
         choose = other;
       }

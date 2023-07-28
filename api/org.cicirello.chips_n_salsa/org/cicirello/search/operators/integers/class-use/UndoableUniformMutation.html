@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/class-use/UndoableUniformMutation.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -87,21 +86,35 @@ loadScripts(document, 'script');</script>
 <div class="block">Creates an identical copy of this object.</div>
 </div>
 <div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="../UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">UndoableUniformMutation.</span><code><a href="../UndoableUniformMutation.html#createUniformMutation(int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius)</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">UndoableUniformMutation.</span><code><a href="../UndoableUniformMutation.html#createUniformMutation()" class="member-name-link">createUniformMutation</a>()</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Creates a Uniform mutation operator that supports the undo operation.</div>
+<div class="block">Creates a Uniform mutation operator with radius parameter equal to 1 that supports the undo
+ operation.</div>
 </div>
 <div class="col-first even-row-color"><code>static &lt;T extends <a href="../../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="../UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">UndoableUniformMutation.</span><code><a href="../UndoableUniformMutation.html#createUniformMutation(int,double)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
+<div class="col-second even-row-color"><span class="type-name-label">UndoableUniformMutation.</span><code><a href="../UndoableUniformMutation.html#createUniformMutation(int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates a Uniform mutation operator that supports the undo operation.</div>
+</div>
+<div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="../UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">UndoableUniformMutation.</span><code><a href="../UndoableUniformMutation.html#createUniformMutation(int,double)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
  double&nbsp;p)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Create a Uniform mutation operator that supports the undo operation.</div>
+</div>
+<div class="col-first even-row-color"><code>static &lt;T extends <a href="../../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="../UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">UndoableUniformMutation.</span><code><a href="../UndoableUniformMutation.html#createUniformMutation(int,int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
+ int&nbsp;k)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Create a Uniform mutation operator that supports the undo operation.</div>
 </div>
 <div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="../UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">UndoableUniformMutation.</span><code><a href="../UndoableUniformMutation.html#createUniformMutation(int,int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
- int&nbsp;k)</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">UndoableUniformMutation.</span><code><a href="../UndoableUniformMutation.html#createUniformMutation(int,int,int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
+ int&nbsp;lowerBound,
+ int&nbsp;upperBound)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Create a Uniform mutation operator that supports the undo operation.</div>
+<div class="block">Creates a Uniform mutation operator, such that the mutate method constrains each mutated int
+ value to lie in the interval [lowerBound, upperBound].</div>
 </div>
 <div class="col-first even-row-color"><code><a href="../UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;<a href="../UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a>&gt;</code></div>
 <div class="col-second even-row-color"><span class="type-name-label">UndoableUniformMutation.</span><code><a href="../UndoableUniformMutation.html#split()" class="member-name-link">split</a>()</code></div>

@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/package-use.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -67,8 +66,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.operators.permutations">org.cicirello.search.operators.permutations</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes that implement mutation operators for permutations, and other
- operators required by simulated annealing and other related metaheuristics.</div>
+<div class="block">This package includes classes that implement local search and evolutionary operators for
+ permutations, such as mutation operators, crossover operators, and initializers.</div>
 </div>
 </div>
 <section class="package-uses">
@@ -146,92 +145,96 @@ loadScripts(document, 'script');</script>
  annealing, etc, with a way to generate random initial solutions to a problem, as well as a way to
  make copies of current solution configurations.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/PrecedencePreservativeCrossover.html#org.cicirello.search.operators.permutations">PrecedencePreservativeCrossover</a></div>
+<div class="col-first even-row-color"><a href="class-use/PositionBasedCrossover.html#org.cicirello.search.operators.permutations">PositionBasedCrossover</a></div>
 <div class="col-last even-row-color">
+<div class="block">Implementation of position based crossover (PBX).</div>
+</div>
+<div class="col-first odd-row-color"><a href="class-use/PrecedencePreservativeCrossover.html#org.cicirello.search.operators.permutations">PrecedencePreservativeCrossover</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Implementation of Precedence Preservative Crossover (PPX), the two-point version.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/ReversalMutation.html#org.cicirello.search.operators.permutations">ReversalMutation</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/ReversalMutation.html#org.cicirello.search.operators.permutations">ReversalMutation</a></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a reversal mutation on permutations, where one mutation consists in
  reversing the order of a randomly selected subpermutation.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/RotationMutation.html#org.cicirello.search.operators.permutations">RotationMutation</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/RotationMutation.html#org.cicirello.search.operators.permutations">RotationMutation</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a rotation mutation on permutations, where one mutation consists in a
  random circular rotation of the permutation.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/ScrambleMutation.html#org.cicirello.search.operators.permutations">ScrambleMutation</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/ScrambleMutation.html#org.cicirello.search.operators.permutations">ScrambleMutation</a></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation consists in
  randomizing the order of a randomly selected subpermutation.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/SwapMutation.html#org.cicirello.search.operators.permutations">SwapMutation</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/SwapMutation.html#org.cicirello.search.operators.permutations">SwapMutation</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a swap mutation on permutations, where one mutation selects two elements
  uniformly at random and swaps their locations.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/ThreeOptMutation.html#org.cicirello.search.operators.permutations">ThreeOptMutation</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/ThreeOptMutation.html#org.cicirello.search.operators.permutations">ThreeOptMutation</a></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements the classic 3-Opt neighborhood as a mutation operator for permutations.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/TwoChangeMutation.html#org.cicirello.search.operators.permutations">TwoChangeMutation</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/TwoChangeMutation.html#org.cicirello.search.operators.permutations">TwoChangeMutation</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements the classic two-change operator as a mutation operator for permutations.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/UndoableScrambleMutation.html#org.cicirello.search.operators.permutations">UndoableScrambleMutation</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/UndoableScrambleMutation.html#org.cicirello.search.operators.permutations">UndoableScrambleMutation</a></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation consists in
  randomizing the order of a randomly selected subpermutation.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/UndoableUniformScrambleMutation.html#org.cicirello.search.operators.permutations">UndoableUniformScrambleMutation</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/UndoableUniformScrambleMutation.html#org.cicirello.search.operators.permutations">UndoableUniformScrambleMutation</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation consists in
  randomizing the order of a non-contiguous subset of the permutation elements.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/UniformOrderBasedCrossover.html#org.cicirello.search.operators.permutations">UniformOrderBasedCrossover</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/UniformOrderBasedCrossover.html#org.cicirello.search.operators.permutations">UniformOrderBasedCrossover</a></div>
+<div class="col-last even-row-color">
 <div class="block">Implementation of uniform order-based crossover (UOBX).</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/UniformPartiallyMatchedCrossover.html#org.cicirello.search.operators.permutations">UniformPartiallyMatchedCrossover</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/UniformPartiallyMatchedCrossover.html#org.cicirello.search.operators.permutations">UniformPartiallyMatchedCrossover</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Implementation of uniform partially matched crossover (UPMX).</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/UniformPrecedencePreservativeCrossover.html#org.cicirello.search.operators.permutations">UniformPrecedencePreservativeCrossover</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/UniformPrecedencePreservativeCrossover.html#org.cicirello.search.operators.permutations">UniformPrecedencePreservativeCrossover</a></div>
+<div class="col-last even-row-color">
 <div class="block">Implementation of Precedence Preservative Crossover (PPX), the uniform version.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/UniformScrambleMutation.html#org.cicirello.search.operators.permutations">UniformScrambleMutation</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/UniformScrambleMutation.html#org.cicirello.search.operators.permutations">UniformScrambleMutation</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation consists in
  randomizing the order of a non-contiguous subset of the permutation elements.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/WindowLimitedBlockMoveMutation.html#org.cicirello.search.operators.permutations">WindowLimitedBlockMoveMutation</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/WindowLimitedBlockMoveMutation.html#org.cicirello.search.operators.permutations">WindowLimitedBlockMoveMutation</a></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a window-limited version of the <a href="BlockMoveMutation.html" title="class in org.cicirello.search.operators.permutations"><code>BlockMoveMutation</code></a> mutation operator
  on permutations.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/WindowLimitedInsertionMutation.html#org.cicirello.search.operators.permutations">WindowLimitedInsertionMutation</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/WindowLimitedInsertionMutation.html#org.cicirello.search.operators.permutations">WindowLimitedInsertionMutation</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a window-limited version of the <a href="InsertionMutation.html" title="class in org.cicirello.search.operators.permutations"><code>InsertionMutation</code></a> mutation operator
  on permutations.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/WindowLimitedReversalMutation.html#org.cicirello.search.operators.permutations">WindowLimitedReversalMutation</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/WindowLimitedReversalMutation.html#org.cicirello.search.operators.permutations">WindowLimitedReversalMutation</a></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a window-limited version of the <a href="ReversalMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ReversalMutation</code></a> mutation operator
  on permutations.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/WindowLimitedScrambleMutation.html#org.cicirello.search.operators.permutations">WindowLimitedScrambleMutation</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/WindowLimitedScrambleMutation.html#org.cicirello.search.operators.permutations">WindowLimitedScrambleMutation</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a window-limited version of the <a href="ScrambleMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ScrambleMutation</code></a> mutation operator
  on permutations.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/WindowLimitedSwapMutation.html#org.cicirello.search.operators.permutations">WindowLimitedSwapMutation</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/WindowLimitedSwapMutation.html#org.cicirello.search.operators.permutations">WindowLimitedSwapMutation</a></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a window-limited version of the <a href="SwapMutation.html" title="class in org.cicirello.search.operators.permutations"><code>SwapMutation</code></a> mutation operator on
  permutations.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/WindowLimitedUndoableScrambleMutation.html#org.cicirello.search.operators.permutations">WindowLimitedUndoableScrambleMutation</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/WindowLimitedUndoableScrambleMutation.html#org.cicirello.search.operators.permutations">WindowLimitedUndoableScrambleMutation</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a window-limited version of the <a href="ScrambleMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ScrambleMutation</code></a> mutation operator
  on permutations.</div>
 </div>

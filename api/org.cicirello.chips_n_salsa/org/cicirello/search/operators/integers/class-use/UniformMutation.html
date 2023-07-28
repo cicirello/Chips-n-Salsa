@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/class-use/UniformMutation.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -76,18 +75,6 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="org.cicirello.search.operators.integers">
 <h2>Uses of <a href="../UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a> in <a href="../package-summary.html">org.cicirello.search.operators.integers</a></h2>
-<div class="caption"><span>Subclasses of <a href="../UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a> in <a href="../package-summary.html">org.cicirello.search.operators.integers</a></span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier and Type</div>
-<div class="table-header col-second">Class</div>
-<div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../UndoableUniformMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T extends <a href="../../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></div>
-<div class="col-last even-row-color">
-<div class="block">This class implements a uniform mutation on integer valued parameters, with support for the
- <a href="../UndoableUniformMutation.html#undo(T)"><code>UndoableUniformMutation.undo(T)</code></a> method.</div>
-</div>
-</div>
 <div class="caption"><span>Methods in <a href="../package-summary.html">org.cicirello.search.operators.integers</a> that return <a href="../UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a></span></div>
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
@@ -99,21 +86,34 @@ loadScripts(document, 'script');</script>
 <div class="block">Creates an identical copy of this object.</div>
 </div>
 <div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="../UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">UniformMutation.</span><code><a href="../UniformMutation.html#createUniformMutation(int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius)</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">UniformMutation.</span><code><a href="../UniformMutation.html#createUniformMutation()" class="member-name-link">createUniformMutation</a>()</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Creates a Uniform mutation operator.</div>
+<div class="block">Creates a Uniform mutation operator with radius parameter equal to 1.</div>
 </div>
 <div class="col-first even-row-color"><code>static &lt;T extends <a href="../../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="../UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;T&gt;</code></div>
-<div class="col-second even-row-color"><span class="type-name-label">UniformMutation.</span><code><a href="../UniformMutation.html#createUniformMutation(int,double)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
+<div class="col-second even-row-color"><span class="type-name-label">UniformMutation.</span><code><a href="../UniformMutation.html#createUniformMutation(int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates a Uniform mutation operator.</div>
+</div>
+<div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="../UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">UniformMutation.</span><code><a href="../UniformMutation.html#createUniformMutation(int,double)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
  double&nbsp;p)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Create a Uniform mutation operator.</div>
+</div>
+<div class="col-first even-row-color"><code>static &lt;T extends <a href="../../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="../UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;T&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">UniformMutation.</span><code><a href="../UniformMutation.html#createUniformMutation(int,int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
+ int&nbsp;k)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Create a Uniform mutation operator.</div>
 </div>
 <div class="col-first odd-row-color"><code>static &lt;T extends <a href="../../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="../UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color"><span class="type-name-label">UniformMutation.</span><code><a href="../UniformMutation.html#createUniformMutation(int,int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
- int&nbsp;k)</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">UniformMutation.</span><code><a href="../UniformMutation.html#createUniformMutation(int,int,int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
+ int&nbsp;lowerBound,
+ int&nbsp;upperBound)</code></div>
 <div class="col-last odd-row-color">
-<div class="block">Create a Uniform mutation operator.</div>
+<div class="block">Creates a Uniform mutation operator, such that the mutate method constrains each mutated int
+ value to lie in the interval [lowerBound, upperBound].</div>
 </div>
 <div class="col-first even-row-color"><code><a href="../UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;<a href="../UniformMutation.html" title="type parameter in UniformMutation">T</a>&gt;</code></div>
 <div class="col-second even-row-color"><span class="type-name-label">UniformMutation.</span><code><a href="../UniformMutation.html#split()" class="member-name-link">split</a>()</code></div>

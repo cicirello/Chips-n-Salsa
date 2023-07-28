@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/ss/HybridConstructiveHeuristic.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -95,7 +94,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T&gt;</code></dd>
+<dd><code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T&gt;&gt;</code>, <code><a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T&gt;</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">HybridConstructiveHeuristic&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span>
@@ -195,6 +194,12 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Heuristically evaluates the possible addition of an element to the end of a Partial.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="HybridConstructiveHeuristic.html" title="class in org.cicirello.search.ss">HybridConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
+</div>
 </div>
 </div>
 </div>
@@ -286,6 +291,37 @@ implements <a href="ConstructiveHeuristic.html" title="interface in org.cicirell
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="split()">
+<h3>split</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="HybridConstructiveHeuristic.html" title="class in org.cicirello.search.ss">HybridConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;</span>&nbsp;<span class="element-name">split</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="ConstructiveHeuristic.html#split()">ConstructiveHeuristic</a></code></span></div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.
+
+ <p>The default implementation simply returns this, which is appropriate in all cases where an
+ instance of the heuristic can be safely shared by multiple threads.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="ConstructiveHeuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="HybridConstructiveHeuristic.html" title="type parameter in HybridConstructiveHeuristic">T</a>&gt;&gt;</code></dd>
+<dt>Returns:</dt>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="createIncrementalEvaluation()">
 <h3>createIncrementalEvaluation</h3>

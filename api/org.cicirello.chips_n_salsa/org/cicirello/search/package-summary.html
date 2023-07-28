@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/package-summary.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -143,45 +142,49 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary" aria-labelledby="class-summary-tab0">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color class-summary class-summary-tab1"><a href="Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="Configurator.html" title="class in org.cicirello.search">Configurator</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">This class provides the ability to configure certain library-wide behavior.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab1">
 <div class="block">This interface defines the required methods for implementations of metaheuristics, in particular
  metaheuristics for which the maximum run length can be specified.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">This class is used to track search algorithm progress, and supports multithreaded search
  algorithms.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab1"><a href="ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab1">
 <div class="block">This interface defines the required methods for implementations of metaheuristics, for which the
  maximum run length can be specified, and which have the capability of restarting from a
  previously optimized solution.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last odd-row-color class-summary class-summary-tab1">
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="SimpleLocalMetaheuristic.html" title="interface in org.cicirello.search">SimpleLocalMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
 <div class="block">This interface defines the required methods for implementations of simple metaheuristics that
  locally optimize from some initial solution (random or otherwise) whose run length is
  self-determined, such as hill climbers that terminate upon reaching a local optima.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab1"><a href="SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab1">
 <div class="block">This interface defines the required methods for implementations of simple metaheuristics whose
  run length is self-determined, such as hill climbers that terminate upon reaching a local optima.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="SingleSolutionMetaheuristic.html" title="interface in org.cicirello.search">SingleSolutionMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last odd-row-color class-summary class-summary-tab1">
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="SingleSolutionMetaheuristic.html" title="interface in org.cicirello.search">SingleSolutionMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
 <div class="block">This interface defines the required methods for implementations of single-solution
  metaheuristics, i.e., metaheuristics such as simulated annealing that operate one a single
  candidate solution (as compared to population-based metaheuristics such as genetic algorithms.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">An object of this class encapsulates a solution with its corresponding cost value.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last odd-row-color class-summary class-summary-tab1">
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
 <div class="block">This interface defines the required functionality of search algorithm implementations that
  support tracking search progress across multiple runs, whether multiple sequential runs, or
  multiple concurrent runs in the case of a parallel metaheuristic.</div>

@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/UndoableUniformMutation.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -84,9 +83,7 @@ loadScripts(document, 'script');</script>
 <h1 title="Class UndoableUniformMutation" class="title">Class UndoableUniformMutation&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="UniformMutation.html" title="class in org.cicirello.search.operators.integers">org.cicirello.search.operators.integers.UniformMutation</a>&lt;T&gt;
 <div class="inheritance">org.cicirello.search.operators.integers.UndoableUniformMutation&lt;T&gt;</div>
-</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
@@ -95,27 +92,28 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T&gt;&gt;</code>, <code><a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T&gt;</code>, <code><a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;</code>, <code><a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a></code>, <code><a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;T&gt;&gt;</code></dd>
+<dd><code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T&gt;&gt;</code>, <code><a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T&gt;</code>, <code><a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;</code>, <code><a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a></code>, <code><a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;&gt;</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">UndoableUniformMutation&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</span>
-<span class="extends-implements">extends <a href="UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;T&gt;
-implements <a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T&gt;</span></div>
-<div class="block">This class implements a uniform mutation on integer valued parameters, with support for the
- <a href="#undo(T)"><code>undo(T)</code></a> method. This class can be used to mutate objects of any of the classes that
- implement the <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations"><code>IntegerValued</code></a> interface, including both univariates and multivariates.
+<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
+implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;&gt;</span></div>
+<div class="block">This class implements a uniform mutation with support for the <a href="../UndoableMutationOperator.html#undo(T)"><code>UndoableMutationOperator.undo(T)</code></a> method. This uniform
+ mutation is for mutating integer values. This class can be used to mutate objects of any of the
+ classes that implement the <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations"><code>IntegerValued</code></a> interface, including both univariate and
+ multivariate objects.
 
- <p>In the form of uniform mutation implemented by this class, a value v is mutated by adding to
- it a randomly generated integer m such that m is drawn uniformly at random from the interval
- [-radius, radius].
+ <p>In the form of uniform mutation implemented by this class, a value v is mutated by adding a
+ randomly generated m such that m is drawn uniformly at random from the interval [-radius,
+ radius].
 
  <p>This mutation operator also implements the <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations"><code>IntegerValued</code></a> interface to enable
  implementation of metaheuristics that mutate their own mutation parameters. That is, you can pass
- a UniformMutation object to the <a href="#mutate(T)"><code>mutate(T)</code></a> method of a UniformMutation object to mutate its
- radius.
+ an UndoableUniformMutation object to the <a href="../MutationOperator.html#mutate(T)"><code>MutationOperator.mutate(T)</code></a> method of a UndoableUniformMutation
+ object.
 
- <p>To construct a UniformMutation, you must use one of the factory methods. See the various
- <a href="#createUniformMutation(int)"><code>createUniformMutation(int)</code></a> methods.</div>
+ <p>To construct an UndoableUniformMutation, you must use one of the factory methods. See the
+ various <a href="#createUniformMutation()"><code>createUniformMutation()</code></a> methods.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -136,39 +134,74 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <div class="block">Creates an identical copy of this object.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createUniformMutation(int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createUniformMutation()" class="member-name-link">createUniformMutation</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Creates a Uniform mutation operator that supports the undo operation.</div>
+<div class="block">Creates a Uniform mutation operator with radius parameter equal to 1 that supports the undo
+ operation.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createUniformMutation(int,double)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createUniformMutation(int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a Uniform mutation operator that supports the undo operation.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createUniformMutation(int,double)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
  double&nbsp;p)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Create a Uniform mutation operator that supports the undo operation.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createUniformMutation(int,int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
+ int&nbsp;k)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Create a Uniform mutation operator that supports the undo operation.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;<br><a href="UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createUniformMutation(int,int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
- int&nbsp;k)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createUniformMutation(int,int,int)" class="member-name-link">createUniformMutation</a><wbr>(int&nbsp;radius,
+ int&nbsp;lowerBound,
+ int&nbsp;upperBound)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Create a Uniform mutation operator that supports the undo operation.</div>
+<div class="block">Creates a Uniform mutation operator, such that the mutate method constrains each mutated int
+ value to lie in the interval [lowerBound, upperBound].</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get(int)" class="member-name-link">get</a><wbr>(int&nbsp;i)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Indicates whether some other object is equal to this one.</div>
+<div class="block">Accesses the current value of the mutation parameter.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#mutate(T)" class="member-name-link">mutate</a><wbr>(<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a>&nbsp;c)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#length()" class="member-name-link">length</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the number of parameters.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#mutate(T)" class="member-name-link">mutate</a><wbr>(<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a>&nbsp;c)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Mutates a candidate solution to a problem, by randomly modifying its state.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set(int%5B%5D)" class="member-name-link">set</a><wbr>(int[]&nbsp;values)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the mutation parameter to a specified value.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#set(int,int)" class="member-name-link">set</a><wbr>(int&nbsp;i,
+ int&nbsp;value)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the mutation parameter to a specified value.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Generates a functionally identical copy of this object, for use in multithreaded
  implementations of search algorithms.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toArray(int%5B%5D)" class="member-name-link">toArray</a><wbr>(int[]&nbsp;values)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Accesses the current value of the mutation parameter as an array.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#undo(T)" class="member-name-link">undo</a><wbr>(<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a>&nbsp;c)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns a candidate solution to its previous state prior to the most recent mutation performed.</div>
@@ -177,14 +210,8 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 </div>
 </div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-org.cicirello.search.operators.integers.UniformMutation">Methods inherited from class&nbsp;org.cicirello.search.operators.integers.<a href="UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a></h3>
-<code><a href="UniformMutation.html#get(int)">get</a>, <a href="UniformMutation.html#hashCode()">hashCode</a>, <a href="UniformMutation.html#length()">length</a>, <a href="UniformMutation.html#set(int,int)">set</a>, <a href="UniformMutation.html#toArray(int%5B%5D)">toArray</a></code></div>
-<div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
-<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
-<div class="inherited-list">
-<h3 id="methods-inherited-from-class-org.cicirello.search.representations.IntegerValued">Methods inherited from interface&nbsp;org.cicirello.search.representations.<a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a></h3>
-<code><a href="../../representations/IntegerValued.html#set(int%5B%5D)">set</a></code></div>
+<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 </section>
 </li>
 </ul>
@@ -196,6 +223,21 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="createUniformMutation()">
+<h3>createUniformMutation</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</span>
+<span class="return-type"><a href="UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</span>&nbsp;<span class="element-name">createUniformMutation</span>()</div>
+<div class="block">Creates a Uniform mutation operator with radius parameter equal to 1 that supports the undo
+ operation.</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - The specific IntegerValued type.</dd>
+<dt>Returns:</dt>
+<dd>A Uniform mutation operator.</dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="createUniformMutation(int)">
 <h3>createUniformMutation</h3>
@@ -213,6 +255,27 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 </section>
 </li>
 <li>
+<section class="detail" id="createUniformMutation(int,int,int)">
+<h3>createUniformMutation</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</span>
+<span class="return-type"><a href="UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T&gt;</span>&nbsp;<span class="element-name">createUniformMutation</span><wbr><span class="parameters">(int&nbsp;radius,
+ int&nbsp;lowerBound,
+ int&nbsp;upperBound)</span></div>
+<div class="block">Creates a Uniform mutation operator, such that the mutate method constrains each mutated int
+ value to lie in the interval [lowerBound, upperBound].</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - The specific IntegerValued type.</dd>
+<dt>Parameters:</dt>
+<dd><code>radius</code> - The radius parameter of the Uniform.</dd>
+<dd><code>lowerBound</code> - A lower bound on the result of a mutation.</dd>
+<dd><code>upperBound</code> - An upper bound on the result of a mutation.</dd>
+<dt>Returns:</dt>
+<dd>A Uniform mutation operator.</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="createUniformMutation(int,int)">
 <h3>createUniformMutation</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</span>
@@ -224,7 +287,7 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <dd><code>T</code> - The specific IntegerValued type.</dd>
 <dt>Parameters:</dt>
 <dd><code>radius</code> - The radius parameter of the Uniform mutation.</dd>
-<dd><code>k</code> - The number of input variables that the <a href="#mutate(T)"><code>mutate(T)</code></a> method changes when called. The
+<dd><code>k</code> - The number of input variables that the <a href="../MutationOperator.html#mutate(T)"><code>MutationOperator.mutate(T)</code></a> method changes when called. The
      k input variables are chosen uniformly at random from among all subsets of size k. If there
      are less than k input variables, then all are mutated.</dd>
 <dt>Returns:</dt>
@@ -246,53 +309,13 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <dd><code>T</code> - The specific IntegerValued type.</dd>
 <dt>Parameters:</dt>
 <dd><code>radius</code> - The radius parameter of the Uniform mutation.</dd>
-<dd><code>p</code> - The probability that the <a href="#mutate(T)"><code>mutate(T)</code></a> method changes an input variable. If there
+<dd><code>p</code> - The probability that the <a href="../MutationOperator.html#mutate(T)"><code>MutationOperator.mutate(T)</code></a> method changes an input variable. If there
      are n input variables, then n*p input variables will be mutated on average during a single
-     call to the <a href="#mutate(T)"><code>mutate(T)</code></a> method.</dd>
+     call to the <a href="../MutationOperator.html#mutate(T)"><code>MutationOperator.mutate(T)</code></a> method.</dd>
 <dt>Returns:</dt>
 <dd>A Uniform mutation operator</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if p &le; 0</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="mutate(T)">
-<h3 id="mutate(org.cicirello.search.representations.IntegerValued)">mutate</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">mutate</span><wbr><span class="parameters">(<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a>&nbsp;c)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../MutationOperator.html#mutate(T)">MutationOperator</a></code></span></div>
-<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state. The mutant that is
- produced is in the local neighborhood of the original candidate solution.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../MutationOperator.html#mutate(T)">mutate</a></code>&nbsp;in interface&nbsp;<code><a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
-<dt>Overrides:</dt>
-<dd><code><a href="UniformMutation.html#mutate(T)">mutate</a></code>&nbsp;in class&nbsp;<code><a href="UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
-<dt>Parameters:</dt>
-<dd><code>c</code> - The candidate solution subject to the mutation. This method changes the state of c.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="undo(T)">
-<h3 id="undo(org.cicirello.search.representations.IntegerValued)">undo</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">undo</span><wbr><span class="parameters">(<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a>&nbsp;c)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../UndoableMutationOperator.html#undo(T)">UndoableMutationOperator</a></code></span></div>
-<div class="block">Returns a candidate solution to its previous state prior to the most recent mutation performed.
-
- <p>For example, consider the following. Let c' be the current state of c. Let c'' be the state
- of c after mutate(c); If we then call undo(c), the state of c should revert back to c'.
-
- <p>The behavior of undo is undefined if c is altered by some other process between the calls to
- mutate and undo. The behavior is also undefined if a different candidate is given to undo then
- the last given to mutate. For example, if the following two statements are executed, mutate(c);
- undo(d);, the effect on d is undefined as it wasn't the most recently mutated candidate
- solution.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../UndoableMutationOperator.html#undo(T)">undo</a></code>&nbsp;in interface&nbsp;<code><a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
-<dt>Parameters:</dt>
-<dd><code>c</code> - The candidate solution to revert.</dd>
 </dl>
 </section>
 </li>
@@ -318,8 +341,6 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <dd><code><a href="../../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
 <dt>Specified by:</dt>
 <dd><code><a href="../UndoableMutationOperator.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
-<dt>Overrides:</dt>
-<dd><code><a href="UniformMutation.html#split()">split</a></code>&nbsp;in class&nbsp;<code><a href="UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
 <dt>Returns:</dt>
 <dd>A functionally identical copy of the object, or a reference to this if it is both safe
      and efficient for multiple threads to share a single instance of this Splittable object.</dd>
@@ -334,27 +355,120 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html#copy()" title="class or interface in org.cicirello.util" class="external-link">copy</a></code>&nbsp;in interface&nbsp;<code><a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
-<dt>Overrides:</dt>
-<dd><code><a href="UniformMutation.html#copy()">copy</a></code>&nbsp;in class&nbsp;<code><a href="UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
 <dt>Returns:</dt>
 <dd>an identical copy of this object</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="equals(java.lang.Object)">
-<h3>equals</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="UniformMutation.html#equals(java.lang.Object)">UniformMutation</a></code></span></div>
-<div class="block">Indicates whether some other object is equal to this one. The objects are equal if they are the
- same type of operator with the same parameters.</div>
+<section class="detail" id="mutate(T)">
+<h3 id="mutate(org.cicirello.search.representations.IntegerValued)">mutate</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">mutate</span><wbr><span class="parameters">(<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a>&nbsp;c)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../MutationOperator.html#mutate(T)">MutationOperator</a></code></span></div>
+<div class="block">Mutates a candidate solution to a problem, by randomly modifying its state. The mutant that is
+ produced is in the local neighborhood of the original candidate solution.</div>
 <dl class="notes">
-<dt>Overrides:</dt>
-<dd><code><a href="UniformMutation.html#equals(java.lang.Object)">equals</a></code>&nbsp;in class&nbsp;<code><a href="UniformMutation.html" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a> extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="../MutationOperator.html#mutate(T)">mutate</a></code>&nbsp;in interface&nbsp;<code><a href="../MutationOperator.html" title="interface in org.cicirello.search.operators">MutationOperator</a>&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
 <dt>Parameters:</dt>
-<dd><code>other</code> - the object with which to compare</dd>
+<dd><code>c</code> - The candidate solution subject to the mutation. This method changes the state of c.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="undo(T)">
+<h3 id="undo(org.cicirello.search.representations.IntegerValued)">undo</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">undo</span><wbr><span class="parameters">(<a href="UndoableUniformMutation.html" title="type parameter in UndoableUniformMutation">T</a>&nbsp;c)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../UndoableMutationOperator.html#undo(T)">UndoableMutationOperator</a></code></span></div>
+<div class="block">Returns a candidate solution to its previous state prior to the most recent mutation performed.
+
+ <p>For example, consider the following. Let c' be the current state of c. Let c'' be the state
+ of c after mutate(c); If we then call undo(c), the state of c should revert back to c'.
+
+ <p>The behavior of undo is undefined if c is altered by some other process between the calls to
+ mutate and undo. The behavior is also undefined if a different candidate is given to undo then
+ the last given to mutate. For example, if the following two statements are executed, mutate(c);
+ undo(d);, the effect on d is undefined as it wasn't the most recently mutated candidate
+ solution.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="../UndoableMutationOperator.html#undo(T)">undo</a></code>&nbsp;in interface&nbsp;<code><a href="../UndoableMutationOperator.html" title="interface in org.cicirello.search.operators">UndoableMutationOperator</a>&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>c</code> - The candidate solution to revert.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="length()">
+<h3>length</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">length</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../../representations/IntegerValued.html#length()">IntegerValued</a></code></span></div>
+<div class="block">Gets the number of parameters.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="../../representations/IntegerValued.html#length()">length</a></code>&nbsp;in interface&nbsp;<code><a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a></code></dd>
 <dt>Returns:</dt>
-<dd>true if and only if the objects are equal</dd>
+<dd>The number of parameters for this function.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="get(int)">
+<h3>get</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">get</span><wbr><span class="parameters">(int&nbsp;i)</span></div>
+<div class="block">Accesses the current value of the mutation parameter.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="../../representations/IntegerValued.html#get(int)">get</a></code>&nbsp;in interface&nbsp;<code><a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>i</code> - Ignored.</dd>
+<dt>Returns:</dt>
+<dd>The current value of the mutation parameter.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toArray(int[])">
+<h3>toArray</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int[]</span>&nbsp;<span class="element-name">toArray</span><wbr><span class="parameters">(int[]&nbsp;values)</span></div>
+<div class="block">Accesses the current value of the mutation parameter as an array. This method implemented
+ strictly to meet implementation requirements of IntegerValued interface.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="../../representations/IntegerValued.html#toArray(int%5B%5D)">toArray</a></code>&nbsp;in interface&nbsp;<code><a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>values</code> - An array to hold the result. If values is null or if values.length is not equal
+     1, then a new array is constructed for the result.</dd>
+<dt>Returns:</dt>
+<dd>An array containing the current value of the mutation parameter.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="set(int,int)">
+<h3>set</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">set</span><wbr><span class="parameters">(int&nbsp;i,
+ int&nbsp;value)</span></div>
+<div class="block">Sets the mutation parameter to a specified value.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="../../representations/IntegerValued.html#set(int,int)">set</a></code>&nbsp;in interface&nbsp;<code><a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>i</code> - Ignored.</dd>
+<dd><code>value</code> - The new value for the mutation parameter.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="set(int[])">
+<h3>set</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">set</span><wbr><span class="parameters">(int[]&nbsp;values)</span></div>
+<div class="block">Sets the mutation parameter to a specified value.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="../../representations/IntegerValued.html#set(int%5B%5D)">set</a></code>&nbsp;in interface&nbsp;<code><a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>values</code> - The new value for the mutation parameter is in values[0], the rest is ignored.</dd>
 </dl>
 </section>
 </li>

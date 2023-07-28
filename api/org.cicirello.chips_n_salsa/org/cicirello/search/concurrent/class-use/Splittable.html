@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/class-use/Splittable.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -101,8 +100,8 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.operators.permutations">org.cicirello.search.operators.permutations</a></div>
 <div class="col-last odd-row-color">
-<div class="block">This package includes classes that implement mutation operators for permutations, and other
- operators required by simulated annealing and other related metaheuristics.</div>
+<div class="block">This package includes classes that implement local search and evolutionary operators for
+ permutations, such as mutation operators, crossover operators, and initializers.</div>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.operators.reals">org.cicirello.search.operators.reals</a></div>
 <div class="col-last even-row-color">
@@ -115,6 +114,15 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">Package of classes and interfaces related to representing computational problems, as well as
  classes implementing a variety of specific computational problems.</div>
+</div>
+<div class="col-first even-row-color"><a href="#org.cicirello.search.problems.scheduling">org.cicirello.search.problems.scheduling</a></div>
+<div class="col-last even-row-color">
+<div class="block">Package of classes and interfaces related to representing and solving scheduling problems, which
+ includes implementations of constructive heuristics for scheduling problems.</div>
+</div>
+<div class="col-first odd-row-color"><a href="#org.cicirello.search.problems.tsp">org.cicirello.search.problems.tsp</a></div>
+<div class="col-last odd-row-color">
+<div class="block">Classes and interfaces related to the Traveling Salesperson Problem (TSP).</div>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.restarts">org.cicirello.search.restarts</a></div>
 <div class="col-last even-row-color">
@@ -642,8 +650,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color"><code>class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../../operators/integers/UndoableUniformMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a>&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class implements a uniform mutation on integer valued parameters, with support for the
- <a href="../../operators/integers/UndoableUniformMutation.html#undo(T)"><code>UndoableUniformMutation.undo(T)</code></a> method.</div>
+<div class="block">This class implements a uniform mutation with support for the <a href="../../operators/UndoableMutationOperator.html#undo(T)"><code>UndoableMutationOperator.undo(T)</code></a> method.</div>
 </div>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../../operators/integers/UniformCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.integers">UniformCrossover</a>&lt;T extends <a href="../../representations/IntegerVector.html" title="class in org.cicirello.search.representations">IntegerVector</a>&gt;</code></div>
@@ -653,7 +660,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color"><code>class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../../operators/integers/UniformMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.integers">UniformMutation</a>&lt;T extends <a href="../../representations/IntegerValued.html" title="interface in org.cicirello.search.representations">IntegerValued</a>&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">This class implements a uniform mutation for mutating integer values.</div>
+<div class="block">This class implements a uniform mutation.</div>
 </div>
 </div>
 </section>
@@ -672,13 +679,13 @@ loadScripts(document, 'script');</script>
 <div class="block">This class implements an adjacent swap mutation on permutations, where one mutation consists in
  randomly swapping a pair of adjacent elements.</div>
 </div>
-<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../../operators/permutations/BlockInterchangeMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">BlockInterchangeMutation</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">This class implements a block interchange mutation on permutations, where one mutation consists
  in swapping two randomly chosen non-overlapping "blocks" (i.e., subsequences).</div>
 </div>
-<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../../operators/permutations/BlockMoveMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">BlockMoveMutation</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">This class implements a block move mutation on permutations, where one mutation consists in
@@ -713,7 +720,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Implementation of the Enhanced Edge Recombination operator, a crossover operator for
  permutations.</div>
 </div>
-<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../../operators/permutations/InsertionMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">InsertionMutation</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">This class implements an insertion mutation on permutations, where one mutation consists in
@@ -748,110 +755,115 @@ loadScripts(document, 'script');</script>
  make copies of current solution configurations.</div>
 </div>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../operators/permutations/PrecedencePreservativeCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">PrecedencePreservativeCrossover</a></code></div>
+<div class="col-second even-row-color"><code><a href="../../operators/permutations/PositionBasedCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">PositionBasedCrossover</a></code></div>
 <div class="col-last even-row-color">
+<div class="block">Implementation of position based crossover (PBX).</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../operators/permutations/PrecedencePreservativeCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">PrecedencePreservativeCrossover</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">Implementation of Precedence Preservative Crossover (PPX), the two-point version.</div>
 </div>
-<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../operators/permutations/ReversalMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">ReversalMutation</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../operators/permutations/ReversalMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">ReversalMutation</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a reversal mutation on permutations, where one mutation consists in
  reversing the order of a randomly selected subpermutation.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../operators/permutations/RotationMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">RotationMutation</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../operators/permutations/RotationMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">RotationMutation</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a rotation mutation on permutations, where one mutation consists in a
  random circular rotation of the permutation.</div>
 </div>
-<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../operators/permutations/ScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">ScrambleMutation</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../operators/permutations/ScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">ScrambleMutation</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation consists in
  randomizing the order of a randomly selected subpermutation.</div>
 </div>
-<div class="col-first even-row-color"><code>class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../operators/permutations/SwapMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../operators/permutations/SwapMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a swap mutation on permutations, where one mutation selects two elements
  uniformly at random and swaps their locations.</div>
 </div>
-<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../operators/permutations/ThreeOptMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">ThreeOptMutation</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../operators/permutations/ThreeOptMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">ThreeOptMutation</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements the classic 3-Opt neighborhood as a mutation operator for permutations.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../operators/permutations/TwoChangeMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">TwoChangeMutation</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../operators/permutations/TwoChangeMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">TwoChangeMutation</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements the classic two-change operator as a mutation operator for permutations.</div>
 </div>
-<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../operators/permutations/UndoableScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UndoableScrambleMutation</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../operators/permutations/UndoableScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UndoableScrambleMutation</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation consists in
  randomizing the order of a randomly selected subpermutation.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../operators/permutations/UndoableUniformScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UndoableUniformScrambleMutation</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../operators/permutations/UndoableUniformScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UndoableUniformScrambleMutation</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation consists in
  randomizing the order of a non-contiguous subset of the permutation elements.</div>
 </div>
-<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../operators/permutations/UniformOrderBasedCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformOrderBasedCrossover</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../operators/permutations/UniformOrderBasedCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformOrderBasedCrossover</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">Implementation of uniform order-based crossover (UOBX).</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../operators/permutations/UniformPartiallyMatchedCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformPartiallyMatchedCrossover</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../operators/permutations/UniformPartiallyMatchedCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformPartiallyMatchedCrossover</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">Implementation of uniform partially matched crossover (UPMX).</div>
 </div>
-<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../operators/permutations/UniformPrecedencePreservativeCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformPrecedencePreservativeCrossover</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../operators/permutations/UniformPrecedencePreservativeCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformPrecedencePreservativeCrossover</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">Implementation of Precedence Preservative Crossover (PPX), the uniform version.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../operators/permutations/UniformScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformScrambleMutation</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../operators/permutations/UniformScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformScrambleMutation</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a scramble mutation on permutations, where one mutation consists in
  randomizing the order of a non-contiguous subset of the permutation elements.</div>
 </div>
-<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../operators/permutations/WindowLimitedBlockMoveMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedBlockMoveMutation</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../operators/permutations/WindowLimitedBlockMoveMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedBlockMoveMutation</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a window-limited version of the <a href="../../operators/permutations/BlockMoveMutation.html" title="class in org.cicirello.search.operators.permutations"><code>BlockMoveMutation</code></a> mutation operator
  on permutations.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../operators/permutations/WindowLimitedInsertionMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedInsertionMutation</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../operators/permutations/WindowLimitedInsertionMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedInsertionMutation</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a window-limited version of the <a href="../../operators/permutations/InsertionMutation.html" title="class in org.cicirello.search.operators.permutations"><code>InsertionMutation</code></a> mutation operator
  on permutations.</div>
 </div>
-<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../operators/permutations/WindowLimitedReversalMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedReversalMutation</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../operators/permutations/WindowLimitedReversalMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedReversalMutation</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a window-limited version of the <a href="../../operators/permutations/ReversalMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ReversalMutation</code></a> mutation operator
  on permutations.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../operators/permutations/WindowLimitedScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedScrambleMutation</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../operators/permutations/WindowLimitedScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedScrambleMutation</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a window-limited version of the <a href="../../operators/permutations/ScrambleMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ScrambleMutation</code></a> mutation operator
  on permutations.</div>
 </div>
-<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../operators/permutations/WindowLimitedSwapMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedSwapMutation</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../operators/permutations/WindowLimitedSwapMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedSwapMutation</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">This class implements a window-limited version of the <a href="../../operators/permutations/SwapMutation.html" title="class in org.cicirello.search.operators.permutations"><code>SwapMutation</code></a> mutation operator on
  permutations.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../operators/permutations/WindowLimitedUndoableScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedUndoableScrambleMutation</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../operators/permutations/WindowLimitedUndoableScrambleMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">WindowLimitedUndoableScrambleMutation</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">This class implements a window-limited version of the <a href="../../operators/permutations/ScrambleMutation.html" title="class in org.cicirello.search.operators.permutations"><code>ScrambleMutation</code></a> mutation operator
  on permutations.</div>
 </div>
@@ -975,6 +987,181 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">This class implements a mapping between Permutation problems and BitVector problems, where cost
  values are of type int.</div>
+</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="org.cicirello.search.problems.scheduling">
+<h2>Uses of <a href="../Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a> in <a href="../../problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a></h2>
+<div class="caption"><span>Classes in <a href="../../problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a> that implement <a href="../Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/ApparentTardinessCost.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">ApparentTardinessCost</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This is an implementation of the Apparent Tardiness Cost (ATC) heuristic.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/ApparentTardinessCostSetupAdjusted.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">ApparentTardinessCostSetupAdjusted</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This is an implementation of a variation of the Apparent Tardiness Cost (ATC) heuristic, with a
+ simple adjustment for setup times for problems with sequence-dependent setups.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/ATCS.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">ATCS</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This is an implementation of the ATCS (Apparent Tardiness Cost with Setups) heuristic.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/DynamicATCS.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">DynamicATCS</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">DynamicATCS is an implementation of a variation of the ATCS (Apparent Tardiness Cost with Setups)
+ heuristic, which dynamically updates the average processing and setup times as it constructs the
+ schedule.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/EarliestDueDate.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">EarliestDueDate</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This is an implementation of the earliest due date heuristic.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/ExponentialEarlyTardyHeuristic.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">ExponentialEarlyTardyHeuristic</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This class implements a constructive heuristic, known as EXPET, for scheduling problems involving
+ minimizing the sum of weighted earliness plus weighted tardiness.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/LinearEarlyTardyHeuristic.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">LinearEarlyTardyHeuristic</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This class implements a constructive heuristic, known as LINET, for scheduling problems involving
+ minimizing the sum of weighted earliness plus weighted tardiness.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/MinimumSlackTime.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">MinimumSlackTime</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This is an implementation of the minimum slack time (MST) heuristic.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/Montagne.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">Montagne</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This is an implementation of Montagne's heuristic heuristic.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/ShortestProcessingPlusSetupTime.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">ShortestProcessingPlusSetupTime</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This is an implementation of the shortest process time heuristic, adjusted to include setup time.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/ShortestProcessingPlusSetupTimePrecompute.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">ShortestProcessingPlusSetupTimePrecompute</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This is an implementation of the shortest process time heuristic, adjusted to include setup time.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/ShortestProcessingTime.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">ShortestProcessingTime</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This is an implementation of the shortest process time heuristic.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/SmallestNormalizedSetup.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">SmallestNormalizedSetup</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This heuristic is smallest normalized setup.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/SmallestSetup.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">SmallestSetup</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This heuristic is the smallest setup first.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/SmallestSetupPrecompute.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">SmallestSetupPrecompute</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This heuristic is the smallest setup first.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/SmallestTwoJobSetup.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">SmallestTwoJobSetup</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This heuristic is smallest two-job setup.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/WeightedCostOverTime.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedCostOverTime</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This is an implementation of the weighted COVERT heuristic.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/WeightedCostOverTimeSetupAdjusted.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedCostOverTimeSetupAdjusted</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This is an implementation of a variation of the weighted COVERT heuristic, adjusted to account
+ for setup times for problems with sequence-dependent setups.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/WeightedCriticalRatio.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedCriticalRatio</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This is an implementation of a variation of the weighted critical ratio heuristic.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/WeightedCriticalRatioSetupAdjusted.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedCriticalRatioSetupAdjusted</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This is an implementation of a variation of the weighted critical ratio heuristic, adjusted to
+ account for setup times for problems with sequence-dependent setups.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/WeightedLongestProcessingTime.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedLongestProcessingTime</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This is an implementation of the weighted longest process time heuristic.</div>
+</div>
+<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/WeightedShortestProcessingPlusSetupTime.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTime</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This class implements a variation the weighted shortest process time heuristic, but adjusted to
+ incorporate setups times for problems with sequence-dependent setups.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/WeightedShortestProcessingPlusSetupTimeLateOnly.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTimeLateOnly</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This class implements a variation the weighted shortest process time heuristic with non-zero
+ heuristic values only for late jobs, but adjusted to incorporate setups times for problems with
+ sequence-dependent setups.</div>
+</div>
+<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/WeightedShortestProcessingPlusSetupTimePrecompute.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTimePrecompute</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This class implements a variation the weighted shortest process time heuristic, but adjusted to
+ incorporate setups times for problems with sequence-dependent setups.</div>
+</div>
+<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/scheduling/WeightedShortestProcessingTime.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTime</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This is an implementation of the weighted shortest process time heuristic.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/scheduling/WeightedShortestProcessingTimeLateOnly.html" class="type-name-link" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTimeLateOnly</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This is an implementation of the weighted shortest process time heuristic.</div>
+</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="org.cicirello.search.problems.tsp">
+<h2>Uses of <a href="../Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a> in <a href="../../problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></h2>
+<div class="caption"><span>Classes in <a href="../../problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a> that implement <a href="../Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../problems/tsp/NearestCityHeuristic.html" class="type-name-link" title="class in org.cicirello.search.problems.tsp">NearestCityHeuristic</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">This class implements a nearest city constructive heuristic for the TSP for use by stochastic
+ sampling algorithms.</div>
+</div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../problems/tsp/NearestCityPairHeuristic.html" class="type-name-link" title="class in org.cicirello.search.problems.tsp">NearestCityPairHeuristic</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">This class implements a constructive heuristic for the TSP that prefers the first city of the
+ nearest pair of cities.</div>
 </div>
 </div>
 </section>
@@ -1120,6 +1307,19 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="org.cicirello.search.ss">
 <h2>Uses of <a href="../Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a> in <a href="../../ss/package-summary.html">org.cicirello.search.ss</a></h2>
+<div class="caption"><span>Subinterfaces of <a href="../Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a> in <a href="../../ss/package-summary.html">org.cicirello.search.ss</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Interface</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>interface&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../ss/ConstructiveHeuristic.html" class="type-name-link" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-last even-row-color">
+<div class="block">Classes implementing this interface are used as constructive heuristics for constructing
+ heuristic solutions to optimization problems, as well as for certain stochastic sampling search
+ algorithms.</div>
+</div>
+</div>
 <div class="caption"><span>Classes in <a href="../../ss/package-summary.html">org.cicirello.search.ss</a> that implement <a href="../Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a></span></div>
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
@@ -1149,13 +1349,21 @@ loadScripts(document, 'script');</script>
 <div class="block">This class generates solutions to optimization problems using a constructive heuristic.</div>
 </div>
 <div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../../ss/IterativeSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">IterativeSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="../../ss/HybridConstructiveHeuristic.html" class="type-name-link" title="class in org.cicirello.search.ss">HybridConstructiveHeuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">Iterative sampling is the simplest possible form of a stochastic sampling search.</div>
+<div class="block">A HybridConstructiveHeuristic maintains a list of <a href="../../ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss"><code>ConstructiveHeuristic</code></a> objects for a
+ problem, for use in a multiheuristic stochastic sampling search, where each full iteration of the
+ stochastic sampler uses a single heuristic for all decisions, but where a different heuristic is
+ chosen for each iteration.</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../../ss/ValueBiasedStochasticSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-second odd-row-color"><code><a href="../../ss/IterativeSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">IterativeSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
 <div class="col-last odd-row-color">
+<div class="block">Iterative sampling is the simplest possible form of a stochastic sampling search.</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../../ss/ValueBiasedStochasticSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></div>
+<div class="col-last even-row-color">
 <div class="block">Value Biased Stochastic Sampling (VBSS) is a form of stochastic sampling search that uses a
  constructive heuristic to bias the random decisions.</div>
 </div>

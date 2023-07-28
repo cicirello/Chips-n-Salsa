@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/package-use.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -101,8 +100,8 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.operators.permutations">org.cicirello.search.operators.permutations</a></div>
 <div class="col-last odd-row-color">
-<div class="block">This package includes classes that implement mutation operators for permutations, and other
- operators required by simulated annealing and other related metaheuristics.</div>
+<div class="block">This package includes classes that implement local search and evolutionary operators for
+ permutations, such as mutation operators, crossover operators, and initializers.</div>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.operators.reals">org.cicirello.search.operators.reals</a></div>
 <div class="col-last even-row-color">
@@ -115,6 +114,15 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">Package of classes and interfaces related to representing computational problems, as well as
  classes implementing a variety of specific computational problems.</div>
+</div>
+<div class="col-first even-row-color"><a href="#org.cicirello.search.problems.scheduling">org.cicirello.search.problems.scheduling</a></div>
+<div class="col-last even-row-color">
+<div class="block">Package of classes and interfaces related to representing and solving scheduling problems, which
+ includes implementations of constructive heuristics for scheduling problems.</div>
+</div>
+<div class="col-first odd-row-color"><a href="#org.cicirello.search.problems.tsp">org.cicirello.search.problems.tsp</a></div>
+<div class="col-last odd-row-color">
+<div class="block">Classes and interfaces related to the Traveling Salesperson Problem (TSP).</div>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.restarts">org.cicirello.search.restarts</a></div>
 <div class="col-last even-row-color">
@@ -303,6 +311,36 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><a href="class-use/Splittable.html#org.cicirello.search.problems">Splittable</a></div>
+<div class="col-last even-row-color">
+<div class="block">The Splittable interface provides multithreaded search algorithms with the ability to generate
+ functionally identical copies of operators, and even entire metaheuristics, at the point of
+ spawning new search threads.</div>
+</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="org.cicirello.search.problems.scheduling">
+<div class="caption"><span>Classes in <a href="package-summary.html">org.cicirello.search.concurrent</a> used by <a href="../problems/scheduling/package-summary.html">org.cicirello.search.problems.scheduling</a></span></div>
+<div class="summary-table two-column-summary">
+<div class="table-header col-first">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><a href="class-use/Splittable.html#org.cicirello.search.problems.scheduling">Splittable</a></div>
+<div class="col-last even-row-color">
+<div class="block">The Splittable interface provides multithreaded search algorithms with the ability to generate
+ functionally identical copies of operators, and even entire metaheuristics, at the point of
+ spawning new search threads.</div>
+</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="org.cicirello.search.problems.tsp">
+<div class="caption"><span>Classes in <a href="package-summary.html">org.cicirello.search.concurrent</a> used by <a href="../problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></span></div>
+<div class="summary-table two-column-summary">
+<div class="table-header col-first">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><a href="class-use/Splittable.html#org.cicirello.search.problems.tsp">Splittable</a></div>
 <div class="col-last even-row-color">
 <div class="block">The Splittable interface provides multithreaded search algorithms with the ability to generate
  functionally identical copies of operators, and even entire metaheuristics, at the point of

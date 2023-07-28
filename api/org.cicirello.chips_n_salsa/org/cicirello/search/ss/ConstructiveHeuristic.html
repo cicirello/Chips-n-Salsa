@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/ss/ConstructiveHeuristic.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -91,11 +90,16 @@ loadScripts(document, 'script');</script>
      permutation, or some other indexable type that stores integers).</dd>
 </dl>
 <dl class="notes">
+<dt>All Superinterfaces:</dt>
+<dd><code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T&gt;&gt;</code></dd>
+</dl>
+<dl class="notes">
 <dt>All Known Implementing Classes:</dt>
 <dd><code><a href="../problems/scheduling/ApparentTardinessCost.html" title="class in org.cicirello.search.problems.scheduling">ApparentTardinessCost</a></code>, <code><a href="../problems/scheduling/ApparentTardinessCostSetupAdjusted.html" title="class in org.cicirello.search.problems.scheduling">ApparentTardinessCostSetupAdjusted</a></code>, <code><a href="../problems/scheduling/ATCS.html" title="class in org.cicirello.search.problems.scheduling">ATCS</a></code>, <code><a href="../problems/scheduling/DynamicATCS.html" title="class in org.cicirello.search.problems.scheduling">DynamicATCS</a></code>, <code><a href="../problems/scheduling/EarliestDueDate.html" title="class in org.cicirello.search.problems.scheduling">EarliestDueDate</a></code>, <code><a href="../problems/scheduling/ExponentialEarlyTardyHeuristic.html" title="class in org.cicirello.search.problems.scheduling">ExponentialEarlyTardyHeuristic</a></code>, <code><a href="HybridConstructiveHeuristic.html" title="class in org.cicirello.search.ss">HybridConstructiveHeuristic</a></code>, <code><a href="../problems/scheduling/LinearEarlyTardyHeuristic.html" title="class in org.cicirello.search.problems.scheduling">LinearEarlyTardyHeuristic</a></code>, <code><a href="../problems/scheduling/MinimumSlackTime.html" title="class in org.cicirello.search.problems.scheduling">MinimumSlackTime</a></code>, <code><a href="../problems/scheduling/Montagne.html" title="class in org.cicirello.search.problems.scheduling">Montagne</a></code>, <code><a href="../problems/tsp/NearestCityHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityHeuristic</a></code>, <code><a href="../problems/tsp/NearestCityPairHeuristic.html" title="class in org.cicirello.search.problems.tsp">NearestCityPairHeuristic</a></code>, <code><a href="../problems/scheduling/ShortestProcessingPlusSetupTime.html" title="class in org.cicirello.search.problems.scheduling">ShortestProcessingPlusSetupTime</a></code>, <code><a href="../problems/scheduling/ShortestProcessingPlusSetupTimePrecompute.html" title="class in org.cicirello.search.problems.scheduling">ShortestProcessingPlusSetupTimePrecompute</a></code>, <code><a href="../problems/scheduling/ShortestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling">ShortestProcessingTime</a></code>, <code><a href="../problems/scheduling/SmallestNormalizedSetup.html" title="class in org.cicirello.search.problems.scheduling">SmallestNormalizedSetup</a></code>, <code><a href="../problems/scheduling/SmallestSetup.html" title="class in org.cicirello.search.problems.scheduling">SmallestSetup</a></code>, <code><a href="../problems/scheduling/SmallestSetupPrecompute.html" title="class in org.cicirello.search.problems.scheduling">SmallestSetupPrecompute</a></code>, <code><a href="../problems/scheduling/SmallestTwoJobSetup.html" title="class in org.cicirello.search.problems.scheduling">SmallestTwoJobSetup</a></code>, <code><a href="../problems/scheduling/WeightedCostOverTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedCostOverTime</a></code>, <code><a href="../problems/scheduling/WeightedCostOverTimeSetupAdjusted.html" title="class in org.cicirello.search.problems.scheduling">WeightedCostOverTimeSetupAdjusted</a></code>, <code><a href="../problems/scheduling/WeightedCriticalRatio.html" title="class in org.cicirello.search.problems.scheduling">WeightedCriticalRatio</a></code>, <code><a href="../problems/scheduling/WeightedCriticalRatioSetupAdjusted.html" title="class in org.cicirello.search.problems.scheduling">WeightedCriticalRatioSetupAdjusted</a></code>, <code><a href="../problems/scheduling/WeightedLongestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedLongestProcessingTime</a></code>, <code><a href="../problems/scheduling/WeightedShortestProcessingPlusSetupTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTime</a></code>, <code><a href="../problems/scheduling/WeightedShortestProcessingPlusSetupTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTimeLateOnly</a></code>, <code><a href="../problems/scheduling/WeightedShortestProcessingPlusSetupTimePrecompute.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingPlusSetupTimePrecompute</a></code>, <code><a href="../problems/scheduling/WeightedShortestProcessingTime.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTime</a></code>, <code><a href="../problems/scheduling/WeightedShortestProcessingTimeLateOnly.html" title="class in org.cicirello.search.problems.scheduling">WeightedShortestProcessingTimeLateOnly</a></code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">ConstructiveHeuristic&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span></div>
+<div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">ConstructiveHeuristic&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span><span class="extends-implements">
+extends <a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T&gt;&gt;</span></div>
 <div class="block">Classes implementing this interface are used as constructive heuristics for constructing
  heuristic solutions to optimization problems, as well as for certain stochastic sampling search
  algorithms.</div>
@@ -143,6 +147,12 @@ loadScripts(document, 'script');</script>
  <a href="IncrementalEvaluation.html" title="interface in org.cicirello.search.ss">IncrementalEvaluation</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;&nbsp;incEval)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Heuristically evaluates the possible addition of an element to the end of a Partial.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms.</div>
 </div>
 </div>
 </div>
@@ -243,6 +253,34 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the instance of the optimization problem that is the subject of this heuristic.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="split()">
+<h3>split</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;</span>&nbsp;<span class="element-name">split</span>()</div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+ implementations of search algorithms. The state of the object that is returned may or may not
+ be identical to that of the original. Thus, this is a distinct concept from the functionality
+ of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+ must ensure that the object returned performs the same functionality, and that it does not
+ share any state data that would be either unsafe or inefficient for concurrent access by
+ multiple threads. The split method is allowed to simply return the this reference, provided
+ that it is both safe and efficient for multiple threads to share a single copy of the
+ Splittable object. The intention is to provide a multithreaded search with the capability to
+ provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+ can call the split method for each thread it spawns to generate a functionally identical copy
+ of the operator, but with independent state.
+
+ <p>The default implementation simply returns this, which is appropriate in all cases where an
+ instance of the heuristic can be safely shared by multiple threads.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="ConstructiveHeuristic.html" title="type parameter in ConstructiveHeuristic">T</a>&gt;&gt;</code></dd>
+<dt>Returns:</dt>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+     and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </section>
 </li>

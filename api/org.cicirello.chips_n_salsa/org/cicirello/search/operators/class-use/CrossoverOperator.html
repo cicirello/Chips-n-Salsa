@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/operators/class-use/CrossoverOperator.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -87,8 +86,8 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color"><a href="#org.cicirello.search.operators.permutations">org.cicirello.search.operators.permutations</a></div>
 <div class="col-last even-row-color">
-<div class="block">This package includes classes that implement mutation operators for permutations, and other
- operators required by simulated annealing and other related metaheuristics.</div>
+<div class="block">This package includes classes that implement local search and evolutionary operators for
+ permutations, such as mutation operators, crossover operators, and initializers.</div>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.operators.reals">org.cicirello.search.operators.reals</a></div>
 <div class="col-last odd-row-color">
@@ -815,23 +814,28 @@ loadScripts(document, 'script');</script>
 <div class="block">Implementation of partially matched crossover (PMX).</div>
 </div>
 <div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../permutations/PrecedencePreservativeCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">PrecedencePreservativeCrossover</a></code></div>
+<div class="col-second odd-row-color"><code><a href="../permutations/PositionBasedCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">PositionBasedCrossover</a></code></div>
 <div class="col-last odd-row-color">
+<div class="block">Implementation of position based crossover (PBX).</div>
+</div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../permutations/PrecedencePreservativeCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">PrecedencePreservativeCrossover</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">Implementation of Precedence Preservative Crossover (PPX), the two-point version.</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../permutations/UniformOrderBasedCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformOrderBasedCrossover</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../permutations/UniformOrderBasedCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformOrderBasedCrossover</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">Implementation of uniform order-based crossover (UOBX).</div>
 </div>
-<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../permutations/UniformPartiallyMatchedCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformPartiallyMatchedCrossover</a></code></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../permutations/UniformPartiallyMatchedCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformPartiallyMatchedCrossover</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">Implementation of uniform partially matched crossover (UPMX).</div>
 </div>
-<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../permutations/UniformPrecedencePreservativeCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformPrecedencePreservativeCrossover</a></code></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="../permutations/UniformPrecedencePreservativeCrossover.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">UniformPrecedencePreservativeCrossover</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">Implementation of Precedence Preservative Crossover (PPX), the uniform version.</div>
 </div>
 </div>

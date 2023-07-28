@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/ss/package-use.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -169,28 +168,35 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">This class generates solutions to optimization problems using a constructive heuristic.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/IncrementalEvaluation.html#org.cicirello.search.ss">IncrementalEvaluation</a></div>
+<div class="col-first even-row-color"><a href="class-use/HybridConstructiveHeuristic.html#org.cicirello.search.ss">HybridConstructiveHeuristic</a></div>
 <div class="col-last even-row-color">
+<div class="block">A HybridConstructiveHeuristic maintains a list of <a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss"><code>ConstructiveHeuristic</code></a> objects for a
+ problem, for use in a multiheuristic stochastic sampling search, where each full iteration of the
+ stochastic sampler uses a single heuristic for all decisions, but where a different heuristic is
+ chosen for each iteration.</div>
+</div>
+<div class="col-first odd-row-color"><a href="class-use/IncrementalEvaluation.html#org.cicirello.search.ss">IncrementalEvaluation</a></div>
+<div class="col-last odd-row-color">
 <div class="block">The implementations of constructive heuristics and stochastic samplers biased by constructive
  heuristics in the library support incremental updates, as the solution is heuristically
  assembled, to problem and/or heuristic data utilized by the heuristic.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/IterativeSampling.html#org.cicirello.search.ss">IterativeSampling</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/IterativeSampling.html#org.cicirello.search.ss">IterativeSampling</a></div>
+<div class="col-last even-row-color">
 <div class="block">Iterative sampling is the simplest possible form of a stochastic sampling search.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/Partial.html#org.cicirello.search.ss">Partial</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/Partial.html#org.cicirello.search.ss">Partial</a></div>
+<div class="col-last odd-row-color">
 <div class="block">A Partial represents a partial solution to a problem (e.g., a partial permutation or a partial
  integer vector) that is being iteratively constructed as a solution to an optimization problem.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/ValueBiasedStochasticSampling.html#org.cicirello.search.ss">ValueBiasedStochasticSampling</a></div>
-<div class="col-last odd-row-color">
+<div class="col-first even-row-color"><a href="class-use/ValueBiasedStochasticSampling.html#org.cicirello.search.ss">ValueBiasedStochasticSampling</a></div>
+<div class="col-last even-row-color">
 <div class="block">Value Biased Stochastic Sampling (VBSS) is a form of stochastic sampling search that uses a
  constructive heuristic to bias the random decisions.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/ValueBiasedStochasticSampling.BiasFunction.html#org.cicirello.search.ss">ValueBiasedStochasticSampling.BiasFunction</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/ValueBiasedStochasticSampling.BiasFunction.html#org.cicirello.search.ss">ValueBiasedStochasticSampling.BiasFunction</a></div>
+<div class="col-last odd-row-color">
 <div class="block">Implement this interface to implement the bias function used by VBSS.</div>
 </div>
 </div>

@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/representations/BitVector.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -142,10 +141,21 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <div class="col-last even-row-color">
 <div class="block">Initializes a bit vector randomly given probability of 1-bit.</div>
 </div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,int%5B%5D)" class="member-name-link">BitVector</a><wbr>(int&nbsp;bitLength,
- int[]&nbsp;bits)</code></div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,double,org.cicirello.math.rand.EnhancedRandomGenerator)" class="member-name-link">BitVector</a><wbr>(int&nbsp;bitLength,
+ double&nbsp;p,
+ <a href="https://rho-mu.cicirello.org/api/org.cicirello.rho_mu/org/cicirello/math/rand/EnhancedRandomGenerator.html" title="class or interface in org.cicirello.math.rand" class="external-link">EnhancedRandomGenerator</a>&nbsp;generator)</code></div>
 <div class="col-last odd-row-color">
+<div class="block">Initializes a bit vector randomly given probability of 1-bit.</div>
+</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int%5B%5D)" class="member-name-link">BitVector</a><wbr>(int&nbsp;bitLength,
+ int[]&nbsp;bits)</code></div>
+<div class="col-last even-row-color">
 <div class="block">Initializes a bit vector from an array of ints.</div>
+</div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,org.cicirello.math.rand.EnhancedRandomGenerator)" class="member-name-link">BitVector</a><wbr>(int&nbsp;bitLength,
+ <a href="https://rho-mu.cicirello.org/api/org.cicirello.rho_mu/org/cicirello/math/rand/EnhancedRandomGenerator.html" title="class or interface in org.cicirello.math.rand" class="external-link">EnhancedRandomGenerator</a>&nbsp;generator)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Initializes the BitVector as a random vector of bits, with 0 and 1 equally likely for each bit.</div>
 </div>
 </div>
 </section>
@@ -385,6 +395,40 @@ implements <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicire
 <dd><code>p</code> - The probability, in [0.0, 1.0], that each bit is a 1.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if bitLength &lt; 0 .</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="&lt;init&gt;(int,org.cicirello.math.rand.EnhancedRandomGenerator)">
+<h3>BitVector</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">BitVector</span><wbr><span class="parameters">(int&nbsp;bitLength,
+ <a href="https://rho-mu.cicirello.org/api/org.cicirello.rho_mu/org/cicirello/math/rand/EnhancedRandomGenerator.html" title="class or interface in org.cicirello.math.rand" class="external-link">EnhancedRandomGenerator</a>&nbsp;generator)</span></div>
+<div class="block">Initializes the BitVector as a random vector of bits, with 0 and 1 equally likely for each bit.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>bitLength</code> - The length of the bit vector in number of bits.</dd>
+<dd><code>generator</code> - The source of randomness.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if bitLength &lt; 0.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if generator is null.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="&lt;init&gt;(int,double,org.cicirello.math.rand.EnhancedRandomGenerator)">
+<h3>BitVector</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">BitVector</span><wbr><span class="parameters">(int&nbsp;bitLength,
+ double&nbsp;p,
+ <a href="https://rho-mu.cicirello.org/api/org.cicirello.rho_mu/org/cicirello/math/rand/EnhancedRandomGenerator.html" title="class or interface in org.cicirello.math.rand" class="external-link">EnhancedRandomGenerator</a>&nbsp;generator)</span></div>
+<div class="block">Initializes a bit vector randomly given probability of 1-bit.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>bitLength</code> - The length of the bit vector in number of bits.</dd>
+<dd><code>p</code> - The probability, in [0.0, 1.0], that each bit is a 1.</dd>
+<dd><code>generator</code> - The source of randomness.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if bitLength &lt; 0.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if generator is null.</dd>
 </dl>
 </section>
 </li>

@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/operators/class-use/IterableMutationOperator.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -81,8 +80,8 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color"><a href="#org.cicirello.search.operators.permutations">org.cicirello.search.operators.permutations</a></div>
 <div class="col-last odd-row-color">
-<div class="block">This package includes classes that implement mutation operators for permutations, and other
- operators required by simulated annealing and other related metaheuristics.</div>
+<div class="block">This package includes classes that implement local search and evolutionary operators for
+ permutations, such as mutation operators, crossover operators, and initializers.</div>
 </div>
 </div>
 <section class="class-uses">
@@ -202,26 +201,26 @@ loadScripts(document, 'script');</script>
 <div class="block">This class implements an adjacent swap mutation on permutations, where one mutation consists in
  randomly swapping a pair of adjacent elements.</div>
 </div>
-<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../permutations/BlockInterchangeMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">BlockInterchangeMutation</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">This class implements a block interchange mutation on permutations, where one mutation consists
  in swapping two randomly chosen non-overlapping "blocks" (i.e., subsequences).</div>
 </div>
-<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../permutations/BlockMoveMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">BlockMoveMutation</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">This class implements a block move mutation on permutations, where one mutation consists in
  removing a randomly chosen "block" (i.e., subsequence) and reinserting it at a different randomly
  chosen index.</div>
 </div>
-<div class="col-first odd-row-color"><code>class&nbsp;</code></div>
+<div class="col-first odd-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../permutations/InsertionMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">InsertionMutation</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">This class implements an insertion mutation on permutations, where one mutation consists in
  removing a randomly chosen element and reinserting it at a different randomly chosen location.</div>
 </div>
-<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../permutations/ReversalMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">ReversalMutation</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">This class implements a reversal mutation on permutations, where one mutation consists in
@@ -233,7 +232,7 @@ loadScripts(document, 'script');</script>
 <div class="block">This class implements a rotation mutation on permutations, where one mutation consists in a
  random circular rotation of the permutation.</div>
 </div>
-<div class="col-first even-row-color"><code>class&nbsp;</code></div>
+<div class="col-first even-row-color"><code>final class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../permutations/SwapMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">SwapMutation</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">This class implements a swap mutation on permutations, where one mutation selects two elements

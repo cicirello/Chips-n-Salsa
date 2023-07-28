@@ -4,7 +4,6 @@
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/CycleMutation.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="monetization" content="$ilp.uphold.com/RHNKxp4ZeLNE">
 <link rel="icon" href="/images/favicon48.png" sizes="16x16 32x32 48x48" type="image/png">
 <link rel="icon" href="/images/favicon96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/images/favicon144.png" sizes="144x144" type="image/png">
@@ -115,15 +114,16 @@ implements <a href="../UndoableMutationOperator.html" title="interface in org.ci
  elements. Note that a 2-cycle is simply a swap.
 
  <p>The runtime of the <a href="#mutate(org.cicirello.permutations.Permutation)"><code>mutate</code></a> method is O(min(n, kmax<sup>2</sup>)),
- and derives from the combination of algorithms utilized by the <a href="https://rho-mu.cicirello.org/api/org.cicirello.rho_mu/org/cicirello/math/rand/RandomSampler.html" title="class or interface in org.cicirello.math.rand" class="external-link"><code>RandomSampler</code></a> class in sampling k random integers. For small values of kmax, the runtime is
- essentially constant. The runtime of the <a href="#undo(org.cicirello.permutations.Permutation)"><code>undo</code></a> method is O(kmax).
+ and derives from the combination of algorithms utilized by the <a href="https://rho-mu.cicirello.org/api/org.cicirello.rho_mu/org/cicirello/math/rand/EnhancedSplittableGenerator.html" title="class or interface in org.cicirello.math.rand" class="external-link"><code>EnhancedSplittableGenerator</code></a> class in sampling k random integers. For small values of kmax, the
+ runtime is essentially constant. The runtime of the <a href="#undo(org.cicirello.permutations.Permutation)"><code>undo</code></a> method is
+ O(kmax).
 
  <p>Cycle mutation in both of its forms, including Cycle(kmax), was introduced in the following
  article:
 
- <p>Vincent A. Cicirello. 2022. <a href="https://www.cicirello.org/publications/applsci-12-05506.pdf">Cycle Mutation: Evolving
+ <p>Vincent A. Cicirello. 2022. <a href="https://www.cicirello.org/publications/cicirello2022applsci.html">Cycle Mutation: Evolving
  Permutations via Cycle Induction</a>, <i>Applied Sciences</i>, 12(11), Article 5506 (June 2022).
- doi:<a href="https://doi.org/10.3390/app12115506">10.3390/app12115506</a></div>
+ doi:<a href="https://doi.org/10.3390/app12115506">10.3390/app12115506</a>. <a href="https://www.cicirello.org/publications/applsci-12-05506.pdf">[PDF]</a> <a href="https://www.cicirello.org/publications/cicirello2022applsci.bib">[BIB]</a> <a href="http://arxiv.org/abs/2205.14125">[arXiv]</a></div>
 </section>
 <section class="summary">
 <ul class="summary-list">

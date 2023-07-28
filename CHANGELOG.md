@@ -4,11 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2023-07-27
+## [Unreleased] - 2023-07-28
 
 ### Added
 * Added configurable source of randomness (#638). 
-* New constructors in BitVector class enabling specifying source of randomness for random BitVectors.
+* Added Position Based Crossover (PBX), a crossover operator for permutations (#642).
+* New constructors in BitVector class enabling specifying source of randomness for random BitVectors (#638).
 
 ### Changed
 

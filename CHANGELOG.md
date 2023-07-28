@@ -7,9 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2023-07-28
 
 ### Added
-* Added configurable source of randomness (#638). 
-* Added Position Based Crossover (PBX), a crossover operator for permutations (#642).
-* New constructors in BitVector class enabling specifying source of randomness for random BitVectors (#638).
 
 ### Changed
 
@@ -20,12 +17,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Dependencies
-* Bump jpt from 5.0.4 to 5.1.0
-* Bump rho-mu from 3.1.0 to 3.1.1
 
 ### CI/CD
 
 ### Other
+
+
+## [6.4.0] - 2023-07-28
+
+### Added
+* Added configurable source of randomness (#638). 
+* Added Position Based Crossover (PBX), a crossover operator for permutations (#642).
+* New constructors in BitVector class enabling specifying source of randomness for random BitVectors (#638).
+
+### Dependencies
+* Bump jpt from 5.0.4 to 5.1.0
+* Bump rho-mu from 3.1.0 to 3.1.1
 
 
 ## [6.3.0] - 2023-05-15

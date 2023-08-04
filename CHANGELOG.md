@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * WeightedStaticScheduling: fixed constants that should be static fields.
 * Fixed potential int overflow in average computation in AbstractWeightedSelection.
 * Fixed potential int overflow in average computation in AbstractStochasticSampler.
+* Improved BlockInterchangeIterator.rollback().
 
 ### Dependencies
 

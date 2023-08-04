@@ -132,6 +132,9 @@ final class BlockInterchangeIterator implements MutationIterator {
         case 4:
           p.swapBlocks(w, x, y, z);
           break;
+        default:
+          // deliberately empty: case when rolling back to original
+          break;
       }
     }
   }

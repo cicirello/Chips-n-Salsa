@@ -249,7 +249,8 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
       return false;
     }
     IntegerVectorInitializer i = (IntegerVectorInitializer) other;
-    return ((min == null && i.min == null)
+    return x.length == i.x.length
+        && ((min == null && i.min == null)
             || (Arrays.equals(min, i.min) && Arrays.equals(max, i.max)))
         && Arrays.equals(a, i.a)
         && Arrays.equals(b, i.b);

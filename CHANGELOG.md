@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fixed potential int overflow in average computation in AbstractWeightedSelection.
 * Fixed potential int overflow in average computation in AbstractStochasticSampler.
 * Improved BlockInterchangeIterator.rollback().
-* Performance improvement to LargestCommonSubgraph
+* Performance improvement to LargestCommonSubgraph.
 
 ### Dependencies
 

@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added missing equals and hashCode methods to SolutionCostPair.
 * Fixed end of line characters when writing weighted static scheduling instances to file.
 * WeightedStaticScheduling: fixed constants that should be static fields.
+* Fixed potential int overflow in average computation in AbstractWeightedSelection.
+* Fixed potential int overflow in average computation in AbstractStochasticSampler.
 
 ### Dependencies
 

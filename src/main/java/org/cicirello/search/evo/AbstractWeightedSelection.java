@@ -99,7 +99,7 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
     if (last <= first) {
       return first;
     }
-    int mid = (first + last) >> 1;
+    int mid = (first + last) >>> 1;
     if (u < normalizedWeights[mid]) {
       return selectOne(normalizedWeights, first, mid, u);
     } else {

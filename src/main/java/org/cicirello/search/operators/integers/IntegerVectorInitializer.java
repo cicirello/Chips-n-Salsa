@@ -245,7 +245,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 
   @Override
   public boolean equals(Object other) {
-    if (other == null || !(other instanceof IntegerVectorInitializer)) {
+    if (other == null || !getClass().equals(other.getClass())) {
       return false;
     }
     IntegerVectorInitializer i = (IntegerVectorInitializer) other;

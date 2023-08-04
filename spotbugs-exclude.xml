@@ -20,9 +20,12 @@
 	<Method name="equals" />
   </Match>
   
-  <!-- False positive: no additional state over superclass, which defines hashCode -->
+  <!-- False positives: superclass defines hashCode, subclass doesn't introduce new state -->
   <Match>
     <Bug pattern="HE_EQUALS_NO_HASHCODE" />
-	<Class name="org.cicirello.search.operators.integers.UndoableRandomValueChangeMutation" />
+	<Or>
+	  <Class name="org.cicirello.search.operators.integers.UndoableRandomValueChangeMutation" />
+	  <Class name="org.cicirello.search.problems.BoundMax" />
+	</Or>
   </Match>
 </FindBugsFilter>

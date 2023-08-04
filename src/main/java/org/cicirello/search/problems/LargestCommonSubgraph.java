@@ -407,7 +407,7 @@ public final class LargestCommonSubgraph implements IntegerCostOptimizationProbl
    * Private internal class for use within the LargestCommonSubgraph class for representing
    * edges.
    */
-  private class InternalEdge {
+  private static class InternalEdge {
     private final int x;
     private final int y;
 

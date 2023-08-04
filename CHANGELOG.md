@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 * Fixed double comparison in SolutionCostPair.compareTo(SolutionCostPair).
 * Added missing equals and hashCode methods to SolutionCostPair.
+* Fixed end of line characters when writing weighted static scheduling instances to file.
 
 ### Dependencies
 

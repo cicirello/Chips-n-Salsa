@@ -102,12 +102,8 @@ public final class BoundMax extends IntegerVectorInitializer
     return cost == 0;
   }
 
-  @Override
-  public boolean equals(Object other) {
-    if (!super.equals(other)) {
-      return false;
-    }
-    BoundMax o = (BoundMax) other;
-    return b == o.b && n == o.n;
-  }
+  /*
+   * Doesn't need to override equals and hashCode. Superclass implementation
+   * covers it for this class as well.
+   */
 }

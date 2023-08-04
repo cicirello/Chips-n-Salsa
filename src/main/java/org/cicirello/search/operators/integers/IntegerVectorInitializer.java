@@ -245,11 +245,12 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 
   @Override
   public boolean equals(Object other) {
-    if (other == null || !(other instanceof IntegerVectorInitializer)) {
+    if (other == null || !getClass().equals(other.getClass())) {
       return false;
     }
     IntegerVectorInitializer i = (IntegerVectorInitializer) other;
-    return ((min == null && i.min == null)
+    return x.length == i.x.length
+        && ((min == null && i.min == null)
             || (Arrays.equals(min, i.min) && Arrays.equals(max, i.max)))
         && Arrays.equals(a, i.a)
         && Arrays.equals(b, i.b);

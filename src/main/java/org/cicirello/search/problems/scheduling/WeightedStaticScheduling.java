@@ -93,8 +93,8 @@ public final class WeightedStaticScheduling implements SingleMachineSchedulingPr
   private final int[] duedates;
   private final int[] weights;
 
-  private final int PROCESS_TIME_SPAN = MAX_PROCESS_TIME - MIN_PROCESS_TIME + 1;
-  private final int WEIGHT_SPAN = MAX_WEIGHT - MIN_WEIGHT + 1;
+  private static final int PROCESS_TIME_SPAN = MAX_PROCESS_TIME - MIN_PROCESS_TIME + 1;
+  private static final int WEIGHT_SPAN = MAX_WEIGHT - MIN_WEIGHT + 1;
 
   /**
    * Generates random single machine scheduling problem instances.

@@ -1,0 +1,14 @@
+<FindBugsFilter>
+  <!-- Methods for reading/writing instance files, filename responsibility of caller. -->
+  <Match>
+    <Bug code="SECPTI,SECPTO" />
+	<Package name="org.cicirello.search.problems.scheduling" />
+  </Match>
+  
+  <!-- False positive exposed representation -->
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP" />
+	<Class name="org.cicirello.search.concurrent.TimedParallelMultistarter" />
+	<Method name="getSearchHistory" />
+  </Match>
+</FindBugsFilter>

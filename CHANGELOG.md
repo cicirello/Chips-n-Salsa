@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fixed potential int overflow in average computation in AbstractStochasticSampler.
 * Improved BlockInterchangeIterator.rollback().
 * Performance improvement to LargestCommonSubgraph.
+* Fixed symmetric issue with equals method of BoundMax and its superclass.
 
 ### Dependencies
 

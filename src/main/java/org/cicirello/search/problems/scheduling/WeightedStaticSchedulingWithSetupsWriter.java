@@ -83,9 +83,9 @@ final class WeightedStaticSchedulingWithSetupsWriter {
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
         if (i == j) {
-          out.printf("%d %d %d\n", -1, j, s.getSetupTime(i, j));
+          out.printf("%d %d %d%n", -1, j, s.getSetupTime(i, j));
         } else {
-          out.printf("%d %d %d\n", i, j, s.getSetupTime(i, j));
+          out.printf("%d %d %d%n", i, j, s.getSetupTime(i, j));
         }
       }
     }

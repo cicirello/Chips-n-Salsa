@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Fixed double comparison in SolutionCostPair.compareTo(SolutionCostPair).
+* Added missing equals and hashCode methods to SolutionCostPair.
 
 ### Dependencies
 

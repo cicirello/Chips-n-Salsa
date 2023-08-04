@@ -11,4 +11,12 @@
 	<Class name="org.cicirello.search.concurrent.TimedParallelMultistarter" />
 	<Method name="getSearchHistory" />
   </Match>
+  
+  <!-- False positive: this really should be floating-point equality, as it is checking -->
+  <!-- if two RealValueInitializers have been configured exactly the same way. -->
+  <Match>
+    <Bug pattern="FE_FLOATING_POINT_EQUALITY" />
+	<Class name="org.cicirello.search.operators.reals.RealValueInitializer" />
+	<Method name="equals" />
+  </Match>
 </FindBugsFilter>

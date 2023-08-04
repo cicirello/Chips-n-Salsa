@@ -19,4 +19,10 @@
 	<Class name="org.cicirello.search.operators.reals.RealValueInitializer" />
 	<Method name="equals" />
   </Match>
+  
+  <!-- False positive: no additional state over superclass, which defines hashCode -->
+  <Match>
+    <Bug pattern="HE_EQUALS_NO_HASHCODE" />
+	<Class name="org.cicirello.search.operators.integers.UndoableRandomValueChangeMutation" />
+  </Match>
 </FindBugsFilter>

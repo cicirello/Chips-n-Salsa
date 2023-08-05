@@ -125,9 +125,4 @@ public final class UndoableRandomValueChangeMutation<T extends IntegerValued>
   public UndoableRandomValueChangeMutation<T> split() {
     return new UndoableRandomValueChangeMutation<T>(this);
   }
-
-  @Override
-  public boolean equals(Object other) {
-    return super.equals(other) && other instanceof UndoableRandomValueChangeMutation;
-  }
 }

@@ -33,34 +33,6 @@ public class IntegerValuedInitializerTests {
   private final int NUM_SAMPLES = 100;
 
   @Test
-  public void testIntegerVectorInitializerEquals() {
-    IntegerVectorInitializer f = new IntegerVectorInitializer(2, 2, 4, 0, 8);
-    IntegerVectorInitializer g = new IntegerVectorInitializer(2, 2, 4, 0, 8);
-    IntegerVectorInitializer f1 = new IntegerVectorInitializer(2, 1, 4, 0, 8);
-    IntegerVectorInitializer f2 = new IntegerVectorInitializer(2, 2, 5, 0, 8);
-    IntegerVectorInitializer f3 = new IntegerVectorInitializer(2, 2, 4, 1, 8);
-    IntegerVectorInitializer f4 = new IntegerVectorInitializer(2, 2, 4, 0, 9);
-    assertEquals(f, g);
-    assertEquals(f.hashCode(), g.hashCode());
-    assertNotEquals(f, f1);
-    assertNotEquals(f, f2);
-    assertNotEquals(f, f3);
-    assertNotEquals(f, f4);
-    assertNotEquals(f, null);
-    assertNotEquals(f, "hello");
-    f = new IntegerVectorInitializer(2, 2, 4);
-    g = new IntegerVectorInitializer(2, 2, 4);
-    f1 = new IntegerVectorInitializer(2, 1, 4);
-    f2 = new IntegerVectorInitializer(2, 2, 5);
-    f3 = new IntegerVectorInitializer(2, 2, 4, 0, 8);
-    assertEquals(f, g);
-    assertEquals(f.hashCode(), g.hashCode());
-    assertNotEquals(f, f1);
-    assertNotEquals(f, f2);
-    assertNotEquals(f, f3);
-  }
-
-  @Test
   public void testBoundedIntegerEquals() {
     IntegerValueInitializer f = new IntegerValueInitializer(2, 3, 2, 2);
     SingleInteger g1 = f.createCandidateSolution();
@@ -102,14 +74,14 @@ public class IntegerValuedInitializerTests {
     f2 =
         new IntegerVectorInitializer(
             new int[] {2, 2}, new int[] {3, 3}, new int[] {2, 2}, new int[] {3, 3});
-    assertNotEquals(g1, f2.createCandidateSolution());
+    assertEquals(g1, f2.createCandidateSolution());
     f2 =
         new IntegerVectorInitializer(
             new int[] {2, 2}, new int[] {3, 3}, new int[] {0, 0}, new int[] {2, 2});
-    assertNotEquals(g1, f2.createCandidateSolution());
+    assertEquals(g1, f2.createCandidateSolution());
     assertFalse(g1.equals(null));
-    IntegerVectorInitializer nonMultiBound = new IntegerVectorInitializer(2, 2, 4, 0, 8);
-    assertFalse(g1.equals(nonMultiBound.createCandidateSolution()));
+    IntegerVectorInitializer nonMultiBound = new IntegerVectorInitializer(2, 2, 3, 0, 8);
+    assertEquals(g1, nonMultiBound.createCandidateSolution());
     IntegerVectorInitializer f3 =
         new IntegerVectorInitializer(
             new int[] {4, 4}, new int[] {5, 5}, new int[] {4, 4}, new int[] {4, 4});
@@ -234,9 +206,18 @@ public class IntegerValuedInitializerTests {
     int n = 1;
     IntegerVectorInitializer f = new IntegerVectorInitializer(n, a, b);
     IntegerVectorInitializer fs = f.split();
-    assertEquals(f, fs);
     for (int i = 0; i < NUM_SAMPLES; i++) {
       IntegerVector g = f.createCandidateSolution();
+      assertTrue(g.get(0) < b && g.get(0) >= a);
+      assertEquals(theClass.getClass(), g.getClass());
+      assertEquals(n, g.length());
+      IntegerVector copy = g.copy();
+      assertTrue(copy != g);
+      assertEquals(g, copy);
+      assertEquals(g.getClass(), copy.getClass());
+    }
+    for (int i = 0; i < NUM_SAMPLES; i++) {
+      IntegerVector g = fs.createCandidateSolution();
       assertTrue(g.get(0) < b && g.get(0) >= a);
       assertEquals(theClass.getClass(), g.getClass());
       assertEquals(n, g.length());
@@ -395,9 +376,23 @@ public class IntegerValuedInitializerTests {
     int max = 20;
     IntegerVectorInitializer f = new IntegerVectorInitializer(n, a, b, min, max);
     IntegerVectorInitializer fs = f.split();
-    assertEquals(f, fs);
     for (int i = 0; i < NUM_SAMPLES; i++) {
       IntegerVector g = f.createCandidateSolution();
+      assertEquals(n, g.length());
+      assertTrue(g.get(0) < b && g.get(0) >= a);
+      g.set(0, min - 1);
+      assertEquals(min, g.get(0));
+      g.set(0, max + 1);
+      assertEquals(max, g.get(0));
+      g.set(0, 10);
+      assertEquals(10, g.get(0));
+      IntegerVector copy = g.copy();
+      assertTrue(copy != g);
+      assertEquals(g, copy);
+      assertEquals(g.getClass(), copy.getClass());
+    }
+    for (int i = 0; i < NUM_SAMPLES; i++) {
+      IntegerVector g = fs.createCandidateSolution();
       assertEquals(n, g.length());
       assertTrue(g.get(0) < b && g.get(0) >= a);
       g.set(0, min - 1);

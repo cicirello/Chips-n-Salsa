@@ -101,9 +101,4 @@ public final class BoundMax extends IntegerVectorInitializer
   public boolean isMinCost(int cost) {
     return cost == 0;
   }
-
-  /*
-   * Doesn't need to override equals and hashCode. Superclass implementation
-   * covers it for this class as well.
-   */
 }

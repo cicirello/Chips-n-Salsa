@@ -20,7 +20,6 @@
 
 package org.cicirello.search.operators.integers;
 
-import java.util.Arrays;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
@@ -243,28 +242,6 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
     return new IntegerVectorInitializer(this);
   }
 
-  @Override
-  public boolean equals(Object other) {
-    if (other == null || !getClass().equals(other.getClass())) {
-      return false;
-    }
-    IntegerVectorInitializer i = (IntegerVectorInitializer) other;
-    return x.length == i.x.length
-        && ((min == null && i.min == null)
-            || (Arrays.equals(min, i.min) && Arrays.equals(max, i.max)))
-        && Arrays.equals(a, i.a)
-        && Arrays.equals(b, i.b);
-  }
-
-  @Override
-  public int hashCode() {
-    int h = 31 * Arrays.hashCode(a) + Arrays.hashCode(b);
-    if (min != null) {
-      h = 31 * (31 * h + Arrays.hashCode(min)) + Arrays.hashCode(max);
-    }
-    return h;
-  }
-
   /**
    * Internal class for representing the input to a multivariate function, where the input
    * parameters are integers and are bounded between a specified minimum and maximum value. If an
@@ -335,50 +312,6 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
     @Override
     public MultiBoundedIntegerVector copy() {
       return new MultiBoundedIntegerVector(this);
-    }
-
-    private IntegerVectorInitializer getOuterThis() {
-      return IntegerVectorInitializer.this;
-    }
-    ;
-
-    /**
-     * Indicates whether some other object is "equal to" this one. To be equal, the other object
-     * must be of the same runtime type and contain the same values and bounds.
-     *
-     * @param other The other object to compare.
-     * @return true if other is not null, is of the same runtime type as this, and contains the same
-     *     values and bounds.
-     */
-    @Override
-    public boolean equals(Object other) {
-      if (other == null || !(other instanceof MultiBoundedIntegerVector) || !super.equals(other)) {
-        return false;
-      }
-      MultiBoundedIntegerVector b = (MultiBoundedIntegerVector) other;
-      return Arrays.equals(IntegerVectorInitializer.this.min, b.getOuterThis().min)
-          && Arrays.equals(IntegerVectorInitializer.this.max, b.getOuterThis().max);
-    }
-
-    /**
-     * Returns a hash code value.
-     *
-     * @return a hash code value
-     */
-    @Override
-    public int hashCode() {
-      int hash = 1;
-      for (int v : min) {
-        hash = 31 * hash + v;
-      }
-      for (int v : max) {
-        hash = 31 * hash + v;
-      }
-      int L = length();
-      for (int i = 0; i < L; i++) {
-        hash = 31 * hash + get(i);
-      }
-      return hash;
     }
   }
 }

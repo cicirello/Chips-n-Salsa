@@ -11,10 +11,4 @@
 	<Class name="org.cicirello.search.concurrent.TimedParallelMultistarter" />
 	<Method name="getSearchHistory" />
   </Match>
-  
-  <!-- False positives: superclass state based on new fields of subclass such that override of equals unnecessary -->
-  <Match>
-    <Bug pattern="EQ_DOESNT_OVERRIDE_EQUALS" />
-	<Class name="org.cicirello.search.problems.BoundMax" />
-  </Match>
 </FindBugsFilter>

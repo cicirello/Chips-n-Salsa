@@ -294,7 +294,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
    *     #optimize} has not been called.
    */
   public final ArrayList<SolutionCostPair<T>> getSearchHistory() {
-    return history;
+    return history == null ? null : new ArrayList<SolutionCostPair<T>>(history);
   }
 
   /**

@@ -285,31 +285,21 @@ the following:
 <ul>
 <li>Test Coverage: We require unit tests for all functionality. We generate 
 <a href="https://www.jacoco.org/jacoco/">JaCoCo</a> test coverage 
-reports on all push and pull-request events to
-the source code repository. Although we don't 
-have a strict minimum coverage for acceptance,
-coverage is usually over 90%, and quite often 
-at or near 100%. Current coverage
-is reported in the readme of the GitHub 
-repository (updated automatically).</li>
-<li>Regression Testing: All new and existing tests are 
-executed as part of all pull requests,
-and all must pass for acceptance.</li>
-<li>Static Analysis: We use multiple static analysis 
-tools to scan for potential 
-vulnerabilities, error prone code, and other 
-potential code improvements. At the 
+reports on all push and pull-request events to the source code repository. 
+Although we don't have a strict minimum coverage for acceptance, coverage 
+is quite often at or near 100%. Current coverage is reported in the readme
+of the GitHub repository (updated automatically).</li>
+<li>Regression Testing: All new and existing tests are executed as part of 
+all pull requests, and all must pass for acceptance.</li>
+<li>Static Analysis: We use multiple static analysis tools to scan for potential 
+vulnerabilities, error prone code, and other potential code improvements. At the 
 present time, this includes running:
 <ul>
 <li><a href="https://codeql.github.com/docs/">CodeQL</a></li>
 <li><a href="https://github.com/jimbethancourt/RefactorFirst">RefactorFirst</a></li>
+<li><a href="https://spotbugs.github.io/">SpotBugs</a></li>
+<li><a href="https://find-sec-bugs.github.io/">FindSecBugs</a></li>
 <li><a href="https://snyk.io/">Snyk</a></li>
-<li><a href="https://lift.sonatype.com/">Lift</a>: Sonatype's 
-Lift runs a suite of several tools that includes 
-Google's <a href="https://errorprone.info/">Errorprone</a>, 
-Facebook's <a href="https://fbinfer.com/">Infer</a>, 
-as well as <a href="https://find-sec-bugs.github.io/">FindSecBugs</a>,
-among others.</li>
 </ul></li>
 </ul>
 </section>

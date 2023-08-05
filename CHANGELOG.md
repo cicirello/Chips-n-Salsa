@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2023-08-04
+## [Unreleased] - 2023-08-05
 
 ### Added
 
@@ -23,8 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fixed potential int overflow in average computation in AbstractStochasticSampler.
 * Improved BlockInterchangeIterator.rollback().
 * Performance improvement to LargestCommonSubgraph.
-* Fixed symmetric issue with equals method of BoundMax and its superclass.
-* Fixed IntegerVectorInitializer.equals(). 
+* Removed unnecessary equals() and hashCode() methods from evolutionary operators.
 
 ### Dependencies
 

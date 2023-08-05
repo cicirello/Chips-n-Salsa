@@ -37,7 +37,7 @@ import org.cicirello.search.representations.SingleInteger;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class IntegerValueInitializer implements Initializer<SingleInteger> {
+public final class IntegerValueInitializer implements Initializer<SingleInteger> {
 
   private final int a;
   private final int b;
@@ -113,20 +113,6 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
     return new IntegerValueInitializer(this);
   }
 
-  @Override
-  public boolean equals(Object other) {
-    if (other == null || !(other instanceof IntegerValueInitializer)) {
-      return false;
-    }
-    IntegerValueInitializer i = (IntegerValueInitializer) other;
-    return a == i.a && b == i.b && min == i.min && max == i.max && bounded == i.bounded;
-  }
-
-  @Override
-  public int hashCode() {
-    return 31 * (31 * (31 * (31 * (31 + a) + b) + min) + max) + (bounded ? 1 : 0);
-  }
-
   /**
    * Internal class for representing the input to a univariate function, such that the input is an
    * integer, and where the input is bounded between a specified minimum and maximum value. If an
@@ -179,39 +165,6 @@ public class IntegerValueInitializer implements Initializer<SingleInteger> {
     @Override
     public BoundedInteger copy() {
       return new BoundedInteger(this);
-    }
-
-    private IntegerValueInitializer getOuterThis() {
-      return IntegerValueInitializer.this;
-    }
-    ;
-
-    /**
-     * Indicates whether some other object is "equal to" this one. To be equal, the other object
-     * must be of the same runtime type and contain the same value and bounds of the function input.
-     *
-     * @param other The other object to compare.
-     * @return true if other is not null, is of the same runtime type as this, and contains the same
-     *     function input value and bounds.
-     */
-    @Override
-    public boolean equals(Object other) {
-      if (other == null || !(other instanceof BoundedInteger) || !super.equals(other)) {
-        return false;
-      }
-      BoundedInteger a = (BoundedInteger) other;
-      return IntegerValueInitializer.this.min == a.getOuterThis().min
-          && IntegerValueInitializer.this.max == a.getOuterThis().max;
-    }
-
-    /**
-     * Returns a hash code value.
-     *
-     * @return a hash code value
-     */
-    @Override
-    public int hashCode() {
-      return 31 * (31 * (31 + super.hashCode()) + min) + max;
     }
   }
 }

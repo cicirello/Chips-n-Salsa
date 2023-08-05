@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -32,57 +32,6 @@ import org.junit.jupiter.api.*;
  * mutation for mutating integer valued representations.
  */
 public class RandomChangeTests {
-
-  @Test
-  public void testEquals() {
-    RandomValueChangeMutation<IntegerValued> r1 =
-        new RandomValueChangeMutation<IntegerValued>(1, 4);
-    RandomValueChangeMutation<IntegerValued> r2 =
-        new RandomValueChangeMutation<IntegerValued>(0, 4);
-    RandomValueChangeMutation<IntegerValued> r3 =
-        new RandomValueChangeMutation<IntegerValued>(1, 5);
-    RandomValueChangeMutation<IntegerValued> r4 = r1.split();
-    RandomValueChangeMutation<IntegerValued> r5 =
-        new RandomValueChangeMutation<IntegerValued>(1, 4, 0.0, 1);
-    RandomValueChangeMutation<IntegerValued> r6 =
-        new RandomValueChangeMutation<IntegerValued>(1, 4, 0.2, 1);
-    RandomValueChangeMutation<IntegerValued> r7 =
-        new RandomValueChangeMutation<IntegerValued>(1, 4, 0.0, 2);
-    assertEquals(r1, r4);
-    assertEquals(r1.hashCode(), r4.hashCode());
-    assertEquals(r1, r5);
-    assertEquals(r1.hashCode(), r5.hashCode());
-    assertNotEquals(r1, r2);
-    assertNotEquals(r1, r3);
-    assertNotEquals(r1, r6);
-    assertNotEquals(r1, r7);
-    assertFalse(r1.equals(null));
-    assertFalse(r1.equals("hello"));
-    UndoableRandomValueChangeMutation<IntegerValued> u1 =
-        new UndoableRandomValueChangeMutation<IntegerValued>(1, 4);
-    UndoableRandomValueChangeMutation<IntegerValued> u2 =
-        new UndoableRandomValueChangeMutation<IntegerValued>(0, 4);
-    UndoableRandomValueChangeMutation<IntegerValued> u3 =
-        new UndoableRandomValueChangeMutation<IntegerValued>(1, 5);
-    UndoableRandomValueChangeMutation<IntegerValued> u4 = u1.split();
-    UndoableRandomValueChangeMutation<IntegerValued> u5 =
-        new UndoableRandomValueChangeMutation<IntegerValued>(1, 4, 0.0, 1);
-    UndoableRandomValueChangeMutation<IntegerValued> u6 =
-        new UndoableRandomValueChangeMutation<IntegerValued>(1, 4, 0.2, 1);
-    UndoableRandomValueChangeMutation<IntegerValued> u7 =
-        new UndoableRandomValueChangeMutation<IntegerValued>(1, 4, 0.0, 2);
-    // assertFalse(r1.equals(u1));
-    assertEquals(u1, u4);
-    assertEquals(u1.hashCode(), u4.hashCode());
-    assertEquals(u1, u5);
-    assertEquals(u1.hashCode(), u5.hashCode());
-    assertNotEquals(u1, u2);
-    assertNotEquals(u1, u3);
-    assertFalse(u1.equals(null));
-    assertNotEquals(u1, u6);
-    assertNotEquals(u1, u7);
-    assertFalse(u1.equals(r1));
-  }
 
   @Test
   public void testRandomValueChangeMutation() {

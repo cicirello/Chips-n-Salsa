@@ -143,33 +143,6 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
     return new RandomValueChangeMutation<T>(this);
   }
 
-  /**
-   * Indicates whether some other object is equal to this one. The objects are equal if they are the
-   * same type of operator with the same parameters.
-   *
-   * @param other the object with which to compare
-   * @return true if and only if the objects are equal
-   */
-  @Override
-  public boolean equals(Object other) {
-    if (other == null || !(other instanceof RandomValueChangeMutation)) {
-      return false;
-    }
-    RandomValueChangeMutation m = (RandomValueChangeMutation) other;
-    return m.a == a && m.b == b && m.p == p && m.min_k == min_k;
-  }
-
-  /**
-   * Returns a hash code value for the object. This method is supported for the benefit of hash
-   * tables such as those provided by HashMap.
-   *
-   * @return a hash code value for this object
-   */
-  @Override
-  public int hashCode() {
-    return 31 * (31 * (31 * Double.hashCode(p) + a) + b) + min_k;
-  }
-
   /*
    * internal package-private helper in support of undo method in Undoable version of operator.
    */

@@ -112,19 +112,6 @@ public final class RealValueInitializer implements Initializer<SingleReal> {
     return new RealValueInitializer(this);
   }
 
-  @Override
-  public boolean equals(Object other) {
-    if (other == null || !(other instanceof RealValueInitializer)) return false;
-    RealValueInitializer i = (RealValueInitializer) other;
-    return a == i.a && b == i.b && min == i.min && max == i.max;
-  }
-
-  @Override
-  public int hashCode() {
-    return 31 * (31 * (31 * (31 + Double.hashCode(a)) + Double.hashCode(b)) + Double.hashCode(min))
-        + Double.hashCode(max);
-  }
-
   /**
    * Internal class for representing the input to a univariate function, where the input is bounded
    * between a specified minimum and maximum value. If an attempt is made to set the value less than
@@ -176,41 +163,6 @@ public final class RealValueInitializer implements Initializer<SingleReal> {
     @Override
     public BoundedReal copy() {
       return new BoundedReal(this);
-    }
-
-    private RealValueInitializer getOuterThis() {
-      return RealValueInitializer.this;
-    }
-    ;
-
-    /**
-     * Indicates whether some other object is "equal to" this one. To be equal, the other object
-     * must be of the same runtime type and contain the same value and bounds of the parameters.
-     *
-     * @param other The other object to compare.
-     * @return true if other is not null, is of the same runtime type as this, and contains the same
-     *     parameter value and bounds.
-     */
-    @Override
-    public boolean equals(Object other) {
-      if (other == null || !(other instanceof BoundedReal) || !super.equals(other)) {
-        return false;
-      }
-      BoundedReal a = (BoundedReal) other;
-      return getOuterThis().equals(a.getOuterThis());
-    }
-
-    /**
-     * Returns a hash code value.
-     *
-     * @return a hash code value
-     */
-    @Override
-    public int hashCode() {
-      long bitsMin = Double.doubleToLongBits(min);
-      long bitsMax = Double.doubleToLongBits(max);
-      return 31 * (31 * (31 + super.hashCode()) + ((int) (bitsMin ^ (bitsMin >>> 32))))
-          + ((int) (bitsMax ^ (bitsMax >>> 32)));
     }
   }
 }

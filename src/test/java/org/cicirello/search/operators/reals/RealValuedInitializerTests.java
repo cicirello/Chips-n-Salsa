@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2023 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -36,24 +36,6 @@ public class RealValuedInitializerTests {
   private final double EPSILON = 1e-10;
 
   @Test
-  public void testRealValueInitializerEquals() {
-    RealValueInitializer f = new RealValueInitializer(2, 3, 0, 5);
-    RealValueInitializer g = new RealValueInitializer(2, 3, 0, 5);
-    RealValueInitializer f1 = new RealValueInitializer(1, 3, 0, 5);
-    RealValueInitializer f2 = new RealValueInitializer(2, 4, 0, 5);
-    RealValueInitializer f3 = new RealValueInitializer(2, 3, -1, 5);
-    RealValueInitializer f4 = new RealValueInitializer(2, 3, 0, 6);
-    assertEquals(f, g);
-    assertEquals(f.hashCode(), g.hashCode());
-    assertNotEquals(f, f1);
-    assertNotEquals(f, f2);
-    assertNotEquals(f, f3);
-    assertNotEquals(f, f4);
-    assertNotEquals(f, null);
-    assertNotEquals(f, "hello");
-  }
-
-  @Test
   public void testRealVectorInitializerEquals() {
     RealVectorInitializer f = new RealVectorInitializer(2, 2, 4, 0, 8);
     RealVectorInitializer g = new RealVectorInitializer(2, 2, 4, 0, 8);
@@ -87,7 +69,7 @@ public class RealValuedInitializerTests {
     SingleReal g1 = f.createCandidateSolution();
     SingleReal g2 = f.createCandidateSolution();
     SingleReal h = new SingleReal(2);
-    assertFalse(g1.equals(h));
+    assertTrue(g1.equals(h));
     assertFalse(g1.equals(null));
     assertFalse(g1.equals("hello"));
     assertEquals(g1, g2);
@@ -99,7 +81,7 @@ public class RealValuedInitializerTests {
     f2 = new RealValueInitializer(2, 2 + Math.ulp(2), 2, 3);
     assertNotEquals(g1, f2.createCandidateSolution());
     f2 = new RealValueInitializer(2, 2 + Math.ulp(2), 0, 2);
-    assertNotEquals(g1, f2.createCandidateSolution());
+    assertEquals(g1, f2.createCandidateSolution());
   }
 
   @Test
@@ -148,9 +130,21 @@ public class RealValuedInitializerTests {
     double b = 11.0;
     RealValueInitializer f = new RealValueInitializer(a, b);
     RealValueInitializer fs = f.split();
-    assertEquals(f, fs);
     for (int i = 0; i < NUM_SAMPLES; i++) {
       SingleReal g = f.createCandidateSolution();
+      assertTrue(g.get(0) < b && g.get(0) >= a);
+      assertEquals(theClass.getClass(), g.getClass());
+      SingleReal copy = g.copy();
+      assertTrue(copy != g);
+      assertEquals(g, copy);
+      assertEquals(g.getClass(), copy.getClass());
+      g.set(0, a - 1);
+      assertEquals(a - 1, g.get(0), EPSILON);
+      g.set(0, b + 1);
+      assertEquals(b + 1, g.get(0), EPSILON);
+    }
+    for (int i = 0; i < NUM_SAMPLES; i++) {
+      SingleReal g = fs.createCandidateSolution();
       assertTrue(g.get(0) < b && g.get(0) >= a);
       assertEquals(theClass.getClass(), g.getClass());
       SingleReal copy = g.copy();

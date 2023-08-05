@@ -20,7 +20,6 @@
 
 package org.cicirello.search.operators.reals;
 
-import java.util.Arrays;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
@@ -242,25 +241,6 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
     return new RealVectorInitializer(this);
   }
 
-  @Override
-  public boolean equals(Object other) {
-    if (other == null || !(other instanceof RealVectorInitializer)) return false;
-    RealVectorInitializer i = (RealVectorInitializer) other;
-    return ((min == null && i.min == null)
-            || (Arrays.equals(min, i.min) && Arrays.equals(max, i.max)))
-        && Arrays.equals(a, i.a)
-        && Arrays.equals(b, i.b);
-  }
-
-  @Override
-  public int hashCode() {
-    int h = 31 * Arrays.hashCode(a) + Arrays.hashCode(b);
-    if (min != null) {
-      h = 31 * (31 * h + Arrays.hashCode(min)) + Arrays.hashCode(max);
-    }
-    return h;
-  }
-
   /**
    * Internal class for representing the input to a multivariate function, where the input values
    * are bounded between a specified minimum and maximum value. If an attempt is made to set any of
@@ -333,50 +313,6 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
     @Override
     public MultiBoundedRealVector copy() {
       return new MultiBoundedRealVector(this);
-    }
-
-    private RealVectorInitializer getOuterThis() {
-      return RealVectorInitializer.this;
-    }
-    ;
-
-    /**
-     * Indicates whether some other object is "equal to" this one. To be equal, the other object
-     * must be of the same runtime type and contain the same values and bounds.
-     *
-     * @param other The other object to compare.
-     * @return true if other is not null, is of the same runtime type as this, and contains the same
-     *     values and bounds.
-     */
-    @Override
-    public boolean equals(Object other) {
-      if (!super.equals(other)) return false;
-      MultiBoundedRealVector b = (MultiBoundedRealVector) other;
-      return getOuterThis().equals(b.getOuterThis());
-    }
-
-    /**
-     * Returns a hash code value for the function input object.
-     *
-     * @return a hash code value
-     */
-    @Override
-    public int hashCode() {
-      int hash = 1;
-      for (double v : min) {
-        long bitsV = Double.doubleToLongBits(v);
-        hash = 31 * hash + ((int) (bitsV ^ (bitsV >>> 32)));
-      }
-      for (double v : max) {
-        long bitsV = Double.doubleToLongBits(v);
-        hash = 31 * hash + ((int) (bitsV ^ (bitsV >>> 32)));
-      }
-      int L = length();
-      for (int i = 0; i < L; i++) {
-        long bitsV = Double.doubleToLongBits(get(i));
-        hash = 31 * hash + ((int) (bitsV ^ (bitsV >>> 32)));
-      }
-      return hash;
     }
   }
 }

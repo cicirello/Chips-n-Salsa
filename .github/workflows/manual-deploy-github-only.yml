@@ -16,7 +16,7 @@ jobs:
       artifact_name: chips-n-salsa
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up JDK 17 for deploy to github packages
       uses: actions/setup-java@v3

@@ -10,7 +10,7 @@ API documentation: https://chips-n-salsa.cicirello.org/api/
 
 | __Publications About the Library__ | [![DOI](https://joss.theoj.org/papers/10.21105/joss.02448/status.svg)](https://doi.org/10.21105/joss.02448) |
 | :--- | :--- |
-| __Packages and Releases__ | [![Maven Central](https://img.shields.io/maven-central/v/org.cicirello/chips-n-salsa.svg?label=Maven%20Central&logo=apachemaven)](https://central.sonatype.com/artifact/org.cicirello/chips-n-salsa/) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/Chips-n-Salsa?logo=GitHub)](https://github.com/cicirello/Chips-n-Salsa/releases) [![JitPack](https://jitpack.io/v/org.cicirello/chips-n-salsa.svg)](https://jitpack.io/#org.cicirello/chips-n-salsa) |
+| __Packages and Releases__ | [![Maven Central](https://img.shields.io/maven-central/v/org.cicirello/chips-n-salsa.svg?label=Maven%20Central&logo=apachemaven)](https://central.sonatype.com/artifact/org.cicirello/chips-n-salsa/) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/Chips-n-Salsa?logo=GitHub)](https://github.com/cicirello/Chips-n-Salsa/releases) |
 | __Build Status__ | [![build](https://github.com/cicirello/Chips-n-Salsa/workflows/build/badge.svg)](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/build.yml) [![docs](https://github.com/cicirello/Chips-n-Salsa/workflows/docs/badge.svg)](https://chips-n-salsa.cicirello.org/api/) [![CodeQL](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/codeql-analysis.yml) |
 | __JaCoCo Test Coverage__ | [![coverage](https://raw.githubusercontent.com/cicirello/Chips-n-Salsa/badges/jacoco.svg)](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/build.yml) [![branches coverage](https://raw.githubusercontent.com/cicirello/Chips-n-Salsa/badges/branches.svg)](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/build.yml) |
 | __Security__ | [![Snyk security score](https://snyk-widget.herokuapp.com/badge/mvn/org.cicirello/chips-n-salsa/badge.svg)](https://snyk.io/vuln/maven%3Aorg.cicirello%3Achips-n-salsa) [![Snyk Known Vulnerabilities](https://snyk.io/test/github/cicirello/Chips-n-Salsa/badge.svg)](https://snyk.io/test/github/cicirello/Chips-n-Salsa) |
@@ -41,7 +41,6 @@ The rest of this README is organized as follows:
 * [Importing from Package Repositories](#importing-from-package-repositories)
   * [Importing the Library from Maven Central](#importing-the-library-from-maven-central)
   * [Importing the Library from GitHub Packages](#importing-the-library-from-gitHub-packages)
-  * [Importing the Library from JitPack](#importing-the-library-from-jitpack)
 * [Downloading Jar Files](#downloading-jar-files): Information on where you can download pre-compiled jars
 * [License](#license): Licensing information
 * [Contribute](#contribute): Information for those who wish to contribute
@@ -130,11 +129,9 @@ module your.module.name.here {
 
 ## Importing from Package Repositories
 
-Prebuilt artifacts are regularly published to Maven Central, GitHub Packages, and JitPack. In most
-cases, you'll want to use Maven Central. JitPack may be useful if you want to build your project against
-the latest unreleased version, essentially against the default branch of the repository, or a specific commit.
-Releases are published to JitPack and GitHub Packages mainly as a fall-back in the unlikely scenario that
-Maven Central is unavailable.
+Prebuilt artifacts are regularly published to Maven Central and GitHub Packages. In 
+most cases, you'll want to use Maven Central. Releases are published to GitHub Packages 
+mainly as a fall-back in the unlikely scenario that Maven Central is unavailable.
 
 ### Importing the Library from Maven Central
 
@@ -163,48 +160,9 @@ the following to the repositories section of your pom.xml:
 </repository>
 ```
 
-Note that GitHub Packages requires authenticating to GitHub (even for public artifacts). Thus, it 
-is likely less convenient than importing from Maven Central. We mainly provide this option as a backup 
-source of artifacts.
-
-### Importing the Library from JitPack
-
-You can also import from JitPack. As above, you need to first add JitPack to
-the repositories section of your pom.xml, such as:
-
-```XML
-<repository>
-  <id>jitpack.io</id>
-  <url>https://jitpack.io</url>
-</repository>
-```
-
-JitPack works a bit differently than Maven Central. Specifically, JitPack builds
-artifacts on-demand from the GitHub repository the first time a version is requested. We have
-configured our domain on JitPack for the groupId, so you can still specify the dependency 
-as (just replace `x.y.z` with the version that you want):
-
-```XML
-<dependency>
-  <groupId>org.cicirello</groupId>
-  <artifactId>chips-n-salsa</artifactId>
-  <version>x.y.z</version>
-</dependency>
-```
-
-We have primarily configured JitPack as a source of SNAPSHOT builds. If you want to build
-your project against the latest commit, specify the dependency as:
-
-```XML
-<dependency>
-  <groupId>org.cicirello</groupId>
-  <artifactId>chips-n-salsa</artifactId>
-  <version>master-SNAPSHOT</version>
-</dependency>
-```
-
-You can also build against a specific commit using the commit hash as the version.
-
+Note that GitHub Packages requires authenticating to GitHub (even for public 
+artifacts). Thus, it is likely less convenient than importing from Maven 
+Central. We mainly provide this option as a backup source of artifacts.
 
 ## Downloading Jar Files
 

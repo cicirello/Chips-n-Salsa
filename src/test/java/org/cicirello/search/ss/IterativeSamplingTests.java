@@ -203,6 +203,7 @@ public class IterativeSamplingTests {
     class LongRunCallable implements Callable<SolutionCostPair<TestObject>> {
 
       IterativeSampling<TestObject> is;
+
       // volatile boolean started;
 
       LongRunCallable(IterativeSampling<TestObject> is) {

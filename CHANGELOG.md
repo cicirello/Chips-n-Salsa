@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Integrated SpotBugs into build process.
 * Integrated Find Security Bugs into build process.
 * Removed support for JitPack builds, include removing JitPack configuration, workflow steps, etc.
+* Discontinued publishing a `jar-with-dependencies` (only a breaking change for those manually downloading library).
 
 ### Other
 

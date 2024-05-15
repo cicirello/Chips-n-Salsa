@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -69,9 +69,14 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
    */
   public HeuristicSolutionGenerator(
       ConstructiveHeuristic<T> heuristic, ProgressTracker<T> tracker) {
-    if (heuristic == null || tracker == null) {
-      throw new NullPointerException();
-    }
+    this(heuristic, tracker, validateNonNull(heuristic, tracker));
+  }
+
+  /*
+   * Prevent potential finalizer attack
+   */
+  private HeuristicSolutionGenerator(
+      ConstructiveHeuristic<T> heuristic, ProgressTracker<T> tracker, boolean secure) {
     this.tracker = tracker;
     this.heuristic = heuristic;
     // default: numGenerated = 0;
@@ -83,6 +88,17 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
       pOpt = (OptimizationProblem<T>) problem;
       pOptInt = null;
     }
+  }
+
+  /*
+   * Prevent potential finalizer attack
+   */
+  private static <T2 extends Copyable<T2>> boolean validateNonNull(
+      ConstructiveHeuristic<T2> heuristic, ProgressTracker<T2> tracker) {
+    if (heuristic == null || tracker == null) {
+      throw new NullPointerException();
+    }
+    return true;
   }
 
   /*

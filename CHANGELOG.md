@@ -37,6 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Performance improvement to LargestCommonSubgraph.
 * Removed unnecessary equals() and hashCode() methods from evolutionary operators.
 * Return a copy from TimedParallelMultistarter.getSearchHistory() rather than reference to field.
+* Fixed potential finalizer vulnerability (exception thrown from constructors) in the following classes:
+  * AbstractStochasticSampler
 
 ### Dependencies
 * Bumped org.cicirello:rho-mu from 3.1.1 to 4.0.0

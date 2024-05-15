@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,11 +22,18 @@ package org.cicirello.search.sa;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.cicirello.math.rand.RandomIndexer;
+import java.util.SplittableRandom;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
 import org.junit.jupiter.api.*;
 
 /** JUnit test cases for the parameter free exponential cooling. */
 public class ParamFreeExponentialCoolingTests {
+
+  private final EnhancedRandomGenerator generator;
+
+  public ParamFreeExponentialCoolingTests() {
+    generator = new EnhancedRandomGenerator(new SplittableRandom(42));
+  }
 
   private static final double EPSILON = 1e-10;
 
@@ -234,7 +241,7 @@ public class ParamFreeExponentialCoolingTests {
     }
     int count = 0;
     for (int i = 0; i < 1000; i++) {
-      if (c.accept(10001 + RandomIndexer.nextInt(5), 10000)) count++;
+      if (c.accept(10001 + generator.nextInt(5), 10000)) count++;
     }
     assertTrue(count > 0);
     assertTrue(count < 1000);

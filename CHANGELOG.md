@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Return a copy from TimedParallelMultistarter.getSearchHistory() rather than reference to field.
 
 ### Dependencies
-* Bumped org.cicirello:rho-mu from 3.1.1 to 3.2.0
+* Bumped org.cicirello:rho-mu from 3.1.1 to 4.0.0
 * Bump org.cicirello:core from 2.5.0 to 2.7.0
 
 ### CI/CD

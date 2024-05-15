@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -119,7 +119,7 @@ public final class WindowLimitedBlockMoveMutation
       unlimited.generateIndexes(n, indexes);
       return;
     }
-    // Note 1: The nextWindowedIntTriple method returns 3 all different indexes,
+    // Note 1: The nextSortedWindowedIntTriple method returns 3 all different indexes,
     // but a removed block of length 1 would require 2 identical indexes.
     // To handle this, add 1 to n and also add 1 to limit,
     // and map an index beyond end of permutation to the block length 1 case.
@@ -128,7 +128,7 @@ public final class WindowLimitedBlockMoveMutation
     // Note 2: Without loss of generality, the indexes are generated to
     // move the block earlier in the permutation.  We can do this because
     // a "block move" essentially swaps two adjacent "blocks."
-    generator.nextWindowedIntTriple(n + 1, limit + 1, indexes, true);
+    generator.nextSortedWindowedIntTriple(n + 1, limit + 1, indexes);
     if (indexes[2] == n || indexes[2] - indexes[0] > limit) {
       indexes[2] = indexes[1];
     }

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -21,6 +21,7 @@
 package org.cicirello.search.operators.integers;
 
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.math.rand.IndexPair;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.representations.IntegerVector;
@@ -39,18 +40,15 @@ import org.cicirello.search.representations.IntegerVector;
  */
 public final class TwoPointCrossover<T extends IntegerVector> implements CrossoverOperator<T> {
 
-  private final int[] indexes;
   private final EnhancedSplittableGenerator generator;
 
   /** Constructs a two-point crossover operator. */
   public TwoPointCrossover() {
-    indexes = new int[2];
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   /* private to support split() only */
   private TwoPointCrossover(TwoPointCrossover<T> other) {
-    indexes = new int[2];
     generator = other.generator.split();
   }
 
@@ -61,12 +59,8 @@ public final class TwoPointCrossover<T extends IntegerVector> implements Crossov
    */
   @Override
   public void cross(IntegerVector c1, IntegerVector c2) {
-    generator.nextIntPair(c1.length(), indexes);
-    if (indexes[1] > indexes[0]) {
-      IntegerVector.exchange(c1, c2, indexes[0], indexes[1] - 1);
-    } else {
-      IntegerVector.exchange(c1, c2, indexes[1], indexes[0] - 1);
-    }
+    IndexPair indexes = generator.nextSortedIntPair(c1.length());
+    IntegerVector.exchange(c1, c2, indexes.i(), indexes.j() - 1);
   }
 
   @Override

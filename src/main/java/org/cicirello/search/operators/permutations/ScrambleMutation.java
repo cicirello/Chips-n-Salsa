@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,7 @@
 
 package org.cicirello.search.operators.permutations;
 
-import java.util.random.RandomGenerator;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.MutationOperator;
@@ -42,12 +41,12 @@ import org.cicirello.search.operators.MutationOperator;
 public final class ScrambleMutation implements MutationOperator<Permutation> {
 
   private final int[] indexes;
-  private final RandomGenerator.SplittableGenerator generator;
+  private final EnhancedSplittableGenerator generator;
 
   /** Constructs a ScrambleMutation mutation operator. */
   public ScrambleMutation() {
     indexes = new int[2];
-    generator = RandomnessFactory.createSplittableGenerator();
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   private ScrambleMutation(ScrambleMutation other) {
@@ -58,7 +57,7 @@ public final class ScrambleMutation implements MutationOperator<Permutation> {
   @Override
   public void mutate(Permutation c) {
     if (c.length() >= 2) {
-      RandomIndexer.nextIntPair(c.length(), indexes, generator);
+      generator.nextIntPair(c.length(), indexes);
       c.scramble(indexes[0], indexes[1], generator);
     }
   }

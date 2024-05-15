@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,7 @@
 
 package org.cicirello.search.operators.permutations;
 
-import java.util.random.RandomGenerator;
-import org.cicirello.math.rand.RandomIndexer;
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.MutationOperator;
@@ -53,7 +52,7 @@ public final class WindowLimitedScrambleMutation implements MutationOperator<Per
 
   private final int limit;
   private final int[] indexes;
-  private final RandomGenerator.SplittableGenerator generator;
+  private final EnhancedSplittableGenerator generator;
 
   /**
    * Constructs a WindowLimitedScrambleMutation mutation operator with a default window limit of
@@ -73,7 +72,7 @@ public final class WindowLimitedScrambleMutation implements MutationOperator<Per
     if (windowLimit <= 0) throw new IllegalArgumentException("window limit must be positive");
     limit = windowLimit;
     indexes = new int[2];
-    generator = RandomnessFactory.createSplittableGenerator();
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   private WindowLimitedScrambleMutation(WindowLimitedScrambleMutation other) {
@@ -100,9 +99,9 @@ public final class WindowLimitedScrambleMutation implements MutationOperator<Per
    */
   void generateIndexes(int n, int[] indexes) {
     if (limit >= n) {
-      RandomIndexer.nextIntPair(n, indexes, generator);
+      generator.nextIntPair(n, indexes);
     } else {
-      RandomIndexer.nextWindowedIntPair(n, limit, indexes, generator);
+      generator.nextWindowedIntPair(n, limit, indexes);
     }
   }
 }

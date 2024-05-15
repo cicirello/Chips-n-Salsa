@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -24,6 +24,7 @@ import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.UndoableMutationOperator;
+import org.cicirello.util.SimpleSwapper;
 
 /**
  * This class implements the Cycle(kmax) form of cycle mutation on permutations, where one mutation
@@ -99,14 +100,7 @@ public final class CycleMutation implements UndoableMutationOperator<Permutation
       if (indexes.length > 2) {
         // randomize order of indexes if there are more than 2 of them
         // (no need to randomize order if only 2 indexes)
-        for (int j = indexes.length - 1; j > 0; j--) {
-          int i = generator.nextInt(j + 1);
-          if (i != j) {
-            int temp = indexes[i];
-            indexes[i] = indexes[j];
-            indexes[j] = temp;
-          }
-        }
+        generator.shuffle(indexes);
       }
       c.cycle(indexes);
     }
@@ -117,9 +111,7 @@ public final class CycleMutation implements UndoableMutationOperator<Permutation
     if (c.length() >= 2) {
       if (indexes.length > 2) {
         for (int i = 0, j = indexes.length - 1; i < j; i++, j--) {
-          int temp = indexes[i];
-          indexes[i] = indexes[j];
-          indexes[j] = temp;
+          SimpleSwapper.swap(indexes, i, j);
         }
       }
       c.cycle(indexes);

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -21,6 +21,7 @@
 package org.cicirello.search.operators.reals;
 
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.math.rand.IndexPair;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.representations.RealVector;
@@ -39,17 +40,14 @@ import org.cicirello.search.representations.RealVector;
  */
 public final class TwoPointCrossover<T extends RealVector> implements CrossoverOperator<T> {
 
-  private final int[] indexes;
   private final EnhancedSplittableGenerator generator;
 
   /** Constructs a two-point crossover operator. */
   public TwoPointCrossover() {
-    indexes = new int[2];
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   private TwoPointCrossover(TwoPointCrossover<T> other) {
-    indexes = new int[2];
     generator = other.generator.split();
   }
 
@@ -60,12 +58,8 @@ public final class TwoPointCrossover<T extends RealVector> implements CrossoverO
    */
   @Override
   public void cross(RealVector c1, RealVector c2) {
-    generator.nextIntPair(c1.length(), indexes);
-    if (indexes[1] > indexes[0]) {
-      RealVector.exchange(c1, c2, indexes[0], indexes[1] - 1);
-    } else {
-      RealVector.exchange(c1, c2, indexes[1], indexes[0] - 1);
-    }
+    IndexPair indexes = generator.nextSortedIntPair(c1.length());
+    RealVector.exchange(c1, c2, indexes.i(), indexes.j() - 1);
   }
 
   @Override

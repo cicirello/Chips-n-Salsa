@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,7 +22,8 @@ package org.cicirello.search.sa;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.cicirello.math.rand.RandomIndexer;
+import java.util.SplittableRandom;
+import org.cicirello.math.rand.EnhancedRandomGenerator;
 import org.junit.jupiter.api.*;
 
 /**
@@ -30,6 +31,12 @@ import org.junit.jupiter.api.*;
  * implementation as the schedule was originally described.
  */
 public class ModifiedLamOriginalTests {
+
+  private final EnhancedRandomGenerator generator;
+
+  public ModifiedLamOriginalTests() {
+    generator = new EnhancedRandomGenerator(new SplittableRandom(42));
+  }
 
   private static final double EPSILON = 1e-10;
 
@@ -141,7 +148,7 @@ public class ModifiedLamOriginalTests {
     int count = 0;
     for (int i = 0; i < RUN_LENGTH; i++) {
       double t0 = m.getTemperature();
-      if (m.accept(10001 + RandomIndexer.nextInt(5), 10000)) count++;
+      if (m.accept(10001 + generator.nextInt(5), 10000)) count++;
       double t1 = m.getTemperature();
       if (m.getAcceptRate() < m.getTargetRate()) assertTrue(t1 > t0);
       else if (m.getAcceptRate() > m.getTargetRate()) assertTrue(t1 < t0);

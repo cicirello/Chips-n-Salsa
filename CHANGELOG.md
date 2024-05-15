@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+* Refactored and improved the following classes to utilize new functionality from the dependencies on core and rho-mu:
+  * BinPacking
+  * CycleAlphaMutation
+  * CycleMutation
+  * ScrambleMutation
+  * StochasticUniversalSampling
+  * TwoPointCrossover (versions for BitVectors, IntegerVectors, and RealVectors)
+  * UndoableScrambleMutation
+  * UndoableUniformScrambleMutation
+  * UniformScrambleMutation
+  * WindowLimitedScrambleMutation
+  * WindowLimitedUndoableScrambleMutation
 
 ### Deprecated
 

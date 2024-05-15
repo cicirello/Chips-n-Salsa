@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -300,20 +300,8 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
         items[i] = space;
         i++;
       }
-      shuffle(items, gen);
+      gen.shuffle(items);
       return items;
-    }
-
-    private static void shuffle(int[] items, EnhancedRandomGenerator gen) {
-      for (int bound = items.length; bound > 1; bound--) {
-        int j = gen.nextInt(bound);
-        int i = bound - 1;
-        if (i != j) {
-          int temp = items[i];
-          items[i] = items[j];
-          items[j] = temp;
-        }
-      }
     }
   }
 }

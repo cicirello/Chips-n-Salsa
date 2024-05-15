@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * CycleMutation
   * ScrambleMutation
   * StochasticUniversalSampling
+  * TwoPointCrossover (versions for BitVectors, IntegerVectors, and RealVectors)
   * UndoableScrambleMutation
   * UndoableUniformScrambleMutation
   * UniformScrambleMutation

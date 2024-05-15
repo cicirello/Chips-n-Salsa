@@ -13,9 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * BinPacking
   * CycleAlphaMutation
   * CycleMutation
+  * ScrambleMutation
   * StochasticUniversalSampling
+  * UndoableScrambleMutation
   * UndoableUniformScrambleMutation
   * UniformScrambleMutation
+  * WindowLimitedScrambleMutation
+  * WindowLimitedUndoableScrambleMutation
 
 ### Deprecated
 

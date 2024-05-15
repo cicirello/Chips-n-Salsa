@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -41,7 +41,8 @@ public class TSPTests {
             n,
             w,
             (x1, y1, x2, y2) -> Math.abs(x1 - x2) + Math.abs(y1 - y2),
-            new EnhancedSplittableGenerator(42));
+            new EnhancedSplittableGenerator(42),
+            true);
         LENGTH = n;
         WIDTH = w;
       }
@@ -102,11 +103,6 @@ public class TSPTests {
     tsp.validateCoordinates();
     tsp = new TSPSubClass(5, 20);
     tsp.validateCoordinates();
-
-    IllegalArgumentException thrown =
-        assertThrows(IllegalArgumentException.class, () -> new TSPSubClass(1, 0.00001));
-
-    thrown = assertThrows(IllegalArgumentException.class, () -> new TSPSubClass(2, 0.0));
   }
 
   @Test
@@ -116,7 +112,7 @@ public class TSPTests {
       private final double WIDTH;
 
       public TSPSubClass(int n, double w) {
-        super(n, w, new EnhancedSplittableGenerator(42));
+        super(n, w, new EuclideanDistance(), new EnhancedSplittableGenerator(42), true);
         LENGTH = n;
         WIDTH = w;
       }
@@ -177,10 +173,5 @@ public class TSPTests {
     tsp.validateCoordinates();
     tsp = new TSPSubClass(5, 20);
     tsp.validateCoordinates();
-
-    IllegalArgumentException thrown =
-        assertThrows(IllegalArgumentException.class, () -> new TSPSubClass(1, 0.00001));
-
-    thrown = assertThrows(IllegalArgumentException.class, () -> new TSPSubClass(2, 0.0));
   }
 }

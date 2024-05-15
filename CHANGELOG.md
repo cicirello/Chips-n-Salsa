@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fixed potential finalizer vulnerability (exception thrown from constructors) in the following classes:
   * AbstractHillClimber
   * AbstractStochasticSampler
+  * TSP
 
 ### Dependencies
 * Bumped org.cicirello:rho-mu from 3.1.1 to 4.0.0

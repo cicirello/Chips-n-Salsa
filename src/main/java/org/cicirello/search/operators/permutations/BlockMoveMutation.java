@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -107,14 +107,14 @@ public final class BlockMoveMutation
    * package access to support unit testing
    */
   void generateIndexes(int n, int[] indexes) {
-    // Note 1: The nextIntTriple method returns 3 all different indexes,
+    // Note 1: The nextSortedIntTriple method returns 3 all different indexes,
     // but a removed block of length 1 would require 2 identical indexes.
     // To handle this, add 1 to n, and map an index beyond end of permutation
     // to the block length 1 case.
     // Note 2: Without loss of generality, the indexes are generated to
     // move the block earlier in the permutation.  We can do this because
     // a "block move" essentially swaps two adjacent "blocks."
-    generator.nextIntTriple(n + 1, indexes, true);
+    generator.nextSortedIntTriple(n + 1, indexes);
     if (indexes[2] == n) {
       indexes[2] = indexes[1];
     }

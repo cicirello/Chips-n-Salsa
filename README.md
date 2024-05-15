@@ -2,7 +2,7 @@
 
 # Chips-n-Salsa [![Mentioned in Awesome Machine Learning](https://awesome.re/mentioned-badge.svg)](https://github.com/josephmisiti/awesome-machine-learning)
 
-Copyright (C) 2002-2023 [Vincent A. Cicirello](https://www.cicirello.org/).
+Copyright (C) 2002-2024 [Vincent A. Cicirello](https://www.cicirello.org/).
 
 Website: https://chips-n-salsa.cicirello.org/
 
@@ -168,12 +168,10 @@ Central. We mainly provide this option as a backup source of artifacts.
 
 If you don't use a dependency manager that supports importing from Maven Central,
 or if you simply prefer to download manually, prebuilt jars are also attached to 
-each [GitHub Release](https://github.com/cicirello/Chips-n-Salsa/releases).
-
-In addition to the regular jar of the library, we also regularly publish 
-a `jar-with-dependencies`. The `jar-with-dependencies` 
-does not contain any module declarations (unlike the regular jar file). Therefore, the
-`jar-with-dependencies` should only be used on the classpath.
+each [GitHub Release](https://github.com/cicirello/Chips-n-Salsa/releases). If you
+manually download the library jar file, make sure that you also download the jars
+of the relevant versions of the dependencies. The easiest way to get this right is
+to use a dependency manager rather than manually downloading jars.
 
 ## License
 

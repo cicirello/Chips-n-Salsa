@@ -61,6 +61,5 @@ jobs:
         gh release upload ${TAG} target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}.jar
         gh release upload ${TAG} target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-sources.jar
         gh release upload ${TAG} target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-javadoc.jar
-        gh release upload ${TAG} target/${{ env.artifact_name }}-${{ steps.get_version.outputs.VERSION }}-jar-with-dependencies.jar 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -124,6 +124,14 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
     generator = other.generator.split();
   }
 
+  @SuppressWarnings("deprecation")
+  @Override
+  protected final void finalize() {
+    // Prevents potential finalizer vulnerability from exceptions thrown from constructors.
+    // See:
+    // https://wiki.sei.cmu.edu/confluence/display/java/OBJ11-J.+Be+wary+of+letting+constructors+throw+exceptions
+  }
+
   @Override
   public void mutate(T c) {
     if (c.length() == 0) return;

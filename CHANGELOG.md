@@ -46,7 +46,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * AbstractStochasticSampler
   * BinPacking
   * HeuristicSolutionGenerator
+  * IntegerVectorInitializer
   * PermutationToBitVectorProblem
+  * RandomValueChangeMutation
   * TSP
 
 ### Dependencies

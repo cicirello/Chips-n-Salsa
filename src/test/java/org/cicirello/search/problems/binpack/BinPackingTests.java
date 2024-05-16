@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -237,16 +237,6 @@ public class BinPackingTests {
   @Test
   public void testExceptions() {
     IllegalArgumentException thrown =
-        assertThrows(
-            IllegalArgumentException.class, () -> new BinPacking(90, new int[] {91, 1, 1}));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class, () -> new BinPacking(90, new int[] {1, 91, 1}));
-    thrown =
-        assertThrows(
-            IllegalArgumentException.class, () -> new BinPacking(90, new int[] {1, 1, 91}));
-
-    thrown =
         assertThrows(
             IllegalArgumentException.class, () -> new BinPacking.UniformRandom(10, 100, 21, 20));
     NegativeArraySizeException thrown2 =

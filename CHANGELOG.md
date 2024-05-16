@@ -48,8 +48,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * HeuristicSolutionGenerator
   * IntegerVectorInitializer
   * OnePlusOneEvolutionaryAlgorithm
+  * ParallelMetaheuristic
   * PermutationToBitVectorProblem
   * RandomValueChangeMutation
+  * TimedParallelMultistarter
   * TSP
 
 ### Dependencies

@@ -23,6 +23,7 @@ package org.cicirello.search.ss;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SimpleMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.Problem;
@@ -37,6 +38,7 @@ import org.cicirello.util.Copyable;
  * constructive heuristic to choose which element to add to the partial solution. This is repeated
  * until you derive a complete solution.
  *
+ * @param <T> The problem representation we are optimizing
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
@@ -49,34 +51,15 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
   private int numGenerated;
 
   /**
-   * Constructs an HeuristicSolutionGenerator for generating solutions to an optimization problem
-   * using a constructive heuristic. A ProgressTracker is created for you.
-   *
-   * @param heuristic The constructive heuristic.
-   * @throws NullPointerException if heuristic is null
-   */
-  public HeuristicSolutionGenerator(ConstructiveHeuristic<T> heuristic) {
-    this(heuristic, new ProgressTracker<T>());
-  }
-
-  /**
-   * Constructs an HeuristicSolutionGenerator for generating solutions to an optimization problem
-   * using a constructive heuristic.
+   * Package-private constructor: use factory methods to create an instance. Constructs an
+   * HeuristicSolutionGenerator for generating solutions to an optimization problem using a
+   * constructive heuristic.
    *
    * @param heuristic The constructive heuristic.
    * @param tracker A ProgressTracker
    * @throws NullPointerException if heuristic or tracker is null
    */
-  public HeuristicSolutionGenerator(
-      ConstructiveHeuristic<T> heuristic, ProgressTracker<T> tracker) {
-    this(heuristic, tracker, validateNonNull(heuristic, tracker));
-  }
-
-  /*
-   * Prevent potential finalizer attack
-   */
-  private HeuristicSolutionGenerator(
-      ConstructiveHeuristic<T> heuristic, ProgressTracker<T> tracker, boolean secure) {
+  HeuristicSolutionGenerator(ConstructiveHeuristic<T> heuristic, ProgressTracker<T> tracker) {
     this.tracker = tracker;
     this.heuristic = heuristic;
     // default: numGenerated = 0;
@@ -90,15 +73,38 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
     }
   }
 
-  /*
-   * Prevent potential finalizer attack
+  /**
+   * Creates a HeuristicSolutionGenerator for generating solutions to an optimization problem using
+   * a constructive heuristic. A ProgressTracker is created for you.
+   *
+   * @param heuristic The constructive heuristic.
+   * @param <T> The problem representation we are optimizing
+   * @return the HeuristicSolutionGenerator
+   * @throws NullPointerException if heuristic is null
    */
-  private static <T2 extends Copyable<T2>> boolean validateNonNull(
-      ConstructiveHeuristic<T2> heuristic, ProgressTracker<T2> tracker) {
-    if (heuristic == null || tracker == null) {
-      throw new NullPointerException();
-    }
-    return true;
+  public static <T extends Copyable<T>>
+      HeuristicSolutionGenerator<T> createHeuristicSolutionGenerator(
+          ConstructiveHeuristic<T> heuristic) {
+    ReferenceValidator.nullCheck(heuristic);
+    return new HeuristicSolutionGenerator<T>(heuristic, new ProgressTracker<T>());
+  }
+
+  /**
+   * Creates a HeuristicSolutionGenerator for generating solutions to an optimization problem using
+   * a constructive heuristic.
+   *
+   * @param heuristic The constructive heuristic.
+   * @param tracker A ProgressTracker
+   * @param <T> The problem representation we are optimizing
+   * @return the HeuristicSolutionGenerator
+   * @throws NullPointerException if heuristic or tracker is null
+   */
+  public static <T extends Copyable<T>>
+      HeuristicSolutionGenerator<T> createHeuristicSolutionGenerator(
+          ConstructiveHeuristic<T> heuristic, ProgressTracker<T> tracker) {
+    ReferenceValidator.nullCheck(heuristic);
+    ReferenceValidator.nullCheck(tracker);
+    return new HeuristicSolutionGenerator<T>(heuristic, tracker);
   }
 
   /*

@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2024-05-15
+## [Unreleased] - 2024-05-16
+
+**BREAKING CHANGES: Due to breaking changes, the next release will be a major release.**
 
 ### Added
 
@@ -21,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * UniformScrambleMutation
   * WindowLimitedScrambleMutation
   * WindowLimitedUndoableScrambleMutation
+* Replaced public constructors of HeuristicSolutionGenerator with factory methods (BREAKING CHANGE).
+* Replaced public constructors of HeuristicPermutationGenerator with factory methods (BREAKING CHANGE).
 
 ### Deprecated
 
@@ -40,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fixed potential finalizer vulnerability (exception thrown from constructors) in the following classes:
   * AbstractHillClimber
   * AbstractStochasticSampler
+  * HeuristicSolutionGenerator
   * TSP
 
 ### Dependencies

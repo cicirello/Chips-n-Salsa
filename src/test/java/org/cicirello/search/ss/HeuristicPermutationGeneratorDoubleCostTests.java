@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -37,7 +37,8 @@ public class HeuristicPermutationGeneratorDoubleCostTests extends SharedTestStoc
     for (int n = 0; n < 5; n++) {
       DoubleProblem problem = new DoubleProblem();
       DoubleHeuristic h = new DoubleHeuristic(problem, n);
-      HeuristicPermutationGenerator ch = new HeuristicPermutationGenerator(h);
+      HeuristicPermutationGenerator ch =
+          HeuristicPermutationGenerator.createHeuristicPermutationGenerator(h);
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
       ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -72,7 +73,8 @@ public class HeuristicPermutationGeneratorDoubleCostTests extends SharedTestStoc
       ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
       DoubleProblem problem = new DoubleProblem();
       DoubleHeuristic h = new DoubleHeuristic(problem, n);
-      HeuristicPermutationGenerator ch = new HeuristicPermutationGenerator(h, originalTracker);
+      HeuristicPermutationGenerator ch =
+          HeuristicPermutationGenerator.createHeuristicPermutationGenerator(h, originalTracker);
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
       ProgressTracker<Permutation> tracker = ch.getProgressTracker();
@@ -103,7 +105,8 @@ public class HeuristicPermutationGeneratorDoubleCostTests extends SharedTestStoc
     for (int n = 0; n < 5; n++) {
       DoubleProblem problem = new DoubleProblem();
       DoubleHeuristic h = new DoubleHeuristic(problem, n);
-      HeuristicPermutationGenerator chOriginal = new HeuristicPermutationGenerator(h);
+      HeuristicPermutationGenerator chOriginal =
+          HeuristicPermutationGenerator.createHeuristicPermutationGenerator(h);
       HeuristicPermutationGenerator ch = chOriginal.split();
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());

@@ -24,6 +24,7 @@ import org.cicirello.search.Metaheuristic;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SimpleLocalMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.util.Copyable;
 
@@ -65,9 +66,8 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
    */
   private static <T2 extends Copyable<T2>> boolean validateNonNull(
       Initializer<T2> initializer, ProgressTracker<T2> tracker) {
-    if (initializer == null || tracker == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(initializer);
+    ReferenceValidator.nullCheck(tracker);
     return true;
   }
 

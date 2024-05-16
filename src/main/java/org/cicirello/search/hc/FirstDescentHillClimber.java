@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,6 +22,7 @@ package org.cicirello.search.hc;
 
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
@@ -69,9 +70,8 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
     super(initializer, tracker);
-    if (problem == null || mutation == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(problem);
+    ReferenceValidator.nullCheck(mutation);
     this.mutation = mutation;
     pOpt = problem;
     pOptInt = null;
@@ -94,9 +94,8 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
     super(initializer, tracker);
-    if (problem == null || mutation == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(problem);
+    ReferenceValidator.nullCheck(mutation);
     this.mutation = mutation;
     pOptInt = problem;
     pOpt = null;
@@ -117,9 +116,8 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
     super(initializer, new ProgressTracker<T>());
-    if (problem == null || mutation == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(problem);
+    ReferenceValidator.nullCheck(mutation);
     this.mutation = mutation;
     pOpt = problem;
     pOptInt = null;
@@ -140,9 +138,8 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
     super(initializer, new ProgressTracker<T>());
-    if (problem == null || mutation == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(problem);
+    ReferenceValidator.nullCheck(mutation);
     this.mutation = mutation;
     pOptInt = problem;
     pOpt = null;

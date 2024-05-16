@@ -23,6 +23,7 @@ package org.cicirello.search.evo;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SingleSolutionMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
@@ -99,9 +100,10 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       UndoableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    if (problem == null || mutation == null || initializer == null || tracker == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(problem);
+    ReferenceValidator.nullCheck(mutation);
+    ReferenceValidator.nullCheck(initializer);
+    ReferenceValidator.nullCheck(tracker);
     this.initializer = initializer;
     this.mutation = mutation;
     this.tracker = tracker;
@@ -126,9 +128,10 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       UndoableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    if (problem == null || mutation == null || initializer == null || tracker == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(problem);
+    ReferenceValidator.nullCheck(mutation);
+    ReferenceValidator.nullCheck(initializer);
+    ReferenceValidator.nullCheck(tracker);
     this.initializer = initializer;
     this.mutation = mutation;
     this.tracker = tracker;

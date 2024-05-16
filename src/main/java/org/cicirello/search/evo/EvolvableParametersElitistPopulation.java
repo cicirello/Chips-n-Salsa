@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -25,6 +25,7 @@ import java.util.Arrays;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.internal.RandomnessFactory;
+import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.SingleReal;
 import org.cicirello.util.Copyable;
@@ -102,9 +103,10 @@ abstract class EvolvableParametersElitistPopulation {
       if (numElite <= 0) {
         throw new IllegalArgumentException("number of elite population members must be positive");
       }
-      if (initializer == null || f == null || selection == null || tracker == null) {
-        throw new NullPointerException("passed a null object for a required parameter");
-      }
+      ReferenceValidator.nullCheck(initializer);
+      ReferenceValidator.nullCheck(f);
+      ReferenceValidator.nullCheck(selection);
+      ReferenceValidator.nullCheck(tracker);
       this.initializer = initializer;
       this.selection = selection;
 
@@ -324,9 +326,10 @@ abstract class EvolvableParametersElitistPopulation {
       if (numElite <= 0) {
         throw new IllegalArgumentException("number of elite population members must be positive");
       }
-      if (initializer == null || f == null || selection == null || tracker == null) {
-        throw new NullPointerException("passed a null object for a required parameter");
-      }
+      ReferenceValidator.nullCheck(initializer);
+      ReferenceValidator.nullCheck(f);
+      ReferenceValidator.nullCheck(selection);
+      ReferenceValidator.nullCheck(tracker);
       this.initializer = initializer;
       this.selection = selection;
 

@@ -21,6 +21,13 @@
 package org.cicirello.search.internal;
 
 import org.cicirello.search.ProgressTracker;
+import org.cicirello.search.evo.FitnessFunction;
+import org.cicirello.search.evo.SelectionOperator;
+import org.cicirello.search.operators.CrossoverOperator;
+import org.cicirello.search.operators.Initializer;
+import org.cicirello.search.operators.MutationOperator;
+import org.cicirello.search.problems.Problem;
+import org.cicirello.search.sa.AnnealingSchedule;
 import org.cicirello.search.ss.ConstructiveHeuristic;
 import org.cicirello.util.Copyable;
 
@@ -41,6 +48,18 @@ public final class ReferenceValidator {
    * @param reference the object reference to check
    * @throws NullPointerException if reference is null
    */
+  public static void nullCheck(AnnealingSchedule reference) {
+    if (reference == null) {
+      throw new NullPointerException("The AnnealingSchedule must be non-null.");
+    }
+  }
+
+  /**
+   * Checks for null reference.
+   *
+   * @param reference the object reference to check
+   * @throws NullPointerException if reference is null
+   */
   public static <T extends Copyable<T>> void nullCheck(ConstructiveHeuristic<T> reference) {
     if (reference == null) {
       throw new NullPointerException("The ConstructiveHeuristic must be non-null.");
@@ -53,9 +72,93 @@ public final class ReferenceValidator {
    * @param reference the object reference to check
    * @throws NullPointerException if reference is null
    */
+  public static <T extends Copyable<T>> void nullCheck(CrossoverOperator<T> reference) {
+    if (reference == null) {
+      throw new NullPointerException("The CrossoverOperator must be non-null.");
+    }
+  }
+
+  /**
+   * Checks for null reference.
+   *
+   * @param reference the object reference to check
+   * @throws NullPointerException if reference is null
+   */
+  public static <T extends Copyable<T>> void nullCheck(FitnessFunction.Double<T> reference) {
+    if (reference == null) {
+      throw new NullPointerException("The FitnessFunction.Double must be non-null.");
+    }
+  }
+
+  /**
+   * Checks for null reference.
+   *
+   * @param reference the object reference to check
+   * @throws NullPointerException if reference is null
+   */
+  public static <T extends Copyable<T>> void nullCheck(FitnessFunction.Integer<T> reference) {
+    if (reference == null) {
+      throw new NullPointerException("The FitnessFunction.Integer must be non-null.");
+    }
+  }
+
+  /**
+   * Checks for null reference.
+   *
+   * @param reference the object reference to check
+   * @throws NullPointerException if reference is null
+   */
+  public static <T extends Copyable<T>> void nullCheck(Initializer<T> reference) {
+    if (reference == null) {
+      throw new NullPointerException("The Initializer must be non-null.");
+    }
+  }
+
+  /**
+   * Checks for null reference.
+   *
+   * @param reference the object reference to check
+   * @throws NullPointerException if reference is null
+   */
+  public static <T extends Copyable<T>> void nullCheck(MutationOperator<T> reference) {
+    if (reference == null) {
+      throw new NullPointerException("The MutationOperator must be non-null.");
+    }
+  }
+
+  /**
+   * Checks for null reference.
+   *
+   * @param reference the object reference to check
+   * @throws NullPointerException if reference is null
+   */
+  public static <T extends Copyable<T>> void nullCheck(Problem<T> reference) {
+    if (reference == null) {
+      throw new NullPointerException("The Problem must be non-null.");
+    }
+  }
+
+  /**
+   * Checks for null reference.
+   *
+   * @param reference the object reference to check
+   * @throws NullPointerException if reference is null
+   */
   public static <T extends Copyable<T>> void nullCheck(ProgressTracker<T> reference) {
     if (reference == null) {
       throw new NullPointerException("The ProgressTracker must be non-null.");
+    }
+  }
+
+  /**
+   * Checks for null reference.
+   *
+   * @param reference the object reference to check
+   * @throws NullPointerException if reference is null
+   */
+  public static void nullCheck(SelectionOperator reference) {
+    if (reference == null) {
+      throw new NullPointerException("The SelectionOperator must be non-null.");
     }
   }
 }

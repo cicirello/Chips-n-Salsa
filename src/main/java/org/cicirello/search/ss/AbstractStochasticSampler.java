@@ -24,6 +24,7 @@ import org.cicirello.search.Metaheuristic;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SimpleMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.Problem;
@@ -76,9 +77,8 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>>
    */
   private static <T2 extends Copyable<T2>> boolean validateNonNull(
       Problem<T2> problem, ProgressTracker<T2> tracker) {
-    if (problem == null || tracker == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(problem);
+    ReferenceValidator.nullCheck(tracker);
     return true;
   }
 

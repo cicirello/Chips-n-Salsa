@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * UniformScrambleMutation
   * WindowLimitedScrambleMutation
   * WindowLimitedUndoableScrambleMutation
+* Refactored null reference checks.
 * Replaced public constructors of HeuristicSolutionGenerator with factory methods (BREAKING CHANGE).
 * Replaced public constructors of HeuristicPermutationGenerator with factory methods (BREAKING CHANGE).
 

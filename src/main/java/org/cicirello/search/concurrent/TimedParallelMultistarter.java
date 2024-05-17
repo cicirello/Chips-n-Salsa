@@ -182,15 +182,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
    * @throws IllegalArgumentException if numThreads is less than 1.
    */
   public TimedParallelMultistarter(Multistarter<T> multistartSearch, int numThreads) {
-    if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
-    multistarters = new ArrayList<Multistarter<T>>();
-    multistarters.add(multistartSearch);
-    for (int i = 1; i < numThreads; i++) {
-      multistarters.add(multistartSearch.split());
-    }
-    threadPool = Executors.newFixedThreadPool(numThreads);
-    timeUnit = TIME_UNIT_MS;
-    history = null;
+    this(ParallelMultistarterUtil.toMultistarters(multistartSearch, numThreads), false);
   }
 
   /**
@@ -220,10 +212,10 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
     if (verifyState) {
       ParallelMultistarterUtil.verifyMultistarterCollection(multistarters);
     }
-    this.multistarters = new ArrayList<Multistarter<T>>();
-    for (Multistarter<T> m : multistarters) {
+    this.multistarters = new ArrayList<Multistarter<T>>(multistarters);
+    /*for (Multistarter<T> m : multistarters) {
       this.multistarters.add(m);
-    }
+    }*/
     threadPool = Executors.newFixedThreadPool(multistarters.size());
     timeUnit = TIME_UNIT_MS;
     history = null;

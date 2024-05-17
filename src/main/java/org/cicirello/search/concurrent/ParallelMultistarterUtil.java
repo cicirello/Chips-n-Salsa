@@ -48,6 +48,25 @@ final class ParallelMultistarterUtil {
   /**
    * Creates a list of Multistarters.
    *
+   * @param multistartSearch A Multistarter configured with the metaheuristic and restart schedule.
+   *     Each of the threads will be an identical copy of this Multistarter.
+   * @param numThreads The number of threads to use.
+   * @throws IllegalArgumentException if numThreads is less than 1.
+   */
+  static <T extends Copyable<T>> Collection<Multistarter<T>> toMultistarters(
+      Multistarter<T> multistartSearch, int numThreads) {
+    if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
+    ArrayList<Multistarter<T>> restarters = new ArrayList<Multistarter<T>>();
+    restarters.add(multistartSearch);
+    for (int i = 1; i < numThreads; i++) {
+      restarters.add(multistartSearch.split());
+    }
+    return restarters;
+  }
+
+  /**
+   * Creates a list of Multistarters.
+   *
    * @param search A Metaheuristic
    * @param schedules A collection of RestartSchedules
    * @return a list of Multistarters, one for each restart schedule, all with identical and

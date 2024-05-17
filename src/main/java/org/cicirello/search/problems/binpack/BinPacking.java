@@ -52,9 +52,6 @@ public class BinPacking implements IntegerCostOptimizationProblem<Permutation> {
     this.items = items;
     int total = 0;
     for (int i = 0; i < items.length; i++) {
-      if (items[i] > capacity) {
-        throw new IllegalArgumentException("at least one item is large than the bin capacity");
-      }
       total += items[i];
     }
     lowerBound = (total / capacity) + (total % capacity > 0 ? 1 : 0);

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,6 +22,7 @@ package org.cicirello.search.ss;
 
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ProgressTracker;
+import org.cicirello.search.internal.ReferenceValidator;
 
 /**
  * This class generates solutions to permutation optimization problems using a constructive
@@ -47,27 +48,46 @@ import org.cicirello.search.ProgressTracker;
 public final class HeuristicPermutationGenerator extends HeuristicSolutionGenerator<Permutation> {
 
   /**
-   * Constructs an HeuristicPermutationGenerator for generating solutions to an optimization problem
-   * using a constructive heuristic. A ProgressTracker is created for you.
-   *
-   * @param heuristic The constructive heuristic.
-   * @throws NullPointerException if heuristic is null
-   */
-  public HeuristicPermutationGenerator(ConstructiveHeuristic<Permutation> heuristic) {
-    super(heuristic);
-  }
-
-  /**
-   * Constructs an HeuristicPermutationGenerator for generating solutions to an optimization problem
-   * using a constructive heuristic.
+   * private constructor: use factory methods instead. Constructs an HeuristicPermutationGenerator
+   * for generating solutions to an optimization problem using a constructive heuristic.
    *
    * @param heuristic The constructive heuristic.
    * @param tracker A ProgressTracker
    * @throws NullPointerException if heuristic or tracker is null
    */
-  public HeuristicPermutationGenerator(
+  private HeuristicPermutationGenerator(
       ConstructiveHeuristic<Permutation> heuristic, ProgressTracker<Permutation> tracker) {
     super(heuristic, tracker);
+  }
+
+  /**
+   * Creates a HeuristicPermutationGenerator for generating solutions to an optimization problem
+   * using a constructive heuristic. A ProgressTracker is created for you.
+   *
+   * @param heuristic The constructive heuristic.
+   * @return the HeuristicPermutationGenerator
+   * @throws NullPointerException if heuristic is null
+   */
+  public static HeuristicPermutationGenerator createHeuristicPermutationGenerator(
+      ConstructiveHeuristic<Permutation> heuristic) {
+    ReferenceValidator.nullCheck(heuristic);
+    return new HeuristicPermutationGenerator(heuristic, new ProgressTracker<Permutation>());
+  }
+
+  /**
+   * Creates a HeuristicPermutationGenerator for generating solutions to an optimization problem
+   * using a constructive heuristic.
+   *
+   * @param heuristic The constructive heuristic.
+   * @param tracker A ProgressTracker
+   * @return the HeuristicPermutationGenerator
+   * @throws NullPointerException if heuristic or tracker is null
+   */
+  public static HeuristicPermutationGenerator createHeuristicPermutationGenerator(
+      ConstructiveHeuristic<Permutation> heuristic, ProgressTracker<Permutation> tracker) {
+    ReferenceValidator.nullCheck(heuristic);
+    ReferenceValidator.nullCheck(tracker);
+    return new HeuristicPermutationGenerator(heuristic, tracker);
   }
 
   /*

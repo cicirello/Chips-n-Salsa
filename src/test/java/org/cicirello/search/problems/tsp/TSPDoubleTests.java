@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -146,6 +146,10 @@ public class TSPDoubleTests {
     IllegalArgumentException thrown =
         assertThrows(
             IllegalArgumentException.class, () -> new TSP.Double(4, 6).cost(new Permutation(3)));
+
+    thrown = assertThrows(IllegalArgumentException.class, () -> new TSP.Double(1, 0.00001));
+
+    thrown = assertThrows(IllegalArgumentException.class, () -> new TSP.Double(2, 0.0));
   }
 
   @Test
@@ -192,6 +196,10 @@ public class TSPDoubleTests {
         assertThrows(
             IllegalArgumentException.class,
             () -> new TSP.Double(4, 6, 42).cost(new Permutation(5)));
+
+    thrown = assertThrows(IllegalArgumentException.class, () -> new TSP.Double(1, 0.00001, 42));
+
+    thrown = assertThrows(IllegalArgumentException.class, () -> new TSP.Double(2, 0.0, 42));
   }
 
   @Test

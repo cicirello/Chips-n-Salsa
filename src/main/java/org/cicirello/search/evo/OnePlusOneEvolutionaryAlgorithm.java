@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -23,6 +23,7 @@ package org.cicirello.search.evo;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SingleSolutionMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
@@ -99,9 +100,10 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       UndoableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    if (problem == null || mutation == null || initializer == null || tracker == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(problem);
+    ReferenceValidator.nullCheck(mutation);
+    ReferenceValidator.nullCheck(initializer);
+    ReferenceValidator.nullCheck(tracker);
     this.initializer = initializer;
     this.mutation = mutation;
     this.tracker = tracker;
@@ -126,9 +128,10 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       UndoableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    if (problem == null || mutation == null || initializer == null || tracker == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(problem);
+    ReferenceValidator.nullCheck(mutation);
+    ReferenceValidator.nullCheck(initializer);
+    ReferenceValidator.nullCheck(tracker);
     this.initializer = initializer;
     this.mutation = mutation;
     this.tracker = tracker;
@@ -155,6 +158,14 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
     mutation = other.mutation.split();
 
     sr = pOptInt != null ? new IntCostSingleRun() : new DoubleCostSingleRun();
+  }
+
+  @SuppressWarnings("deprecation")
+  @Override
+  protected final void finalize() {
+    // Prevents potential finalizer vulnerability from exceptions thrown from constructors.
+    // See:
+    // https://wiki.sei.cmu.edu/confluence/display/java/OBJ11-J.+Be+wary+of+letting+constructors+throw+exceptions
   }
 
   /**

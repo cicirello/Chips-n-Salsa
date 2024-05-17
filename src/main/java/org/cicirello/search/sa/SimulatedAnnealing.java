@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -24,6 +24,7 @@ import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SimpleLocalMetaheuristic;
 import org.cicirello.search.SingleSolutionMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
@@ -161,13 +162,11 @@ public final class SimulatedAnnealing<T extends Copyable<T>>
       AnnealingSchedule anneal,
       ProgressTracker<T> tracker,
       SimpleLocalMetaheuristic<T> hc) {
-    if (problem == null
-        || mutation == null
-        || anneal == null
-        || initializer == null
-        || tracker == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(problem);
+    ReferenceValidator.nullCheck(mutation);
+    ReferenceValidator.nullCheck(anneal);
+    ReferenceValidator.nullCheck(initializer);
+    ReferenceValidator.nullCheck(tracker);
     this.initializer = initializer;
     this.mutation = mutation;
     this.anneal = anneal;
@@ -217,13 +216,11 @@ public final class SimulatedAnnealing<T extends Copyable<T>>
       AnnealingSchedule anneal,
       ProgressTracker<T> tracker,
       SimpleLocalMetaheuristic<T> hc) {
-    if (problem == null
-        || mutation == null
-        || anneal == null
-        || initializer == null
-        || tracker == null) {
-      throw new NullPointerException();
-    }
+    ReferenceValidator.nullCheck(problem);
+    ReferenceValidator.nullCheck(mutation);
+    ReferenceValidator.nullCheck(anneal);
+    ReferenceValidator.nullCheck(initializer);
+    ReferenceValidator.nullCheck(tracker);
     this.initializer = initializer;
     this.mutation = mutation;
     this.anneal = anneal;

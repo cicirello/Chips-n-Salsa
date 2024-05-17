@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -122,6 +122,14 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
     min_k = other.min_k;
     range = other.range;
     generator = other.generator.split();
+  }
+
+  @SuppressWarnings("deprecation")
+  @Override
+  protected final void finalize() {
+    // Prevents potential finalizer vulnerability from exceptions thrown from constructors.
+    // See:
+    // https://wiki.sei.cmu.edu/confluence/display/java/OBJ11-J.+Be+wary+of+letting+constructors+throw+exceptions
   }
 
   @Override

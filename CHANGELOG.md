@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2024-05-15
+## [Unreleased] - 2024-05-16
+
+**BREAKING CHANGES: Due to breaking changes, the next release will be a major release.**
 
 ### Added
 
@@ -21,6 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * UniformScrambleMutation
   * WindowLimitedScrambleMutation
   * WindowLimitedUndoableScrambleMutation
+* Refactored null reference checks.
+* Replaced public constructors of HeuristicSolutionGenerator with factory methods (BREAKING CHANGE).
+* Replaced public constructors of HeuristicPermutationGenerator with factory methods (BREAKING CHANGE).
 
 ### Deprecated
 
@@ -37,6 +42,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Performance improvement to LargestCommonSubgraph.
 * Removed unnecessary equals() and hashCode() methods from evolutionary operators.
 * Return a copy from TimedParallelMultistarter.getSearchHistory() rather than reference to field.
+* Fixed potential finalizer vulnerability (exceptions thrown from constructors) in the following classes (detected by SpotBugs):
+  * AbstractHillClimber
+  * AbstractStochasticSampler
+  * BinPacking
+  * HeuristicSolutionGenerator
+  * IntegerVectorInitializer
+  * OnePlusOneEvolutionaryAlgorithm
+  * ParallelMetaheuristic
+  * PermutationToBitVectorProblem
+  * RandomValueChangeMutation
+  * TimedParallelMultistarter
+  * TSP
 
 ### Dependencies
 * Bumped org.cicirello:rho-mu from 3.1.1 to 4.0.0

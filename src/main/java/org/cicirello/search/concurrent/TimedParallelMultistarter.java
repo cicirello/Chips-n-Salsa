@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -182,15 +182,7 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
    * @throws IllegalArgumentException if numThreads is less than 1.
    */
   public TimedParallelMultistarter(Multistarter<T> multistartSearch, int numThreads) {
-    if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
-    multistarters = new ArrayList<Multistarter<T>>();
-    multistarters.add(multistartSearch);
-    for (int i = 1; i < numThreads; i++) {
-      multistarters.add(multistartSearch.split());
-    }
-    threadPool = Executors.newFixedThreadPool(numThreads);
-    timeUnit = TIME_UNIT_MS;
-    history = null;
+    this(ParallelMultistarterUtil.toMultistarters(multistartSearch, numThreads), false);
   }
 
   /**
@@ -220,10 +212,10 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
     if (verifyState) {
       ParallelMultistarterUtil.verifyMultistarterCollection(multistarters);
     }
-    this.multistarters = new ArrayList<Multistarter<T>>();
-    for (Multistarter<T> m : multistarters) {
+    this.multistarters = new ArrayList<Multistarter<T>>(multistarters);
+    /*for (Multistarter<T> m : multistarters) {
       this.multistarters.add(m);
-    }
+    }*/
     threadPool = Executors.newFixedThreadPool(multistarters.size());
     timeUnit = TIME_UNIT_MS;
     history = null;
@@ -248,6 +240,14 @@ public class TimedParallelMultistarter<T extends Copyable<T>>
 
     // initialize as null
     history = null;
+  }
+
+  @SuppressWarnings("deprecation")
+  @Override
+  protected final void finalize() {
+    // Prevents potential finalizer vulnerability from exceptions thrown from constructors.
+    // See:
+    // https://wiki.sei.cmu.edu/confluence/display/java/OBJ11-J.+Be+wary+of+letting+constructors+throw+exceptions
   }
 
   /**

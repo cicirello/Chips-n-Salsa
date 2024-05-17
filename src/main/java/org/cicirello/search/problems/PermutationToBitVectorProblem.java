@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -81,17 +81,18 @@ public class PermutationToBitVectorProblem implements Initializer<BitVector> {
   private final int permutationLength;
 
   /**
-   * Initializes the PermutationToBitVectorProblem mapping for a specific permutation length.
+   * Package-private: Use nested subclasses instead.
+   *
+   * <p>Initializes the PermutationToBitVectorProblem mapping for a specific permutation length.
+   *
+   * <p><b>IMPORTANT:</b> Assumes permutationLength is positive. Validate in nested subclasses.
    *
    * @param permutationLength The length of the permutations under optimization, in number of
    *     elements. This is NOT the length of the BitVectors. For example, if the problem is the
    *     Traveling Salesperson, and if the instance has 100 cities, then you would pass 100 for this
    *     parameter.
-   * @throws IllegalArgumentException if permutationLength is less than 1.
    */
-  public PermutationToBitVectorProblem(int permutationLength) {
-    if (permutationLength < 1)
-      throw new IllegalArgumentException("permutationLength must be positive");
+  PermutationToBitVectorProblem(int permutationLength) {
     bitsPerElement = 32 - Integer.numberOfLeadingZeros(permutationLength - 1);
     init = new BitVectorInitializer(bitsPerElement * (permutationLength - 1));
     this.permutationLength = permutationLength;
@@ -104,6 +105,13 @@ public class PermutationToBitVectorProblem implements Initializer<BitVector> {
     init = other.init.split();
     bitsPerElement = other.bitsPerElement;
     permutationLength = other.permutationLength;
+  }
+
+  static int validatePermutationLength(int permutationLength) {
+    if (permutationLength < 1) {
+      throw new IllegalArgumentException("permutationLength must be positive");
+    }
+    return permutationLength;
   }
 
   @Override
@@ -180,7 +188,7 @@ public class PermutationToBitVectorProblem implements Initializer<BitVector> {
      * @throws IllegalArgumentException if permutationLength is less than 1.
      */
     public DoubleCost(OptimizationProblem<Permutation> problem, int permutationLength) {
-      super(permutationLength);
+      super(validatePermutationLength(permutationLength));
       this.problem = problem;
     }
 
@@ -258,7 +266,7 @@ public class PermutationToBitVectorProblem implements Initializer<BitVector> {
      * @throws IllegalArgumentException if permutationLength is less than 1.
      */
     public IntegerCost(IntegerCostOptimizationProblem<Permutation> problem, int permutationLength) {
-      super(permutationLength);
+      super(validatePermutationLength(permutationLength));
       this.problem = problem;
     }
 

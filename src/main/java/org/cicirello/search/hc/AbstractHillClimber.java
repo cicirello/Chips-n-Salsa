@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -24,6 +24,7 @@ import org.cicirello.search.Metaheuristic;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SimpleLocalMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
+import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.util.Copyable;
 
@@ -51,11 +52,23 @@ abstract class AbstractHillClimber<T extends Copyable<T>>
    * @throws NullPointerException if any of the parameters are null.
    */
   AbstractHillClimber(Initializer<T> initializer, ProgressTracker<T> tracker) {
-    if (initializer == null || tracker == null) {
-      throw new NullPointerException();
-    }
+    this(initializer, tracker, validateNonNull(initializer, tracker));
+  }
+
+  private AbstractHillClimber(
+      Initializer<T> initializer, ProgressTracker<T> tracker, boolean secure) {
     this.initializer = initializer;
     this.tracker = tracker;
+  }
+
+  /*
+   * Prevent potential finalizer attack
+   */
+  private static <T2 extends Copyable<T2>> boolean validateNonNull(
+      Initializer<T2> initializer, ProgressTracker<T2> tracker) {
+    ReferenceValidator.nullCheck(initializer);
+    ReferenceValidator.nullCheck(tracker);
+    return true;
   }
 
   /*

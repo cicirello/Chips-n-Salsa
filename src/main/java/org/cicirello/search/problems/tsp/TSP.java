@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -52,19 +52,10 @@ public abstract class TSP extends BaseTSP {
   final double[] y;
   final TSPEdgeDistance d;
 
-  /* package-private constructor */
-  TSP(int n, double w, EnhancedRandomGenerator gen) {
-    this(n, w, new EuclideanDistance(), gen);
-  }
-
-  /* package-private constructor */
-  TSP(int n, double w, TSPEdgeDistance distance, EnhancedRandomGenerator gen) {
-    if (n < 2) {
-      throw new IllegalArgumentException("Must be at least 2 cities.");
-    }
-    if (w <= 0.0) {
-      throw new IllegalArgumentException("Width of region must be positive.");
-    }
+  /*
+   * Prevent potential finalizer attack
+   */
+  TSP(int n, double w, TSPEdgeDistance distance, EnhancedRandomGenerator gen, boolean secure) {
     x = new double[n];
     y = new double[n];
     for (int i = 0; i < n; i++) {
@@ -74,22 +65,39 @@ public abstract class TSP extends BaseTSP {
     d = distance;
   }
 
-  /* package-private constructor */
-  TSP(double[] x, double[] y) {
-    this(x, y, new EuclideanDistance());
+  /*
+   * Prevent potential finalizer attack
+   */
+  static boolean validate(int n, double w) {
+    if (n < 2) {
+      throw new IllegalArgumentException("Must be at least 2 cities.");
+    }
+    if (w <= 0.0) {
+      throw new IllegalArgumentException("Width of region must be positive.");
+    }
+    return true;
   }
 
-  /* package-private constructor */
-  TSP(double[] x, double[] y, TSPEdgeDistance distance) {
+  /*
+   * Prevent potential finalizer attack
+   */
+  TSP(double[] x, double[] y, TSPEdgeDistance distance, boolean secure) {
+    this.x = x.clone();
+    this.y = y.clone();
+    d = distance;
+  }
+
+  /*
+   * Prevent potential finalizer attack
+   */
+  static boolean validateDimensions(double[] x, double[] y) {
     if (x.length != y.length) {
       throw new IllegalArgumentException("Arrays must be same length.");
     }
     if (x.length < 2) {
       throw new IllegalArgumentException("Must be at least 2 cities.");
     }
-    this.x = x.clone();
-    this.y = y.clone();
-    d = distance;
+    return true;
   }
 
   /**
@@ -146,7 +154,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Double(int n, double w) {
-      super(n, w, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
+      super(
+          n,
+          w,
+          new EuclideanDistance(),
+          RandomnessFactory.threadLocalEnhancedSplittableGenerator(),
+          validate(n, w));
     }
 
     /**
@@ -159,7 +172,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Double(int n, double w, TSPEdgeDistance distance) {
-      super(n, w, distance, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
+      super(
+          n,
+          w,
+          distance,
+          RandomnessFactory.threadLocalEnhancedSplittableGenerator(),
+          validate(n, w));
     }
 
     /**
@@ -174,7 +192,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Double(int n, double w, long seed) {
-      super(n, w, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
+      super(
+          n,
+          w,
+          new EuclideanDistance(),
+          RandomnessFactory.createSeededEnhancedRandomGenerator(seed),
+          validate(n, w));
     }
 
     /**
@@ -189,7 +212,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Double(int n, double w, TSPEdgeDistance distance, long seed) {
-      super(n, w, distance, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
+      super(
+          n,
+          w,
+          distance,
+          RandomnessFactory.createSeededEnhancedRandomGenerator(seed),
+          validate(n, w));
     }
 
     /**
@@ -202,7 +230,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if the length of the arrays is less than 2.
      */
     public Double(double[] x, double[] y) {
-      super(x, y);
+      super(x, y, new EuclideanDistance(), validateDimensions(x, y));
     }
 
     /**
@@ -215,7 +243,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if the length of the arrays is less than 2.
      */
     public Double(double[] x, double[] y, TSPEdgeDistance distance) {
-      super(x, y, distance);
+      super(x, y, distance, validateDimensions(x, y));
     }
 
     @Override
@@ -277,7 +305,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Integer(int n, double w) {
-      super(n, w, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
+      super(
+          n,
+          w,
+          new EuclideanDistance(),
+          RandomnessFactory.threadLocalEnhancedSplittableGenerator(),
+          validate(n, w));
     }
 
     /**
@@ -290,7 +323,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Integer(int n, double w, TSPEdgeDistance distance) {
-      super(n, w, distance, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
+      super(
+          n,
+          w,
+          distance,
+          RandomnessFactory.threadLocalEnhancedSplittableGenerator(),
+          validate(n, w));
     }
 
     /**
@@ -306,7 +344,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Integer(int n, double w, long seed) {
-      super(n, w, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
+      super(
+          n,
+          w,
+          new EuclideanDistance(),
+          RandomnessFactory.createSeededEnhancedRandomGenerator(seed),
+          validate(n, w));
     }
 
     /**
@@ -321,7 +364,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public Integer(int n, double w, TSPEdgeDistance distance, long seed) {
-      super(n, w, distance, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
+      super(
+          n,
+          w,
+          distance,
+          RandomnessFactory.createSeededEnhancedRandomGenerator(seed),
+          validate(n, w));
     }
 
     /**
@@ -335,7 +383,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if the length of the arrays is less than 2.
      */
     public Integer(double[] x, double[] y) {
-      super(x, y);
+      super(x, y, new EuclideanDistance(), validateDimensions(x, y));
     }
 
     /**
@@ -348,7 +396,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if the length of the arrays is less than 2.
      */
     public Integer(double[] x, double[] y, TSPEdgeDistance distance) {
-      super(x, y, distance);
+      super(x, y, distance, validateDimensions(x, y));
     }
 
     @Override
@@ -412,7 +460,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public DoubleMatrix(int n, double w) {
-      super(n, w, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
+      super(
+          n,
+          w,
+          new EuclideanDistance(),
+          RandomnessFactory.threadLocalEnhancedSplittableGenerator(),
+          validate(n, w));
       weights = computeWeights();
     }
 
@@ -426,7 +479,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public DoubleMatrix(int n, double w, TSPEdgeDistance distance) {
-      super(n, w, distance, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
+      super(
+          n,
+          w,
+          distance,
+          RandomnessFactory.threadLocalEnhancedSplittableGenerator(),
+          validate(n, w));
       weights = computeWeights();
     }
 
@@ -442,7 +500,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public DoubleMatrix(int n, double w, long seed) {
-      super(n, w, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
+      super(
+          n,
+          w,
+          new EuclideanDistance(),
+          RandomnessFactory.createSeededEnhancedRandomGenerator(seed),
+          validate(n, w));
       weights = computeWeights();
     }
 
@@ -458,7 +521,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public DoubleMatrix(int n, double w, TSPEdgeDistance distance, long seed) {
-      super(n, w, distance, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
+      super(
+          n,
+          w,
+          distance,
+          RandomnessFactory.createSeededEnhancedRandomGenerator(seed),
+          validate(n, w));
       weights = computeWeights();
     }
 
@@ -472,7 +540,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if the length of the arrays is less than 2.
      */
     public DoubleMatrix(double[] x, double[] y) {
-      super(x, y);
+      super(x, y, new EuclideanDistance(), validateDimensions(x, y));
       weights = computeWeights();
     }
 
@@ -486,7 +554,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if the length of the arrays is less than 2.
      */
     public DoubleMatrix(double[] x, double[] y, TSPEdgeDistance distance) {
-      super(x, y, distance);
+      super(x, y, distance, validateDimensions(x, y));
       weights = computeWeights();
     }
 
@@ -557,7 +625,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public IntegerMatrix(int n, double w) {
-      super(n, w, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
+      super(
+          n,
+          w,
+          new EuclideanDistance(),
+          RandomnessFactory.threadLocalEnhancedSplittableGenerator(),
+          validate(n, w));
       weights = computeWeights();
     }
 
@@ -571,7 +644,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public IntegerMatrix(int n, double w, TSPEdgeDistance distance) {
-      super(n, w, distance, RandomnessFactory.threadLocalEnhancedSplittableGenerator());
+      super(
+          n,
+          w,
+          distance,
+          RandomnessFactory.threadLocalEnhancedSplittableGenerator(),
+          validate(n, w));
       weights = computeWeights();
     }
 
@@ -588,7 +666,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public IntegerMatrix(int n, double w, long seed) {
-      super(n, w, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
+      super(
+          n,
+          w,
+          new EuclideanDistance(),
+          RandomnessFactory.createSeededEnhancedRandomGenerator(seed),
+          validate(n, w));
       weights = computeWeights();
     }
 
@@ -604,7 +687,12 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if w &#x2264; 0.0.
      */
     public IntegerMatrix(int n, double w, TSPEdgeDistance distance, long seed) {
-      super(n, w, distance, RandomnessFactory.createSeededEnhancedRandomGenerator(seed));
+      super(
+          n,
+          w,
+          distance,
+          RandomnessFactory.createSeededEnhancedRandomGenerator(seed),
+          validate(n, w));
       weights = computeWeights();
     }
 
@@ -619,7 +707,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if the length of the arrays is less than 2.
      */
     public IntegerMatrix(double[] x, double[] y) {
-      super(x, y);
+      super(x, y, new EuclideanDistance(), validateDimensions(x, y));
       weights = computeWeights();
     }
 
@@ -633,7 +721,7 @@ public abstract class TSP extends BaseTSP {
      * @throws IllegalArgumentException if the length of the arrays is less than 2.
      */
     public IntegerMatrix(double[] x, double[] y, TSPEdgeDistance distance) {
-      super(x, y, distance);
+      super(x, y, distance, validateDimensions(x, y));
       weights = computeWeights();
     }
 

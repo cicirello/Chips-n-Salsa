@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -31,17 +31,18 @@ import org.junit.jupiter.api.*;
 public class HeuristicSolutionGeneratorTests extends SharedTestStochasticSampler {
 
   @Test
-  public void testConstructorExceptions() {
+  public void testFactoryMethodExceptions() {
     IntProblem problem = new IntProblem();
     IntHeuristic h = new IntHeuristic(problem, 3);
     NullPointerException thrownNull =
         assertThrows(
-            NullPointerException.class, () -> new HeuristicSolutionGenerator<Permutation>(h, null));
+            NullPointerException.class,
+            () -> HeuristicSolutionGenerator.createHeuristicSolutionGenerator(h, null));
     thrownNull =
         assertThrows(
             NullPointerException.class,
             () ->
-                new HeuristicSolutionGenerator<Permutation>(
+                HeuristicSolutionGenerator.createHeuristicSolutionGenerator(
                     null, new ProgressTracker<Permutation>()));
   }
 
@@ -51,7 +52,7 @@ public class HeuristicSolutionGeneratorTests extends SharedTestStochasticSampler
       IntProblem problem = new IntProblem();
       IntHeuristic h = new IntHeuristic(problem, n);
       HeuristicSolutionGenerator<Permutation> chOriginal =
-          new HeuristicSolutionGenerator<Permutation>(h);
+          HeuristicSolutionGenerator.createHeuristicSolutionGenerator(h);
       HeuristicSolutionGenerator<Permutation> ch = chOriginal.split();
       assertEquals(0, ch.getTotalRunLength());
       assertTrue(problem == ch.getProblem());
@@ -81,7 +82,8 @@ public class HeuristicSolutionGeneratorTests extends SharedTestStochasticSampler
   public void testTrackerStoppedBeforeOptimize() {
     IntProblem problem = new IntProblem();
     IntHeuristic h = new IntHeuristic(problem, 3);
-    HeuristicSolutionGenerator<Permutation> ch = new HeuristicSolutionGenerator<Permutation>(h);
+    HeuristicSolutionGenerator<Permutation> ch =
+        HeuristicSolutionGenerator.createHeuristicSolutionGenerator(h);
     ProgressTracker<Permutation> tracker = ch.getProgressTracker();
     tracker.stop();
     assertNull(ch.optimize());
@@ -92,7 +94,8 @@ public class HeuristicSolutionGeneratorTests extends SharedTestStochasticSampler
   public void testTrackerFoundBestBeforeOptimize() {
     IntProblem problem = new IntProblem();
     IntHeuristic h = new IntHeuristic(problem, 3);
-    HeuristicSolutionGenerator<Permutation> ch = new HeuristicSolutionGenerator<Permutation>(h);
+    HeuristicSolutionGenerator<Permutation> ch =
+        HeuristicSolutionGenerator.createHeuristicSolutionGenerator(h);
     ProgressTracker<Permutation> tracker = ch.getProgressTracker();
     // replaced deprecated call to setFoundBest()
     tracker.update(0, new Permutation(1), true);
@@ -104,7 +107,8 @@ public class HeuristicSolutionGeneratorTests extends SharedTestStochasticSampler
   public void testOptimizeFindsOptimalInt() {
     IntProblemOptimal problem = new IntProblemOptimal();
     IntHeuristic h = new IntHeuristic(problem, 1);
-    HeuristicSolutionGenerator<Permutation> ch = new HeuristicSolutionGenerator<Permutation>(h);
+    HeuristicSolutionGenerator<Permutation> ch =
+        HeuristicSolutionGenerator.createHeuristicSolutionGenerator(h);
     ProgressTracker<Permutation> tracker = ch.getProgressTracker();
     SolutionCostPair<Permutation> solution = ch.optimize();
     assertEquals(solution.getSolution(), tracker.getSolution());
@@ -117,8 +121,41 @@ public class HeuristicSolutionGeneratorTests extends SharedTestStochasticSampler
   public void testOptimizeFindsOptimalDouble() {
     DoubleProblemOptimal problem = new DoubleProblemOptimal();
     DoubleHeuristic h = new DoubleHeuristic(problem, 1);
-    HeuristicSolutionGenerator<Permutation> ch = new HeuristicSolutionGenerator<Permutation>(h);
+    HeuristicSolutionGenerator<Permutation> ch =
+        HeuristicSolutionGenerator.createHeuristicSolutionGenerator(h);
     ProgressTracker<Permutation> tracker = ch.getProgressTracker();
+    SolutionCostPair<Permutation> solution = ch.optimize();
+    assertEquals(solution.getSolution(), tracker.getSolution());
+    assertFalse(tracker.containsIntCost());
+    assertTrue(tracker.didFindBest());
+    assertEquals(solution.getCostDouble(), tracker.getCostDouble(), 1E-10);
+  }
+
+  @Test
+  public void testOptimizeFindsOptimalIntWithTracker() {
+    IntProblemOptimal problem = new IntProblemOptimal();
+    IntHeuristic h = new IntHeuristic(problem, 1);
+    ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
+    HeuristicSolutionGenerator<Permutation> ch =
+        HeuristicSolutionGenerator.createHeuristicSolutionGenerator(h, originalTracker);
+    ProgressTracker<Permutation> tracker = ch.getProgressTracker();
+    assertSame(originalTracker, tracker);
+    SolutionCostPair<Permutation> solution = ch.optimize();
+    assertEquals(solution.getSolution(), tracker.getSolution());
+    assertTrue(tracker.containsIntCost());
+    assertTrue(tracker.didFindBest());
+    assertEquals(solution.getCost(), tracker.getCost());
+  }
+
+  @Test
+  public void testOptimizeFindsOptimalDoubleWithTracker() {
+    DoubleProblemOptimal problem = new DoubleProblemOptimal();
+    DoubleHeuristic h = new DoubleHeuristic(problem, 1);
+    ProgressTracker<Permutation> originalTracker = new ProgressTracker<Permutation>();
+    HeuristicSolutionGenerator<Permutation> ch =
+        HeuristicSolutionGenerator.createHeuristicSolutionGenerator(h, originalTracker);
+    ProgressTracker<Permutation> tracker = ch.getProgressTracker();
+    assertSame(originalTracker, tracker);
     SolutionCostPair<Permutation> solution = ch.optimize();
     assertEquals(solution.getSolution(), tracker.getSolution());
     assertFalse(tracker.containsIntCost());

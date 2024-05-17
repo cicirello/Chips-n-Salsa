@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -111,8 +111,6 @@ public class PermutationBitVectorTests {
             split.toPermutation(new BitVector(expectedBitLengths[i], reversedCases[i])));
       }
     }
-    IllegalArgumentException thrown =
-        assertThrows(IllegalArgumentException.class, () -> new PermutationToBitVectorProblem(0));
   }
 
   @Test

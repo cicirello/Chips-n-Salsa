@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2024-05-16
+## [Unreleased] - 2024-06-10
 
 **BREAKING CHANGES: Due to breaking changes, the next release will be a major release.**
 
@@ -56,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * TSP
 
 ### Dependencies
-* Bumped org.cicirello:rho-mu from 3.1.1 to 4.0.0
+* Bumped org.cicirello:rho-mu from 3.1.1 to 4.1.0
 * Bump org.cicirello:core from 2.5.0 to 2.7.0
 
 ### CI/CD

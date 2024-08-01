@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang>
 <head>
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/class-use/ProgressTracker.html">
@@ -889,6 +889,20 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static <a href="../ss/HeuristicPermutationGenerator.html" title="class in org.cicirello.search.ss">HeuristicPermutationGenerator</a></code></div>
+<div class="col-second even-row-color"><span class="type-name-label">HeuristicPermutationGenerator.</span><code><a href="../ss/HeuristicPermutationGenerator.html#createHeuristicPermutationGenerator(org.cicirello.search.ss.ConstructiveHeuristic,org.cicirello.search.ProgressTracker)" class="member-name-link">createHeuristicPermutationGenerator</a><wbr>(<a href="../ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;heuristic,
+ <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;tracker)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates a HeuristicPermutationGenerator for generating solutions to an optimization problem
+ using a constructive heuristic.</div>
+</div>
+<div class="col-first odd-row-color"><code>static &lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;<br><a href="../ss/HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color"><span class="type-name-label">HeuristicSolutionGenerator.</span><code><a href="../ss/HeuristicSolutionGenerator.html#createHeuristicSolutionGenerator(org.cicirello.search.ss.ConstructiveHeuristic,org.cicirello.search.ProgressTracker)" class="member-name-link">createHeuristicSolutionGenerator</a><wbr>(<a href="../ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T&gt;&nbsp;heuristic,
+ <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">Creates a HeuristicSolutionGenerator for generating solutions to an optimization problem using
+ a constructive heuristic.</div>
+</div>
 <div class="col-first even-row-color"><code>final void</code></div>
 <div class="col-second even-row-color"><span class="type-name-label">HeuristicSolutionGenerator.</span><code><a href="../ss/HeuristicSolutionGenerator.html#setProgressTracker(org.cicirello.search.ProgressTracker)" class="member-name-link">setProgressTracker</a><wbr>(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../ss/HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
@@ -939,20 +953,6 @@ loadScripts(document, 'script');</script>
 <div class="block">Constructs a HeuristicBiasedStochasticSampling search object.</div>
 </div>
 <div class="col-first even-row-color"><code>&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="../ss/HeuristicPermutationGenerator.html#%3Cinit%3E(org.cicirello.search.ss.ConstructiveHeuristic,org.cicirello.search.ProgressTracker)" class="member-name-link">HeuristicPermutationGenerator</a><wbr>(<a href="../ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;heuristic,
- <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;&nbsp;tracker)</code></div>
-<div class="col-last even-row-color">
-<div class="block">Constructs an HeuristicPermutationGenerator for generating solutions to an optimization problem
- using a constructive heuristic.</div>
-</div>
-<div class="col-first odd-row-color"><code>&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="../ss/HeuristicSolutionGenerator.html#%3Cinit%3E(org.cicirello.search.ss.ConstructiveHeuristic,org.cicirello.search.ProgressTracker)" class="member-name-link">HeuristicSolutionGenerator</a><wbr>(<a href="../ss/ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="../ss/HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;heuristic,
- <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../ss/HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;tracker)</code></div>
-<div class="col-last odd-row-color">
-<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions to an optimization problem
- using a constructive heuristic.</div>
-</div>
-<div class="col-first even-row-color"><code>&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../ss/IterativeSampling.html#%3Cinit%3E(org.cicirello.search.problems.IntegerCostOptimizationProblem,org.cicirello.search.operators.Initializer,org.cicirello.search.ProgressTracker)" class="member-name-link">IterativeSampling</a><wbr>(<a href="../problems/IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="../ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&nbsp;problem,
  <a href="../operators/Initializer.html" title="interface in org.cicirello.search.operators">Initializer</a>&lt;<a href="../ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&nbsp;initializer,
  <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../ss/IterativeSampling.html" title="type parameter in IterativeSampling">T</a>&gt;&nbsp;tracker)</code></div>
@@ -994,7 +994,7 @@ loadScripts(document, 'script');</script>
 </main>
 <footer role="contentinfo">
 <hr>
-<p class="legal-copy"><small>Copyright &copy; 2002-2023 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
+<p class="legal-copy"><small>Copyright &copy; 2002-2024 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
 </footer>
 </div>
 </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang>
 <head>
 <!-- GitHub action javadoc-cleanup -->
 <link rel="canonical" href="https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/ss/HeuristicSolutionGenerator.html">
@@ -56,13 +56,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
 </div>
@@ -87,6 +87,10 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - The problem representation we are optimizing</dd>
+</dl>
+<dl class="notes">
 <dt>All Implemented Interfaces:</dt>
 <dd><code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T&gt;&gt;</code>, <code><a href="../SimpleMetaheuristic.html" title="interface in org.cicirello.search">SimpleMetaheuristic</a>&lt;T&gt;</code>, <code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T&gt;</code></dd>
 </dl>
@@ -108,39 +112,30 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 </section>
 <section class="summary">
 <ul class="summary-list">
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<li>
-<section class="constructor-summary" id="constructor-summary">
-<h2>Constructor Summary</h2>
-<div class="caption"><span>Constructors</span></div>
-<div class="summary-table two-column-summary">
-<div class="table-header col-first">Constructor</div>
-<div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.ss.ConstructiveHeuristic)" class="member-name-link">HeuristicSolutionGenerator</a><wbr>(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;heuristic)</code></div>
-<div class="col-last even-row-color">
-<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions to an optimization problem
- using a constructive heuristic.</div>
-</div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(org.cicirello.search.ss.ConstructiveHeuristic,org.cicirello.search.ProgressTracker)" class="member-name-link">HeuristicSolutionGenerator</a><wbr>(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;heuristic,
- <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;tracker)</code></div>
-<div class="col-last odd-row-color">
-<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions to an optimization problem
- using a constructive heuristic.</div>
-</div>
-</div>
-</section>
-</li>
 <!-- ========== METHOD SUMMARY =========== -->
 <li>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
-<div id="method-summary-table.tabpanel" role="tabpanel">
-<div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
+<div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;<br><a href="HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;T&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createHeuristicSolutionGenerator(org.cicirello.search.ss.ConstructiveHeuristic)" class="member-name-link">createHeuristicSolutionGenerator</a><wbr>(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T&gt;&nbsp;heuristic)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a HeuristicSolutionGenerator for generating solutions to an optimization problem using
+ a constructive heuristic.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;<br><a href="HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createHeuristicSolutionGenerator(org.cicirello.search.ss.ConstructiveHeuristic,org.cicirello.search.ProgressTracker)" class="member-name-link">createHeuristicSolutionGenerator</a><wbr>(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T&gt;&nbsp;heuristic,
+ <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a HeuristicSolutionGenerator for generating solutions to an optimization problem using
+ a constructive heuristic.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../problems/Problem.html" title="interface in org.cicirello.search.problems">Problem</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getProblem()" class="member-name-link">getProblem</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -186,49 +181,51 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 </section>
 <section class="details">
 <ul class="details-list">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<!-- ============ METHOD DETAIL ========== -->
 <li>
-<section class="constructor-details" id="constructor-detail">
-<h2>Constructor Details</h2>
+<section class="method-details" id="method-detail">
+<h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(org.cicirello.search.ss.ConstructiveHeuristic)">
-<h3>HeuristicSolutionGenerator</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">HeuristicSolutionGenerator</span><wbr><span class="parameters">(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;heuristic)</span></div>
-<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions to an optimization problem
- using a constructive heuristic. A ProgressTracker is created for you.</div>
+<section class="detail" id="createHeuristicSolutionGenerator(org.cicirello.search.ss.ConstructiveHeuristic)">
+<h3>createHeuristicSolutionGenerator</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span>
+<span class="return-type"><a href="HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;T&gt;</span>&nbsp;<span class="element-name">createHeuristicSolutionGenerator</span><wbr><span class="parameters">(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T&gt;&nbsp;heuristic)</span></div>
+<div class="block">Creates a HeuristicSolutionGenerator for generating solutions to an optimization problem using
+ a constructive heuristic. A ProgressTracker is created for you.</div>
 <dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - The problem representation we are optimizing</dd>
 <dt>Parameters:</dt>
 <dd><code>heuristic</code> - The constructive heuristic.</dd>
+<dt>Returns:</dt>
+<dd>the HeuristicSolutionGenerator</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if heuristic is null</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="&lt;init&gt;(org.cicirello.search.ss.ConstructiveHeuristic,org.cicirello.search.ProgressTracker)">
-<h3>HeuristicSolutionGenerator</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">HeuristicSolutionGenerator</span><wbr><span class="parameters">(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;heuristic,
- <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="HeuristicSolutionGenerator.html" title="type parameter in HeuristicSolutionGenerator">T</a>&gt;&nbsp;tracker)</span></div>
-<div class="block">Constructs an HeuristicSolutionGenerator for generating solutions to an optimization problem
- using a constructive heuristic.</div>
+<section class="detail" id="createHeuristicSolutionGenerator(org.cicirello.search.ss.ConstructiveHeuristic,org.cicirello.search.ProgressTracker)">
+<h3>createHeuristicSolutionGenerator</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</span>
+<span class="return-type"><a href="HeuristicSolutionGenerator.html" title="class in org.cicirello.search.ss">HeuristicSolutionGenerator</a>&lt;T&gt;</span>&nbsp;<span class="element-name">createHeuristicSolutionGenerator</span><wbr><span class="parameters">(<a href="ConstructiveHeuristic.html" title="interface in org.cicirello.search.ss">ConstructiveHeuristic</a>&lt;T&gt;&nbsp;heuristic,
+ <a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;T&gt;&nbsp;tracker)</span></div>
+<div class="block">Creates a HeuristicSolutionGenerator for generating solutions to an optimization problem using
+ a constructive heuristic.</div>
 <dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - The problem representation we are optimizing</dd>
 <dt>Parameters:</dt>
 <dd><code>heuristic</code> - The constructive heuristic.</dd>
 <dd><code>tracker</code> - A ProgressTracker</dd>
+<dt>Returns:</dt>
+<dd>the HeuristicSolutionGenerator</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if heuristic or tracker is null</dd>
 </dl>
 </section>
 </li>
-</ul>
-</section>
-</li>
-<!-- ============ METHOD DETAIL ========== -->
-<li>
-<section class="method-details" id="method-detail">
-<h2>Method Details</h2>
-<ul class="member-list">
 <li>
 <section class="detail" id="optimize()">
 <h3>optimize</h3>
@@ -359,7 +356,7 @@ implements <a href="../SimpleMetaheuristic.html" title="interface in org.cicirel
 </main>
 <footer role="contentinfo">
 <hr>
-<p class="legal-copy"><small>Copyright &copy; 2002-2023 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
+<p class="legal-copy"><small>Copyright &copy; 2002-2024 <a href="https://www.cicirello.org/" target=_top>Vincent A. Cicirello</a>.  All rights reserved.</small></p>
 </footer>
 </div>
 </div>

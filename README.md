@@ -53,9 +53,9 @@ See the following table for a mapping between library version and minimum suppor
 
 | version | Java requirements |
 | --- | --- |
-| 5.x.y to 6.x.y | Java 17+ |
-| 3.x.y to 4.x.y | Java 11+ |
-| 1.x.y to 2.x.y | Java 8+ |
+| 5.w.x to 7.y.z | Java 17+ |
+| 3.w.x to 4.y.z | Java 11+ |
+| 1.w.x to 2.y.z | Java 8+ |
 
 ## Versioning Scheme
 
@@ -142,7 +142,7 @@ the version number with the version that you want to use.
 <dependency>
   <groupId>org.cicirello</groupId>
   <artifactId>chips-n-salsa</artifactId>
-  <version>6.0.0</version>
+  <version>7.0.0</version>
 </dependency>
 ```
 

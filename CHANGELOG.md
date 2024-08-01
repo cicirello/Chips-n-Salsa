@@ -4,13 +4,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2024-07-26
-
-**BREAKING CHANGES: Due to breaking changes, the next release will be a major release.**
+## [Unreleased] - 2024-08-01
 
 ### Added
 
 ### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Dependencies
+
+### CI/CD
+
+### Other
+
+
+## [7.0.0] - 2024-08-01
+
+### Changed (BREAKING)
+* Replaced public constructors of HeuristicSolutionGenerator with factory methods (BREAKING CHANGE).
+* Replaced public constructors of HeuristicPermutationGenerator with factory methods (BREAKING CHANGE).
+
+### Changed (non-breaking)
 * Refactored and improved the following classes to utilize new functionality from the dependencies on core and rho-mu:
   * BinPacking
   * CycleAlphaMutation
@@ -24,12 +43,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * WindowLimitedScrambleMutation
   * WindowLimitedUndoableScrambleMutation
 * Refactored null reference checks.
-* Replaced public constructors of HeuristicSolutionGenerator with factory methods (BREAKING CHANGE).
-* Replaced public constructors of HeuristicPermutationGenerator with factory methods (BREAKING CHANGE).
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 * Fixed double comparison in SolutionCostPair.compareTo(SolutionCostPair).
@@ -65,8 +78,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Integrated Find Security Bugs into build process.
 * Removed support for JitPack builds, include removing JitPack configuration, workflow steps, etc.
 * Discontinued publishing a `jar-with-dependencies` (only a breaking change for those manually downloading library).
-
-### Other
 
 
 ## [6.4.0] - 2023-07-28

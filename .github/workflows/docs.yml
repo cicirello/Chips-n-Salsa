@@ -38,7 +38,7 @@ jobs:
       if: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
       run: |
         rm -rf gh-pages/api
-        cp -rf target/site/apidocs/. gh-pages/api	
+        cp -rf target/reports/apidocs/. gh-pages/api	
 
     - name: Tidy up the javadocs
       if: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}

@@ -37,6 +37,12 @@
             "identifier": "10.21105/joss.02448",
             "relation": "isDocumentedBy",
             "resource_type": "publication"
+        },
+        {
+            "scheme": "doi",
+            "identifier": "10.5220/0013040600003837",
+            "relation": "isDocumentedBy",
+            "resource_type": "publication"
         }
     ]
 }

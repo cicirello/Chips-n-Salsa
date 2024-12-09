@@ -8,7 +8,7 @@ Website: https://chips-n-salsa.cicirello.org/
 
 API documentation: https://chips-n-salsa.cicirello.org/api/
 
-| __Publications About the Library__ | [![DOI](https://joss.theoj.org/papers/10.21105/joss.02448/status.svg)](https://doi.org/10.21105/joss.02448) |
+| __Publications About the Library__ | [![doi:10.21105/joss.02448](https://joss.theoj.org/papers/10.21105/joss.02448/status.svg)](https://doi.org/10.21105/joss.02448) [![doi:10.5220/0013040600003837](doi-evo.svg)](https://doi.org/10.5220/0013040600003837) |
 | :--- | :--- |
 | __Packages and Releases__ | [![Maven Central](https://img.shields.io/maven-central/v/org.cicirello/chips-n-salsa.svg?label=Maven%20Central&logo=apachemaven)](https://central.sonatype.com/artifact/org.cicirello/chips-n-salsa/) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/Chips-n-Salsa?logo=GitHub)](https://github.com/cicirello/Chips-n-Salsa/releases) |
 | __Build Status__ | [![build](https://github.com/cicirello/Chips-n-Salsa/workflows/build/badge.svg)](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/build.yml) [![docs](https://github.com/cicirello/Chips-n-Salsa/workflows/docs/badge.svg)](https://chips-n-salsa.cicirello.org/api/) [![CodeQL](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/codeql-analysis.yml) |
@@ -20,9 +20,13 @@ API documentation: https://chips-n-salsa.cicirello.org/api/
 
 ## How to Cite
 
-If you use this library in your research, please cite the following paper:
+If you use this library in your research, please cite one or both of the following papers, whichever is relevant. Chips-n-Salsa was introduced in this first article:
 
-> Cicirello, V. A., (2020). Chips-n-Salsa: A Java Library of Customizable, Hybridizable, Iterative, Parallel, Stochastic, and Self-Adaptive Local Search Algorithms. *Journal of Open Source Software*, 5(52), 2448, https://doi.org/10.21105/joss.02448 .
+> Cicirello, V. A., (2020). Chips-n-Salsa: A Java Library of Customizable, Hybridizable, Iterative, Parallel, Stochastic, and Self-Adaptive Local Search Algorithms. *Journal of Open Source Software*, 5(52), 2448, https://doi.org/10.21105/joss.02448
+
+The following paper covers the evolutionary algorithms of Chips-n-Salsa:
+
+> Cicirello, V.A. (2024). [Open Source Evolutionary Computation with Chips-n-Salsa](https://www.cicirello.org/publications/cicirello2024ecta-chips-n-salsa.pdf).  *Proceedings of the 16th International Joint Conference on Computational Intelligence (IJCCI 2024)*, pages 330-337, https://doi.org/10.5220/0013040600003837
 
 ## Overview
 

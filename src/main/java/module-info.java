@@ -27,10 +27,7 @@
  * <p>Copyright &copy; 2002-2024 <a href="https://www.cicirello.org/" target=_top>Vincent A.
  * Cicirello</a>.
  *
- * <p><a href="https://doi.org/10.21105/joss.02448"><img
- * src="https://joss.theoj.org/papers/10.21105/joss.02448/status.svg" alt="DOI:10.21105/joss.02448"
- * height="20" width="168"></a> <a
- * href="https://github.com/josephmisiti/awesome-machine-learning"><img
+ * <p><a href="https://github.com/josephmisiti/awesome-machine-learning"><img
  * src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome Machine Learning"
  * width="110" height="20"></a> <a
  * href="https://central.sonatype.com/artifact/org.cicirello/chips-n-salsa/"><img
@@ -43,7 +40,12 @@
  * src="https://chips-n-salsa.cicirello.org/images/GitHub.svg" alt="GitHub Repository" width="68"
  * height="20"></a> <a href="https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE"><img
  * src="https://img.shields.io/github/license/cicirello/Chips-n-Salsa" alt="GNU General Public
- * License Version 3 (GPLv3)" height="20" width="102"></a>
+ * License Version 3 (GPLv3)" height="20" width="102"></a><br>
+ * <a href="https://doi.org/10.21105/joss.02448"><img
+ * src="https://joss.theoj.org/papers/10.21105/joss.02448/status.svg" alt="DOI:10.21105/joss.02448"
+ * height="20" width="168"></a> <a href="https://doi.org/10.5220/0013040600003837"><img
+ * src="https://chips-n-salsa.cicirello.org/images/doi-evo.svg" alt="DOI:10.5220/0013040600003837"
+ * height="20" width="212"></a>
  *
  * <h3>About the Chips-n-Salsa Library</h3>
  *
@@ -88,17 +90,27 @@
  *
  * <h3>How to Cite</h3>
  *
- * <p>If you use the Chips-n-Salsa library in your research, please cite the following article which
- * describes the library:
+ * <p>If you use this Chips-n-Salsa in your research, please cite one or both of the following
+ * papers, whichever is relevant. Chips-n-Salsa was introduced in the first article, and the second
+ * paper covers Chips-n-Salsa's evolutionary algorithms.
  *
  * <ul>
  *   <li>Vincent A. Cicirello. <a
  *       href="https://www.cicirello.org/publications/cicirello2020joss.html">Chips-n-Salsa: A Java
  *       Library of Customizable, Hybridizable, Iterative, Parallel, Stochastic, and Self-Adaptive
  *       Local Search Algorithms</a>. <i>Journal of Open Source Software</i>, 5(52), 2448, August
- *       2020. <a href="https://www.cicirello.org/publications/cicirello2020joss.pdf">[PDF]</a> <a
+ *       2020. doi:10.21105/joss.02448 <a
+ *       href="https://www.cicirello.org/publications/cicirello2020joss.pdf">[PDF]</a> <a
  *       href="https://www.cicirello.org/publications/cicirello2020joss.bib">[BIB]</a> <a
  *       href="https://doi.org/10.21105/joss.02448">[DOI]</a>
+ *   <li>Vincent A. Cicirello. <a
+ *       href="https://www.cicirello.org/publications/cicirello2024ecta1.html">Open Source
+ *       Evolutionary Computation with Chips-n-Salsa</a>. In <i>Proceedings of the 16th
+ *       International Joint Conference on Computational Intelligence</i>, pages 330-337. November
+ *       2024. doi:10.5220/0013040600003837 <a
+ *       href="https://www.cicirello.org/publications/cicirello2024ecta-chips-n-salsa.pdf">[PDF]</a>
+ *       <a href="https://www.cicirello.org/publications/cicirello2024ecta1.bib">[BIB]</a> <a
+ *       href="https://doi.org/10.5220/0013040600003837">[DOI]</a>
  * </ul>
  *
  * <h3>Support Chips-n-Salsa</h3>

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2024 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,6 +20,8 @@
 
 package org.cicirello.search.operators.reals;
 
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
@@ -39,12 +41,12 @@ import org.cicirello.search.representations.RealVector;
  */
 public final class RealVectorInitializer implements Initializer<RealVector> {
 
+  private final EnhancedSplittableGenerator generator;
   private final double[] x;
-  private final double[] a;
-  private final double[] b;
+  private final BiConsumer<double[], EnhancedSplittableGenerator> initializer;
+  private final Function<double[], RealVector> creator;
   private final double[] min;
   private final double[] max;
-  private final EnhancedSplittableGenerator generator;
 
   /**
    * Construct a RealVectorInitializer that generates random solutions such that the values of all n
@@ -60,12 +62,14 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
    * @throws NegativeArraySizeException if n &lt; 0
    */
   public RealVectorInitializer(int n, double a, double b) {
-    if (a >= b) throw new IllegalArgumentException("a must be less than b");
+    if (a >= b) {
+      throw new IllegalArgumentException("a must be less than b");
+    }
     x = new double[n];
-    this.a = new double[] {a};
-    this.b = new double[] {b};
-    min = max = null;
+    initializer = (x, generator) -> singleIntervalInit(generator, x, a, b);
+    creator = x -> new RealVector(x);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    min = max = null;
   }
 
   /**
@@ -85,16 +89,12 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
    *     i, such that a[i] &ge; b[i].
    */
   public RealVectorInitializer(double[] a, double[] b) {
-    if (a.length != b.length)
-      throw new IllegalArgumentException("lengths of a and b must be identical");
-    for (int i = 0; i < a.length; i++) {
-      if (a[i] >= b[i]) throw new IllegalArgumentException("a[i] must be less than b[i]");
-    }
+    validateAB(a, b);
     x = new double[a.length];
-    this.a = a.clone();
-    this.b = b.clone();
-    min = max = null;
+    initializer = (x, generator) -> multiIntervalInit(generator, x, a.clone(), b.clone());
+    creator = x -> new RealVector(x);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    min = max = null;
   }
 
   /**
@@ -114,14 +114,19 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
    * @throws NegativeArraySizeException if n &lt; 0
    */
   public RealVectorInitializer(int n, double a, double b, double min, double max) {
-    if (a >= b) throw new IllegalArgumentException("a must be less than b");
-    if (min > max) throw new IllegalArgumentException("min must be less than or equal to max");
+    if (a >= b) {
+      throw new IllegalArgumentException("a must be less than b");
+    }
+    if (min > max) {
+      throw new IllegalArgumentException("min must be less than or equal to max");
+    }
     x = new double[n];
-    this.a = new double[] {a <= min ? min : a};
-    this.b = new double[] {b > max ? max + Math.ulp(max) : b};
-    this.min = new double[] {min};
-    this.max = new double[] {max};
+    initializer =
+        (x, generator) ->
+            singleIntervalInit(generator, x, Math.max(a, min), Math.min(b, max + Math.ulp(max)));
+    creator = x -> new BoundedRealVector(x, min, max);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    this.min = this.max = null;
   }
 
   /**
@@ -144,22 +149,21 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
    *     i, such that a[i] &ge; b[i]; or if min &gt; max.
    */
   public RealVectorInitializer(double[] a, double[] b, double min, double max) {
-    if (a.length != b.length)
-      throw new IllegalArgumentException("lengths of a and b must be identical");
-    if (min > max) throw new IllegalArgumentException("min must be less than or equal to max");
-    for (int i = 0; i < a.length; i++) {
-      if (a[i] >= b[i]) throw new IllegalArgumentException("a[i] must be less than b[i]");
+    if (min > max) {
+      throw new IllegalArgumentException("min must be less than or equal to max");
     }
+    validateAB(a, b);
     x = new double[a.length];
-    this.a = new double[a.length];
-    this.b = new double[b.length];
-    for (int i = 0; i < a.length; i++) {
-      this.a[i] = a[i] <= min ? min : a[i];
-      this.b[i] = b[i] > max ? max + Math.ulp(max) : b[i];
+    final double[] a2 = a.clone();
+    final double[] b2 = b.clone();
+    for (int i = 0; i < a2.length; i++) {
+      a2[i] = Math.max(a2[i], min);
+      b2[i] = Math.min(b2[i], max + Math.ulp(max));
     }
-    this.min = new double[] {min};
-    this.max = new double[] {max};
+    initializer = (x, generator) -> multiIntervalInit(generator, x, a2, b2);
+    creator = x -> new BoundedRealVector(x, min, max);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    this.min = this.max = null;
   }
 
   /**
@@ -184,61 +188,75 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
    *     i, such that a[i] &ge; b[i] or min[i] &gt; max[i].
    */
   public RealVectorInitializer(double[] a, double[] b, double[] min, double[] max) {
-    if (a.length != b.length || min.length != max.length || a.length != min.length) {
+    if (min.length != max.length || a.length != min.length) {
       throw new IllegalArgumentException("lengths of a, b, min, and max must be identical");
     }
-    for (int i = 0; i < a.length; i++) {
-      if (a[i] >= b[i]) {
-        throw new IllegalArgumentException("a[i] must be less than b[i]");
-      }
+    validateAB(a, b);
+    for (int i = 0; i < min.length; i++) {
       if (min[i] > max[i]) {
         throw new IllegalArgumentException("min[i] must be less than or equal to max[i]");
       }
     }
     x = new double[a.length];
-    this.a = new double[a.length];
-    this.b = new double[b.length];
+    final double[] a2 = a.clone();
+    final double[] b2 = b.clone();
     for (int i = 0; i < a.length; i++) {
-      this.a[i] = a[i] <= min[i] ? min[i] : a[i];
-      this.b[i] = b[i] > max[i] ? max[i] + Math.ulp(max[i]) : b[i];
+      a2[i] = Math.max(a2[i], min[i]);
+      b2[i] = Math.min(b2[i], max[i] + Math.ulp(max[i]));
     }
+    initializer = (x, generator) -> multiIntervalInit(generator, x, a2, b2);
     this.min = min.clone();
     this.max = max.clone();
+    creator = x -> new MultiBoundedRealVector(x);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   private RealVectorInitializer(RealVectorInitializer other) {
-    min = other.min == null ? null : other.min.clone();
-    max = other.max == null ? null : other.max.clone();
-    a = other.a.clone();
-    b = other.b.clone();
-    x = new double[a.length];
+    // these should be safe to share
+    min = other.min;
+    max = other.max;
+    initializer = other.initializer;
+    creator = other.creator;
+
+    // each instance needs their own independent instances of these
+    x = new double[other.x.length];
     generator = other.generator.split();
   }
 
   @Override
   public final RealVector createCandidateSolution() {
-    if (a.length > 1) {
-      for (int i = 0; i < x.length; i++) {
-        x[i] = generator.nextDouble(a[i], b[i]);
-      }
-    } else {
-      for (int i = 0; i < x.length; i++) {
-        x[i] = generator.nextDouble(a[0], b[0]);
-      }
-    }
-    if (min != null) {
-      return min.length > 1
-          ? new MultiBoundedRealVector(x)
-          : new BoundedRealVector(x, min[0], max[0]);
-    } else {
-      return new RealVector(x);
-    }
+    initializer.accept(x, generator);
+    return creator.apply(x);
   }
 
   @Override
   public RealVectorInitializer split() {
     return new RealVectorInitializer(this);
+  }
+
+  private static void singleIntervalInit(
+      EnhancedSplittableGenerator generator, double[] x, double a, double b) {
+    for (int i = 0; i < x.length; i++) {
+      x[i] = generator.nextDouble(a, b);
+    }
+  }
+
+  private static void multiIntervalInit(
+      EnhancedSplittableGenerator generator, double[] x, double[] a, double[] b) {
+    for (int i = 0; i < x.length; i++) {
+      x[i] = generator.nextDouble(a[i], b[i]);
+    }
+  }
+
+  private static void validateAB(double[] a, double[] b) {
+    if (a.length != b.length) {
+      throw new IllegalArgumentException("lengths of a and b must be identical");
+    }
+    for (int i = 0; i < a.length; i++) {
+      if (a[i] >= b[i]) {
+        throw new IllegalArgumentException("a[i] must be less than b[i]");
+      }
+    }
   }
 
   /**
@@ -286,9 +304,7 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
      */
     @Override
     public final void set(int i, double value) {
-      if (value < min[i]) super.set(i, min[i]);
-      else if (value > max[i]) super.set(i, max[i]);
-      else super.set(i, value);
+      super.set(i, Math.max(min[i], Math.min(value, max[i])));
     }
 
     /*

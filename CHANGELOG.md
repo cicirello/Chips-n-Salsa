@@ -13,18 +13,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 ### Removed
-* NaiveGenerationalEvolutionaryAlgorithm removed. This is not a breaking change. See changelog and release notes for release 6.3.0, where it was simultaneously introduced and deprecated for reason, which also indicates what should be used instead.
+
+### Fixed
+
+### Dependencies
+
+### CI/CD
+
+### Other
+
+
+## [7.0.1] - 2024-12-12
 
 ### Fixed
 * Refactored RealVectorInitializer based on RefactorFirst analysis.
 * Refactored IntegerVectorInitializer based on RefactorFirst analysis.
 
+### Removed
+* NaiveGenerationalEvolutionaryAlgorithm removed. This is not a breaking change. See changelog and release notes for release 6.3.0, where it was simultaneously introduced and deprecated for reason, which also indicates what should be used instead.
+
 ### Dependencies
 * Bump org.cicirello:rho-mu from 4.1.0 to 4.2.0
-
-### CI/CD
-
-### Other
 
 
 ## [7.0.0] - 2024-08-01

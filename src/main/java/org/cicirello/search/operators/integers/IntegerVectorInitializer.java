@@ -20,6 +20,8 @@
 
 package org.cicirello.search.operators.integers;
 
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
@@ -40,12 +42,12 @@ import org.cicirello.search.representations.IntegerVector;
  */
 public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 
+  private final EnhancedSplittableGenerator generator;
   private final int[] x;
-  private final int[] a;
-  private final int[] b;
+  private final BiConsumer<int[], EnhancedSplittableGenerator> initializer;
+  private final Function<int[], IntegerVector> creator;
   private final int[] min;
   private final int[] max;
-  private final EnhancedSplittableGenerator generator;
 
   /**
    * Construct a IntegerVectorInitializer that generates random solutions such that the values of
@@ -61,12 +63,14 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
    * @throws NegativeArraySizeException if n &lt; 0
    */
   public IntegerVectorInitializer(int n, int a, int b) {
-    if (a >= b) throw new IllegalArgumentException("a must be less than b");
+    if (a >= b) {
+      throw new IllegalArgumentException("a must be less than b");
+    }
     x = new int[n];
-    this.a = new int[] {a};
-    this.b = new int[] {b};
-    min = max = null;
+    initializer = (x, generator) -> singleIntervalInit(generator, x, a, b);
+    creator = x -> new IntegerVector(x);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    min = max = null;
   }
 
   /**
@@ -86,16 +90,14 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
    *     i, such that a[i] &ge; b[i].
    */
   public IntegerVectorInitializer(int[] a, int[] b) {
-    if (a.length != b.length)
-      throw new IllegalArgumentException("lengths of a and b must be identical");
-    for (int i = 0; i < a.length; i++) {
-      if (a[i] >= b[i]) throw new IllegalArgumentException("a[i] must be less than b[i]");
-    }
+    validateAB(a, b);
     x = new int[a.length];
-    this.a = a.clone();
-    this.b = b.clone();
-    min = max = null;
+    final int[] a2 = a.clone();
+    final int[] b2 = b.clone();
+    initializer = (x, generator) -> multiIntervalInit(generator, x, a2, b2);
+    creator = x -> new IntegerVector(x);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    min = max = null;
   }
 
   /**
@@ -115,14 +117,19 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
    * @throws NegativeArraySizeException if n &lt; 0
    */
   public IntegerVectorInitializer(int n, int a, int b, int min, int max) {
-    if (a >= b) throw new IllegalArgumentException("a must be less than b");
-    if (min > max) throw new IllegalArgumentException("min must be less than or equal to max");
+    if (a >= b) {
+      throw new IllegalArgumentException("a must be less than b");
+    }
+    if (min > max) {
+      throw new IllegalArgumentException("min must be less than or equal to max");
+    }
     x = new int[n];
-    this.a = new int[] {a <= min ? min : a};
-    this.b = new int[] {b > max + 1 ? max + 1 : b};
-    this.min = new int[] {min};
-    this.max = new int[] {max};
+    final int a2 = Math.max(a, min);
+    final int b2 = Math.min(b, max + 1);
+    initializer = (x, generator) -> singleIntervalInit(generator, x, a2, b2);
+    creator = x -> new BoundedIntegerVector(x, min, max);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    this.min = this.max = null;
   }
 
   /**
@@ -145,22 +152,21 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
    *     i, such that a[i] &ge; b[i]; or if min &gt; max.
    */
   public IntegerVectorInitializer(int[] a, int[] b, int min, int max) {
-    if (a.length != b.length)
-      throw new IllegalArgumentException("lengths of a and b must be identical");
-    if (min > max) throw new IllegalArgumentException("min must be less than or equal to max");
-    for (int i = 0; i < a.length; i++) {
-      if (a[i] >= b[i]) throw new IllegalArgumentException("a[i] must be less than b[i]");
+    if (min > max) {
+      throw new IllegalArgumentException("min must be less than or equal to max");
     }
+    validateAB(a, b);
     x = new int[a.length];
-    this.a = new int[a.length];
-    this.b = new int[b.length];
-    for (int i = 0; i < a.length; i++) {
-      this.a[i] = a[i] <= min ? min : a[i];
-      this.b[i] = b[i] > max + 1 ? max + 1 : b[i];
+    final int[] a2 = a.clone();
+    final int[] b2 = b.clone();
+    for (int i = 0; i < a2.length; i++) {
+      a2[i] = Math.max(a2[i], min);
+      b2[i] = Math.min(b2[i], max + 1);
     }
-    this.min = new int[] {min};
-    this.max = new int[] {max};
+    initializer = (x, generator) -> multiIntervalInit(generator, x, a2, b2);
+    creator = x -> new BoundedIntegerVector(x, min, max);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
+    this.min = this.max = null;
   }
 
   /**
@@ -185,35 +191,38 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
    *     i, such that a[i] &ge; b[i] or min[i] &gt; max[i].
    */
   public IntegerVectorInitializer(int[] a, int[] b, int[] min, int[] max) {
-    if (a.length != b.length || min.length != max.length || a.length != min.length) {
+    if (min.length != max.length || a.length != min.length) {
       throw new IllegalArgumentException("lengths of a, b, min, and max must be identical");
     }
+    validateAB(a, b);
     for (int i = 0; i < a.length; i++) {
-      if (a[i] >= b[i]) {
-        throw new IllegalArgumentException("a[i] must be less than b[i]");
-      }
       if (min[i] > max[i]) {
         throw new IllegalArgumentException("min[i] must be less than or equal to max[i]");
       }
     }
     x = new int[a.length];
-    this.a = new int[a.length];
-    this.b = new int[b.length];
-    for (int i = 0; i < a.length; i++) {
-      this.a[i] = a[i] <= min[i] ? min[i] : a[i];
-      this.b[i] = b[i] > max[i] + 1 ? max[i] + 1 : b[i];
+    final int[] a2 = a.clone();
+    final int[] b2 = b.clone();
+    for (int i = 0; i < a2.length; i++) {
+      a2[i] = Math.max(a2[i], min[i]);
+      b2[i] = Math.min(b2[i], max[i] + 1);
     }
+    initializer = (x, generator) -> multiIntervalInit(generator, x, a2, b2);
     this.min = min.clone();
     this.max = max.clone();
+    creator = x -> new MultiBoundedIntegerVector(x);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 
   private IntegerVectorInitializer(IntegerVectorInitializer other) {
-    min = other.min == null ? null : other.min.clone();
-    max = other.max == null ? null : other.max.clone();
-    a = other.a.clone();
-    b = other.b.clone();
-    x = new int[a.length];
+    // these should be safe to share
+    min = other.min;
+    max = other.max;
+    initializer = other.initializer;
+    creator = other.creator;
+
+    // each instance needs their own independent instances of these
+    x = new int[other.x.length];
     generator = other.generator.split();
   }
 
@@ -227,27 +236,38 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
 
   @Override
   public final IntegerVector createCandidateSolution() {
-    if (a.length > 1) {
-      for (int i = 0; i < x.length; i++) {
-        x[i] = a[i] + generator.nextInt(b[i] - a[i]);
-      }
-    } else {
-      for (int i = 0; i < x.length; i++) {
-        x[i] = a[0] + generator.nextInt(b[0] - a[0]);
-      }
-    }
-    if (min != null) {
-      return min.length > 1
-          ? new MultiBoundedIntegerVector(x)
-          : new BoundedIntegerVector(x, min[0], max[0]);
-    } else {
-      return new IntegerVector(x);
-    }
+    initializer.accept(x, generator);
+    return creator.apply(x);
   }
 
   @Override
   public IntegerVectorInitializer split() {
     return new IntegerVectorInitializer(this);
+  }
+
+  private static void singleIntervalInit(
+      EnhancedSplittableGenerator generator, int[] x, int a, int b) {
+    for (int i = 0; i < x.length; i++) {
+      x[i] = generator.nextInt(a, b);
+    }
+  }
+
+  private static void multiIntervalInit(
+      EnhancedSplittableGenerator generator, int[] x, int[] a, int[] b) {
+    for (int i = 0; i < x.length; i++) {
+      x[i] = generator.nextInt(a[i], b[i]);
+    }
+  }
+
+  private static void validateAB(int[] a, int[] b) {
+    if (a.length != b.length) {
+      throw new IllegalArgumentException("lengths of a and b must be identical");
+    }
+    for (int i = 0; i < a.length; i++) {
+      if (a[i] >= b[i]) {
+        throw new IllegalArgumentException("a[i] must be less than b[i]");
+      }
+    }
   }
 
   /**
@@ -293,9 +313,7 @@ public class IntegerVectorInitializer implements Initializer<IntegerVector> {
      */
     @Override
     public final void set(int i, int value) {
-      if (value < min[i]) super.set(i, min[i]);
-      else if (value > max[i]) super.set(i, max[i]);
-      else super.set(i, value);
+      super.set(i, Math.max(min[i], Math.min(value, max[i])));
     }
 
     /*

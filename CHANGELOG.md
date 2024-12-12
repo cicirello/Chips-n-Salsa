@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 * Refactored RealVectorInitializer based on RefactorFirst analysis.
+* Refactored IntegerVectorInitializer based on RefactorFirst analysis.
 
 ### Dependencies
 * Bump org.cicirello:rho-mu from 4.1.0 to 4.2.0

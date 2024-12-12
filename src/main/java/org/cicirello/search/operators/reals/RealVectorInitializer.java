@@ -91,7 +91,9 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
   public RealVectorInitializer(double[] a, double[] b) {
     validateAB(a, b);
     x = new double[a.length];
-    initializer = (x, generator) -> multiIntervalInit(generator, x, a.clone(), b.clone());
+    final double[] a2 = a.clone();
+    final double[] b2 = b.clone();
+    initializer = (x, generator) -> multiIntervalInit(generator, x, a2, b2);
     creator = x -> new RealVector(x);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
     min = max = null;
@@ -121,9 +123,9 @@ public final class RealVectorInitializer implements Initializer<RealVector> {
       throw new IllegalArgumentException("min must be less than or equal to max");
     }
     x = new double[n];
-    initializer =
-        (x, generator) ->
-            singleIntervalInit(generator, x, Math.max(a, min), Math.min(b, max + Math.ulp(max)));
+    final double a2 = Math.max(a, min);
+    final double b2 = Math.min(b, max + Math.ulp(max));
+    initializer = (x, generator) -> singleIntervalInit(generator, x, a2, b2);
     creator = x -> new BoundedRealVector(x, min, max);
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
     this.min = this.max = null;

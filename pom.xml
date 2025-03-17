@@ -188,7 +188,7 @@
 					<plugin>
 						<groupId>org.hjug.refactorfirst.plugin</groupId>
 						<artifactId>refactor-first-maven-plugin</artifactId>
-						<version>0.6.2</version>       
+						<version>0.7.0</version>       
 						<configuration>
 							<showDetails>true</showDetails>
 						</configuration>

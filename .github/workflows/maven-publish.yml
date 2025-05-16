@@ -19,12 +19,12 @@ jobs:
       id: get_version
       run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_OUTPUT
 
-    - name: Set up JDK 17 for deploy to OSSRH
+    - name: Set up JDK 17 for deploy to Central
       uses: actions/setup-java@v4
       with:
         distribution: 'adopt'
         java-version: '17'
-        server-id: ossrh 
+        server-id: central 
         server-username: MAVEN_USERNAME
         server-password: MAVEN_CENTRAL_TOKEN
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
@@ -37,7 +37,7 @@ jobs:
       run: mvn versions:set -DnewVersion=${{ steps.get_version.outputs.VERSION }}
 
     - name: Publish to Apache Maven Central
-      run: mvn deploy -PossrhDeploy
+      run: mvn deploy -PcentralDeploy
       env:
         MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}

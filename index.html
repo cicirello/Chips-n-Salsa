@@ -242,6 +242,30 @@ In <i>Proceedings of the 16th International Joint Conference on Computational In
 </ul>
 </section>
 <section>
+<h3>Dependencies</h3>
+<p>The Chips-n-Salsa library has minimal dependencies, all of which are our own
+libraries, and these include the following.</p>
+<ul>
+<li><a href="https://jpt.cicirello.org/">JavaPermutationTools (JPT)</a>: JPT is a
+Java library focused on permutations and sequences, and operations involving them.
+The primary reason that it is a dependency of Chips-n-Salsa is for its efficient
+implementation of permutations, which is one of Chips-n-Salsa's built-in representations
+suitable for solving ordering and sequencing problems via evolutionary computation, such
+as the traveling salesperson problem, scheduling problems, mapping and assignment problems,
+etc. JPT also includes implementations of many idstance metrics for permutations.</li>
+<li><a href="https://rho-mu.cicirello.org/">&rho;&mu;</a>: The &rho;&mu; library is
+focused on efficient randomization. It provides highly optimized random sampling algorithm
+implementations, and replaces some of the functionality of Java's built-in random
+number generators with faster options. Due to the high frequency of random number
+generation that occurs during a run of an evolutionary algorithm or other randomized
+metaheuristic, our experiments show that we can achieve massive performance gains
+by optimizing the implementation of random behavior via the &rho;&mu; library.</li>
+<li><a href="https://core.cicirello.org/">org.cicirello.core</a>: The org.cicirello.core
+library provides implementations of core data structures and algorithms that are used
+across multiple of our projects.</li>
+</ul>
+</section>
+<section>
 <h3>Importing from Maven Central</h3>
 <div class="badge-height"><a href="https://central.sonatype.com/artifact/org.cicirello/chips-n-salsa/"><amp-img class="contain" layout="fill" alt="Latest release on Maven Central" src="https://img.shields.io/maven-central/v/org.cicirello/chips-n-salsa.svg?label=Maven%20Central&logo=apachemaven"></amp-img></a></div>
 <p>To import Chips-n-Salsa from the Maven Central repository (if your build tool is
@@ -282,30 +306,6 @@ version numbers of the form: MAJOR.MINOR.PATCH, where differences in MAJOR
 correspond to incompatible API changes, differences in MINOR correspond 
 to introduction of backwards compatible new functionality, and PATCH 
 corresponds to backwards compatible bug fixes.</p> 
-</section>
-<section>
-<h3>Dependencies</h3>
-<p>The Chips-n-Salsa library has minimal dependencies, all of which are our own
-libraries, and these include the following.</p>
-<ul>
-<li><a href="https://jpt.cicirello.org/">JavaPermutationTools (JPT)</a>: JPT is a
-Java library focused on permutations and sequences, and operations involving them.
-The primary reason that it is a dependency of Chips-n-Salsa is for its efficient
-implementation of permutations, which is one of Chips-n-Salsa's built-in representations
-suitable for solving ordering and sequencing problems via evolutionary computation, such
-as the traveling salesperson problem, scheduling problems, mapping and assignment problems,
-etc. JPT also includes implementations of many idstance metrics for permutations.</li>
-<li><a href="https://rho-mu.cicirello.org/">&rho;&mu;</a>: The &rho;&mu; library is
-focused on efficient randomization. It provides highly optimized random sampling algorithm
-implementations, and replaces some of the functionality of Java's built-in random
-number generators with faster options. Due to the high frequency of random number
-generation that occurs during a run of an evolutionary algorithm or other randomized
-metaheuristic, our experiments show that we can achieve massive performance gains
-by optimizing the implementation of random behavior via the &rho;&mu; library.</li>
-<li><a href="https://core.cicirello.org/">org.cicirello.core</a>: The org.cicirello.core
-library provides implementations of core data structures and algorithms that are used
-across multiple of our projects.</li>
-</ul>
 </section>
 <section>
 <h3>Development Process</h3>

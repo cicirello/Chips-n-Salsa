@@ -16,10 +16,10 @@ jobs:
 
     steps:
     - name: Checkout the repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Checkout the gh-pages branch
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
         ref: gh-pages

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2025 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -27,6 +27,14 @@ package org.cicirello.search.problems.tsp;
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
 public final class EuclideanDistance implements TSPEdgeDistance {
+
+  /** Constructs the Euclidean distance function. */
+  public EuclideanDistance() {
+    // Deliberately empty: no initialization necessary.
+    // Added empty default constructor for javadoc purposes, such as
+    // preventing warning during compilation, and to ensure the documentation
+    // is not blank.
+  }
 
   @Override
   public double distance(double x1, double y1, double x2, double y2) {

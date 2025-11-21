@@ -15,10 +15,10 @@ jobs:
     
     steps:
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     - name: Checkout badges branch to a badges directory nested inside first checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         ref: badges
         path: badges

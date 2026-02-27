@@ -46,7 +46,7 @@ jobs:
         echo "branches = ${{ steps.jacoco.outputs.branches }}"
 
     - name: Upload JaCoCo coverage report as a workflow artifact
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: jacoco-report
         path: target/site/jacoco/

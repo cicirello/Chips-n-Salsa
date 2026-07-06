@@ -244,7 +244,7 @@
 		<dependency>
 			<groupId>org.cicirello</groupId>
 			<artifactId>rho-mu</artifactId>
-			<version>4.2.1</version>
+			<version>5.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cicirello</groupId>

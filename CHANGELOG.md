@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added missing default constructor to `org.cicirello.search.problems.tsp.EuclideanDistance` to avoid undocumented constructor.
 * Refactored ATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
 * Refactored DynamicATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
+* Refactored Mix.value(BitVector) to eLiminate dispersed coupling, detected by RefactorFirst.
 
 ### Dependencies
 

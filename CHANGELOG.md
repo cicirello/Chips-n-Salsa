@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored ATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
 * Refactored DynamicATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
 * Refactored Mix.value(BitVector) to eLiminate dispersed coupling, detected by RefactorFirst.
+* Refactored BlockInterchangeIterator.nextBlockInsertion(), identified as a brain method by RefactorFirst.
 
 ### Dependencies
 

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -52,6 +52,7 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
   private final double k2;
   private final int pSum;
   private final int sSum;
+  private final boolean ADJUST_FOR_SETUPS;
 
   /**
    * Constructs an DynamicATCS heuristic.
@@ -72,6 +73,7 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
     }
     pSum = sumOfProcessingTimes();
     sSum = sumOfSetupTimes();
+    ADJUST_FOR_SETUPS = sSum != 0;
     this.k1 = k1;
     this.k2 = k2;
   }
@@ -96,6 +98,7 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
     double eta = 0;
     double cmax = pSum;
     if (sSum > 0) {
+      ADJUST_FOR_SETUPS = true;
       double meanS = ((double) sSum) / (n * n);
       eta = n * meanS / pSum;
 
@@ -105,6 +108,8 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
       final double BETA_MIN = n < 153 ? -0.097 * Math.log(n) + 0.6876 : 0.2;
       final double BETA = cv == 0 ? 1.0 : 1.0 - (1.0 - BETA_MIN) * cv / 0.3333333333;
       cmax += n * meanS * BETA;
+    } else {
+      ADJUST_FOR_SETUPS = false;
     }
     double[] d_stats = computeDueDateStats();
     double R = (d_stats[1] - d_stats[0]) / cmax;
@@ -125,23 +130,43 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
   @Override
   public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
     double value = super.h(p, element, incEval);
-    if (value > MIN_H) {
-      double num =
-          data.getDueDate(element)
-              - data.getProcessingTime(element)
-              - ((IncrementalStatsCalculator) incEval).currentTime();
-      if (num > 0) {
-        double denom = k1 * ((IncrementalStatsCalculator) incEval).averageProcessingTime();
-        value *= Math.exp(-num / denom);
-        if (value <= MIN_H) return MIN_H;
+    if (value <= MIN_H) {
+      return MIN_H;
+    }
+    if (ADJUST_FOR_SETUPS) {
+      return adjustHForSetups(adjustHForDuedates(value, element, incEval), p, element, incEval);
+    }
+    return adjustHForDuedates(value, element, incEval);
+  }
+
+  private double adjustHForDuedates(
+      double value, int element, IncrementalEvaluation<Permutation> incEval) {
+    double num =
+        data.getDueDate(element)
+            - data.getProcessingTime(element)
+            - ((IncrementalStatsCalculator) incEval).currentTime();
+    if (num > 0) {
+      double denom = k1 * ((IncrementalStatsCalculator) incEval).averageProcessingTime();
+      value *= Math.exp(-num / denom);
+      if (value <= MIN_H) {
+        return MIN_H;
       }
-      if (HAS_SETUPS && sSum > 0) {
-        num = p.size() == 0 ? data.getSetupTime(element) : data.getSetupTime(p.getLast(), element);
-        if (num > 0) {
-          double denom = k2 * ((IncrementalStatsCalculator) incEval).averageSetupTime();
-          value *= Math.exp(-num / denom);
-          if (value <= MIN_H) return MIN_H;
-        }
+    }
+    return value;
+  }
+
+  private double adjustHForSetups(
+      double value,
+      Partial<Permutation> p,
+      int element,
+      IncrementalEvaluation<Permutation> incEval) {
+    double num =
+        p.size() == 0 ? data.getSetupTime(element) : data.getSetupTime(p.getLast(), element);
+    if (num > 0) {
+      double denom = k2 * ((IncrementalStatsCalculator) incEval).averageSetupTime();
+      value *= Math.exp(-num / denom);
+      if (value <= MIN_H) {
+        return MIN_H;
       }
     }
     return value;

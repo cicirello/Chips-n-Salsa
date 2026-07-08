@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -189,20 +189,13 @@ final class BlockInterchangeIterator implements MutationIterator {
   }
 
   private void nextBlockInsertion() {
-    int s = k - j + 1;
     if (phase == 2) {
-      phase = 3;
-      p.swap(i, j);
-      nextS = 2;
-      j = p.length() - 2;
-      k = j + 1;
-      i = j - 2;
-      p.removeAndInsert(j, 2, i);
-      if (i == 0) {
-        hasMoreBlocksInserts = false;
-        hasMore = hasMoreBlocksSwaps;
-      }
-    } else if (s != nextS) {
+      firstBlockInsertion();
+      return;
+    }
+
+    int s = k - j + 1;
+    if (s != nextS) {
       p.removeAndInsert(i, s, j);
       j = p.length() - nextS;
       i = j - nextS;
@@ -213,43 +206,58 @@ final class BlockInterchangeIterator implements MutationIterator {
         hasMoreBlocksInserts = false;
         hasMore = hasMoreBlocksSwaps;
       }
-    } else {
-      if (j > i) {
-        if (i > 0) {
-          i--;
-          p.removeAndInsert(i, i + s);
-        } else if (j > s) {
-          p.removeAndInsert(i, s, j);
-          j--;
-          k--;
-          i = j - s;
-          p.removeAndInsert(j, s, i);
-        } else {
-          p.removeAndInsert(i, s, j);
-          j = 0;
-          k = s - 1;
-          i = s + 1;
-          p.removeAndInsert(j, s, i);
-          if (p.length() == s + s + 1) {
-            hasMoreBlocksInserts = false;
-            hasMore = hasMoreBlocksSwaps;
-          }
-        }
+      return;
+    }
+
+    if (j > i) {
+      if (i > 0) {
+        i--;
+        p.removeAndInsert(i, i + s);
+      } else if (j > s) {
+        p.removeAndInsert(i, s, j);
+        j--;
+        k--;
+        i = j - s;
+        p.removeAndInsert(j, s, i);
       } else {
-        if (i < p.length() - s) {
-          p.removeAndInsert(i + s, i);
-          i++;
-        } else {
-          p.removeAndInsert(i, s, j);
-          j++;
-          k++;
-          i = j + s + 1;
-          p.removeAndInsert(j, s, i);
-          if (i == p.length() - s) {
-            nextS++;
-          }
+        p.removeAndInsert(i, s, j);
+        j = 0;
+        k = s - 1;
+        i = s + 1;
+        p.removeAndInsert(j, s, i);
+        if (p.length() == s + s + 1) {
+          hasMoreBlocksInserts = false;
+          hasMore = hasMoreBlocksSwaps;
         }
       }
+    } else {
+      if (i < p.length() - s) {
+        p.removeAndInsert(i + s, i);
+        i++;
+      } else {
+        p.removeAndInsert(i, s, j);
+        j++;
+        k++;
+        i = j + s + 1;
+        p.removeAndInsert(j, s, i);
+        if (i == p.length() - s) {
+          nextS++;
+        }
+      }
+    }
+  }
+
+  private void firstBlockInsertion() {
+    phase = 3;
+    p.swap(i, j);
+    nextS = 2;
+    j = p.length() - 2;
+    k = j + 1;
+    i = j - 2;
+    p.removeAndInsert(j, 2, i);
+    if (i == 0) {
+      hasMoreBlocksInserts = false;
+      hasMore = hasMoreBlocksSwaps;
     }
   }
 

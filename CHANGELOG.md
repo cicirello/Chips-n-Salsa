@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2025-10-04
+## [Unreleased] - 2026-07-08
 
 ### Added
 
@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 * Added missing default constructor to `org.cicirello.search.problems.tsp.EuclideanDistance` to avoid undocumented constructor.
+* Refactored ATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
+* Refactored DynamicATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
 
 ### Dependencies
 

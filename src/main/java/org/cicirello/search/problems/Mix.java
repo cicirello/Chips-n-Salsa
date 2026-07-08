@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -51,7 +51,6 @@ import org.cicirello.search.representations.BitVector;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 3.26.2021
  */
 public final class Mix implements OptimizationProblem<BitVector> {
 
@@ -80,6 +79,21 @@ public final class Mix implements OptimizationProblem<BitVector> {
 
   @Override
   public double value(BitVector candidate) {
+    BitVector[] subVectors = computeSubVectors(candidate);
+    int plateauValue = subVectors[4].allOnes() ? 10 * subVectors[4].length() : 0;
+    return onemax.value(subVectors[0])
+        + twomax.value(subVectors[1])
+        + trap.value(subVectors[2])
+        + porcupine.value(subVectors[3])
+        + plateauValue;
+  }
+
+  @Override
+  public boolean isMinCost(double cost) {
+    return cost == 0;
+  }
+
+  private BitVector[] computeSubVectors(BitVector candidate) {
     // Segment size
     int m = candidate.length() / 5;
     // Num segments with an extra bit if n not divisible by 4
@@ -95,16 +109,6 @@ public final class Mix implements OptimizationProblem<BitVector> {
         subVectors[i] = new BitVector(m, iter.nextLargeBitBlock(m));
       }
     }
-    int plateauValue = subVectors[4].allOnes() ? 10 * subVectors[4].length() : 0;
-    return onemax.value(subVectors[0])
-        + twomax.value(subVectors[1])
-        + trap.value(subVectors[2])
-        + porcupine.value(subVectors[3])
-        + plateauValue;
-  }
-
-  @Override
-  public boolean isMinCost(double cost) {
-    return cost == 0;
+    return subVectors;
   }
 }

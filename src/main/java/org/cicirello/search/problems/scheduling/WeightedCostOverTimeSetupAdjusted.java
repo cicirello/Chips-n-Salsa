@@ -56,7 +56,6 @@ public final class WeightedCostOverTimeSetupAdjusted
    *
    * @param problem The cost function of a scheduling problem that is the target of the heuristic.
    * @param data The instance specific data.
-   * @param data The instance specific data.
    * @param k A parameter to the heuristic, which must be positive. Typical good values are in the
    *     interval [1.0, 4.0] but it is not limited to that interval.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -56,11 +56,9 @@ public class WeightedStaticSetupsIOTests {
           for (int k = 0; k < eta.length; k++) {
             WeightedStaticSchedulingWithSetups s =
                 new WeightedStaticSchedulingWithSetups(n, tau[i], r[j], eta[k], 42);
-            WeightedStaticSchedulingWithSetupsWriter instanceWriter =
-                new WeightedStaticSchedulingWithSetupsWriter(s);
             StringWriter sOut = new StringWriter();
             PrintWriter out = new PrintWriter(sOut);
-            instanceWriter.toFile(out, instance);
+            s.toFile(out, instance);
             WeightedStaticSchedulingWithSetupsReader instanceReader =
                 new WeightedStaticSchedulingWithSetupsReader(new StringReader(sOut.toString()));
             int[] process = instanceReader.process();

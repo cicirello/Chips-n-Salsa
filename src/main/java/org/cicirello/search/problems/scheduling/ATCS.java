@@ -50,18 +50,25 @@ public final class ATCS extends WeightedShortestProcessingTime {
   private final double pAve;
   private final double sAve;
   private final boolean ADJUST_FOR_SETUPS;
+  private final SingleMachineSchedulingProblemData data;
 
   /**
    * Constructs an ATCS heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @param k1 A parameter to the heuristic, which must be positive.
    * @param k2 A parameter to the heuristic, which must be positive.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    * @throws IllegalArgumentException if k &le; 0.0.
    */
-  public ATCS(SingleMachineSchedulingProblem problem, double k1, double k2) {
-    super(problem);
+  public ATCS(
+      SingleMachineSchedulingProblem problem,
+      SingleMachineSchedulingProblemData data,
+      double k1,
+      double k2) {
+    super(problem, data);
+    this.data = data;
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
@@ -69,8 +76,8 @@ public final class ATCS extends WeightedShortestProcessingTime {
       throw new IllegalArgumentException("k1 and k2 must be positive");
     }
     int n = data.numberOfJobs();
-    pAve = ((double) sumOfProcessingTimes()) / n;
-    int totalSetupTimes = sumOfSetupTimes();
+    pAve = ((double) data.sumOfProcessingTimes()) / n;
+    int totalSetupTimes = data.sumOfSetupTimes();
     if (totalSetupTimes == 0) {
       sAve = 0.0;
       ADJUST_FOR_SETUPS = false;
@@ -86,11 +93,13 @@ public final class ATCS extends WeightedShortestProcessingTime {
    * Constructs an ATCS heuristic. Sets the values of k1 and k2 according to the procedure described
    * by the authors of the ATCS heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    */
-  public ATCS(SingleMachineSchedulingProblem problem) {
-    super(problem);
+  public ATCS(SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
+    this.data = data;
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
@@ -98,10 +107,10 @@ public final class ATCS extends WeightedShortestProcessingTime {
     int n = data.numberOfJobs();
     double cv = 0;
     double eta = 0;
-    int pSum = sumOfProcessingTimes();
+    int pSum = data.sumOfProcessingTimes();
     double cmax = pSum;
     pAve = ((double) pSum) / n;
-    int totalSetupTimes = sumOfSetupTimes();
+    int totalSetupTimes = data.sumOfSetupTimes();
     if (totalSetupTimes == 0) {
       sAve = 0.0;
       ADJUST_FOR_SETUPS = false;
@@ -119,7 +128,7 @@ public final class ATCS extends WeightedShortestProcessingTime {
       final double BETA = cv == 0 ? 1.0 : 1.0 - (1.0 - BETA_MIN) * cv / 0.3333333333;
       cmax += n * sAve * BETA;
     }
-    double[] d_stats = computeDueDateStats();
+    double[] d_stats = data.dueDateStats();
     double R = (d_stats[1] - d_stats[0]) / cmax;
     double tau = 1.0 - d_stats[2] / cmax;
     if (R <= 0.5) k1 = 4.5 + R;
@@ -179,20 +188,6 @@ public final class ATCS extends WeightedShortestProcessingTime {
     return new IncrementalTimeCalculator();
   }
 
-  private double[] computeDueDateStats() {
-    int min = data.getDueDate(0);
-    int max = min;
-    int sum = min;
-    int n = data.numberOfJobs();
-    for (int i = 1; i < n; i++) {
-      int d = data.getDueDate(i);
-      if (d < min) min = d;
-      else if (d > max) max = d;
-      sum += d;
-    }
-    return new double[] {min, max, ((double) sum) / n};
-  }
-
   private double setupVariance(double mean) {
     int n = data.numberOfJobs();
     double total = 0;
@@ -203,10 +198,5 @@ public final class ATCS extends WeightedShortestProcessingTime {
       }
     }
     return total / (n * n) - mean * mean;
-  }
-
-  /* package-private: here to support testing only */
-  final double getSetupAverage() {
-    return sAve;
   }
 }

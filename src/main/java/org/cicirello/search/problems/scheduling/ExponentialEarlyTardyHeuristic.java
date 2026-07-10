@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -56,7 +56,6 @@ import org.cicirello.search.ss.Partial;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.31.2020
  */
 public final class ExponentialEarlyTardyHeuristic extends SchedulingHeuristic {
 
@@ -69,21 +68,25 @@ public final class ExponentialEarlyTardyHeuristic extends SchedulingHeuristic {
   /**
    * Constructs a ExponentialEarlyTardyHeuristic heuristic. Uses a default value of k=1.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public ExponentialEarlyTardyHeuristic(SingleMachineSchedulingProblem problem) {
-    this(problem, 1.0);
+  public ExponentialEarlyTardyHeuristic(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    this(problem, data, 1.0);
   }
 
   /**
    * Constructs a ExponentialEarlyTardyHeuristic heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @param k A parameter of the heuristic (see class documentation). Must be at least 1.
    * @throws IllegalArgumentException if k &lt; 1.
    */
-  public ExponentialEarlyTardyHeuristic(SingleMachineSchedulingProblem problem, double k) {
-    super(problem);
+  public ExponentialEarlyTardyHeuristic(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data, double k) {
+    super(problem, data);
     if (k < 1) throw new IllegalArgumentException("k must be at least 1");
     // pre-compute WLPT and WSPT, and cache results.
     wlpt = new double[data.numberOfJobs()];
@@ -97,7 +100,7 @@ public final class ExponentialEarlyTardyHeuristic extends SchedulingHeuristic {
     // shift heuristic values by minimum to ensure all positive values.
     shift = MIN_H - minimum;
     this.k = k;
-    totalProcessTime = sumOfProcessingTimes();
+    totalProcessTime = data.sumOfProcessingTimes();
   }
 
   @Override

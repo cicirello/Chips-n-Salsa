@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -26,24 +26,13 @@ import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 /**
  * Implement this interface to define a single machine scheduling problem. A class that implements
  * this interface should implement the cost function for the problem (i.e., the function we are
- * optimizing) and must utilize a class implementing the {@link SingleMachineSchedulingProblemData}
- * interface to represent the data describing the instance, such as processing times, due dates,
- * etc. You may have a single class that implements both interfaces, if desired, in which case, the
- * {@link #getInstanceData} could just return the this reference.
+ * optimizing) and should utilize a class implementing the {@link
+ * SingleMachineSchedulingProblemData} interface to represent the data describing the instance, such
+ * as processing times, due dates, etc. You may have a single class that implements both interfaces,
+ * if desired.
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.15.2020
  */
 public interface SingleMachineSchedulingProblem
-    extends IntegerCostOptimizationProblem<Permutation> {
-
-  /**
-   * Gets an object that encapsulates the data describing the scheduling problem instance, such as
-   * number of jobs, and the characteristics of the jobs, such as processing times, setup times, due
-   * dates, weights, etc.
-   *
-   * @return an encapsulation of the data describing the scheduling problem instance
-   */
-  SingleMachineSchedulingProblemData getInstanceData();
-}
+    extends IntegerCostOptimizationProblem<Permutation> {}

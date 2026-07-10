@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -40,7 +40,6 @@ import org.cicirello.search.ss.Partial;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2021
  */
 public final class ApparentTardinessCost extends WeightedShortestProcessingTime {
 
@@ -50,30 +49,34 @@ public final class ApparentTardinessCost extends WeightedShortestProcessingTime 
   /**
    * Constructs an ApparentTardinessCost heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @param k A parameter to the heuristic, which must be positive. Typical good values are in the
    *     interval [1.0, 4.0] but it is not limited to that interval.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    * @throws IllegalArgumentException if k &le; 0.0.
    */
-  public ApparentTardinessCost(SingleMachineSchedulingProblem problem, double k) {
-    super(problem);
+  public ApparentTardinessCost(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data, double k) {
+    super(problem, data);
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
     if (k <= 0.0) throw new IllegalArgumentException("k must be positive");
     this.k = k;
-    totalProcessTime = sumOfProcessingTimes();
+    totalProcessTime = data.sumOfProcessingTimes();
   }
 
   /**
    * Constructs an ApparentTardinessCost heuristic. Uses a default of k=2.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    */
-  public ApparentTardinessCost(SingleMachineSchedulingProblem problem) {
-    this(problem, 2.0);
+  public ApparentTardinessCost(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    this(problem, data, 2.0);
   }
 
   @Override

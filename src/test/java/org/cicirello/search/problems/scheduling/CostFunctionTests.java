@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -39,7 +39,6 @@ public class CostFunctionTests {
     Permutation p2 = new Permutation(dec);
     TestScheduleData noS = new TestScheduleData(p, d, w);
     WeightedLateness costFunction = new WeightedLateness(noS);
-    assertEquals(noS, costFunction.getInstanceData());
     assertEquals(37, costFunction.cost(p1));
     assertEquals(-51, costFunction.cost(p2));
     assertEquals(37, costFunction.value(p1));
@@ -81,7 +80,6 @@ public class CostFunctionTests {
     Permutation p2 = new Permutation(dec);
     TestScheduleData noS = new TestScheduleData(p, d, w);
     WeightedTardiness costFunction = new WeightedTardiness(noS);
-    assertEquals(noS, costFunction.getInstanceData());
     assertEquals(46, costFunction.cost(p1));
     assertEquals(68, costFunction.cost(p2));
     assertEquals(46, costFunction.value(p1));
@@ -122,7 +120,6 @@ public class CostFunctionTests {
     Permutation p2 = new Permutation(dec);
     TestScheduleData noS = new TestScheduleData(p, d, w, we);
     WeightedEarlinessTardiness costFunction = new WeightedEarlinessTardiness(noS);
-    assertEquals(noS, costFunction.getInstanceData());
     assertEquals(58, costFunction.cost(p1));
     assertEquals(263, costFunction.cost(p2));
     assertEquals(58, costFunction.value(p1));
@@ -162,7 +159,6 @@ public class CostFunctionTests {
     Permutation p2 = new Permutation(dec);
     TestScheduleData noS = new TestScheduleData(p, d, w);
     WeightedNumberTardyJobs costFunction = new WeightedNumberTardyJobs(noS);
-    assertEquals(noS, costFunction.getInstanceData());
     assertEquals(11, costFunction.cost(p1));
     assertEquals(6, costFunction.cost(p2));
     assertEquals(11, costFunction.value(p1));
@@ -202,7 +198,6 @@ public class CostFunctionTests {
     Permutation p2 = new Permutation(dec);
     TestScheduleData noS = new TestScheduleData(p, d, w);
     WeightedSquaredTardiness costFunction = new WeightedSquaredTardiness(noS);
-    assertEquals(noS, costFunction.getInstanceData());
     assertEquals(332, costFunction.cost(p1));
     assertEquals(904, costFunction.cost(p2));
     assertEquals(332, costFunction.value(p1));
@@ -241,7 +236,6 @@ public class CostFunctionTests {
     Permutation p2 = new Permutation(dec);
     TestScheduleData noS = new TestScheduleData(p, d);
     MinimizeMaximumLateness costFunction = new MinimizeMaximumLateness(noS);
-    assertEquals(noS, costFunction.getInstanceData());
     assertEquals(10, costFunction.cost(p1));
     assertEquals(18, costFunction.cost(p2));
     assertEquals(10, costFunction.value(p1));
@@ -292,7 +286,6 @@ public class CostFunctionTests {
     Permutation p2 = new Permutation(dec);
     TestScheduleData noR = new TestScheduleData(p);
     MinimizeMaximumFlowtime costFunction = new MinimizeMaximumFlowtime(noR);
-    assertEquals(noR, costFunction.getInstanceData());
     assertEquals(28, costFunction.cost(p1));
     assertEquals(28, costFunction.cost(p2));
     assertEquals(28, costFunction.value(p1));
@@ -321,7 +314,6 @@ public class CostFunctionTests {
     Permutation p2 = new Permutation(dec);
     TestScheduleData noR = new TestScheduleData(p, (int[]) null, w);
     WeightedFlowtime costFunction = new WeightedFlowtime(noR);
-    assertEquals(noR, costFunction.getInstanceData());
     assertEquals(170, costFunction.cost(p1));
     assertEquals(133, costFunction.cost(p2));
     assertEquals(170, costFunction.value(p1));
@@ -347,7 +339,6 @@ public class CostFunctionTests {
     Permutation p2 = new Permutation(dec);
     TestScheduleData noS = new TestScheduleData(p, d);
     MinimizeMaximumTardiness costFunction = new MinimizeMaximumTardiness(noS);
-    assertEquals(noS, costFunction.getInstanceData());
     assertEquals(10, costFunction.cost(p1));
     assertEquals(18, costFunction.cost(p2));
     assertEquals(10, costFunction.value(p1));
@@ -400,7 +391,6 @@ public class CostFunctionTests {
       Permutation p2 = new Permutation(revOrder);
       TestScheduleData onlyP = new TestScheduleData(p);
       MinimizeMakespan costFunction = new MinimizeMakespan(onlyP);
-      assertEquals(onlyP, costFunction.getInstanceData());
       int expected = n + (n + 1) * n / 2;
       assertEquals(expected, costFunction.cost(p1));
       assertEquals(expected, costFunction.cost(p2));

@@ -53,26 +53,33 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
   private final int pSum;
   private final int sSum;
   private final boolean ADJUST_FOR_SETUPS;
+  private final SingleMachineSchedulingProblemData data;
 
   /**
    * Constructs an DynamicATCS heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @param k1 A parameter to the heuristic, which must be positive.
    * @param k2 A parameter to the heuristic, which must be positive.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    * @throws IllegalArgumentException if k &le; 0.0.
    */
-  public DynamicATCS(SingleMachineSchedulingProblem problem, double k1, double k2) {
-    super(problem);
+  public DynamicATCS(
+      SingleMachineSchedulingProblem problem,
+      SingleMachineSchedulingProblemData data,
+      double k1,
+      double k2) {
+    super(problem, data);
+    this.data = data;
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
     if (k1 <= 0.0 || k2 <= 0.0) {
       throw new IllegalArgumentException("k1 and k2 must be positive");
     }
-    pSum = sumOfProcessingTimes();
-    sSum = sumOfSetupTimes();
+    pSum = data.sumOfProcessingTimes();
+    sSum = data.sumOfSetupTimes();
     ADJUST_FOR_SETUPS = sSum != 0;
     this.k1 = k1;
     this.k2 = k2;
@@ -82,18 +89,21 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
    * Constructs an DynamicATCS heuristic. Sets the values of k1 and k2 according to the procedure
    * described by the authors of the ATCS heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    */
-  public DynamicATCS(SingleMachineSchedulingProblem problem) {
-    super(problem);
+  public DynamicATCS(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
+    this.data = data;
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
 
     int n = data.numberOfJobs();
-    pSum = sumOfProcessingTimes();
-    sSum = sumOfSetupTimes();
+    pSum = data.sumOfProcessingTimes();
+    sSum = data.sumOfSetupTimes();
     double cv = 0;
     double eta = 0;
     double cmax = pSum;
@@ -111,7 +121,7 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
     } else {
       ADJUST_FOR_SETUPS = false;
     }
-    double[] d_stats = computeDueDateStats();
+    double[] d_stats = data.dueDateStats();
     double R = (d_stats[1] - d_stats[0]) / cmax;
     double tau = 1.0 - d_stats[2] / cmax;
     if (R <= 0.5) k1 = 4.5 + R;
@@ -175,20 +185,6 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
   @Override
   public IncrementalEvaluation<Permutation> createIncrementalEvaluation() {
     return new IncrementalStatsCalculator(pSum, sSum);
-  }
-
-  private double[] computeDueDateStats() {
-    int min = data.getDueDate(0);
-    int max = min;
-    int sum = min;
-    int n = data.numberOfJobs();
-    for (int i = 1; i < n; i++) {
-      int d = data.getDueDate(i);
-      if (d < min) min = d;
-      else if (d > max) max = d;
-      sum += d;
-    }
-    return new double[] {min, max, ((double) sum) / n};
   }
 
   private double setupVariance(double mean) {

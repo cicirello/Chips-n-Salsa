@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -37,7 +37,8 @@ public class ShortestProcessingPlusSetupTimeTests extends SchedulingHeuristicVal
     double[] expected = {1, 0.5, 0.25, 0.125, 1, 0.5, 0.25, 0.125, 1, 0.5, 0.25, 0.125, e};
     PartialPermutation partial = new PartialPermutation(expected.length);
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p);
-    ShortestProcessingPlusSetupTime h = new ShortestProcessingPlusSetupTime(problem);
+    ShortestProcessingPlusSetupTime h =
+        new ShortestProcessingPlusSetupTime(problem, problem.getData());
     for (int j = 0; j < expected.length; j++) {
       assertEquals(expected[j], h.h(partial, j, null), 1E-10);
     }
@@ -48,7 +49,7 @@ public class ShortestProcessingPlusSetupTimeTests extends SchedulingHeuristicVal
 
     int[] ps = {0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP - 1};
     problem = new FakeProblemWeightsPTime(w, ps, 0, 1);
-    h = new ShortestProcessingPlusSetupTime(problem);
+    h = new ShortestProcessingPlusSetupTime(problem, problem.getData());
     partial = new PartialPermutation(expected.length);
     for (int j = 0; j < expected.length; j++) {
       assertEquals(expected[j], h.h(partial, j, null), 1E-10);

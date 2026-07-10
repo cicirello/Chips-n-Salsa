@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -43,7 +43,7 @@ public class MontagneTests extends SchedulingHeuristicValidation {
     // Doesn't really matter: partial.extend(0);
     // All d=0
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
-    Montagne h = new Montagne(problem);
+    Montagne h = new Montagne(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -51,7 +51,7 @@ public class MontagneTests extends SchedulingHeuristicValidation {
     }
     // All d = pSum
     problem = new FakeProblemWeightsPTime(w, p, pSum);
-    h = new Montagne(problem);
+    h = new Montagne(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -59,7 +59,7 @@ public class MontagneTests extends SchedulingHeuristicValidation {
     }
     // All d = pSum / 2
     problem = new FakeProblemWeightsPTime(w, p, pSum / 2);
-    h = new Montagne(problem);
+    h = new Montagne(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -75,7 +75,7 @@ public class MontagneTests extends SchedulingHeuristicValidation {
               int[] p2 = {1, 1};
               int[] w2 = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
-              new Montagne(pr);
+              new Montagne(pr, pr.getData());
             });
   }
 }

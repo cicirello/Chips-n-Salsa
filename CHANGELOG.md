@@ -4,11 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-07-08
+## [Unreleased] - 2026-07-10
+
+__BREAKING CHANGES: Next release will be 8.0.0.__
 
 ### Added
 
-### Changed
+### Changed (BREAKING)
+* Refactored all the constructive scheduling heuristics and single machine scheduling problems:
+  * To remove the getInstanceData() method from the SingleMachineSchedulingProblem interface, and
+  * To require passing an instance of SingleMachineSchedulingProblemData, in addition to the SingleMachineSchedulingProblem, to the constructive scheduling heuristics.
 
 ### Deprecated
 

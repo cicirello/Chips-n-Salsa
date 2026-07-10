@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -46,7 +46,7 @@ public class WeightedCostOverTimeTests extends SchedulingHeuristicValidation {
     // Doesn't really matter: partial.extend(0);
     // All late tests
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
-    WeightedCostOverTime h = new WeightedCostOverTime(problem);
+    WeightedCostOverTime h = new WeightedCostOverTime(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -54,7 +54,7 @@ public class WeightedCostOverTimeTests extends SchedulingHeuristicValidation {
     }
     // d=20, k default of 2
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new WeightedCostOverTime(problem);
+    h = new WeightedCostOverTime(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -66,7 +66,7 @@ public class WeightedCostOverTimeTests extends SchedulingHeuristicValidation {
     }
     // d=20, k=4
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new WeightedCostOverTime(problem, 4);
+    h = new WeightedCostOverTime(problem, problem.getData(), 4);
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -84,11 +84,13 @@ public class WeightedCostOverTimeTests extends SchedulingHeuristicValidation {
               int[] p2 = {1, 1};
               int[] w2 = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
-              new WeightedCostOverTime(pr);
+              new WeightedCostOverTime(pr, pr.getData());
             });
     thrown =
         assertThrows(
             IllegalArgumentException.class,
-            () -> new WeightedCostOverTime(new FakeProblemWeightsPTime(w, p, 0), 0));
+            () ->
+                new WeightedCostOverTime(
+                    new FakeProblemWeightsPTime(w, p, 0), new FakeProblemData(w, p, 0), 0));
   }
 }

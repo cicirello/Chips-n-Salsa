@@ -43,7 +43,7 @@ public class SmallestSetupTests extends SchedulingHeuristicValidation {
     int[] p = {2, 5, 9, 2, 10};
     double[] expected = {1, 0.5, 0.25, 0.125, 0.0625};
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, s);
-    SmallestSetup h = new SmallestSetup(problem);
+    SmallestSetup h = new SmallestSetup(problem, problem.getData());
     PartialPermutation partial = new PartialPermutation(expected.length);
     for (int j = 0; j < expected.length; j++) {
       assertEquals(expected[j], h.h(partial, j, null), 1E-10);
@@ -59,7 +59,7 @@ public class SmallestSetupTests extends SchedulingHeuristicValidation {
     }
 
     FakeProblemWeightsPTime problemNoSetups = new FakeProblemWeightsPTime(w, p, 0);
-    h = new SmallestSetup(problemNoSetups);
+    h = new SmallestSetup(problemNoSetups, problemNoSetups.getData());
     partial = new PartialPermutation(expected.length);
     for (int j = 0; j < p.length; j++) {
       assertEquals(1.0, h.h(partial, j, null), 1E-10);

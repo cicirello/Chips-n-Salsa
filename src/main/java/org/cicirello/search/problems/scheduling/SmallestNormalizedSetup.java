@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -33,22 +33,26 @@ import org.cicirello.search.ss.Partial;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.4.2020
  */
 public final class SmallestNormalizedSetup extends SchedulingHeuristic {
+
+  private final SingleMachineSchedulingProblemData data;
 
   /**
    * Constructs an SmallestNormalizedSetup heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public SmallestNormalizedSetup(SingleMachineSchedulingProblem problem) {
-    super(problem);
+  public SmallestNormalizedSetup(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
+    this.data = data;
   }
 
   @Override
   public double h(Partial<Permutation> p, int element, IncrementalEvaluation<Permutation> incEval) {
-    if (HAS_SETUPS) {
+    if (data.hasSetupTimes()) {
       int n = p.numExtensions();
       if (n == 1) return 0.5;
       double s =
@@ -68,8 +72,7 @@ public final class SmallestNormalizedSetup extends SchedulingHeuristic {
       // jobs n to be at least 1/MIN_H, al but one of which to have setup of 0.
       // Check here probably unnecessary.
       return h <= MIN_H ? MIN_H : h;
-    } else {
-      return 1;
     }
+    return 1;
   }
 }

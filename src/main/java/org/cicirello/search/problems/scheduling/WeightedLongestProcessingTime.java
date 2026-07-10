@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -38,7 +38,6 @@ import org.cicirello.search.ss.Partial;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.12.2020
  */
 public final class WeightedLongestProcessingTime extends SchedulingHeuristic {
 
@@ -47,10 +46,12 @@ public final class WeightedLongestProcessingTime extends SchedulingHeuristic {
   /**
    * Constructs a WeightedLongestProcessingTime heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public WeightedLongestProcessingTime(SingleMachineSchedulingProblem problem) {
-    super(problem);
+  public WeightedLongestProcessingTime(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
     // pre-compute h and cache results.
     h = new double[data.numberOfJobs()];
     double minimum = 0;

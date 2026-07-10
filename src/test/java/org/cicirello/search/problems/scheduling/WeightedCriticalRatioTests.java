@@ -43,7 +43,7 @@ public class WeightedCriticalRatioTests extends SchedulingHeuristicValidation {
     // Doesn't really matter: partial.extend(0);
     // All late tests
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
-    WeightedCriticalRatio h = new WeightedCriticalRatio(problem);
+    WeightedCriticalRatio h = new WeightedCriticalRatio(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -51,7 +51,7 @@ public class WeightedCriticalRatioTests extends SchedulingHeuristicValidation {
     }
     // All on time tests
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new WeightedCriticalRatio(problem);
+    h = new WeightedCriticalRatio(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -63,7 +63,7 @@ public class WeightedCriticalRatioTests extends SchedulingHeuristicValidation {
     // MIN_H case
     problem =
         new FakeProblemWeightsPTime(new int[] {1, 1}, new int[] {1, 1}, (int) Math.ceil(2 / e));
-    h = new WeightedCriticalRatio(problem);
+    h = new WeightedCriticalRatio(problem, problem.getData());
     partial = new PartialPermutation(2);
     inc = h.createIncrementalEvaluation();
     assertEquals(e, h.h(partial, 0, inc), 1E-10);
@@ -76,7 +76,7 @@ public class WeightedCriticalRatioTests extends SchedulingHeuristicValidation {
               int[] p2 = {1, 1};
               int[] w2 = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
-              new WeightedCriticalRatio(pr);
+              new WeightedCriticalRatio(pr, pr.getData());
             });
   }
 }

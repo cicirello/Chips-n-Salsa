@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -45,22 +45,21 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic<Permutation>
   public static final double MIN_H = 0.00001;
 
   /** The instance of the scheduling problem that is the target of the heuristic. */
-  final SingleMachineSchedulingProblem problem;
+  private final SingleMachineSchedulingProblem problem;
 
   /** The instance data of the scheduling problem that is the target of the heuristic. */
-  final SingleMachineSchedulingProblemData data;
-
-  final boolean HAS_SETUPS;
+  private final SingleMachineSchedulingProblemData data;
 
   /**
    * Initializes the abstract base class for scheduling heuristics.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public SchedulingHeuristic(SingleMachineSchedulingProblem problem) {
+  public SchedulingHeuristic(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
     this.problem = problem;
-    data = problem.getInstanceData();
-    HAS_SETUPS = data.hasSetupTimes();
+    this.data = data;
   }
 
   @Override
@@ -81,33 +80,6 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic<Permutation>
   /*
    * package-private rather than private to enable test case access
    */
-  int sumOfProcessingTimes() {
-    int total = 0;
-    int n = data.numberOfJobs();
-    for (int i = 0; i < n; i++) {
-      total += data.getProcessingTime(i);
-    }
-    return total;
-  }
-
-  /*
-   * package-private rather than private to enable test case access
-   */
-  int sumOfSetupTimes() {
-    if (!HAS_SETUPS) return 0;
-    int total = 0;
-    int n = data.numberOfJobs();
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        total += data.getSetupTime(i, j);
-      }
-    }
-    return total;
-  }
-
-  /*
-   * package-private rather than private to enable test case access
-   */
   class IncrementalTimeCalculator implements IncrementalEvaluation<Permutation> {
 
     private int currentTime;
@@ -115,7 +87,7 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic<Permutation>
     @Override
     public void extend(Partial<Permutation> p, int element) {
       currentTime += data.getProcessingTime(element);
-      if (HAS_SETUPS) {
+      if (data.hasSetupTimes()) {
         currentTime +=
             p.size() == 0 ? data.getSetupTime(element) : data.getSetupTime(p.getLast(), element);
       }
@@ -149,7 +121,7 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic<Permutation>
      */
     public final int slack(int element, Partial<Permutation> p) {
       int s = slack(element);
-      if (HAS_SETUPS) {
+      if (data.hasSetupTimes()) {
         s -= p.size() == 0 ? data.getSetupTime(element) : data.getSetupTime(p.getLast(), element);
       }
       return s;
@@ -175,7 +147,7 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic<Permutation>
      */
     public final int slackPlus(int element, Partial<Permutation> p) {
       int s = slack(element);
-      if (HAS_SETUPS && s > 0) {
+      if (data.hasSetupTimes() && s > 0) {
         s -= p.size() == 0 ? data.getSetupTime(element) : data.getSetupTime(p.getLast(), element);
       }
       return s > 0 ? s : 0;

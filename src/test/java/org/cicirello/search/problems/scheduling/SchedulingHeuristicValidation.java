@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -32,6 +32,10 @@ public class SchedulingHeuristicValidation {
 
     private FakeProblemData data;
 
+    public FakeProblemData getData() {
+      return data;
+    }
+
     public FakeProblemDuedates(int[] d) {
       data = new FakeProblemData(d);
     }
@@ -43,11 +47,6 @@ public class SchedulingHeuristicValidation {
     public FakeProblemDuedates(int[] d, int[] p, int s) {
       data = new FakeProblemData(d, p, true);
       data.s = s;
-    }
-
-    @Override
-    public SingleMachineSchedulingProblemData getInstanceData() {
-      return data;
     }
 
     @Override
@@ -64,6 +63,10 @@ public class SchedulingHeuristicValidation {
   static class FakeProblemWeightsPTime implements SingleMachineSchedulingProblem {
 
     private FakeProblemData data;
+
+    public FakeProblemData getData() {
+      return data;
+    }
 
     public FakeProblemWeightsPTime(int[] w, int[] p) {
       data = new FakeProblemData(w, p);
@@ -90,11 +93,6 @@ public class SchedulingHeuristicValidation {
     }
 
     @Override
-    public SingleMachineSchedulingProblemData getInstanceData() {
-      return data;
-    }
-
-    @Override
     public int cost(Permutation p) {
       return 10;
     }
@@ -109,13 +107,12 @@ public class SchedulingHeuristicValidation {
 
     private FakeEarlyTardyProblemData data;
 
-    public FakeEarlyTardyProblem(int[] p, int[] we, int[] wt, int[] d) {
-      data = new FakeEarlyTardyProblemData(p, we, wt, d);
+    public FakeEarlyTardyProblemData getData() {
+      return data;
     }
 
-    @Override
-    public SingleMachineSchedulingProblemData getInstanceData() {
-      return data;
+    public FakeEarlyTardyProblem(int[] p, int[] we, int[] wt, int[] d) {
+      data = new FakeEarlyTardyProblemData(p, we, wt, d);
     }
 
     @Override

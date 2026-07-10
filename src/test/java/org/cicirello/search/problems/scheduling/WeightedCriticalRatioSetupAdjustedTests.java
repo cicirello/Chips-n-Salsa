@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -43,7 +43,8 @@ public class WeightedCriticalRatioSetupAdjustedTests extends SchedulingHeuristic
     // Doesn't really matter: partial.extend(0);
     // All late tests
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
-    WeightedCriticalRatioSetupAdjusted h = new WeightedCriticalRatioSetupAdjusted(problem);
+    WeightedCriticalRatioSetupAdjusted h =
+        new WeightedCriticalRatioSetupAdjusted(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -51,7 +52,7 @@ public class WeightedCriticalRatioSetupAdjustedTests extends SchedulingHeuristic
     }
     // All on time tests
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new WeightedCriticalRatioSetupAdjusted(problem);
+    h = new WeightedCriticalRatioSetupAdjusted(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -63,14 +64,14 @@ public class WeightedCriticalRatioSetupAdjustedTests extends SchedulingHeuristic
     // Repeat with setups
     int[] ps = {0, 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP - 1};
     problem = new FakeProblemWeightsPTime(w, ps, 0, 1);
-    h = new WeightedCriticalRatioSetupAdjusted(problem);
+    h = new WeightedCriticalRatioSetupAdjusted(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
       assertEquals(expected0[j], h.h(partial, j, inc), 1E-10, "negativeSlack, j:" + j);
     }
     problem = new FakeProblemWeightsPTime(w, ps, 20, 1);
-    h = new WeightedCriticalRatioSetupAdjusted(problem);
+    h = new WeightedCriticalRatioSetupAdjusted(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -87,7 +88,7 @@ public class WeightedCriticalRatioSetupAdjustedTests extends SchedulingHeuristic
     // MIN_H case
     problem =
         new FakeProblemWeightsPTime(new int[] {1, 1}, new int[] {1, 1}, (int) Math.ceil(2 / e), 1);
-    h = new WeightedCriticalRatioSetupAdjusted(problem);
+    h = new WeightedCriticalRatioSetupAdjusted(problem, problem.getData());
     partial = new PartialPermutation(2);
     inc = h.createIncrementalEvaluation();
     assertEquals(e, h.h(partial, 0, inc), 1E-10);
@@ -100,7 +101,7 @@ public class WeightedCriticalRatioSetupAdjustedTests extends SchedulingHeuristic
               int[] p2 = {1, 1};
               int[] w2 = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
-              new WeightedCriticalRatioSetupAdjusted(pr);
+              new WeightedCriticalRatioSetupAdjusted(pr, pr.getData());
             });
   }
 }

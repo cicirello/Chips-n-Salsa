@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -42,7 +42,7 @@ public class WeightedLongestProcessingTimeTests extends SchedulingHeuristicValid
     int[] d = {2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5};
 
     FakeEarlyTardyProblem problem = new FakeEarlyTardyProblem(p, we, wt, d);
-    WeightedLongestProcessingTime h = new WeightedLongestProcessingTime(problem);
+    WeightedLongestProcessingTime h = new WeightedLongestProcessingTime(problem, problem.getData());
     for (int j = 0; j < expected.length; j++) {
       assertEquals(expected[j], h.h(null, j, null), 1E-10, "j:" + j);
     }

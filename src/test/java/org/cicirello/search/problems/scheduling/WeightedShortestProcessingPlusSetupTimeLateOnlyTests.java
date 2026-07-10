@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -43,7 +43,7 @@ public class WeightedShortestProcessingPlusSetupTimeLateOnlyTests
     // All late tests
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
     WeightedShortestProcessingPlusSetupTimeLateOnly h =
-        new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+        new WeightedShortestProcessingPlusSetupTimeLateOnly(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected.length; j++) {
@@ -51,7 +51,7 @@ public class WeightedShortestProcessingPlusSetupTimeLateOnlyTests
     }
     // All on time tests
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+    h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected.length; j++) {
@@ -60,14 +60,14 @@ public class WeightedShortestProcessingPlusSetupTimeLateOnlyTests
     // Repeat with setups
     int[] ps = {0, 0, 1, 3, 7, 0, 1, 3, 7, 0, 1, 3, 7, highP - 1};
     problem = new FakeProblemWeightsPTime(w, ps, 0, 1);
-    h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+    h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected.length; j++) {
       assertEquals(expected[j], h.h(partial, j, inc), 1E-10, "j:" + j);
     }
     problem = new FakeProblemWeightsPTime(w, ps, 20, 1);
-    h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem);
+    h = new WeightedShortestProcessingPlusSetupTimeLateOnly(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected.length; j++) {
@@ -81,7 +81,7 @@ public class WeightedShortestProcessingPlusSetupTimeLateOnlyTests
               int[] p2 = {1, 1};
               int[] w2 = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
-              new WeightedShortestProcessingPlusSetupTimeLateOnly(pr);
+              new WeightedShortestProcessingPlusSetupTimeLateOnly(pr, pr.getData());
             });
   }
 }

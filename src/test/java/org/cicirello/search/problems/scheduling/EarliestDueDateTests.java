@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -32,7 +32,7 @@ public class EarliestDueDateTests extends SchedulingHeuristicValidation {
     int[] duedates = {3, 0, 1, 7, (int) Math.ceil(2.0 / EarliestDueDate.MIN_H - 1.0)};
     double[] expected = {0.25, 1.0, 0.5, 0.125, EarliestDueDate.MIN_H};
     FakeProblemDuedates problem = new FakeProblemDuedates(duedates);
-    EarliestDueDate h = new EarliestDueDate(problem);
+    EarliestDueDate h = new EarliestDueDate(problem, problem.getData());
     for (int j = 0; j < duedates.length; j++) {
       assertEquals(expected[j], h.h(null, j, null), 1E-10);
     }
@@ -43,7 +43,7 @@ public class EarliestDueDateTests extends SchedulingHeuristicValidation {
               int[] p = {1, 1};
               int[] w = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p, w);
-              new EarliestDueDate(pr);
+              new EarliestDueDate(pr, pr.getData());
             });
   }
 }

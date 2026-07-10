@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -44,24 +44,27 @@ import org.cicirello.search.ss.Partial;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.4.2020
  */
 public final class WeightedCostOverTimeSetupAdjusted
     extends WeightedShortestProcessingPlusSetupTime {
 
   private final double k;
+  private final SingleMachineSchedulingProblemData data;
 
   /**
    * Constructs an WeightedCostOverTimeSetupAdjusted heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @param k A parameter to the heuristic, which must be positive. Typical good values are in the
    *     interval [1.0, 4.0] but it is not limited to that interval.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    * @throws IllegalArgumentException if k &le; 0.0.
    */
-  public WeightedCostOverTimeSetupAdjusted(SingleMachineSchedulingProblem problem, double k) {
-    super(problem);
+  public WeightedCostOverTimeSetupAdjusted(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data, double k) {
+    super(problem, data);
+    this.data = data;
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
@@ -72,11 +75,13 @@ public final class WeightedCostOverTimeSetupAdjusted
   /**
    * Constructs an WeightedCostOverTimeSetupAdjusted heuristic. Uses a default of k=2.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    */
-  public WeightedCostOverTimeSetupAdjusted(SingleMachineSchedulingProblem problem) {
-    this(problem, 2.0);
+  public WeightedCostOverTimeSetupAdjusted(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    this(problem, data, 2.0);
   }
 
   @Override
@@ -86,7 +91,7 @@ public final class WeightedCostOverTimeSetupAdjusted
       double s = ((IncrementalTimeCalculator) incEval).slack(element, p);
       if (s > 0) {
         double ps = data.getProcessingTime(element);
-        if (HAS_SETUPS) {
+        if (data.hasSetupTimes()) {
           ps +=
               (p.size() == 0
                   ? data.getSetupTime(element)

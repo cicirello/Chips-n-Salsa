@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -54,7 +54,6 @@ import org.cicirello.search.ss.Partial;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 10.12.2020
  */
 public final class LinearEarlyTardyHeuristic extends SchedulingHeuristic {
 
@@ -81,8 +80,11 @@ public final class LinearEarlyTardyHeuristic extends SchedulingHeuristic {
    */
   public LinearEarlyTardyHeuristic(SingleMachineSchedulingProblem problem, double k) {
     super(problem);
-    if (k < 1) throw new IllegalArgumentException("k must be at least 1");
+    if (k < 1) {
+      throw new IllegalArgumentException("k must be at least 1");
+    }
     // pre-compute WLPT and WSPT, and cache results.
+    SingleMachineSchedulingProblemData data = problem.getInstanceData();
     wlpt = new double[data.numberOfJobs()];
     wspt = new double[data.numberOfJobs()];
     double minimum = 0;
@@ -98,7 +100,7 @@ public final class LinearEarlyTardyHeuristic extends SchedulingHeuristic {
       wspt[i] += shift;
     }
     this.k = k;
-    totalProcessTime = sumOfProcessingTimes();
+    totalProcessTime = data.sumOfProcessingTimes();
   }
 
   @Override

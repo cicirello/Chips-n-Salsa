@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -48,10 +48,11 @@ import org.cicirello.search.ss.Partial;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 9.4.2020
  */
 public final class WeightedCriticalRatioSetupAdjusted
     extends WeightedShortestProcessingPlusSetupTime {
+
+  private final SingleMachineSchedulingProblemData data;
 
   /**
    * Constructs an WeightedCriticalRatioSetupAdjusted heuristic.
@@ -61,6 +62,7 @@ public final class WeightedCriticalRatioSetupAdjusted
    */
   public WeightedCriticalRatioSetupAdjusted(SingleMachineSchedulingProblem problem) {
     super(problem);
+    data = problem.getInstanceData();
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
@@ -73,7 +75,7 @@ public final class WeightedCriticalRatioSetupAdjusted
       double s = ((IncrementalTimeCalculator) incEval).slack(element, p);
       if (s > 0) {
         double denominator = data.getProcessingTime(element);
-        if (HAS_SETUPS) {
+        if (data.hasSetupTimes()) {
           denominator +=
               (p.size() == 0
                   ? data.getSetupTime(element)

@@ -53,6 +53,7 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
   private final int pSum;
   private final int sSum;
   private final boolean ADJUST_FOR_SETUPS;
+  private final SingleMachineSchedulingProblemData data;
 
   /**
    * Constructs an DynamicATCS heuristic.
@@ -65,14 +66,15 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
    */
   public DynamicATCS(SingleMachineSchedulingProblem problem, double k1, double k2) {
     super(problem);
+    data = problem.getInstanceData();
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
     if (k1 <= 0.0 || k2 <= 0.0) {
       throw new IllegalArgumentException("k1 and k2 must be positive");
     }
-    pSum = sumOfProcessingTimes();
-    sSum = sumOfSetupTimes();
+    pSum = data.sumOfProcessingTimes();
+    sSum = data.sumOfSetupTimes();
     ADJUST_FOR_SETUPS = sSum != 0;
     this.k1 = k1;
     this.k2 = k2;
@@ -87,13 +89,14 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
    */
   public DynamicATCS(SingleMachineSchedulingProblem problem) {
     super(problem);
+    data = problem.getInstanceData();
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
 
     int n = data.numberOfJobs();
-    pSum = sumOfProcessingTimes();
-    sSum = sumOfSetupTimes();
+    pSum = data.sumOfProcessingTimes();
+    sSum = data.sumOfSetupTimes();
     double cv = 0;
     double eta = 0;
     double cmax = pSum;

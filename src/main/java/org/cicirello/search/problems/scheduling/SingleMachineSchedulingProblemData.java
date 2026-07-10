@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2020  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -47,7 +47,6 @@ import org.cicirello.permutations.Permutation;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 7.13.2020
  */
 public interface SingleMachineSchedulingProblemData {
 
@@ -82,6 +81,20 @@ public interface SingleMachineSchedulingProblemData {
    * @throws IllegalArgumentException if schedule.length() is not equal to numberOfJobs()
    */
   int[] getCompletionTimes(Permutation schedule);
+
+  /**
+   * Computes the sum of the processing times of all of the jobs.
+   *
+   * @return the sum of the processing times of the jobs
+   */
+  default int sumOfProcessingTimes() {
+    int total = 0;
+    final int n = numberOfJobs();
+    for (int i = 0; i < n; i++) {
+      total += getProcessingTime(i);
+    }
+    return total;
+  }
 
   /**
    * Gets the due date of a job, for scheduling problems that have due dates. The meaning of a due
@@ -200,7 +213,6 @@ public interface SingleMachineSchedulingProblemData {
   default int getSetupTime(int i, int j) {
     return 0;
   }
-  ;
 
   /**
    * Gets the setup time of a job if it is the first job processed on the machine. The default
@@ -216,7 +228,6 @@ public interface SingleMachineSchedulingProblemData {
   default int getSetupTime(int j) {
     return 0;
   }
-  ;
 
   /**
    * Checks whether this single machine scheduling instance has setup times.
@@ -225,5 +236,24 @@ public interface SingleMachineSchedulingProblemData {
    */
   default boolean hasSetupTimes() {
     return false;
+  }
+
+  /**
+   * Computes the sum of setup times of the jobs for problems with setup times.
+   *
+   * @return the sum of the setup times, or 0 if the problem doesn't have setup times.
+   */
+  default int sumOfSetupTimes() {
+    if (!hasSetupTimes()) {
+      return 0;
+    }
+    int total = 0;
+    final int n = numberOfJobs();
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        total += getSetupTime(i, j);
+      }
+    }
+    return total;
   }
 }

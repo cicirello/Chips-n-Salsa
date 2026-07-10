@@ -50,6 +50,7 @@ public final class ATCS extends WeightedShortestProcessingTime {
   private final double pAve;
   private final double sAve;
   private final boolean ADJUST_FOR_SETUPS;
+  private final SingleMachineSchedulingProblemData data;
 
   /**
    * Constructs an ATCS heuristic.
@@ -62,6 +63,7 @@ public final class ATCS extends WeightedShortestProcessingTime {
    */
   public ATCS(SingleMachineSchedulingProblem problem, double k1, double k2) {
     super(problem);
+    data = problem.getInstanceData();
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
@@ -69,8 +71,8 @@ public final class ATCS extends WeightedShortestProcessingTime {
       throw new IllegalArgumentException("k1 and k2 must be positive");
     }
     int n = data.numberOfJobs();
-    pAve = ((double) sumOfProcessingTimes()) / n;
-    int totalSetupTimes = sumOfSetupTimes();
+    pAve = ((double) data.sumOfProcessingTimes()) / n;
+    int totalSetupTimes = data.sumOfSetupTimes();
     if (totalSetupTimes == 0) {
       sAve = 0.0;
       ADJUST_FOR_SETUPS = false;
@@ -91,6 +93,7 @@ public final class ATCS extends WeightedShortestProcessingTime {
    */
   public ATCS(SingleMachineSchedulingProblem problem) {
     super(problem);
+    data = problem.getInstanceData();
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
@@ -98,10 +101,10 @@ public final class ATCS extends WeightedShortestProcessingTime {
     int n = data.numberOfJobs();
     double cv = 0;
     double eta = 0;
-    int pSum = sumOfProcessingTimes();
+    int pSum = data.sumOfProcessingTimes();
     double cmax = pSum;
     pAve = ((double) pSum) / n;
-    int totalSetupTimes = sumOfSetupTimes();
+    int totalSetupTimes = data.sumOfSetupTimes();
     if (totalSetupTimes == 0) {
       sAve = 0.0;
       ADJUST_FOR_SETUPS = false;

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -40,7 +40,6 @@ import org.cicirello.search.ss.Partial;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 5.11.2021
  */
 public final class ApparentTardinessCost extends WeightedShortestProcessingTime {
 
@@ -58,12 +57,13 @@ public final class ApparentTardinessCost extends WeightedShortestProcessingTime 
    */
   public ApparentTardinessCost(SingleMachineSchedulingProblem problem, double k) {
     super(problem);
+    SingleMachineSchedulingProblemData data = problem.getInstanceData();
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
     if (k <= 0.0) throw new IllegalArgumentException("k must be positive");
     this.k = k;
-    totalProcessTime = sumOfProcessingTimes();
+    totalProcessTime = data.sumOfProcessingTimes();
   }
 
   /**

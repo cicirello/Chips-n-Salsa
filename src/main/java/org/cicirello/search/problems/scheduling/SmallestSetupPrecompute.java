@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2021  Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -38,7 +38,6 @@ import org.cicirello.search.ss.Partial;
  *
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
- * @version 2.22.2021
  */
 public final class SmallestSetupPrecompute extends SchedulingHeuristic {
 
@@ -51,9 +50,10 @@ public final class SmallestSetupPrecompute extends SchedulingHeuristic {
    */
   public SmallestSetupPrecompute(SingleMachineSchedulingProblem problem) {
     super(problem);
+    SingleMachineSchedulingProblemData data = problem.getInstanceData();
     int n = data.numberOfJobs();
     h = new double[n][n];
-    if (HAS_SETUPS) {
+    if (data.hasSetupTimes()) {
       for (int i = 0; i < n; i++) {
         h[i][i] = Math.max(MIN_H, 1.0 / (1.0 + data.getSetupTime(i)));
         for (int j = i + 1; j < n; j++) {

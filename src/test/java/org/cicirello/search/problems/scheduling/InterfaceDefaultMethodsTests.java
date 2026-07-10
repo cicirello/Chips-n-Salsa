@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -29,7 +29,7 @@ import org.junit.jupiter.api.*;
 public class InterfaceDefaultMethodsTests {
 
   @Test
-  public void testSingleMachineSchedulingProblemData() {
+  public void testSingleMachineSchedulingProblemData_0_jobs() {
 
     SingleMachineSchedulingProblemData data =
         new SingleMachineSchedulingProblemData() {
@@ -56,8 +56,93 @@ public class InterfaceDefaultMethodsTests {
     assertEquals(1, data.getEarlyWeight(0));
     assertEquals(0, data.getSetupTime(0));
     assertEquals(0, data.getSetupTime(0, 1));
+    assertEquals(0, data.sumOfProcessingTimes());
+    assertEquals(0, data.sumOfSetupTimes());
 
     UnsupportedOperationException thrown =
         assertThrows(UnsupportedOperationException.class, () -> data.getDueDate(0));
+  }
+
+  @Test
+  public void testSingleMachineSchedulingProblemData_multiple_jobs() {
+
+    SingleMachineSchedulingProblemData data =
+        new SingleMachineSchedulingProblemData() {
+          public int numberOfJobs() {
+            return 3;
+          }
+
+          public int getProcessingTime(int j) {
+            return (j + 1) * 3;
+          }
+
+          public int[] getCompletionTimes(Permutation schedule) {
+            return null;
+          }
+        };
+
+    assertFalse(data.hasDueDates());
+    assertFalse(data.hasReleaseDates());
+    assertFalse(data.hasWeights());
+    assertFalse(data.hasEarlyWeights());
+    assertFalse(data.hasSetupTimes());
+    assertEquals(0, data.getReleaseDate(0));
+    assertEquals(1, data.getWeight(0));
+    assertEquals(1, data.getEarlyWeight(0));
+    assertEquals(0, data.getSetupTime(0));
+    assertEquals(0, data.getSetupTime(0, 1));
+    assertEquals(18, data.sumOfProcessingTimes());
+    assertEquals(0, data.sumOfSetupTimes());
+  }
+
+  @Test
+  public void testSingleMachineSchedulingProblemData_setups() {
+
+    SingleMachineSchedulingProblemData data =
+        new SingleMachineSchedulingProblemData() {
+
+          private int[][] s = {
+            {6, 3, 8},
+            {4, 7, 1},
+            {9, 2, 5}
+          };
+
+          public int numberOfJobs() {
+            return 3;
+          }
+
+          public int getProcessingTime(int j) {
+            return (j + 1) * 3;
+          }
+
+          public int[] getCompletionTimes(Permutation schedule) {
+            return null;
+          }
+
+          public boolean hasSetupTimes() {
+            return true;
+          }
+
+          public int getSetupTime(int j) {
+            return s[j][j];
+          }
+
+          public int getSetupTime(int i, int j) {
+            return s[i][j];
+          }
+        };
+
+    assertFalse(data.hasDueDates());
+    assertFalse(data.hasReleaseDates());
+    assertFalse(data.hasWeights());
+    assertFalse(data.hasEarlyWeights());
+    assertTrue(data.hasSetupTimes());
+    assertEquals(0, data.getReleaseDate(0));
+    assertEquals(1, data.getWeight(0));
+    assertEquals(1, data.getEarlyWeight(0));
+    assertEquals(6, data.getSetupTime(0));
+    assertEquals(3, data.getSetupTime(0, 1));
+    assertEquals(18, data.sumOfProcessingTimes());
+    assertEquals(45, data.sumOfSetupTimes());
   }
 }

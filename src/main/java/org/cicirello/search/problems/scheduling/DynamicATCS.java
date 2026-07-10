@@ -121,7 +121,7 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
     } else {
       ADJUST_FOR_SETUPS = false;
     }
-    double[] d_stats = computeDueDateStats();
+    double[] d_stats = data.dueDateStats();
     double R = (d_stats[1] - d_stats[0]) / cmax;
     double tau = 1.0 - d_stats[2] / cmax;
     if (R <= 0.5) k1 = 4.5 + R;
@@ -185,20 +185,6 @@ public final class DynamicATCS extends WeightedShortestProcessingTime {
   @Override
   public IncrementalEvaluation<Permutation> createIncrementalEvaluation() {
     return new IncrementalStatsCalculator(pSum, sSum);
-  }
-
-  private double[] computeDueDateStats() {
-    int min = data.getDueDate(0);
-    int max = min;
-    int sum = min;
-    int n = data.numberOfJobs();
-    for (int i = 1; i < n; i++) {
-      int d = data.getDueDate(i);
-      if (d < min) min = d;
-      else if (d > max) max = d;
-      sum += d;
-    }
-    return new double[] {min, max, ((double) sum) / n};
   }
 
   private double setupVariance(double mean) {

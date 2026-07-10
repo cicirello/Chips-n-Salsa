@@ -61,6 +61,7 @@ public class InterfaceDefaultMethodsTests {
 
     UnsupportedOperationException thrown =
         assertThrows(UnsupportedOperationException.class, () -> data.getDueDate(0));
+    thrown = assertThrows(UnsupportedOperationException.class, () -> data.dueDateStats());
   }
 
   @Test
@@ -93,6 +94,144 @@ public class InterfaceDefaultMethodsTests {
     assertEquals(0, data.getSetupTime(0, 1));
     assertEquals(18, data.sumOfProcessingTimes());
     assertEquals(0, data.sumOfSetupTimes());
+
+    UnsupportedOperationException thrown =
+        assertThrows(UnsupportedOperationException.class, () -> data.dueDateStats());
+  }
+
+  @Test
+  public void testSingleMachineSchedulingProblemData_duedates1() {
+
+    SingleMachineSchedulingProblemData data =
+        new SingleMachineSchedulingProblemData() {
+          public int numberOfJobs() {
+            return 3;
+          }
+
+          public int getProcessingTime(int j) {
+            return (j + 1) * 3;
+          }
+
+          public int[] getCompletionTimes(Permutation schedule) {
+            return null;
+          }
+
+          public int getDueDate(int j) {
+            return (j + 1) * 10;
+          }
+
+          public boolean hasDueDates() {
+            return true;
+          }
+        };
+
+    assertTrue(data.hasDueDates());
+    assertFalse(data.hasReleaseDates());
+    assertFalse(data.hasWeights());
+    assertFalse(data.hasEarlyWeights());
+    assertFalse(data.hasSetupTimes());
+    assertEquals(0, data.getReleaseDate(0));
+    assertEquals(1, data.getWeight(0));
+    assertEquals(1, data.getEarlyWeight(0));
+    assertEquals(0, data.getSetupTime(0));
+    assertEquals(0, data.getSetupTime(0, 1));
+    assertEquals(18, data.sumOfProcessingTimes());
+    assertEquals(0, data.sumOfSetupTimes());
+    double[] ddStats = data.dueDateStats();
+    assertEquals(3, ddStats.length);
+    assertEquals(10, ddStats[0]);
+    assertEquals(30, ddStats[1]);
+    assertEquals(20, ddStats[2]);
+  }
+
+  @Test
+  public void testSingleMachineSchedulingProblemData_duedates2() {
+
+    SingleMachineSchedulingProblemData data =
+        new SingleMachineSchedulingProblemData() {
+          public int numberOfJobs() {
+            return 3;
+          }
+
+          public int getProcessingTime(int j) {
+            return (j + 1) * 3;
+          }
+
+          public int[] getCompletionTimes(Permutation schedule) {
+            return null;
+          }
+
+          public int getDueDate(int j) {
+            return (3 - j) * 10;
+          }
+
+          public boolean hasDueDates() {
+            return true;
+          }
+        };
+
+    assertTrue(data.hasDueDates());
+    assertFalse(data.hasReleaseDates());
+    assertFalse(data.hasWeights());
+    assertFalse(data.hasEarlyWeights());
+    assertFalse(data.hasSetupTimes());
+    assertEquals(0, data.getReleaseDate(0));
+    assertEquals(1, data.getWeight(0));
+    assertEquals(1, data.getEarlyWeight(0));
+    assertEquals(0, data.getSetupTime(0));
+    assertEquals(0, data.getSetupTime(0, 1));
+    assertEquals(18, data.sumOfProcessingTimes());
+    assertEquals(0, data.sumOfSetupTimes());
+    double[] ddStats = data.dueDateStats();
+    assertEquals(3, ddStats.length);
+    assertEquals(10, ddStats[0]);
+    assertEquals(30, ddStats[1]);
+    assertEquals(20, ddStats[2]);
+  }
+
+  @Test
+  public void testSingleMachineSchedulingProblemData_duedates3() {
+
+    SingleMachineSchedulingProblemData data =
+        new SingleMachineSchedulingProblemData() {
+          public int numberOfJobs() {
+            return 3;
+          }
+
+          public int getProcessingTime(int j) {
+            return (j + 1) * 3;
+          }
+
+          public int[] getCompletionTimes(Permutation schedule) {
+            return null;
+          }
+
+          public int getDueDate(int j) {
+            return 25;
+          }
+
+          public boolean hasDueDates() {
+            return true;
+          }
+        };
+
+    assertTrue(data.hasDueDates());
+    assertFalse(data.hasReleaseDates());
+    assertFalse(data.hasWeights());
+    assertFalse(data.hasEarlyWeights());
+    assertFalse(data.hasSetupTimes());
+    assertEquals(0, data.getReleaseDate(0));
+    assertEquals(1, data.getWeight(0));
+    assertEquals(1, data.getEarlyWeight(0));
+    assertEquals(0, data.getSetupTime(0));
+    assertEquals(0, data.getSetupTime(0, 1));
+    assertEquals(18, data.sumOfProcessingTimes());
+    assertEquals(0, data.sumOfSetupTimes());
+    double[] ddStats = data.dueDateStats();
+    assertEquals(3, ddStats.length);
+    assertEquals(25, ddStats[0]);
+    assertEquals(25, ddStats[1]);
+    assertEquals(25, ddStats[2]);
   }
 
   @Test

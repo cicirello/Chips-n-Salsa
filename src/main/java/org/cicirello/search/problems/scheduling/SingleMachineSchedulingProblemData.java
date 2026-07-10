@@ -121,6 +121,27 @@ public interface SingleMachineSchedulingProblemData {
   }
 
   /**
+   * Computes the minimum, maximum, and average duedate.
+   *
+   * @return an array of duedate statistics of the form [min, max, average]
+   * @throws UnsupportedOperationException if {@link #hasDueDates} returns false. This is the
+   *     behavior if the scheduling problem definition doesn't have due dates.
+   */
+  default double[] dueDateStats() {
+    int min = getDueDate(0);
+    int max = min;
+    int sum = min;
+    final int n = numberOfJobs();
+    for (int i = 1; i < n; i++) {
+      int d = getDueDate(i);
+      if (d < min) min = d;
+      else if (d > max) max = d;
+      sum += d;
+    }
+    return new double[] {min, max, ((double) sum) / n};
+  }
+
+  /**
    * Gets the release date of a job, for scheduling problems that have release dates. The default
    * implementation simply returns 0, which is appropriate for problems without release dates (i.e.,
    * problems in which all jobs are available for scheduling right at the start). You can use the

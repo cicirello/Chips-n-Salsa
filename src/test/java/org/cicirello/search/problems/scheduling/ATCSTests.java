@@ -128,7 +128,7 @@ public class ATCSTests extends SchedulingHeuristicValidation {
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
     ATCS h = new ATCS(problem, problem.getData(), 2, 1);
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
-    double sAve = h.getSetupAverage();
+    double sAve = problem.getData().sumOfSetupTimes() / (1.0 * p.length * p.length);
     for (int j = 1; j < expected0.length; j++) {
       double correction = expected0[j] * Math.exp(-4.0 / sAve);
       assertEquals(
@@ -177,7 +177,7 @@ public class ATCSTests extends SchedulingHeuristicValidation {
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
     ATCS h = new ATCS(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
-    double sAve = h.getSetupAverage();
+    double sAve = problem.getData().sumOfSetupTimes() / (1.0 * p.length * p.length);
     for (int j = 1; j < expected0.length; j++) {
       assertTrue(expected0[j] >= h.h(partial, j, inc), "negativeSlack, j:" + j);
     }

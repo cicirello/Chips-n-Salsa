@@ -42,12 +42,13 @@ public final class ShortestProcessingTime extends SchedulingHeuristic {
   /**
    * Constructs an ShortestProcessingTime heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public ShortestProcessingTime(SingleMachineSchedulingProblem problem) {
-    super(problem);
+  public ShortestProcessingTime(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
     // pre-compute h and cache results.
-    SingleMachineSchedulingProblemData data = problem.getInstanceData();
     h = new double[data.numberOfJobs()];
     for (int i = 0; i < h.length; i++) {
       h[i] = 1.0 / data.getProcessingTime(i);

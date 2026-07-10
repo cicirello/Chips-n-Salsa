@@ -41,12 +41,14 @@ public final class WeightedShortestProcessingPlusSetupTimeLateOnly
   /**
    * Constructs an WeightedShortestProcessingPlusSetupTimeLateOnly heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    */
-  public WeightedShortestProcessingPlusSetupTimeLateOnly(SingleMachineSchedulingProblem problem) {
-    super(problem);
-    if (!problem.getInstanceData().hasDueDates()) {
+  public WeightedShortestProcessingPlusSetupTimeLateOnly(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
+    if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
   }

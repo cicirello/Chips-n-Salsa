@@ -50,11 +50,13 @@ public final class ShortestProcessingPlusSetupTime extends SchedulingHeuristic {
   /**
    * Constructs an ShortestProcessingPlusSetupTime heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public ShortestProcessingPlusSetupTime(SingleMachineSchedulingProblem problem) {
-    super(problem);
-    data = problem.getInstanceData();
+  public ShortestProcessingPlusSetupTime(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
+    this.data = data;
   }
 
   @Override

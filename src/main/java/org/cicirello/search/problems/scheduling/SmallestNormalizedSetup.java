@@ -41,11 +41,13 @@ public final class SmallestNormalizedSetup extends SchedulingHeuristic {
   /**
    * Constructs an SmallestNormalizedSetup heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public SmallestNormalizedSetup(SingleMachineSchedulingProblem problem) {
-    super(problem);
-    data = problem.getInstanceData();
+  public SmallestNormalizedSetup(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
+    this.data = data;
   }
 
   @Override

@@ -44,12 +44,13 @@ public final class EarliestDueDate extends SchedulingHeuristic {
   /**
    * Constructs an EarliestDueDate heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    */
-  public EarliestDueDate(SingleMachineSchedulingProblem problem) {
-    super(problem);
-    SingleMachineSchedulingProblemData data = problem.getInstanceData();
+  public EarliestDueDate(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }

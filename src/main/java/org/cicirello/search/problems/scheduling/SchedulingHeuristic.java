@@ -53,11 +53,13 @@ abstract class SchedulingHeuristic implements ConstructiveHeuristic<Permutation>
   /**
    * Initializes the abstract base class for scheduling heuristics.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public SchedulingHeuristic(SingleMachineSchedulingProblem problem) {
+  public SchedulingHeuristic(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
     this.problem = problem;
-    data = problem.getInstanceData();
+    this.data = data;
   }
 
   @Override

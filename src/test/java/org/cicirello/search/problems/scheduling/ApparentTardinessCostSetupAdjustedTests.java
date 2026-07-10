@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -49,7 +49,8 @@ public class ApparentTardinessCostSetupAdjustedTests extends SchedulingHeuristic
     // Doesn't really matter: partial.extend(0);
     // All late tests
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
-    ApparentTardinessCostSetupAdjusted h = new ApparentTardinessCostSetupAdjusted(problem);
+    ApparentTardinessCostSetupAdjusted h =
+        new ApparentTardinessCostSetupAdjusted(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -57,7 +58,7 @@ public class ApparentTardinessCostSetupAdjustedTests extends SchedulingHeuristic
     }
     // d=20, k default of 2
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new ApparentTardinessCostSetupAdjusted(problem);
+    h = new ApparentTardinessCostSetupAdjusted(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -68,7 +69,7 @@ public class ApparentTardinessCostSetupAdjustedTests extends SchedulingHeuristic
     }
     // d=20, k=4
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new ApparentTardinessCostSetupAdjusted(problem, 4);
+    h = new ApparentTardinessCostSetupAdjusted(problem, problem.getData(), 4);
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -83,7 +84,7 @@ public class ApparentTardinessCostSetupAdjustedTests extends SchedulingHeuristic
     double k = 0.5 / Math.log(1.0 / e);
     int d = 2;
     problem = new FakeProblemWeightsPTime(new int[] {wp}, new int[] {wp}, d);
-    h = new ApparentTardinessCostSetupAdjusted(problem, k);
+    h = new ApparentTardinessCostSetupAdjusted(problem, problem.getData(), k);
     inc = h.createIncrementalEvaluation();
     partial = new PartialPermutation(1);
     assertEquals(e, h.h(partial, 0, inc), 1E-10);
@@ -95,12 +96,14 @@ public class ApparentTardinessCostSetupAdjustedTests extends SchedulingHeuristic
               int[] p2 = {1, 1};
               int[] w2 = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
-              new ApparentTardinessCostSetupAdjusted(pr);
+              new ApparentTardinessCostSetupAdjusted(pr, pr.getData());
             });
     thrown =
         assertThrows(
             IllegalArgumentException.class,
-            () -> new ApparentTardinessCostSetupAdjusted(new FakeProblemWeightsPTime(w, p, 0), 0));
+            () ->
+                new ApparentTardinessCostSetupAdjusted(
+                    new FakeProblemWeightsPTime(w, p, 0), new FakeProblemData(w, p, 0), 0));
   }
 
   @Test
@@ -122,7 +125,8 @@ public class ApparentTardinessCostSetupAdjustedTests extends SchedulingHeuristic
     // Doesn't really matter: partial.extend(0);
     // All late tests
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 1);
-    ApparentTardinessCostSetupAdjusted h = new ApparentTardinessCostSetupAdjusted(problem);
+    ApparentTardinessCostSetupAdjusted h =
+        new ApparentTardinessCostSetupAdjusted(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -130,7 +134,7 @@ public class ApparentTardinessCostSetupAdjustedTests extends SchedulingHeuristic
     }
     // d=20, k default of 2
     problem = new FakeProblemWeightsPTime(w, p, 20, 1);
-    h = new ApparentTardinessCostSetupAdjusted(problem);
+    h = new ApparentTardinessCostSetupAdjusted(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -141,7 +145,7 @@ public class ApparentTardinessCostSetupAdjustedTests extends SchedulingHeuristic
     }
     // d=20, k=4
     problem = new FakeProblemWeightsPTime(w, p, 20, 1);
-    h = new ApparentTardinessCostSetupAdjusted(problem, 4);
+    h = new ApparentTardinessCostSetupAdjusted(problem, problem.getData(), 4);
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {

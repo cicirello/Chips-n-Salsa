@@ -57,11 +57,12 @@ public class WeightedShortestProcessingPlusSetupTimePrecompute extends Schedulin
   /**
    * Constructs an WeightedShortestProcessingPlusSetupTimePrecompute heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public WeightedShortestProcessingPlusSetupTimePrecompute(SingleMachineSchedulingProblem problem) {
-    super(problem);
-    SingleMachineSchedulingProblemData data = problem.getInstanceData();
+  public WeightedShortestProcessingPlusSetupTimePrecompute(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
     final int n = data.numberOfJobs();
     h = new double[n][n];
     if (data.hasSetupTimes()) {

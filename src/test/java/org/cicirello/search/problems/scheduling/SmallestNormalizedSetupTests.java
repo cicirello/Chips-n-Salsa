@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -44,7 +44,7 @@ public class SmallestNormalizedSetupTests extends SchedulingHeuristicValidation 
     int[] p = {2, 5, 9, 2, 10};
     double[] expected = {1, 0.5, 0.25};
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, s);
-    SmallestNormalizedSetup h = new SmallestNormalizedSetup(problem);
+    SmallestNormalizedSetup h = new SmallestNormalizedSetup(problem, problem.getData());
     PartialPermutation partial = new PartialPermutation(p.length);
     for (int j = 0; j < expected.length; j++) {
       assertEquals(expected[j], h.h(partial, j, null), 1E-10, "j:" + j);
@@ -60,7 +60,7 @@ public class SmallestNormalizedSetupTests extends SchedulingHeuristicValidation 
     assertEquals(0.5, h.h(partial, 0, null), 1E-10);
 
     FakeProblemWeightsPTime problemNoSetups = new FakeProblemWeightsPTime(w, p, 0);
-    h = new SmallestNormalizedSetup(problemNoSetups);
+    h = new SmallestNormalizedSetup(problemNoSetups, problemNoSetups.getData());
     partial = new PartialPermutation(p.length);
     for (int j = 0; j < expected.length; j++) {
       assertEquals(1.0, h.h(partial, j, null), 1E-10);
@@ -69,7 +69,7 @@ public class SmallestNormalizedSetupTests extends SchedulingHeuristicValidation 
     final int N = highS / 2;
 
     FakeProblemSmallestNormSetup pr = new FakeProblemSmallestNormSetup(N);
-    h = new SmallestNormalizedSetup(pr);
+    h = new SmallestNormalizedSetup(pr, pr.getData());
     partial = new PartialPermutation(N);
     assertEquals(e, h.h(partial, 2, null), 1E-10);
   }
@@ -125,7 +125,7 @@ public class SmallestNormalizedSetupTests extends SchedulingHeuristicValidation 
       return 0;
     }
 
-    public SingleMachineSchedulingProblemData getInstanceData() {
+    public FakeProblemSmallestNormSetupData getData() {
       return new FakeProblemSmallestNormSetupData(N);
     }
   }

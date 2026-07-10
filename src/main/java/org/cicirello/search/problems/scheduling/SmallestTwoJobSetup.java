@@ -40,11 +40,13 @@ public final class SmallestTwoJobSetup extends SchedulingHeuristic {
   /**
    * Constructs an SmallestTwoJobSetup heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public SmallestTwoJobSetup(SingleMachineSchedulingProblem problem) {
-    super(problem);
-    data = problem.getInstanceData();
+  public SmallestTwoJobSetup(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
+    this.data = data;
   }
 
   @Override

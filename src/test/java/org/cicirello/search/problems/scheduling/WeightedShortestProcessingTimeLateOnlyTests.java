@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -41,7 +41,8 @@ public class WeightedShortestProcessingTimeLateOnlyTests extends SchedulingHeuri
     // Doesn't really matter: partial.extend(0);
     // All late tests
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
-    WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
+    WeightedShortestProcessingTimeLateOnly h =
+        new WeightedShortestProcessingTimeLateOnly(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected.length; j++) {
@@ -49,7 +50,7 @@ public class WeightedShortestProcessingTimeLateOnlyTests extends SchedulingHeuri
     }
     // All on time tests
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new WeightedShortestProcessingTimeLateOnly(problem);
+    h = new WeightedShortestProcessingTimeLateOnly(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected.length; j++) {
@@ -63,7 +64,7 @@ public class WeightedShortestProcessingTimeLateOnlyTests extends SchedulingHeuri
               int[] p2 = {1, 1};
               int[] w2 = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
-              new WeightedShortestProcessingTimeLateOnly(pr);
+              new WeightedShortestProcessingTimeLateOnly(pr, pr.getData());
             });
   }
 }

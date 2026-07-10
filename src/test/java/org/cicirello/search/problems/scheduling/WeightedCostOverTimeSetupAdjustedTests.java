@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -46,7 +46,8 @@ public class WeightedCostOverTimeSetupAdjustedTests extends SchedulingHeuristicV
     // Doesn't really matter: partial.extend(0);
     // All late tests
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
-    WeightedCostOverTimeSetupAdjusted h = new WeightedCostOverTimeSetupAdjusted(problem);
+    WeightedCostOverTimeSetupAdjusted h =
+        new WeightedCostOverTimeSetupAdjusted(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -54,7 +55,7 @@ public class WeightedCostOverTimeSetupAdjustedTests extends SchedulingHeuristicV
     }
     // d=20, k default of 2
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new WeightedCostOverTimeSetupAdjusted(problem);
+    h = new WeightedCostOverTimeSetupAdjusted(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -66,7 +67,7 @@ public class WeightedCostOverTimeSetupAdjustedTests extends SchedulingHeuristicV
     }
     // d=20, k=4
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new WeightedCostOverTimeSetupAdjusted(problem, 4);
+    h = new WeightedCostOverTimeSetupAdjusted(problem, problem.getData(), 4);
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -84,12 +85,14 @@ public class WeightedCostOverTimeSetupAdjustedTests extends SchedulingHeuristicV
               int[] p2 = {1, 1};
               int[] w2 = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
-              new WeightedCostOverTimeSetupAdjusted(pr);
+              new WeightedCostOverTimeSetupAdjusted(pr, pr.getData());
             });
     thrown =
         assertThrows(
             IllegalArgumentException.class,
-            () -> new WeightedCostOverTimeSetupAdjusted(new FakeProblemWeightsPTime(w, p, 0), 0));
+            () ->
+                new WeightedCostOverTimeSetupAdjusted(
+                    new FakeProblemWeightsPTime(w, p, 0), new FakeProblemData(w, p, 0), 0));
   }
 
   @Test
@@ -108,7 +111,8 @@ public class WeightedCostOverTimeSetupAdjustedTests extends SchedulingHeuristicV
     // Doesn't really matter: partial.extend(0);
     // All late tests
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 1);
-    WeightedCostOverTimeSetupAdjusted h = new WeightedCostOverTimeSetupAdjusted(problem);
+    WeightedCostOverTimeSetupAdjusted h =
+        new WeightedCostOverTimeSetupAdjusted(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -116,7 +120,7 @@ public class WeightedCostOverTimeSetupAdjustedTests extends SchedulingHeuristicV
     }
     // d=20, k default of 2
     problem = new FakeProblemWeightsPTime(w, p, 20, 1);
-    h = new WeightedCostOverTimeSetupAdjusted(problem);
+    h = new WeightedCostOverTimeSetupAdjusted(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -128,7 +132,7 @@ public class WeightedCostOverTimeSetupAdjustedTests extends SchedulingHeuristicV
     }
     // d=20, k=4
     problem = new FakeProblemWeightsPTime(w, p, 20, 1);
-    h = new WeightedCostOverTimeSetupAdjusted(problem, 4);
+    h = new WeightedCostOverTimeSetupAdjusted(problem, problem.getData(), 4);
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {

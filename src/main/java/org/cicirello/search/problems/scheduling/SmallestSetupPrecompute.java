@@ -46,11 +46,12 @@ public final class SmallestSetupPrecompute extends SchedulingHeuristic {
   /**
    * Constructs an SmallestSetupPrecompute heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public SmallestSetupPrecompute(SingleMachineSchedulingProblem problem) {
-    super(problem);
-    SingleMachineSchedulingProblemData data = problem.getInstanceData();
+  public SmallestSetupPrecompute(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
     int n = data.numberOfJobs();
     h = new double[n][n];
     if (data.hasSetupTimes()) {

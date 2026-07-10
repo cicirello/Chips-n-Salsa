@@ -54,15 +54,18 @@ public final class WeightedCostOverTimeSetupAdjusted
   /**
    * Constructs an WeightedCostOverTimeSetupAdjusted heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
+   * @param data The instance specific data.
    * @param k A parameter to the heuristic, which must be positive. Typical good values are in the
    *     interval [1.0, 4.0] but it is not limited to that interval.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    * @throws IllegalArgumentException if k &le; 0.0.
    */
-  public WeightedCostOverTimeSetupAdjusted(SingleMachineSchedulingProblem problem, double k) {
-    super(problem);
-    data = problem.getInstanceData();
+  public WeightedCostOverTimeSetupAdjusted(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data, double k) {
+    super(problem, data);
+    this.data = data;
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
@@ -73,11 +76,13 @@ public final class WeightedCostOverTimeSetupAdjusted
   /**
    * Constructs an WeightedCostOverTimeSetupAdjusted heuristic. Uses a default of k=2.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    */
-  public WeightedCostOverTimeSetupAdjusted(SingleMachineSchedulingProblem problem) {
-    this(problem, 2.0);
+  public WeightedCostOverTimeSetupAdjusted(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    this(problem, data, 2.0);
   }
 
   @Override

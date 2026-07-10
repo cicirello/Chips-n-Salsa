@@ -68,24 +68,27 @@ public final class ExponentialEarlyTardyHeuristic extends SchedulingHeuristic {
   /**
    * Constructs a ExponentialEarlyTardyHeuristic heuristic. Uses a default value of k=1.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public ExponentialEarlyTardyHeuristic(SingleMachineSchedulingProblem problem) {
-    this(problem, 1.0);
+  public ExponentialEarlyTardyHeuristic(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    this(problem, data, 1.0);
   }
 
   /**
    * Constructs a ExponentialEarlyTardyHeuristic heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @param k A parameter of the heuristic (see class documentation). Must be at least 1.
    * @throws IllegalArgumentException if k &lt; 1.
    */
-  public ExponentialEarlyTardyHeuristic(SingleMachineSchedulingProblem problem, double k) {
-    super(problem);
+  public ExponentialEarlyTardyHeuristic(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data, double k) {
+    super(problem, data);
     if (k < 1) throw new IllegalArgumentException("k must be at least 1");
     // pre-compute WLPT and WSPT, and cache results.
-    SingleMachineSchedulingProblemData data = problem.getInstanceData();
     wlpt = new double[data.numberOfJobs()];
     wspt = new double[data.numberOfJobs()];
     double minimum = 0;

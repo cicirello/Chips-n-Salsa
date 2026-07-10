@@ -57,11 +57,13 @@ public class WeightedShortestProcessingPlusSetupTime extends SchedulingHeuristic
   /**
    * Constructs an WeightedShortestProcessingPlusSetupTime heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public WeightedShortestProcessingPlusSetupTime(SingleMachineSchedulingProblem problem) {
-    super(problem);
-    data = problem.getInstanceData();
+  public WeightedShortestProcessingPlusSetupTime(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
+    this.data = data;
   }
 
   @Override

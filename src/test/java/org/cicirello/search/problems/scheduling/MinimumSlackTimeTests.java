@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -36,7 +36,7 @@ public class MinimumSlackTimeTests extends SchedulingHeuristicValidation {
     int[] duedates = {3, 8, 5, 2};
     double[] expected = {7, 4, 6, 11};
     FakeProblemDuedates problem = new FakeProblemDuedates(duedates, p);
-    MinimumSlackTime h = new MinimumSlackTime(problem);
+    MinimumSlackTime h = new MinimumSlackTime(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     for (int j = 0; j < duedates.length; j++) {
       assertEquals(expected[j], h.h(null, j, inc), 1E-10);
@@ -44,7 +44,7 @@ public class MinimumSlackTimeTests extends SchedulingHeuristicValidation {
 
     PartialPermutation partial = new PartialPermutation(expected.length);
     problem = new FakeProblemDuedates(duedates, p, 3);
-    h = new MinimumSlackTime(problem);
+    h = new MinimumSlackTime(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     for (int j = 0; j < duedates.length; j++) {
       assertEquals(expected[j] + 3, h.h(partial, j, inc), 1E-10);
@@ -61,7 +61,7 @@ public class MinimumSlackTimeTests extends SchedulingHeuristicValidation {
               int[] p2 = {1, 1};
               int[] w2 = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
-              new MinimumSlackTime(pr);
+              new MinimumSlackTime(pr, pr.getData());
             });
   }
 }

@@ -52,12 +52,14 @@ public final class WeightedCriticalRatio extends WeightedShortestProcessingTime 
   /**
    * Constructs an WeightedCriticalRatio heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    */
-  public WeightedCriticalRatio(SingleMachineSchedulingProblem problem) {
-    super(problem);
-    data = problem.getInstanceData();
+  public WeightedCriticalRatio(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
+    this.data = data;
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }

@@ -42,7 +42,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
       {8, 1, 2, 3}
     };
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, d, s);
-    DynamicATCS h = new DynamicATCS(problem, 2, 1);
+    DynamicATCS h = new DynamicATCS(problem, problem.getData(), 2, 1);
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     DynamicATCS.IncrementalStatsCalculator incATCS = (DynamicATCS.IncrementalStatsCalculator) inc;
     assertEquals(58.0 / 16, incATCS.averageSetupTime(), 1E-10);
@@ -80,7 +80,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     // Doesn't really matter: partial.extend(0);
     // All late tests, k1=2, k2=7?shouldn't matter
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
-    DynamicATCS h = new DynamicATCS(problem, 2, 7);
+    DynamicATCS h = new DynamicATCS(problem, problem.getData(), 2, 7);
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -88,7 +88,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     }
     // d=20, k1=2, k2=7?shouldn't matter
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new DynamicATCS(problem, 2, 7);
+    h = new DynamicATCS(problem, problem.getData(), 2, 7);
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -99,7 +99,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     }
     // d=20, k=4, k2=7?shouldn't matter
     problem = new FakeProblemWeightsPTime(w, p, 20);
-    h = new DynamicATCS(problem, 4, 7);
+    h = new DynamicATCS(problem, problem.getData(), 4, 7);
     inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);
     for (int j = 1; j < expected0.length; j++) {
@@ -116,16 +116,26 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
               int[] p2 = {1, 1};
               int[] w2 = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
-              new DynamicATCS(pr, 1, 1);
+              new DynamicATCS(pr, pr.getData(), 1, 1);
             });
     thrown =
         assertThrows(
             IllegalArgumentException.class,
-            () -> new DynamicATCS(new FakeProblemWeightsPTime(w, p, 0), 0.0, 0.001));
+            () ->
+                new DynamicATCS(
+                    new FakeProblemWeightsPTime(w, p, 0),
+                    new FakeProblemData(w, p, 0),
+                    0.0,
+                    0.001));
     thrown =
         assertThrows(
             IllegalArgumentException.class,
-            () -> new DynamicATCS(new FakeProblemWeightsPTime(w, p, 0), 0.001, 0.0));
+            () ->
+                new DynamicATCS(
+                    new FakeProblemWeightsPTime(w, p, 0),
+                    new FakeProblemData(w, p, 0),
+                    0.001,
+                    0.0));
   }
 
   @Test
@@ -146,7 +156,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     PartialPermutation partial = new PartialPermutation(expected0.length);
     // All late tests, k1=2, k2=1
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
-    DynamicATCS h = new DynamicATCS(problem, 2, 1);
+    DynamicATCS h = new DynamicATCS(problem, problem.getData(), 2, 1);
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     double sAve = ((DynamicATCS.IncrementalStatsCalculator) inc).averageSetupTime();
     for (int j = 1; j < expected0.length; j++) {
@@ -156,7 +166,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     }
     // d=20, k1=2, k2=2
     problem = new FakeProblemWeightsPTime(w, p, 20, 4);
-    h = new DynamicATCS(problem, 2, 2);
+    h = new DynamicATCS(problem, problem.getData(), 2, 2);
     inc = h.createIncrementalEvaluation();
     for (int j = 1; j < expected0.length; j++) {
       double correction = Math.exp(-0.5 * slack[j] / pAve) * Math.exp(-2.0 / sAve);
@@ -166,7 +176,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     }
     // d=20, k=4, k2=3
     problem = new FakeProblemWeightsPTime(w, p, 20, 4);
-    h = new DynamicATCS(problem, 4, 3);
+    h = new DynamicATCS(problem, problem.getData(), 4, 3);
     inc = h.createIncrementalEvaluation();
     for (int j = 1; j < expected0.length; j++) {
       double correction = Math.exp(-0.25 * slack[j] / pAve) * Math.exp(-4.0 / 3.0 / sAve);
@@ -194,7 +204,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     PartialPermutation partial = new PartialPermutation(expected0.length);
     // All late tests,
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 4);
-    DynamicATCS h = new DynamicATCS(problem);
+    DynamicATCS h = new DynamicATCS(problem, problem.getData());
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     double sAve = ((DynamicATCS.IncrementalStatsCalculator) inc).averageSetupTime();
     for (int j = 1; j < expected0.length; j++) {
@@ -202,7 +212,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     }
     // d=20,
     problem = new FakeProblemWeightsPTime(w, p, 20, 4);
-    h = new DynamicATCS(problem);
+    h = new DynamicATCS(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     for (int j = 1; j < expected0.length; j++) {
       assertTrue(expected0[j] >= h.h(partial, j, inc), "positiveSlack, j:" + j);
@@ -210,7 +220,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     // d=all different,
     int[] dates = {30, 25, 20, 45, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22};
     problem = new FakeProblemWeightsPTime(w, p, dates, 4);
-    h = new DynamicATCS(problem);
+    h = new DynamicATCS(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     for (int j = 1; j < expected0.length; j++) {
       assertTrue(expected0[j] >= h.h(partial, j, inc), "positiveSlack, j:" + j);
@@ -218,7 +228,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     // wider duedate range
     int[] dw = {20, highP * 2, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20};
     problem = new FakeProblemWeightsPTime(w, p, dw, 4);
-    h = new DynamicATCS(problem);
+    h = new DynamicATCS(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     for (int j = 1; j < expected0.length; j++) {
       assertTrue(expected0[j] >= h.h(partial, j, inc), "positiveSlack, j:" + j);
@@ -226,7 +236,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     // extremely wide duedate range
     int[] dew = {20, highP * 4, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20};
     problem = new FakeProblemWeightsPTime(w, p, dew, 4);
-    h = new DynamicATCS(problem);
+    h = new DynamicATCS(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     for (int j = 1; j < expected0.length; j++) {
       assertTrue(expected0[j] >= h.h(partial, j, inc), "positiveSlack, j:" + j);
@@ -243,7 +253,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
       {10, 2, 1, 7}
     };
     problem = new FakeProblemWeightsPTime(w0, p0, d0, setups);
-    h = new DynamicATCS(problem);
+    h = new DynamicATCS(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     for (int j = 0; j < e0.length; j++) {
       assertTrue(e0[j] >= h.h(partial, j, inc));
@@ -257,7 +267,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     };
     int[] dlow = {20, 20, 20, 20};
     problem = new FakeProblemWeightsPTime(w0, p0, dlow, sLowVar);
-    h = new DynamicATCS(problem);
+    h = new DynamicATCS(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     for (int j = 0; j < e0.length; j++) {
       assertTrue(e0[j] >= h.h(partial, j, inc));
@@ -270,7 +280,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
       {0, 0, 0, 0}
     };
     problem = new FakeProblemWeightsPTime(w0, p0, dlow, setupZero);
-    h = new DynamicATCS(problem);
+    h = new DynamicATCS(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     for (int j = 0; j < e0.length; j++) {
       assertTrue(e0[j] >= h.h(partial, j, inc));
@@ -291,7 +301,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     }
     s1[0][0] = 11;
     problem = new FakeProblemWeightsPTime(w1, p1, d1, s1);
-    h = new DynamicATCS(problem);
+    h = new DynamicATCS(problem, problem.getData());
     inc = h.createIncrementalEvaluation();
     for (int j = 0; j < e0.length; j++) {
       assertTrue(e0[j] >= h.h(partial, j, inc));
@@ -304,7 +314,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
               int[] p2 = {1, 1};
               int[] w2 = {1, 1};
               FakeProblemWeightsPTime pr = new FakeProblemWeightsPTime(p2, w2);
-              new DynamicATCS(pr);
+              new DynamicATCS(pr, pr.getData());
             });
   }
 
@@ -320,7 +330,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
       999, Math.exp(-1), 0.5 * Math.exp(-0.5), 0.25 * Math.exp(-8.0 / 3), 0.125 * Math.exp(-5.0 / 6)
     };
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, d, s);
-    DynamicATCS h = new DynamicATCS(problem, 2.0, 3.0);
+    DynamicATCS h = new DynamicATCS(problem, problem.getData(), 2.0, 3.0);
     PartialPermutation partial = new PartialPermutation(expected0.length);
     partial.extend(0);
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
@@ -334,7 +344,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     double k = 0.5 / Math.log(1.0 / e);
     int due = 2;
     problem = new FakeProblemWeightsPTime(new int[] {wp}, new int[] {wp}, due);
-    h = new DynamicATCS(problem, k, 1);
+    h = new DynamicATCS(problem, problem.getData(), k, 1);
     inc = h.createIncrementalEvaluation();
     partial = new PartialPermutation(1);
     assertEquals(e, h.h(partial, 0, inc), 1E-10);
@@ -342,7 +352,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
     // force small heuristic case with k2
     int[][] sets = {{1}};
     problem = new FakeProblemWeightsPTime(new int[] {wp}, new int[] {wp}, new int[] {due}, sets);
-    h = new DynamicATCS(problem, 1, k);
+    h = new DynamicATCS(problem, problem.getData(), 1, k);
     inc = h.createIncrementalEvaluation();
     partial = new PartialPermutation(1);
     assertEquals(e, h.h(partial, 0, inc), 1E-10);
@@ -366,7 +376,7 @@ public class DynamicATCSTests extends SchedulingHeuristicValidation {
       999, Math.exp(-1), 0.5 * Math.exp(-0.5), 0.25 * Math.exp(-8.0 / 3), 0.125 * Math.exp(-5.0 / 6)
     };
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, d, s);
-    DynamicATCS h = new DynamicATCS(problem, 2.0, 3.0);
+    DynamicATCS h = new DynamicATCS(problem, problem.getData(), 2.0, 3.0);
     PartialPermutation partial = new PartialPermutation(d.length);
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     inc.extend(partial, 0);

@@ -46,11 +46,12 @@ public final class WeightedLongestProcessingTime extends SchedulingHeuristic {
   /**
    * Constructs a WeightedLongestProcessingTime heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    */
-  public WeightedLongestProcessingTime(SingleMachineSchedulingProblem problem) {
-    super(problem);
-    SingleMachineSchedulingProblemData data = problem.getInstanceData();
+  public WeightedLongestProcessingTime(
+      SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
     // pre-compute h and cache results.
     h = new double[data.numberOfJobs()];
     double minimum = 0;

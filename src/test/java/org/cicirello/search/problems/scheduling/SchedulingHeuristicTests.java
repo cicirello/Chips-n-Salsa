@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -34,7 +34,7 @@ public class SchedulingHeuristicTests extends SchedulingHeuristicValidation {
   public void testBaseClassMethods() {
     int[] duedates = {3, 0, 1, 7};
     FakeProblemDuedates problem = new FakeProblemDuedates(duedates);
-    EarliestDueDate h = new EarliestDueDate(problem);
+    EarliestDueDate h = new EarliestDueDate(problem, problem.getData());
     assertEquals(problem, h.getProblem());
     assertEquals(4, h.completeLength());
     for (int i = 1; i < 4; i++) {
@@ -51,7 +51,8 @@ public class SchedulingHeuristicTests extends SchedulingHeuristicValidation {
     int[] p = {3, 2, 1, 4, 5};
     int[] e = {3, 5, 6, 10, 15};
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0);
-    WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
+    WeightedShortestProcessingTimeLateOnly h =
+        new WeightedShortestProcessingTimeLateOnly(problem, problem.getData());
     PartialPermutation partial = new PartialPermutation(e.length);
     SchedulingHeuristic.IncrementalTimeCalculator inc =
         (SchedulingHeuristic.IncrementalTimeCalculator) h.createIncrementalEvaluation();
@@ -70,7 +71,8 @@ public class SchedulingHeuristicTests extends SchedulingHeuristicValidation {
     int[] p = {3, 2, 1, 4, 5};
     int[] e = {10, 13, 18, 29, 44};
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 0, 7);
-    WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
+    WeightedShortestProcessingTimeLateOnly h =
+        new WeightedShortestProcessingTimeLateOnly(problem, problem.getData());
     PartialPermutation partial = new PartialPermutation(e.length);
     SchedulingHeuristic.IncrementalTimeCalculator inc =
         (SchedulingHeuristic.IncrementalTimeCalculator) h.createIncrementalEvaluation();
@@ -89,7 +91,8 @@ public class SchedulingHeuristicTests extends SchedulingHeuristicValidation {
     int[] p = {3, 2, 1, 4, 5};
     int[] e = {7, 5, 4, 0, -5};
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 10);
-    WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
+    WeightedShortestProcessingTimeLateOnly h =
+        new WeightedShortestProcessingTimeLateOnly(problem, problem.getData());
     PartialPermutation partial = new PartialPermutation(e.length);
     SchedulingHeuristic.IncrementalTimeCalculator inc =
         (SchedulingHeuristic.IncrementalTimeCalculator) h.createIncrementalEvaluation();
@@ -108,7 +111,8 @@ public class SchedulingHeuristicTests extends SchedulingHeuristicValidation {
     int[] p = {3, 2, 1, 4, 5};
     int[] e = {19, 16, 11, 0, -15};
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 29, 7);
-    WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
+    WeightedShortestProcessingTimeLateOnly h =
+        new WeightedShortestProcessingTimeLateOnly(problem, problem.getData());
     PartialPermutation partial = new PartialPermutation(e.length);
     SchedulingHeuristic.IncrementalTimeCalculator inc =
         (SchedulingHeuristic.IncrementalTimeCalculator) h.createIncrementalEvaluation();
@@ -126,7 +130,8 @@ public class SchedulingHeuristicTests extends SchedulingHeuristicValidation {
     int[] p = {3, 2, 1, 4, 5};
     int[] e = {7, 5, 4, 0, 0};
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 10);
-    WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
+    WeightedShortestProcessingTimeLateOnly h =
+        new WeightedShortestProcessingTimeLateOnly(problem, problem.getData());
     PartialPermutation partial = new PartialPermutation(e.length);
     SchedulingHeuristic.IncrementalTimeCalculator inc =
         (SchedulingHeuristic.IncrementalTimeCalculator) h.createIncrementalEvaluation();
@@ -145,7 +150,8 @@ public class SchedulingHeuristicTests extends SchedulingHeuristicValidation {
     int[] p = {3, 2, 1, 4, 5};
     int[] e = {19, 16, 11, 0, 0};
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 29, 7);
-    WeightedShortestProcessingTimeLateOnly h = new WeightedShortestProcessingTimeLateOnly(problem);
+    WeightedShortestProcessingTimeLateOnly h =
+        new WeightedShortestProcessingTimeLateOnly(problem, problem.getData());
     PartialPermutation partial = new PartialPermutation(e.length);
     SchedulingHeuristic.IncrementalTimeCalculator inc =
         (SchedulingHeuristic.IncrementalTimeCalculator) h.createIncrementalEvaluation();
@@ -163,7 +169,7 @@ public class SchedulingHeuristicTests extends SchedulingHeuristicValidation {
     int[] p = {3, 2, 1, 4, 5};
     int[] expectedTotal = {15, 12, 10, 9, 5};
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p, 10);
-    Montagne h = new Montagne(problem);
+    Montagne h = new Montagne(problem, problem.getData());
     PartialPermutation partial = new PartialPermutation(expectedTotal.length);
     SchedulingHeuristic.IncrementalAverageProcessingCalculator inc =
         (SchedulingHeuristic.IncrementalAverageProcessingCalculator)

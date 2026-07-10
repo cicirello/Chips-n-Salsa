@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -35,7 +35,7 @@ public class ShortestProcessingTimeTests extends SchedulingHeuristicValidation {
     int[] p = {1, 2, 4, 8, 1, 2, 4, 8, 1, 2, 4, 8, highP};
     double[] expected = {1, 0.5, 0.25, 0.125, 1, 0.5, 0.25, 0.125, 1, 0.5, 0.25, 0.125, e};
     FakeProblemWeightsPTime problem = new FakeProblemWeightsPTime(w, p);
-    ShortestProcessingTime h = new ShortestProcessingTime(problem);
+    ShortestProcessingTime h = new ShortestProcessingTime(problem, problem.getData());
     for (int j = 0; j < expected.length; j++) {
       assertEquals(expected[j], h.h(null, j, null), 1E-10);
     }

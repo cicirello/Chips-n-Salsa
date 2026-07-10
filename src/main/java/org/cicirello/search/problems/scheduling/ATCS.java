@@ -55,15 +55,20 @@ public final class ATCS extends WeightedShortestProcessingTime {
   /**
    * Constructs an ATCS heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @param k1 A parameter to the heuristic, which must be positive.
    * @param k2 A parameter to the heuristic, which must be positive.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    * @throws IllegalArgumentException if k &le; 0.0.
    */
-  public ATCS(SingleMachineSchedulingProblem problem, double k1, double k2) {
-    super(problem);
-    data = problem.getInstanceData();
+  public ATCS(
+      SingleMachineSchedulingProblem problem,
+      SingleMachineSchedulingProblemData data,
+      double k1,
+      double k2) {
+    super(problem, data);
+    this.data = data;
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }
@@ -88,12 +93,13 @@ public final class ATCS extends WeightedShortestProcessingTime {
    * Constructs an ATCS heuristic. Sets the values of k1 and k2 according to the procedure described
    * by the authors of the ATCS heuristic.
    *
-   * @param problem The instance of a scheduling problem that is the target of the heuristic.
+   * @param problem The cost function of a scheduling problem that is the target of the heuristic.
+   * @param data The instance specific data.
    * @throws IllegalArgumentException if problem.hasDueDates() returns false.
    */
-  public ATCS(SingleMachineSchedulingProblem problem) {
-    super(problem);
-    data = problem.getInstanceData();
+  public ATCS(SingleMachineSchedulingProblem problem, SingleMachineSchedulingProblemData data) {
+    super(problem, data);
+    this.data = data;
     if (!data.hasDueDates()) {
       throw new IllegalArgumentException("This heuristic requires due dates.");
     }

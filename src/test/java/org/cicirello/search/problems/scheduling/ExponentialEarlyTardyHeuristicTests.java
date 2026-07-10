@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -55,8 +55,8 @@ public class ExponentialEarlyTardyHeuristicTests extends SchedulingHeuristicVali
         FakeEarlyTardyProblem problem = new FakeEarlyTardyProblem(p, we, wt, d);
         ExponentialEarlyTardyHeuristic h =
             k == 1
-                ? new ExponentialEarlyTardyHeuristic(problem)
-                : new ExponentialEarlyTardyHeuristic(problem, k);
+                ? new ExponentialEarlyTardyHeuristic(problem, problem.getData())
+                : new ExponentialEarlyTardyHeuristic(problem, problem.getData(), k);
         IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
         PartialPermutation partial = new PartialPermutation(p.length);
         for (int j = 0; j < expected.length; j++) {
@@ -87,8 +87,8 @@ public class ExponentialEarlyTardyHeuristicTests extends SchedulingHeuristicVali
         FakeEarlyTardyProblem problem = new FakeEarlyTardyProblem(p, we, wt, d);
         ExponentialEarlyTardyHeuristic h =
             k == 1
-                ? new ExponentialEarlyTardyHeuristic(problem)
-                : new ExponentialEarlyTardyHeuristic(problem, k);
+                ? new ExponentialEarlyTardyHeuristic(problem, problem.getData())
+                : new ExponentialEarlyTardyHeuristic(problem, problem.getData(), k);
         IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
         PartialPermutation partial = new PartialPermutation(p.length);
         for (int j = 0; j < expected.length; j++) {
@@ -115,7 +115,8 @@ public class ExponentialEarlyTardyHeuristicTests extends SchedulingHeuristicVali
       expected[i] += e + 2;
     }
     FakeEarlyTardyProblem problem = new FakeEarlyTardyProblem(p, we, wt, d);
-    ExponentialEarlyTardyHeuristic h = new ExponentialEarlyTardyHeuristic(problem, k);
+    ExponentialEarlyTardyHeuristic h =
+        new ExponentialEarlyTardyHeuristic(problem, problem.getData(), k);
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     PartialPermutation partial = new PartialPermutation(p.length);
     for (int j = 0; j < expected.length; j++) {
@@ -143,7 +144,8 @@ public class ExponentialEarlyTardyHeuristicTests extends SchedulingHeuristicVali
       expected[i] += e + 2;
     }
     FakeEarlyTardyProblem problem = new FakeEarlyTardyProblem(p, we, wt, d);
-    ExponentialEarlyTardyHeuristic h = new ExponentialEarlyTardyHeuristic(problem, k);
+    ExponentialEarlyTardyHeuristic h =
+        new ExponentialEarlyTardyHeuristic(problem, problem.getData(), k);
     IncrementalEvaluation<Permutation> inc = h.createIncrementalEvaluation();
     PartialPermutation partial = new PartialPermutation(p.length);
     for (int j = 0; j < expected.length; j++) {
@@ -159,6 +161,7 @@ public class ExponentialEarlyTardyHeuristicTests extends SchedulingHeuristicVali
             () ->
                 new ExponentialEarlyTardyHeuristic(
                     new FakeEarlyTardyProblem(new int[1], new int[1], new int[1], new int[1]),
+                    new FakeEarlyTardyProblemData(new int[1], new int[1], new int[1], new int[1]),
                     0.9999));
   }
 }

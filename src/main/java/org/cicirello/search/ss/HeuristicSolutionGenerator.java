@@ -158,19 +158,27 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
 
   private SolutionCostPair<T> evaluateAndPackageSolution(T complete) {
     if (pOptInt != null) {
-      SolutionCostPair<T> solution = pOptInt.getSolutionCostPair(complete);
-      int cost = solution.getCost();
-      if (cost < tracker.getCost()) {
-        tracker.update(cost, complete, pOptInt.isMinCost(cost));
-      }
-      return solution;
+      return evaluateAndPackageIntCostSolution(complete);
     } else {
-      SolutionCostPair<T> solution = pOpt.getSolutionCostPair(complete);
-      double cost = solution.getCostDouble();
-      if (cost < tracker.getCostDouble()) {
-        tracker.update(cost, complete, pOpt.isMinCost(cost));
-      }
-      return solution;
+      return evaluateAndPackageDoubleCostSolution(complete);
     }
+  }
+
+  private SolutionCostPair<T> evaluateAndPackageIntCostSolution(T complete) {
+    SolutionCostPair<T> solution = pOptInt.getSolutionCostPair(complete);
+    int cost = solution.getCost();
+    if (cost < tracker.getCost()) {
+      tracker.update(cost, complete, pOptInt.isMinCost(cost));
+    }
+    return solution;
+  }
+
+  private SolutionCostPair<T> evaluateAndPackageDoubleCostSolution(T complete) {
+    SolutionCostPair<T> solution = pOpt.getSolutionCostPair(complete);
+    double cost = solution.getCostDouble();
+    if (cost < tracker.getCostDouble()) {
+      tracker.update(cost, complete, pOpt.isMinCost(cost));
+    }
+    return solution;
   }
 }

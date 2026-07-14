@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-07-10
+## [Unreleased] - 2026-07-14
 
 __BREAKING CHANGES: Next release will be 8.0.0.__
 
@@ -25,6 +25,7 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 * Refactored DynamicATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
 * Refactored Mix.value(BitVector) to eLiminate dispersed coupling, detected by RefactorFirst.
 * Refactored BlockInterchangeIterator.nextBlockInsertion(), identified as a brain method by RefactorFirst.
+* Refactored an internal package (org.cicirello.search.internal) to eliminate a package cycle detected by RefactorFirst. 
 
 ### Dependencies
 

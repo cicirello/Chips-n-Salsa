@@ -107,9 +107,9 @@ public interface ConstructiveHeuristic<T extends Copyable<T>>
    * {@inheritDoc}
    *
    * <p>The default implementation simply returns this, which is appropriate in all cases where an
-   * instance of the heuristic can be safely shared by multiple threads. If your heuristic implementation
-   * would be unsafe to share among multiple threads, then it is necessary to override this default behavior
-   * to split off an independent copy.
+   * instance of the heuristic can be safely shared by multiple threads. If your heuristic
+   * implementation would be unsafe to share among multiple threads, then it is necessary to
+   * override this default behavior to split off an independent copy.
    */
   @Override
   default ConstructiveHeuristic<T> split() {
@@ -117,8 +117,8 @@ public interface ConstructiveHeuristic<T extends Copyable<T>>
   }
 
   /**
-   * Applies the constructuive heuristic to generate a solution. You should not need to override the default
-   * implementation of this method.
+   * Applies the constructuive heuristic to generate a solution. You should not need to override the
+   * default implementation of this method.
    *
    * @return the constructive heuristic solution
    */

@@ -27,6 +27,7 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 * Refactored BlockInterchangeIterator.nextBlockInsertion(), identified as a brain method by RefactorFirst.
 * Refactored an internal package (org.cicirello.search.internal) to eliminate a package cycle detected by RefactorFirst.
 * Refactored elitism logic to resolve issues identified by RefactorFirst.
+* Refactored HeuristicSolutionGenerator to eliminate intensive coupling identified by RefactorFirst.
 
 ### Dependencies
 

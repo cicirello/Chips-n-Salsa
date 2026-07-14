@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -21,8 +21,8 @@
 package org.cicirello.search.evo;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import org.cicirello.search.ProgressTracker;
-import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.util.Copyable;
 
@@ -76,18 +76,14 @@ abstract class BasePopulation {
         FitnessFunction.Double<T> f,
         SelectionOperator selection,
         ProgressTracker<T> tracker) {
-      super(tracker);
+      super(Objects.requireNonNull(tracker));
       if (n < 1) {
         throw new IllegalArgumentException("population size n must be positive");
       }
-      ReferenceValidator.nullCheck(initializer);
-      ReferenceValidator.nullCheck(f);
-      ReferenceValidator.nullCheck(selection);
-      ReferenceValidator.nullCheck(tracker);
-      this.initializer = initializer;
-      this.selection = selection;
+      this.initializer = Objects.requireNonNull(initializer);
+      this.selection = Objects.requireNonNull(selection);
 
-      this.f = f;
+      this.f = Objects.requireNonNull(f);
       MU = n;
 
       pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
@@ -249,18 +245,14 @@ abstract class BasePopulation {
         FitnessFunction.Integer<T> f,
         SelectionOperator selection,
         ProgressTracker<T> tracker) {
-      super(tracker);
+      super(Objects.requireNonNull(tracker));
       if (n < 1) {
         throw new IllegalArgumentException("population size n must be positive");
       }
-      ReferenceValidator.nullCheck(initializer);
-      ReferenceValidator.nullCheck(f);
-      ReferenceValidator.nullCheck(selection);
-      ReferenceValidator.nullCheck(tracker);
-      this.initializer = initializer;
-      this.selection = selection;
+      this.initializer = Objects.requireNonNull(initializer);
+      this.selection = Objects.requireNonNull(selection);
 
-      this.f = f;
+      this.f = Objects.requireNonNull(f);
       MU = n;
 
       pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);

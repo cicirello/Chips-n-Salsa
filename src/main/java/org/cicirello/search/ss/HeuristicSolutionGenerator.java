@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,10 +20,10 @@
 
 package org.cicirello.search.ss;
 
+import java.util.Objects;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SimpleMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.Problem;
@@ -85,8 +85,8 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
   public static <T extends Copyable<T>>
       HeuristicSolutionGenerator<T> createHeuristicSolutionGenerator(
           ConstructiveHeuristic<T> heuristic) {
-    ReferenceValidator.nullCheck(heuristic);
-    return new HeuristicSolutionGenerator<T>(heuristic, new ProgressTracker<T>());
+    return new HeuristicSolutionGenerator<T>(
+        Objects.requireNonNull(heuristic), new ProgressTracker<T>());
   }
 
   /**
@@ -102,9 +102,8 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
   public static <T extends Copyable<T>>
       HeuristicSolutionGenerator<T> createHeuristicSolutionGenerator(
           ConstructiveHeuristic<T> heuristic, ProgressTracker<T> tracker) {
-    ReferenceValidator.nullCheck(heuristic);
-    ReferenceValidator.nullCheck(tracker);
-    return new HeuristicSolutionGenerator<T>(heuristic, tracker);
+    return new HeuristicSolutionGenerator<T>(
+        Objects.requireNonNull(heuristic), Objects.requireNonNull(tracker));
   }
 
   /*

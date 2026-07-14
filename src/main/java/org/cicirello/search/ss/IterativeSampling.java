@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,9 @@
 
 package org.cicirello.search.ss;
 
+import java.util.Objects;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
@@ -59,9 +59,8 @@ public final class IterativeSampling<T extends Copyable<T>> extends AbstractStoc
    */
   public IterativeSampling(
       OptimizationProblem<T> problem, Initializer<T> initializer, ProgressTracker<T> tracker) {
-    super(problem, tracker);
-    ReferenceValidator.nullCheck(initializer);
-    this.initializer = initializer;
+    super(Objects.requireNonNull(problem), Objects.requireNonNull(tracker));
+    this.initializer = Objects.requireNonNull(initializer);
   }
 
   /**
@@ -77,9 +76,8 @@ public final class IterativeSampling<T extends Copyable<T>> extends AbstractStoc
       IntegerCostOptimizationProblem<T> problem,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(problem, tracker);
-    ReferenceValidator.nullCheck(initializer);
-    this.initializer = initializer;
+    super(Objects.requireNonNull(problem), Objects.requireNonNull(tracker));
+    this.initializer = Objects.requireNonNull(initializer);
   }
 
   /**

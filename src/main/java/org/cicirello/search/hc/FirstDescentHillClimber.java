@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,9 @@
 
 package org.cicirello.search.hc;
 
+import java.util.Objects;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.IterableMutationOperator;
 import org.cicirello.search.operators.MutationIterator;
@@ -69,11 +69,9 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(initializer, tracker);
-    ReferenceValidator.nullCheck(problem);
-    ReferenceValidator.nullCheck(mutation);
-    this.mutation = mutation;
-    pOpt = problem;
+    super(Objects.requireNonNull(initializer), Objects.requireNonNull(tracker));
+    this.mutation = Objects.requireNonNull(mutation);
+    pOpt = Objects.requireNonNull(problem);
     pOptInt = null;
     climber = new DoubleCostClimber();
   }
@@ -93,11 +91,9 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(initializer, tracker);
-    ReferenceValidator.nullCheck(problem);
-    ReferenceValidator.nullCheck(mutation);
-    this.mutation = mutation;
-    pOptInt = problem;
+    super(Objects.requireNonNull(initializer), Objects.requireNonNull(tracker));
+    this.mutation = Objects.requireNonNull(mutation);
+    pOptInt = Objects.requireNonNull(problem);
     pOpt = null;
     climber = new IntCostClimber();
   }
@@ -115,11 +111,9 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       OptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(initializer, new ProgressTracker<T>());
-    ReferenceValidator.nullCheck(problem);
-    ReferenceValidator.nullCheck(mutation);
-    this.mutation = mutation;
-    pOpt = problem;
+    super(Objects.requireNonNull(initializer), new ProgressTracker<T>());
+    this.mutation = Objects.requireNonNull(mutation);
+    pOpt = Objects.requireNonNull(problem);
     pOptInt = null;
     climber = new DoubleCostClimber();
   }
@@ -137,11 +131,9 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IntegerCostOptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(initializer, new ProgressTracker<T>());
-    ReferenceValidator.nullCheck(problem);
-    ReferenceValidator.nullCheck(mutation);
-    this.mutation = mutation;
-    pOptInt = problem;
+    super(Objects.requireNonNull(initializer), new ProgressTracker<T>());
+    this.mutation = Objects.requireNonNull(mutation);
+    pOptInt = Objects.requireNonNull(problem);
     pOpt = null;
     climber = new IntCostClimber();
   }

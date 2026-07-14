@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,9 @@
 
 package org.cicirello.search.evo;
 
+import java.util.Objects;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.internal.RandomnessFactory;
-import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.util.Copyable;
@@ -46,14 +46,12 @@ final class AlwaysMutateGeneration<T extends Copyable<T>> implements Generation<
 
   AlwaysMutateGeneration(
       MutationOperator<T> mutation, CrossoverOperator<T> crossover, double crossoverRate) {
-    ReferenceValidator.nullCheck(mutation);
-    ReferenceValidator.nullCheck(crossover);
+    this.mutation = Objects.requireNonNull(mutation);
+    this.crossover = Objects.requireNonNull(crossover);
     if (crossoverRate < 0.0) {
       throw new IllegalArgumentException("crossoverRate must not be negative");
     }
     C = crossoverRate < 1.0 ? crossoverRate : 1.0;
-    this.mutation = mutation;
-    this.crossover = crossover;
     generator = RandomnessFactory.createEnhancedSplittableGenerator();
   }
 

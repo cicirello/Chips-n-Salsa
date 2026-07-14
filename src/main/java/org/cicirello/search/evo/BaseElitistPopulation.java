@@ -53,7 +53,7 @@ abstract class BaseElitistPopulation {
 
     private final ArrayList<PopulationMember.DoubleFitness<T>> pop;
     private final ArrayList<PopulationMember.DoubleFitness<T>> nextPop;
-    private final EliteSet.DoubleFitness<T> elite;
+    private final EliteSetDoubleFitness<T> elite;
     private final boolean[] updated;
 
     private final FitnessFunction.Double<T> f;
@@ -96,7 +96,7 @@ abstract class BaseElitistPopulation {
       this.initializer = Objects.requireNonNull(initializer);
       this.selection = Objects.requireNonNull(selection);
 
-      elite = new EliteSet.DoubleFitness<T>(numElite);
+      elite = new EliteSetDoubleFitness<T>(numElite);
 
       this.f = Objects.requireNonNull(f);
       MU = n;
@@ -127,7 +127,7 @@ abstract class BaseElitistPopulation {
       // initialize these fresh: not threadsafe or otherwise needs its own
       pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
       nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
-      elite = new EliteSet.DoubleFitness<T>(MU - LAMBDA);
+      elite = new EliteSetDoubleFitness<T>(MU - LAMBDA);
       selected = new int[LAMBDA];
       updated = new boolean[LAMBDA];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
@@ -252,7 +252,7 @@ abstract class BaseElitistPopulation {
 
     private final ArrayList<PopulationMember.IntegerFitness<T>> pop;
     private final ArrayList<PopulationMember.IntegerFitness<T>> nextPop;
-    private final EliteSet.IntegerFitness<T> elite;
+    private final EliteSetIntegerFitness<T> elite;
     private final boolean[] updated;
 
     private final FitnessFunction.Integer<T> f;
@@ -295,7 +295,7 @@ abstract class BaseElitistPopulation {
       this.initializer = Objects.requireNonNull(initializer);
       this.selection = Objects.requireNonNull(selection);
 
-      elite = new EliteSet.IntegerFitness<T>(numElite);
+      elite = new EliteSetIntegerFitness<T>(numElite);
 
       this.f = Objects.requireNonNull(f);
       MU = n;
@@ -326,7 +326,7 @@ abstract class BaseElitistPopulation {
       // initialize these fresh: not threadsafe or otherwise needs its own
       pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
       nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
-      elite = new EliteSet.IntegerFitness<T>(MU - LAMBDA);
+      elite = new EliteSetIntegerFitness<T>(MU - LAMBDA);
       selected = new int[LAMBDA];
       updated = new boolean[LAMBDA];
       bestFitness = java.lang.Integer.MIN_VALUE;

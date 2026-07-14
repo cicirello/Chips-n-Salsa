@@ -58,7 +58,7 @@ abstract class EvolvableParametersElitistPopulation {
 
     private final ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>> pop;
     private final ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>> nextPop;
-    private final EliteSet.DoubleFitness<EncodingWithParameters<T>> elite;
+    private final EliteSetDoubleFitness<EncodingWithParameters<T>> elite;
     private final boolean[] updated;
 
     private final FitnessFunction.Double<T> f;
@@ -106,7 +106,7 @@ abstract class EvolvableParametersElitistPopulation {
       this.initializer = Objects.requireNonNull(initializer);
       this.selection = Objects.requireNonNull(selection);
 
-      elite = new EliteSet.DoubleFitness<EncodingWithParameters<T>>(numElite);
+      elite = new EliteSetDoubleFitness<EncodingWithParameters<T>>(numElite);
 
       this.numParams = numParams;
 
@@ -142,7 +142,7 @@ abstract class EvolvableParametersElitistPopulation {
       // initialize these fresh: not threadsafe or otherwise needs its own
       pop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
       nextPop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(LAMBDA);
-      elite = new EliteSet.DoubleFitness<EncodingWithParameters<T>>(MU - LAMBDA);
+      elite = new EliteSetDoubleFitness<EncodingWithParameters<T>>(MU - LAMBDA);
       selected = new int[LAMBDA];
       updated = new boolean[LAMBDA];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
@@ -277,7 +277,7 @@ abstract class EvolvableParametersElitistPopulation {
 
     private final ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>> pop;
     private final ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>> nextPop;
-    private final EliteSet.IntegerFitness<EncodingWithParameters<T>> elite;
+    private final EliteSetIntegerFitness<EncodingWithParameters<T>> elite;
     private final boolean[] updated;
 
     private final FitnessFunction.Integer<T> f;
@@ -325,7 +325,7 @@ abstract class EvolvableParametersElitistPopulation {
       this.initializer = Objects.requireNonNull(initializer);
       this.selection = Objects.requireNonNull(selection);
 
-      elite = new EliteSet.IntegerFitness<EncodingWithParameters<T>>(numElite);
+      elite = new EliteSetIntegerFitness<EncodingWithParameters<T>>(numElite);
 
       this.numParams = numParams;
 
@@ -360,7 +360,7 @@ abstract class EvolvableParametersElitistPopulation {
       // initialize these fresh: not threadsafe or otherwise needs its own
       pop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
       nextPop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(LAMBDA);
-      elite = new EliteSet.IntegerFitness<EncodingWithParameters<T>>(MU - LAMBDA);
+      elite = new EliteSetIntegerFitness<EncodingWithParameters<T>>(MU - LAMBDA);
       selected = new int[LAMBDA];
       updated = new boolean[LAMBDA];
       bestFitness = java.lang.Integer.MIN_VALUE;

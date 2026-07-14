@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,10 +20,10 @@
 
 package org.cicirello.search.evo;
 
+import java.util.Objects;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SingleSolutionMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
@@ -100,14 +100,10 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       UndoableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    ReferenceValidator.nullCheck(problem);
-    ReferenceValidator.nullCheck(mutation);
-    ReferenceValidator.nullCheck(initializer);
-    ReferenceValidator.nullCheck(tracker);
-    this.initializer = initializer;
-    this.mutation = mutation;
-    this.tracker = tracker;
-    pOpt = problem;
+    this.initializer = Objects.requireNonNull(initializer);
+    this.mutation = Objects.requireNonNull(mutation);
+    this.tracker = Objects.requireNonNull(tracker);
+    pOpt = Objects.requireNonNull(problem);
     pOptInt = null;
     // default on purpose: elapsedEvals = 0;
     sr = new DoubleCostSingleRun();
@@ -128,14 +124,10 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       UndoableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    ReferenceValidator.nullCheck(problem);
-    ReferenceValidator.nullCheck(mutation);
-    ReferenceValidator.nullCheck(initializer);
-    ReferenceValidator.nullCheck(tracker);
-    this.initializer = initializer;
-    this.mutation = mutation;
-    this.tracker = tracker;
-    pOptInt = problem;
+    this.initializer = Objects.requireNonNull(initializer);
+    this.mutation = Objects.requireNonNull(mutation);
+    this.tracker = Objects.requireNonNull(tracker);
+    pOptInt = Objects.requireNonNull(problem);
     pOpt = null;
     // default on purpose: elapsedEvals = 0;
     sr = new IntCostSingleRun();

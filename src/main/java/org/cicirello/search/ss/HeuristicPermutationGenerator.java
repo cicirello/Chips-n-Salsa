@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,9 +20,9 @@
 
 package org.cicirello.search.ss;
 
+import java.util.Objects;
 import org.cicirello.permutations.Permutation;
 import org.cicirello.search.ProgressTracker;
-import org.cicirello.search.internal.ReferenceValidator;
 
 /**
  * This class generates solutions to permutation optimization problems using a constructive
@@ -70,8 +70,8 @@ public final class HeuristicPermutationGenerator extends HeuristicSolutionGenera
    */
   public static HeuristicPermutationGenerator createHeuristicPermutationGenerator(
       ConstructiveHeuristic<Permutation> heuristic) {
-    ReferenceValidator.nullCheck(heuristic);
-    return new HeuristicPermutationGenerator(heuristic, new ProgressTracker<Permutation>());
+    return new HeuristicPermutationGenerator(
+        Objects.requireNonNull(heuristic), new ProgressTracker<Permutation>());
   }
 
   /**
@@ -85,9 +85,8 @@ public final class HeuristicPermutationGenerator extends HeuristicSolutionGenera
    */
   public static HeuristicPermutationGenerator createHeuristicPermutationGenerator(
       ConstructiveHeuristic<Permutation> heuristic, ProgressTracker<Permutation> tracker) {
-    ReferenceValidator.nullCheck(heuristic);
-    ReferenceValidator.nullCheck(tracker);
-    return new HeuristicPermutationGenerator(heuristic, tracker);
+    return new HeuristicPermutationGenerator(
+        Objects.requireNonNull(heuristic), Objects.requireNonNull(tracker));
   }
 
   /*

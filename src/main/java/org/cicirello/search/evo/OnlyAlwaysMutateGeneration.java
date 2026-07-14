@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,7 +20,7 @@
 
 package org.cicirello.search.evo;
 
-import org.cicirello.search.internal.ReferenceValidator;
+import java.util.Objects;
 import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.util.Copyable;
 
@@ -37,8 +37,7 @@ final class OnlyAlwaysMutateGeneration<T extends Copyable<T>> implements Generat
   private final MutationOperator<T> mutation;
 
   OnlyAlwaysMutateGeneration(MutationOperator<T> mutation) {
-    ReferenceValidator.nullCheck(mutation);
-    this.mutation = mutation;
+    this.mutation = Objects.requireNonNull(mutation);
   }
 
   OnlyAlwaysMutateGeneration(OnlyAlwaysMutateGeneration<T> other) {

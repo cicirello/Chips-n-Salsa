@@ -128,7 +128,7 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
       return null;
     }
     numGenerated++;
-    return generate();
+    return evaluateAndPackageSolution(heuristic.createHeuristicSolution());
   }
 
   @Override
@@ -172,36 +172,5 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
       }
       return solution;
     }
-  }
-
-  private SolutionCostPair<T> generate() {
-    IncrementalEvaluation<T> incEval = heuristic.createIncrementalEvaluation();
-    int n = heuristic.completeLength();
-    Partial<T> p = heuristic.createPartial(n);
-    while (!p.isComplete()) {
-      int k = p.numExtensions();
-      if (k == 1) {
-        if (incEval != null) {
-          incEval.extend(p, p.getExtension(0));
-        }
-        p.extend(0);
-      } else {
-        double bestH = Double.NEGATIVE_INFINITY;
-        int which = 0;
-        for (int i = 0; i < k; i++) {
-          double h = heuristic.h(p, p.getExtension(i), incEval);
-          if (h > bestH) {
-            bestH = h;
-            which = i;
-          }
-        }
-        if (incEval != null) {
-          incEval.extend(p, p.getExtension(which));
-        }
-        p.extend(which);
-      }
-    }
-    T complete = p.toComplete();
-    return evaluateAndPackageSolution(complete);
   }
 }

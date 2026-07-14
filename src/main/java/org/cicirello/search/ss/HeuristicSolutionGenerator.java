@@ -128,7 +128,7 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
       return null;
     }
     numGenerated++;
-    return generate();
+    return evaluateAndPackageSolution(heuristic.createHeuristicSolution());
   }
 
   @Override
@@ -158,50 +158,27 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
 
   private SolutionCostPair<T> evaluateAndPackageSolution(T complete) {
     if (pOptInt != null) {
-      SolutionCostPair<T> solution = pOptInt.getSolutionCostPair(complete);
-      int cost = solution.getCost();
-      if (cost < tracker.getCost()) {
-        tracker.update(cost, complete, pOptInt.isMinCost(cost));
-      }
-      return solution;
+      return evaluateAndPackageIntCostSolution(complete);
     } else {
-      SolutionCostPair<T> solution = pOpt.getSolutionCostPair(complete);
-      double cost = solution.getCostDouble();
-      if (cost < tracker.getCostDouble()) {
-        tracker.update(cost, complete, pOpt.isMinCost(cost));
-      }
-      return solution;
+      return evaluateAndPackageDoubleCostSolution(complete);
     }
   }
 
-  private SolutionCostPair<T> generate() {
-    IncrementalEvaluation<T> incEval = heuristic.createIncrementalEvaluation();
-    int n = heuristic.completeLength();
-    Partial<T> p = heuristic.createPartial(n);
-    while (!p.isComplete()) {
-      int k = p.numExtensions();
-      if (k == 1) {
-        if (incEval != null) {
-          incEval.extend(p, p.getExtension(0));
-        }
-        p.extend(0);
-      } else {
-        double bestH = Double.NEGATIVE_INFINITY;
-        int which = 0;
-        for (int i = 0; i < k; i++) {
-          double h = heuristic.h(p, p.getExtension(i), incEval);
-          if (h > bestH) {
-            bestH = h;
-            which = i;
-          }
-        }
-        if (incEval != null) {
-          incEval.extend(p, p.getExtension(which));
-        }
-        p.extend(which);
-      }
+  private SolutionCostPair<T> evaluateAndPackageIntCostSolution(T complete) {
+    SolutionCostPair<T> solution = pOptInt.getSolutionCostPair(complete);
+    int cost = solution.getCost();
+    if (cost < tracker.getCost()) {
+      tracker.update(cost, complete, pOptInt.isMinCost(cost));
     }
-    T complete = p.toComplete();
-    return evaluateAndPackageSolution(complete);
+    return solution;
+  }
+
+  private SolutionCostPair<T> evaluateAndPackageDoubleCostSolution(T complete) {
+    SolutionCostPair<T> solution = pOpt.getSolutionCostPair(complete);
+    double cost = solution.getCostDouble();
+    if (cost < tracker.getCostDouble()) {
+      tracker.update(cost, complete, pOpt.isMinCost(cost));
+    }
+    return solution;
   }
 }

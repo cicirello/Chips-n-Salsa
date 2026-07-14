@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -107,10 +107,48 @@ public interface ConstructiveHeuristic<T extends Copyable<T>>
    * {@inheritDoc}
    *
    * <p>The default implementation simply returns this, which is appropriate in all cases where an
-   * instance of the heuristic can be safely shared by multiple threads.
+   * instance of the heuristic can be safely shared by multiple threads. If your heuristic
+   * implementation would be unsafe to share among multiple threads, then it is necessary to
+   * override this default behavior to split off an independent copy.
    */
   @Override
   default ConstructiveHeuristic<T> split() {
     return this;
+  }
+
+  /**
+   * Applies the constructuive heuristic to generate a solution. You should not need to override the
+   * default implementation of this method.
+   *
+   * @return the constructive heuristic solution
+   */
+  default T createHeuristicSolution() {
+    IncrementalEvaluation<T> incEval = createIncrementalEvaluation();
+    int n = completeLength();
+    Partial<T> p = createPartial(n);
+    while (!p.isComplete()) {
+      int k = p.numExtensions();
+      if (k == 1) {
+        if (incEval != null) {
+          incEval.extend(p, p.getExtension(0));
+        }
+        p.extend(0);
+      } else {
+        double bestH = Double.NEGATIVE_INFINITY;
+        int which = 0;
+        for (int i = 0; i < k; i++) {
+          double h = h(p, p.getExtension(i), incEval);
+          if (h > bestH) {
+            bestH = h;
+            which = i;
+          }
+        }
+        if (incEval != null) {
+          incEval.extend(p, p.getExtension(which));
+        }
+        p.extend(which);
+      }
+    }
+    return p.toComplete();
   }
 }

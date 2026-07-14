@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,6 +20,7 @@
 
 package org.cicirello.search.ss;
 
+import java.util.Objects;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
@@ -204,7 +205,7 @@ public final class ValueBiasedStochasticSampling<T extends Copyable<T>>
    */
   public ValueBiasedStochasticSampling(
       ConstructiveHeuristic<T> heuristic, BiasFunction bias, ProgressTracker<T> tracker) {
-    super(heuristic.getProblem(), tracker);
+    super(Objects.requireNonNull(heuristic.getProblem()), Objects.requireNonNull(tracker));
     this.bias = bias;
     this.heuristic = heuristic;
     generator = RandomnessFactory.createEnhancedSplittableGenerator();

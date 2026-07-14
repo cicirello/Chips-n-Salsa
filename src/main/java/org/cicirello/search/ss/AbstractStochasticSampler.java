@@ -24,7 +24,6 @@ import org.cicirello.search.Metaheuristic;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SimpleMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
-import org.cicirello.search.internal.ReferenceValidator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.Problem;
@@ -53,14 +52,6 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>>
    * @throws NullPointerException if problem or tracker is null.
    */
   AbstractStochasticSampler(Problem<T> problem, ProgressTracker<T> tracker) {
-    this(problem, tracker, validateNonNull(problem, tracker));
-  }
-
-  /*
-   * Prevent potential finalizer attack
-   */
-  private AbstractStochasticSampler(
-      Problem<T> problem, ProgressTracker<T> tracker, boolean secure) {
     this.tracker = tracker;
     // default: numGenerated = 0;
     if (problem instanceof IntegerCostOptimizationProblem) {
@@ -70,16 +61,6 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>>
       pOpt = (OptimizationProblem<T>) problem;
       pOptInt = null;
     }
-  }
-
-  /*
-   * Prevent potential finalizer attack
-   */
-  private static <T2 extends Copyable<T2>> boolean validateNonNull(
-      Problem<T2> problem, ProgressTracker<T2> tracker) {
-    ReferenceValidator.nullCheck(problem);
-    ReferenceValidator.nullCheck(tracker);
-    return true;
   }
 
   /*

@@ -69,7 +69,7 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(initializer, tracker);
+    super(Objects.requireNonNull(initializer), Objects.requireNonNull(tracker));
     this.mutation = Objects.requireNonNull(mutation);
     pOpt = Objects.requireNonNull(problem);
     pOptInt = null;
@@ -91,7 +91,7 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(initializer, tracker);
+    super(Objects.requireNonNull(initializer), Objects.requireNonNull(tracker));
     this.mutation = Objects.requireNonNull(mutation);
     pOptInt = Objects.requireNonNull(problem);
     pOpt = null;
@@ -111,7 +111,7 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       OptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(initializer, new ProgressTracker<T>());
+    super(Objects.requireNonNull(initializer), new ProgressTracker<T>());
     this.mutation = Objects.requireNonNull(mutation);
     pOpt = Objects.requireNonNull(problem);
     pOptInt = null;
@@ -131,7 +131,7 @@ public final class FirstDescentHillClimber<T extends Copyable<T>> extends Abstra
       IntegerCostOptimizationProblem<T> problem,
       IterableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    super(initializer, new ProgressTracker<T>());
+    super(Objects.requireNonNull(initializer), new ProgressTracker<T>());
     this.mutation = Objects.requireNonNull(mutation);
     pOptInt = Objects.requireNonNull(problem);
     pOpt = null;

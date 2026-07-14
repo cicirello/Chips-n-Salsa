@@ -59,7 +59,7 @@ public final class IterativeSampling<T extends Copyable<T>> extends AbstractStoc
    */
   public IterativeSampling(
       OptimizationProblem<T> problem, Initializer<T> initializer, ProgressTracker<T> tracker) {
-    super(problem, tracker);
+    super(Objects.requireNonNull(problem), Objects.requireNonNull(tracker));
     this.initializer = Objects.requireNonNull(initializer);
   }
 
@@ -76,7 +76,7 @@ public final class IterativeSampling<T extends Copyable<T>> extends AbstractStoc
       IntegerCostOptimizationProblem<T> problem,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    super(problem, tracker);
+    super(Objects.requireNonNull(problem), Objects.requireNonNull(tracker));
     this.initializer = Objects.requireNonNull(initializer);
   }
 

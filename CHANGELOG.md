@@ -25,7 +25,8 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 * Refactored DynamicATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
 * Refactored Mix.value(BitVector) to eLiminate dispersed coupling, detected by RefactorFirst.
 * Refactored BlockInterchangeIterator.nextBlockInsertion(), identified as a brain method by RefactorFirst.
-* Refactored an internal package (org.cicirello.search.internal) to eliminate a package cycle detected by RefactorFirst. 
+* Refactored an internal package (org.cicirello.search.internal) to eliminate a package cycle detected by RefactorFirst.
+* Refactored elitism logic to resolve issues identified by RefactorFirst.
 
 ### Dependencies
 

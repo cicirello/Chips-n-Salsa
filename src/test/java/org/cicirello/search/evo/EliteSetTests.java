@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -28,7 +28,7 @@ import java.util.NoSuchElementException;
 import org.cicirello.util.Copyable;
 import org.junit.jupiter.api.*;
 
-/** JUnittest cases for EliteSet. */
+/** JUnittest cases for EliteSetDoubleFitness and EliteSetIntegerFitness. */
 public class EliteSetTests {
 
   // double-valued fitness
@@ -42,8 +42,8 @@ public class EliteSetTests {
         addThese.add(new PopulationMember.DoubleFitness<TestObject>(new TestObject(i), i));
         addThese.add(new PopulationMember.DoubleFitness<TestObject>(new TestObject(i), i));
       }
-      EliteSet.DoubleFitness<TestObject> eliteSet =
-          new EliteSet.DoubleFitness<TestObject>(addThese, numElite);
+      EliteSetDoubleFitness<TestObject> eliteSet =
+          new EliteSetDoubleFitness<TestObject>(addThese, numElite);
       int count = 0;
       boolean[] inSet = new boolean[11];
       for (PopulationMember.DoubleFitness<TestObject> e : eliteSet) {
@@ -92,8 +92,8 @@ public class EliteSetTests {
         addThese.add(new PopulationMember.DoubleFitness<TestObject>(new TestObject(i), i));
         addThese.add(new PopulationMember.DoubleFitness<TestObject>(new TestObject(i), i));
       }
-      EliteSet.DoubleFitness<TestObject> eliteSet =
-          new EliteSet.DoubleFitness<TestObject>(addThese, numElite);
+      EliteSetDoubleFitness<TestObject> eliteSet =
+          new EliteSetDoubleFitness<TestObject>(addThese, numElite);
       int count = 0;
       boolean[] inSet = new boolean[11];
       for (PopulationMember.DoubleFitness<TestObject> e : eliteSet) {
@@ -133,8 +133,7 @@ public class EliteSetTests {
       addThese.add(
           new PopulationMember.DoubleFitness<TestObject>(new TestObject(fitness), fitness));
     }
-    EliteSet.DoubleFitness<TestObject> eliteSet =
-        new EliteSet.DoubleFitness<TestObject>(addThese, 3);
+    EliteSetDoubleFitness<TestObject> eliteSet = new EliteSetDoubleFitness<TestObject>(addThese, 3);
     int count = 0;
     boolean[] inSet = new boolean[10];
     for (PopulationMember.DoubleFitness<TestObject> e : eliteSet) {
@@ -171,8 +170,8 @@ public class EliteSetTests {
         addThese.add(new PopulationMember.IntegerFitness<TestObject>(new TestObject(i), i));
         addThese.add(new PopulationMember.IntegerFitness<TestObject>(new TestObject(i), i));
       }
-      EliteSet.IntegerFitness<TestObject> eliteSet =
-          new EliteSet.IntegerFitness<TestObject>(addThese, numElite);
+      EliteSetIntegerFitness<TestObject> eliteSet =
+          new EliteSetIntegerFitness<TestObject>(addThese, numElite);
       int count = 0;
       boolean[] inSet = new boolean[11];
       for (PopulationMember.IntegerFitness<TestObject> e : eliteSet) {
@@ -221,8 +220,8 @@ public class EliteSetTests {
         addThese.add(new PopulationMember.IntegerFitness<TestObject>(new TestObject(i), i));
         addThese.add(new PopulationMember.IntegerFitness<TestObject>(new TestObject(i), i));
       }
-      EliteSet.IntegerFitness<TestObject> eliteSet =
-          new EliteSet.IntegerFitness<TestObject>(addThese, numElite);
+      EliteSetIntegerFitness<TestObject> eliteSet =
+          new EliteSetIntegerFitness<TestObject>(addThese, numElite);
       int count = 0;
       boolean[] inSet = new boolean[11];
       for (PopulationMember.IntegerFitness<TestObject> e : eliteSet) {
@@ -262,8 +261,8 @@ public class EliteSetTests {
       addThese.add(
           new PopulationMember.IntegerFitness<TestObject>(new TestObject(fitness), fitness));
     }
-    EliteSet.IntegerFitness<TestObject> eliteSet =
-        new EliteSet.IntegerFitness<TestObject>(addThese, 3);
+    EliteSetIntegerFitness<TestObject> eliteSet =
+        new EliteSetIntegerFitness<TestObject>(addThese, 3);
     int count = 0;
     boolean[] inSet = new boolean[10];
     for (PopulationMember.IntegerFitness<TestObject> e : eliteSet) {

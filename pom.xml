@@ -6,7 +6,7 @@
  
 	<groupId>org.cicirello</groupId>
 	<artifactId>chips-n-salsa</artifactId>
-	<version>7-SNAPSHOT</version>
+	<version>8-SNAPSHOT</version>
 	<packaging>jar</packaging>
   
 	<name>Chips-n-Salsa</name>
@@ -61,7 +61,7 @@
 		<distribution>repo</distribution>
 		<comments>
 		Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
-		Copyright (C) 2002-2025 Vincent A. Cicirello.
+		Copyright (C) 2002-2026 Vincent A. Cicirello.
  
 		Chips-n-Salsa is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -255,7 +255,7 @@
   
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.release>25</maven.compiler.release>
 	</properties>
   
 	<build>
@@ -265,7 +265,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.15.0</version>
 				<configuration>
-					<release>17</release>
+					<release>25</release>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -307,7 +307,7 @@
 						<link>https://rho-mu.cicirello.org/api</link>
 						<link>https://core.cicirello.org/api</link>
 					</links>
-					<bottom><![CDATA[Copyright &copy; 2002-2025 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
+					<bottom><![CDATA[Copyright &copy; 2002-2026 <a href=\"https://www.cicirello.org/\" target=_top>Vincent A. Cicirello</a>.  All rights reserved.]]></bottom>
 				</configuration>
 			</plugin>
 			<plugin>

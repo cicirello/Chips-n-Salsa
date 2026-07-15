@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -24,7 +24,7 @@
  * <h2>Chips-n-Salsa - A Java library of customizable, hybridizable, iterative, parallel,
  * stochastic, and self-adaptive local search algorithms</h2>
  *
- * <p>Copyright &copy; 2002-2024 <a href="https://www.cicirello.org/" target=_top>Vincent A.
+ * <p>Copyright &copy; 2002-2026 <a href="https://www.cicirello.org/" target=_top>Vincent A.
  * Cicirello</a>.
  *
  * <p><a href="https://github.com/josephmisiti/awesome-machine-learning"><img

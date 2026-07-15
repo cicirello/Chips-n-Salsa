@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,6 +20,7 @@
 
 package org.cicirello.search.problems;
 
+import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.operators.integers.IntegerVectorInitializer;
 import org.cicirello.search.representations.IntegerVector;
 
@@ -48,7 +49,7 @@ import org.cicirello.search.representations.IntegerVector;
  * space (correct length and components in the interval [0,B].
  *
  * <p>Although technically you can use the BoundMax class, which evaluates IntegerVector objects,
- * using a bound B=1, to define the OneMax problem, you should instead use the {@link OneMax} class
+ * using a bound B=1 to define the OneMax problem, you should instead use the {@link OneMax} class
  * for the original OneMax problem. The {@link OneMax} class evaluates {@link
  * org.cicirello.search.representations.BitVector} objects, which is a proper implementation of an
  * indexable vector of bits.
@@ -56,11 +57,12 @@ import org.cicirello.search.representations.IntegerVector;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class BoundMax extends IntegerVectorInitializer
-    implements IntegerCostOptimizationProblem<IntegerVector> {
+public final class BoundMax
+    implements IntegerCostOptimizationProblem<IntegerVector>, Initializer<IntegerVector> {
 
   private final int b;
   private final int n;
+  private final IntegerVectorInitializer init;
 
   /**
    * Constructs an instance of the BoundMax problem.
@@ -71,7 +73,7 @@ public final class BoundMax extends IntegerVectorInitializer
    * @throws NegativeArraySizeException if n is negative
    */
   public BoundMax(int n, int bound) {
-    super(n, 0, bound + 1, 0, bound);
+    init = new IntegerVectorInitializer(n, 0, bound + 1, 0, bound);
     b = bound;
     this.n = n;
   }
@@ -100,5 +102,15 @@ public final class BoundMax extends IntegerVectorInitializer
   @Override
   public boolean isMinCost(int cost) {
     return cost == 0;
+  }
+
+  @Override
+  public final IntegerVector createCandidateSolution() {
+    return init.createCandidateSolution();
+  }
+
+  @Override
+  public Initializer<IntegerVector> split() {
+    return init.split();
   }
 }

@@ -2,7 +2,7 @@
 
 # Chips-n-Salsa [![Mentioned in Awesome Machine Learning](https://awesome.re/mentioned-badge.svg)](https://github.com/josephmisiti/awesome-machine-learning)
 
-Copyright (C) 2002-2024 [Vincent A. Cicirello](https://www.cicirello.org/).
+Copyright (C) 2002-2026 [Vincent A. Cicirello](https://www.cicirello.org/).
 
 Website: https://chips-n-salsa.cicirello.org/
 
@@ -15,7 +15,7 @@ API documentation: https://chips-n-salsa.cicirello.org/api/
 | __JaCoCo Test Coverage__ | [![coverage](https://raw.githubusercontent.com/cicirello/Chips-n-Salsa/badges/jacoco.svg)](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/build.yml) [![branches coverage](https://raw.githubusercontent.com/cicirello/Chips-n-Salsa/badges/branches.svg)](https://github.com/cicirello/Chips-n-Salsa/actions/workflows/build.yml) |
 | __Security__ | [![Snyk security score](https://snyk-widget.herokuapp.com/badge/mvn/org.cicirello/chips-n-salsa/badge.svg)](https://snyk.io/vuln/maven%3Aorg.cicirello%3Achips-n-salsa) [![Snyk Known Vulnerabilities](https://snyk.io/test/github/cicirello/Chips-n-Salsa/badge.svg)](https://snyk.io/test/github/cicirello/Chips-n-Salsa) |
 | __DOI__ | [![DOI](https://zenodo.org/badge/273074441.svg)](https://zenodo.org/badge/latestdoi/273074441) |
-| __Other Information__ | [![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE) [![style](https://img.shields.io/badge/style-Google%20Java%20Style-informational)](https://google.github.io/styleguide/javaguide.html) |
+| __Other Information__ | [![GitHub](https://img.shields.io/github/license/cicirello/Chips-n-Salsa)](https://github.com/cicirello/Chips-n-Salsa/blob/master/LICENSE) [![style](https://img.shields.io/badge/style-Google%20Java%20Style-informational)](https://google.github.io/styleguide/javaguide.html) ![Minimum supported Java version](https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcicirello%2FChips-n-Salsa%2Frefs%2Fheads%2Fmaster%2Fpom.xml&query=%2F*%5Blocal-name()%3D'project'%5D%2F*%5Blocal-name()%3D'properties'%5D%2F*%5Blocal-name()%3D'maven.compiler.release'%5D&prefix=%3E%3D&label=Java) |
 | __Support__ | [![GitHub Sponsors](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/cicirello) [![Liberapay](https://img.shields.io/badge/Liberapay-F6C915?logo=liberapay&logoColor=black)](https://liberapay.com/cicirello) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?logo=ko-fi&logoColor=white)](https://ko-fi.com/cicirello) | 
 
 ## How to Cite
@@ -57,6 +57,7 @@ See the following table for a mapping between library version and minimum suppor
 
 | version | Java requirements |
 | --- | --- |
+| 8.x.y | Java 25+ |
 | 5.w.x to 7.y.z | Java 17+ |
 | 3.w.x to 4.y.z | Java 11+ |
 | 1.w.x to 2.y.z | Java 8+ |
@@ -139,14 +140,14 @@ mainly as a fall-back in the unlikely scenario that Maven Central is unavailable
 
 ### Importing the Library from Maven Central
 
-Add this to the dependencies section of your pom.xml, replacing 
-the version number with the version that you want to use.
+Add this to the dependencies section of your pom.xml, replacing `x.y.z` with
+the version number of the version that you want to use.
 
 ```XML
 <dependency>
   <groupId>org.cicirello</groupId>
   <artifactId>chips-n-salsa</artifactId>
-  <version>7.0.0</version>
+  <version>x.y.z</version>
 </dependency>
 ```
 

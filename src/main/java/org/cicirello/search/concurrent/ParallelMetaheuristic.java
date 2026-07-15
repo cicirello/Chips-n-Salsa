@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -58,13 +58,7 @@ public class ParallelMetaheuristic<T extends Copyable<T>>
    * @throws IllegalArgumentException if numThreads is less than 1.
    */
   public ParallelMetaheuristic(Metaheuristic<T> search, int numThreads) {
-    if (numThreads < 1) throw new IllegalArgumentException("must be at least 1 thread");
-    metaheuristics = new ArrayList<Metaheuristic<T>>(numThreads);
-    metaheuristics.add(search);
-    for (int i = 1; i < numThreads; i++) {
-      metaheuristics.add(search.split());
-    }
-    threadPool = Executors.newFixedThreadPool(numThreads);
+    this(createMetaheuristicSet(search, numThreads), false);
   }
 
   /**
@@ -81,35 +75,14 @@ public class ParallelMetaheuristic<T extends Copyable<T>>
    *     all s1, s2 in searches).
    */
   public ParallelMetaheuristic(Collection<? extends Metaheuristic<T>> searches) {
-    this(searches, true);
+    this(verifyState(searches), true);
   }
 
   /*
    * package private for use by subclasses in same package.
    */
-  ParallelMetaheuristic(Collection<? extends Metaheuristic<T>> searches, boolean verifyState) {
-    if (verifyState) {
-      ProgressTracker<T> t = null;
-      Problem<T> problem = null;
-      for (Metaheuristic<T> m : searches) {
-        if (problem == null) {
-          problem = m.getProblem();
-        } else if (m.getProblem() != problem) {
-          throw new IllegalArgumentException(
-              "All metaheuristics in searches must solve the same problem.");
-        }
-        if (t == null) {
-          t = m.getProgressTracker();
-        } else if (m.getProgressTracker() != t) {
-          throw new IllegalArgumentException(
-              "All metaheuristics must share a single ProgressTracker.");
-        }
-      }
-    }
-    this.metaheuristics = new ArrayList<Metaheuristic<T>>(searches.size());
-    for (Metaheuristic<T> m : searches) {
-      this.metaheuristics.add(m);
-    }
+  ParallelMetaheuristic(ArrayList<Metaheuristic<T>> searches, boolean verifyState) {
+    this.metaheuristics = searches;
     threadPool = Executors.newFixedThreadPool(metaheuristics.size());
   }
 
@@ -126,14 +99,6 @@ public class ParallelMetaheuristic<T extends Copyable<T>>
     // Needs its own thread pool
     threadPool = Executors.newFixedThreadPool(metaheuristics.size());
     if (other.isClosed()) close();
-  }
-
-  @SuppressWarnings("deprecation")
-  @Override
-  protected final void finalize() {
-    // Prevents potential finalizer vulnerability from exceptions thrown from constructors.
-    // See:
-    // https://wiki.sei.cmu.edu/confluence/display/java/OBJ11-J.+Be+wary+of+letting+constructors+throw+exceptions
   }
 
   /**
@@ -268,5 +233,43 @@ public class ParallelMetaheuristic<T extends Copyable<T>>
       }
     }
     return bestParallelRun;
+  }
+
+  private static <T2 extends Copyable<T2>> ArrayList<Metaheuristic<T2>> createMetaheuristicSet(
+      Metaheuristic<T2> search, int numThreads) {
+    if (numThreads < 1) {
+      throw new IllegalArgumentException("must be at least 1 thread");
+    }
+    ArrayList<Metaheuristic<T2>> metaheuristics = new ArrayList<Metaheuristic<T2>>(numThreads);
+    metaheuristics.add(search);
+    for (int i = 1; i < numThreads; i++) {
+      metaheuristics.add(search.split());
+    }
+    return metaheuristics;
+  }
+
+  private static <T2 extends Copyable<T2>> ArrayList<Metaheuristic<T2>> verifyState(
+      Collection<? extends Metaheuristic<T2>> searches) {
+    ProgressTracker<T2> t = null;
+    Problem<T2> problem = null;
+    for (Metaheuristic<T2> m : searches) {
+      if (problem == null) {
+        problem = m.getProblem();
+      } else if (m.getProblem() != problem) {
+        throw new IllegalArgumentException(
+            "All metaheuristics in searches must solve the same problem.");
+      }
+      if (t == null) {
+        t = m.getProgressTracker();
+      } else if (m.getProgressTracker() != t) {
+        throw new IllegalArgumentException(
+            "All metaheuristics must share a single ProgressTracker.");
+      }
+    }
+    ArrayList<Metaheuristic<T2>> asArrayList = new ArrayList<Metaheuristic<T2>>(searches.size());
+    for (Metaheuristic<T2> m : searches) {
+      asArrayList.add(m);
+    }
+    return asArrayList;
   }
 }

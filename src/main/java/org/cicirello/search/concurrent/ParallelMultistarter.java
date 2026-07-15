@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,8 +20,12 @@
 
 package org.cicirello.search.concurrent;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import org.cicirello.search.Metaheuristic;
+import org.cicirello.search.ProgressTracker;
+import org.cicirello.search.problems.Problem;
 import org.cicirello.search.restarts.ConstantRestartSchedule;
 import org.cicirello.search.restarts.Multistarter;
 import org.cicirello.search.restarts.RestartSchedule;
@@ -98,7 +102,7 @@ public final class ParallelMultistarter<T extends Copyable<T>> extends ParallelM
    */
   public ParallelMultistarter(
       Metaheuristic<T> search, Collection<? extends RestartSchedule> schedules) {
-    super(ParallelMultistarterUtil.toMultistarters(search, schedules), false);
+    super(toMultistarters(search, schedules), false);
   }
 
   /**
@@ -120,7 +124,7 @@ public final class ParallelMultistarter<T extends Copyable<T>> extends ParallelM
   public ParallelMultistarter(
       Collection<? extends Metaheuristic<T>> searches,
       Collection<? extends RestartSchedule> schedules) {
-    super(ParallelMultistarterUtil.toMultistarters(searches, schedules), false);
+    super(toMultistarters(searches, schedules), false);
   }
 
   /**
@@ -186,5 +190,70 @@ public final class ParallelMultistarter<T extends Copyable<T>> extends ParallelM
   @Override
   public ParallelMultistarter<T> split() {
     return new ParallelMultistarter<T>(this);
+  }
+
+  /**
+   * Creates a list of Multistarters.
+   *
+   * @param search A Metaheuristic
+   * @param schedules A collection of RestartSchedules
+   * @return a list of Multistarters, one for each restart schedule, all with identical and
+   *     independent copies of search
+   * @throws IllegalArgumentException if the collection of schedules is empty
+   */
+  private static <T2 extends Copyable<T2>> ArrayList<Metaheuristic<T2>> toMultistarters(
+      Metaheuristic<T2> search, Collection<? extends RestartSchedule> schedules) {
+    if (schedules.size() < 1)
+      throw new IllegalArgumentException("Must pass at least one schedule.");
+    ArrayList<Metaheuristic<T2>> restarters = new ArrayList<Metaheuristic<T2>>(schedules.size());
+    boolean addedFirst = false;
+    for (RestartSchedule r : schedules) {
+      if (addedFirst) restarters.add(new Multistarter<T2>(search.split(), r));
+      else {
+        restarters.add(new Multistarter<T2>(search, r));
+        addedFirst = true;
+      }
+    }
+    return restarters;
+  }
+
+  /**
+   * Creates a list of Multistarters.
+   *
+   * @param searches A collection of Metaheuristics
+   * @param schedules A collection of RestartSchedules
+   * @return a list of Multistarters, such that multistarter i gets metaheuristic i and restart
+   *     schedule i.
+   * @throws IllegalArgumentException if searches.size() is not equal to schedules.size()
+   * @throws IllegalArgumentException if not all metaheuristics solve the same problem
+   * @throws IllegalArgumentException if the metaheuristics don't all share a single ProgressTracker
+   */
+  private static <T2 extends Copyable<T2>> ArrayList<Metaheuristic<T2>> toMultistarters(
+      Collection<? extends Metaheuristic<T2>> searches,
+      Collection<? extends RestartSchedule> schedules) {
+    if (searches.size() != schedules.size()) {
+      throw new IllegalArgumentException(
+          "number of searches and number of schedules must be the same");
+    }
+    ArrayList<Metaheuristic<T2>> restarters = new ArrayList<Metaheuristic<T2>>(searches.size());
+    Iterator<? extends RestartSchedule> rs = schedules.iterator();
+    ProgressTracker<T2> t = null;
+    Problem<T2> problem = null;
+    for (Metaheuristic<T2> s : searches) {
+      if (problem == null) {
+        problem = s.getProblem();
+      } else if (s.getProblem() != problem) {
+        throw new IllegalArgumentException(
+            "All Metaheuristics in searches must solve the same problem.");
+      }
+      if (t == null) {
+        t = s.getProgressTracker();
+      } else if (s.getProgressTracker() != t) {
+        throw new IllegalArgumentException(
+            "All Metaheuristics in searches must share a single ProgressTracker.");
+      }
+      restarters.add(new Multistarter<T2>(s, rs.next()));
+    }
+    return restarters;
   }
 }

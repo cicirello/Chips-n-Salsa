@@ -15,6 +15,7 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
   * To remove the getInstanceData() method from the SingleMachineSchedulingProblem interface, and
   * To require passing an instance of SingleMachineSchedulingProblemData, in addition to the SingleMachineSchedulingProblem, to the constructive scheduling heuristics.
 * Refactored RandomValueChangeMutation and UndoableRandomValueChangeMutation to remove inheritance relationship.
+* Refactored BoundMax problem, such that (a) it still implements the Initializer interface, but (b) it no longer extends IntegerVectorInitializer (very minor breaking change as it is unlikely anyone was relying on that inheritance relationship).
 
 ### Deprecated
 
@@ -30,6 +31,10 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 * Refactored elitism logic to resolve issues identified by RefactorFirst.
 * Refactored HeuristicSolutionGenerator to eliminate intensive coupling identified by RefactorFirst.
 * Refactored OrderCrossover and NonWrappingOrderCrossover to extract a common base class.
+* Refactored OnePlusOneEvolutionaryAlgorithm to remove deprecated Object.finalize method.
+* Refactored ParallelMetaheuristic to remove deprecated Object.finalize method.
+* Refactored TimedParallelMutistarter to remove deprecated Object.finalize method.
+* Refactored OnePlusOneEvolutionaryAlgorithm to remove deprecated Object.finalize method.
 
 ### Dependencies
 * Bumped minimum supported Java to Java 25 (BREAKING CHANGE)

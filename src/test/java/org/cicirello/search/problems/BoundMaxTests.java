@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -22,6 +22,7 @@ package org.cicirello.search.problems;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.cicirello.search.operators.Initializer;
 import org.cicirello.search.representations.IntegerVector;
 import org.junit.jupiter.api.*;
 
@@ -35,6 +36,27 @@ public class BoundMaxTests {
         BoundMax b = new BoundMax(n, bound);
         for (int i = 0; i < 10; i++) {
           IntegerVector x = b.createCandidateSolution();
+          assertEquals(n, x.length());
+          for (int j = 0; j < n; j++) {
+            int y = x.get(j);
+            assertTrue(y <= bound && y >= 0);
+          }
+          IntegerVector z = x.copy();
+          assertTrue(z != x);
+          assertEquals(x, z);
+        }
+      }
+    }
+  }
+
+  @Test
+  public void testInitializerMethodsAfterSplit() {
+    for (int n = 0; n < 5; n++) {
+      for (int bound = 0; bound < 5; bound++) {
+        BoundMax b = new BoundMax(n, bound);
+        Initializer<IntegerVector> init = b.split();
+        for (int i = 0; i < 10; i++) {
+          IntegerVector x = init.createCandidateSolution();
           assertEquals(n, x.length());
           for (int j = 0; j < n; j++) {
             int y = x.get(j);

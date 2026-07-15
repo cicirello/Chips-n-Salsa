@@ -14,6 +14,7 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 * Refactored all the constructive scheduling heuristics and single machine scheduling problems:
   * To remove the getInstanceData() method from the SingleMachineSchedulingProblem interface, and
   * To require passing an instance of SingleMachineSchedulingProblemData, in addition to the SingleMachineSchedulingProblem, to the constructive scheduling heuristics.
+* Refactored RandomValueChangeMutation and UndoableRandomValueChangeMutation to remove inheritance relationship.
 
 ### Deprecated
 

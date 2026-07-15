@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -20,6 +20,8 @@
 
 package org.cicirello.search.operators.integers;
 
+import org.cicirello.math.rand.EnhancedSplittableGenerator;
+import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.UndoableMutationOperator;
 import org.cicirello.search.representations.IntegerValued;
 
@@ -38,14 +40,26 @@ import org.cicirello.search.representations.IntegerValued;
  * {@link IntegerValued} class for that purpose is not recommended as there are much more efficient
  * ways of representing strings of bits (e.g., using bit level operators).
  *
+ * <p>If you don't need the undo operation, then use {@link RandomValueChangeMutation} instead,
+ * which should be a bit more efficient. You should only need UndoableRandomValueChangeMutation for
+ * implementations of searches, such as the hill climbers and simulated annealing, that rely on it.
+ *
  * @param <T> The specific IntegerValued type.
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
 public final class UndoableRandomValueChangeMutation<T extends IntegerValued>
-    extends RandomValueChangeMutation<T> implements UndoableMutationOperator<T> {
+    implements UndoableMutationOperator<T> {
 
-  private int[] oldA;
+  private final double p;
+  private final int a;
+  private final int b;
+  private final int range;
+  private final int min_k;
+  private int[] indexes;
+  private int lastK;
+  private final EnhancedSplittableGenerator generator;
+  private int[] old;
 
   /**
    * Constructs a UndoableRandomValueChangeMutation operator that always mutates exactly one integer
@@ -59,7 +73,7 @@ public final class UndoableRandomValueChangeMutation<T extends IntegerValued>
    * @throws IllegalArgumentException if a &ge; b.
    */
   public UndoableRandomValueChangeMutation(int a, int b) {
-    super(a, b, 0.0, 1);
+    this(a, b, 0.0, 1);
   }
 
   /**
@@ -76,14 +90,7 @@ public final class UndoableRandomValueChangeMutation<T extends IntegerValued>
    *     is greater than 1, it is treated as p=1.
    */
   public UndoableRandomValueChangeMutation(int a, int b, double p) {
-    super(a, b, p, 0);
-  }
-
-  /*
-   * internal copy constructor to support split method
-   */
-  UndoableRandomValueChangeMutation(UndoableRandomValueChangeMutation<T> other) {
-    super(other);
+    this(a, b, p, 0);
   }
 
   /**
@@ -103,21 +110,54 @@ public final class UndoableRandomValueChangeMutation<T extends IntegerValued>
    * @throws IllegalArgumentException if a &ge; b or if p is negative.
    */
   public UndoableRandomValueChangeMutation(int a, int b, double p, int k) {
-    super(a, b, p, k);
+    range = b - a + 1;
+    if (range <= 1) throw new IllegalArgumentException("b must be greater than a");
+    this.a = a;
+    this.b = b;
+    this.p = p <= 0.0 ? 0.0 : (p >= 1.0 ? 1.0 : p);
+    min_k = k <= 0 ? 0 : k;
+    generator = RandomnessFactory.createEnhancedSplittableGenerator();
+  }
+
+  /*
+   * internal copy constructor to support split method
+   */
+  UndoableRandomValueChangeMutation(UndoableRandomValueChangeMutation<T> other) {
+    a = other.a;
+    b = other.b;
+    p = other.p;
+    min_k = other.min_k;
+    range = other.range;
+    generator = other.generator.split();
   }
 
   @Override
   public void mutate(T c) {
-    if (c.length() > 0) {
-      if (oldA == null || oldA.length < c.length()) oldA = new int[c.length()];
-      restorableMutate(c, oldA);
+    if (c.length() == 0) {
+      return;
+    }
+    if (old == null || old.length < c.length()) {
+      old = new int[c.length()];
+    }
+    int min = c.length() < min_k ? c.length() : min_k;
+    lastK = p > 0 ? generator.nextBinomial(c.length(), p) : min;
+    if (lastK < min) lastK = min;
+    indexes = generator.sample(c.length(), lastK, indexes);
+    for (int i = 0; i < lastK; i++) {
+      int v = a + generator.nextInt(range - 1);
+      old[i] = c.get(indexes[i]);
+      if (v >= old[i]) v++;
+      c.set(indexes[i], v);
     }
   }
 
   @Override
   public void undo(T c) {
-    if (c.length() > 0) {
-      restore(c, oldA);
+    if (c.length() == 0) {
+      return;
+    }
+    for (int i = 0; i < lastK; i++) {
+      c.set(indexes[i], old[i]);
     }
   }
 

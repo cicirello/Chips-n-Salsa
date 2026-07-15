@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2024 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -44,7 +44,8 @@ import org.cicirello.search.representations.IntegerValued;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class RandomValueChangeMutation<T extends IntegerValued> implements MutationOperator<T> {
+public final class RandomValueChangeMutation<T extends IntegerValued>
+    implements MutationOperator<T> {
 
   private final double p;
   private final int a;
@@ -124,14 +125,6 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
     generator = other.generator.split();
   }
 
-  @SuppressWarnings("deprecation")
-  @Override
-  protected final void finalize() {
-    // Prevents potential finalizer vulnerability from exceptions thrown from constructors.
-    // See:
-    // https://wiki.sei.cmu.edu/confluence/display/java/OBJ11-J.+Be+wary+of+letting+constructors+throw+exceptions
-  }
-
   @Override
   public void mutate(T c) {
     if (c.length() == 0) return;
@@ -149,30 +142,5 @@ public class RandomValueChangeMutation<T extends IntegerValued> implements Mutat
   @Override
   public RandomValueChangeMutation<T> split() {
     return new RandomValueChangeMutation<T>(this);
-  }
-
-  /*
-   * internal package-private helper in support of undo method in Undoable version of operator.
-   */
-  void restorableMutate(T c, int[] old) {
-    int min = c.length() < min_k ? c.length() : min_k;
-    lastK = p > 0 ? generator.nextBinomial(c.length(), p) : min;
-    if (lastK < min) lastK = min;
-    indexes = generator.sample(c.length(), lastK, indexes);
-    for (int i = 0; i < lastK; i++) {
-      int v = a + generator.nextInt(range - 1);
-      old[i] = c.get(indexes[i]);
-      if (v >= old[i]) v++;
-      c.set(indexes[i], v);
-    }
-  }
-
-  /*
-   * internal package-private helper in support of undo method in Undoable version of operator.
-   */
-  void restore(T c, int[] old) {
-    for (int i = 0; i < lastK; i++) {
-      c.set(indexes[i], old[i]);
-    }
   }
 }

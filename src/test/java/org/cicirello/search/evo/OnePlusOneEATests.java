@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -208,7 +208,7 @@ public class OnePlusOneEATests {
       @Override
       public SolutionCostPair<TestObject> call() {
         started = true;
-        return ea.optimize(16000000);
+        return ea.optimize(Integer.MAX_VALUE);
       }
     }
 
@@ -226,8 +226,9 @@ public class OnePlusOneEATests {
       do {
         Thread.sleep(40);
       } while (!thread.started);
-      Thread.sleep(20);
+      Thread.sleep(100);
       tracker.stop();
+      Thread.sleep(100);
       SolutionCostPair<TestObject> pair = future.get();
     } catch (InterruptedException ex) {
       // deliberately empty
@@ -244,8 +245,9 @@ public class OnePlusOneEATests {
       do {
         Thread.sleep(40);
       } while (!thread.started);
-      Thread.sleep(20);
+      Thread.sleep(100);
       tracker.stop();
+      Thread.sleep(100);
       SolutionCostPair<TestObject> pair = future.get();
     } catch (InterruptedException ex) {
       // deliberately empty
@@ -663,6 +665,11 @@ public class OnePlusOneEATests {
     public double value(TestObject c) {
       return cost(c);
     }
+
+    @Override
+    public boolean isMinCost(double c) {
+      return false;
+    }
   }
 
   private static class TestProblemKnownMin extends TestProblem {
@@ -686,6 +693,11 @@ public class OnePlusOneEATests {
     @Override
     public int value(TestObject c) {
       return cost(c);
+    }
+
+    @Override
+    public boolean isMinCost(int c) {
+      return false;
     }
   }
 

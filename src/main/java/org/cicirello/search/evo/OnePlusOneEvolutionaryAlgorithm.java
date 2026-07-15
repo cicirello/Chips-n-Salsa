@@ -66,7 +66,12 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       OptimizationProblem<T> problem,
       UndoableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    this(problem, mutation, initializer, new ProgressTracker<T>());
+    this(
+        Objects.requireNonNull(mutation),
+        Objects.requireNonNull(initializer),
+        new ProgressTracker<T>(),
+        null,
+        Objects.requireNonNull(problem));
   }
 
   /**
@@ -82,7 +87,12 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       IntegerCostOptimizationProblem<T> problem,
       UndoableMutationOperator<T> mutation,
       Initializer<T> initializer) {
-    this(problem, mutation, initializer, new ProgressTracker<T>());
+    this(
+        Objects.requireNonNull(mutation),
+        Objects.requireNonNull(initializer),
+        new ProgressTracker<T>(),
+        Objects.requireNonNull(problem),
+        null);
   }
 
   /**
@@ -100,13 +110,12 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       UndoableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    this.initializer = Objects.requireNonNull(initializer);
-    this.mutation = Objects.requireNonNull(mutation);
-    this.tracker = Objects.requireNonNull(tracker);
-    pOpt = Objects.requireNonNull(problem);
-    pOptInt = null;
-    // default on purpose: elapsedEvals = 0;
-    sr = new DoubleCostSingleRun();
+    this(
+        Objects.requireNonNull(mutation),
+        Objects.requireNonNull(initializer),
+        Objects.requireNonNull(tracker),
+        null,
+        Objects.requireNonNull(problem));
   }
 
   /**
@@ -124,13 +133,27 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
       UndoableMutationOperator<T> mutation,
       Initializer<T> initializer,
       ProgressTracker<T> tracker) {
-    this.initializer = Objects.requireNonNull(initializer);
-    this.mutation = Objects.requireNonNull(mutation);
-    this.tracker = Objects.requireNonNull(tracker);
-    pOptInt = Objects.requireNonNull(problem);
-    pOpt = null;
+    this(
+        Objects.requireNonNull(mutation),
+        Objects.requireNonNull(initializer),
+        Objects.requireNonNull(tracker),
+        Objects.requireNonNull(problem),
+        null);
+  }
+
+  private OnePlusOneEvolutionaryAlgorithm(
+      UndoableMutationOperator<T> mutation,
+      Initializer<T> initializer,
+      ProgressTracker<T> tracker,
+      IntegerCostOptimizationProblem<T> pOptInt,
+      OptimizationProblem<T> pOpt) {
+    this.initializer = initializer;
+    this.mutation = mutation;
+    this.tracker = tracker;
+    this.pOptInt = pOptInt;
+    this.pOpt = pOpt;
+    sr = pOptInt != null ? new IntCostSingleRun() : new DoubleCostSingleRun();
     // default on purpose: elapsedEvals = 0;
-    sr = new IntCostSingleRun();
   }
 
   /*
@@ -150,14 +173,6 @@ public class OnePlusOneEvolutionaryAlgorithm<T extends Copyable<T>>
     mutation = other.mutation.split();
 
     sr = pOptInt != null ? new IntCostSingleRun() : new DoubleCostSingleRun();
-  }
-
-  @SuppressWarnings("deprecation")
-  @Override
-  protected final void finalize() {
-    // Prevents potential finalizer vulnerability from exceptions thrown from constructors.
-    // See:
-    // https://wiki.sei.cmu.edu/confluence/display/java/OBJ11-J.+Be+wary+of+letting+constructors+throw+exceptions
   }
 
   /**

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -41,8 +41,8 @@ public class LinearRankSelectionTests extends SharedTestSelectionOperators {
     LinearRankSelection selection = new LinearRankSelection(2.0);
     // Following two checks may sporadically fail due to random chance.
     // Increase 2nd parameter to decrease probability of such failure (keep it even though).
-    validateHigherFitnessSelectedMoreOften_Double(selection, 40);
-    validateHigherFitnessSelectedMoreOften_Integer(selection, 40);
+    validateHigherFitnessSelectedMoreOften_Double(selection, 80);
+    validateHigherFitnessSelectedMoreOften_Integer(selection, 80);
 
     LinearRankSelection selectionUniform = new LinearRankSelection(1.0);
 

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-07-14
+## [Unreleased] - 2026-07-15
 
 __BREAKING CHANGES: Next release will be 8.0.0.__
 
@@ -32,6 +32,7 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 * Refactored OrderCrossover and NonWrappingOrderCrossover to extract a common base class.
 
 ### Dependencies
+* Bumped minimum supported Java to Java 25 (BREAKING CHANGE)
 
 ### CI/CD
 

@@ -18,11 +18,11 @@ jobs:
     steps:
     - uses: actions/checkout@v7
 
-    - name: Set up JDK 17 for deploy to Central
+    - name: Set up JDK 25 for deploy to Central
       uses: actions/setup-java@v5
       with:
-        distribution: 'adopt'
-        java-version: '17'
+        distribution: 'temurin'
+        java-version: '25'
         server-id: central 
         server-username: MAVEN_USERNAME
         server-password: MAVEN_CENTRAL_TOKEN
@@ -42,11 +42,11 @@ jobs:
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}		
 
-    - name: Set up JDK 17 for deploy to github packages
+    - name: Set up JDK 25 for deploy to github packages
       uses: actions/setup-java@v5
       with:
-        distribution: 'adopt'
-        java-version: '17'
+        distribution: 'temurin'
+        java-version: '25'
         server-id: github
 
     - name: Publish to GitHub Packages Apache Maven

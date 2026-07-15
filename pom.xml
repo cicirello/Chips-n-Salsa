@@ -239,7 +239,7 @@
 		<dependency>
 			<groupId>org.cicirello</groupId>
 			<artifactId>jpt</artifactId>
-			<version>6.0.1</version>
+			<version>7.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cicirello</groupId>

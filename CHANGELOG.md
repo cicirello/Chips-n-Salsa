@@ -33,6 +33,9 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 
 ### Dependencies
 * Bumped minimum supported Java to Java 25 (BREAKING CHANGE)
+* Bump org.cicirello:core from 2.7.1 to 3.0.0 (BREAKING CHANGE)
+* Bump org.cicirello:rho-mu from 4.2.1 to 5.0.1 (BREAKING CHANGE)
+* Bump org.cicirello:jpt from 6.0.1 to 7.0.0 (BREAKING CHANGE)
 
 ### CI/CD
 

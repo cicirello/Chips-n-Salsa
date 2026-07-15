@@ -51,8 +51,8 @@ The rest of this README is organized as follows:
 
 ## Java Requirements
 
-Chips-n-Salsa currently supports Java 17+. Our development process utilizes OpenJDK 17, and
-all jar files released to Maven Central, GitHub Packages, and GitHub Releases are built for a Java 17 target.
+Chips-n-Salsa currently supports Java 25+. Our development process utilizes the Eclipse Temurin distribution of Java, and
+all jar files released to Maven Central, GitHub Packages, and GitHub Releases are built for a Java 25 target.
 See the following table for a mapping between library version and minimum supported Java version.
 
 | version | Java requirements |

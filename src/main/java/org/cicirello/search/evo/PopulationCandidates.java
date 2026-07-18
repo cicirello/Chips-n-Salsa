@@ -28,14 +28,7 @@ package org.cicirello.search.evo;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public interface PopulationCandidates<T> {
-
-  /**
-   * The size of this set of candidates.
-   *
-   * @return the size of this set of candidates
-   */
-  int size();
+public interface PopulationCandidates<T> extends PopulationFitnessVector {
 
   /**
    * Accesses the i-th candidate. Implementations of {@link ReplacementStrategy} must not mutate the
@@ -60,17 +53,8 @@ public interface PopulationCandidates<T> {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  interface IntegerFitness<T> extends PopulationCandidates<T> {
-
-    /**
-     * Fitness of the i-th candidate.
-     *
-     * @param i the index of the candidate, which begins at 0
-     * @return the fitness of the i-th candidate
-     * @throws IndexOutOfBoundsException if i is negative or if i is greater than or equal to size()
-     */
-    int fitness(int i);
-  }
+  interface IntegerFitness<T>
+      extends PopulationCandidates<T>, PopulationFitnessVector.IntegerFitness {}
 
   /**
    * An interface to the candidates for the next generation's population, consisting of the current
@@ -81,15 +65,6 @@ public interface PopulationCandidates<T> {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  interface DoubleFitness<T> extends PopulationCandidates<T> {
-
-    /**
-     * Fitness of the i-th candidate.
-     *
-     * @param i the index of the candidate, which begins at 0
-     * @return the fitness of the i-th candidate
-     * @throws IndexOutOfBoundsException if i is negative or if i is greater than or equal to size()
-     */
-    double fitness(int i);
-  }
+  interface DoubleFitness<T>
+      extends PopulationCandidates<T>, PopulationFitnessVector.DoubleFitness {}
 }

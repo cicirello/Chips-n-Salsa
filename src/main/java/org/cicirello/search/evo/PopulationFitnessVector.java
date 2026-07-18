@@ -80,7 +80,7 @@ public interface PopulationFitnessVector {
     }
 
     /**
-     * Creates a new array of ints containing the elements of this PopulationFitnessVector.Integer.
+     * Creates a new array of ints containing the fitnesses of this PopulationFitnessVector.Integer.
      *
      * @return an array of ints
      */
@@ -93,7 +93,7 @@ public interface PopulationFitnessVector {
     }
 
     /**
-     * Creates a new array of doubles containing the elements of this
+     * Creates a new array of doubles containing the fitnesses of this
      * PopulationFitnessVector.Integer.
      *
      * @return an array of doubles
@@ -153,7 +153,7 @@ public interface PopulationFitnessVector {
     }
 
     /**
-     * Creates a new array of doubles containing the elements of this
+     * Creates a new array of doubles containing the fitnesses of this
      * PopulationFitnessVector.Double.
      *
      * @return an array of doubles

@@ -150,12 +150,12 @@ public final class TruncationSelection implements SelectionOperator {
       /*
       // This case shouldn't happen since partition puts everything <= to pivot to the left,
       // so no duplicates to right.
-      while (pivot < truncateCount && fitnesses.getFitness(indexes[pivot]) == fitnesses.getFitness(indexes[pivot+1])) {
+      while (pivot < truncateCount && fitnesses.fitness(indexes[pivot]) == fitnesses.fitness(indexes[pivot+1])) {
       	pivot++;
       }
       */
       while (pivot > truncateCount
-          && fitnesses.getFitness(indexes[pivot]) == fitnesses.getFitness(indexes[pivot - 1])) {
+          && fitnesses.fitness(indexes[pivot]) == fitnesses.fitness(indexes[pivot - 1])) {
         pivot--;
       }
       if (pivot < truncateCount) {
@@ -181,12 +181,12 @@ public final class TruncationSelection implements SelectionOperator {
       /*
       // This case shouldn't happen since partition puts everything <= to pivot to the left,
       // so no duplicates to right.
-      while (pivot < truncateCount && fitnesses.getFitness(indexes[pivot]) == fitnesses.getFitness(indexes[pivot+1])) {
+      while (pivot < truncateCount && fitnesses.fitness(indexes[pivot]) == fitnesses.fitness(indexes[pivot+1])) {
       	pivot++;
       }
       */
       while (pivot > truncateCount
-          && fitnesses.getFitness(indexes[pivot]) == fitnesses.getFitness(indexes[pivot - 1])) {
+          && fitnesses.fitness(indexes[pivot]) == fitnesses.fitness(indexes[pivot - 1])) {
         pivot--;
       }
       if (pivot < truncateCount) {
@@ -206,10 +206,10 @@ public final class TruncationSelection implements SelectionOperator {
       indexes[m] = indexes[last];
       indexes[last] = temp;
     }
-    int x = fitnesses.getFitness(indexes[last]);
+    int x = fitnesses.fitness(indexes[last]);
     int i = first - 1;
     for (int j = first; j < last; j++) {
-      if (fitnesses.getFitness(indexes[j]) <= x) {
+      if (fitnesses.fitness(indexes[j]) <= x) {
         i++;
         int temp = indexes[i];
         indexes[i] = indexes[j];
@@ -230,10 +230,10 @@ public final class TruncationSelection implements SelectionOperator {
       indexes[m] = indexes[last];
       indexes[last] = temp;
     }
-    double x = fitnesses.getFitness(indexes[last]);
+    double x = fitnesses.fitness(indexes[last]);
     int i = first - 1;
     for (int j = first; j < last; j++) {
-      if (fitnesses.getFitness(indexes[j]) <= x) {
+      if (fitnesses.fitness(indexes[j]) <= x) {
         i++;
         int temp = indexes[i];
         indexes[i] = indexes[j];
@@ -248,14 +248,14 @@ public final class TruncationSelection implements SelectionOperator {
 
   private int indexOfMedian(
       PopulationFitnessVector.IntegerFitness fitnesses, int[] indexes, int a, int b, int c) {
-    return fitnesses.getFitness(indexes[a]) < fitnesses.getFitness(indexes[b])
+    return fitnesses.fitness(indexes[a]) < fitnesses.fitness(indexes[b])
         ? medianByInsertion(fitnesses, indexes, a, b, c)
         : medianByInsertion(fitnesses, indexes, b, a, c);
   }
 
   private int indexOfMedian(
       PopulationFitnessVector.DoubleFitness fitnesses, int[] indexes, int a, int b, int c) {
-    return fitnesses.getFitness(indexes[a]) < fitnesses.getFitness(indexes[b])
+    return fitnesses.fitness(indexes[a]) < fitnesses.fitness(indexes[b])
         ? medianByInsertion(fitnesses, indexes, a, b, c)
         : medianByInsertion(fitnesses, indexes, b, a, c);
   }
@@ -269,11 +269,9 @@ public final class TruncationSelection implements SelectionOperator {
       int low,
       int high,
       int unknown) {
-    return fitnesses.getFitness(indexes[unknown]) < fitnesses.getFitness(indexes[low])
+    return fitnesses.fitness(indexes[unknown]) < fitnesses.fitness(indexes[low])
         ? low
-        : fitnesses.getFitness(indexes[unknown]) > fitnesses.getFitness(indexes[high])
-            ? high
-            : unknown;
+        : fitnesses.fitness(indexes[unknown]) > fitnesses.fitness(indexes[high]) ? high : unknown;
   }
 
   /*
@@ -285,10 +283,8 @@ public final class TruncationSelection implements SelectionOperator {
       int low,
       int high,
       int unknown) {
-    return fitnesses.getFitness(indexes[unknown]) < fitnesses.getFitness(indexes[low])
+    return fitnesses.fitness(indexes[unknown]) < fitnesses.fitness(indexes[low])
         ? low
-        : fitnesses.getFitness(indexes[unknown]) > fitnesses.getFitness(indexes[high])
-            ? high
-            : unknown;
+        : fitnesses.fitness(indexes[unknown]) > fitnesses.fitness(indexes[high]) ? high : unknown;
   }
 }

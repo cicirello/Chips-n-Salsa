@@ -90,7 +90,7 @@ public final class TournamentSelection implements SelectionOperator {
     int choose = generator.nextInt(fitnesses.size());
     for (int j = 1; j < k; j++) {
       int other = generator.nextInt(fitnesses.size());
-      if (fitnesses.getFitness(other) > fitnesses.getFitness(choose)) {
+      if (fitnesses.fitness(other) > fitnesses.fitness(choose)) {
         choose = other;
       }
     }
@@ -101,7 +101,7 @@ public final class TournamentSelection implements SelectionOperator {
     int choose = generator.nextInt(fitnesses.size());
     for (int j = 1; j < k; j++) {
       int other = generator.nextInt(fitnesses.size());
-      if (fitnesses.getFitness(other) > fitnesses.getFitness(choose)) {
+      if (fitnesses.fitness(other) > fitnesses.fitness(choose)) {
         choose = other;
       }
     }

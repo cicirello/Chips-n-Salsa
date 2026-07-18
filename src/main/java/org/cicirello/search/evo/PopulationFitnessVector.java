@@ -49,7 +49,7 @@ public interface PopulationFitnessVector {
      * @param i The index into the population, which must be in the interval [0, size()).
      * @return the fitness of population member i.
      */
-    int getFitness(int i);
+    int fitness(int i);
 
     /**
      * Creates a PopulationFitnessVector.IntegerFitness wrapping a primitive int array.
@@ -71,7 +71,7 @@ public interface PopulationFitnessVector {
         }
 
         @Override
-        public int getFitness(int i) {
+        public int fitness(int i) {
           return f[i];
         }
       }
@@ -87,7 +87,7 @@ public interface PopulationFitnessVector {
     default int[] toIntArray() {
       int[] f = new int[size()];
       for (int i = 0; i < f.length; i++) {
-        f[i] = getFitness(i);
+        f[i] = fitness(i);
       }
       return f;
     }
@@ -101,7 +101,7 @@ public interface PopulationFitnessVector {
     default double[] toDoubleArray() {
       double[] f = new double[size()];
       for (int i = 0; i < f.length; i++) {
-        f[i] = getFitness(i);
+        f[i] = fitness(i);
       }
       return f;
     }
@@ -121,7 +121,7 @@ public interface PopulationFitnessVector {
      * @param i The index into the population, which must be in the interval [0, size()).
      * @return the fitness of population member i.
      */
-    double getFitness(int i);
+    double fitness(int i);
 
     /**
      * Creates a PopulationFitnessVector.DoubleFitness wrapping a primitive double array.
@@ -144,7 +144,7 @@ public interface PopulationFitnessVector {
         }
 
         @Override
-        public double getFitness(int i) {
+        public double fitness(int i) {
           return f[i];
         }
       }
@@ -161,7 +161,7 @@ public interface PopulationFitnessVector {
     default double[] toDoubleArray() {
       double[] d = new double[size()];
       for (int i = 0; i < d.length; i++) {
-        d[i] = getFitness(i);
+        d[i] = fitness(i);
       }
       return d;
     }

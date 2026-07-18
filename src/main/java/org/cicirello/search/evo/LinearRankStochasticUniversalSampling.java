@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -80,13 +80,13 @@ public final class LinearRankStochasticUniversalSampling extends StochasticUnive
   }
 
   @Override
-  final double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
+  final double[] computeWeightRunningSum(PopulationFitnessVector.IntegerFitness fitnesses) {
     return computeWeightRunningSumRanks(
         sortedIndexes(fitnesses), r -> 2 - c + 2 * r * (c - 1) / (fitnesses.size() - 1.0));
   }
 
   @Override
-  final double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
+  final double[] computeWeightRunningSum(PopulationFitnessVector.DoubleFitness fitnesses) {
     return computeWeightRunningSumRanks(
         sortedIndexes(fitnesses), r -> 2 - c + 2 * r * (c - 1) / (fitnesses.size() - 1.0));
   }

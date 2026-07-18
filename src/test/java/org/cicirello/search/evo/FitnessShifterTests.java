@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -33,7 +33,8 @@ public class FitnessShifterTests {
     int[] expected = {5, 3, 1, 2, 6, 7};
     TestSelection wrapped = new TestSelection(expected);
     FitnessShifter shifter = new FitnessShifter(wrapped);
-    PopulationFitnessVector.Integer pop = PopulationFitnessVector.Integer.of(fitnesses);
+    PopulationFitnessVector.IntegerFitness pop =
+        PopulationFitnessVector.IntegerFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     shifter.select(pop, selected);
     assertTrue(wrapped.selectIntegerCalled);
@@ -55,7 +56,8 @@ public class FitnessShifterTests {
     int[] expected = {3, 5, 7, 6, 2, 1};
     TestSelection wrapped = new TestSelection(expected);
     FitnessShifter shifter = new FitnessShifter(wrapped);
-    PopulationFitnessVector.Integer pop = PopulationFitnessVector.Integer.of(fitnesses);
+    PopulationFitnessVector.IntegerFitness pop =
+        PopulationFitnessVector.IntegerFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     shifter.select(pop, selected);
     assertTrue(wrapped.selectIntegerCalled);
@@ -70,7 +72,8 @@ public class FitnessShifterTests {
     int[] expected = {1, 15, 5, 4, 18, 19};
     TestSelection wrapped = new TestSelection(expected);
     FitnessShifter shifter = new FitnessShifter(wrapped);
-    PopulationFitnessVector.Integer pop = PopulationFitnessVector.Integer.of(fitnesses);
+    PopulationFitnessVector.IntegerFitness pop =
+        PopulationFitnessVector.IntegerFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     shifter.select(pop, selected);
     assertTrue(wrapped.selectIntegerCalled);
@@ -85,7 +88,7 @@ public class FitnessShifterTests {
     double[] expected = {5, 3, 1, 2, 6, 7};
     TestSelection wrapped = new TestSelection(expected);
     FitnessShifter shifter = new FitnessShifter(wrapped);
-    PopulationFitnessVector.Double pop = PopulationFitnessVector.Double.of(fitnesses);
+    PopulationFitnessVector.DoubleFitness pop = PopulationFitnessVector.DoubleFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     shifter.select(pop, selected);
     assertFalse(wrapped.selectIntegerCalled);
@@ -107,7 +110,7 @@ public class FitnessShifterTests {
     double[] expected = {3, 5, 7, 6, 2, 1};
     TestSelection wrapped = new TestSelection(expected);
     FitnessShifter shifter = new FitnessShifter(wrapped);
-    PopulationFitnessVector.Double pop = PopulationFitnessVector.Double.of(fitnesses);
+    PopulationFitnessVector.DoubleFitness pop = PopulationFitnessVector.DoubleFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     shifter.select(pop, selected);
     assertFalse(wrapped.selectIntegerCalled);
@@ -122,7 +125,7 @@ public class FitnessShifterTests {
     double[] expected = {1, 15, 5, 4, 18, 19};
     TestSelection wrapped = new TestSelection(expected);
     FitnessShifter shifter = new FitnessShifter(wrapped);
-    PopulationFitnessVector.Double pop = PopulationFitnessVector.Double.of(fitnesses);
+    PopulationFitnessVector.DoubleFitness pop = PopulationFitnessVector.DoubleFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     shifter.select(pop, selected);
     assertFalse(wrapped.selectIntegerCalled);
@@ -154,7 +157,7 @@ public class FitnessShifterTests {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
       assertEquals(expectedInt.length, fitnesses.size());
       for (int i = 0; i < expectedInt.length; i++) {
         assertEquals(expectedInt[i], fitnesses.getFitness(i));
@@ -163,7 +166,7 @@ public class FitnessShifterTests {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
       assertEquals(expectedD.length, fitnesses.size());
       for (int i = 0; i < expectedD.length; i++) {
         assertEquals(expectedD[i], fitnesses.getFitness(i));

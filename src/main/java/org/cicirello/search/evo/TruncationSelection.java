@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -80,7 +80,7 @@ public final class TruncationSelection implements SelectionOperator {
   }
 
   @Override
-  public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
+  public void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
     if (k < fitnesses.size()) {
       int[] selectFrom = initSelectFrom(fitnesses.size());
       int truncateCount = selectFrom.length - k;
@@ -94,7 +94,7 @@ public final class TruncationSelection implements SelectionOperator {
   }
 
   @Override
-  public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
+  public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
     if (k < fitnesses.size()) {
       int[] selectFrom = initSelectFrom(fitnesses.size());
       int truncateCount = selectFrom.length - k;
@@ -140,7 +140,7 @@ public final class TruncationSelection implements SelectionOperator {
    * package private to ease unit testing, but not actually used outside of this class.
    */
   final int[] bestFitToRight(
-      PopulationFitnessVector.Integer fitnesses,
+      PopulationFitnessVector.IntegerFitness fitnesses,
       int[] indexes,
       int first,
       int last,
@@ -171,7 +171,7 @@ public final class TruncationSelection implements SelectionOperator {
    * package private to ease unit testing, but not actually used outside of this class.
    */
   final int[] bestFitToRight(
-      PopulationFitnessVector.Double fitnesses,
+      PopulationFitnessVector.DoubleFitness fitnesses,
       int[] indexes,
       int first,
       int last,
@@ -199,7 +199,7 @@ public final class TruncationSelection implements SelectionOperator {
   }
 
   private int partition(
-      PopulationFitnessVector.Integer fitnesses, int[] indexes, int first, int last) {
+      PopulationFitnessVector.IntegerFitness fitnesses, int[] indexes, int first, int last) {
     if (last > first + 1) {
       int m = indexOfMedian(fitnesses, indexes, first, last, (first + last) >> 1);
       int temp = indexes[m];
@@ -223,7 +223,7 @@ public final class TruncationSelection implements SelectionOperator {
   }
 
   private int partition(
-      PopulationFitnessVector.Double fitnesses, int[] indexes, int first, int last) {
+      PopulationFitnessVector.DoubleFitness fitnesses, int[] indexes, int first, int last) {
     if (last > first + 1) {
       int m = indexOfMedian(fitnesses, indexes, first, last, (first + last) >> 1);
       int temp = indexes[m];
@@ -247,14 +247,14 @@ public final class TruncationSelection implements SelectionOperator {
   }
 
   private int indexOfMedian(
-      PopulationFitnessVector.Integer fitnesses, int[] indexes, int a, int b, int c) {
+      PopulationFitnessVector.IntegerFitness fitnesses, int[] indexes, int a, int b, int c) {
     return fitnesses.getFitness(indexes[a]) < fitnesses.getFitness(indexes[b])
         ? medianByInsertion(fitnesses, indexes, a, b, c)
         : medianByInsertion(fitnesses, indexes, b, a, c);
   }
 
   private int indexOfMedian(
-      PopulationFitnessVector.Double fitnesses, int[] indexes, int a, int b, int c) {
+      PopulationFitnessVector.DoubleFitness fitnesses, int[] indexes, int a, int b, int c) {
     return fitnesses.getFitness(indexes[a]) < fitnesses.getFitness(indexes[b])
         ? medianByInsertion(fitnesses, indexes, a, b, c)
         : medianByInsertion(fitnesses, indexes, b, a, c);
@@ -264,7 +264,11 @@ public final class TruncationSelection implements SelectionOperator {
    * Handles case where relative order of 2 elements is known.
    */
   private static int medianByInsertion(
-      PopulationFitnessVector.Integer fitnesses, int[] indexes, int low, int high, int unknown) {
+      PopulationFitnessVector.IntegerFitness fitnesses,
+      int[] indexes,
+      int low,
+      int high,
+      int unknown) {
     return fitnesses.getFitness(indexes[unknown]) < fitnesses.getFitness(indexes[low])
         ? low
         : fitnesses.getFitness(indexes[unknown]) > fitnesses.getFitness(indexes[high])
@@ -276,7 +280,11 @@ public final class TruncationSelection implements SelectionOperator {
    * Handles case where relative order of 2 elements is known.
    */
   private static int medianByInsertion(
-      PopulationFitnessVector.Double fitnesses, int[] indexes, int low, int high, int unknown) {
+      PopulationFitnessVector.DoubleFitness fitnesses,
+      int[] indexes,
+      int low,
+      int high,
+      int unknown) {
     return fitnesses.getFitness(indexes[unknown]) < fitnesses.getFitness(indexes[low])
         ? low
         : fitnesses.getFitness(indexes[unknown]) > fitnesses.getFitness(indexes[high])

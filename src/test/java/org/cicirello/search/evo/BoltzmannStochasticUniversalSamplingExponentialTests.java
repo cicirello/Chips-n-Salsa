@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -30,7 +30,8 @@ public class BoltzmannStochasticUniversalSamplingExponentialTests {
   @Test
   public void testBoltzmannStochasticUniversalSamplingExponential() {
     double[] fitnesses = {0, 1, 2, 3, 4, 5};
-    PopulationFitnessVector.Double vector = PopulationFitnessVector.Double.of(fitnesses.clone());
+    PopulationFitnessVector.DoubleFitness vector =
+        PopulationFitnessVector.DoubleFitness.of(fitnesses.clone());
 
     BoltzmannStochasticUniversalSampling selection =
         new BoltzmannStochasticUniversalSampling(1.0, 0.1, 0.5, false);
@@ -185,7 +186,8 @@ public class BoltzmannStochasticUniversalSamplingExponentialTests {
   @Test
   public void testBoltzmannStochasticUniversalSamplingExponentialInteger() {
     int[] fitnesses = {0, 1, 2, 3, 4, 5};
-    PopulationFitnessVector.Integer vector = PopulationFitnessVector.Integer.of(fitnesses.clone());
+    PopulationFitnessVector.IntegerFitness vector =
+        PopulationFitnessVector.IntegerFitness.of(fitnesses.clone());
 
     BoltzmannStochasticUniversalSampling selection =
         new BoltzmannStochasticUniversalSampling(1.0, 0.1, 0.5, false);

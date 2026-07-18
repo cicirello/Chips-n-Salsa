@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -30,7 +30,8 @@ public class BoltzmannSelectionExponentialTests {
   @Test
   public void testBoltzmannSelectionExponential() {
     double[] fitnesses = {0, 1, 2, 3, 4, 5};
-    PopulationFitnessVector.Double vector = PopulationFitnessVector.Double.of(fitnesses.clone());
+    PopulationFitnessVector.DoubleFitness vector =
+        PopulationFitnessVector.DoubleFitness.of(fitnesses.clone());
 
     BoltzmannSelection selection = new BoltzmannSelection(1.0, 0.1, 0.5, false);
     double[] weightedSum = selection.computeWeightRunningSum(vector);
@@ -180,7 +181,8 @@ public class BoltzmannSelectionExponentialTests {
   @Test
   public void testBoltzmannSelectionExponentialInteger() {
     int[] fitnesses = {0, 1, 2, 3, 4, 5};
-    PopulationFitnessVector.Integer vector = PopulationFitnessVector.Integer.of(fitnesses.clone());
+    PopulationFitnessVector.IntegerFitness vector =
+        PopulationFitnessVector.IntegerFitness.of(fitnesses.clone());
 
     BoltzmannSelection selection = new BoltzmannSelection(1.0, 0.1, 0.5, false);
     double[] weightedSum = selection.computeWeightRunningSum(vector);

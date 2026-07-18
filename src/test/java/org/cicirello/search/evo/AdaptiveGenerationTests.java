@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -205,7 +205,7 @@ public class AdaptiveGenerationTests {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
       int next = selected.length - 1;
       for (int i = 0; i < selected.length; i++) {
         selected[i] = next;
@@ -215,7 +215,7 @@ public class AdaptiveGenerationTests {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
       int next = selected.length - 1;
       for (int i = 0; i < selected.length; i++) {
         selected[i] = next;

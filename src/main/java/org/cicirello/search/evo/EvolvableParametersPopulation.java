@@ -49,7 +49,7 @@ abstract class EvolvableParametersPopulation {
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
   static final class DoubleFitness<T extends Copyable<T>> extends AbstractPopulation<T>
-      implements PopulationFitnessVector.Double {
+      implements PopulationFitnessVector.DoubleFitness {
 
     private final Initializer<T> initializer;
     private final SelectionOperator selection;
@@ -238,7 +238,7 @@ abstract class EvolvableParametersPopulation {
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
   static final class IntegerFitness<T extends Copyable<T>> extends AbstractPopulation<T>
-      implements PopulationFitnessVector.Integer {
+      implements PopulationFitnessVector.IntegerFitness {
 
     private final Initializer<T> initializer;
     private final SelectionOperator selection;

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -143,7 +143,7 @@ public class SharedTestSelectionOperators {
     assertTrue(countLarger > selected.length / 2);
   }
 
-  static class PopFitVectorDouble implements PopulationFitnessVector.Double {
+  static class PopFitVectorDouble implements PopulationFitnessVector.DoubleFitness {
 
     private int s;
     private int[] fitnesses;
@@ -176,7 +176,7 @@ public class SharedTestSelectionOperators {
     }
   }
 
-  static class PopFitVectorInteger implements PopulationFitnessVector.Integer {
+  static class PopFitVectorInteger implements PopulationFitnessVector.IntegerFitness {
 
     private int s;
     private int[] fitnesses;
@@ -209,7 +209,7 @@ public class SharedTestSelectionOperators {
     }
   }
 
-  static class PopFitVectorDoubleSimple implements PopulationFitnessVector.Double {
+  static class PopFitVectorDoubleSimple implements PopulationFitnessVector.DoubleFitness {
 
     private int s;
     private int[] fitnesses;
@@ -247,7 +247,7 @@ public class SharedTestSelectionOperators {
     }
   }
 
-  static class PopFitVectorIntegerSimple implements PopulationFitnessVector.Integer {
+  static class PopFitVectorIntegerSimple implements PopulationFitnessVector.IntegerFitness {
 
     private int s;
     private int[] fitnesses;

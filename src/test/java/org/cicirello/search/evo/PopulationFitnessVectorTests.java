@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -38,7 +38,8 @@ public class PopulationFitnessVectorTests {
       for (int i = 0; i < N; i++) {
         fitnesses[i] = 100 + i;
       }
-      PopulationFitnessVector.Double vector = PopulationFitnessVector.Double.of(fitnesses.clone());
+      PopulationFitnessVector.DoubleFitness vector =
+          PopulationFitnessVector.DoubleFitness.of(fitnesses.clone());
       assertEquals(N, vector.size());
       for (int i = 0; i < N; i++) {
         assertEquals(fitnesses[i], vector.getFitness(i));
@@ -57,8 +58,8 @@ public class PopulationFitnessVectorTests {
       for (int i = 0; i < N; i++) {
         fitnesses[i] = 100 + i;
       }
-      PopulationFitnessVector.Integer vector =
-          PopulationFitnessVector.Integer.of(fitnesses.clone());
+      PopulationFitnessVector.IntegerFitness vector =
+          PopulationFitnessVector.IntegerFitness.of(fitnesses.clone());
       assertEquals(N, vector.size());
       for (int i = 0; i < N; i++) {
         assertEquals(fitnesses[i], vector.getFitness(i));

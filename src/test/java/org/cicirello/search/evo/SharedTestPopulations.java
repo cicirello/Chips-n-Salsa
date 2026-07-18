@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -36,7 +36,7 @@ import org.junit.jupiter.api.*;
 public class SharedTestPopulations {
 
   void verifyInteger(
-      PopulationFitnessVector.Integer popVector,
+      PopulationFitnessVector.IntegerFitness popVector,
       TestFitnessInteger f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
@@ -126,7 +126,8 @@ public class SharedTestPopulations {
     f.changeFitness(12);
     Population<TestObject> pop2 = pop.split();
     @SuppressWarnings("unchecked")
-    PopulationFitnessVector.Integer popVector2 = (PopulationFitnessVector.Integer) pop2;
+    PopulationFitnessVector.IntegerFitness popVector2 =
+        (PopulationFitnessVector.IntegerFitness) pop2;
 
     if (elite == 0) {
       // orginal should be same
@@ -170,7 +171,7 @@ public class SharedTestPopulations {
   }
 
   void verifyDoubleWithIntCost(
-      PopulationFitnessVector.Double popVector,
+      PopulationFitnessVector.DoubleFitness popVector,
       TestFitnessDoubleIntCost f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
@@ -234,7 +235,7 @@ public class SharedTestPopulations {
     f.changeFitness(12);
     Population<TestObject> pop2 = pop.split();
     @SuppressWarnings("unchecked")
-    PopulationFitnessVector.Double popVector2 = (PopulationFitnessVector.Double) pop2;
+    PopulationFitnessVector.DoubleFitness popVector2 = (PopulationFitnessVector.DoubleFitness) pop2;
 
     // orginal should be same
     assertEquals(expected[9] + 10.0 + 1, popVector.getFitness(0));
@@ -267,7 +268,7 @@ public class SharedTestPopulations {
   }
 
   void verifyDouble(
-      PopulationFitnessVector.Double popVector,
+      PopulationFitnessVector.DoubleFitness popVector,
       TestFitnessDouble f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
@@ -357,7 +358,7 @@ public class SharedTestPopulations {
     f.changeFitness(12);
     Population<TestObject> pop2 = pop.split();
     @SuppressWarnings("unchecked")
-    PopulationFitnessVector.Double popVector2 = (PopulationFitnessVector.Double) pop2;
+    PopulationFitnessVector.DoubleFitness popVector2 = (PopulationFitnessVector.DoubleFitness) pop2;
 
     // orginal should be same
     assertEquals(expected[9] + 0.4 + 1 + eliteAdjust, popVector.getFitness(eliteAdjust));
@@ -418,7 +419,7 @@ public class SharedTestPopulations {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
       int next = selected.length - 1;
       for (int i = 0; i < selected.length; i++) {
         selected[i] = next;
@@ -428,7 +429,7 @@ public class SharedTestPopulations {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
       int next = selected.length - 1;
       for (int i = 0; i < selected.length; i++) {
         selected[i] = next;

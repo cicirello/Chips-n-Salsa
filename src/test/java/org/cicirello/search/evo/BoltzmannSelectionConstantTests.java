@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -30,7 +30,8 @@ public class BoltzmannSelectionConstantTests {
   @Test
   public void testBoltzmannSelectionConstant() {
     double[] fitnesses = {0, 1, 2, 3, 4, 5};
-    PopulationFitnessVector.Double vector = PopulationFitnessVector.Double.of(fitnesses.clone());
+    PopulationFitnessVector.DoubleFitness vector =
+        PopulationFitnessVector.DoubleFitness.of(fitnesses.clone());
 
     BoltzmannSelection selection = new BoltzmannSelection(1.0);
     double[] weightedSum = selection.computeWeightRunningSum(vector);
@@ -69,7 +70,8 @@ public class BoltzmannSelectionConstantTests {
   @Test
   public void testBoltzmannSelectionConstantInteger() {
     int[] fitnesses = {0, 1, 2, 3, 4, 5};
-    PopulationFitnessVector.Integer vector = PopulationFitnessVector.Integer.of(fitnesses.clone());
+    PopulationFitnessVector.IntegerFitness vector =
+        PopulationFitnessVector.IntegerFitness.of(fitnesses.clone());
 
     BoltzmannSelection selection = new BoltzmannSelection(1.0);
     double[] weightedSum = selection.computeWeightRunningSum(vector);
@@ -108,7 +110,7 @@ public class BoltzmannSelectionConstantTests {
   private void validateDouble(
       BoltzmannSelection selection,
       double[] fitnesses,
-      PopulationFitnessVector.Double vector,
+      PopulationFitnessVector.DoubleFitness vector,
       double multiplier) {
     double[] weightedSum = selection.computeWeightRunningSum(vector);
     double expected = 1;
@@ -134,7 +136,7 @@ public class BoltzmannSelectionConstantTests {
   private void validateInteger(
       BoltzmannSelection selection,
       int[] fitnesses,
-      PopulationFitnessVector.Integer vector,
+      PopulationFitnessVector.IntegerFitness vector,
       double multiplier) {
     double[] weightedSum = selection.computeWeightRunningSum(vector);
     double expected = 1;

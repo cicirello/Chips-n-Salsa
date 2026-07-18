@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -39,12 +39,12 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
   public AbstractWeightedSelection() {}
 
   @Override
-  public final void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
+  public final void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
     selectAll(normalizeWeights(computeWeightRunningSum(fitnesses)), selected);
   }
 
   @Override
-  public final void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
+  public final void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
     selectAll(normalizeWeights(computeWeightRunningSum(fitnesses)), selected);
   }
 
@@ -54,7 +54,7 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
    * population members by their fitnesses. Override to weight by a function of
    * fitness or by ranks or by something else.
    */
-  double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
+  double[] computeWeightRunningSum(PopulationFitnessVector.IntegerFitness fitnesses) {
     double[] p = new double[fitnesses.size()];
     p[0] = fitnesses.getFitness(0);
     for (int i = 1; i < p.length; i++) {
@@ -69,7 +69,7 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
    * population members by their fitnesses. Override to weight by a function of
    * fitness or by ranks or by something else.
    */
-  double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
+  double[] computeWeightRunningSum(PopulationFitnessVector.DoubleFitness fitnesses) {
     double[] p = new double[fitnesses.size()];
     p[0] = fitnesses.getFitness(0);
     for (int i = 1; i < p.length; i++) {
@@ -115,7 +115,7 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
   /*
    * package private for use by subclasses in same package
    */
-  final int[] sortedIndexes(PopulationFitnessVector.Integer fitnesses) {
+  final int[] sortedIndexes(PopulationFitnessVector.IntegerFitness fitnesses) {
     int[] indexes = new int[fitnesses.size()];
     for (int i = 0; i < indexes.length; i++) {
       indexes[i] = i;
@@ -127,7 +127,7 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
   /*
    * package private for use by subclasses in same package
    */
-  final int[] sortedIndexes(PopulationFitnessVector.Double fitnesses) {
+  final int[] sortedIndexes(PopulationFitnessVector.DoubleFitness fitnesses) {
     int[] indexes = new int[fitnesses.size()];
     for (int i = 0; i < indexes.length; i++) {
       indexes[i] = i;
@@ -145,7 +145,8 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
     return weights;
   }
 
-  private void sort(int[] indexes, PopulationFitnessVector.Double fitnesses, int first, int last) {
+  private void sort(
+      int[] indexes, PopulationFitnessVector.DoubleFitness fitnesses, int first, int last) {
     if (first < last) {
       int mid = (first + last) >> 1;
       sort(indexes, fitnesses, first, mid);
@@ -154,7 +155,8 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
     }
   }
 
-  private void sort(int[] indexes, PopulationFitnessVector.Integer fitnesses, int first, int last) {
+  private void sort(
+      int[] indexes, PopulationFitnessVector.IntegerFitness fitnesses, int first, int last) {
     if (first < last) {
       int mid = (first + last) >> 1;
       sort(indexes, fitnesses, first, mid);
@@ -164,7 +166,11 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
   }
 
   private void merge(
-      int[] indexes, PopulationFitnessVector.Double fitnesses, int first, int mid, int last) {
+      int[] indexes,
+      PopulationFitnessVector.DoubleFitness fitnesses,
+      int first,
+      int mid,
+      int last) {
     int[] left = new int[mid - first + 1];
     int[] right = new int[last - mid];
     System.arraycopy(indexes, first, left, 0, left.length);
@@ -189,7 +195,11 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
   }
 
   private void merge(
-      int[] indexes, PopulationFitnessVector.Integer fitnesses, int first, int mid, int last) {
+      int[] indexes,
+      PopulationFitnessVector.IntegerFitness fitnesses,
+      int first,
+      int mid,
+      int last) {
     int[] left = new int[mid - first + 1];
     int[] right = new int[last - mid];
     System.arraycopy(indexes, first, left, 0, left.length);

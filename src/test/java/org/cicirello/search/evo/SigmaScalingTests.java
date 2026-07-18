@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -36,7 +36,8 @@ public class SigmaScalingTests {
     }
     TestSelection wrapped = new TestSelection(expected);
     SigmaScaling sig = new SigmaScaling(wrapped);
-    PopulationFitnessVector.Integer pop = PopulationFitnessVector.Integer.of(fitnesses);
+    PopulationFitnessVector.IntegerFitness pop =
+        PopulationFitnessVector.IntegerFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     sig.select(pop, selected);
     assertTrue(wrapped.selectDoubleCalled);
@@ -58,7 +59,7 @@ public class SigmaScalingTests {
     }
     TestSelection wrapped = new TestSelection(expected);
     SigmaScaling sig = new SigmaScaling(wrapped);
-    PopulationFitnessVector.Double pop = PopulationFitnessVector.Double.of(fitnesses);
+    PopulationFitnessVector.DoubleFitness pop = PopulationFitnessVector.DoubleFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     sig.select(pop, selected);
     assertTrue(wrapped.selectDoubleCalled);
@@ -83,7 +84,8 @@ public class SigmaScalingTests {
     }
     TestSelection wrapped = new TestSelection(expected);
     SigmaScaling sig = new SigmaScaling(wrapped);
-    PopulationFitnessVector.Integer pop = PopulationFitnessVector.Integer.of(fitnesses);
+    PopulationFitnessVector.IntegerFitness pop =
+        PopulationFitnessVector.IntegerFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     sig.select(pop, selected);
     assertTrue(wrapped.selectDoubleCalled);
@@ -101,7 +103,7 @@ public class SigmaScalingTests {
     }
     TestSelection wrapped = new TestSelection(expected);
     SigmaScaling sig = new SigmaScaling(wrapped);
-    PopulationFitnessVector.Double pop = PopulationFitnessVector.Double.of(fitnesses);
+    PopulationFitnessVector.DoubleFitness pop = PopulationFitnessVector.DoubleFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     sig.select(pop, selected);
     assertTrue(wrapped.selectDoubleCalled);
@@ -123,7 +125,8 @@ public class SigmaScalingTests {
     }
     TestSelection wrapped = new TestSelection(expected);
     SigmaScaling sig = new SigmaScaling(wrapped, 1.0);
-    PopulationFitnessVector.Integer pop = PopulationFitnessVector.Integer.of(fitnesses);
+    PopulationFitnessVector.IntegerFitness pop =
+        PopulationFitnessVector.IntegerFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     sig.select(pop, selected);
     assertTrue(wrapped.selectDoubleCalled);
@@ -145,7 +148,7 @@ public class SigmaScalingTests {
     }
     TestSelection wrapped = new TestSelection(expected);
     SigmaScaling sig = new SigmaScaling(wrapped, 1.0);
-    PopulationFitnessVector.Double pop = PopulationFitnessVector.Double.of(fitnesses);
+    PopulationFitnessVector.DoubleFitness pop = PopulationFitnessVector.DoubleFitness.of(fitnesses);
     int[] selected = new int[fitnesses.length];
     sig.select(pop, selected);
     assertTrue(wrapped.selectDoubleCalled);
@@ -170,12 +173,12 @@ public class SigmaScalingTests {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
       fail();
     }
 
     @Override
-    public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
       assertEquals(expected.length, fitnesses.size());
       for (int i = 0; i < expected.length; i++) {
         assertEquals(expected[i], fitnesses.getFitness(i));

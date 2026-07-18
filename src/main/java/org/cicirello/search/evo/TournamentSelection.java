@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -68,14 +68,14 @@ public final class TournamentSelection implements SelectionOperator {
   }
 
   @Override
-  public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
+  public void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
     for (int i = 0; i < selected.length; i++) {
       selected[i] = tournament(fitnesses);
     }
   }
 
   @Override
-  public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
+  public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
     for (int i = 0; i < selected.length; i++) {
       selected[i] = tournament(fitnesses);
     }
@@ -86,7 +86,7 @@ public final class TournamentSelection implements SelectionOperator {
     return new TournamentSelection(this);
   }
 
-  private int tournament(PopulationFitnessVector.Integer fitnesses) {
+  private int tournament(PopulationFitnessVector.IntegerFitness fitnesses) {
     int choose = generator.nextInt(fitnesses.size());
     for (int j = 1; j < k; j++) {
       int other = generator.nextInt(fitnesses.size());
@@ -97,7 +97,7 @@ public final class TournamentSelection implements SelectionOperator {
     return choose;
   }
 
-  private int tournament(PopulationFitnessVector.Double fitnesses) {
+  private int tournament(PopulationFitnessVector.DoubleFitness fitnesses) {
     int choose = generator.nextInt(fitnesses.size());
     for (int j = 1; j < k; j++) {
       int other = generator.nextInt(fitnesses.size());

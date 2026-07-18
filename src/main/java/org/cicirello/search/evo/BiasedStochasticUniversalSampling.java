@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -85,7 +85,7 @@ public class BiasedStochasticUniversalSampling extends StochasticUniversalSampli
   }
 
   @Override
-  double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
+  double[] computeWeightRunningSum(PopulationFitnessVector.IntegerFitness fitnesses) {
     double[] p = new double[fitnesses.size()];
     p[0] = bias.bias(fitnesses.getFitness(0));
     for (int i = 1; i < p.length; i++) {
@@ -95,7 +95,7 @@ public class BiasedStochasticUniversalSampling extends StochasticUniversalSampli
   }
 
   @Override
-  double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
+  double[] computeWeightRunningSum(PopulationFitnessVector.DoubleFitness fitnesses) {
     double[] p = new double[fitnesses.size()];
     p[0] = bias.bias(fitnesses.getFitness(0));
     for (int i = 1; i < p.length; i++) {

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -242,18 +242,18 @@ public class TruncationSelectionInternalMethodTests extends SharedTestSelectionO
       assertFalse(found[partitioned[i]]);
       found[partitioned[i]] = true;
       if (firstExact) {
-        assertEquals(firstLimit, pop1.getFitness(partitioned[i]));
+        assertEquals(firstLimit, pop1.fitness(partitioned[i]));
       } else {
-        assertTrue(pop1.getFitness(partitioned[i]) <= firstLimit);
+        assertTrue(pop1.fitness(partitioned[i]) <= firstLimit);
       }
     }
     for (int i = truncateCount; i < n; i++) {
       assertFalse(found[partitioned[i]]);
       found[partitioned[i]] = true;
       if (secondExact) {
-        assertEquals(secondLimit, pop1.getFitness(partitioned[i]));
+        assertEquals(secondLimit, pop1.fitness(partitioned[i]));
       } else {
-        assertTrue(pop1.getFitness(partitioned[i]) >= secondLimit);
+        assertTrue(pop1.fitness(partitioned[i]) >= secondLimit);
       }
     }
   }
@@ -273,18 +273,18 @@ public class TruncationSelectionInternalMethodTests extends SharedTestSelectionO
       assertFalse(found[partitioned[i]]);
       found[partitioned[i]] = true;
       if (firstExact) {
-        assertEquals(firstLimit, pop1.getFitness(partitioned[i]));
+        assertEquals(firstLimit, pop1.fitness(partitioned[i]));
       } else {
-        assertTrue(pop1.getFitness(partitioned[i]) <= firstLimit);
+        assertTrue(pop1.fitness(partitioned[i]) <= firstLimit);
       }
     }
     for (int i = truncateCount; i < n; i++) {
       assertFalse(found[partitioned[i]]);
       found[partitioned[i]] = true;
       if (secondExact) {
-        assertEquals(secondLimit, pop1.getFitness(partitioned[i]));
+        assertEquals(secondLimit, pop1.fitness(partitioned[i]));
       } else {
-        assertTrue(pop1.getFitness(partitioned[i]) >= secondLimit);
+        assertTrue(pop1.fitness(partitioned[i]) >= secondLimit);
       }
     }
   }

@@ -42,7 +42,7 @@ public class PopulationFitnessVectorTests {
           PopulationFitnessVector.DoubleFitness.of(fitnesses.clone());
       assertEquals(N, vector.size());
       for (int i = 0; i < N; i++) {
-        assertEquals(fitnesses[i], vector.getFitness(i));
+        assertEquals(fitnesses[i], vector.fitness(i));
       }
       double[] d = vector.toDoubleArray();
       assertFalse(fitnesses == d);
@@ -62,7 +62,7 @@ public class PopulationFitnessVectorTests {
           PopulationFitnessVector.IntegerFitness.of(fitnesses.clone());
       assertEquals(N, vector.size());
       for (int i = 0; i < N; i++) {
-        assertEquals(fitnesses[i], vector.getFitness(i));
+        assertEquals(fitnesses[i], vector.fitness(i));
       }
       int[] v = vector.toIntArray();
       assertFalse(fitnesses == v);

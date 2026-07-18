@@ -12,6 +12,7 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 
 ### Changed (BREAKING)
 * Renamed nested interfaces of the PopulationFitnessVector interface to eliminate naming clash with Java Integer and Double classes.
+* Renamed the getFitness method of the nested interfaces of PopulationFitnessVector to fitness for naming consistency.
 * Refactored all the constructive scheduling heuristics and single machine scheduling problems:
   * To remove the getInstanceData() method from the SingleMachineSchedulingProblem interface, and
   * To require passing an instance of SingleMachineSchedulingProblemData, in addition to the SingleMachineSchedulingProblem, to the constructive scheduling heuristics.

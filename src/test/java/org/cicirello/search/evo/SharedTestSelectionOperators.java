@@ -162,7 +162,7 @@ public class SharedTestSelectionOperators {
     }
 
     @Override
-    public double getFitness(int i) {
+    public double fitness(int i) {
       return fitnesses[i];
     }
 
@@ -195,7 +195,7 @@ public class SharedTestSelectionOperators {
     }
 
     @Override
-    public int getFitness(int i) {
+    public int fitness(int i) {
       return fitnesses[i];
     }
 
@@ -233,7 +233,7 @@ public class SharedTestSelectionOperators {
     }
 
     @Override
-    public double getFitness(int i) {
+    public double fitness(int i) {
       return fitnesses[i];
     }
 
@@ -271,7 +271,7 @@ public class SharedTestSelectionOperators {
     }
 
     @Override
-    public int getFitness(int i) {
+    public int fitness(int i) {
       return fitnesses[i];
     }
 

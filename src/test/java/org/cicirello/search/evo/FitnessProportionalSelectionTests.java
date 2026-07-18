@@ -141,12 +141,12 @@ public class FitnessProportionalSelectionTests extends SharedTestSelectionOperat
     int[] counts = new int[pf.size()];
     double totalFitness = 0;
     for (int i = 0; i < pf.size(); i++) {
-      totalFitness = totalFitness + bias.bias(pf.getFitness(i));
+      totalFitness = totalFitness + bias.bias(pf.fitness(i));
       counts[selected[i]]++;
     }
     for (int i = 0; i < pf.size(); i++) {
-      expectedMin[i] = (int) (pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
-      expectedMax[i] = (int) Math.ceil(pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
+      expectedMin[i] = (int) (pf.size() * bias.bias(pf.fitness(i)) / totalFitness);
+      expectedMax[i] = (int) Math.ceil(pf.size() * bias.bias(pf.fitness(i)) / totalFitness);
       assertTrue(
           counts[i] >= expectedMin[i], "i:" + i + " count:" + counts[i] + " min:" + expectedMin[i]);
       assertTrue(
@@ -165,12 +165,12 @@ public class FitnessProportionalSelectionTests extends SharedTestSelectionOperat
     int[] counts = new int[pf.size()];
     double totalFitness = 0;
     for (int i = 0; i < pf.size(); i++) {
-      totalFitness = totalFitness + bias.bias(pf.getFitness(i));
+      totalFitness = totalFitness + bias.bias(pf.fitness(i));
       counts[selected[i]]++;
     }
     for (int i = 0; i < pf.size(); i++) {
-      expectedMin[i] = (int) (pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
-      expectedMax[i] = (int) Math.ceil(pf.size() * bias.bias(pf.getFitness(i)) / totalFitness);
+      expectedMin[i] = (int) (pf.size() * bias.bias(pf.fitness(i)) / totalFitness);
+      expectedMax[i] = (int) Math.ceil(pf.size() * bias.bias(pf.fitness(i)) / totalFitness);
       assertTrue(
           counts[i] >= expectedMin[i], "i:" + i + " count:" + counts[i] + " min:" + expectedMin[i]);
       assertTrue(

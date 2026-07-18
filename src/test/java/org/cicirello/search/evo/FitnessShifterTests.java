@@ -160,7 +160,7 @@ public class FitnessShifterTests {
     public void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
       assertEquals(expectedInt.length, fitnesses.size());
       for (int i = 0; i < expectedInt.length; i++) {
-        assertEquals(expectedInt[i], fitnesses.getFitness(i));
+        assertEquals(expectedInt[i], fitnesses.fitness(i));
       }
       selectIntegerCalled = true;
     }
@@ -169,7 +169,7 @@ public class FitnessShifterTests {
     public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
       assertEquals(expectedD.length, fitnesses.size());
       for (int i = 0; i < expectedD.length; i++) {
-        assertEquals(expectedD[i], fitnesses.getFitness(i));
+        assertEquals(expectedD[i], fitnesses.fitness(i));
       }
       selectDoubleCalled = true;
     }

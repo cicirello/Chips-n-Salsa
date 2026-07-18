@@ -60,14 +60,14 @@ public class SharedTestPopulations {
     int[] expected = {2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
     for (int i = 0; i < 10; i++) {
       // fitnesses of original before selection.
-      assertEquals(expected[9 - i] + 10, popVector.getFitness(i));
+      assertEquals(expected[9 - i] + 10, popVector.fitness(i));
     }
     assertFalse(selection.called);
     pop.select();
     assertTrue(selection.called);
     for (int i = 0; i < 10; i++) {
       // fitnesses of original before selection.
-      assertEquals(expected[9 - i] + 10, popVector.getFitness(i));
+      assertEquals(expected[9 - i] + 10, popVector.fitness(i));
       // subject to mutation to opposite order since we selected, which reversed.
       if (elite == 0) {
         assertEquals(expected[i], pop.get(i).id);
@@ -88,7 +88,7 @@ public class SharedTestPopulations {
       pop.select();
       for (int i = 0; i < 10; i++) {
         assertEquals(expected[9 - i], pop.get(i).id);
-        assertEquals(expected[i] + 10, popVector.getFitness(i));
+        assertEquals(expected[i] + 10, popVector.fitness(i));
       }
       assertEquals(16, mostFitFitness.applyAsInt(pop));
       assertEquals(94, pop.getMostFit().getCost());
@@ -100,8 +100,8 @@ public class SharedTestPopulations {
       f.changeFitness(10);
       pop.updateFitness(1);
       pop.replace();
-      assertEquals(expected[9] + 10 + 1, popVector.getFitness(0));
-      assertEquals(expected[8] + 10 + 10, popVector.getFitness(1));
+      assertEquals(expected[9] + 10 + 1, popVector.fitness(0));
+      assertEquals(expected[8] + 10 + 10, popVector.fitness(1));
       assertEquals(22, mostFitFitness.applyAsInt(pop));
       assertEquals(2, pop.getMostFit().getSolution().id);
       assertEquals(98, pop.getMostFit().getCost());
@@ -111,8 +111,8 @@ public class SharedTestPopulations {
 
       pop.replace();
       for (int i = 0; i < 10; i++) {
-        if (i != 4) assertEquals(expectedNow[i] + 10, popVector.getFitness(i), "index i=" + i);
-        else assertEquals(expectedNow[i] + 20, popVector.getFitness(i), "index i=" + i);
+        if (i != 4) assertEquals(expectedNow[i] + 10, popVector.fitness(i), "index i=" + i);
+        else assertEquals(expectedNow[i] + 20, popVector.fitness(i), "index i=" + i);
       }
       pop.select();
       for (int i = 0; i < 7; i++) {
@@ -131,16 +131,16 @@ public class SharedTestPopulations {
 
     if (elite == 0) {
       // orginal should be same
-      assertEquals(expected[9] + 10 + 1, popVector.getFitness(0));
-      assertEquals(expected[8] + 10 + 10, popVector.getFitness(1));
+      assertEquals(expected[9] + 10 + 1, popVector.fitness(0));
+      assertEquals(expected[8] + 10 + 10, popVector.fitness(1));
       assertEquals(22, mostFitFitness.applyAsInt(pop));
       assertEquals(2, pop.getMostFit().getSolution().id);
       assertEquals(98, pop.getMostFit().getCost());
     } else {
       // original should be same after split
       for (int i = 0; i < 10; i++) {
-        if (i != 4) assertEquals(expectedNow[i] + 10, popVector.getFitness(i), "index i=" + i);
-        else assertEquals(expectedNow[i] + 20, popVector.getFitness(i), "index i=" + i);
+        if (i != 4) assertEquals(expectedNow[i] + 10, popVector.fitness(i), "index i=" + i);
+        else assertEquals(expectedNow[i] + 20, popVector.fitness(i), "index i=" + i);
       }
       for (int i = 0; i < 7; i++) {
         assertEquals(expectedNow[6 - i], pop.get(i).id);
@@ -154,7 +154,7 @@ public class SharedTestPopulations {
     assertEquals(10, pop2.size());
     assertEquals(10 - elite, pop2.mutableSize());
     for (int i = 0; i < 10; i++) {
-      assertEquals(1 - i + 12 + 10, popVector2.getFitness(i));
+      assertEquals(1 - i + 12 + 10, popVector2.fitness(i));
     }
 
     assertFalse(pop.evolutionIsPaused());
@@ -195,14 +195,14 @@ public class SharedTestPopulations {
     int[] expected = {2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
     for (int i = 0; i < 10; i++) {
       // fitnesses of original before selection.
-      assertEquals(expected[9 - i] + 10.0, popVector.getFitness(i));
+      assertEquals(expected[9 - i] + 10.0, popVector.fitness(i));
     }
     assertFalse(selection.called);
     pop.select();
     assertTrue(selection.called);
     for (int i = 0; i < 10; i++) {
       // fitnesses of original before selection.
-      assertEquals(expected[9 - i] + 10.0, popVector.getFitness(i));
+      assertEquals(expected[9 - i] + 10.0, popVector.fitness(i));
       // subject to mutation to opposite order since we selected, which reversed.
       assertEquals(expected[i], pop.get(i).id);
     }
@@ -214,7 +214,7 @@ public class SharedTestPopulations {
     pop.select();
     for (int i = 0; i < 10; i++) {
       assertEquals(expected[9 - i], pop.get(i).id);
-      assertEquals(expected[i] + 10.0, popVector.getFitness(i));
+      assertEquals(expected[i] + 10.0, popVector.fitness(i));
     }
     assertEquals(16.0, mostFitFitness.applyAsDouble(pop));
     assertEquals(94, pop.getMostFit().getCost());
@@ -226,8 +226,8 @@ public class SharedTestPopulations {
     f.changeFitness(10);
     pop.updateFitness(1);
     pop.replace();
-    assertEquals(expected[9] + 10.0 + 1, popVector.getFitness(0));
-    assertEquals(expected[8] + 10.0 + 10, popVector.getFitness(1));
+    assertEquals(expected[9] + 10.0 + 1, popVector.fitness(0));
+    assertEquals(expected[8] + 10.0 + 10, popVector.fitness(1));
     assertEquals(22.0, mostFitFitness.applyAsDouble(pop));
     assertEquals(2, pop.getMostFit().getSolution().id);
     assertEquals(98, pop.getMostFit().getCost());
@@ -238,8 +238,8 @@ public class SharedTestPopulations {
     PopulationFitnessVector.DoubleFitness popVector2 = (PopulationFitnessVector.DoubleFitness) pop2;
 
     // orginal should be same
-    assertEquals(expected[9] + 10.0 + 1, popVector.getFitness(0));
-    assertEquals(expected[8] + 10.0 + 10, popVector.getFitness(1));
+    assertEquals(expected[9] + 10.0 + 1, popVector.fitness(0));
+    assertEquals(expected[8] + 10.0 + 10, popVector.fitness(1));
     assertEquals(22.0, mostFitFitness.applyAsDouble(pop));
     assertEquals(2, pop.getMostFit().getSolution().id);
     assertEquals(98, pop.getMostFit().getCost());
@@ -251,7 +251,7 @@ public class SharedTestPopulations {
     assertEquals(10, pop2.size());
     assertEquals(10, pop2.mutableSize());
     for (int i = 0; i < 10; i++) {
-      assertEquals(1 - i + 12 + 10.0, popVector2.getFitness(i));
+      assertEquals(1 - i + 12 + 10.0, popVector2.fitness(i));
     }
 
     assertFalse(pop.evolutionIsPaused());
@@ -292,14 +292,14 @@ public class SharedTestPopulations {
     int[] expected = {2, 3, 4, 5, 6, 5, 4, 3, 2, 1};
     for (int i = 0; i < 10; i++) {
       // fitnesses of original before selection.
-      assertEquals(expected[9 - i] + 0.4, popVector.getFitness(i));
+      assertEquals(expected[9 - i] + 0.4, popVector.fitness(i));
     }
     assertFalse(selection.called);
     pop.select();
     assertTrue(selection.called);
     for (int i = 0; i < 10; i++) {
       // fitnesses of original before selection.
-      assertEquals(expected[9 - i] + 0.4, popVector.getFitness(i));
+      assertEquals(expected[9 - i] + 0.4, popVector.fitness(i));
       // subject to mutation to opposite order since we selected, which reversed.
       if (elite == 0) {
         assertEquals(expected[i], pop.get(i).id);
@@ -316,7 +316,7 @@ public class SharedTestPopulations {
     int[] expectedNow = {5, 6, 5, 4, 3, 2, 1, 4, 6, 5};
     if (elite > 0) {
       for (int i = 0; i < 10; i++) {
-        assertEquals(expectedNow[i] + 0.4, popVector.getFitness(i), "index i=" + i);
+        assertEquals(expectedNow[i] + 0.4, popVector.fitness(i), "index i=" + i);
       }
     }
     pop.select();
@@ -327,7 +327,7 @@ public class SharedTestPopulations {
     } else {
       for (int i = 0; i < 10; i++) {
         assertEquals(expected[9 - i], pop.get(i).id);
-        assertEquals(expected[i] + 0.4, popVector.getFitness(i));
+        assertEquals(expected[i] + 0.4, popVector.fitness(i));
       }
     }
     assertEquals(6.4, mostFitFitness.applyAsDouble(pop));
@@ -341,8 +341,8 @@ public class SharedTestPopulations {
     f.changeFitness(10);
     pop.updateFitness(1 + eliteAdjust);
     pop.replace();
-    assertEquals(expected[9] + 0.4 + 1 + eliteAdjust, popVector.getFitness(eliteAdjust));
-    assertEquals(expected[8] + 0.4 + 10 + eliteAdjust, popVector.getFitness(1 + eliteAdjust));
+    assertEquals(expected[9] + 0.4 + 1 + eliteAdjust, popVector.fitness(eliteAdjust));
+    assertEquals(expected[8] + 0.4 + 10 + eliteAdjust, popVector.fitness(1 + eliteAdjust));
     assertEquals(12.4 + eliteAdjust, mostFitFitness.applyAsDouble(pop));
     assertEquals(2 + eliteAdjust, pop.getMostFit().getSolution().id);
     assertEquals(1.0 / (3.0 + eliteAdjust), pop.getMostFit().getCostDouble());
@@ -351,7 +351,7 @@ public class SharedTestPopulations {
       int[] andNow = {1, 2, 3, 4, 5, 6, 5, 4, 6, 5};
       double[] andNowFitness = {1.4, 3.4, 13.4, 4.4, 5.4, 6.4, 5.4, 4.4, 6.4, 5.4};
       for (int i = 0; i < 10; i++) {
-        assertEquals(andNowFitness[i], popVector.getFitness(i), "index i=" + i);
+        assertEquals(andNowFitness[i], popVector.fitness(i), "index i=" + i);
       }
     }
 
@@ -361,8 +361,8 @@ public class SharedTestPopulations {
     PopulationFitnessVector.DoubleFitness popVector2 = (PopulationFitnessVector.DoubleFitness) pop2;
 
     // orginal should be same
-    assertEquals(expected[9] + 0.4 + 1 + eliteAdjust, popVector.getFitness(eliteAdjust));
-    assertEquals(expected[8] + 0.4 + 10 + eliteAdjust, popVector.getFitness(1 + eliteAdjust));
+    assertEquals(expected[9] + 0.4 + 1 + eliteAdjust, popVector.fitness(eliteAdjust));
+    assertEquals(expected[8] + 0.4 + 10 + eliteAdjust, popVector.fitness(1 + eliteAdjust));
     assertEquals(12.4 + eliteAdjust, mostFitFitness.applyAsDouble(pop));
     assertEquals(2 + eliteAdjust, pop.getMostFit().getSolution().id);
     assertEquals(1.0 / (3.0 + eliteAdjust), pop.getMostFit().getCostDouble());
@@ -374,7 +374,7 @@ public class SharedTestPopulations {
     assertEquals(10, pop2.size());
     assertEquals(10 - elite, pop2.mutableSize());
     for (int i = 0; i < 10; i++) {
-      assertEquals(1 - i + 12 + 0.4, popVector2.getFitness(i));
+      assertEquals(1 - i + 12 + 0.4, popVector2.fitness(i));
     }
 
     assertFalse(pop.evolutionIsPaused());

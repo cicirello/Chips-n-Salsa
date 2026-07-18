@@ -164,7 +164,7 @@ abstract class EvolvableParametersElitistPopulation {
     }
 
     @Override
-    public double getFitness(int i) {
+    public double fitness(int i) {
       return pop.get(i).getFitness();
     }
 
@@ -382,7 +382,7 @@ abstract class EvolvableParametersElitistPopulation {
     }
 
     @Override
-    public int getFitness(int i) {
+    public int fitness(int i) {
       return pop.get(i).getFitness();
     }
 

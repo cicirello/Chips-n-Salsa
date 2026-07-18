@@ -56,9 +56,9 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
    */
   double[] computeWeightRunningSum(PopulationFitnessVector.IntegerFitness fitnesses) {
     double[] p = new double[fitnesses.size()];
-    p[0] = fitnesses.getFitness(0);
+    p[0] = fitnesses.fitness(0);
     for (int i = 1; i < p.length; i++) {
-      p[i] = p[i - 1] + fitnesses.getFitness(i);
+      p[i] = p[i - 1] + fitnesses.fitness(i);
     }
     return p;
   }
@@ -71,9 +71,9 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
    */
   double[] computeWeightRunningSum(PopulationFitnessVector.DoubleFitness fitnesses) {
     double[] p = new double[fitnesses.size()];
-    p[0] = fitnesses.getFitness(0);
+    p[0] = fitnesses.fitness(0);
     for (int i = 1; i < p.length; i++) {
-      p[i] = p[i - 1] + fitnesses.getFitness(i);
+      p[i] = p[i - 1] + fitnesses.fitness(i);
     }
     return p;
   }
@@ -179,7 +179,7 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
     int j = 0;
     int k = first;
     for (; i < left.length && j < right.length; k++) {
-      if (fitnesses.getFitness(left[i]) <= fitnesses.getFitness(right[j])) {
+      if (fitnesses.fitness(left[i]) <= fitnesses.fitness(right[j])) {
         indexes[k] = left[i];
         i++;
       } else {
@@ -208,7 +208,7 @@ abstract class AbstractWeightedSelection implements SelectionOperator {
     int j = 0;
     int k = first;
     for (; i < left.length && j < right.length; k++) {
-      if (fitnesses.getFitness(left[i]) <= fitnesses.getFitness(right[j])) {
+      if (fitnesses.fitness(left[i]) <= fitnesses.fitness(right[j])) {
         indexes[k] = left[i];
         i++;
       } else {

@@ -181,7 +181,7 @@ public class SigmaScalingTests {
     public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
       assertEquals(expected.length, fitnesses.size());
       for (int i = 0; i < expected.length; i++) {
-        assertEquals(expected[i], fitnesses.getFitness(i));
+        assertEquals(expected[i], fitnesses.fitness(i));
       }
       selectDoubleCalled = true;
     }

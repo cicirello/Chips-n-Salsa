@@ -77,9 +77,9 @@ public class BiasedFitnessProportionalSelection extends FitnessProportionalSelec
   @Override
   double[] computeWeightRunningSum(PopulationFitnessVector.IntegerFitness fitnesses) {
     double[] p = new double[fitnesses.size()];
-    p[0] = bias.bias(fitnesses.getFitness(0));
+    p[0] = bias.bias(fitnesses.fitness(0));
     for (int i = 1; i < p.length; i++) {
-      p[i] = p[i - 1] + bias.bias(fitnesses.getFitness(i));
+      p[i] = p[i - 1] + bias.bias(fitnesses.fitness(i));
     }
     return p;
   }
@@ -87,9 +87,9 @@ public class BiasedFitnessProportionalSelection extends FitnessProportionalSelec
   @Override
   double[] computeWeightRunningSum(PopulationFitnessVector.DoubleFitness fitnesses) {
     double[] p = new double[fitnesses.size()];
-    p[0] = bias.bias(fitnesses.getFitness(0));
+    p[0] = bias.bias(fitnesses.fitness(0));
     for (int i = 1; i < p.length; i++) {
-      p[i] = p[i - 1] + bias.bias(fitnesses.getFitness(i));
+      p[i] = p[i - 1] + bias.bias(fitnesses.fitness(i));
     }
     return p;
   }

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -47,7 +47,7 @@ abstract class PopulationMember<T extends Copyable<T>> {
    *
    * @return the candidate solution
    */
-  public final T getCandidate() {
+  public final T candidate() {
     return candidate;
   }
 
@@ -87,7 +87,7 @@ abstract class PopulationMember<T extends Copyable<T>> {
      *
      * @return the fitness of the population member
      */
-    public final double getFitness() {
+    public final double fitness() {
       return fitness;
     }
 
@@ -138,7 +138,7 @@ abstract class PopulationMember<T extends Copyable<T>> {
      *
      * @return the fitness of the population member
      */
-    public final int getFitness() {
+    public final int fitness() {
       return fitness;
     }
 

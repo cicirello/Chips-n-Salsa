@@ -122,12 +122,12 @@ abstract class BasePopulation {
 
     @Override
     public T get(int i) {
-      return nextPop.get(i).getCandidate();
+      return nextPop.get(i).candidate();
     }
 
     @Override
     public double fitness(int i) {
-      return pop.get(i).getFitness();
+      return pop.get(i).fitness();
     }
 
     @Override
@@ -153,12 +153,12 @@ abstract class BasePopulation {
 
     @Override
     public void updateFitness(int i) {
-      double fit = f.fitness(nextPop.get(i).getCandidate());
+      double fit = f.fitness(nextPop.get(i).candidate());
       nextPop.get(i).setFitness(fit);
       updated[i] = true;
       if (fit > bestFitness) {
         bestFitness = fit;
-        setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).getCandidate().copy()));
+        setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).candidate().copy()));
       }
     }
 
@@ -291,12 +291,12 @@ abstract class BasePopulation {
 
     @Override
     public T get(int i) {
-      return nextPop.get(i).getCandidate();
+      return nextPop.get(i).candidate();
     }
 
     @Override
     public int fitness(int i) {
-      return pop.get(i).getFitness();
+      return pop.get(i).fitness();
     }
 
     @Override
@@ -322,12 +322,12 @@ abstract class BasePopulation {
 
     @Override
     public void updateFitness(int i) {
-      int fit = f.fitness(nextPop.get(i).getCandidate());
+      int fit = f.fitness(nextPop.get(i).candidate());
       nextPop.get(i).setFitness(fit);
       updated[i] = true;
       if (fit > bestFitness) {
         bestFitness = fit;
-        setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).getCandidate().copy()));
+        setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).candidate().copy()));
       }
     }
 

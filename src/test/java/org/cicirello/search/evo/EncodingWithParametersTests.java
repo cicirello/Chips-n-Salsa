@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -35,7 +35,7 @@ public class EncodingWithParametersTests {
     TestObject obj = new TestObject(5);
     EncodingWithParameters<TestObject> ewp =
         new EncodingWithParameters<TestObject>(obj, 3, 0.4, 0.4 + Math.ulp(0.4), generator);
-    assertSame(obj, ewp.getCandidate());
+    assertSame(obj, ewp.candidate());
     assertEquals(3, ewp.length());
     for (int i = 0; i < 3; i++) {
       assertEquals(0.4, ewp.getParameter(i).get());
@@ -55,7 +55,7 @@ public class EncodingWithParametersTests {
     TestObject obj = new TestObject(5);
     EncodingWithParameters<TestObject> ewp =
         new EncodingWithParameters<TestObject>(obj, 3, generator);
-    assertSame(obj, ewp.getCandidate());
+    assertSame(obj, ewp.candidate());
     assertEquals(3, ewp.length());
     double[] beforeMutate = new double[3];
     for (int i = 0; i < 3; i++) {
@@ -146,11 +146,11 @@ public class EncodingWithParametersTests {
     EncodingWithParameters<TestObject> ewp =
         new EncodingWithParameters<TestObject>(obj, 3, generator);
     EncodingWithParameters<TestObject> copy = ewp.copy();
-    assertEquals(ewp.getCandidate(), copy.getCandidate());
-    assertNotSame(ewp.getCandidate(), copy.getCandidate());
-    assertSame(obj, ewp.getCandidate());
-    assertNotSame(obj, copy.getCandidate());
-    assertEquals(obj, copy.getCandidate());
+    assertEquals(ewp.candidate(), copy.candidate());
+    assertNotSame(ewp.candidate(), copy.candidate());
+    assertSame(obj, ewp.candidate());
+    assertNotSame(obj, copy.candidate());
+    assertEquals(obj, copy.candidate());
     assertEquals(ewp.hashCode(), copy.hashCode());
     assertTrue(parametersAreEqual(ewp, copy));
     assertFalse(anyParametersAreSame(ewp, copy));

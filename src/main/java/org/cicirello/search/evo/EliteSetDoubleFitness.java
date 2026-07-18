@@ -76,7 +76,7 @@ final class EliteSetDoubleFitness<T extends Copyable<T>>
         size++;
         isElite.add(popMember.candidate);
       }
-    } else if (popMember.getFitness() > elite[0].getFitness()) {
+    } else if (popMember.fitness() > elite[0].fitness()) {
       if (!isElite.contains(popMember.candidate)) {
         isElite.remove(elite[0].candidate);
         isElite.add(popMember.candidate);
@@ -108,9 +108,9 @@ final class EliteSetDoubleFitness<T extends Copyable<T>>
   private void percolateDown(int index) {
     int child = (index << 1) + 1;
     if (child < size) {
-      int minIndex = elite[child].getFitness() < elite[index].getFitness() ? child : index;
+      int minIndex = elite[child].fitness() < elite[index].fitness() ? child : index;
       child++;
-      if (child < size && elite[child].getFitness() < elite[minIndex].getFitness()) {
+      if (child < size && elite[child].fitness() < elite[minIndex].fitness()) {
         minIndex = child;
       }
       if (index != minIndex) {
@@ -128,7 +128,7 @@ final class EliteSetDoubleFitness<T extends Copyable<T>>
   private void percolateUp(int index) {
     while (index > 0) {
       int parent = (index - 1) >> 1;
-      if (elite[index].getFitness() < elite[parent].getFitness()) {
+      if (elite[index].fitness() < elite[parent].fitness()) {
         PopulationMember.DoubleFitness<T> temp = elite[index];
         elite[index] = elite[parent];
         elite[parent] = temp;

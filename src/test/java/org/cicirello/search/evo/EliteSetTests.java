@@ -48,9 +48,9 @@ public class EliteSetTests {
       boolean[] inSet = new boolean[11];
       for (PopulationMember.DoubleFitness<TestObject> e : eliteSet) {
         count++;
-        assertFalse(inSet[e.getCandidate().id]);
-        inSet[e.getCandidate().id] = true;
-        assertTrue(e.getCandidate().id > 10 - numElite);
+        assertFalse(inSet[e.candidate().id]);
+        inSet[e.candidate().id] = true;
+        assertTrue(e.candidate().id > 10 - numElite);
       }
       assertEquals(numElite, count);
 
@@ -61,9 +61,9 @@ public class EliteSetTests {
       inSet = new boolean[11];
       for (PopulationMember.DoubleFitness<TestObject> e : eliteSet) {
         count++;
-        assertFalse(inSet[e.getCandidate().id]);
-        inSet[e.getCandidate().id] = true;
-        assertTrue(e.getCandidate().id > 10 - numElite);
+        assertFalse(inSet[e.candidate().id]);
+        inSet[e.candidate().id] = true;
+        assertTrue(e.candidate().id > 10 - numElite);
       }
       assertEquals(numElite, count);
 
@@ -74,9 +74,9 @@ public class EliteSetTests {
       while (iter.hasNext()) {
         PopulationMember.DoubleFitness<TestObject> e = iter.next();
         count++;
-        assertFalse(inSet[e.getCandidate().id]);
-        inSet[e.getCandidate().id] = true;
-        assertTrue(e.getCandidate().id > 10 - numElite);
+        assertFalse(inSet[e.candidate().id]);
+        inSet[e.candidate().id] = true;
+        assertTrue(e.candidate().id > 10 - numElite);
       }
       assertEquals(numElite, count);
       NoSuchElementException thrown = assertThrows(NoSuchElementException.class, () -> iter.next());
@@ -98,9 +98,9 @@ public class EliteSetTests {
       boolean[] inSet = new boolean[11];
       for (PopulationMember.DoubleFitness<TestObject> e : eliteSet) {
         count++;
-        assertFalse(inSet[e.getCandidate().id]);
-        inSet[e.getCandidate().id] = true;
-        assertTrue(e.getCandidate().id > 10 - numElite);
+        assertFalse(inSet[e.candidate().id]);
+        inSet[e.candidate().id] = true;
+        assertTrue(e.candidate().id > 10 - numElite);
       }
       assertEquals(numElite, count);
 
@@ -111,9 +111,9 @@ public class EliteSetTests {
       inSet = new boolean[11];
       for (PopulationMember.DoubleFitness<TestObject> e : eliteSet) {
         count++;
-        assertFalse(inSet[e.getCandidate().id]);
-        inSet[e.getCandidate().id] = true;
-        assertTrue(e.getCandidate().id > 10 - numElite);
+        assertFalse(inSet[e.candidate().id]);
+        inSet[e.candidate().id] = true;
+        assertTrue(e.candidate().id > 10 - numElite);
       }
       assertEquals(numElite, count);
 
@@ -138,8 +138,8 @@ public class EliteSetTests {
     boolean[] inSet = new boolean[10];
     for (PopulationMember.DoubleFitness<TestObject> e : eliteSet) {
       count++;
-      assertFalse(inSet[e.getCandidate().id]);
-      inSet[e.getCandidate().id] = true;
+      assertFalse(inSet[e.candidate().id]);
+      inSet[e.candidate().id] = true;
     }
     assertEquals(3, count);
     assertTrue(inSet[5]);
@@ -150,8 +150,8 @@ public class EliteSetTests {
     inSet = new boolean[10];
     for (PopulationMember.DoubleFitness<TestObject> e : eliteSet) {
       count++;
-      assertFalse(inSet[e.getCandidate().id]);
-      inSet[e.getCandidate().id] = true;
+      assertFalse(inSet[e.candidate().id]);
+      inSet[e.candidate().id] = true;
     }
     assertEquals(3, count);
     assertTrue(inSet[6]);
@@ -176,9 +176,9 @@ public class EliteSetTests {
       boolean[] inSet = new boolean[11];
       for (PopulationMember.IntegerFitness<TestObject> e : eliteSet) {
         count++;
-        assertFalse(inSet[e.getCandidate().id]);
-        inSet[e.getCandidate().id] = true;
-        assertTrue(e.getCandidate().id > 10 - numElite);
+        assertFalse(inSet[e.candidate().id]);
+        inSet[e.candidate().id] = true;
+        assertTrue(e.candidate().id > 10 - numElite);
       }
       assertEquals(numElite, count);
 
@@ -189,9 +189,9 @@ public class EliteSetTests {
       inSet = new boolean[11];
       for (PopulationMember.IntegerFitness<TestObject> e : eliteSet) {
         count++;
-        assertFalse(inSet[e.getCandidate().id]);
-        inSet[e.getCandidate().id] = true;
-        assertTrue(e.getCandidate().id > 10 - numElite);
+        assertFalse(inSet[e.candidate().id]);
+        inSet[e.candidate().id] = true;
+        assertTrue(e.candidate().id > 10 - numElite);
       }
       assertEquals(numElite, count);
 
@@ -202,9 +202,9 @@ public class EliteSetTests {
       while (iter.hasNext()) {
         PopulationMember.IntegerFitness<TestObject> e = iter.next();
         count++;
-        assertFalse(inSet[e.getCandidate().id]);
-        inSet[e.getCandidate().id] = true;
-        assertTrue(e.getCandidate().id > 10 - numElite);
+        assertFalse(inSet[e.candidate().id]);
+        inSet[e.candidate().id] = true;
+        assertTrue(e.candidate().id > 10 - numElite);
       }
       assertEquals(numElite, count);
       NoSuchElementException thrown = assertThrows(NoSuchElementException.class, () -> iter.next());
@@ -226,9 +226,9 @@ public class EliteSetTests {
       boolean[] inSet = new boolean[11];
       for (PopulationMember.IntegerFitness<TestObject> e : eliteSet) {
         count++;
-        assertFalse(inSet[e.getCandidate().id]);
-        inSet[e.getCandidate().id] = true;
-        assertTrue(e.getCandidate().id > 10 - numElite);
+        assertFalse(inSet[e.candidate().id]);
+        inSet[e.candidate().id] = true;
+        assertTrue(e.candidate().id > 10 - numElite);
       }
       assertEquals(numElite, count);
 
@@ -239,9 +239,9 @@ public class EliteSetTests {
       inSet = new boolean[11];
       for (PopulationMember.IntegerFitness<TestObject> e : eliteSet) {
         count++;
-        assertFalse(inSet[e.getCandidate().id]);
-        inSet[e.getCandidate().id] = true;
-        assertTrue(e.getCandidate().id > 10 - numElite);
+        assertFalse(inSet[e.candidate().id]);
+        inSet[e.candidate().id] = true;
+        assertTrue(e.candidate().id > 10 - numElite);
       }
       assertEquals(numElite, count);
 
@@ -267,8 +267,8 @@ public class EliteSetTests {
     boolean[] inSet = new boolean[10];
     for (PopulationMember.IntegerFitness<TestObject> e : eliteSet) {
       count++;
-      assertFalse(inSet[e.getCandidate().id]);
-      inSet[e.getCandidate().id] = true;
+      assertFalse(inSet[e.candidate().id]);
+      inSet[e.candidate().id] = true;
     }
     assertEquals(3, count);
     assertTrue(inSet[5]);
@@ -279,8 +279,8 @@ public class EliteSetTests {
     inSet = new boolean[10];
     for (PopulationMember.IntegerFitness<TestObject> e : eliteSet) {
       count++;
-      assertFalse(inSet[e.getCandidate().id]);
-      inSet[e.getCandidate().id] = true;
+      assertFalse(inSet[e.candidate().id]);
+      inSet[e.candidate().id] = true;
     }
     assertEquals(3, count);
     assertTrue(inSet[6]);

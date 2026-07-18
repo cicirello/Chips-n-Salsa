@@ -136,17 +136,17 @@ abstract class EvolvableParametersPopulation {
 
     @Override
     public T get(int i) {
-      return nextPop.get(i).getCandidate().getCandidate();
+      return nextPop.get(i).candidate().candidate();
     }
 
     @Override
     public SingleReal getParameter(int indexPop, int indexParam) {
-      return nextPop.get(indexPop).getCandidate().getParameter(indexParam);
+      return nextPop.get(indexPop).candidate().getParameter(indexParam);
     }
 
     @Override
     public double fitness(int i) {
-      return pop.get(i).getFitness();
+      return pop.get(i).fitness();
     }
 
     @Override
@@ -172,14 +172,13 @@ abstract class EvolvableParametersPopulation {
 
     @Override
     public void updateFitness(int i) {
-      double fit = f.fitness(nextPop.get(i).getCandidate().getCandidate());
+      double fit = f.fitness(nextPop.get(i).candidate().candidate());
       nextPop.get(i).setFitness(fit);
       updated[i] = true;
       if (fit > bestFitness) {
         bestFitness = fit;
         setMostFit(
-            f.getProblem()
-                .getSolutionCostPair(nextPop.get(i).getCandidate().getCandidate().copy()));
+            f.getProblem().getSolutionCostPair(nextPop.get(i).candidate().candidate().copy()));
       }
     }
 
@@ -196,7 +195,7 @@ abstract class EvolvableParametersPopulation {
       pop.clear();
       for (PopulationMember.DoubleFitness<EncodingWithParameters<T>> e : nextPop) {
         // mutate the parameters before adding to the pop for next generation
-        e.getCandidate().mutate();
+        e.candidate().mutate();
         pop.add(e);
       }
       nextPop.clear();
@@ -325,17 +324,17 @@ abstract class EvolvableParametersPopulation {
 
     @Override
     public T get(int i) {
-      return nextPop.get(i).getCandidate().getCandidate();
+      return nextPop.get(i).candidate().candidate();
     }
 
     @Override
     public SingleReal getParameter(int indexPop, int indexParam) {
-      return nextPop.get(indexPop).getCandidate().getParameter(indexParam);
+      return nextPop.get(indexPop).candidate().getParameter(indexParam);
     }
 
     @Override
     public int fitness(int i) {
-      return pop.get(i).getFitness();
+      return pop.get(i).fitness();
     }
 
     @Override
@@ -361,14 +360,13 @@ abstract class EvolvableParametersPopulation {
 
     @Override
     public void updateFitness(int i) {
-      int fit = f.fitness(nextPop.get(i).getCandidate().getCandidate());
+      int fit = f.fitness(nextPop.get(i).candidate().candidate());
       nextPop.get(i).setFitness(fit);
       updated[i] = true;
       if (fit > bestFitness) {
         bestFitness = fit;
         setMostFit(
-            f.getProblem()
-                .getSolutionCostPair(nextPop.get(i).getCandidate().getCandidate().copy()));
+            f.getProblem().getSolutionCostPair(nextPop.get(i).candidate().candidate().copy()));
       }
     }
 
@@ -385,7 +383,7 @@ abstract class EvolvableParametersPopulation {
       pop.clear();
       for (PopulationMember.IntegerFitness<EncodingWithParameters<T>> e : nextPop) {
         // mutate the parameters before adding to the pop for next generation
-        e.getCandidate().mutate();
+        e.candidate().mutate();
         pop.add(e);
       }
       nextPop.clear();

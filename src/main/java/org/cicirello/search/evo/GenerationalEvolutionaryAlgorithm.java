@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -94,10 +94,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>>
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        eliteCount > 0
-            ? new BaseElitistPopulation.DoubleFitness<T>(
-                n, initializer, f, selection, tracker, eliteCount)
-            : new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, tracker),
+        new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, tracker, eliteCount),
         f.getProblem(),
         mutation,
         mutationRate,
@@ -143,10 +140,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>>
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        eliteCount > 0
-            ? new BaseElitistPopulation.IntegerFitness<T>(
-                n, initializer, f, selection, tracker, eliteCount)
-            : new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, tracker),
+        new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, tracker, eliteCount),
         f.getProblem(),
         mutation,
         mutationRate,

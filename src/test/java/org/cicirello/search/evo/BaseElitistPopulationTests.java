@@ -143,7 +143,7 @@ public class BaseElitistPopulationTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
-                    0));
+                    -1));
     thrown2 =
         assertThrows(
             IllegalArgumentException.class,
@@ -165,7 +165,7 @@ public class BaseElitistPopulationTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
-                    0));
+                    -1));
     thrown2 =
         assertThrows(
             IllegalArgumentException.class,

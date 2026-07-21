@@ -91,12 +91,16 @@ abstract class BaseElitistPopulation {
         throw new IllegalArgumentException(
             "number of elite population members must be less than population size");
       }
-      if (numElite <= 0) {
-        throw new IllegalArgumentException("number of elite population members must be positive");
+      if (numElite < 0) {
+        throw new IllegalArgumentException(
+            "number of elite population members must not be negative");
       }
       this.initializer = Objects.requireNonNull(initializer);
       this.selection = Objects.requireNonNull(selection);
-      this.replacement = new GenerationalElitistReplacement<T>(numElite);
+      this.replacement =
+          numElite > 0
+              ? new GenerationalElitistReplacement<T>(numElite)
+              : new GenerationalReplacement<T>();
 
       this.f = Objects.requireNonNull(f);
       MU = n;
@@ -304,12 +308,16 @@ abstract class BaseElitistPopulation {
         throw new IllegalArgumentException(
             "number of elite population members must be less than population size");
       }
-      if (numElite <= 0) {
-        throw new IllegalArgumentException("number of elite population members must be positive");
+      if (numElite < 0) {
+        throw new IllegalArgumentException(
+            "number of elite population members must not be negative");
       }
       this.initializer = Objects.requireNonNull(initializer);
       this.selection = Objects.requireNonNull(selection);
-      this.replacement = new GenerationalElitistReplacement<T>(numElite);
+      this.replacement =
+          numElite > 0
+              ? new GenerationalElitistReplacement<T>(numElite)
+              : new GenerationalReplacement<T>();
 
       this.f = Objects.requireNonNull(f);
       MU = n;

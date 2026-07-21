@@ -21,7 +21,6 @@
 package org.cicirello.search.evo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.operators.Initializer;
@@ -54,7 +53,6 @@ abstract class BasePopulation {
     private final PopulationVector.DoubleFitness<T> pop;
     private final PopulationVector.DoubleFitness<T> nextPop;
     private final ReplacementStrategy<T> replacement;
-    private final boolean[] updated;
     private final ReplacementTracker r;
 
     private final FitnessFunction.Double<T> f;
@@ -110,7 +108,6 @@ abstract class BasePopulation {
       nextPop = new PopulationVector.DoubleFitness<T>(LAMBDA);
       r = new ReplacementTracker(MU, LAMBDA);
       selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
     }
 
@@ -135,7 +132,6 @@ abstract class BasePopulation {
       pop = new PopulationVector.DoubleFitness<T>(MU);
       nextPop = new PopulationVector.DoubleFitness<T>(LAMBDA);
       selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
     }
 
@@ -179,7 +175,6 @@ abstract class BasePopulation {
     public void updateFitness(int i) {
       double fit = f.fitness(nextPop.candidate(i));
       nextPop.get(i).setFitness(fit);
-      updated[i] = true;
       if (fit > bestFitness) {
         bestFitness = fit;
         setMostFit(f.getProblem().getSolutionCostPair(nextPop.candidate(i).copy()));
@@ -250,8 +245,6 @@ abstract class BasePopulation {
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
-
-      Arrays.fill(updated, false);
     }
   }
 
@@ -271,7 +264,6 @@ abstract class BasePopulation {
     private final PopulationVector.IntegerFitness<T> pop;
     private final PopulationVector.IntegerFitness<T> nextPop;
     private final ReplacementStrategy<T> replacement;
-    private final boolean[] updated;
     private final ReplacementTracker r;
 
     private final FitnessFunction.Integer<T> f;
@@ -327,7 +319,6 @@ abstract class BasePopulation {
       pop = new PopulationVector.IntegerFitness<T>(MU);
       nextPop = new PopulationVector.IntegerFitness<T>(LAMBDA);
       selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
       bestFitness = java.lang.Integer.MIN_VALUE;
     }
 
@@ -352,7 +343,6 @@ abstract class BasePopulation {
       pop = new PopulationVector.IntegerFitness<T>(MU);
       nextPop = new PopulationVector.IntegerFitness<T>(LAMBDA);
       selected = new int[LAMBDA];
-      updated = new boolean[LAMBDA];
       bestFitness = java.lang.Integer.MIN_VALUE;
     }
 
@@ -396,7 +386,6 @@ abstract class BasePopulation {
     public void updateFitness(int i) {
       int fit = f.fitness(nextPop.candidate(i));
       nextPop.get(i).setFitness(fit);
-      updated[i] = true;
       if (fit > bestFitness) {
         bestFitness = fit;
         setMostFit(f.getProblem().getSolutionCostPair(nextPop.candidate(i).copy()));
@@ -467,8 +456,6 @@ abstract class BasePopulation {
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
-
-      Arrays.fill(updated, false);
     }
   }
 }

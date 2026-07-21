@@ -51,10 +51,11 @@ abstract class BaseElitistPopulation {
     private final Initializer<T> initializer;
     private final SelectionOperator selection;
 
-    private final ArrayList<PopulationMember.DoubleFitness<T>> pop;
-    private final ArrayList<PopulationMember.DoubleFitness<T>> nextPop;
-    private final EliteSetDoubleFitness<T> elite;
+    private final PopulationVector.DoubleFitness<T> pop;
+    private final PopulationVector.DoubleFitness<T> nextPop;
+    private final ReplacementStrategy<T> replacement;
     private final boolean[] updated;
+    private final ReplacementTracker r;
 
     private final FitnessFunction.Double<T> f;
     private final int MU;
@@ -95,15 +96,15 @@ abstract class BaseElitistPopulation {
       }
       this.initializer = Objects.requireNonNull(initializer);
       this.selection = Objects.requireNonNull(selection);
-
-      elite = new EliteSetDoubleFitness<T>(numElite);
+      this.replacement = new GenerationalElitistReplacement<T>(numElite);
 
       this.f = Objects.requireNonNull(f);
       MU = n;
       LAMBDA = n - numElite;
 
-      pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
+      pop = new PopulationVector.DoubleFitness<T>(MU);
+      nextPop = new PopulationVector.DoubleFitness<T>(LAMBDA);
+      r = new ReplacementTracker(MU, LAMBDA);
       selected = new int[LAMBDA];
       updated = new boolean[LAMBDA];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
@@ -123,11 +124,12 @@ abstract class BaseElitistPopulation {
       // split these: not threadsafe
       initializer = other.initializer.split();
       selection = other.selection.split();
+      replacement = other.replacement.split();
 
       // initialize these fresh: not threadsafe or otherwise needs its own
-      pop = new ArrayList<PopulationMember.DoubleFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.DoubleFitness<T>>(LAMBDA);
-      elite = new EliteSetDoubleFitness<T>(MU - LAMBDA);
+      r = new ReplacementTracker(MU, LAMBDA);
+      pop = new PopulationVector.DoubleFitness<T>(MU);
+      nextPop = new PopulationVector.DoubleFitness<T>(LAMBDA);
       selected = new int[LAMBDA];
       updated = new boolean[LAMBDA];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
@@ -140,12 +142,12 @@ abstract class BaseElitistPopulation {
 
     @Override
     public T get(int i) {
-      return nextPop.get(i).candidate();
+      return nextPop.candidate(i);
     }
 
     @Override
     public double fitness(int i) {
-      return pop.get(i).fitness();
+      return pop.fitness(i);
     }
 
     @Override
@@ -171,12 +173,12 @@ abstract class BaseElitistPopulation {
 
     @Override
     public void updateFitness(int i) {
-      double fit = f.fitness(nextPop.get(i).candidate());
+      double fit = f.fitness(nextPop.candidate(i));
       nextPop.get(i).setFitness(fit);
       updated[i] = true;
       if (fit > bestFitness) {
         bestFitness = fit;
-        setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).candidate().copy()));
+        setMostFit(f.getProblem().getSolutionCostPair(nextPop.candidate(i).copy()));
       }
     }
 
@@ -190,27 +192,41 @@ abstract class BaseElitistPopulation {
 
     @Override
     public void replace() {
-      pop.clear();
-      for (PopulationMember.DoubleFitness<T> e : nextPop) {
-        pop.add(e);
+      replacement.replace(pop, nextPop, r, MU);
+      if (r.includesParents()) {
+        ArrayList<PopulationMember.DoubleFitness<T>> keep =
+            new ArrayList<PopulationMember.DoubleFitness<T>>();
+        final int[] counts = r.parentCounts();
+        for (int i = 0; i < MU; i++) {
+          for (int j = 0; j < counts[i]; j++) {
+            keep.add(pop.get(i).copy());
+          }
+        }
+        pop.clear();
+        for (PopulationMember.DoubleFitness<T> e : keep) {
+          pop.add(e);
+        }
+        r.clearParentCounts();
+      } else {
+        pop.clear();
       }
-
-      for (PopulationMember.DoubleFitness<T> e : elite) {
-        pop.add(e);
-      }
+      final int[] counts = r.childCounts();
       for (int i = 0; i < LAMBDA; i++) {
-        if (updated[i]) {
-          elite.offer(nextPop.get(i));
-          updated[i] = false;
+        if (counts[i] >= 1) {
+          pop.add(nextPop.get(i));
+          for (int j = 1; j < counts[i]; j++) {
+            pop.add(nextPop.get(i).copy());
+          }
         }
       }
-
+      r.clearChildCounts();
       nextPop.clear();
     }
 
     @Override
     public void initOperators(int generations) {
       selection.init(generations);
+      replacement.init(generations);
     }
 
     @Override
@@ -231,8 +247,6 @@ abstract class BaseElitistPopulation {
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
 
-      elite.clear();
-      elite.offerAll(pop);
       Arrays.fill(updated, false);
     }
   }
@@ -250,10 +264,11 @@ abstract class BaseElitistPopulation {
     private final Initializer<T> initializer;
     private final SelectionOperator selection;
 
-    private final ArrayList<PopulationMember.IntegerFitness<T>> pop;
-    private final ArrayList<PopulationMember.IntegerFitness<T>> nextPop;
-    private final EliteSetIntegerFitness<T> elite;
+    private final PopulationVector.IntegerFitness<T> pop;
+    private final PopulationVector.IntegerFitness<T> nextPop;
+    private final ReplacementStrategy<T> replacement;
     private final boolean[] updated;
+    private final ReplacementTracker r;
 
     private final FitnessFunction.Integer<T> f;
     private final int MU;
@@ -294,15 +309,15 @@ abstract class BaseElitistPopulation {
       }
       this.initializer = Objects.requireNonNull(initializer);
       this.selection = Objects.requireNonNull(selection);
-
-      elite = new EliteSetIntegerFitness<T>(numElite);
+      this.replacement = new GenerationalElitistReplacement<T>(numElite);
 
       this.f = Objects.requireNonNull(f);
       MU = n;
       LAMBDA = n - numElite;
 
-      pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
+      r = new ReplacementTracker(MU, LAMBDA);
+      pop = new PopulationVector.IntegerFitness<T>(MU);
+      nextPop = new PopulationVector.IntegerFitness<T>(LAMBDA);
       selected = new int[LAMBDA];
       updated = new boolean[LAMBDA];
       bestFitness = java.lang.Integer.MIN_VALUE;
@@ -322,11 +337,12 @@ abstract class BaseElitistPopulation {
       // split these: not threadsafe
       initializer = other.initializer.split();
       selection = other.selection.split();
+      replacement = other.replacement.split();
 
       // initialize these fresh: not threadsafe or otherwise needs its own
-      pop = new ArrayList<PopulationMember.IntegerFitness<T>>(MU);
-      nextPop = new ArrayList<PopulationMember.IntegerFitness<T>>(LAMBDA);
-      elite = new EliteSetIntegerFitness<T>(MU - LAMBDA);
+      r = new ReplacementTracker(MU, LAMBDA);
+      pop = new PopulationVector.IntegerFitness<T>(MU);
+      nextPop = new PopulationVector.IntegerFitness<T>(LAMBDA);
       selected = new int[LAMBDA];
       updated = new boolean[LAMBDA];
       bestFitness = java.lang.Integer.MIN_VALUE;
@@ -339,12 +355,12 @@ abstract class BaseElitistPopulation {
 
     @Override
     public T get(int i) {
-      return nextPop.get(i).candidate();
+      return nextPop.candidate(i);
     }
 
     @Override
     public int fitness(int i) {
-      return pop.get(i).fitness();
+      return pop.fitness(i);
     }
 
     @Override
@@ -370,12 +386,12 @@ abstract class BaseElitistPopulation {
 
     @Override
     public void updateFitness(int i) {
-      int fit = f.fitness(nextPop.get(i).candidate());
+      int fit = f.fitness(nextPop.candidate(i));
       nextPop.get(i).setFitness(fit);
       updated[i] = true;
       if (fit > bestFitness) {
         bestFitness = fit;
-        setMostFit(f.getProblem().getSolutionCostPair(nextPop.get(i).candidate().copy()));
+        setMostFit(f.getProblem().getSolutionCostPair(nextPop.candidate(i).copy()));
       }
     }
 
@@ -389,26 +405,41 @@ abstract class BaseElitistPopulation {
 
     @Override
     public void replace() {
-      pop.clear();
-      for (PopulationMember.IntegerFitness<T> e : nextPop) {
-        pop.add(e);
+      replacement.replace(pop, nextPop, r, MU);
+      if (r.includesParents()) {
+        ArrayList<PopulationMember.IntegerFitness<T>> keep =
+            new ArrayList<PopulationMember.IntegerFitness<T>>();
+        final int[] counts = r.parentCounts();
+        for (int i = 0; i < MU; i++) {
+          for (int j = 0; j < counts[i]; j++) {
+            keep.add(pop.get(i).copy());
+          }
+        }
+        pop.clear();
+        for (PopulationMember.IntegerFitness<T> e : keep) {
+          pop.add(e);
+        }
+        r.clearParentCounts();
+      } else {
+        pop.clear();
       }
-      for (PopulationMember.IntegerFitness<T> e : elite) {
-        pop.add(e);
-      }
+      final int[] counts = r.childCounts();
       for (int i = 0; i < LAMBDA; i++) {
-        if (updated[i]) {
-          elite.offer(nextPop.get(i));
-          updated[i] = false;
+        if (counts[i] >= 1) {
+          pop.add(nextPop.get(i));
+          for (int j = 1; j < counts[i]; j++) {
+            pop.add(nextPop.get(i).copy());
+          }
         }
       }
-
+      r.clearChildCounts();
       nextPop.clear();
     }
 
     @Override
     public void initOperators(int generations) {
       selection.init(generations);
+      replacement.init(generations);
     }
 
     @Override
@@ -428,8 +459,7 @@ abstract class BaseElitistPopulation {
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
-      elite.clear();
-      elite.offerAll(pop);
+
       Arrays.fill(updated, false);
     }
   }

@@ -471,6 +471,29 @@ public class SharedTestPopulations {
     }
   }
 
+  static class TestFitnessDoubleElitist implements FitnessFunction.Double<TestObject> {
+
+    private TestProblemDouble problem;
+    private int adjustment;
+
+    public TestFitnessDoubleElitist() {
+      problem = new TestProblemDouble();
+    }
+
+    public double fitness(TestObject c) {
+      return c.id + 0.4 + adjustment;
+    }
+
+    public Problem<TestObject> getProblem() {
+      return problem;
+    }
+
+    public void changeFitness(int adjustment) {
+      this.adjustment = adjustment;
+      problem.adjust(adjustment);
+    }
+  }
+
   static class TestFitnessDoubleIntCost implements FitnessFunction.Double<TestObject> {
 
     private TestProblemInteger problem;
@@ -515,23 +538,60 @@ public class SharedTestPopulations {
     }
   }
 
+  static class TestFitnessIntegerElitist implements FitnessFunction.Integer<TestObject> {
+
+    private TestProblemInteger problem;
+    private int adjustment;
+
+    public TestFitnessIntegerElitist() {
+      problem = new TestProblemInteger();
+    }
+
+    public int fitness(TestObject c) {
+      return c.id + 10 + adjustment;
+    }
+
+    public Problem<TestObject> getProblem() {
+      return problem;
+    }
+
+    public void changeFitness(int adjustment) {
+      this.adjustment = adjustment;
+      problem.adjust(adjustment);
+    }
+  }
+
   static class TestProblemInteger implements IntegerCostOptimizationProblem<TestObject> {
+
+    private int adjustment;
+
     public int cost(TestObject c) {
-      return 100 - c.id;
+      return 100 - c.id - adjustment;
     }
 
     public int value(TestObject c) {
       return cost(c);
     }
+
+    public void adjust(int adjustment) {
+      this.adjustment += adjustment;
+    }
   }
 
   static class TestProblemDouble implements OptimizationProblem<TestObject> {
+
+    private int adjustment;
+
     public double cost(TestObject c) {
-      return 1.0 / (1.0 + c.id);
+      return 1.0 / (1.0 + c.id + adjustment);
     }
 
     public double value(TestObject c) {
       return cost(c);
+    }
+
+    public void adjust(int adjustment) {
+      this.adjustment += adjustment;
     }
   }
 

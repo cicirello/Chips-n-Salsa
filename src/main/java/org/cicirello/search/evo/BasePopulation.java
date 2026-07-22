@@ -38,6 +38,24 @@ abstract class BasePopulation {
 
   private BasePopulation() {}
 
+  static int validateN(int n) {
+    if (n < 1) {
+      throw new IllegalArgumentException("population size n must be positive");
+    }
+    return n;
+  }
+
+  static int validateElite(int numElite, int n) {
+    if (numElite >= n) {
+      throw new IllegalArgumentException(
+          "number of elite population members must be less than population size");
+    }
+    if (numElite < 0) {
+      throw new IllegalArgumentException("number of elite population members must not be negative");
+    }
+    return numElite;
+  }
+
   /**
    * The Population for an evolutionary algorithm where fitness values are type double.
    *
@@ -45,7 +63,7 @@ abstract class BasePopulation {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  static final class DoubleFitness<T extends Copyable<T>> extends AbstractPopulation<T>
+  static class DoubleFitness<T extends Copyable<T>> extends AbstractPopulation<T>
       implements PopulationFitnessVector.DoubleFitness {
 
     private final Initializer<T> initializer;
@@ -55,6 +73,7 @@ abstract class BasePopulation {
     private final PopulationVector.DoubleFitness<T> nextPop;
     private final ReplacementStrategy<T> replacement;
     private final ReplacementTracker r;
+    private final PopulationMemberCreator<T> creator;
 
     private final FitnessFunction.Double<T> f;
     private final int MU;
@@ -82,26 +101,36 @@ abstract class BasePopulation {
         SelectionOperator selection,
         ProgressTracker<T> tracker,
         int numElite) {
-      super(Objects.requireNonNull(tracker));
-      if (n < 1) {
-        throw new IllegalArgumentException("population size n must be positive");
-      }
-      if (numElite >= n) {
-        throw new IllegalArgumentException(
-            "number of elite population members must be less than population size");
-      }
-      if (numElite < 0) {
-        throw new IllegalArgumentException(
-            "number of elite population members must not be negative");
-      }
-      this.initializer = Objects.requireNonNull(initializer);
-      this.selection = Objects.requireNonNull(selection);
+      this(
+          validateN(n),
+          Objects.requireNonNull(initializer),
+          Objects.requireNonNull(f),
+          Objects.requireNonNull(selection),
+          Objects.requireNonNull(tracker),
+          (candidate, fitness) -> new PopulationMember.DoubleFitness<T>(candidate, fitness),
+          validateElite(numElite, n));
+    }
+
+    /*
+     * Validate params before calling to avoid partially instantiated object on exception
+     */
+    DoubleFitness(
+        int n,
+        Initializer<T> initializer,
+        FitnessFunction.Double<T> f,
+        SelectionOperator selection,
+        ProgressTracker<T> tracker,
+        PopulationMemberCreator<T> creator,
+        int numElite) {
+      super(tracker);
+      this.initializer = initializer;
+      this.selection = selection;
       this.replacement =
           numElite > 0
               ? new GenerationalElitistReplacement<T>(numElite)
               : new GenerationalReplacement<T>();
 
-      this.f = Objects.requireNonNull(f);
+      this.f = f;
       MU = n;
       LAMBDA = n - numElite;
 
@@ -110,12 +139,13 @@ abstract class BasePopulation {
       r = new ReplacementTracker(MU, LAMBDA);
       selected = new int[LAMBDA];
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
+      this.creator = creator;
     }
 
     /*
      * private constructor for use by split.
      */
-    private DoubleFitness(BasePopulation.DoubleFitness<T> other) {
+    DoubleFitness(BasePopulation.DoubleFitness<T> other) {
       super(other);
 
       // these are threadsafe, so just copy references
@@ -127,6 +157,7 @@ abstract class BasePopulation {
       initializer = other.initializer.split();
       selection = other.selection.split();
       replacement = other.replacement.split();
+      creator = other.creator.split();
 
       // initialize these fresh: not threadsafe or otherwise needs its own
       r = new ReplacementTracker(MU, LAMBDA);
@@ -142,29 +173,29 @@ abstract class BasePopulation {
     }
 
     @Override
-    public T get(int i) {
+    public final T get(int i) {
       return nextPop.candidate(i);
     }
 
     @Override
-    public SingleReal getParameter(int indexPop, int indexParam) {
+    public final SingleReal getParameter(int indexPop, int indexParam) {
       return nextPop.get(indexPop).getParameter(indexParam);
     }
 
     @Override
-    public double fitness(int i) {
+    public final double fitness(int i) {
       return pop.fitness(i);
     }
 
     @Override
-    public int size() {
+    public final int size() {
       // Use pop.size() rather than MU -- there is a weird, unlikely, rare edge case
       // associated with use of elitism, where pop.size() may be less than MU early in search.
       return pop.size();
     }
 
     @Override
-    public int mutableSize() {
+    public final int mutableSize() {
       return LAMBDA;
     }
 
@@ -173,12 +204,12 @@ abstract class BasePopulation {
      *
      * @return the fitness of the most fit encountered in any generation
      */
-    public double getFitnessOfMostFit() {
+    public final double getFitnessOfMostFit() {
       return bestFitness;
     }
 
     @Override
-    public void updateFitness(int i) {
+    public final void updateFitness(int i) {
       double fit = f.fitness(nextPop.candidate(i));
       nextPop.get(i).setFitness(fit);
       if (fit > bestFitness) {
@@ -188,7 +219,7 @@ abstract class BasePopulation {
     }
 
     @Override
-    public void select() {
+    public final void select() {
       selection.select(pop, selected);
       for (int j : selected) {
         nextPop.add(pop.get(j).copy());
@@ -196,7 +227,7 @@ abstract class BasePopulation {
     }
 
     @Override
-    public void replace() {
+    public final void replace() {
       replacement.replace(pop, nextPop, r, MU);
       if (r.includesParents()) {
         ArrayList<PopulationMember.DoubleFitness<T>> keep =
@@ -218,10 +249,14 @@ abstract class BasePopulation {
       final int[] counts = r.childCounts();
       for (int i = 0; i < LAMBDA; i++) {
         if (counts[i] >= 1) {
-          pop.add(nextPop.get(i));
           for (int j = 1; j < counts[i]; j++) {
-            pop.add(nextPop.get(i).copy());
+            PopulationMember.DoubleFitness<T> chosen = nextPop.get(i).copy();
+            chosen.mutate();
+            pop.add(chosen);
           }
+          PopulationMember.DoubleFitness<T> chosen = nextPop.get(i);
+          chosen.mutate();
+          pop.add(chosen);
         }
       }
       r.clearChildCounts();
@@ -229,13 +264,13 @@ abstract class BasePopulation {
     }
 
     @Override
-    public void initOperators(int generations) {
+    public final void initOperators(int generations) {
       selection.init(generations);
       replacement.init(generations);
     }
 
     @Override
-    public void init() {
+    public final void init() {
       super.init();
       bestFitness = java.lang.Double.NEGATIVE_INFINITY;
       pop.clear();
@@ -244,13 +279,22 @@ abstract class BasePopulation {
       for (int i = 0; i < MU; i++) {
         T c = initializer.createCandidateSolution();
         double fit = f.fitness(c);
-        pop.add(new PopulationMember.DoubleFitness<T>(c, fit));
+        pop.add(creator.create(c, fit));
         if (fit > bestFitness) {
           bestFitness = fit;
           newBest = c;
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
+    }
+
+    @FunctionalInterface
+    public static interface PopulationMemberCreator<T extends Copyable<T>> {
+      PopulationMember.DoubleFitness<T> create(T candidate, double fitness);
+
+      default PopulationMemberCreator<T> split() {
+        return this;
+      }
     }
   }
 
@@ -261,7 +305,7 @@ abstract class BasePopulation {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  static final class IntegerFitness<T extends Copyable<T>> extends AbstractPopulation<T>
+  static class IntegerFitness<T extends Copyable<T>> extends AbstractPopulation<T>
       implements PopulationFitnessVector.IntegerFitness {
 
     private final Initializer<T> initializer;
@@ -271,6 +315,7 @@ abstract class BasePopulation {
     private final PopulationVector.IntegerFitness<T> nextPop;
     private final ReplacementStrategy<T> replacement;
     private final ReplacementTracker r;
+    private final PopulationMemberCreator<T> creator;
 
     private final FitnessFunction.Integer<T> f;
     private final int MU;
@@ -298,40 +343,51 @@ abstract class BasePopulation {
         SelectionOperator selection,
         ProgressTracker<T> tracker,
         int numElite) {
-      super(Objects.requireNonNull(tracker));
-      if (n < 1) {
-        throw new IllegalArgumentException("population size n must be positive");
-      }
-      if (numElite >= n) {
-        throw new IllegalArgumentException(
-            "number of elite population members must be less than population size");
-      }
-      if (numElite < 0) {
-        throw new IllegalArgumentException(
-            "number of elite population members must not be negative");
-      }
-      this.initializer = Objects.requireNonNull(initializer);
-      this.selection = Objects.requireNonNull(selection);
+      this(
+          validateN(n),
+          Objects.requireNonNull(initializer),
+          Objects.requireNonNull(f),
+          Objects.requireNonNull(selection),
+          Objects.requireNonNull(tracker),
+          (candidate, fitness) -> new PopulationMember.IntegerFitness<T>(candidate, fitness),
+          validateElite(numElite, n));
+    }
+
+    /*
+     * Validate params before calling to avoid partially instantiated object on exception
+     */
+    IntegerFitness(
+        int n,
+        Initializer<T> initializer,
+        FitnessFunction.Integer<T> f,
+        SelectionOperator selection,
+        ProgressTracker<T> tracker,
+        PopulationMemberCreator<T> creator,
+        int numElite) {
+      super(tracker);
+      this.initializer = initializer;
+      this.selection = selection;
       this.replacement =
           numElite > 0
               ? new GenerationalElitistReplacement<T>(numElite)
               : new GenerationalReplacement<T>();
 
-      this.f = Objects.requireNonNull(f);
+      this.f = f;
       MU = n;
       LAMBDA = n - numElite;
 
-      r = new ReplacementTracker(MU, LAMBDA);
       pop = new PopulationVector.IntegerFitness<T>(MU);
       nextPop = new PopulationVector.IntegerFitness<T>(LAMBDA);
+      r = new ReplacementTracker(MU, LAMBDA);
       selected = new int[LAMBDA];
       bestFitness = java.lang.Integer.MIN_VALUE;
+      this.creator = creator;
     }
 
     /*
      * private constructor for use by split.
      */
-    private IntegerFitness(BasePopulation.IntegerFitness<T> other) {
+    IntegerFitness(BasePopulation.IntegerFitness<T> other) {
       super(other);
 
       // these are threadsafe, so just copy references
@@ -343,6 +399,7 @@ abstract class BasePopulation {
       initializer = other.initializer.split();
       selection = other.selection.split();
       replacement = other.replacement.split();
+      creator = other.creator.split();
 
       // initialize these fresh: not threadsafe or otherwise needs its own
       r = new ReplacementTracker(MU, LAMBDA);
@@ -358,29 +415,29 @@ abstract class BasePopulation {
     }
 
     @Override
-    public T get(int i) {
+    public final T get(int i) {
       return nextPop.candidate(i);
     }
 
     @Override
-    public SingleReal getParameter(int indexPop, int indexParam) {
+    public final SingleReal getParameter(int indexPop, int indexParam) {
       return nextPop.get(indexPop).getParameter(indexParam);
     }
 
     @Override
-    public int fitness(int i) {
+    public final int fitness(int i) {
       return pop.fitness(i);
     }
 
     @Override
-    public int size() {
+    public final int size() {
       // Use pop.size() rather than MU -- there is a weird, unlikely, rare edge case
       // associated with use of elitism, where pop.size() may be less than MU early in search.
       return pop.size();
     }
 
     @Override
-    public int mutableSize() {
+    public final int mutableSize() {
       return LAMBDA;
     }
 
@@ -389,12 +446,12 @@ abstract class BasePopulation {
      *
      * @return the fitness of the most fit encountered in any generation
      */
-    public int getFitnessOfMostFit() {
+    public final int getFitnessOfMostFit() {
       return bestFitness;
     }
 
     @Override
-    public void updateFitness(int i) {
+    public final void updateFitness(int i) {
       int fit = f.fitness(nextPop.candidate(i));
       nextPop.get(i).setFitness(fit);
       if (fit > bestFitness) {
@@ -404,7 +461,7 @@ abstract class BasePopulation {
     }
 
     @Override
-    public void select() {
+    public final void select() {
       selection.select(pop, selected);
       for (int j : selected) {
         nextPop.add(pop.get(j).copy());
@@ -412,7 +469,7 @@ abstract class BasePopulation {
     }
 
     @Override
-    public void replace() {
+    public final void replace() {
       replacement.replace(pop, nextPop, r, MU);
       if (r.includesParents()) {
         ArrayList<PopulationMember.IntegerFitness<T>> keep =
@@ -434,10 +491,14 @@ abstract class BasePopulation {
       final int[] counts = r.childCounts();
       for (int i = 0; i < LAMBDA; i++) {
         if (counts[i] >= 1) {
-          pop.add(nextPop.get(i));
           for (int j = 1; j < counts[i]; j++) {
-            pop.add(nextPop.get(i).copy());
+            PopulationMember.IntegerFitness<T> chosen = nextPop.get(i).copy();
+            chosen.mutate();
+            pop.add(chosen);
           }
+          PopulationMember.IntegerFitness<T> chosen = nextPop.get(i);
+          chosen.mutate();
+          pop.add(chosen);
         }
       }
       r.clearChildCounts();
@@ -445,13 +506,13 @@ abstract class BasePopulation {
     }
 
     @Override
-    public void initOperators(int generations) {
+    public final void initOperators(int generations) {
       selection.init(generations);
       replacement.init(generations);
     }
 
     @Override
-    public void init() {
+    public final void init() {
       super.init();
       bestFitness = java.lang.Integer.MIN_VALUE;
       pop.clear();
@@ -460,13 +521,22 @@ abstract class BasePopulation {
       for (int i = 0; i < MU; i++) {
         T c = initializer.createCandidateSolution();
         int fit = f.fitness(c);
-        pop.add(new PopulationMember.IntegerFitness<T>(c, fit));
+        pop.add(creator.create(c, fit));
         if (fit > bestFitness) {
           bestFitness = fit;
           newBest = c;
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
+    }
+
+    @FunctionalInterface
+    public static interface PopulationMemberCreator<T extends Copyable<T>> {
+      PopulationMember.IntegerFitness<T> create(T candidate, int fitness);
+
+      default PopulationMemberCreator<T> split() {
+        return this;
+      }
     }
   }
 }

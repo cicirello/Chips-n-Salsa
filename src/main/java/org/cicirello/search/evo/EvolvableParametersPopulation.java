@@ -20,13 +20,11 @@
 
 package org.cicirello.search.evo;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import org.cicirello.math.rand.EnhancedSplittableGenerator;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.internal.RandomnessFactory;
 import org.cicirello.search.operators.Initializer;
-import org.cicirello.search.representations.SingleReal;
 import org.cicirello.util.Copyable;
 
 /**
@@ -48,26 +46,7 @@ abstract class EvolvableParametersPopulation {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  static final class DoubleFitness<T extends Copyable<T>> extends AbstractPopulation<T>
-      implements PopulationFitnessVector.DoubleFitness {
-
-    private final Initializer<T> initializer;
-    private final SelectionOperator selection;
-
-    private final ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>> pop;
-    private final ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>> nextPop;
-    private final boolean[] updated;
-
-    private final FitnessFunction.Double<T> f;
-    private final int MU;
-
-    private final int[] selected;
-
-    private double bestFitness;
-
-    private final int numParams;
-
-    private final EnhancedSplittableGenerator generator;
+  static final class DoubleFitness<T extends Copyable<T>> extends BasePopulation.DoubleFitness<T> {
 
     /**
      * Constructs the Population.
@@ -86,23 +65,14 @@ abstract class EvolvableParametersPopulation {
         SelectionOperator selection,
         ProgressTracker<T> tracker,
         int numParams) {
-      super(Objects.requireNonNull(tracker));
-      if (n < 1) {
-        throw new IllegalArgumentException("population size n must be positive");
-      }
-      this.initializer = Objects.requireNonNull(initializer);
-      this.selection = Objects.requireNonNull(selection);
-
-      this.numParams = numParams;
-
-      this.f = Objects.requireNonNull(f);
-      MU = n;
-      pop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
-      nextPop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
-      selected = new int[MU];
-      updated = new boolean[MU];
-      bestFitness = java.lang.Double.NEGATIVE_INFINITY;
-      generator = RandomnessFactory.createEnhancedSplittableGenerator();
+      super(
+          BasePopulation.validateN(n),
+          Objects.requireNonNull(initializer),
+          Objects.requireNonNull(f),
+          Objects.requireNonNull(selection),
+          Objects.requireNonNull(tracker),
+          new EvolvableParametersPopulationMemberCreator<T>(numParams),
+          0);
     }
 
     /*
@@ -110,23 +80,6 @@ abstract class EvolvableParametersPopulation {
      */
     private DoubleFitness(EvolvableParametersPopulation.DoubleFitness<T> other) {
       super(other);
-
-      // these are threadsafe, so just copy references
-      f = other.f;
-      MU = other.MU;
-      numParams = other.numParams;
-
-      // split these: not threadsafe
-      initializer = other.initializer.split();
-      selection = other.selection.split();
-      generator = other.generator.split();
-
-      // initialize these fresh: not threadsafe or otherwise needs its own
-      pop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
-      nextPop = new ArrayList<PopulationMember.DoubleFitness<EncodingWithParameters<T>>>(MU);
-      selected = new int[MU];
-      updated = new boolean[MU];
-      bestFitness = java.lang.Double.NEGATIVE_INFINITY;
     }
 
     @Override
@@ -134,97 +87,33 @@ abstract class EvolvableParametersPopulation {
       return new EvolvableParametersPopulation.DoubleFitness<T>(this);
     }
 
-    @Override
-    public T get(int i) {
-      return nextPop.get(i).candidate().candidate();
-    }
+    private static class EvolvableParametersPopulationMemberCreator<T extends Copyable<T>>
+        implements PopulationMemberCreator<T> {
 
-    @Override
-    public SingleReal getParameter(int indexPop, int indexParam) {
-      return nextPop.get(indexPop).candidate().getParameter(indexParam);
-    }
+      private final int numParams;
+      private final EnhancedSplittableGenerator generator;
 
-    @Override
-    public double fitness(int i) {
-      return pop.get(i).fitness();
-    }
-
-    @Override
-    public int size() {
-      // Use pop.size() rather than MU -- there is a weird, unlikely, rare edge case
-      // associated with use of elitism, where pop.size() may be less than MU early in search.
-      return pop.size();
-    }
-
-    @Override
-    public int mutableSize() {
-      return MU;
-    }
-
-    /**
-     * Gets fitness of the most fit candidate solution encountered in any generation.
-     *
-     * @return the fitness of the most fit encountered in any generation
-     */
-    public double getFitnessOfMostFit() {
-      return bestFitness;
-    }
-
-    @Override
-    public void updateFitness(int i) {
-      double fit = f.fitness(nextPop.get(i).candidate().candidate());
-      nextPop.get(i).setFitness(fit);
-      updated[i] = true;
-      if (fit > bestFitness) {
-        bestFitness = fit;
-        setMostFit(
-            f.getProblem().getSolutionCostPair(nextPop.get(i).candidate().candidate().copy()));
+      EvolvableParametersPopulationMemberCreator(int numParams) {
+        this.numParams = numParams;
+        generator = RandomnessFactory.createEnhancedSplittableGenerator();
       }
-    }
 
-    @Override
-    public void select() {
-      selection.select(this, selected);
-      for (int j : selected) {
-        nextPop.add(pop.get(j).copy());
+      private EvolvableParametersPopulationMemberCreator(
+          EvolvableParametersPopulationMemberCreator other) {
+        numParams = other.numParams;
+        generator = other.generator.split();
       }
-    }
 
-    @Override
-    public void replace() {
-      pop.clear();
-      for (PopulationMember.DoubleFitness<EncodingWithParameters<T>> e : nextPop) {
-        // mutate the parameters before adding to the pop for next generation
-        e.candidate().mutate();
-        pop.add(e);
+      @Override
+      public PopulationMember.DoubleFitness<T> create(T candidate, double fitness) {
+        return new PopulationMember.EvolvableDoubleFitness<T>(
+            candidate, fitness, numParams, generator);
       }
-      nextPop.clear();
-    }
 
-    @Override
-    public void initOperators(int generations) {
-      selection.init(generations);
-    }
-
-    @Override
-    public void init() {
-      super.init();
-      bestFitness = java.lang.Double.NEGATIVE_INFINITY;
-      pop.clear();
-      nextPop.clear();
-      T newBest = null;
-      for (int i = 0; i < MU; i++) {
-        T c = initializer.createCandidateSolution();
-        double fit = f.fitness(c);
-        pop.add(
-            new PopulationMember.DoubleFitness<EncodingWithParameters<T>>(
-                new EncodingWithParameters<T>(c, numParams, generator), fit));
-        if (fit > bestFitness) {
-          bestFitness = fit;
-          newBest = c;
-        }
+      @Override
+      public PopulationMemberCreator<T> split() {
+        return new EvolvableParametersPopulationMemberCreator<T>(this);
       }
-      setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
     }
   }
 
@@ -236,26 +125,8 @@ abstract class EvolvableParametersPopulation {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  static final class IntegerFitness<T extends Copyable<T>> extends AbstractPopulation<T>
-      implements PopulationFitnessVector.IntegerFitness {
-
-    private final Initializer<T> initializer;
-    private final SelectionOperator selection;
-
-    private final ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>> pop;
-    private final ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>> nextPop;
-    private final boolean[] updated;
-
-    private final FitnessFunction.Integer<T> f;
-    private final int MU;
-
-    private final int[] selected;
-
-    private int bestFitness;
-
-    private final int numParams;
-
-    private final EnhancedSplittableGenerator generator;
+  static final class IntegerFitness<T extends Copyable<T>>
+      extends BasePopulation.IntegerFitness<T> {
 
     /**
      * Constructs the Population.
@@ -274,23 +145,14 @@ abstract class EvolvableParametersPopulation {
         SelectionOperator selection,
         ProgressTracker<T> tracker,
         int numParams) {
-      super(Objects.requireNonNull(tracker));
-      if (n < 1) {
-        throw new IllegalArgumentException("population size n must be positive");
-      }
-      this.initializer = Objects.requireNonNull(initializer);
-      this.selection = Objects.requireNonNull(selection);
-
-      this.numParams = numParams;
-
-      this.f = Objects.requireNonNull(f);
-      MU = n;
-      pop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
-      nextPop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
-      selected = new int[MU];
-      updated = new boolean[MU];
-      bestFitness = java.lang.Integer.MIN_VALUE;
-      generator = RandomnessFactory.createEnhancedSplittableGenerator();
+      super(
+          BasePopulation.validateN(n),
+          Objects.requireNonNull(initializer),
+          Objects.requireNonNull(f),
+          Objects.requireNonNull(selection),
+          Objects.requireNonNull(tracker),
+          new EvolvableParametersPopulationMemberCreator<T>(numParams),
+          0);
     }
 
     /*
@@ -298,23 +160,6 @@ abstract class EvolvableParametersPopulation {
      */
     private IntegerFitness(EvolvableParametersPopulation.IntegerFitness<T> other) {
       super(other);
-
-      // these are threadsafe, so just copy references
-      f = other.f;
-      MU = other.MU;
-      numParams = other.numParams;
-
-      // split these: not threadsafe
-      initializer = other.initializer.split();
-      selection = other.selection.split();
-      generator = other.generator.split();
-
-      // initialize these fresh: not threadsafe or otherwise needs its own
-      pop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
-      nextPop = new ArrayList<PopulationMember.IntegerFitness<EncodingWithParameters<T>>>(MU);
-      selected = new int[MU];
-      updated = new boolean[MU];
-      bestFitness = java.lang.Integer.MIN_VALUE;
     }
 
     @Override
@@ -322,97 +167,33 @@ abstract class EvolvableParametersPopulation {
       return new EvolvableParametersPopulation.IntegerFitness<T>(this);
     }
 
-    @Override
-    public T get(int i) {
-      return nextPop.get(i).candidate().candidate();
-    }
+    private static class EvolvableParametersPopulationMemberCreator<T extends Copyable<T>>
+        implements PopulationMemberCreator<T> {
 
-    @Override
-    public SingleReal getParameter(int indexPop, int indexParam) {
-      return nextPop.get(indexPop).candidate().getParameter(indexParam);
-    }
+      private final int numParams;
+      private final EnhancedSplittableGenerator generator;
 
-    @Override
-    public int fitness(int i) {
-      return pop.get(i).fitness();
-    }
-
-    @Override
-    public int size() {
-      // Use pop.size() rather than MU -- there is a weird, unlikely, rare edge case
-      // associated with use of elitism, where pop.size() may be less than MU early in search.
-      return pop.size();
-    }
-
-    @Override
-    public int mutableSize() {
-      return MU;
-    }
-
-    /**
-     * Gets fitness of the most fit candidate solution encountered in any generation.
-     *
-     * @return the fitness of the most fit encountered in any generation
-     */
-    public int getFitnessOfMostFit() {
-      return bestFitness;
-    }
-
-    @Override
-    public void updateFitness(int i) {
-      int fit = f.fitness(nextPop.get(i).candidate().candidate());
-      nextPop.get(i).setFitness(fit);
-      updated[i] = true;
-      if (fit > bestFitness) {
-        bestFitness = fit;
-        setMostFit(
-            f.getProblem().getSolutionCostPair(nextPop.get(i).candidate().candidate().copy()));
+      EvolvableParametersPopulationMemberCreator(int numParams) {
+        this.numParams = numParams;
+        generator = RandomnessFactory.createEnhancedSplittableGenerator();
       }
-    }
 
-    @Override
-    public void select() {
-      selection.select(this, selected);
-      for (int j : selected) {
-        nextPop.add(pop.get(j).copy());
+      private EvolvableParametersPopulationMemberCreator(
+          EvolvableParametersPopulationMemberCreator other) {
+        numParams = other.numParams;
+        generator = other.generator.split();
       }
-    }
 
-    @Override
-    public void replace() {
-      pop.clear();
-      for (PopulationMember.IntegerFitness<EncodingWithParameters<T>> e : nextPop) {
-        // mutate the parameters before adding to the pop for next generation
-        e.candidate().mutate();
-        pop.add(e);
+      @Override
+      public PopulationMember.IntegerFitness<T> create(T candidate, int fitness) {
+        return new PopulationMember.EvolvableIntegerFitness<T>(
+            candidate, fitness, numParams, generator);
       }
-      nextPop.clear();
-    }
 
-    @Override
-    public void initOperators(int generations) {
-      selection.init(generations);
-    }
-
-    @Override
-    public void init() {
-      super.init();
-      bestFitness = java.lang.Integer.MIN_VALUE;
-      pop.clear();
-      nextPop.clear();
-      T newBest = null;
-      for (int i = 0; i < MU; i++) {
-        T c = initializer.createCandidateSolution();
-        int fit = f.fitness(c);
-        pop.add(
-            new PopulationMember.IntegerFitness<EncodingWithParameters<T>>(
-                new EncodingWithParameters<T>(c, numParams, generator), fit));
-        if (fit > bestFitness) {
-          bestFitness = fit;
-          newBest = c;
-        }
+      @Override
+      public PopulationMemberCreator<T> split() {
+        return new EvolvableParametersPopulationMemberCreator<T>(this);
       }
-      setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
     }
   }
 }

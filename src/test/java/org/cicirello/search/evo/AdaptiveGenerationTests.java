@@ -42,8 +42,8 @@ public class AdaptiveGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersElitistPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
             N, init, f, selection, tracker, 0, 2);
     pop.init();
 
@@ -71,8 +71,8 @@ public class AdaptiveGenerationTests {
     TestFitnessDouble f = new TestFitnessDouble();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersElitistPopulation.DoubleFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
             N, init, f, selection, tracker, 0, 2);
     pop.init();
 
@@ -100,8 +100,8 @@ public class AdaptiveGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersElitistPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
             N, init, f, selection, tracker, 0, 2);
     pop.init();
 
@@ -122,8 +122,8 @@ public class AdaptiveGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersElitistPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
             N + 1, init, f, selection, tracker, 1, 2);
     pop.init();
 
@@ -151,8 +151,8 @@ public class AdaptiveGenerationTests {
     TestFitnessDouble f = new TestFitnessDouble();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersElitistPopulation.DoubleFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
             N + 1, init, f, selection, tracker, 1, 2);
     pop.init();
 
@@ -180,8 +180,8 @@ public class AdaptiveGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersElitistPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
             N + 1, init, f, selection, tracker, 1, 2);
     pop.init();
 

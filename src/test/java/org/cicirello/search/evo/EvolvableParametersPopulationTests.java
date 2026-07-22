@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.cicirello.search.ProgressTracker;
 import org.junit.jupiter.api.*;
 
-/** JUnit test cases for EvolvableParametersElitistPopulation. */
+/** JUnit test cases for EvolvableParametersPopulation. */
 public class EvolvableParametersPopulationTests extends SharedTestPopulations {
 
   @Test
@@ -34,7 +34,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
         assertThrows(
             NullPointerException.class,
             () ->
-                new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+                new EvolvableParametersPopulation.DoubleFitness<TestObject>(
                     10,
                     null,
                     new TestFitnessDouble(),
@@ -46,7 +46,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
         assertThrows(
             NullPointerException.class,
             () ->
-                new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+                new EvolvableParametersPopulation.DoubleFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     null,
@@ -58,7 +58,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
         assertThrows(
             NullPointerException.class,
             () ->
-                new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+                new EvolvableParametersPopulation.DoubleFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     new TestFitnessDouble(),
@@ -70,7 +70,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
         assertThrows(
             NullPointerException.class,
             () ->
-                new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+                new EvolvableParametersPopulation.DoubleFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     new TestFitnessDouble(),
@@ -83,7 +83,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
         assertThrows(
             NullPointerException.class,
             () ->
-                new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+                new EvolvableParametersPopulation.IntegerFitness<TestObject>(
                     10,
                     null,
                     new TestFitnessInteger(),
@@ -95,7 +95,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
         assertThrows(
             NullPointerException.class,
             () ->
-                new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+                new EvolvableParametersPopulation.IntegerFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     null,
@@ -107,7 +107,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
         assertThrows(
             NullPointerException.class,
             () ->
-                new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+                new EvolvableParametersPopulation.IntegerFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     new TestFitnessInteger(),
@@ -119,7 +119,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
         assertThrows(
             NullPointerException.class,
             () ->
-                new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+                new EvolvableParametersPopulation.IntegerFitness<TestObject>(
                     10,
                     new TestInitializer(),
                     new TestFitnessInteger(),
@@ -132,7 +132,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+                new EvolvableParametersPopulation.DoubleFitness<TestObject>(
                     0,
                     new TestInitializer(),
                     new TestFitnessDouble(),
@@ -144,7 +144,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+                new EvolvableParametersPopulation.IntegerFitness<TestObject>(
                     0,
                     new TestInitializer(),
                     new TestFitnessInteger(),
@@ -160,8 +160,8 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestSelectionOp selection = new TestSelectionOp();
     TestFitnessDouble f = new TestFitnessDouble();
-    EvolvableParametersElitistPopulation.DoubleFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
             10, new TestInitializer(), f, selection, tracker, 0, 2);
     pop.init();
     pop.select();
@@ -189,7 +189,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     assertFalse(allSame1);
 
     pop =
-        new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
             10, new TestInitializer(), f, selection, tracker, 0, 1);
     pop.init();
     pop.select();
@@ -213,8 +213,8 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestSelectionOp selection = new TestSelectionOp();
     TestFitnessInteger f = new TestFitnessInteger();
-    EvolvableParametersElitistPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
             10, new TestInitializer(), f, selection, tracker, 0, 2);
     pop.init();
     pop.select();
@@ -242,7 +242,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     assertFalse(allSame1);
 
     pop =
-        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
             10, new TestInitializer(), f, selection, tracker, 0, 1);
     pop.init();
     pop.select();
@@ -266,17 +266,15 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestSelectionOp selection = new TestSelectionOp();
     TestFitnessDouble f = new TestFitnessDouble();
-    EvolvableParametersElitistPopulation.DoubleFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
             10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifyDouble(
         pop,
         f,
         tracker,
         selection,
-        p ->
-            ((EvolvableParametersElitistPopulation.DoubleFitness<TestObject>) p)
-                .getFitnessOfMostFit(),
+        p -> ((EvolvableParametersPopulation.DoubleFitness<TestObject>) p).getFitnessOfMostFit(),
         0);
 
     assertEquals(0, selection.initCalledWith);
@@ -290,8 +288,8 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestSelectionOp selection = new TestSelectionOp();
     TestFitnessDouble f = new TestFitnessDouble();
-    EvolvableParametersElitistPopulation.DoubleFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
             10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifySelectCopies(pop);
   }
@@ -302,17 +300,15 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestSelectionOp selection = new TestSelectionOp();
     TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
-    EvolvableParametersElitistPopulation.DoubleFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
             10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifyDoubleWithIntCost(
         pop,
         f,
         tracker,
         selection,
-        p ->
-            ((EvolvableParametersElitistPopulation.DoubleFitness<TestObject>) p)
-                .getFitnessOfMostFit(),
+        p -> ((EvolvableParametersPopulation.DoubleFitness<TestObject>) p).getFitnessOfMostFit(),
         0);
   }
 
@@ -322,8 +318,8 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestSelectionOp selection = new TestSelectionOp();
     TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
-    EvolvableParametersElitistPopulation.DoubleFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
             10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifySelectCopies(pop);
   }
@@ -334,17 +330,15 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestSelectionOp selection = new TestSelectionOp();
     TestFitnessInteger f = new TestFitnessInteger();
-    EvolvableParametersElitistPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
             10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifyInteger(
         pop,
         f,
         tracker,
         selection,
-        p ->
-            ((EvolvableParametersElitistPopulation.IntegerFitness<TestObject>) p)
-                .getFitnessOfMostFit(),
+        p -> ((EvolvableParametersPopulation.IntegerFitness<TestObject>) p).getFitnessOfMostFit(),
         0);
 
     assertEquals(0, selection.initCalledWith);
@@ -358,8 +352,8 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
     TestSelectionOp selection = new TestSelectionOp();
     TestFitnessInteger f = new TestFitnessInteger();
-    EvolvableParametersElitistPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
             10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifySelectCopies(pop);
   }

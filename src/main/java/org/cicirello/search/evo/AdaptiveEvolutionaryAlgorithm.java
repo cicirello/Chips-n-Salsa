@@ -110,7 +110,7 @@ public class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new EvolvableParametersElitistPopulation.DoubleFitness<T>(
+        new EvolvableParametersPopulation.DoubleFitness<T>(
             n, initializer, f, selection, tracker, eliteCount, 2),
         f.getProblem(),
         mutation,
@@ -145,7 +145,7 @@ public class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new EvolvableParametersElitistPopulation.IntegerFitness<T>(
+        new EvolvableParametersPopulation.IntegerFitness<T>(
             n, initializer, f, selection, tracker, eliteCount, 2),
         f.getProblem(),
         mutation,

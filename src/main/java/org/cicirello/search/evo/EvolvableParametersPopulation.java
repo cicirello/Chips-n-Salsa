@@ -35,9 +35,9 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-abstract class EvolvableParametersElitistPopulation {
+abstract class EvolvableParametersPopulation {
 
-  private EvolvableParametersElitistPopulation() {}
+  private EvolvableParametersPopulation() {}
 
   /**
    * The Population for an evolutionary algorithm where fitness values are type double, and such
@@ -81,13 +81,13 @@ abstract class EvolvableParametersElitistPopulation {
     /*
      * private constructor for use by split.
      */
-    private DoubleFitness(EvolvableParametersElitistPopulation.DoubleFitness<T> other) {
+    private DoubleFitness(EvolvableParametersPopulation.DoubleFitness<T> other) {
       super(other);
     }
 
     @Override
-    public EvolvableParametersElitistPopulation.DoubleFitness<T> split() {
-      return new EvolvableParametersElitistPopulation.DoubleFitness<T>(this);
+    public EvolvableParametersPopulation.DoubleFitness<T> split() {
+      return new EvolvableParametersPopulation.DoubleFitness<T>(this);
     }
 
     private static class EvolvableParametersPopulationMemberCreator<T extends Copyable<T>>
@@ -163,13 +163,13 @@ abstract class EvolvableParametersElitistPopulation {
     /*
      * private constructor for use by split.
      */
-    private IntegerFitness(EvolvableParametersElitistPopulation.IntegerFitness<T> other) {
+    private IntegerFitness(EvolvableParametersPopulation.IntegerFitness<T> other) {
       super(other);
     }
 
     @Override
-    public EvolvableParametersElitistPopulation.IntegerFitness<T> split() {
-      return new EvolvableParametersElitistPopulation.IntegerFitness<T>(this);
+    public EvolvableParametersPopulation.IntegerFitness<T> split() {
+      return new EvolvableParametersPopulation.IntegerFitness<T>(this);
     }
 
     private static class EvolvableParametersPopulationMemberCreator<T extends Copyable<T>>

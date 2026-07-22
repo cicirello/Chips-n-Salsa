@@ -43,6 +43,13 @@ abstract class PopulationMember<T extends Copyable<T>> {
     this.candidate = candidate;
   }
 
+  /*
+   * for use only by the nested classes
+   */
+  private PopulationMember(PopulationMember<? extends Copyable<T>> other) {
+    this.candidate = other.candidate.copy();
+  }
+
   /**
    * Gets a reference to the candidate solution contained in this PopulationMember.
    *
@@ -91,9 +98,14 @@ abstract class PopulationMember<T extends Copyable<T>> {
       this.fitness = fitness;
     }
 
+    private DoubleFitness(DoubleFitness<? extends Copyable<T>> other) {
+      super(other);
+      this.fitness = other.fitness;
+    }
+
     @Override
     public DoubleFitness<T> copy() {
-      return new DoubleFitness<T>(candidate.copy(), fitness);
+      return new DoubleFitness<T>(this);
     }
 
     /**
@@ -142,9 +154,14 @@ abstract class PopulationMember<T extends Copyable<T>> {
       this.fitness = fitness;
     }
 
+    private IntegerFitness(IntegerFitness<? extends Copyable<T>> other) {
+      super(other);
+      this.fitness = other.fitness;
+    }
+
     @Override
     public IntegerFitness<T> copy() {
-      return new IntegerFitness<T>(candidate.copy(), fitness);
+      return new IntegerFitness<T>(this);
     }
 
     /**

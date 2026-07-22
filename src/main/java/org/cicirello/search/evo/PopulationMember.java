@@ -36,7 +36,7 @@ import org.cicirello.util.Copyable;
  */
 abstract class PopulationMember<T extends Copyable<T>> {
 
-  final T candidate;
+  private final T candidate;
 
   /*
    * for use only by the nested classes

@@ -20,6 +20,7 @@
 
 package org.cicirello.search.evo;
 
+import org.cicirello.search.representations.SingleReal;
 import org.cicirello.util.Copyable;
 
 /**
@@ -49,6 +50,19 @@ abstract class PopulationMember<T extends Copyable<T>> {
    */
   public final T candidate() {
     return candidate;
+  }
+
+  /**
+   * Optional method that should be implemented by subclasses for populations that evolve control
+   * parameters along with the solution. Gets a parameter value from a member of the population.
+   *
+   * @param indexParam Index into the parameters of that population member.
+   * @throws UnsupportedOperationException by default. You must override to support adaptive control
+   *     parameters.
+   */
+  public SingleReal getParameter(int indexParam) {
+    throw new UnsupportedOperationException(
+        "This population member doesn't encode control parameters.");
   }
 
   /**

@@ -31,6 +31,20 @@ public class PopulationMemberTests {
   private static final double EPSILON = 1e-10;
 
   @Test
+  public void testExceptionsForParametersInNonAdaptiveCase() {
+    TestObject original = new TestObject();
+
+    final PopulationMember.DoubleFitness<TestObject> pm1 =
+        new PopulationMember.DoubleFitness<TestObject>(original, 3.0);
+    UnsupportedOperationException thrown =
+        assertThrows(UnsupportedOperationException.class, () -> pm1.getParameter(0));
+
+    final PopulationMember.IntegerFitness<TestObject> pm2 =
+        new PopulationMember.IntegerFitness<TestObject>(original, 3);
+    thrown = assertThrows(UnsupportedOperationException.class, () -> pm2.getParameter(0));
+  }
+
+  @Test
   public void testPopulationMemberDoubleFitness() {
     TestObject original = new TestObject();
     double fit = 12.5;

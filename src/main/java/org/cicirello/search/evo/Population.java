@@ -47,18 +47,14 @@ interface Population<T extends Copyable<T>>
   T get(int i);
 
   /**
-   * Optional method that should be implemented by Population classes that evolve control parameters
-   * along with the solution. Gets a parameter value from a member of the population.
+   * Gets a parameter value from a member of the population.
    *
    * @param indexPop Index into the population.
    * @param indexParam Index into the parameters of that population member.
-   * @throws UnsupportedOperationException by default. You must override to support adaptive control
+   * @throws UnsupportedOperationException if the population member doesn't encode control
    *     parameters.
    */
-  default SingleReal getParameter(int indexPop, int indexParam) {
-    throw new UnsupportedOperationException(
-        "This population class doesn't encode control parameters.");
-  }
+  SingleReal getParameter(int indexPop, int indexParam);
 
   /**
    * Gets the number of candidate solutions subject to genetic operators.

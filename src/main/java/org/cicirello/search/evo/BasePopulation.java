@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.operators.Initializer;
+import org.cicirello.search.representations.SingleReal;
 import org.cicirello.util.Copyable;
 
 /**
@@ -146,6 +147,11 @@ abstract class BasePopulation {
     }
 
     @Override
+    public SingleReal getParameter(int indexPop, int indexParam) {
+      return nextPop.get(indexPop).getParameter(indexParam);
+    }
+
+    @Override
     public double fitness(int i) {
       return pop.fitness(i);
     }
@@ -183,7 +189,7 @@ abstract class BasePopulation {
 
     @Override
     public void select() {
-      selection.select(this, selected);
+      selection.select(pop, selected);
       for (int j : selected) {
         nextPop.add(pop.get(j).copy());
       }
@@ -357,6 +363,11 @@ abstract class BasePopulation {
     }
 
     @Override
+    public SingleReal getParameter(int indexPop, int indexParam) {
+      return nextPop.get(indexPop).getParameter(indexParam);
+    }
+
+    @Override
     public int fitness(int i) {
       return pop.fitness(i);
     }
@@ -394,7 +405,7 @@ abstract class BasePopulation {
 
     @Override
     public void select() {
-      selection.select(this, selected);
+      selection.select(pop, selected);
       for (int j : selected) {
         nextPop.add(pop.get(j).copy());
       }

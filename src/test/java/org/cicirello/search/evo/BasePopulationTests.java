@@ -142,26 +142,6 @@ public class BasePopulationTests extends SharedTestPopulations {
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
                     0));
-
-    final Population pop1 =
-        new BasePopulation.DoubleFitness<TestObject>(
-            3,
-            new TestInitializer(),
-            new TestFitnessDouble(),
-            new TestSelectionOp(),
-            new ProgressTracker<TestObject>(),
-            0);
-    UnsupportedOperationException thrown3 =
-        assertThrows(UnsupportedOperationException.class, () -> pop1.getParameter(0, 0));
-    final Population pop2 =
-        new BasePopulation.IntegerFitness<TestObject>(
-            3,
-            new TestInitializer(),
-            new TestFitnessInteger(),
-            new TestSelectionOp(),
-            new ProgressTracker<TestObject>(),
-            0);
-    thrown3 = assertThrows(UnsupportedOperationException.class, () -> pop2.getParameter(0, 0));
   }
 
   @Test

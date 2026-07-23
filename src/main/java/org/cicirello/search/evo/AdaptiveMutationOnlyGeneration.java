@@ -65,7 +65,6 @@ final class AdaptiveMutationOnlyGeneration<T extends Copyable<T>> implements Gen
 
   @Override
   public int apply(Population<T> pop) {
-    pop.select();
     final int LAMBDA = pop.mutableSize();
     int count = 0;
     for (int j = 0; j < LAMBDA; j++) {
@@ -75,7 +74,6 @@ final class AdaptiveMutationOnlyGeneration<T extends Copyable<T>> implements Gen
         count++;
       }
     }
-    pop.replace();
     return count;
   }
 }

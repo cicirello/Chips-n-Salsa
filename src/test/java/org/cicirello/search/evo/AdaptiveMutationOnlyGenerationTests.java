@@ -50,7 +50,9 @@ public class AdaptiveMutationOnlyGenerationTests {
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -79,7 +81,9 @@ public class AdaptiveMutationOnlyGenerationTests {
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -108,7 +112,9 @@ public class AdaptiveMutationOnlyGenerationTests {
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation).split();
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
   }
@@ -129,7 +135,9 @@ public class AdaptiveMutationOnlyGenerationTests {
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -158,7 +166,9 @@ public class AdaptiveMutationOnlyGenerationTests {
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -187,7 +197,9 @@ public class AdaptiveMutationOnlyGenerationTests {
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation).split();
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
   }

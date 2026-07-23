@@ -141,7 +141,9 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
 
   private void internalOptimize(int numGenerations) {
     for (int i = 0; i < numGenerations && !pop.evolutionIsPaused(); i++) {
+      pop.select();
       numFitnessEvals = numFitnessEvals + generation.apply(pop);
+      pop.replace();
     }
   }
 }

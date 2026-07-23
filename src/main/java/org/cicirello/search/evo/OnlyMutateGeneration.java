@@ -65,16 +65,14 @@ final class OnlyMutateGeneration<T extends Copyable<T>> implements Generation<T>
 
   @Override
   public int apply(Population<T> pop) {
-    pop.select();
     final int count = generator.nextBinomial(pop.mutableSize(), M);
-    // Since select() randomizes ordering, just use a binomial
-    // to get count of how many to mutate and mutate the first count individuals.
-    // Although if M is 1.0 just mutate them all without computing the binomial.
+    // The select() that is called prior to apply randomizes ordering. Thus, just
+    // use a binomial to get count of how many to mutate and mutate the first count
+    // individuals. Although if M is 1.0 just mutate them all without computing the binomial.
     for (int j = 0; j < count; j++) {
       mutation.mutate(pop.get(j));
       pop.updateFitness(j);
     }
-    pop.replace();
     return count;
   }
 }

@@ -72,10 +72,10 @@ final class AlwaysMutateGeneration<T extends Copyable<T>> implements Generation<
 
   @Override
   public int apply(Population<T> pop) {
-    pop.select();
-    // Since select() above randomizes ordering, just use a binomial
-    // to get count of number of pairs of parents to cross and cross the first
-    // count pairs of parents. Pair up parents with indexes: first and (first + count).
+    // The select() that comes before this method randomizes ordering.
+    // Thus, just use a binomial to get count of number of pairs of parents
+    // to cross and cross the first count pairs of parents. Pair up parents
+    // with indexes: first and (first + count).
     final int LAMBDA = pop.mutableSize();
     final int count = generator.nextBinomial(LAMBDA >> 1, C);
     for (int first = 0; first < count; first++) {
@@ -89,7 +89,6 @@ final class AlwaysMutateGeneration<T extends Copyable<T>> implements Generation<
       mutation.mutate(pop.get(j));
       pop.updateFitness(j);
     }
-    pop.replace();
     return (count << 1) + LAMBDA;
   }
 }

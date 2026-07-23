@@ -51,7 +51,9 @@ public class AdaptiveGenerationTests {
     TestCrossover crossover = new TestCrossover();
 
     AdaptiveGeneration<TestObject> ag = new AdaptiveGeneration<TestObject>(mutation, crossover);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count + crossover.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -80,7 +82,9 @@ public class AdaptiveGenerationTests {
     TestCrossover crossover = new TestCrossover();
 
     AdaptiveGeneration<TestObject> ag = new AdaptiveGeneration<TestObject>(mutation, crossover);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count + crossover.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -110,7 +114,9 @@ public class AdaptiveGenerationTests {
 
     AdaptiveGeneration<TestObject> ag =
         new AdaptiveGeneration<TestObject>(mutation, crossover).split();
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count + crossover.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
   }
@@ -131,7 +137,9 @@ public class AdaptiveGenerationTests {
     TestCrossover crossover = new TestCrossover();
 
     AdaptiveGeneration<TestObject> ag = new AdaptiveGeneration<TestObject>(mutation, crossover);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count + crossover.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -160,7 +168,9 @@ public class AdaptiveGenerationTests {
     TestCrossover crossover = new TestCrossover();
 
     AdaptiveGeneration<TestObject> ag = new AdaptiveGeneration<TestObject>(mutation, crossover);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count + crossover.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -190,7 +200,9 @@ public class AdaptiveGenerationTests {
 
     AdaptiveGeneration<TestObject> ag =
         new AdaptiveGeneration<TestObject>(mutation, crossover).split();
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count + crossover.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
   }

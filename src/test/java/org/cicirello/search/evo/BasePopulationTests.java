@@ -233,4 +233,124 @@ public class BasePopulationTests extends SharedTestPopulations {
             10, new TestInitializer(), f, selection, tracker, 0);
     verifySelectCopies(pop);
   }
+
+  @Test
+  public void testBasePopulationDoubleFitness_WithReplacementThatPicksMultipleCopies() {
+    TestObject.reinit();
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessDouble f = new TestFitnessDouble();
+    TestMultiReplacement replacement = new TestMultiReplacement();
+    BasePopulation.DoubleFitness<TestObject> pop =
+        new BasePopulation.DoubleFitness<TestObject>(
+            10,
+            new TestInitializer(),
+            f,
+            selection,
+            tracker,
+            (candidate, fitness) ->
+                new PopulationMember.DoubleFitness<TestObject>(candidate, fitness),
+            0,
+            replacement);
+    pop.init();
+    pop.select(); // 2, 3, 4, 5, 6, 5, 4, 3, 2, 1
+    pop.replace();
+    int[] chosenCounts = new int[10];
+    for (int i = 0; i < 10; i++) {
+      chosenCounts[(int) pop.fitness(i)]++;
+    }
+    int[] expectedCounts = {0, 4, 1, 5, 0, 0, 0, 0, 0, 0};
+    assertArrayEquals(expectedCounts, chosenCounts);
+    pop.select();
+    int[] exp = {1, 1, 1, 1, 3, 3, 3, 3, 3, 2};
+    for (int i = 0; i < 10; i++) {
+      assertEquals(exp[i], pop.get(i).hashCode());
+      if (i > 0 && exp[i] == exp[i - 1]) {
+        assertEquals(pop.get(i - 1), pop.get(i));
+        assertNotSame(pop.get(i - 1), pop.get(i));
+      }
+    }
+  }
+
+  @Test
+  public void testBasePopulationIntegerFitness_WithReplacementThatPicksMultipleCopies() {
+    TestObject.reinit();
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessInteger f = new TestFitnessInteger();
+    TestMultiReplacement replacement = new TestMultiReplacement();
+    BasePopulation.IntegerFitness<TestObject> pop =
+        new BasePopulation.IntegerFitness<TestObject>(
+            10,
+            new TestInitializer(),
+            f,
+            selection,
+            tracker,
+            (candidate, fitness) ->
+                new PopulationMember.IntegerFitness<TestObject>(candidate, fitness),
+            0,
+            replacement);
+    pop.init();
+    pop.select(); // 2, 3, 4, 5, 6, 5, 4, 3, 2, 1
+    pop.replace();
+    int[] chosenCounts = new int[10];
+    for (int i = 0; i < 10; i++) {
+      chosenCounts[pop.fitness(i) - 10]++;
+    }
+    int[] expectedCounts = {0, 4, 1, 5, 0, 0, 0, 0, 0, 0};
+    assertArrayEquals(expectedCounts, chosenCounts);
+    pop.select();
+    int[] exp = {1, 1, 1, 1, 3, 3, 3, 3, 3, 2};
+    for (int i = 0; i < 10; i++) {
+      assertEquals(exp[i], pop.get(i).hashCode());
+      if (i > 0 && exp[i] == exp[i - 1]) {
+        assertEquals(pop.get(i - 1), pop.get(i));
+        assertNotSame(pop.get(i - 1), pop.get(i));
+      }
+    }
+  }
+
+  private static class TestMultiReplacement implements ReplacementStrategy<TestObject> {
+
+    @Override
+    public void replace(
+        PopulationCandidates.IntegerFitness<TestObject> parentPopulation,
+        PopulationCandidates.IntegerFitness<TestObject> childPopulation,
+        Replacements replacements,
+        int targetPopulationSize) {
+      replacements.addFromChildPopulation(9);
+      replacements.addFromChildPopulation(9);
+      replacements.addFromChildPopulation(9);
+      replacements.addFromChildPopulation(9);
+      replacements.addFromChildPopulation(0);
+      replacements.addFromChildPopulation(1);
+      replacements.addFromChildPopulation(1);
+      replacements.addFromChildPopulation(1);
+      replacements.addFromChildPopulation(1);
+      replacements.addFromChildPopulation(1);
+    }
+
+    @Override
+    public void replace(
+        PopulationCandidates.DoubleFitness<TestObject> parentPopulation,
+        PopulationCandidates.DoubleFitness<TestObject> childPopulation,
+        Replacements replacements,
+        int targetPopulationSize) {
+      replacements.addFromChildPopulation(9);
+      replacements.addFromChildPopulation(9);
+      replacements.addFromChildPopulation(9);
+      replacements.addFromChildPopulation(9);
+      replacements.addFromChildPopulation(0);
+      replacements.addFromChildPopulation(1);
+      replacements.addFromChildPopulation(1);
+      replacements.addFromChildPopulation(1);
+      replacements.addFromChildPopulation(1);
+      replacements.addFromChildPopulation(1);
+    }
+
+    @Override
+    public TestMultiReplacement split() {
+      return this;
+    }
+  }
 }

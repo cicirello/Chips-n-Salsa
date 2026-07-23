@@ -75,7 +75,10 @@ abstract class EvolvableParametersPopulation {
           Objects.requireNonNull(selection),
           Objects.requireNonNull(tracker),
           new EvolvableParametersPopulationMemberCreator<T>(numParams),
-          BasePopulation.validateElite(numElite, n));
+          BasePopulation.validateElite(numElite, n),
+          numElite > 0
+              ? new GenerationalElitistReplacement<T>(numElite)
+              : new GenerationalReplacement<T>());
     }
 
     /*
@@ -157,7 +160,10 @@ abstract class EvolvableParametersPopulation {
           Objects.requireNonNull(selection),
           Objects.requireNonNull(tracker),
           new EvolvableParametersPopulationMemberCreator<T>(numParams),
-          BasePopulation.validateElite(numElite, n));
+          BasePopulation.validateElite(numElite, n),
+          numElite > 0
+              ? new GenerationalElitistReplacement<T>(numElite)
+              : new GenerationalReplacement<T>());
     }
 
     /*

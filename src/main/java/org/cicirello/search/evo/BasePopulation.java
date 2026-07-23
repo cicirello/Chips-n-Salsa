@@ -107,7 +107,10 @@ abstract class BasePopulation {
           Objects.requireNonNull(selection),
           Objects.requireNonNull(tracker),
           (candidate, fitness) -> new PopulationMember.DoubleFitness<T>(candidate, fitness),
-          validateElite(numElite, n));
+          validateElite(numElite, n),
+          numElite > 0
+              ? new GenerationalElitistReplacement<T>(numElite)
+              : new GenerationalReplacement<T>());
     }
 
     /*
@@ -120,14 +123,12 @@ abstract class BasePopulation {
         SelectionOperator selection,
         ProgressTracker<T> tracker,
         PopulationMemberCreator<T> creator,
-        int numElite) {
+        int numElite,
+        ReplacementStrategy<T> replacement) {
       super(tracker);
       this.initializer = initializer;
       this.selection = selection;
-      this.replacement =
-          numElite > 0
-              ? new GenerationalElitistReplacement<T>(numElite)
-              : new GenerationalReplacement<T>();
+      this.replacement = replacement;
 
       this.f = f;
       MU = n;
@@ -351,7 +352,10 @@ abstract class BasePopulation {
           Objects.requireNonNull(selection),
           Objects.requireNonNull(tracker),
           (candidate, fitness) -> new PopulationMember.IntegerFitness<T>(candidate, fitness),
-          validateElite(numElite, n));
+          validateElite(numElite, n),
+          numElite > 0
+              ? new GenerationalElitistReplacement<T>(numElite)
+              : new GenerationalReplacement<T>());
     }
 
     /*
@@ -364,14 +368,12 @@ abstract class BasePopulation {
         SelectionOperator selection,
         ProgressTracker<T> tracker,
         PopulationMemberCreator<T> creator,
-        int numElite) {
+        int numElite,
+        ReplacementStrategy<T> replacement) {
       super(tracker);
       this.initializer = initializer;
       this.selection = selection;
-      this.replacement =
-          numElite > 0
-              ? new GenerationalElitistReplacement<T>(numElite)
-              : new GenerationalReplacement<T>();
+      this.replacement = replacement;
 
       this.f = f;
       MU = n;

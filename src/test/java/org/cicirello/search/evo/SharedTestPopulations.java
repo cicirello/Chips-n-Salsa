@@ -36,7 +36,7 @@ import org.junit.jupiter.api.*;
 public class SharedTestPopulations {
 
   void verifyInteger(
-      PopulationFitnessVector.IntegerFitness popVector,
+      BasePopulation.IntegerFitness popVector,
       TestFitnessInteger f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
@@ -126,8 +126,7 @@ public class SharedTestPopulations {
     f.changeFitness(12);
     Population<TestObject> pop2 = pop.split();
     @SuppressWarnings("unchecked")
-    PopulationFitnessVector.IntegerFitness popVector2 =
-        (PopulationFitnessVector.IntegerFitness) pop2;
+    BasePopulation.IntegerFitness popVector2 = (BasePopulation.IntegerFitness) pop2;
 
     if (elite == 0) {
       // orginal should be same
@@ -171,7 +170,7 @@ public class SharedTestPopulations {
   }
 
   void verifyDoubleWithIntCost(
-      PopulationFitnessVector.DoubleFitness popVector,
+      BasePopulation.DoubleFitness popVector,
       TestFitnessDoubleIntCost f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
@@ -235,7 +234,7 @@ public class SharedTestPopulations {
     f.changeFitness(12);
     Population<TestObject> pop2 = pop.split();
     @SuppressWarnings("unchecked")
-    PopulationFitnessVector.DoubleFitness popVector2 = (PopulationFitnessVector.DoubleFitness) pop2;
+    BasePopulation.DoubleFitness popVector2 = (BasePopulation.DoubleFitness) pop2;
 
     // orginal should be same
     assertEquals(expected[9] + 10.0 + 1, popVector.fitness(0));
@@ -268,7 +267,7 @@ public class SharedTestPopulations {
   }
 
   void verifyDouble(
-      PopulationFitnessVector.DoubleFitness popVector,
+      BasePopulation.DoubleFitness popVector,
       TestFitnessDouble f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
@@ -358,7 +357,7 @@ public class SharedTestPopulations {
     f.changeFitness(12);
     Population<TestObject> pop2 = pop.split();
     @SuppressWarnings("unchecked")
-    PopulationFitnessVector.DoubleFitness popVector2 = (PopulationFitnessVector.DoubleFitness) pop2;
+    BasePopulation.DoubleFitness popVector2 = (BasePopulation.DoubleFitness) pop2;
 
     // orginal should be same
     assertEquals(expected[9] + 0.4 + 1 + eliteAdjust, popVector.fitness(eliteAdjust));
@@ -410,7 +409,7 @@ public class SharedTestPopulations {
   }
 
   void verifyIntegerElite(
-      PopulationFitnessVector.IntegerFitness popVector,
+      BasePopulation.IntegerFitness popVector,
       TestFitnessIntegerElitist f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
@@ -536,8 +535,7 @@ public class SharedTestPopulations {
     f.changeFitness(12);
     Population<TestObject> pop2 = pop.split();
     @SuppressWarnings("unchecked")
-    PopulationFitnessVector.IntegerFitness popVector2 =
-        (PopulationFitnessVector.IntegerFitness) pop2;
+    BasePopulation.IntegerFitness popVector2 = (BasePopulation.IntegerFitness) pop2;
 
     // orginal should be same
     assertEquals(
@@ -570,7 +568,7 @@ public class SharedTestPopulations {
   }
 
   void verifyDoubleElite(
-      PopulationFitnessVector.DoubleFitness popVector,
+      BasePopulation.DoubleFitness popVector,
       TestFitnessDoubleElitist f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
@@ -698,7 +696,7 @@ public class SharedTestPopulations {
     f.changeFitness(12);
     Population<TestObject> pop2 = pop.split();
     @SuppressWarnings("unchecked")
-    PopulationFitnessVector.DoubleFitness popVector2 = (PopulationFitnessVector.DoubleFitness) pop2;
+    BasePopulation.DoubleFitness popVector2 = (BasePopulation.DoubleFitness) pop2;
 
     // orginal should be same
     assertEquals(

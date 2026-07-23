@@ -63,8 +63,7 @@ abstract class BasePopulation {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  static class DoubleFitness<T extends Copyable<T>> extends AbstractPopulation<T>
-      implements PopulationFitnessVector.DoubleFitness {
+  static class DoubleFitness<T extends Copyable<T>> extends AbstractPopulation<T> {
 
     private final Initializer<T> initializer;
     private final SelectionOperator selection;
@@ -183,11 +182,6 @@ abstract class BasePopulation {
     }
 
     @Override
-    public final double fitness(int i) {
-      return pop.fitness(i);
-    }
-
-    @Override
     public final int size() {
       // Use pop.size() rather than MU -- there is a weird, unlikely, rare edge case
       // associated with use of elitism, where pop.size() may be less than MU early in search.
@@ -288,6 +282,14 @@ abstract class BasePopulation {
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
     }
 
+    /*
+     * Removed from Population interface since not really needed, but tests were using it,
+     * so keeping it to avoid breaking test cases.
+     */
+    final double fitness(int i) {
+      return pop.fitness(i);
+    }
+
     @FunctionalInterface
     public static interface PopulationMemberCreator<T extends Copyable<T>> {
       PopulationMember.DoubleFitness<T> create(T candidate, double fitness);
@@ -305,8 +307,7 @@ abstract class BasePopulation {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  static class IntegerFitness<T extends Copyable<T>> extends AbstractPopulation<T>
-      implements PopulationFitnessVector.IntegerFitness {
+  static class IntegerFitness<T extends Copyable<T>> extends AbstractPopulation<T> {
 
     private final Initializer<T> initializer;
     private final SelectionOperator selection;
@@ -425,11 +426,6 @@ abstract class BasePopulation {
     }
 
     @Override
-    public final int fitness(int i) {
-      return pop.fitness(i);
-    }
-
-    @Override
     public final int size() {
       // Use pop.size() rather than MU -- there is a weird, unlikely, rare edge case
       // associated with use of elitism, where pop.size() may be less than MU early in search.
@@ -528,6 +524,14 @@ abstract class BasePopulation {
         }
       }
       setMostFit(f.getProblem().getSolutionCostPair(newBest.copy()));
+    }
+
+    /*
+     * Removed from Population interface since not really needed, but tests were using it,
+     * so keeping it to avoid breaking test cases.
+     */
+    final int fitness(int i) {
+      return pop.fitness(i);
     }
 
     @FunctionalInterface

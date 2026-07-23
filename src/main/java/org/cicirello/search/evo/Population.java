@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -34,8 +34,7 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-interface Population<T extends Copyable<T>>
-    extends Splittable<Population<T>>, PopulationFitnessVector {
+interface Population<T extends Copyable<T>> extends Splittable<Population<T>> {
 
   /**
    * Gets a candidate solution subject to genetic operators during the current generation.
@@ -55,6 +54,13 @@ interface Population<T extends Copyable<T>>
    *     parameters.
    */
   SingleReal getParameter(int indexPop, int indexParam);
+
+  /**
+   * Gets the size of the population.
+   *
+   * @return the size of the population.
+   */
+  int size();
 
   /**
    * Gets the number of candidate solutions subject to genetic operators.

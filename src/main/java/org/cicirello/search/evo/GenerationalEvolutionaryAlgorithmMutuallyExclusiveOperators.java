@@ -51,7 +51,8 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T extends Copyable<T>>
+public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
+        T extends Copyable<T>>
     extends AbstractEvolutionaryAlgorithm<T> {
 
   /**

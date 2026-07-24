@@ -119,6 +119,43 @@ public class GenerationalElitistReplacementTests {
   }
 
   @Test
+  public void testDouble1TooFewChildren() {
+    int[][] parentFitnessArrays = {
+      {4, 5, 6, 7, 8, 9, 10, 15, 16, 17},
+      {17, 16, 15, 4, 5, 6, 7, 8, 9, 10},
+      {4, 5, 6, 15, 16, 17, 7, 8, 9, 10}
+    };
+    int[][] expectedFromParents = {{9}, {0}, {5}};
+    int[][] childFitnessArrays = {
+      {1, 2, 3, 4, 5, 11, 12, 13},
+      {13, 12, 11, 5, 4, 3, 2, 1}
+    };
+    int[][] expectedFromChildren = {
+      {0, 0, 1, 2, 3, 4, 5, 6, 7},
+      {0, 0, 1, 2, 3, 4, 5, 6, 7}
+    };
+    String[] parentElements = {"P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "P10"};
+    String[] childElements = {"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8"};
+    for (int i = 0; i < parentFitnessArrays.length; i++) {
+      CandidatesDouble parents = new CandidatesDouble(parentFitnessArrays[i], parentElements);
+      for (int j = 0; j < childFitnessArrays.length; j++) {
+        CandidatesDouble children = new CandidatesDouble(childFitnessArrays[j], childElements);
+        ReplacementsValidator validator =
+            new ReplacementsValidator(parentFitnessArrays[i].length, childFitnessArrays[j].length);
+        GenerationalElitistReplacement<String> replacement =
+            new GenerationalElitistReplacement<String>();
+        replacement.replace(parents, children, validator, parentFitnessArrays[i].length);
+        validator.validate(expectedFromParents[i], expectedFromChildren[j]);
+        replacement.init(1000);
+        validator =
+            new ReplacementsValidator(parentFitnessArrays[i].length, childFitnessArrays[j].length);
+        replacement.replace(parents, children, validator, parentFitnessArrays[i].length);
+        validator.validate(expectedFromParents[i], expectedFromChildren[j]);
+      }
+    }
+  }
+
+  @Test
   public void testDoubleDuplicates2() {
     int[][] parentFitnessArrays = {
       {16, 16, 17, 4, 5, 6, 7, 8, 9, 10},
@@ -261,6 +298,43 @@ public class GenerationalElitistReplacementTests {
     };
     String[] parentElements = {"P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "P10"};
     String[] childElements = {"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"};
+    for (int i = 0; i < parentFitnessArrays.length; i++) {
+      CandidatesInteger parents = new CandidatesInteger(parentFitnessArrays[i], parentElements);
+      for (int j = 0; j < childFitnessArrays.length; j++) {
+        CandidatesInteger children = new CandidatesInteger(childFitnessArrays[j], childElements);
+        ReplacementsValidator validator =
+            new ReplacementsValidator(parentFitnessArrays[i].length, childFitnessArrays[j].length);
+        GenerationalElitistReplacement<String> replacement =
+            new GenerationalElitistReplacement<String>();
+        replacement.replace(parents, children, validator, parentFitnessArrays[i].length);
+        validator.validate(expectedFromParents[i], expectedFromChildren[j]);
+        replacement.init(1000);
+        validator =
+            new ReplacementsValidator(parentFitnessArrays[i].length, childFitnessArrays[j].length);
+        replacement.replace(parents, children, validator, parentFitnessArrays[i].length);
+        validator.validate(expectedFromParents[i], expectedFromChildren[j]);
+      }
+    }
+  }
+
+  @Test
+  public void testInteger1TooFewChildren() {
+    int[][] parentFitnessArrays = {
+      {4, 5, 6, 7, 8, 9, 10, 15, 16, 17},
+      {17, 16, 15, 4, 5, 6, 7, 8, 9, 10},
+      {4, 5, 6, 15, 16, 17, 7, 8, 9, 10}
+    };
+    int[][] expectedFromParents = {{9}, {0}, {5}};
+    int[][] childFitnessArrays = {
+      {1, 2, 3, 4, 5, 11, 12, 13},
+      {13, 12, 11, 5, 4, 3, 2, 1}
+    };
+    int[][] expectedFromChildren = {
+      {0, 0, 1, 2, 3, 4, 5, 6, 7},
+      {0, 0, 1, 2, 3, 4, 5, 6, 7}
+    };
+    String[] parentElements = {"P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "P10"};
+    String[] childElements = {"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8"};
     for (int i = 0; i < parentFitnessArrays.length; i++) {
       CandidatesInteger parents = new CandidatesInteger(parentFitnessArrays[i], parentElements);
       for (int j = 0; j < childFitnessArrays.length; j++) {

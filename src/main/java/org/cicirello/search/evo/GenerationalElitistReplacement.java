@@ -65,15 +65,17 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
       PopulationCandidates.IntegerFitness<T> childPopulation,
       Replacements replacements,
       int targetPopulationSize) {
-    HashSet<T> eliteSet = new HashSet<T>(elite);
-    IntBinaryHeap pq = IntBinaryHeap.createMinHeap(parentPopulation.size());
+    final int targetEliteCount = Math.min(elite, targetPopulationSize);
+    HashSet<T> eliteSet = new HashSet<T>(targetEliteCount);
+    final int mu = parentPopulation.size();
+    IntBinaryHeap pq = IntBinaryHeap.createMinHeap(mu);
     int i = 0;
-    for (; i < parentPopulation.size() && eliteSet.size() < elite; i++) {
+    for (; i < mu && eliteSet.size() < targetEliteCount; i++) {
       if (eliteSet.add(parentPopulation.candidate(i))) {
         pq.offer(i, parentPopulation.fitness(i));
       }
     }
-    for (; i < parentPopulation.size(); i++) {
+    for (; i < mu; i++) {
       final int fitness = parentPopulation.fitness(i);
       final T c = parentPopulation.candidate(i);
       if (fitness > pq.peekPriority() && !eliteSet.contains(c)) {
@@ -85,10 +87,8 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
     while (!pq.isEmpty()) {
       replacements.chooseFromParentPopulation(pq.poll(), 1);
     }
-    final int remaining = Math.min(childPopulation.size(), targetPopulationSize - eliteSet.size());
-    for (i = 0; i < remaining; i++) {
-      replacements.chooseFromChildPopulation(i, 1);
-    }
+
+    internalReplace(replacements, targetPopulationSize - eliteSet.size(), childPopulation.size());
   }
 
   @Override
@@ -97,15 +97,17 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
       PopulationCandidates.DoubleFitness<T> childPopulation,
       Replacements replacements,
       int targetPopulationSize) {
-    HashSet<T> eliteSet = new HashSet<T>(elite);
-    IntBinaryHeapDouble pq = IntBinaryHeapDouble.createMinHeap(parentPopulation.size());
+    final int targetEliteCount = Math.min(elite, targetPopulationSize);
+    HashSet<T> eliteSet = new HashSet<T>(targetEliteCount);
+    final int mu = parentPopulation.size();
+    IntBinaryHeapDouble pq = IntBinaryHeapDouble.createMinHeap(mu);
     int i = 0;
-    for (; i < parentPopulation.size() && eliteSet.size() < elite; i++) {
+    for (; i < mu && eliteSet.size() < targetEliteCount; i++) {
       if (eliteSet.add(parentPopulation.candidate(i))) {
         pq.offer(i, parentPopulation.fitness(i));
       }
     }
-    for (; i < parentPopulation.size(); i++) {
+    for (; i < mu; i++) {
       final double fitness = parentPopulation.fitness(i);
       final T c = parentPopulation.candidate(i);
       if (fitness > pq.peekPriority() && !eliteSet.contains(c)) {
@@ -117,10 +119,8 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
     while (!pq.isEmpty()) {
       replacements.chooseFromParentPopulation(pq.poll(), 1);
     }
-    final int remaining = Math.min(childPopulation.size(), targetPopulationSize - eliteSet.size());
-    for (i = 0; i < remaining; i++) {
-      replacements.chooseFromChildPopulation(i, 1);
-    }
+
+    internalReplace(replacements, targetPopulationSize - eliteSet.size(), childPopulation.size());
   }
 
   @Override
@@ -128,5 +128,17 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
     // This operator doesn't maintain any mutable state across calls, so it is safe to
     // share across threads. Thus, just return this.
     return this;
+  }
+
+  private void internalReplace(Replacements replacements, final int remaining, final int lambda) {
+    final int minCopies = remaining / lambda;
+    final int extraCount = remaining % lambda;
+    int i = 0;
+    for (; i < extraCount; i++) {
+      replacements.chooseFromChildPopulation(i, minCopies + 1);
+    }
+    for (; i < lambda; i++) {
+      replacements.chooseFromChildPopulation(i, minCopies);
+    }
   }
 }

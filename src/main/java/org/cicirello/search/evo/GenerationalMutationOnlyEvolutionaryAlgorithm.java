@@ -140,6 +140,170 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
   /**
    * Constructs and initializes the evolutionary algorithm with mutation only. This constructor
    * supports fitness functions with fitnesses of type double, the {@link FitnessFunction.Double}
+   * interface. This constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param mutationRate The probability that a member of the population is mutated once during a
+   *     generation. Note that this is not a per-bit rate since this class is generalized to
+   *     evolution of any {@link Copyable} object type. For {@link
+   *     org.cicirello.search.representations.BitVector} optimization and traditional genetic
+   *     algorithm interpretation of mutation rate, configure your mutation operator with the
+   *     per-bit mutation rate, and then pass 1.0 for this parameter.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate is less than 0.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection,
+   *     replacement, or tracker are null.
+   */
+  public GenerationalMutationOnlyEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      double mutationRate,
+      Initializer<T> initializer,
+      FitnessFunction.Double<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement,
+      ProgressTracker<T> tracker) {
+    this(
+        new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, replacement, tracker),
+        f.getProblem(),
+        mutation,
+        mutationRate);
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm with mutation only. This constructor
+   * supports fitness functions with fitnesses of type int, the {@link FitnessFunction.Integer}
+   * interface. This constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param mutationRate The probability that a member of the population is mutated once during a
+   *     generation. Note that this is not a per-bit rate since this class is generalized to
+   *     evolution of any {@link Copyable} object type. For {@link
+   *     org.cicirello.search.representations.BitVector} optimization and traditional genetic
+   *     algorithm interpretation of mutation rate, configure your mutation operator with the
+   *     per-bit mutation rate, and then pass 1.0 for this parameter.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate is less than 0.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection,
+   *     replacement, or tracker are null.
+   */
+  public GenerationalMutationOnlyEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      double mutationRate,
+      Initializer<T> initializer,
+      FitnessFunction.Integer<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement,
+      ProgressTracker<T> tracker) {
+    this(
+        new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, replacement, tracker),
+        f.getProblem(),
+        mutation,
+        mutationRate);
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm with mutation only. This constructor
+   * supports fitness functions with fitnesses of type double, the {@link FitnessFunction.Double}
+   * interface. This constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param mutationRate The probability that a member of the population is mutated once during a
+   *     generation. Note that this is not a per-bit rate since this class is generalized to
+   *     evolution of any {@link Copyable} object type. For {@link
+   *     org.cicirello.search.representations.BitVector} optimization and traditional genetic
+   *     algorithm interpretation of mutation rate, configure your mutation operator with the
+   *     per-bit mutation rate, and then pass 1.0 for this parameter.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate is less than 0.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
+   *     replacement are null.
+   */
+  public GenerationalMutationOnlyEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      double mutationRate,
+      Initializer<T> initializer,
+      FitnessFunction.Double<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement) {
+    this(
+        n,
+        mutation,
+        mutationRate,
+        initializer,
+        f,
+        selection,
+        replacement,
+        new ProgressTracker<T>());
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm with mutation only. This constructor
+   * supports fitness functions with fitnesses of type int, the {@link FitnessFunction.Integer}
+   * interface. This constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param mutationRate The probability that a member of the population is mutated once during a
+   *     generation. Note that this is not a per-bit rate since this class is generalized to
+   *     evolution of any {@link Copyable} object type. For {@link
+   *     org.cicirello.search.representations.BitVector} optimization and traditional genetic
+   *     algorithm interpretation of mutation rate, configure your mutation operator with the
+   *     per-bit mutation rate, and then pass 1.0 for this parameter.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate is less than 0.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
+   *     replacement are null.
+   */
+  public GenerationalMutationOnlyEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      double mutationRate,
+      Initializer<T> initializer,
+      FitnessFunction.Integer<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement) {
+    this(
+        n,
+        mutation,
+        mutationRate,
+        initializer,
+        f,
+        selection,
+        replacement,
+        new ProgressTracker<T>());
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm with mutation only. This constructor
+   * supports fitness functions with fitnesses of type double, the {@link FitnessFunction.Double}
    * interface.
    *
    * @param n The population size.

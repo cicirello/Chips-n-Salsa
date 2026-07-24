@@ -59,6 +59,7 @@ abstract class EvolvableParametersPopulation {
      * @param selection The selection operator.
      * @param tracker A ProgressTracker.
      * @param numElite the number of elite members of the population.
+     * @param numParams the number of evolvable parameters.
      */
     public DoubleFitness(
         int n,
@@ -79,6 +80,37 @@ abstract class EvolvableParametersPopulation {
           numElite > 0
               ? new GenerationalElitistReplacement<T>(numElite)
               : new GenerationalReplacement<T>());
+    }
+
+    /**
+     * Constructs the Population.
+     *
+     * @param n The size of the population, which must be positive.
+     * @param initializer An initializer to supply the population with a means of generating random
+     *     initial population members.
+     * @param f The fitness function.
+     * @param selection The selection operator.
+     * @param replacement The replacement strategy.
+     * @param tracker A ProgressTracker.
+     * @param numParams the number of evolvable parameters.
+     */
+    public DoubleFitness(
+        int n,
+        Initializer<T> initializer,
+        FitnessFunction.Double<T> f,
+        SelectionOperator selection,
+        ReplacementStrategy<T> replacement,
+        ProgressTracker<T> tracker,
+        int numParams) {
+      super(
+          BasePopulation.validateN(n),
+          Objects.requireNonNull(initializer),
+          Objects.requireNonNull(f),
+          Objects.requireNonNull(selection),
+          Objects.requireNonNull(tracker),
+          new EvolvableParametersPopulationMemberCreator<T>(numParams),
+          0,
+          Objects.requireNonNull(replacement));
     }
 
     /*
@@ -164,6 +196,37 @@ abstract class EvolvableParametersPopulation {
           numElite > 0
               ? new GenerationalElitistReplacement<T>(numElite)
               : new GenerationalReplacement<T>());
+    }
+
+    /**
+     * Constructs the Population.
+     *
+     * @param n The size of the population, which must be positive.
+     * @param initializer An initializer to supply the population with a means of generating random
+     *     initial population members.
+     * @param f The fitness function.
+     * @param selection The selection operator.
+     * @param replacement The replacement strategy.
+     * @param tracker A ProgressTracker.
+     * @param numParams the number of evolvable parameters.
+     */
+    public IntegerFitness(
+        int n,
+        Initializer<T> initializer,
+        FitnessFunction.Integer<T> f,
+        SelectionOperator selection,
+        ReplacementStrategy<T> replacement,
+        ProgressTracker<T> tracker,
+        int numParams) {
+      super(
+          BasePopulation.validateN(n),
+          Objects.requireNonNull(initializer),
+          Objects.requireNonNull(f),
+          Objects.requireNonNull(selection),
+          Objects.requireNonNull(tracker),
+          new EvolvableParametersPopulationMemberCreator<T>(numParams),
+          0,
+          Objects.requireNonNull(replacement));
     }
 
     /*

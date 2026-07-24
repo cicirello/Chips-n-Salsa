@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -120,6 +120,70 @@ public final class MutationOnlyGeneticAlgorithm
   /**
    * Initializes a mutation-only genetic algorithm with a generational model where children replace
    * the parents, using the standard bit flip mutation. All other characteristics, such as selection
+   * operator and replacement strategy are configurable. This constructor supports fitness functions
+   * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+   *
+   * @param n The population size.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws NullPointerException if any of initializer, f, selection, replacement, or tracker are
+   *     null.
+   */
+  public MutationOnlyGeneticAlgorithm(
+      int n,
+      Initializer<BitVector> initializer,
+      FitnessFunction.Double<BitVector> f,
+      double mutationRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement,
+      ProgressTracker<BitVector> tracker) {
+    super(
+        n, new BitFlipMutation(mutationRate), 1.0, initializer, f, selection, replacement, tracker);
+  }
+
+  /**
+   * Initializes a mutation-only genetic algorithm with a generational model where children replace
+   * the parents, using the standard bit flip mutation. All other characteristics, such as selection
+   * operator and replacement strategy are configurable. This constructor supports fitness functions
+   * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+   *
+   * @param n The population size.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws NullPointerException if any of initializer, f, selection, replacement or tracker are
+   *     null.
+   */
+  public MutationOnlyGeneticAlgorithm(
+      int n,
+      Initializer<BitVector> initializer,
+      FitnessFunction.Integer<BitVector> f,
+      double mutationRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement,
+      ProgressTracker<BitVector> tracker) {
+    super(
+        n, new BitFlipMutation(mutationRate), 1.0, initializer, f, selection, replacement, tracker);
+  }
+
+  /**
+   * Initializes a mutation-only genetic algorithm with a generational model where children replace
+   * the parents, using the standard bit flip mutation. All other characteristics, such as selection
    * operator are configurable. This constructor supports fitness functions with fitnesses of type
    * double, the {@link FitnessFunction.Double} interface.
    *
@@ -231,6 +295,62 @@ public final class MutationOnlyGeneticAlgorithm
       SelectionOperator selection,
       int eliteCount) {
     super(n, new BitFlipMutation(mutationRate), 1.0, initializer, f, selection, eliteCount);
+  }
+
+  /**
+   * Initializes a mutation-only genetic algorithm with a generational model where children replace
+   * the parents, using the standard bit flip mutation. All other characteristics, such as selection
+   * operator and replacement strategy are configurable. This constructor supports fitness functions
+   * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+   *
+   * @param n The population size.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws NullPointerException if any of initializer, f, selection, or replacement are null.
+   */
+  public MutationOnlyGeneticAlgorithm(
+      int n,
+      Initializer<BitVector> initializer,
+      FitnessFunction.Double<BitVector> f,
+      double mutationRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement) {
+    super(n, new BitFlipMutation(mutationRate), 1.0, initializer, f, selection, replacement);
+  }
+
+  /**
+   * Initializes a mutation-only genetic algorithm with a generational model where children replace
+   * the parents, using the standard bit flip mutation. All other characteristics, such as selection
+   * operator and replacement strategy are configurable. This constructor supports fitness functions
+   * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+   *
+   * @param n The population size.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws NullPointerException if any of initializer, f, selection, or replacement are null.
+   */
+  public MutationOnlyGeneticAlgorithm(
+      int n,
+      Initializer<BitVector> initializer,
+      FitnessFunction.Integer<BitVector> f,
+      double mutationRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement) {
+    super(n, new BitFlipMutation(mutationRate), 1.0, initializer, f, selection, replacement);
   }
 
   /**
@@ -356,6 +476,68 @@ public final class MutationOnlyGeneticAlgorithm
   /**
    * Initializes a mutation-only genetic algorithm with a generational model where children replace
    * the parents, using the standard bit flip mutation. All other characteristics, such as selection
+   * operator and replacement strategy are configurable. This constructor supports fitness functions
+   * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+   *
+   * @param n The population size.
+   * @param bitLength The length of each bit vector.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if bitLength is negative.
+   * @throws NullPointerException if any of f, selection, replacement, or tracker are null.
+   */
+  public MutationOnlyGeneticAlgorithm(
+      int n,
+      int bitLength,
+      FitnessFunction.Double<BitVector> f,
+      double mutationRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement,
+      ProgressTracker<BitVector> tracker) {
+    this(n, new BitVectorInitializer(bitLength), f, mutationRate, selection, replacement, tracker);
+  }
+
+  /**
+   * Initializes a mutation-only genetic algorithm with a generational model where children replace
+   * the parents, using the standard bit flip mutation. All other characteristics, such as selection
+   * operator and replacement strategy are configurable. This constructor supports fitness functions
+   * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+   *
+   * @param n The population size.
+   * @param bitLength The length of each bit vector.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if bitLength is negative.
+   * @throws NullPointerException if any of f, selection, replacement, or tracker are null.
+   */
+  public MutationOnlyGeneticAlgorithm(
+      int n,
+      int bitLength,
+      FitnessFunction.Integer<BitVector> f,
+      double mutationRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement,
+      ProgressTracker<BitVector> tracker) {
+    this(n, new BitVectorInitializer(bitLength), f, mutationRate, selection, replacement, tracker);
+  }
+
+  /**
+   * Initializes a mutation-only genetic algorithm with a generational model where children replace
+   * the parents, using the standard bit flip mutation. All other characteristics, such as selection
    * operator are configurable. This constructor supports fitness functions with fitnesses of type
    * double, the {@link FitnessFunction.Double} interface.
    *
@@ -471,6 +653,64 @@ public final class MutationOnlyGeneticAlgorithm
       SelectionOperator selection,
       int eliteCount) {
     this(n, new BitVectorInitializer(bitLength), f, mutationRate, selection, eliteCount);
+  }
+
+  /**
+   * Initializes a mutation-only genetic algorithm with a generational model where children replace
+   * the parents, using the standard bit flip mutation. All other characteristics, such as selection
+   * operator and replacement strategy are configurable. This constructor supports fitness functions
+   * with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+   *
+   * @param n The population size.
+   * @param bitLength The length of each bit vector.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if bitLength is negative.
+   * @throws NullPointerException if any of f, selection, or replacement are null.
+   */
+  public MutationOnlyGeneticAlgorithm(
+      int n,
+      int bitLength,
+      FitnessFunction.Double<BitVector> f,
+      double mutationRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement) {
+    this(n, new BitVectorInitializer(bitLength), f, mutationRate, selection, replacement);
+  }
+
+  /**
+   * Initializes a mutation-only genetic algorithm with a generational model where children replace
+   * the parents, using the standard bit flip mutation. All other characteristics, such as selection
+   * operator and replacement strategy are configurable. This constructor supports fitness functions
+   * with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+   *
+   * @param n The population size.
+   * @param bitLength The length of each bit vector.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if bitLength is negative.
+   * @throws NullPointerException if any of f, selection, or replacement are null.
+   */
+  public MutationOnlyGeneticAlgorithm(
+      int n,
+      int bitLength,
+      FitnessFunction.Integer<BitVector> f,
+      double mutationRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement) {
+    this(n, new BitVectorInitializer(bitLength), f, mutationRate, selection, replacement);
   }
 
   /**

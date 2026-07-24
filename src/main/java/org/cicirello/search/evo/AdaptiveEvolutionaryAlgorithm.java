@@ -154,6 +154,76 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
 
   /**
    * Constructs and initializes the evolutionary algorithm. This constructor supports fitness
+   * functions with fitnesses of type double, the {@link FitnessFunction.Double} interface. This
+   * constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param crossover The crossover operator.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection,
+   *     replacement, or tracker are null.
+   */
+  public AdaptiveEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      CrossoverOperator<T> crossover,
+      Initializer<T> initializer,
+      FitnessFunction.Double<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement,
+      ProgressTracker<T> tracker) {
+    this(
+        new EvolvableParametersPopulation.DoubleFitness<T>(
+            n, initializer, f, selection, replacement, tracker, 2),
+        f.getProblem(),
+        mutation,
+        crossover);
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm. This constructor supports fitness
+   * functions with fitnesses of type int, the {@link FitnessFunction.Integer} interface. This
+   * constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param crossover The crossover operator.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection,
+   *     replacement, or tracker are null.
+   */
+  public AdaptiveEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      CrossoverOperator<T> crossover,
+      Initializer<T> initializer,
+      FitnessFunction.Integer<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement,
+      ProgressTracker<T> tracker) {
+    this(
+        new EvolvableParametersPopulation.IntegerFitness<T>(
+            n, initializer, f, selection, replacement, tracker, 2),
+        f.getProblem(),
+        mutation,
+        crossover);
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm. This constructor supports fitness
    * functions with fitnesses of type double, the {@link FitnessFunction.Double} interface.
    *
    * @param n The population size.
@@ -258,6 +328,62 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
       SelectionOperator selection,
       int eliteCount) {
     this(n, mutation, crossover, initializer, f, selection, eliteCount, new ProgressTracker<T>());
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm. This constructor supports fitness
+   * functions with fitnesses of type double, the {@link FitnessFunction.Double} interface. This
+   * constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param crossover The crossover operator.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
+   *     replacement are null.
+   */
+  public AdaptiveEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      CrossoverOperator<T> crossover,
+      Initializer<T> initializer,
+      FitnessFunction.Double<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement) {
+    this(n, mutation, crossover, initializer, f, selection, replacement, new ProgressTracker<T>());
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm. This constructor supports fitness
+   * functions with fitnesses of type int, the {@link FitnessFunction.Integer} interface. This
+   * constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param crossover The crossover operator.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
+   *     replacement are null.
+   */
+  public AdaptiveEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      CrossoverOperator<T> crossover,
+      Initializer<T> initializer,
+      FitnessFunction.Integer<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement) {
+    this(n, mutation, crossover, initializer, f, selection, replacement, new ProgressTracker<T>());
   }
 
   /**

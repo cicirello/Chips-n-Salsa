@@ -34,7 +34,7 @@ import org.junit.jupiter.api.*;
 /** JUnit test cases for adaptive EAs. */
 public class AdaptiveEvolutionaryAlgorithmTests {
 
-  // all params
+  // all params except for ReplacementStrategy
 
   @Test
   public void testAdaptiveEA_Double_All() {
@@ -76,7 +76,51 @@ public class AdaptiveEvolutionaryAlgorithmTests {
     assertNotNull(s.optimize(5));
   }
 
-  // no tracker
+  // all params except no elitism
+
+  @Test
+  public void testAdaptiveEA_Double_All_Replacement() {
+    TestObject.reinit();
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestSelectionOp selection = new TestSelectionOp();
+    ReplacementStrategy<TestObject> replacement = new GenerationalReplacement<TestObject>();
+    TestFitnessDouble f = new TestFitnessDouble();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+    final int N = 20;
+
+    AdaptiveEvolutionaryAlgorithm<TestObject> ea =
+        new AdaptiveEvolutionaryAlgorithm<TestObject>(
+            N, mutation, crossover, initializer, f, selection, replacement, tracker);
+    assertNotNull(ea.optimize(5));
+
+    AdaptiveEvolutionaryAlgorithm<TestObject> s = ea.split();
+    assertNotNull(s.optimize(5));
+  }
+
+  @Test
+  public void testAdaptiveEA_Integer_All_Replacement() {
+    TestObject.reinit();
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestSelectionOp selection = new TestSelectionOp();
+    ReplacementStrategy<TestObject> replacement = new GenerationalReplacement<TestObject>();
+    TestFitnessInteger f = new TestFitnessInteger();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+    final int N = 20;
+
+    AdaptiveEvolutionaryAlgorithm<TestObject> ea =
+        new AdaptiveEvolutionaryAlgorithm<TestObject>(
+            N, mutation, crossover, initializer, f, selection, replacement, tracker);
+    assertNotNull(ea.optimize(5));
+
+    AdaptiveEvolutionaryAlgorithm<TestObject> s = ea.split();
+    assertNotNull(s.optimize(5));
+  }
+
+  // no tracker and no ReplacementStrategy
 
   @Test
   public void testAdaptiveEA_Double_NoTracker() {
@@ -116,7 +160,49 @@ public class AdaptiveEvolutionaryAlgorithmTests {
     assertNotNull(s.optimize(5));
   }
 
-  // No elite
+  // no tracker and no elitism
+
+  @Test
+  public void testAdaptiveEA_Double_Replacement_NoTracker() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    ReplacementStrategy<TestObject> replacement = new GenerationalReplacement<TestObject>();
+    TestFitnessDouble f = new TestFitnessDouble();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+    final int N = 20;
+
+    AdaptiveEvolutionaryAlgorithm<TestObject> ea =
+        new AdaptiveEvolutionaryAlgorithm<TestObject>(
+            N, mutation, crossover, initializer, f, selection, replacement);
+    assertNotNull(ea.optimize(5));
+
+    AdaptiveEvolutionaryAlgorithm<TestObject> s = ea.split();
+    assertNotNull(s.optimize(5));
+  }
+
+  @Test
+  public void testAdaptiveEA_Integer_Replacement_NoTracker() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    ReplacementStrategy<TestObject> replacement = new GenerationalReplacement<TestObject>();
+    TestFitnessInteger f = new TestFitnessInteger();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+    final int N = 20;
+
+    AdaptiveEvolutionaryAlgorithm<TestObject> ea =
+        new AdaptiveEvolutionaryAlgorithm<TestObject>(
+            N, mutation, crossover, initializer, f, selection, replacement);
+    assertNotNull(ea.optimize(5));
+
+    AdaptiveEvolutionaryAlgorithm<TestObject> s = ea.split();
+    assertNotNull(s.optimize(5));
+  }
+
+  // No elite and no ReplacementStrategy
 
   @Test
   public void testAdaptiveEA_Double_NoElite() {

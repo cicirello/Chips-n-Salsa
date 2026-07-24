@@ -113,6 +113,35 @@ abstract class BasePopulation {
               : new GenerationalReplacement<T>());
     }
 
+    /**
+     * Constructs the Population.
+     *
+     * @param n The size of the population, which must be positive.
+     * @param initializer An initializer to supply the population with a means of generating random
+     *     initial population members.
+     * @param f The fitness function.
+     * @param selection The selection operator.
+     * @param replacement The replacement strategy.
+     * @param tracker A ProgressTracker.
+     */
+    public DoubleFitness(
+        int n,
+        Initializer<T> initializer,
+        FitnessFunction.Double<T> f,
+        SelectionOperator selection,
+        ReplacementStrategy<T> replacement,
+        ProgressTracker<T> tracker) {
+      this(
+          validateN(n),
+          Objects.requireNonNull(initializer),
+          Objects.requireNonNull(f),
+          Objects.requireNonNull(selection),
+          Objects.requireNonNull(tracker),
+          (candidate, fitness) -> new PopulationMember.DoubleFitness<T>(candidate, fitness),
+          0,
+          Objects.requireNonNull(replacement));
+    }
+
     /*
      * Validate params before calling to avoid partially instantiated object on exception
      */
@@ -366,6 +395,35 @@ abstract class BasePopulation {
           numElite > 0
               ? new GenerationalElitistReplacement<T>(numElite)
               : new GenerationalReplacement<T>());
+    }
+
+    /**
+     * Constructs the Population.
+     *
+     * @param n The size of the population, which must be positive.
+     * @param initializer An initializer to supply the population with a means of generating random
+     *     initial population members.
+     * @param f The fitness function.
+     * @param selection The selection operator.
+     * @param replacement The replacement strategy.
+     * @param tracker A ProgressTracker.
+     */
+    public IntegerFitness(
+        int n,
+        Initializer<T> initializer,
+        FitnessFunction.Integer<T> f,
+        SelectionOperator selection,
+        ReplacementStrategy<T> replacement,
+        ProgressTracker<T> tracker) {
+      this(
+          validateN(n),
+          Objects.requireNonNull(initializer),
+          Objects.requireNonNull(f),
+          Objects.requireNonNull(selection),
+          Objects.requireNonNull(tracker),
+          (candidate, fitness) -> new PopulationMember.IntegerFitness<T>(candidate, fitness),
+          0,
+          Objects.requireNonNull(replacement));
     }
 
     /*

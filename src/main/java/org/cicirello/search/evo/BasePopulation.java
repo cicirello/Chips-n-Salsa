@@ -243,16 +243,26 @@ abstract class BasePopulation {
       }
       final int[] counts = r.childCounts();
       for (int i = 0; i < LAMBDA; i++) {
-        if (counts[i] >= 1) {
-          for (int j = 1; j < counts[i]; j++) {
-            PopulationMember.DoubleFitness<T> chosen = nextPop.get(i).copy();
-            chosen.mutate();
-            pop.add(chosen);
-          }
+        if (counts[i] == 1) {
           PopulationMember.DoubleFitness<T> chosen = nextPop.get(i);
+          // mutate embedded control parameters (if any)
+          chosen.mutate();
+          pop.add(chosen);
+          continue;
+        }
+        if (counts[i] == 0) {
+          continue;
+        }
+        for (int j = 1; j < counts[i]; j++) {
+          PopulationMember.DoubleFitness<T> chosen = nextPop.get(i).copy();
+          // mutate embedded control parameters (if any)
           chosen.mutate();
           pop.add(chosen);
         }
+        PopulationMember.DoubleFitness<T> chosen = nextPop.get(i);
+        // mutate embedded control parameters (if any)
+        chosen.mutate();
+        pop.add(chosen);
       }
       r.clearChildCounts();
       nextPop.clear();
@@ -488,16 +498,26 @@ abstract class BasePopulation {
       }
       final int[] counts = r.childCounts();
       for (int i = 0; i < LAMBDA; i++) {
-        if (counts[i] >= 1) {
-          for (int j = 1; j < counts[i]; j++) {
-            PopulationMember.IntegerFitness<T> chosen = nextPop.get(i).copy();
-            chosen.mutate();
-            pop.add(chosen);
-          }
+        if (counts[i] == 1) {
           PopulationMember.IntegerFitness<T> chosen = nextPop.get(i);
+          // mutate embedded control parameters (if any)
+          chosen.mutate();
+          pop.add(chosen);
+          continue;
+        }
+        if (counts[i] == 0) {
+          continue;
+        }
+        for (int j = 1; j < counts[i]; j++) {
+          PopulationMember.IntegerFitness<T> chosen = nextPop.get(i).copy();
+          // mutate embedded control parameters (if any)
           chosen.mutate();
           pop.add(chosen);
         }
+        PopulationMember.IntegerFitness<T> chosen = nextPop.get(i);
+        // mutate embedded control parameters (if any)
+        chosen.mutate();
+        pop.add(chosen);
       }
       r.clearChildCounts();
       nextPop.clear();

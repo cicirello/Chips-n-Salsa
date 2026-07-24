@@ -83,11 +83,11 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
       }
     }
     while (!pq.isEmpty()) {
-      replacements.addFromParentPopulation(pq.poll());
+      replacements.chooseFromParentPopulation(pq.poll(), 1);
     }
     final int remaining = Math.min(childPopulation.size(), targetPopulationSize - eliteSet.size());
     for (i = 0; i < remaining; i++) {
-      replacements.addFromChildPopulation(i);
+      replacements.chooseFromChildPopulation(i, 1);
     }
   }
 
@@ -115,11 +115,11 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
       }
     }
     while (!pq.isEmpty()) {
-      replacements.addFromParentPopulation(pq.poll());
+      replacements.chooseFromParentPopulation(pq.poll(), 1);
     }
     final int remaining = Math.min(childPopulation.size(), targetPopulationSize - eliteSet.size());
     for (i = 0; i < remaining; i++) {
-      replacements.addFromChildPopulation(i);
+      replacements.chooseFromChildPopulation(i, 1);
     }
   }
 

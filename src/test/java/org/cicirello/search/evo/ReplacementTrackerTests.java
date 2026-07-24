@@ -40,41 +40,41 @@ public class ReplacementTrackerTests {
     assertArrayEquals(new int[] {0, 0, 0, 0, 0, 0, 0, 0}, p);
     assertArrayEquals(new int[] {0, 0, 0}, c);
 
-    t.addFromChildPopulation(1);
+    t.chooseFromChildPopulation(1, 1);
     assertFalse(t.includesParents());
     assertArrayEquals(new int[] {0, 1, 0}, c);
-    t.addFromChildPopulation(0);
+    t.chooseFromChildPopulation(0, 1);
     assertFalse(t.includesParents());
     assertArrayEquals(new int[] {1, 1, 0}, c);
-    t.addFromChildPopulation(2);
+    t.chooseFromChildPopulation(2, 1);
     assertFalse(t.includesParents());
     assertArrayEquals(new int[] {1, 1, 1}, c);
-    t.addFromChildPopulation(0);
+    t.chooseFromChildPopulation(0, 2);
     assertFalse(t.includesParents());
     assertArrayEquals(new int[] {2, 1, 1}, c);
-    t.addFromChildPopulation(2);
+    t.chooseFromChildPopulation(2, 2);
     assertFalse(t.includesParents());
     assertArrayEquals(new int[] {2, 1, 2}, c);
-    t.addFromChildPopulation(0);
+    t.chooseFromChildPopulation(0, 3);
     assertFalse(t.includesParents());
     assertArrayEquals(new int[] {3, 1, 2}, c);
 
-    t.addFromParentPopulation(2);
+    t.chooseFromParentPopulation(2, 1);
     assertTrue(t.includesParents());
     assertArrayEquals(new int[] {0, 0, 1, 0, 0, 0, 0, 0}, p);
-    t.addFromParentPopulation(0);
+    t.chooseFromParentPopulation(0, 1);
     assertTrue(t.includesParents());
     assertArrayEquals(new int[] {1, 0, 1, 0, 0, 0, 0, 0}, p);
-    t.addFromParentPopulation(4);
+    t.chooseFromParentPopulation(4, 1);
     assertTrue(t.includesParents());
     assertArrayEquals(new int[] {1, 0, 1, 0, 1, 0, 0, 0}, p);
-    t.addFromParentPopulation(7);
+    t.chooseFromParentPopulation(7, 1);
     assertTrue(t.includesParents());
     assertArrayEquals(new int[] {1, 0, 1, 0, 1, 0, 0, 1}, p);
-    t.addFromParentPopulation(4);
+    t.chooseFromParentPopulation(4, 2);
     assertTrue(t.includesParents());
     assertArrayEquals(new int[] {1, 0, 1, 0, 2, 0, 0, 1}, p);
-    t.addFromParentPopulation(4);
+    t.chooseFromParentPopulation(4, 3);
     assertTrue(t.includesParents());
     assertArrayEquals(new int[] {1, 0, 1, 0, 3, 0, 0, 1}, p);
 
@@ -83,7 +83,7 @@ public class ReplacementTrackerTests {
     assertArrayEquals(new int[] {1, 0, 1, 0, 3, 0, 0, 1}, p);
     assertTrue(t.includesParents());
 
-    t.addFromChildPopulation(2);
+    t.chooseFromChildPopulation(2, 1);
     assertArrayEquals(new int[] {0, 0, 1}, c);
     assertArrayEquals(new int[] {1, 0, 1, 0, 3, 0, 0, 1}, p);
     assertTrue(t.includesParents());

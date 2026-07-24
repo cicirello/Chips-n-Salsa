@@ -103,19 +103,19 @@ public interface ReplacementStrategy<T> extends Splittable<ReplacementStrategy<T
   interface Replacements {
 
     /**
-     * Add the i-th member of the parent population to the set of replacements. You may add the same
-     * member of the population multiple times by calling this method multiple times.
+     * Add the i-th member of the parent population to the set of replacements.
      *
      * @param i index of the population member
+     * @param count the number of copies to add
      */
-    void addFromParentPopulation(int i);
+    void chooseFromParentPopulation(int i, int count);
 
     /**
-     * Add the i-th member of the parent population to the set of replacements. You may add the same
-     * member of the population multiple times by calling this method multiple times.
+     * Add the i-th member of the parent population to the set of replacements.
      *
      * @param i index of the population member
+     * @param count the number of copies to add
      */
-    void addFromChildPopulation(int i);
+    void chooseFromChildPopulation(int i, int count);
   }
 }

@@ -370,17 +370,17 @@ public class GenerationalElitistReplacementTests {
     }
 
     @Override
-    public void addFromParentPopulation(int i) {
+    public void chooseFromParentPopulation(int i, int count) {
       assertFalse(addedParents[i]);
       addedParents[i] = true;
-      count++;
+      this.count += count;
     }
 
     @Override
-    public void addFromChildPopulation(int i) {
+    public void chooseFromChildPopulation(int i, int count) {
       assertFalse(addedChildren[i]);
       addedChildren[i] = true;
-      count++;
+      this.count += count;
     }
 
     public void validate(int[] expectedP, int[] expectedC) {

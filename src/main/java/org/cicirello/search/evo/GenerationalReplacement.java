@@ -39,10 +39,7 @@ public final class GenerationalReplacement<T> implements ReplacementStrategy<T> 
       PopulationCandidates.IntegerFitness<T> childPopulation,
       Replacements replacements,
       int targetPopulationSize) {
-    final int N = Math.min(targetPopulationSize, childPopulation.size());
-    for (int i = 0; i < N; i++) {
-      replacements.addFromChildPopulation(i);
-    }
+    internalReplace(replacements, targetPopulationSize, childPopulation.size());
   }
 
   @Override
@@ -51,10 +48,7 @@ public final class GenerationalReplacement<T> implements ReplacementStrategy<T> 
       PopulationCandidates.DoubleFitness<T> childPopulation,
       Replacements replacements,
       int targetPopulationSize) {
-    final int N = Math.min(targetPopulationSize, childPopulation.size());
-    for (int i = 0; i < N; i++) {
-      replacements.addFromChildPopulation(i);
-    }
+    internalReplace(replacements, targetPopulationSize, childPopulation.size());
   }
 
   @Override
@@ -62,5 +56,18 @@ public final class GenerationalReplacement<T> implements ReplacementStrategy<T> 
     // This operator doesn't maintain state across calls, so it is safe to
     // share across threads. Thus, just return this.
     return this;
+  }
+
+  private void internalReplace(
+      Replacements replacements, final int targetPopulationSize, final int lambda) {
+    final int minCopies = targetPopulationSize / lambda;
+    final int extraCount = targetPopulationSize % lambda;
+    int i = 0;
+    for (; i < extraCount; i++) {
+      replacements.chooseFromChildPopulation(i, minCopies + 1);
+    }
+    for (; i < lambda; i++) {
+      replacements.chooseFromChildPopulation(i, minCopies);
+    }
   }
 }

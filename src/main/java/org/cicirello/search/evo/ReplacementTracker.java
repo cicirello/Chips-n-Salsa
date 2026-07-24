@@ -41,14 +41,14 @@ final class ReplacementTracker implements ReplacementStrategy.Replacements {
   }
 
   @Override
-  public void addFromParentPopulation(int i) {
-    parents[i]++;
+  public void chooseFromParentPopulation(int i, int count) {
+    parents[i] = count;
     includesParents = true;
   }
 
   @Override
-  public void addFromChildPopulation(int i) {
-    children[i]++;
+  public void chooseFromChildPopulation(int i, int count) {
+    children[i] = count;
   }
 
   boolean includesParents() {

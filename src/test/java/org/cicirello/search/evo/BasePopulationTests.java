@@ -318,16 +318,9 @@ public class BasePopulationTests extends SharedTestPopulations {
         PopulationCandidates.IntegerFitness<TestObject> childPopulation,
         Replacements replacements,
         int targetPopulationSize) {
-      replacements.addFromChildPopulation(9);
-      replacements.addFromChildPopulation(9);
-      replacements.addFromChildPopulation(9);
-      replacements.addFromChildPopulation(9);
-      replacements.addFromChildPopulation(0);
-      replacements.addFromChildPopulation(1);
-      replacements.addFromChildPopulation(1);
-      replacements.addFromChildPopulation(1);
-      replacements.addFromChildPopulation(1);
-      replacements.addFromChildPopulation(1);
+      replacements.chooseFromChildPopulation(9, 4);
+      replacements.chooseFromChildPopulation(0, 1);
+      replacements.chooseFromChildPopulation(1, 5);
     }
 
     @Override
@@ -336,16 +329,9 @@ public class BasePopulationTests extends SharedTestPopulations {
         PopulationCandidates.DoubleFitness<TestObject> childPopulation,
         Replacements replacements,
         int targetPopulationSize) {
-      replacements.addFromChildPopulation(9);
-      replacements.addFromChildPopulation(9);
-      replacements.addFromChildPopulation(9);
-      replacements.addFromChildPopulation(9);
-      replacements.addFromChildPopulation(0);
-      replacements.addFromChildPopulation(1);
-      replacements.addFromChildPopulation(1);
-      replacements.addFromChildPopulation(1);
-      replacements.addFromChildPopulation(1);
-      replacements.addFromChildPopulation(1);
+      replacements.chooseFromChildPopulation(9, 4);
+      replacements.chooseFromChildPopulation(0, 1);
+      replacements.chooseFromChildPopulation(1, 5);
     }
 
     @Override

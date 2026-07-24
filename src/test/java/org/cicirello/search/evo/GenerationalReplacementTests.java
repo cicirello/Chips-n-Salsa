@@ -77,7 +77,7 @@ public class GenerationalReplacementTests {
     int n = 10;
     CandidatesDouble parents = new CandidatesDouble(n, 1000);
     CandidatesDouble children = new CandidatesDouble(n - 1);
-    ReplacementsValidator validator = new ReplacementsValidator(n - 1, n - 1);
+    ReplacementsValidator validator = new ReplacementsValidator(n - 1, n);
     GenerationalReplacement<String> replacement = new GenerationalReplacement<String>();
     replacement.replace(parents, children, validator, n);
     validator.validate();
@@ -110,7 +110,7 @@ public class GenerationalReplacementTests {
     int n = 10;
     CandidatesInteger parents = new CandidatesInteger(n, 1000);
     CandidatesInteger children = new CandidatesInteger(n - 1);
-    ReplacementsValidator validator = new ReplacementsValidator(n - 1, n - 1);
+    ReplacementsValidator validator = new ReplacementsValidator(n - 1, n);
     GenerationalReplacement<String> replacement = new GenerationalReplacement<String>();
     replacement.replace(parents, children, validator, n);
     validator.validate();
@@ -120,32 +120,35 @@ public class GenerationalReplacementTests {
 
     private boolean[] added;
     private int count;
+    public int trueCount;
 
     public ReplacementsValidator(int n) {
       added = new boolean[n];
       count = n;
+      trueCount = 0;
     }
 
     public ReplacementsValidator(int n, int count) {
       added = new boolean[n];
       this.count = count;
+      trueCount = 0;
     }
 
     @Override
-    public void addFromParentPopulation(int i) {
+    public void chooseFromParentPopulation(int i, int count) {
       fail("generational replacement shouldn't keep originals");
     }
 
     @Override
-    public void addFromChildPopulation(int i) {
+    public void chooseFromChildPopulation(int i, int count) {
       assertFalse(added[i]);
       added[i] = true;
+      trueCount += count;
     }
 
     public void validate() {
-      int trueCount = 0;
       for (int i = 0; i < added.length; i++) {
-        if (added[i]) trueCount++;
+        assertTrue(added[i]);
       }
       assertEquals(count, trueCount);
     }

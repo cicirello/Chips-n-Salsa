@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Minor code improvements to implementations of equals methods in a few classes
 
 ### Dependencies
 

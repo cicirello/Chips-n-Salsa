@@ -30,18 +30,20 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 
 ### Fixed
 * Added missing default constructor to `org.cicirello.search.problems.tsp.EuclideanDistance` to avoid undocumented constructor.
-* Refactored ATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
-* Refactored DynamicATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
-* Refactored Mix.value(BitVector) to eLiminate dispersed coupling, detected by RefactorFirst.
-* Refactored BlockInterchangeIterator.nextBlockInsertion(), identified as a brain method by RefactorFirst.
-* Refactored an internal package (org.cicirello.search.internal) to eliminate a package cycle detected by RefactorFirst.
-* Refactored elitism logic to resolve issues identified by RefactorFirst.
-* Refactored HeuristicSolutionGenerator to eliminate intensive coupling identified by RefactorFirst.
+* Refactored a variety of methods and classes utilizing RefactorFirst report, including the following:
+  * ATCS.h() to eLiminate dispersed coupling,
+  * DynamicATCS.h() to eLiminate dispersed coupling,
+  * Mix.value(BitVector) to eLiminate dispersed coupling,
+  * BlockInterchangeIterator.nextBlockInsertion() identified as a brain method by RefactorFirst,
+  * An internal package (org.cicirello.search.internal) to eliminate a package cycle,
+  * Elitism logic to resolve issues identified by RefactorFirst,
+  * HeuristicSolutionGenerator to eliminate intensive coupling.
+* Refactored the following classes to remove deprecated Object.finalize method:
+  * OnePlusOneEvolutionaryAlgorithm,
+  * ParallelMetaheuristic,
+  * TimedParallelMutistarter,
+  * OnePlusOneEvolutionaryAlgorithm.
 * Refactored OrderCrossover and NonWrappingOrderCrossover to extract a common base class.
-* Refactored OnePlusOneEvolutionaryAlgorithm to remove deprecated Object.finalize method.
-* Refactored ParallelMetaheuristic to remove deprecated Object.finalize method.
-* Refactored TimedParallelMutistarter to remove deprecated Object.finalize method.
-* Refactored OnePlusOneEvolutionaryAlgorithm to remove deprecated Object.finalize method.
 * Refactored a variety of internal classes.
 
 ### Dependencies

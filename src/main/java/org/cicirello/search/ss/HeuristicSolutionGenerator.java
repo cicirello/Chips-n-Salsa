@@ -64,12 +64,15 @@ public class HeuristicSolutionGenerator<T extends Copyable<T>> implements Simple
     this.heuristic = heuristic;
     // default: numGenerated = 0;
     Problem<T> problem = heuristic.getProblem();
-    if (heuristic.getProblem() instanceof IntegerCostOptimizationProblem) {
-      pOptInt = (IntegerCostOptimizationProblem<T>) problem;
-      pOpt = null;
+    if (problem instanceof IntegerCostOptimizationProblem<T> casted) {
+      pOptInt = casted;
     } else {
-      pOpt = (OptimizationProblem<T>) problem;
       pOptInt = null;
+    }
+    if (problem instanceof OptimizationProblem<T> casted) {
+      pOpt = casted;
+    } else {
+      pOpt = null;
     }
   }
 

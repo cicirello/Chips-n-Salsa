@@ -54,12 +54,15 @@ abstract class AbstractStochasticSampler<T extends Copyable<T>>
   AbstractStochasticSampler(Problem<T> problem, ProgressTracker<T> tracker) {
     this.tracker = tracker;
     // default: numGenerated = 0;
-    if (problem instanceof IntegerCostOptimizationProblem) {
-      pOptInt = (IntegerCostOptimizationProblem<T>) problem;
-      pOpt = null;
+    if (problem instanceof IntegerCostOptimizationProblem<T> casted) {
+      pOptInt = casted;
     } else {
-      pOpt = (OptimizationProblem<T>) problem;
       pOptInt = null;
+    }
+    if (problem instanceof OptimizationProblem<T> casted) {
+      pOpt = casted;
+    } else {
+      pOpt = null;
     }
   }
 

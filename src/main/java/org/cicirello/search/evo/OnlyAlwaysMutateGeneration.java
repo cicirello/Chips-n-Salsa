@@ -52,13 +52,11 @@ final class OnlyAlwaysMutateGeneration<T extends Copyable<T>> implements Generat
 
   @Override
   public int apply(Population<T> pop) {
-    pop.select();
     final int count = pop.mutableSize();
     for (int j = 0; j < count; j++) {
       mutation.mutate(pop.get(j));
       pop.updateFitness(j);
     }
-    pop.replace();
     return count;
   }
 }

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -73,7 +73,7 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>>
+public final class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>>
     extends AbstractEvolutionaryAlgorithm<T> {
 
   /**
@@ -102,11 +102,8 @@ public class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>>
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        eliteCount > 0
-            ? new EvolvableParametersElitistPopulation.DoubleFitness<T>(
-                n, initializer, f, selection, tracker, eliteCount, 1)
-            : new EvolvableParametersPopulation.DoubleFitness<T>(
-                n, initializer, f, selection, tracker, 1),
+        new EvolvableParametersPopulation.DoubleFitness<T>(
+            n, initializer, f, selection, tracker, eliteCount, 1),
         f.getProblem(),
         mutation);
   }
@@ -137,11 +134,72 @@ public class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>>
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        eliteCount > 0
-            ? new EvolvableParametersElitistPopulation.IntegerFitness<T>(
-                n, initializer, f, selection, tracker, eliteCount, 1)
-            : new EvolvableParametersPopulation.IntegerFitness<T>(
-                n, initializer, f, selection, tracker, 1),
+        new EvolvableParametersPopulation.IntegerFitness<T>(
+            n, initializer, f, selection, tracker, eliteCount, 1),
+        f.getProblem(),
+        mutation);
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm. This constructor supports fitness
+   * functions with fitnesses of type double, the {@link FitnessFunction.Double} interface. This
+   * constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws NullPointerException if any of mutation, initializer, f, selection, replacement, or
+   *     tracker are null.
+   */
+  public AdaptiveMutationOnlyEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      Initializer<T> initializer,
+      FitnessFunction.Double<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement,
+      ProgressTracker<T> tracker) {
+    this(
+        new EvolvableParametersPopulation.DoubleFitness<T>(
+            n, initializer, f, selection, replacement, tracker, 1),
+        f.getProblem(),
+        mutation);
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm. This constructor supports fitness
+   * functions with fitnesses of type int, the {@link FitnessFunction.Integer} interface. This
+   * constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws NullPointerException if any of mutation, initializer, f, selection, replacement, or
+   *     tracker are null.
+   */
+  public AdaptiveMutationOnlyEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      Initializer<T> initializer,
+      FitnessFunction.Integer<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement,
+      ProgressTracker<T> tracker) {
+    this(
+        new EvolvableParametersPopulation.IntegerFitness<T>(
+            n, initializer, f, selection, replacement, tracker, 1),
         f.getProblem(),
         mutation);
   }
@@ -242,6 +300,58 @@ public class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>>
       SelectionOperator selection,
       int eliteCount) {
     this(n, mutation, initializer, f, selection, eliteCount, new ProgressTracker<T>());
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm. This constructor supports fitness
+   * functions with fitnesses of type double, the {@link FitnessFunction.Double} interface. This
+   * constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws NullPointerException if any of mutation, initializer, f, selection, or replacement, are
+   *     null.
+   */
+  public AdaptiveMutationOnlyEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      Initializer<T> initializer,
+      FitnessFunction.Double<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement) {
+    this(n, mutation, initializer, f, selection, replacement, new ProgressTracker<T>());
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm. This constructor supports fitness
+   * functions with fitnesses of type int, the {@link FitnessFunction.Integer} interface. This
+   * constructor also supports specifying the replacement strategy via the {@link
+   * ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws NullPointerException if any of mutation, initializer, f, selection, or replacement, are
+   *     null.
+   */
+  public AdaptiveMutationOnlyEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      Initializer<T> initializer,
+      FitnessFunction.Integer<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement) {
+    this(n, mutation, initializer, f, selection, replacement, new ProgressTracker<T>());
   }
 
   /**

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -51,7 +51,7 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T extends Copyable<T>>
+public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends Copyable<T>>
     extends AbstractEvolutionaryAlgorithm<T> {
 
   /**
@@ -84,7 +84,7 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
    *     tracker are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -96,10 +96,7 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        eliteCount > 0
-            ? new BaseElitistPopulation.DoubleFitness<T>(
-                n, initializer, f, selection, tracker, eliteCount)
-            : new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, tracker),
+        new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, tracker, eliteCount),
         f.getProblem(),
         mutation,
         mutationRate,
@@ -137,7 +134,7 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
    *     tracker are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -149,15 +146,208 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        eliteCount > 0
-            ? new BaseElitistPopulation.IntegerFitness<T>(
-                n, initializer, f, selection, tracker, eliteCount)
-            : new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, tracker),
+        new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, tracker, eliteCount),
         f.getProblem(),
         mutation,
         mutationRate,
         crossover,
         crossoverRate);
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover
+   * operator and a mutation operator, such that the genetic operators follow a mutually exclusive
+   * property where each population member is involved in at most one of those operations in a
+   * single generation. This constructor supports fitness functions with fitnesses of type double,
+   * the {@link FitnessFunction.Double} interface. This constructor also supports specifying the
+   * replacement strategy via the {@link ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param mutationRate The probability that a member of the population is mutated once during a
+   *     generation. Note that this is not a per-bit rate since this class is generalized to
+   *     evolution of any {@link Copyable} object type. For {@link
+   *     org.cicirello.search.representations.BitVector} optimization and traditional genetic
+   *     algorithm interpretation of mutation rate, configure your mutation operator with the
+   *     per-bit mutation rate, and then pass 1.0 for this parameter.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection,
+   *     replacement, or tracker are null.
+   */
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      double mutationRate,
+      CrossoverOperator<T> crossover,
+      double crossoverRate,
+      Initializer<T> initializer,
+      FitnessFunction.Double<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement,
+      ProgressTracker<T> tracker) {
+    this(
+        new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, replacement, tracker),
+        f.getProblem(),
+        mutation,
+        mutationRate,
+        crossover,
+        crossoverRate);
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover
+   * operator and a mutation operator, such that the genetic operators follow a mutually exclusive
+   * property where each population member is involved in at most one of those operations in a
+   * single generation. This constructor supports fitness functions with fitnesses of type int, the
+   * {@link FitnessFunction.Integer} interface. This constructor also supports specifying the
+   * replacement strategy via the {@link ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param mutationRate The probability that a member of the population is mutated once during a
+   *     generation. Note that this is not a per-bit rate since this class is generalized to
+   *     evolution of any {@link Copyable} object type. For {@link
+   *     org.cicirello.search.representations.BitVector} optimization and traditional genetic
+   *     algorithm interpretation of mutation rate, configure your mutation operator with the
+   *     per-bit mutation rate, and then pass 1.0 for this parameter.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection,
+   *     replacement, or tracker are null.
+   */
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      double mutationRate,
+      CrossoverOperator<T> crossover,
+      double crossoverRate,
+      Initializer<T> initializer,
+      FitnessFunction.Integer<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement,
+      ProgressTracker<T> tracker) {
+    this(
+        new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, replacement, tracker),
+        f.getProblem(),
+        mutation,
+        mutationRate,
+        crossover,
+        crossoverRate);
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover
+   * operator and a mutation operator, such that the genetic operators follow a mutually exclusive
+   * property where each population member is involved in at most one of those operations in a
+   * single generation. This constructor supports fitness functions with fitnesses of type double,
+   * the {@link FitnessFunction.Double} interface. This constructor also supports specifying the
+   * replacement strategy via the {@link ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param mutationRate The probability that a member of the population is mutated once during a
+   *     generation. Note that this is not a per-bit rate since this class is generalized to
+   *     evolution of any {@link Copyable} object type. For {@link
+   *     org.cicirello.search.representations.BitVector} optimization and traditional genetic
+   *     algorithm interpretation of mutation rate, configure your mutation operator with the
+   *     per-bit mutation rate, and then pass 1.0 for this parameter.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
+   *     replacement are null.
+   */
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      double mutationRate,
+      CrossoverOperator<T> crossover,
+      double crossoverRate,
+      Initializer<T> initializer,
+      FitnessFunction.Double<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement) {
+    this(
+        n,
+        mutation,
+        mutationRate,
+        crossover,
+        crossoverRate,
+        initializer,
+        f,
+        selection,
+        replacement,
+        new ProgressTracker<T>());
+  }
+
+  /**
+   * Constructs and initializes the evolutionary algorithm for an EA utilizing both a crossover
+   * operator and a mutation operator, such that the genetic operators follow a mutually exclusive
+   * property where each population member is involved in at most one of those operations in a
+   * single generation. This constructor supports fitness functions with fitnesses of type int, the
+   * {@link FitnessFunction.Integer} interface. This constructor also supports specifying the
+   * replacement strategy via the {@link ReplacementStrategy} interface.
+   *
+   * @param n The population size.
+   * @param mutation The mutation operator.
+   * @param mutationRate The probability that a member of the population is mutated once during a
+   *     generation. Note that this is not a per-bit rate since this class is generalized to
+   *     evolution of any {@link Copyable} object type. For {@link
+   *     org.cicirello.search.representations.BitVector} optimization and traditional genetic
+   *     algorithm interpretation of mutation rate, configure your mutation operator with the
+   *     per-bit mutation rate, and then pass 1.0 for this parameter.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if either mutationRate or crossoverRate are less than 0.
+   * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
+   *     replacement are null.
+   */
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
+      int n,
+      MutationOperator<T> mutation,
+      double mutationRate,
+      CrossoverOperator<T> crossover,
+      double crossoverRate,
+      Initializer<T> initializer,
+      FitnessFunction.Integer<T> f,
+      SelectionOperator selection,
+      ReplacementStrategy<T> replacement) {
+    this(
+        n,
+        mutation,
+        mutationRate,
+        crossover,
+        crossoverRate,
+        initializer,
+        f,
+        selection,
+        replacement,
+        new ProgressTracker<T>());
   }
 
   /**
@@ -187,7 +377,7 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
    *     tracker are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -228,7 +418,7 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
    *     tracker are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -271,7 +461,7 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
    * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are
    *     null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -323,7 +513,7 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
    * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are
    *     null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -372,7 +562,7 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
    * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are
    *     null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -419,7 +609,7 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
    * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are
    *     null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -445,7 +635,7 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
   /*
    * Internal helper constructor for standard EAs with full generation (both crossover and mutation).
    */
-  private GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  private GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       Population<T> pop,
       Problem<T> problem,
       MutationOperator<T> mutation,
@@ -462,13 +652,13 @@ public class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T exten
    * Internal constructor for use by split method.
    * package private so subclasses in same package can use it for initialization for their own split methods.
    */
-  GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
-      GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T> other) {
+  GenerationalDisjointOperatorsEvolutionaryAlgorithm(
+      GenerationalDisjointOperatorsEvolutionaryAlgorithm<T> other) {
     super(other);
   }
 
   @Override
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T> split() {
-    return new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T>(this);
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm<T> split() {
+    return new GenerationalDisjointOperatorsEvolutionaryAlgorithm<T>(this);
   }
 }

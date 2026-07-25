@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -149,6 +149,98 @@ public class GeneticAlgorithm extends GenerationalEvolutionaryAlgorithm<BitVecto
 
   /**
    * Initializes a genetic algorithm with a generational model where children replace the parents,
+   * using the standard bit flip mutation. All other characteristics, such as crossover operator,
+   * selection operator, or replacement strategy are configurable. This constructor supports fitness
+   * functions with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+   *
+   * @param n The population size.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if crossoverRate is less than 0.
+   * @throws NullPointerException if any of crossover, initializer, f, selection, replacement, or
+   *     tracker are null.
+   */
+  public GeneticAlgorithm(
+      int n,
+      Initializer<BitVector> initializer,
+      FitnessFunction.Double<BitVector> f,
+      double mutationRate,
+      CrossoverOperator<BitVector> crossover,
+      double crossoverRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement,
+      ProgressTracker<BitVector> tracker) {
+    super(
+        n,
+        new BitFlipMutation(mutationRate),
+        1.0,
+        crossover,
+        crossoverRate,
+        initializer,
+        f,
+        selection,
+        replacement,
+        tracker);
+  }
+
+  /**
+   * Initializes a genetic algorithm with a generational model where children replace the parents,
+   * using the standard bit flip mutation. All other characteristics, such as crossover operator,
+   * selection operator, or replacement strategy are configurable. This constructor supports fitness
+   * functions with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+   *
+   * @param n The population size.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if crossoverRate is less than 0.
+   * @throws NullPointerException if any of crossover, initializer, f, selection, replacement, or
+   *     tracker are null.
+   */
+  public GeneticAlgorithm(
+      int n,
+      Initializer<BitVector> initializer,
+      FitnessFunction.Integer<BitVector> f,
+      double mutationRate,
+      CrossoverOperator<BitVector> crossover,
+      double crossoverRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement,
+      ProgressTracker<BitVector> tracker) {
+    super(
+        n,
+        new BitFlipMutation(mutationRate),
+        1.0,
+        crossover,
+        crossoverRate,
+        initializer,
+        f,
+        selection,
+        replacement,
+        tracker);
+  }
+
+  /**
+   * Initializes a genetic algorithm with a generational model where children replace the parents,
    * using the standard bit flip mutation. All other characteristics, such as crossover operator and
    * selection operator are configurable. This constructor supports fitness functions with fitnesses
    * of type double, the {@link FitnessFunction.Double} interface.
@@ -301,6 +393,92 @@ public class GeneticAlgorithm extends GenerationalEvolutionaryAlgorithm<BitVecto
         f,
         selection,
         eliteCount);
+  }
+
+  /**
+   * Initializes a genetic algorithm with a generational model where children replace the parents,
+   * using the standard bit flip mutation. All other characteristics, such as crossover operator,
+   * selection operator, or replacement strategy are configurable. This constructor supports fitness
+   * functions with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+   *
+   * @param n The population size.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if crossoverRate is less than 0.
+   * @throws NullPointerException if any of crossover, initializer, f, selection, or replacement are
+   *     null.
+   */
+  public GeneticAlgorithm(
+      int n,
+      Initializer<BitVector> initializer,
+      FitnessFunction.Double<BitVector> f,
+      double mutationRate,
+      CrossoverOperator<BitVector> crossover,
+      double crossoverRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement) {
+    super(
+        n,
+        new BitFlipMutation(mutationRate),
+        1.0,
+        crossover,
+        crossoverRate,
+        initializer,
+        f,
+        selection,
+        replacement);
+  }
+
+  /**
+   * Initializes a genetic algorithm with a generational model where children replace the parents,
+   * using the standard bit flip mutation. All other characteristics, such as crossover operator,
+   * selection operator, or replacement strategy are configurable. This constructor supports fitness
+   * functions with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+   *
+   * @param n The population size.
+   * @param initializer An initializer for generating random initial population members.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if crossoverRate is less than 0.
+   * @throws NullPointerException if any of crossover, initializer, f, selection, or replacement are
+   *     null.
+   */
+  public GeneticAlgorithm(
+      int n,
+      Initializer<BitVector> initializer,
+      FitnessFunction.Integer<BitVector> f,
+      double mutationRate,
+      CrossoverOperator<BitVector> crossover,
+      double crossoverRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement) {
+    super(
+        n,
+        new BitFlipMutation(mutationRate),
+        1.0,
+        crossover,
+        crossoverRate,
+        initializer,
+        f,
+        selection,
+        replacement);
   }
 
   /**
@@ -463,6 +641,98 @@ public class GeneticAlgorithm extends GenerationalEvolutionaryAlgorithm<BitVecto
 
   /**
    * Initializes a genetic algorithm with a generational model where children replace the parents,
+   * using the standard bit flip mutation. All other characteristics, such as crossover operator,
+   * selection operator, and replacement strategy are configurable. This constructor supports
+   * fitness functions with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+   *
+   * @param n The population size.
+   * @param bitLength The length of each bit vector.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if crossoverRate is less than 0.
+   * @throws IllegalArgumentException if bitLength is negative
+   * @throws NullPointerException if any of crossover, f, selection, replacement, or tracker are
+   *     null.
+   */
+  public GeneticAlgorithm(
+      int n,
+      int bitLength,
+      FitnessFunction.Double<BitVector> f,
+      double mutationRate,
+      CrossoverOperator<BitVector> crossover,
+      double crossoverRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement,
+      ProgressTracker<BitVector> tracker) {
+    this(
+        n,
+        new BitVectorInitializer(bitLength),
+        f,
+        mutationRate,
+        crossover,
+        crossoverRate,
+        selection,
+        replacement,
+        tracker);
+  }
+
+  /**
+   * Initializes a genetic algorithm with a generational model where children replace the parents,
+   * using the standard bit flip mutation. All other characteristics, such as crossover operator,
+   * selection operator, and replacement strategy are configurable. This constructor supports
+   * fitness functions with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+   *
+   * @param n The population size.
+   * @param bitLength The length of each bit vector.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @param tracker A ProgressTracker.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if crossoverRate is less than 0.
+   * @throws IllegalArgumentException if bitLength is negative
+   * @throws NullPointerException if any of crossover, f, selection, replacement, or tracker are
+   *     null.
+   */
+  public GeneticAlgorithm(
+      int n,
+      int bitLength,
+      FitnessFunction.Integer<BitVector> f,
+      double mutationRate,
+      CrossoverOperator<BitVector> crossover,
+      double crossoverRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement,
+      ProgressTracker<BitVector> tracker) {
+    this(
+        n,
+        new BitVectorInitializer(bitLength),
+        f,
+        mutationRate,
+        crossover,
+        crossoverRate,
+        selection,
+        replacement,
+        tracker);
+  }
+
+  /**
+   * Initializes a genetic algorithm with a generational model where children replace the parents,
    * using the standard bit flip mutation. All other characteristics, such as crossover operator and
    * selection operator are configurable. This constructor supports fitness functions with fitnesses
    * of type double, the {@link FitnessFunction.Double} interface.
@@ -615,6 +885,90 @@ public class GeneticAlgorithm extends GenerationalEvolutionaryAlgorithm<BitVecto
         crossoverRate,
         selection,
         eliteCount);
+  }
+
+  /**
+   * Initializes a genetic algorithm with a generational model where children replace the parents,
+   * using the standard bit flip mutation. All other characteristics, such as crossover operator,
+   * selection operator, and replacement strategy are configurable. This constructor supports
+   * fitness functions with fitnesses of type double, the {@link FitnessFunction.Double} interface.
+   *
+   * @param n The population size.
+   * @param bitLength The length of each bit vector.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if crossoverRate is less than 0.
+   * @throws IllegalArgumentException if bitLength is negative
+   * @throws NullPointerException if any of crossover, f, selection, or replacement are null.
+   */
+  public GeneticAlgorithm(
+      int n,
+      int bitLength,
+      FitnessFunction.Double<BitVector> f,
+      double mutationRate,
+      CrossoverOperator<BitVector> crossover,
+      double crossoverRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement) {
+    this(
+        n,
+        new BitVectorInitializer(bitLength),
+        f,
+        mutationRate,
+        crossover,
+        crossoverRate,
+        selection,
+        replacement);
+  }
+
+  /**
+   * Initializes a genetic algorithm with a generational model where children replace the parents,
+   * using the standard bit flip mutation. All other characteristics, such as crossover operator,
+   * selection operator, and replacement strategy are configurable. This constructor supports
+   * fitness functions with fitnesses of type int, the {@link FitnessFunction.Integer} interface.
+   *
+   * @param n The population size.
+   * @param bitLength The length of each bit vector.
+   * @param f The fitness function.
+   * @param mutationRate The per-bit probability of flipping a bit. Each bit of each member of the
+   *     population is flipped with this probability, and the decisions to flip bits are
+   *     independent.
+   * @param crossover The crossover operator.
+   * @param crossoverRate The probability that a pair of parents undergo crossover.
+   * @param selection The selection operator.
+   * @param replacement The replacement strategy.
+   * @throws IllegalArgumentException if n is less than 1.
+   * @throws IllegalArgumentException if mutationRate &le; 0 or if mutationRate &ge; 1.
+   * @throws IllegalArgumentException if crossoverRate is less than 0.
+   * @throws IllegalArgumentException if bitLength is negative
+   * @throws NullPointerException if any of crossover, f, selection, or replacement are null.
+   */
+  public GeneticAlgorithm(
+      int n,
+      int bitLength,
+      FitnessFunction.Integer<BitVector> f,
+      double mutationRate,
+      CrossoverOperator<BitVector> crossover,
+      double crossoverRate,
+      SelectionOperator selection,
+      ReplacementStrategy<BitVector> replacement) {
+    this(
+        n,
+        new BitVectorInitializer(bitLength),
+        f,
+        mutationRate,
+        crossover,
+        crossoverRate,
+        selection,
+        replacement);
   }
 
   /**

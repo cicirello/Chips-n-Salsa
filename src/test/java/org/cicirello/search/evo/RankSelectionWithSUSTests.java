@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -164,7 +164,7 @@ public class RankSelectionWithSUSTests extends SharedTestSelectionOperators {
   }
 
   private void validateExpectedCountsSUSWithRanks(
-      StochasticUniversalSampling selection, PopulationFitnessVector.Integer pf) {
+      StochasticUniversalSampling selection, PopulationFitnessVector.IntegerFitness pf) {
     int[] selected = new int[pf.size()];
     selection.select(pf, selected);
     int[] expectedMin = new int[pf.size()];
@@ -196,7 +196,7 @@ public class RankSelectionWithSUSTests extends SharedTestSelectionOperators {
   }
 
   private void validateExpectedCountsSUSWithRanks(
-      StochasticUniversalSampling selection, PopulationFitnessVector.Double pf) {
+      StochasticUniversalSampling selection, PopulationFitnessVector.DoubleFitness pf) {
     int[] selected = new int[pf.size()];
     selection.select(pf, selected);
     int[] expectedMin = new int[pf.size()];

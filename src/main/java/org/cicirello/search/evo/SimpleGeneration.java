@@ -80,10 +80,10 @@ final class SimpleGeneration<T extends Copyable<T>> implements Generation<T> {
 
   @Override
   public int apply(Population<T> pop) {
-    pop.select();
-    // Since select() above randomizes ordering, just use a binomial
-    // to get count of number of pairs of parents to cross and cross the first
-    // count pairs of parents. Pair up parents with indexes: first and (first + count).
+    // The select() that comes before this method randomizes ordering.
+    // Thus, just use a binomial to get count of number of pairs of parents
+    // to cross and cross the first count pairs of parents. Pair up parents
+    // with indexes: first and (first + count).
     final int count = generator.nextBinomial(pop.mutableSize() >> 1, C);
     for (int first = 0; first < count; first++) {
       int second = first + count;
@@ -97,7 +97,6 @@ final class SimpleGeneration<T extends Copyable<T>> implements Generation<T> {
       mutation.mutate(pop.get(operateOnThese[j]));
       pop.updateFitness(operateOnThese[j]);
     }
-    pop.replace();
     return (count << 1) + operateOnThese.length;
   }
 }

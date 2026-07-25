@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -70,13 +70,13 @@ public final class ExponentialRankSelection extends AbstractRouletteWheelSelecti
   }
 
   @Override
-  final double[] computeWeightRunningSum(PopulationFitnessVector.Integer fitnesses) {
+  final double[] computeWeightRunningSum(PopulationFitnessVector.IntegerFitness fitnesses) {
     return computeWeightRunningSumRanks(
         sortedIndexes(fitnesses), r -> Math.pow(c, fitnesses.size() - r - 1));
   }
 
   @Override
-  final double[] computeWeightRunningSum(PopulationFitnessVector.Double fitnesses) {
+  final double[] computeWeightRunningSum(PopulationFitnessVector.DoubleFitness fitnesses) {
     return computeWeightRunningSumRanks(
         sortedIndexes(fitnesses), r -> Math.pow(c, fitnesses.size() - r - 1));
   }

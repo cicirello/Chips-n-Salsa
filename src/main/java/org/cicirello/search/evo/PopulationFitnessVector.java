@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -41,7 +41,7 @@ public interface PopulationFitnessVector {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  interface Integer extends PopulationFitnessVector {
+  interface IntegerFitness extends PopulationFitnessVector {
 
     /**
      * Gets the fitness of a population member.
@@ -49,16 +49,16 @@ public interface PopulationFitnessVector {
      * @param i The index into the population, which must be in the interval [0, size()).
      * @return the fitness of population member i.
      */
-    int getFitness(int i);
+    int fitness(int i);
 
     /**
-     * Creates a PopulationFitnessVector.Integer wrapping a primitive int array.
+     * Creates a PopulationFitnessVector.IntegerFitness wrapping a primitive int array.
      *
      * @param f The int array to wrap, returned object holds a reference to f and does not clone it.
-     * @return a PopulationFitnessVector.Integer wrapping f
+     * @return a PopulationFitnessVector.IntegerFitness wrapping f
      */
-    static PopulationFitnessVector.Integer of(int[] f) {
-      class IntegerArrayAsFitnessVector implements PopulationFitnessVector.Integer {
+    static PopulationFitnessVector.IntegerFitness of(int[] f) {
+      class IntegerArrayAsFitnessVector implements PopulationFitnessVector.IntegerFitness {
         private final int[] f;
 
         public IntegerArrayAsFitnessVector(int[] f) {
@@ -71,7 +71,7 @@ public interface PopulationFitnessVector {
         }
 
         @Override
-        public int getFitness(int i) {
+        public int fitness(int i) {
           return f[i];
         }
       }
@@ -80,20 +80,20 @@ public interface PopulationFitnessVector {
     }
 
     /**
-     * Creates a new array of ints containing the elements of this PopulationFitnessVector.Integer.
+     * Creates a new array of ints containing the fitnesses of this PopulationFitnessVector.Integer.
      *
      * @return an array of ints
      */
     default int[] toIntArray() {
       int[] f = new int[size()];
       for (int i = 0; i < f.length; i++) {
-        f[i] = getFitness(i);
+        f[i] = fitness(i);
       }
       return f;
     }
 
     /**
-     * Creates a new array of doubles containing the elements of this
+     * Creates a new array of doubles containing the fitnesses of this
      * PopulationFitnessVector.Integer.
      *
      * @return an array of doubles
@@ -101,7 +101,7 @@ public interface PopulationFitnessVector {
     default double[] toDoubleArray() {
       double[] f = new double[size()];
       for (int i = 0; i < f.length; i++) {
-        f[i] = getFitness(i);
+        f[i] = fitness(i);
       }
       return f;
     }
@@ -113,7 +113,7 @@ public interface PopulationFitnessVector {
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
    *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
    */
-  interface Double extends PopulationFitnessVector {
+  interface DoubleFitness extends PopulationFitnessVector {
 
     /**
      * Gets the fitness of a population member.
@@ -121,17 +121,17 @@ public interface PopulationFitnessVector {
      * @param i The index into the population, which must be in the interval [0, size()).
      * @return the fitness of population member i.
      */
-    double getFitness(int i);
+    double fitness(int i);
 
     /**
-     * Creates a PopulationFitnessVector.Double wrapping a primitive double array.
+     * Creates a PopulationFitnessVector.DoubleFitness wrapping a primitive double array.
      *
      * @param f The double array to wrap, returned object holds a reference to f and does not clone
      *     it.
-     * @return a PopulationFitnessVector.Double wrapping f
+     * @return a PopulationFitnessVector.DoubleFitness wrapping f
      */
-    static PopulationFitnessVector.Double of(double[] f) {
-      class DoubleArrayAsFitnessVector implements PopulationFitnessVector.Double {
+    static PopulationFitnessVector.DoubleFitness of(double[] f) {
+      class DoubleArrayAsFitnessVector implements PopulationFitnessVector.DoubleFitness {
         private final double[] f;
 
         public DoubleArrayAsFitnessVector(double[] f) {
@@ -144,7 +144,7 @@ public interface PopulationFitnessVector {
         }
 
         @Override
-        public double getFitness(int i) {
+        public double fitness(int i) {
           return f[i];
         }
       }
@@ -153,7 +153,7 @@ public interface PopulationFitnessVector {
     }
 
     /**
-     * Creates a new array of doubles containing the elements of this
+     * Creates a new array of doubles containing the fitnesses of this
      * PopulationFitnessVector.Double.
      *
      * @return an array of doubles
@@ -161,7 +161,7 @@ public interface PopulationFitnessVector {
     default double[] toDoubleArray() {
       double[] d = new double[size()];
       for (int i = 0; i < d.length; i++) {
-        d[i] = getFitness(i);
+        d[i] = fitness(i);
       }
       return d;
     }

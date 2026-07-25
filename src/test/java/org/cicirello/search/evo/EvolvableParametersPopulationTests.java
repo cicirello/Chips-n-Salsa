@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -40,6 +40,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
+                    0,
                     2));
     thrown =
         assertThrows(
@@ -51,6 +52,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
                     null,
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
+                    0,
                     2));
     thrown =
         assertThrows(
@@ -62,6 +64,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     null,
                     new ProgressTracker<TestObject>(),
+                    0,
                     2));
     thrown =
         assertThrows(
@@ -73,6 +76,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
                     null,
+                    0,
                     2));
 
     thrown =
@@ -85,6 +89,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
+                    0,
                     2));
     thrown =
         assertThrows(
@@ -96,6 +101,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
                     null,
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
+                    0,
                     2));
     thrown =
         assertThrows(
@@ -107,6 +113,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     null,
                     new ProgressTracker<TestObject>(),
+                    0,
                     2));
     thrown =
         assertThrows(
@@ -118,6 +125,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
                     null,
+                    0,
                     2));
 
     IllegalArgumentException thrown2 =
@@ -130,6 +138,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
+                    0,
                     2));
     thrown2 =
         assertThrows(
@@ -141,6 +150,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
+                    0,
                     2));
   }
 
@@ -152,7 +162,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     TestFitnessDouble f = new TestFitnessDouble();
     EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
         new EvolvableParametersPopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 2);
+            10, new TestInitializer(), f, selection, tracker, 0, 2);
     pop.init();
     pop.select();
     boolean allSame0 = true;
@@ -180,7 +190,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
 
     pop =
         new EvolvableParametersPopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 1);
+            10, new TestInitializer(), f, selection, tracker, 0, 1);
     pop.init();
     pop.select();
     allSame0 = true;
@@ -205,7 +215,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     TestFitnessInteger f = new TestFitnessInteger();
     EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
         new EvolvableParametersPopulation.IntegerFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 2);
+            10, new TestInitializer(), f, selection, tracker, 0, 2);
     pop.init();
     pop.select();
     boolean allSame0 = true;
@@ -233,7 +243,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
 
     pop =
         new EvolvableParametersPopulation.IntegerFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 1);
+            10, new TestInitializer(), f, selection, tracker, 0, 1);
     pop.init();
     pop.select();
     allSame0 = true;
@@ -258,7 +268,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     TestFitnessDouble f = new TestFitnessDouble();
     EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
         new EvolvableParametersPopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 2);
+            10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifyDouble(
         pop,
         f,
@@ -280,7 +290,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     TestFitnessDouble f = new TestFitnessDouble();
     EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
         new EvolvableParametersPopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 2);
+            10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifySelectCopies(pop);
   }
 
@@ -292,7 +302,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
     EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
         new EvolvableParametersPopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 2);
+            10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifyDoubleWithIntCost(
         pop,
         f,
@@ -310,7 +320,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
     EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
         new EvolvableParametersPopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 2);
+            10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifySelectCopies(pop);
   }
 
@@ -322,7 +332,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     TestFitnessInteger f = new TestFitnessInteger();
     EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
         new EvolvableParametersPopulation.IntegerFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 2);
+            10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifyInteger(
         pop,
         f,
@@ -344,7 +354,7 @@ public class EvolvableParametersPopulationTests extends SharedTestPopulations {
     TestFitnessInteger f = new TestFitnessInteger();
     EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
         new EvolvableParametersPopulation.IntegerFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 2);
+            10, new TestInitializer(), f, selection, tracker, 0, 2);
     verifySelectCopies(pop);
   }
 }

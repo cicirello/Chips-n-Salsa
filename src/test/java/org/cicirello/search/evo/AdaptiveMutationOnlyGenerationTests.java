@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -43,14 +43,16 @@ public class AdaptiveMutationOnlyGenerationTests {
     final int N = 20;
     EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
         new EvolvableParametersPopulation.IntegerFitness<TestObject>(
-            N, init, f, selection, tracker, 1);
+            N, init, f, selection, tracker, 0, 1);
     pop.init();
 
     TestMutation mutation = new TestMutation();
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -72,14 +74,16 @@ public class AdaptiveMutationOnlyGenerationTests {
     final int N = 20;
     EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
         new EvolvableParametersPopulation.DoubleFitness<TestObject>(
-            N, init, f, selection, tracker, 1);
+            N, init, f, selection, tracker, 0, 1);
     pop.init();
 
     TestMutation mutation = new TestMutation();
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -101,14 +105,16 @@ public class AdaptiveMutationOnlyGenerationTests {
     final int N = 20;
     EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
         new EvolvableParametersPopulation.IntegerFitness<TestObject>(
-            N, init, f, selection, tracker, 1);
+            N, init, f, selection, tracker, 0, 1);
     pop.init();
 
     TestMutation mutation = new TestMutation();
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation).split();
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
   }
@@ -120,8 +126,8 @@ public class AdaptiveMutationOnlyGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersElitistPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
             N + 1, init, f, selection, tracker, 1, 1);
     pop.init();
 
@@ -129,7 +135,9 @@ public class AdaptiveMutationOnlyGenerationTests {
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -149,8 +157,8 @@ public class AdaptiveMutationOnlyGenerationTests {
     TestFitnessDouble f = new TestFitnessDouble();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersElitistPopulation.DoubleFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.DoubleFitness<TestObject>(
+    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
             N + 1, init, f, selection, tracker, 1, 1);
     pop.init();
 
@@ -158,7 +166,9 @@ public class AdaptiveMutationOnlyGenerationTests {
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
     assertNotEquals(0, fitnessEvals);
@@ -178,8 +188,8 @@ public class AdaptiveMutationOnlyGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersElitistPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersElitistPopulation.IntegerFitness<TestObject>(
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
             N + 1, init, f, selection, tracker, 1, 1);
     pop.init();
 
@@ -187,7 +197,9 @@ public class AdaptiveMutationOnlyGenerationTests {
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation).split();
+    pop.select();
     int fitnessEvals = ag.apply(pop);
+    pop.replace();
     assertEquals(mutation.count, fitnessEvals);
     assertNotEquals(2 * N, fitnessEvals);
   }
@@ -202,7 +214,7 @@ public class AdaptiveMutationOnlyGenerationTests {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
       int next = selected.length - 1;
       for (int i = 0; i < selected.length; i++) {
         selected[i] = next;
@@ -212,7 +224,7 @@ public class AdaptiveMutationOnlyGenerationTests {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
       int next = selected.length - 1;
       for (int i = 0; i < selected.length; i++) {
         selected[i] = next;

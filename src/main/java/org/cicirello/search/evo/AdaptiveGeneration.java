@@ -69,14 +69,13 @@ final class AdaptiveGeneration<T extends Copyable<T>> implements Generation<T> {
 
   @Override
   public int apply(Population<T> pop) {
-    pop.select();
-    // Since select() above randomizes ordering, consecutive pairs are random
-    // and can be used as parents.
+    // The select() that comes before this method randomizes ordering.
+    // Thus, consecutive pairs are random and can be used as parents.
     final int LAMBDA = pop.mutableSize();
     int count = 0;
     for (int second = 1; second < LAMBDA; second += 2) {
       int first = second - 1;
-      if (generator.nextDouble() < pop.getParameter(first, 0).get()) {
+      if (generator.nextDouble() < pop.getParameter(first, 1).get()) {
         crossover.cross(pop.get(first), pop.get(second));
         pop.updateFitness(first);
         pop.updateFitness(second);
@@ -84,13 +83,12 @@ final class AdaptiveGeneration<T extends Copyable<T>> implements Generation<T> {
       }
     }
     for (int j = 0; j < LAMBDA; j++) {
-      if (generator.nextDouble() < pop.getParameter(j, 1).get()) {
+      if (generator.nextDouble() < pop.getParameter(j, 0).get()) {
         mutation.mutate(pop.get(j));
         pop.updateFitness(j);
         count++;
       }
     }
-    pop.replace();
     return count;
   }
 }

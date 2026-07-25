@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -34,8 +34,7 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-interface Population<T extends Copyable<T>>
-    extends Splittable<Population<T>>, PopulationFitnessVector {
+interface Population<T extends Copyable<T>> extends Splittable<Population<T>> {
 
   /**
    * Gets a candidate solution subject to genetic operators during the current generation.
@@ -47,18 +46,21 @@ interface Population<T extends Copyable<T>>
   T get(int i);
 
   /**
-   * Optional method that should be implemented by Population classes that evolve control parameters
-   * along with the solution. Gets a parameter value from a member of the population.
+   * Gets a parameter value from a member of the population.
    *
    * @param indexPop Index into the population.
    * @param indexParam Index into the parameters of that population member.
-   * @throws UnsupportedOperationException by default. You must override to support adaptive control
+   * @throws UnsupportedOperationException if the population member doesn't encode control
    *     parameters.
    */
-  default SingleReal getParameter(int indexPop, int indexParam) {
-    throw new UnsupportedOperationException(
-        "This population class doesn't encode control parameters.");
-  }
+  SingleReal getParameter(int indexPop, int indexParam);
+
+  /**
+   * Gets the size of the population.
+   *
+   * @return the size of the population.
+   */
+  int size();
 
   /**
    * Gets the number of candidate solutions subject to genetic operators.

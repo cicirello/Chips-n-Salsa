@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -45,7 +45,7 @@ public interface SelectionOperator extends Splittable<SelectionOperator> {
    *     members of the population based on fitnesses, populating selected with the indexes of the
    *     chosen members. Note that selected.length may be different than the fitnesses.size().
    */
-  void select(PopulationFitnessVector.Integer fitnesses, int[] selected);
+  void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected);
 
   /**
    * Selects a set of members of the population based on fitness. Implementations should ensure that
@@ -61,7 +61,7 @@ public interface SelectionOperator extends Splittable<SelectionOperator> {
    *     members of the population based on fitnesses, populating selected with the indexes of the
    *     chosen members. Note that selected.length may be different than the fitnesses.size().
    */
-  void select(PopulationFitnessVector.Double fitnesses, int[] selected);
+  void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected);
 
   /**
    * Perform any initialization necessary for the selection operator at the start of the run of the

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -180,7 +180,7 @@ public class MutationOnlyGATests {
                     new InverseCostFitnessFunction<BitVector>(problem),
                     M,
                     new FitnessShifter(new FitnessProportionalSelection()),
-                    null));
+                    (ProgressTracker<BitVector>) null));
   }
 
   @Test
@@ -329,7 +329,7 @@ public class MutationOnlyGATests {
                     new NegativeIntegerCostFitnessFunction<BitVector>(problem),
                     M,
                     new FitnessShifter(new FitnessProportionalSelection()),
-                    null));
+                    (ProgressTracker<BitVector>) null));
   }
 
   // With Initializer but no ProgressTracker
@@ -654,7 +654,7 @@ public class MutationOnlyGATests {
                     new InverseCostFitnessFunction<BitVector>(problem),
                     M,
                     new FitnessShifter(new FitnessProportionalSelection()),
-                    null));
+                    (ProgressTracker<BitVector>) null));
   }
 
   @Test
@@ -736,7 +736,7 @@ public class MutationOnlyGATests {
                     new NegativeIntegerCostFitnessFunction<BitVector>(problem),
                     M,
                     new FitnessShifter(new FitnessProportionalSelection()),
-                    null));
+                    (ProgressTracker<BitVector>) null));
   }
 
   // With bitLength but no ProgressTracker

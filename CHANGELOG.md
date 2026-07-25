@@ -4,18 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-07-15
+## [Unreleased] - 2026-07-24
 
 __BREAKING CHANGES: Next release will be 8.0.0.__
 
 ### Added
+* ReplacementStrategy interface for specifying replacement strategies, and two implementations:
+  * GenerationalReplacement: the common generational replacement where original population is replaced by offspring each generation.
+  * GenerationalElitistReplacement: the same as the above but with elitism where a given number of the current most fit survive unaltered.
+* Constructors added to the following classes to enable customizing the replacement strategy via the new ReplacementStrategy interface: GenerationalEvolutionaryAlgorithm, GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators, GenerationalMutationOnlyEvolutionaryAlgorithm, GeneticAlgorithm, MutationOnlyGeneticAlgorithm, AdaptiveEvolutionaryAlgorithm, and AdaptiveMutationOnlyEvolutionaryAlgorithm.
 
 ### Changed (BREAKING)
+* Renamed GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators class to GenerationalDisjointOperatorsEvolutionaryAlgorithm for naming consistency with other classes in the library.
+* Renamed nested interfaces of the PopulationFitnessVector interface to eliminate naming clash with Java Integer and Double classes.
+* Renamed the getFitness method of the nested interfaces of PopulationFitnessVector to fitness for naming consistency.
 * Refactored all the constructive scheduling heuristics and single machine scheduling problems:
   * To remove the getInstanceData() method from the SingleMachineSchedulingProblem interface, and
   * To require passing an instance of SingleMachineSchedulingProblemData, in addition to the SingleMachineSchedulingProblem, to the constructive scheduling heuristics.
 * Refactored RandomValueChangeMutation and UndoableRandomValueChangeMutation to remove inheritance relationship.
-* Refactored BoundMax problem, such that (a) it still implements the Initializer interface, but (b) it no longer extends IntegerVectorInitializer (very minor breaking change as it is unlikely anyone was relying on that inheritance relationship).
+* Refactored BoundMax problem, such that (a) it still implements the Initializer interface, but (b) it no longer extends IntegerVectorInitializer (very minor breaking change as it is unlikely anyone is relying on that inheritance relationship).
 
 ### Deprecated
 
@@ -23,18 +30,21 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 
 ### Fixed
 * Added missing default constructor to `org.cicirello.search.problems.tsp.EuclideanDistance` to avoid undocumented constructor.
-* Refactored ATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
-* Refactored DynamicATCS.h() to eLiminate dispersed coupling, detected by RefactorFirst.
-* Refactored Mix.value(BitVector) to eLiminate dispersed coupling, detected by RefactorFirst.
-* Refactored BlockInterchangeIterator.nextBlockInsertion(), identified as a brain method by RefactorFirst.
-* Refactored an internal package (org.cicirello.search.internal) to eliminate a package cycle detected by RefactorFirst.
-* Refactored elitism logic to resolve issues identified by RefactorFirst.
-* Refactored HeuristicSolutionGenerator to eliminate intensive coupling identified by RefactorFirst.
+* Refactored a variety of methods and classes utilizing RefactorFirst report, including the following:
+  * ATCS.h() to eLiminate dispersed coupling,
+  * DynamicATCS.h() to eLiminate dispersed coupling,
+  * Mix.value(BitVector) to eLiminate dispersed coupling,
+  * BlockInterchangeIterator.nextBlockInsertion() identified as a brain method by RefactorFirst,
+  * An internal package (org.cicirello.search.internal) to eliminate a package cycle,
+  * Elitism logic to resolve issues identified by RefactorFirst,
+  * HeuristicSolutionGenerator to eliminate intensive coupling.
+* Refactored the following classes to remove deprecated Object.finalize method:
+  * OnePlusOneEvolutionaryAlgorithm,
+  * ParallelMetaheuristic,
+  * TimedParallelMutistarter,
+  * OnePlusOneEvolutionaryAlgorithm.
 * Refactored OrderCrossover and NonWrappingOrderCrossover to extract a common base class.
-* Refactored OnePlusOneEvolutionaryAlgorithm to remove deprecated Object.finalize method.
-* Refactored ParallelMetaheuristic to remove deprecated Object.finalize method.
-* Refactored TimedParallelMutistarter to remove deprecated Object.finalize method.
-* Refactored OnePlusOneEvolutionaryAlgorithm to remove deprecated Object.finalize method.
+* Refactored a variety of internal classes.
 
 ### Dependencies
 * Bumped minimum supported Java to Java 25 (BREAKING CHANGE)

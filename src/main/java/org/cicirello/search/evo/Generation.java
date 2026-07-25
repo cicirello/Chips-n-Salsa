@@ -33,8 +33,9 @@ import org.cicirello.util.Copyable;
 interface Generation<T extends Copyable<T>> extends Splittable<Generation<T>> {
 
   /**
-   * Executes one full generation of an EA, which must include beginning with a call to pop.select()
-   * and ending with a call to pop.replace().
+   * Executes one full generation of an EA. The caller is in charge of calling pop.select() prior to
+   * calling apply, and the caller is also in charge of calling pop.replace() after the call from
+   * apply returns.
    *
    * @param pop The population undergoing evolution
    * @return The total number of fitness evaluations during the generation.

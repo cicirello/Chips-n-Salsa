@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -79,13 +79,15 @@ public final class SigmaScaling implements SelectionOperator {
   }
 
   @Override
-  public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
-    selection.select(PopulationFitnessVector.Double.of(scale(fitnesses.toDoubleArray())), selected);
+  public void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
+    selection.select(
+        PopulationFitnessVector.DoubleFitness.of(scale(fitnesses.toDoubleArray())), selected);
   }
 
   @Override
-  public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
-    selection.select(PopulationFitnessVector.Double.of(scale(fitnesses.toDoubleArray())), selected);
+  public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
+    selection.select(
+        PopulationFitnessVector.DoubleFitness.of(scale(fitnesses.toDoubleArray())), selected);
   }
 
   @Override

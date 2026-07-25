@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -33,7 +33,7 @@ import org.junit.jupiter.api.*;
 /** JUnit test cases for adaptive EAs with mutation-only. */
 public class AdaptiveMutationOnlyEvolutionaryAlgorithmTests {
 
-  // all params
+  // all params except for ReplacementStrategy
 
   @Test
   public void testAdaptiveEA_Double_All() {
@@ -73,7 +73,49 @@ public class AdaptiveMutationOnlyEvolutionaryAlgorithmTests {
     assertNotNull(s.optimize(5));
   }
 
-  // no tracker
+  // all params except for elitism
+
+  @Test
+  public void testAdaptiveEA_Double_All_Replacement() {
+    TestObject.reinit();
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestSelectionOp selection = new TestSelectionOp();
+    ReplacementStrategy<TestObject> replacement = new GenerationalReplacement<TestObject>();
+    TestFitnessDouble f = new TestFitnessDouble();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    final int N = 20;
+
+    AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject> ea =
+        new AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject>(
+            N, mutation, initializer, f, selection, replacement, tracker);
+    assertNotNull(ea.optimize(5));
+
+    AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject> s = ea.split();
+    assertNotNull(s.optimize(5));
+  }
+
+  @Test
+  public void testAdaptiveEA_Integer_All_Replacement() {
+    TestObject.reinit();
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestSelectionOp selection = new TestSelectionOp();
+    ReplacementStrategy<TestObject> replacement = new GenerationalReplacement<TestObject>();
+    TestFitnessInteger f = new TestFitnessInteger();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    final int N = 20;
+
+    AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject> ea =
+        new AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject>(
+            N, mutation, initializer, f, selection, replacement, tracker);
+    assertNotNull(ea.optimize(5));
+
+    AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject> s = ea.split();
+    assertNotNull(s.optimize(5));
+  }
+
+  // no tracker and no replacement
 
   @Test
   public void testAdaptiveEA_Double_NoTracker() {
@@ -105,6 +147,46 @@ public class AdaptiveMutationOnlyEvolutionaryAlgorithmTests {
     AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject> ea =
         new AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject>(
             N, mutation, initializer, f, selection, 1);
+    assertNotNull(ea.optimize(5));
+
+    AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject> s = ea.split();
+    assertNotNull(s.optimize(5));
+  }
+
+  // no tracker and no elitism
+
+  @Test
+  public void testAdaptiveEA_Double_Replacement_NoTracker() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    ReplacementStrategy<TestObject> replacement = new GenerationalReplacement<TestObject>();
+    TestFitnessDouble f = new TestFitnessDouble();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    final int N = 20;
+
+    AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject> ea =
+        new AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject>(
+            N, mutation, initializer, f, selection, replacement);
+    assertNotNull(ea.optimize(5));
+
+    AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject> s = ea.split();
+    assertNotNull(s.optimize(5));
+  }
+
+  @Test
+  public void testAdaptiveEA_Integer_Replacement_NoTracker() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    ReplacementStrategy<TestObject> replacement = new GenerationalReplacement<TestObject>();
+    TestFitnessInteger f = new TestFitnessInteger();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    final int N = 20;
+
+    AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject> ea =
+        new AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject>(
+            N, mutation, initializer, f, selection, replacement);
     assertNotNull(ea.optimize(5));
 
     AdaptiveMutationOnlyEvolutionaryAlgorithm<TestObject> s = ea.split();
@@ -221,7 +303,7 @@ public class AdaptiveMutationOnlyEvolutionaryAlgorithmTests {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
       int next = selected.length - 1;
       for (int i = 0; i < selected.length; i++) {
         selected[i] = next;
@@ -231,7 +313,7 @@ public class AdaptiveMutationOnlyEvolutionaryAlgorithmTests {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
       int next = selected.length - 1;
       for (int i = 0; i < selected.length; i++) {
         selected[i] = next;

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -34,7 +34,7 @@ import org.junit.jupiter.api.*;
 
 /**
  * JUnit test cases for GenerationalEvolutionaryAlgorithm,
- * GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators, and
+ * GenerationalDisjointOperatorsEvolutionaryAlgorithm, and
  * GenerationalMutationOnlyEvolutionaryAlgorithm, cases with constructors without ProgressTracker
  * parameter.
  */
@@ -120,7 +120,7 @@ public class GenerationalEANoPTTests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     null,
                     0.5,
@@ -133,7 +133,7 @@ public class GenerationalEANoPTTests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     null,
                     0.5,
@@ -146,7 +146,7 @@ public class GenerationalEANoPTTests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     0.5,
@@ -159,7 +159,7 @@ public class GenerationalEANoPTTests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     0.5,
@@ -168,6 +168,64 @@ public class GenerationalEANoPTTests {
                     new TestInitializer(),
                     new TestFitnessInteger(),
                     new TestSelectionOp()));
+
+    thrownNull =
+        assertThrows(
+            NullPointerException.class,
+            () ->
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+                    5,
+                    null,
+                    0.5,
+                    new CountCrossoverCalls(),
+                    0.5,
+                    new TestInitializer(),
+                    new TestFitnessDouble(),
+                    new TestSelectionOp(),
+                    new GenerationalReplacement<TestObject>()));
+    thrownNull =
+        assertThrows(
+            NullPointerException.class,
+            () ->
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+                    5,
+                    null,
+                    0.5,
+                    new CountCrossoverCalls(),
+                    0.5,
+                    new TestInitializer(),
+                    new TestFitnessInteger(),
+                    new TestSelectionOp(),
+                    new GenerationalReplacement<TestObject>()));
+    thrownNull =
+        assertThrows(
+            NullPointerException.class,
+            () ->
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+                    5,
+                    new CountMutationCalls(),
+                    0.5,
+                    null,
+                    0.5,
+                    new TestInitializer(),
+                    new TestFitnessDouble(),
+                    new TestSelectionOp(),
+                    new GenerationalReplacement<TestObject>()));
+    thrownNull =
+        assertThrows(
+            NullPointerException.class,
+            () ->
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+                    5,
+                    new CountMutationCalls(),
+                    0.5,
+                    null,
+                    0.5,
+                    new TestInitializer(),
+                    new TestFitnessInteger(),
+                    new TestSelectionOp(),
+                    new GenerationalReplacement<TestObject>()));
+
     IllegalArgumentException thrownIllegal =
         assertThrows(
             IllegalArgumentException.class,
@@ -246,7 +304,7 @@ public class GenerationalEANoPTTests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     0.5,
@@ -259,7 +317,7 @@ public class GenerationalEANoPTTests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     1E-10,
@@ -272,7 +330,7 @@ public class GenerationalEANoPTTests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     1E-10,
@@ -285,7 +343,7 @@ public class GenerationalEANoPTTests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     -1E-10,
@@ -298,7 +356,7 @@ public class GenerationalEANoPTTests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     -1E-10,
@@ -307,6 +365,77 @@ public class GenerationalEANoPTTests {
                     new TestInitializer(),
                     new TestFitnessInteger(),
                     new TestSelectionOp()));
+
+    thrownIllegal =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+                    5,
+                    new CountMutationCalls(),
+                    0.5,
+                    new CountCrossoverCalls(),
+                    0.5 + 1E-10,
+                    new TestInitializer(),
+                    new TestFitnessInteger(),
+                    new TestSelectionOp(),
+                    new GenerationalReplacement<TestObject>()));
+    thrownIllegal =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+                    5,
+                    new CountMutationCalls(),
+                    1E-10,
+                    new CountCrossoverCalls(),
+                    -1E-10,
+                    new TestInitializer(),
+                    new TestFitnessDouble(),
+                    new TestSelectionOp(),
+                    new GenerationalReplacement<TestObject>()));
+    thrownIllegal =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+                    5,
+                    new CountMutationCalls(),
+                    1E-10,
+                    new CountCrossoverCalls(),
+                    -1E-10,
+                    new TestInitializer(),
+                    new TestFitnessInteger(),
+                    new TestSelectionOp(),
+                    new GenerationalReplacement<TestObject>()));
+    thrownIllegal =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+                    5,
+                    new CountMutationCalls(),
+                    -1E-10,
+                    new CountCrossoverCalls(),
+                    1E-10,
+                    new TestInitializer(),
+                    new TestFitnessDouble(),
+                    new TestSelectionOp(),
+                    new GenerationalReplacement<TestObject>()));
+    thrownIllegal =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+                    5,
+                    new CountMutationCalls(),
+                    -1E-10,
+                    new CountCrossoverCalls(),
+                    1E-10,
+                    new TestInitializer(),
+                    new TestFitnessInteger(),
+                    new TestSelectionOp(),
+                    new GenerationalReplacement<TestObject>()));
   }
 
   @Test
@@ -785,8 +914,8 @@ public class GenerationalEANoPTTests {
     CountCrossoverCalls crossover = new CountCrossoverCalls();
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.25, crossover, 0.25, initializer, f, selection);
 
     ProgressTracker<TestObject> tracker = ea.getProgressTracker();
@@ -811,7 +940,7 @@ public class GenerationalEANoPTTests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     int oldMutationCount = mutation.count;
@@ -883,8 +1012,8 @@ public class GenerationalEANoPTTests {
     // Deliberately odd compared to other tests.
     final int N = 101;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.5, crossover, 0.5, initializer, f, selection);
 
     ProgressTracker<TestObject> tracker = ea.getProgressTracker();
@@ -907,7 +1036,7 @@ public class GenerationalEANoPTTests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -967,8 +1096,8 @@ public class GenerationalEANoPTTests {
     // Deliberately odd compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.0, crossover, 1.0, initializer, f, selection);
 
     ProgressTracker<TestObject> tracker = ea.getProgressTracker();
@@ -992,7 +1121,7 @@ public class GenerationalEANoPTTests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -1054,8 +1183,8 @@ public class GenerationalEANoPTTests {
     // Deliberately odd compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, Math.ulp(1.0), crossover, 1.0 - Math.ulp(1.0), initializer, f, selection);
 
     ProgressTracker<TestObject> tracker = ea.getProgressTracker();
@@ -1079,7 +1208,395 @@ public class GenerationalEANoPTTests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+
+    // reoptimize
+    solution = ea.reoptimize(5);
+    assertNotNull(solution);
+    assertEquals(N, initializer.count);
+    assertEquals(8 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(8, selection.calledCount);
+    assertEquals(2, selection.initCount);
+
+    // another optimize
+    solution = ea.optimize(2);
+    assertNotNull(solution);
+    assertEquals(2 * N, initializer.count);
+    assertEquals(10 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, 2 * N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(10, selection.calledCount);
+    assertEquals(3, selection.initCount);
+
+    tracker.stop();
+    assertNull(ea.optimize(2));
+    assertNull(ea.reoptimize(2));
+    assertEquals(3, selection.initCount);
+
+    // Try the split version
+    assertEquals(0L, ea2.getTotalRunLength());
+    assertNull(ea2.optimize(2));
+    assertNull(ea2.reoptimize(2));
+    tracker.start();
+    int oldMutationCount = mutation.count;
+    int oldCrossoverCount = crossover.count;
+    int oldFCount = f.count;
+    solution = ea2.optimize(1);
+    assertEquals((long) (f.count - oldFCount), ea2.getTotalRunLength());
+    assertNotNull(solution);
+    // These should change since it should have been split.
+    assertEquals(2 * N, initializer.count);
+    assertEquals(oldMutationCount, mutation.count);
+    assertEquals(oldCrossoverCount, crossover.count);
+    // This can be shared so should increase
+    assertTrue(f.count > oldFCount);
+
+    assertEquals(3, selection.initCount);
+  }
+
+  // double fitness, mutually exclusive operators with replacement strategy
+
+  @Test
+  public void testBothOpsDoubleFitness_Mutual_R() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessDouble f = new TestFitnessDouble();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+    final int N = 100;
+
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+            N,
+            mutation,
+            0.25,
+            crossover,
+            0.25,
+            initializer,
+            f,
+            selection,
+            new GenerationalReplacement<TestObject>());
+
+    ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+    assertNotNull(tracker);
+    assertTrue(f.getProblem() == ea.getProblem());
+
+    assertEquals(0L, ea.getTotalRunLength());
+
+    assertEquals(0, selection.initCount);
+
+    // optimize
+    SolutionCostPair<TestObject> solution = ea.optimize(3);
+    assertEquals(N, initializer.count);
+    assertTrue(mutation.count > 0 && mutation.count < 3 * N);
+    assertTrue(crossover.count > 0 && crossover.count < 3 * N);
+    assertTrue(crossover.count + mutation.count > 0 && crossover.count + mutation.count < 3 * N);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(3, selection.calledCount);
+    assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
+    assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+    assertEquals(1, selection.initCount);
+
+    // split it
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+
+    // reoptimize
+    int oldMutationCount = mutation.count;
+    int oldCrossoverCount = crossover.count;
+    solution = ea.reoptimize(5);
+    assertNotNull(solution);
+    assertEquals(N, initializer.count);
+    assertTrue(mutation.count > oldMutationCount && mutation.count < 8 * N);
+    assertTrue(crossover.count > oldCrossoverCount && crossover.count < 8 * N);
+    assertTrue(
+        crossover.count + mutation.count > oldCrossoverCount + oldMutationCount
+            && crossover.count + mutation.count < 8 * N);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(8, selection.calledCount);
+    assertEquals(2, selection.initCount);
+
+    // another optimize
+    oldMutationCount = mutation.count;
+    oldCrossoverCount = crossover.count;
+    solution = ea.optimize(2);
+    assertNotNull(solution);
+    assertEquals(2 * N, initializer.count);
+    assertTrue(mutation.count > oldMutationCount && mutation.count < 10 * N);
+    assertTrue(crossover.count > oldCrossoverCount && crossover.count < 10 * N);
+    assertTrue(
+        crossover.count + mutation.count > oldCrossoverCount + oldMutationCount
+            && crossover.count + mutation.count < 10 * N);
+    assertEquals(f.count, 2 * N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(10, selection.calledCount);
+    assertEquals(3, selection.initCount);
+
+    tracker.stop();
+    assertNull(ea.optimize(2));
+    assertNull(ea.reoptimize(2));
+    assertEquals(3, selection.initCount);
+
+    // Try the split version
+    assertEquals(0L, ea2.getTotalRunLength());
+    assertNull(ea2.optimize(2));
+    assertNull(ea2.reoptimize(2));
+    tracker.start();
+    oldMutationCount = mutation.count;
+    oldCrossoverCount = crossover.count;
+    int oldFCount = f.count;
+    solution = ea2.optimize(1);
+    assertEquals((long) (f.count - oldFCount), ea2.getTotalRunLength());
+    assertNotNull(solution);
+    // These should change since it should have been split.
+    assertEquals(2 * N, initializer.count);
+    assertEquals(oldMutationCount, mutation.count);
+    assertEquals(oldCrossoverCount, crossover.count);
+    // This can be shared so should increase
+    assertTrue(f.count > oldFCount);
+
+    assertEquals(3, selection.initCount);
+  }
+
+  @Test
+  public void testBothOps_MutualSumTo1_DoubleFitness_R() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessDouble f = new TestFitnessDouble();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+
+    // Deliberately odd compared to other tests.
+    final int N = 101;
+
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+            N,
+            mutation,
+            0.5,
+            crossover,
+            0.5,
+            initializer,
+            f,
+            selection,
+            new GenerationalReplacement<TestObject>());
+
+    ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+    assertNotNull(tracker);
+    assertTrue(f.getProblem() == ea.getProblem());
+
+    assertEquals(0L, ea.getTotalRunLength());
+
+    assertEquals(0, selection.initCount);
+
+    // optimize
+    SolutionCostPair<TestObject> solution = ea.optimize(3);
+    assertEquals(N, initializer.count);
+    assertEquals(3 * N, mutation.count + crossover.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(3, selection.calledCount);
+    assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
+    assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+    assertEquals(1, selection.initCount);
+
+    // split it
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+
+    // reoptimize
+    solution = ea.reoptimize(5);
+    assertNotNull(solution);
+    assertEquals(N, initializer.count);
+    assertEquals(8 * N, mutation.count + crossover.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(8, selection.calledCount);
+    assertEquals(2, selection.initCount);
+
+    // another optimize
+    solution = ea.optimize(2);
+    assertNotNull(solution);
+    assertEquals(2 * N, initializer.count);
+    assertEquals(10 * N, mutation.count + crossover.count);
+    assertEquals(f.count, 2 * N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(10, selection.calledCount);
+    assertEquals(3, selection.initCount);
+
+    tracker.stop();
+    assertNull(ea.optimize(2));
+    assertNull(ea.reoptimize(2));
+    assertEquals(3, selection.initCount);
+
+    // Try the split version
+    assertEquals(0L, ea2.getTotalRunLength());
+    assertNull(ea2.optimize(2));
+    assertNull(ea2.reoptimize(2));
+    tracker.start();
+    int oldMutationCount = mutation.count;
+    int oldCrossoverCount = crossover.count;
+    int oldFCount = f.count;
+    solution = ea2.optimize(1);
+    assertEquals((long) (f.count - oldFCount), ea2.getTotalRunLength());
+    assertNotNull(solution);
+    // These should change since it should have been split.
+    assertEquals(2 * N, initializer.count);
+    assertEquals(oldMutationCount, mutation.count);
+    assertEquals(oldCrossoverCount, crossover.count);
+    // This can be shared so should increase
+    assertTrue(f.count > oldFCount);
+
+    assertEquals(3, selection.initCount);
+  }
+
+  @Test
+  public void testBothOps_MutualAllCross_DoubleFitness_R() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessDouble f = new TestFitnessDouble();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+
+    // Deliberately odd compared to other tests.
+    final int N = 100;
+
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+            N,
+            mutation,
+            0.0,
+            crossover,
+            1.0,
+            initializer,
+            f,
+            selection,
+            new GenerationalReplacement<TestObject>());
+
+    ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+    assertNotNull(tracker);
+    assertTrue(f.getProblem() == ea.getProblem());
+
+    assertEquals(0L, ea.getTotalRunLength());
+
+    assertEquals(0, selection.initCount);
+
+    // optimize
+    SolutionCostPair<TestObject> solution = ea.optimize(3);
+    assertEquals(N, initializer.count);
+    assertEquals(3 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(3, selection.calledCount);
+    assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
+    assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+    assertEquals(1, selection.initCount);
+
+    // split it
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+
+    // reoptimize
+    solution = ea.reoptimize(5);
+    assertNotNull(solution);
+    assertEquals(N, initializer.count);
+    assertEquals(8 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(8, selection.calledCount);
+    assertEquals(2, selection.initCount);
+
+    // another optimize
+    solution = ea.optimize(2);
+    assertNotNull(solution);
+    assertEquals(2 * N, initializer.count);
+    assertEquals(10 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, 2 * N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(10, selection.calledCount);
+    assertEquals(3, selection.initCount);
+
+    tracker.stop();
+    assertNull(ea.optimize(2));
+    assertNull(ea.reoptimize(2));
+    assertEquals(3, selection.initCount);
+
+    // Try the split version
+    assertEquals(0L, ea2.getTotalRunLength());
+    assertNull(ea2.optimize(2));
+    assertNull(ea2.reoptimize(2));
+    tracker.start();
+    int oldMutationCount = mutation.count;
+    int oldCrossoverCount = crossover.count;
+    int oldFCount = f.count;
+    solution = ea2.optimize(1);
+    assertEquals((long) (f.count - oldFCount), ea2.getTotalRunLength());
+    assertNotNull(solution);
+    // These should change since it should have been split.
+    assertEquals(2 * N, initializer.count);
+    assertEquals(oldMutationCount, mutation.count);
+    assertEquals(oldCrossoverCount, crossover.count);
+    // This can be shared so should increase
+    assertTrue(f.count > oldFCount);
+
+    assertEquals(3, selection.initCount);
+  }
+
+  @Test
+  public void testBothOps_Mutual_CNear1_DoubleFitness_R() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessDouble f = new TestFitnessDouble();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+
+    // Deliberately odd compared to other tests.
+    final int N = 100;
+
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+            N,
+            mutation,
+            Math.ulp(1.0),
+            crossover,
+            1.0 - Math.ulp(1.0),
+            initializer,
+            f,
+            selection,
+            new GenerationalReplacement<TestObject>());
+
+    ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+    assertNotNull(tracker);
+    assertTrue(f.getProblem() == ea.getProblem());
+
+    assertEquals(0L, ea.getTotalRunLength());
+
+    assertEquals(0, selection.initCount);
+
+    // optimize
+    SolutionCostPair<TestObject> solution = ea.optimize(3);
+    assertEquals(N, initializer.count);
+    assertEquals(3 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(3, selection.calledCount);
+    assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
+    assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+    assertEquals(1, selection.initCount);
+
+    // split it
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -1565,8 +2082,8 @@ public class GenerationalEANoPTTests {
     CountCrossoverCalls crossover = new CountCrossoverCalls();
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.25, crossover, 0.25, initializer, f, selection);
 
     ProgressTracker<TestObject> tracker = ea.getProgressTracker();
@@ -1591,7 +2108,7 @@ public class GenerationalEANoPTTests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     int oldMutationCount = mutation.count;
@@ -1663,8 +2180,8 @@ public class GenerationalEANoPTTests {
     // Deliberately odd compared to other tests.
     final int N = 101;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.5, crossover, 0.5, initializer, f, selection);
 
     ProgressTracker<TestObject> tracker = ea.getProgressTracker();
@@ -1687,7 +2204,7 @@ public class GenerationalEANoPTTests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -1747,8 +2264,8 @@ public class GenerationalEANoPTTests {
     // Deliberately odd compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.0, crossover, 1.0, initializer, f, selection);
 
     ProgressTracker<TestObject> tracker = ea.getProgressTracker();
@@ -1772,7 +2289,7 @@ public class GenerationalEANoPTTests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -1834,8 +2351,8 @@ public class GenerationalEANoPTTests {
     // Deliberately odd compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, Math.ulp(1.0), crossover, 1.0 - Math.ulp(1.0), initializer, f, selection);
 
     ProgressTracker<TestObject> tracker = ea.getProgressTracker();
@@ -1859,7 +2376,395 @@ public class GenerationalEANoPTTests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+
+    // reoptimize
+    solution = ea.reoptimize(5);
+    assertNotNull(solution);
+    assertEquals(N, initializer.count);
+    assertEquals(8 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(8, selection.calledCount);
+    assertEquals(2, selection.initCount);
+
+    // another optimize
+    solution = ea.optimize(2);
+    assertNotNull(solution);
+    assertEquals(2 * N, initializer.count);
+    assertEquals(10 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, 2 * N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(10, selection.calledCount);
+    assertEquals(3, selection.initCount);
+
+    tracker.stop();
+    assertNull(ea.optimize(2));
+    assertNull(ea.reoptimize(2));
+    assertEquals(3, selection.initCount);
+
+    // Try the split version
+    assertEquals(0L, ea2.getTotalRunLength());
+    assertNull(ea2.optimize(2));
+    assertNull(ea2.reoptimize(2));
+    tracker.start();
+    int oldMutationCount = mutation.count;
+    int oldCrossoverCount = crossover.count;
+    int oldFCount = f.count;
+    solution = ea2.optimize(1);
+    assertEquals((long) (f.count - oldFCount), ea2.getTotalRunLength());
+    assertNotNull(solution);
+    // These should change since it should have been split.
+    assertEquals(2 * N, initializer.count);
+    assertEquals(oldMutationCount, mutation.count);
+    assertEquals(oldCrossoverCount, crossover.count);
+    // This can be shared so should increase
+    assertTrue(f.count > oldFCount);
+
+    assertEquals(3, selection.initCount);
+  }
+
+  // int fitness, mutually exclusive operators with replacement strategy
+
+  @Test
+  public void testBothOpsIntegerFitness_Mutual_R() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessInteger f = new TestFitnessInteger();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+    final int N = 100;
+
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+            N,
+            mutation,
+            0.25,
+            crossover,
+            0.25,
+            initializer,
+            f,
+            selection,
+            new GenerationalReplacement<TestObject>());
+
+    ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+    assertNotNull(tracker);
+    assertTrue(f.getProblem() == ea.getProblem());
+
+    assertEquals(0L, ea.getTotalRunLength());
+
+    assertEquals(0, selection.initCount);
+
+    // optimize
+    SolutionCostPair<TestObject> solution = ea.optimize(3);
+    assertEquals(N, initializer.count);
+    assertTrue(mutation.count > 0 && mutation.count < 3 * N);
+    assertTrue(crossover.count > 0 && crossover.count < 3 * N);
+    assertTrue(crossover.count + mutation.count > 0 && crossover.count + mutation.count < 3 * N);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(3, selection.calledCount);
+    assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
+    assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+    assertEquals(1, selection.initCount);
+
+    // split it
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+
+    // reoptimize
+    int oldMutationCount = mutation.count;
+    int oldCrossoverCount = crossover.count;
+    solution = ea.reoptimize(5);
+    assertNotNull(solution);
+    assertEquals(N, initializer.count);
+    assertTrue(mutation.count > oldMutationCount && mutation.count < 8 * N);
+    assertTrue(crossover.count > oldCrossoverCount && crossover.count < 8 * N);
+    assertTrue(
+        crossover.count + mutation.count > oldCrossoverCount + oldMutationCount
+            && crossover.count + mutation.count < 8 * N);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(8, selection.calledCount);
+    assertEquals(2, selection.initCount);
+
+    // another optimize
+    oldMutationCount = mutation.count;
+    oldCrossoverCount = crossover.count;
+    solution = ea.optimize(2);
+    assertNotNull(solution);
+    assertEquals(2 * N, initializer.count);
+    assertTrue(mutation.count > oldMutationCount && mutation.count < 10 * N);
+    assertTrue(crossover.count > oldCrossoverCount && crossover.count < 10 * N);
+    assertTrue(
+        crossover.count + mutation.count > oldCrossoverCount + oldMutationCount
+            && crossover.count + mutation.count < 10 * N);
+    assertEquals(f.count, 2 * N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(10, selection.calledCount);
+    assertEquals(3, selection.initCount);
+
+    tracker.stop();
+    assertNull(ea.optimize(2));
+    assertNull(ea.reoptimize(2));
+    assertEquals(3, selection.initCount);
+
+    // Try the split version
+    assertEquals(0L, ea2.getTotalRunLength());
+    assertNull(ea2.optimize(2));
+    assertNull(ea2.reoptimize(2));
+    tracker.start();
+    oldMutationCount = mutation.count;
+    oldCrossoverCount = crossover.count;
+    int oldFCount = f.count;
+    solution = ea2.optimize(1);
+    assertEquals((long) (f.count - oldFCount), ea2.getTotalRunLength());
+    assertNotNull(solution);
+    // These should change since it should have been split.
+    assertEquals(2 * N, initializer.count);
+    assertEquals(oldMutationCount, mutation.count);
+    assertEquals(oldCrossoverCount, crossover.count);
+    // This can be shared so should increase
+    assertTrue(f.count > oldFCount);
+
+    assertEquals(3, selection.initCount);
+  }
+
+  @Test
+  public void testBothOps_MutualSumTo1_IntegerFitness_R() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessInteger f = new TestFitnessInteger();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+
+    // Deliberately odd compared to other tests.
+    final int N = 101;
+
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+            N,
+            mutation,
+            0.5,
+            crossover,
+            0.5,
+            initializer,
+            f,
+            selection,
+            new GenerationalReplacement<TestObject>());
+
+    ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+    assertNotNull(tracker);
+    assertTrue(f.getProblem() == ea.getProblem());
+
+    assertEquals(0L, ea.getTotalRunLength());
+
+    assertEquals(0, selection.initCount);
+
+    // optimize
+    SolutionCostPair<TestObject> solution = ea.optimize(3);
+    assertEquals(N, initializer.count);
+    assertEquals(3 * N, mutation.count + crossover.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(3, selection.calledCount);
+    assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
+    assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+    assertEquals(1, selection.initCount);
+
+    // split it
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+
+    // reoptimize
+    solution = ea.reoptimize(5);
+    assertNotNull(solution);
+    assertEquals(N, initializer.count);
+    assertEquals(8 * N, mutation.count + crossover.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(8, selection.calledCount);
+    assertEquals(2, selection.initCount);
+
+    // another optimize
+    solution = ea.optimize(2);
+    assertNotNull(solution);
+    assertEquals(2 * N, initializer.count);
+    assertEquals(10 * N, mutation.count + crossover.count);
+    assertEquals(f.count, 2 * N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(10, selection.calledCount);
+    assertEquals(3, selection.initCount);
+
+    tracker.stop();
+    assertNull(ea.optimize(2));
+    assertNull(ea.reoptimize(2));
+    assertEquals(3, selection.initCount);
+
+    // Try the split version
+    assertEquals(0L, ea2.getTotalRunLength());
+    assertNull(ea2.optimize(2));
+    assertNull(ea2.reoptimize(2));
+    tracker.start();
+    int oldMutationCount = mutation.count;
+    int oldCrossoverCount = crossover.count;
+    int oldFCount = f.count;
+    solution = ea2.optimize(1);
+    assertEquals((long) (f.count - oldFCount), ea2.getTotalRunLength());
+    assertNotNull(solution);
+    // These should change since it should have been split.
+    assertEquals(2 * N, initializer.count);
+    assertEquals(oldMutationCount, mutation.count);
+    assertEquals(oldCrossoverCount, crossover.count);
+    // This can be shared so should increase
+    assertTrue(f.count > oldFCount);
+
+    assertEquals(3, selection.initCount);
+  }
+
+  @Test
+  public void testBothOps_MutualAllCross_IntegerFitness_R() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessInteger f = new TestFitnessInteger();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+
+    // Deliberately odd compared to other tests.
+    final int N = 100;
+
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+            N,
+            mutation,
+            0.0,
+            crossover,
+            1.0,
+            initializer,
+            f,
+            selection,
+            new GenerationalReplacement<TestObject>());
+
+    ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+    assertNotNull(tracker);
+    assertTrue(f.getProblem() == ea.getProblem());
+
+    assertEquals(0L, ea.getTotalRunLength());
+
+    assertEquals(0, selection.initCount);
+
+    // optimize
+    SolutionCostPair<TestObject> solution = ea.optimize(3);
+    assertEquals(N, initializer.count);
+    assertEquals(3 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(3, selection.calledCount);
+    assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
+    assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+    assertEquals(1, selection.initCount);
+
+    // split it
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
+
+    // reoptimize
+    solution = ea.reoptimize(5);
+    assertNotNull(solution);
+    assertEquals(N, initializer.count);
+    assertEquals(8 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(8, selection.calledCount);
+    assertEquals(2, selection.initCount);
+
+    // another optimize
+    solution = ea.optimize(2);
+    assertNotNull(solution);
+    assertEquals(2 * N, initializer.count);
+    assertEquals(10 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, 2 * N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(10, selection.calledCount);
+    assertEquals(3, selection.initCount);
+
+    tracker.stop();
+    assertNull(ea.optimize(2));
+    assertNull(ea.reoptimize(2));
+    assertEquals(3, selection.initCount);
+
+    // Try the split version
+    assertEquals(0L, ea2.getTotalRunLength());
+    assertNull(ea2.optimize(2));
+    assertNull(ea2.reoptimize(2));
+    tracker.start();
+    int oldMutationCount = mutation.count;
+    int oldCrossoverCount = crossover.count;
+    int oldFCount = f.count;
+    solution = ea2.optimize(1);
+    assertEquals((long) (f.count - oldFCount), ea2.getTotalRunLength());
+    assertNotNull(solution);
+    // These should change since it should have been split.
+    assertEquals(2 * N, initializer.count);
+    assertEquals(oldMutationCount, mutation.count);
+    assertEquals(oldCrossoverCount, crossover.count);
+    // This can be shared so should increase
+    assertTrue(f.count > oldFCount);
+
+    assertEquals(3, selection.initCount);
+  }
+
+  @Test
+  public void testBothOps_Mutual_CNear1_IntegerFitness_R() {
+    TestObject.reinit();
+    TestSelectionOp selection = new TestSelectionOp();
+    TestFitnessInteger f = new TestFitnessInteger();
+    TestInitializer initializer = new TestInitializer();
+    CountMutationCalls mutation = new CountMutationCalls();
+    CountCrossoverCalls crossover = new CountCrossoverCalls();
+
+    // Deliberately odd compared to other tests.
+    final int N = 100;
+
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
+            N,
+            mutation,
+            Math.ulp(1.0),
+            crossover,
+            1.0 - Math.ulp(1.0),
+            initializer,
+            f,
+            selection,
+            new GenerationalReplacement<TestObject>());
+
+    ProgressTracker<TestObject> tracker = ea.getProgressTracker();
+    assertNotNull(tracker);
+    assertTrue(f.getProblem() == ea.getProblem());
+
+    assertEquals(0L, ea.getTotalRunLength());
+
+    assertEquals(0, selection.initCount);
+
+    // optimize
+    SolutionCostPair<TestObject> solution = ea.optimize(3);
+    assertEquals(N, initializer.count);
+    assertEquals(3 * N, crossover.count);
+    assertEquals(0, mutation.count);
+    assertEquals(f.count, N + mutation.count + crossover.count);
+    assertEquals((long) f.count, ea.getTotalRunLength());
+    assertEquals(3, selection.calledCount);
+    assertEquals(tracker.getSolutionCostPair().getSolution(), solution.getSolution());
+    assertTrue(tracker.getSolutionCostPair().getSolution() != solution.getSolution());
+    assertEquals(1, selection.initCount);
+
+    // split it
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -1962,7 +2867,7 @@ public class GenerationalEANoPTTests {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Integer fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.IntegerFitness fitnesses, int[] selected) {
       int next = selected.length - 1;
       for (int i = 0; i < selected.length; i++) {
         selected[i] = next;
@@ -1972,7 +2877,7 @@ public class GenerationalEANoPTTests {
     }
 
     @Override
-    public void select(PopulationFitnessVector.Double fitnesses, int[] selected) {
+    public void select(PopulationFitnessVector.DoubleFitness fitnesses, int[] selected) {
       int next = selected.length - 1;
       for (int i = 0; i < selected.length; i++) {
         selected[i] = next;

@@ -12,7 +12,7 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 * ReplacementStrategy interface for specifying replacement strategies, and two implementations:
   * GenerationalReplacement: the common generational replacement where original population is replaced by offspring each generation.
   * GenerationalElitistReplacement: the same as the above but with elitism where a given number of the current most fit survive unaltered.
-* Constructors added to the following classes to enable customzing the replacement strategy via the new ReplacementStrategy interface: GenerationalEvolutionaryAlgorithm, GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators, GenerationalMutationOnlyEvolutionaryAlgorithm, GeneticAlgorithm, MutationOnlyGeneticAlgorithm, AdaptiveEvolutionaryAlgorithm, and AdaptiveMutationOnlyEvolutionaryAlgorithm.
+* Constructors added to the following classes to enable customizing the replacement strategy via the new ReplacementStrategy interface: GenerationalEvolutionaryAlgorithm, GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators, GenerationalMutationOnlyEvolutionaryAlgorithm, GeneticAlgorithm, MutationOnlyGeneticAlgorithm, AdaptiveEvolutionaryAlgorithm, and AdaptiveMutationOnlyEvolutionaryAlgorithm.
 
 ### Changed (BREAKING)
 * Renamed nested interfaces of the PopulationFitnessVector interface to eliminate naming clash with Java Integer and Double classes.

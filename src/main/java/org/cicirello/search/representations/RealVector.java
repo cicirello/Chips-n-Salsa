@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -122,13 +122,10 @@ public class RealVector implements RealValued, Copyable<RealVector> {
   }
 
   private static boolean canSimpleExchange(RealVector v1, RealVector v2) {
-    if (v1 instanceof BoundedRealVector) {
-      return v2 instanceof BoundedRealVector
-          && ((BoundedRealVector) v1).sameBounds((BoundedRealVector) v2);
-    } else if (v2 instanceof BoundedRealVector) {
-      return false;
+    if (v1 instanceof BoundedRealVector casted1 && v2 instanceof BoundedRealVector casted2) {
+      return casted1.sameBounds(casted2);
     }
-    return true;
+    return !(v1 instanceof BoundedRealVector) && !(v2 instanceof BoundedRealVector);
   }
 
   /**
@@ -151,8 +148,10 @@ public class RealVector implements RealValued, Copyable<RealVector> {
    */
   @Override
   public boolean equals(Object other) {
-    if (other == null || !(other instanceof RealVector)) return false;
-    return Arrays.equals(x, ((RealVector) other).x);
+    if (other instanceof RealVector casted) {
+      return Arrays.equals(x, casted.x);
+    }
+    return false;
   }
 
   /**

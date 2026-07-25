@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -122,13 +122,10 @@ public class IntegerVector implements IntegerValued, Copyable<IntegerVector> {
   }
 
   private static boolean canSimpleExchange(IntegerVector v1, IntegerVector v2) {
-    if (v1 instanceof BoundedIntegerVector) {
-      return v2 instanceof BoundedIntegerVector
-          && ((BoundedIntegerVector) v1).sameBounds((BoundedIntegerVector) v2);
-    } else if (v2 instanceof BoundedIntegerVector) {
-      return false;
+    if (v1 instanceof BoundedIntegerVector casted1 && v2 instanceof BoundedIntegerVector casted2) {
+      return casted1.sameBounds(casted2);
     }
-    return true;
+    return !(v1 instanceof BoundedIntegerVector) && !(v2 instanceof BoundedIntegerVector);
   }
 
   /**
@@ -151,10 +148,10 @@ public class IntegerVector implements IntegerValued, Copyable<IntegerVector> {
    */
   @Override
   public boolean equals(Object other) {
-    if (other == null || !(other instanceof IntegerVector)) {
-      return false;
+    if (other instanceof IntegerVector casted) {
+      return Arrays.equals(x, casted.x);
     }
-    return Arrays.equals(x, ((IntegerVector) other).x);
+    return false;
   }
 
   /**

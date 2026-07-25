@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2022 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -123,8 +123,10 @@ public final class BoundedRealVector extends RealVector {
    */
   @Override
   public boolean equals(Object other) {
-    if (!super.equals(other) || !(other instanceof BoundedRealVector)) return false;
-    return sameBounds((BoundedRealVector) other);
+    if (other instanceof BoundedRealVector casted) {
+      return sameBounds(casted) && super.equals(other);
+    }
+    return false;
   }
 
   /**

@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -134,12 +134,10 @@ public final class SolutionCostPair<T extends Copyable<T>>
 
   @Override
   public boolean equals(Object other) {
-    if (other instanceof SolutionCostPair) {
-      @SuppressWarnings("unchecked")
-      SolutionCostPair<T> casted = (SolutionCostPair<T>) other;
+    if (other instanceof SolutionCostPair<?> casted) {
       return containsIntCost == casted.containsIntCost
           && isKnownOptimal == casted.isKnownOptimal
-          && compareTo(casted) == 0
+          && (containsIntCost ? cost - casted.cost : Double.compare(costD, casted.costD)) == 0
           && solution.equals(casted.solution);
     }
     return false;

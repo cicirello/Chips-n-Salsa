@@ -4,9 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-07-24
+## [Unreleased] - 2026-07-25
 
-__BREAKING CHANGES: Next release will be 8.0.0.__
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Dependencies
+
+### CI/CD
+
+### Other
+
+
+## [8.0.0] - 2026-07-25
+
+__INCLUDES BREAKING CHANGES: See Changed and Dependencies sections for details.__
 
 ### Added
 * ReplacementStrategy interface for specifying replacement strategies, and two implementations:
@@ -23,10 +42,6 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
   * To require passing an instance of SingleMachineSchedulingProblemData, in addition to the SingleMachineSchedulingProblem, to the constructive scheduling heuristics.
 * Refactored RandomValueChangeMutation and UndoableRandomValueChangeMutation to remove inheritance relationship.
 * Refactored BoundMax problem, such that (a) it still implements the Initializer interface, but (b) it no longer extends IntegerVectorInitializer (very minor breaking change as it is unlikely anyone is relying on that inheritance relationship).
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 * Added missing default constructor to `org.cicirello.search.problems.tsp.EuclideanDistance` to avoid undocumented constructor.
@@ -51,10 +66,6 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 * Bump org.cicirello:core from 2.7.1 to 3.0.0 (BREAKING CHANGE)
 * Bump org.cicirello:rho-mu from 4.2.1 to 5.0.1 (BREAKING CHANGE)
 * Bump org.cicirello:jpt from 6.0.1 to 7.0.0 (BREAKING CHANGE)
-
-### CI/CD
-
-### Other
 
 
 ## [7.0.2] - 2025-05-16

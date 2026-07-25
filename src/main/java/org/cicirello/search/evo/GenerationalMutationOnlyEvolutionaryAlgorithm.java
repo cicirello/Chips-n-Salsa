@@ -43,10 +43,10 @@ import org.cicirello.util.Copyable;
  * generation is formed from children that replace the parents, and such that children can be the
  * result of crossover alone, mutation alone, both crossover and mutation, or simply identical
  * copies of parents. The library also includes a variation of this generation structure in the
- * class {@link GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators}, where crossover and
- * mutation are treated as mutually exclusive operators such that a child in a generation may be the
- * result of crossover, or mutation, or an identical copy, but never the result of both crossover
- * and mutation.
+ * class {@link GenerationalDisjointOperatorsEvolutionaryAlgorithm}, where crossover and mutation
+ * are treated as mutually exclusive operators such that a child in a generation may be the result
+ * of crossover, or mutation, or an identical copy, but never the result of both crossover and
+ * mutation.
  *
  * @param <T> The type of object under optimization.
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a

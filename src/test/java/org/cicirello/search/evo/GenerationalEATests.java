@@ -34,7 +34,7 @@ import org.junit.jupiter.api.*;
 
 /**
  * JUnit test cases for GenerationalEvolutionaryAlgorithm,
- * GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators, and
+ * GenerationalDisjointOperatorsEvolutionaryAlgorithm, and
  * GenerationalMutationOnlyEvolutionaryAlgorithm.
  */
 public class GenerationalEATests {
@@ -177,7 +177,7 @@ public class GenerationalEATests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     null,
                     0.5,
@@ -191,7 +191,7 @@ public class GenerationalEATests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     null,
                     0.5,
@@ -205,7 +205,7 @@ public class GenerationalEATests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     0.5,
@@ -219,7 +219,7 @@ public class GenerationalEATests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     0.5,
@@ -234,7 +234,7 @@ public class GenerationalEATests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     null,
                     0.5,
@@ -249,7 +249,7 @@ public class GenerationalEATests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     null,
                     0.5,
@@ -264,7 +264,7 @@ public class GenerationalEATests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     0.5,
@@ -279,7 +279,7 @@ public class GenerationalEATests {
         assertThrows(
             NullPointerException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     0.5,
@@ -403,7 +403,7 @@ public class GenerationalEATests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     0.5,
@@ -417,7 +417,7 @@ public class GenerationalEATests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     1E-10,
@@ -431,7 +431,7 @@ public class GenerationalEATests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     1E-10,
@@ -445,7 +445,7 @@ public class GenerationalEATests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     -1E-10,
@@ -459,7 +459,7 @@ public class GenerationalEATests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     -1E-10,
@@ -474,7 +474,7 @@ public class GenerationalEATests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     0.5,
@@ -489,7 +489,7 @@ public class GenerationalEATests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     1E-10,
@@ -504,7 +504,7 @@ public class GenerationalEATests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     1E-10,
@@ -519,7 +519,7 @@ public class GenerationalEATests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     -1E-10,
@@ -534,7 +534,7 @@ public class GenerationalEATests {
         assertThrows(
             IllegalArgumentException.class,
             () ->
-                new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+                new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
                     5,
                     new CountMutationCalls(),
                     -1E-10,
@@ -1130,8 +1130,8 @@ public class GenerationalEATests {
     CountCrossoverCalls crossover = new CountCrossoverCalls();
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.25, crossover, 0.25, initializer, f, selection, tracker);
 
     assertTrue(tracker == ea.getProgressTracker());
@@ -1158,7 +1158,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     int oldMutationCount = mutation.count;
@@ -1231,8 +1231,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 101;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.5, crossover, 0.5, initializer, f, selection, tracker);
 
     assertTrue(tracker == ea.getProgressTracker());
@@ -1257,7 +1257,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -1318,8 +1318,8 @@ public class GenerationalEATests {
     // Deliberately even compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.0, crossover, 1.0, initializer, f, selection, tracker);
 
     assertTrue(tracker == ea.getProgressTracker());
@@ -1345,7 +1345,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -1408,8 +1408,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 101;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.0, crossover, 1.0, initializer, f, selection, tracker);
 
     assertTrue(tracker == ea.getProgressTracker());
@@ -1435,7 +1435,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -1498,8 +1498,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N,
             mutation,
             Math.ulp(1.0),
@@ -1533,7 +1533,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -1596,8 +1596,8 @@ public class GenerationalEATests {
     CountCrossoverCalls crossover = new CountCrossoverCalls();
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N,
             mutation,
             0.25,
@@ -1633,7 +1633,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     int oldMutationCount = mutation.count;
@@ -1706,8 +1706,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 101;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N,
             mutation,
             0.5,
@@ -1741,7 +1741,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -1802,8 +1802,8 @@ public class GenerationalEATests {
     // Deliberately even compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N,
             mutation,
             0.0,
@@ -1838,7 +1838,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -1901,8 +1901,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 101;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N,
             mutation,
             0.0,
@@ -1937,7 +1937,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -2000,8 +2000,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N,
             mutation,
             Math.ulp(1.0),
@@ -2036,7 +2036,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -2538,8 +2538,8 @@ public class GenerationalEATests {
     CountCrossoverCalls crossover = new CountCrossoverCalls();
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.25, crossover, 0.25, initializer, f, selection, tracker);
 
     assertTrue(tracker == ea.getProgressTracker());
@@ -2566,7 +2566,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     int oldMutationCount = mutation.count;
@@ -2639,8 +2639,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 101;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.5, crossover, 0.5, initializer, f, selection, tracker);
 
     assertTrue(tracker == ea.getProgressTracker());
@@ -2665,7 +2665,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -2726,8 +2726,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N, mutation, 0.0, crossover, 1.0, initializer, f, selection, tracker);
 
     assertTrue(tracker == ea.getProgressTracker());
@@ -2753,7 +2753,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -2816,8 +2816,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N,
             mutation,
             Math.ulp(1.0),
@@ -2851,7 +2851,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -2914,8 +2914,8 @@ public class GenerationalEATests {
     CountCrossoverCalls crossover = new CountCrossoverCalls();
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N,
             mutation,
             0.25,
@@ -2951,7 +2951,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     int oldMutationCount = mutation.count;
@@ -3024,8 +3024,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 101;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N,
             mutation,
             0.5,
@@ -3059,7 +3059,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -3120,8 +3120,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N,
             mutation,
             0.0,
@@ -3156,7 +3156,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);
@@ -3219,8 +3219,8 @@ public class GenerationalEATests {
     // Deliberately odd compared to other tests.
     final int N = 100;
 
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea =
-        new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject>(
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea =
+        new GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject>(
             N,
             mutation,
             Math.ulp(1.0),
@@ -3255,7 +3255,7 @@ public class GenerationalEATests {
     assertEquals(1, selection.initCount);
 
     // split it
-    GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<TestObject> ea2 = ea.split();
+    GenerationalDisjointOperatorsEvolutionaryAlgorithm<TestObject> ea2 = ea.split();
 
     // reoptimize
     solution = ea.reoptimize(5);

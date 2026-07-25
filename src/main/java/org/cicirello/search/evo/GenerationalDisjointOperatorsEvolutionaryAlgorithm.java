@@ -51,8 +51,7 @@ import org.cicirello.util.Copyable;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
-        T extends Copyable<T>>
+public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends Copyable<T>>
     extends AbstractEvolutionaryAlgorithm<T> {
 
   /**
@@ -85,7 +84,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
    *     tracker are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -135,7 +134,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
    *     tracker are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -183,7 +182,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection,
    *     replacement, or tracker are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -231,7 +230,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection,
    *     replacement, or tracker are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -278,7 +277,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
    *     replacement are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -328,7 +327,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
    *     replacement are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -378,7 +377,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
    *     tracker are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -419,7 +418,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, selection, or
    *     tracker are null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -462,7 +461,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are
    *     null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -514,7 +513,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are
    *     null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -563,7 +562,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are
    *     null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -610,7 +609,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * @throws NullPointerException if any of mutation, crossover, initializer, f, or selection are
    *     null.
    */
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       int n,
       MutationOperator<T> mutation,
       double mutationRate,
@@ -636,7 +635,7 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
   /*
    * Internal helper constructor for standard EAs with full generation (both crossover and mutation).
    */
-  private GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
+  private GenerationalDisjointOperatorsEvolutionaryAlgorithm(
       Population<T> pop,
       Problem<T> problem,
       MutationOperator<T> mutation,
@@ -653,13 +652,13 @@ public final class GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<
    * Internal constructor for use by split method.
    * package private so subclasses in same package can use it for initialization for their own split methods.
    */
-  GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators(
-      GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T> other) {
+  GenerationalDisjointOperatorsEvolutionaryAlgorithm(
+      GenerationalDisjointOperatorsEvolutionaryAlgorithm<T> other) {
     super(other);
   }
 
   @Override
-  public GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T> split() {
-    return new GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators<T>(this);
+  public GenerationalDisjointOperatorsEvolutionaryAlgorithm<T> split() {
+    return new GenerationalDisjointOperatorsEvolutionaryAlgorithm<T>(this);
   }
 }

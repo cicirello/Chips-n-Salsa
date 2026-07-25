@@ -15,6 +15,7 @@ __BREAKING CHANGES: Next release will be 8.0.0.__
 * Constructors added to the following classes to enable customizing the replacement strategy via the new ReplacementStrategy interface: GenerationalEvolutionaryAlgorithm, GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators, GenerationalMutationOnlyEvolutionaryAlgorithm, GeneticAlgorithm, MutationOnlyGeneticAlgorithm, AdaptiveEvolutionaryAlgorithm, and AdaptiveMutationOnlyEvolutionaryAlgorithm.
 
 ### Changed (BREAKING)
+* Renamed GenerationalEvolutionaryAlgorithmMutuallyExclusiveOperators class to GenerationalDisjointOperatorsEvolutionaryAlgorithm for naming consistency with other classes in the library.
 * Renamed nested interfaces of the PopulationFitnessVector interface to eliminate naming clash with Java Integer and Double classes.
 * Renamed the getFitness method of the nested interfaces of PopulationFitnessVector to fitness for naming consistency.
 * Refactored all the constructive scheduling heuristics and single machine scheduling problems:

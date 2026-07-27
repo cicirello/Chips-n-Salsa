@@ -243,6 +243,14 @@ abstract class BasePopulation {
     }
 
     @Override
+    public final int generation(Generation<T> generation) {
+      select();
+      int evaluations = generation.apply(this);
+      replace();
+      return evaluations;
+    }
+
+    @Override
     public final void select() {
       selection.select(pop, selected);
       for (int j : selected) {
@@ -524,6 +532,14 @@ abstract class BasePopulation {
         bestFitness = fit;
         setMostFit(f.getProblem().getSolutionCostPair(nextPop.candidate(i).copy()));
       }
+    }
+
+    @Override
+    public final int generation(Generation<T> generation) {
+      select();
+      int evaluations = generation.apply(this);
+      replace();
+      return evaluations;
     }
 
     @Override

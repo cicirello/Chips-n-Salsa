@@ -93,6 +93,14 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>> {
    */
   void initOperators(int generations);
 
+  /**
+   * Performs one full generation: selection, application of evolutionary operators, and replace.
+   *
+   * @param generation the control logic for performing crossover, mutation, etc as needed.
+   * @return The total number of fitness evaluations during the generation.
+   */
+  int generation(Generation<T> generation);
+
   /** Performs selection to choose the population members to undergo genetic operators. */
   void select();
 

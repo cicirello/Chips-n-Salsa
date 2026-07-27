@@ -90,7 +90,14 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, tracker, eliteCount),
+        new BasePopulation.DoubleFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            createGeneration(mutation, mutationRate)),
         f.getProblem(),
         mutation,
         mutationRate);
@@ -131,7 +138,14 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, tracker, eliteCount),
+        new BasePopulation.IntegerFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            createGeneration(mutation, mutationRate)),
         f.getProblem(),
         mutation,
         mutationRate);
@@ -171,7 +185,14 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
       ReplacementStrategy<T> replacement,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, replacement, tracker),
+        new BasePopulation.DoubleFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            createGeneration(mutation, mutationRate)),
         f.getProblem(),
         mutation,
         mutationRate);
@@ -211,7 +232,14 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
       ReplacementStrategy<T> replacement,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, replacement, tracker),
+        new BasePopulation.IntegerFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            createGeneration(mutation, mutationRate)),
         f.getProblem(),
         mutation,
         mutationRate);
@@ -504,12 +532,14 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
    */
   private GenerationalMutationOnlyEvolutionaryAlgorithm(
       Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate) {
-    super(
-        pop,
-        problem,
-        mutationRate >= 1.0
-            ? new OnlyAlwaysMutateGeneration<T>(mutation)
-            : new OnlyMutateGeneration<T>(mutation, mutationRate));
+    super(pop, problem, createGeneration(mutation, mutationRate));
+  }
+
+  private static <T extends Copyable<T>> Generation<T> createGeneration(
+      MutationOperator<T> mutation, double mutationRate) {
+    return mutationRate >= 1.0
+        ? new OnlyAlwaysMutateGeneration<T>(mutation)
+        : new OnlyMutateGeneration<T>(mutation, mutationRate);
   }
 
   /*

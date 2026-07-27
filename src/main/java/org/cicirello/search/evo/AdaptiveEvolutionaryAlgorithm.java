@@ -111,7 +111,14 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.DoubleFitness<T>(
-            n, initializer, f, selection, tracker, eliteCount, 2),
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            2,
+            new AdaptiveGeneration<T>(mutation, crossover)),
         f.getProblem(),
         mutation,
         crossover);
@@ -146,7 +153,14 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.IntegerFitness<T>(
-            n, initializer, f, selection, tracker, eliteCount, 2),
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            2,
+            new AdaptiveGeneration<T>(mutation, crossover)),
         f.getProblem(),
         mutation,
         crossover);
@@ -181,7 +195,14 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.DoubleFitness<T>(
-            n, initializer, f, selection, replacement, tracker, 2),
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            2,
+            new AdaptiveGeneration<T>(mutation, crossover)),
         f.getProblem(),
         mutation,
         crossover);
@@ -216,7 +237,14 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.IntegerFitness<T>(
-            n, initializer, f, selection, replacement, tracker, 2),
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            2,
+            new AdaptiveGeneration<T>(mutation, crossover)),
         f.getProblem(),
         mutation,
         crossover);

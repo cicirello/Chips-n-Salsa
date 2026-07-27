@@ -96,7 +96,14 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, tracker, eliteCount),
+        new BasePopulation.DoubleFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
         f.getProblem(),
         mutation,
         mutationRate,
@@ -146,7 +153,14 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, tracker, eliteCount),
+        new BasePopulation.IntegerFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
         f.getProblem(),
         mutation,
         mutationRate,
@@ -194,7 +208,14 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
       ReplacementStrategy<T> replacement,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, replacement, tracker),
+        new BasePopulation.DoubleFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
         f.getProblem(),
         mutation,
         mutationRate,
@@ -242,7 +263,14 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
       ReplacementStrategy<T> replacement,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, replacement, tracker),
+        new BasePopulation.IntegerFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
         f.getProblem(),
         mutation,
         mutationRate,

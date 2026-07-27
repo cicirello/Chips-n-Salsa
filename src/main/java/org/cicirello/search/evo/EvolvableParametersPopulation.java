@@ -68,7 +68,8 @@ abstract class EvolvableParametersPopulation {
         SelectionOperator selection,
         ProgressTracker<T> tracker,
         int numElite,
-        int numParams) {
+        int numParams,
+        Generation<T> generation) {
       super(
           BasePopulation.validateN(n),
           Objects.requireNonNull(initializer),
@@ -79,7 +80,8 @@ abstract class EvolvableParametersPopulation {
           BasePopulation.validateElite(numElite, n),
           numElite > 0
               ? new GenerationalElitistReplacement<T>(numElite)
-              : new GenerationalReplacement<T>());
+              : new GenerationalReplacement<T>(),
+          Objects.requireNonNull(generation));
     }
 
     /**
@@ -101,7 +103,8 @@ abstract class EvolvableParametersPopulation {
         SelectionOperator selection,
         ReplacementStrategy<T> replacement,
         ProgressTracker<T> tracker,
-        int numParams) {
+        int numParams,
+        Generation<T> generation) {
       super(
           BasePopulation.validateN(n),
           Objects.requireNonNull(initializer),
@@ -110,7 +113,8 @@ abstract class EvolvableParametersPopulation {
           Objects.requireNonNull(tracker),
           new EvolvableParametersPopulationMemberCreator<T>(numParams),
           0,
-          Objects.requireNonNull(replacement));
+          Objects.requireNonNull(replacement),
+          Objects.requireNonNull(generation));
     }
 
     /*
@@ -184,7 +188,8 @@ abstract class EvolvableParametersPopulation {
         SelectionOperator selection,
         ProgressTracker<T> tracker,
         int numElite,
-        int numParams) {
+        int numParams,
+        Generation<T> generation) {
       super(
           BasePopulation.validateN(n),
           Objects.requireNonNull(initializer),
@@ -195,7 +200,8 @@ abstract class EvolvableParametersPopulation {
           BasePopulation.validateElite(numElite, n),
           numElite > 0
               ? new GenerationalElitistReplacement<T>(numElite)
-              : new GenerationalReplacement<T>());
+              : new GenerationalReplacement<T>(),
+          Objects.requireNonNull(generation));
     }
 
     /**
@@ -217,7 +223,8 @@ abstract class EvolvableParametersPopulation {
         SelectionOperator selection,
         ReplacementStrategy<T> replacement,
         ProgressTracker<T> tracker,
-        int numParams) {
+        int numParams,
+        Generation<T> generation) {
       super(
           BasePopulation.validateN(n),
           Objects.requireNonNull(initializer),
@@ -226,7 +233,8 @@ abstract class EvolvableParametersPopulation {
           Objects.requireNonNull(tracker),
           new EvolvableParametersPopulationMemberCreator<T>(numParams),
           0,
-          Objects.requireNonNull(replacement));
+          Objects.requireNonNull(replacement),
+          Objects.requireNonNull(generation));
     }
 
     /*

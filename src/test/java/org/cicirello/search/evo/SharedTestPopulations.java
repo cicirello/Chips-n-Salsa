@@ -25,7 +25,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import org.cicirello.search.ProgressTracker;
+import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.operators.Initializer;
+import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.Problem;
@@ -930,6 +932,32 @@ public class SharedTestPopulations {
     }
 
     public TestInitializer split() {
+      return this;
+    }
+  }
+
+  static class TestMutation implements MutationOperator<TestObject> {
+
+    @Override
+    public void mutate(TestObject p) {
+      // do nothing
+    }
+
+    @Override
+    public TestMutation split() {
+      return this;
+    }
+  }
+
+  static class TestCrossover implements CrossoverOperator<TestObject> {
+
+    @Override
+    public void cross(TestObject p1, TestObject p2) {
+      // do nothing
+    }
+
+    @Override
+    public TestCrossover split() {
       return this;
     }
   }

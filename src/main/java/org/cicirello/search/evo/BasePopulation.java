@@ -73,6 +73,7 @@ abstract class BasePopulation {
     private final ReplacementStrategy<T> replacement;
     private final ReplacementTracker r;
     private final PopulationMemberCreator<T> creator;
+    private final Generation<T> generation;
 
     private final FitnessFunction.Double<T> f;
     private final int MU;
@@ -99,7 +100,8 @@ abstract class BasePopulation {
         FitnessFunction.Double<T> f,
         SelectionOperator selection,
         ProgressTracker<T> tracker,
-        int numElite) {
+        int numElite,
+        Generation<T> generation) {
       this(
           validateN(n),
           Objects.requireNonNull(initializer),
@@ -110,7 +112,8 @@ abstract class BasePopulation {
           validateElite(numElite, n),
           numElite > 0
               ? new GenerationalElitistReplacement<T>(numElite)
-              : new GenerationalReplacement<T>());
+              : new GenerationalReplacement<T>(),
+          Objects.requireNonNull(generation));
     }
 
     /**
@@ -130,7 +133,8 @@ abstract class BasePopulation {
         FitnessFunction.Double<T> f,
         SelectionOperator selection,
         ReplacementStrategy<T> replacement,
-        ProgressTracker<T> tracker) {
+        ProgressTracker<T> tracker,
+        Generation<T> generation) {
       this(
           validateN(n),
           Objects.requireNonNull(initializer),
@@ -139,7 +143,8 @@ abstract class BasePopulation {
           Objects.requireNonNull(tracker),
           (candidate, fitness) -> new PopulationMember.DoubleFitness<T>(candidate, fitness),
           0,
-          Objects.requireNonNull(replacement));
+          Objects.requireNonNull(replacement),
+          Objects.requireNonNull(generation));
     }
 
     /*
@@ -153,11 +158,13 @@ abstract class BasePopulation {
         ProgressTracker<T> tracker,
         PopulationMemberCreator<T> creator,
         int numElite,
-        ReplacementStrategy<T> replacement) {
+        ReplacementStrategy<T> replacement,
+        Generation<T> generation) {
       super(tracker);
       this.initializer = initializer;
       this.selection = selection;
       this.replacement = replacement;
+      this.generation = generation;
 
       this.f = f;
       MU = n;
@@ -187,6 +194,7 @@ abstract class BasePopulation {
       selection = other.selection.split();
       replacement = other.replacement.split();
       creator = other.creator.split();
+      generation = other.generation.split();
 
       // initialize these fresh: not threadsafe or otherwise needs its own
       r = new ReplacementTracker(MU, LAMBDA);
@@ -363,6 +371,7 @@ abstract class BasePopulation {
     private final ReplacementStrategy<T> replacement;
     private final ReplacementTracker r;
     private final PopulationMemberCreator<T> creator;
+    private final Generation<T> generation;
 
     private final FitnessFunction.Integer<T> f;
     private final int MU;
@@ -389,7 +398,8 @@ abstract class BasePopulation {
         FitnessFunction.Integer<T> f,
         SelectionOperator selection,
         ProgressTracker<T> tracker,
-        int numElite) {
+        int numElite,
+        Generation<T> generation) {
       this(
           validateN(n),
           Objects.requireNonNull(initializer),
@@ -400,7 +410,8 @@ abstract class BasePopulation {
           validateElite(numElite, n),
           numElite > 0
               ? new GenerationalElitistReplacement<T>(numElite)
-              : new GenerationalReplacement<T>());
+              : new GenerationalReplacement<T>(),
+          Objects.requireNonNull(generation));
     }
 
     /**
@@ -420,7 +431,8 @@ abstract class BasePopulation {
         FitnessFunction.Integer<T> f,
         SelectionOperator selection,
         ReplacementStrategy<T> replacement,
-        ProgressTracker<T> tracker) {
+        ProgressTracker<T> tracker,
+        Generation<T> generation) {
       this(
           validateN(n),
           Objects.requireNonNull(initializer),
@@ -429,7 +441,8 @@ abstract class BasePopulation {
           Objects.requireNonNull(tracker),
           (candidate, fitness) -> new PopulationMember.IntegerFitness<T>(candidate, fitness),
           0,
-          Objects.requireNonNull(replacement));
+          Objects.requireNonNull(replacement),
+          Objects.requireNonNull(generation));
     }
 
     /*
@@ -443,11 +456,13 @@ abstract class BasePopulation {
         ProgressTracker<T> tracker,
         PopulationMemberCreator<T> creator,
         int numElite,
-        ReplacementStrategy<T> replacement) {
+        ReplacementStrategy<T> replacement,
+        Generation<T> generation) {
       super(tracker);
       this.initializer = initializer;
       this.selection = selection;
       this.replacement = replacement;
+      this.generation = generation;
 
       this.f = f;
       MU = n;
@@ -477,6 +492,7 @@ abstract class BasePopulation {
       selection = other.selection.split();
       replacement = other.replacement.split();
       creator = other.creator.split();
+      generation = other.generation.split();
 
       // initialize these fresh: not threadsafe or otherwise needs its own
       r = new ReplacementTracker(MU, LAMBDA);

@@ -98,9 +98,7 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
             tracker,
             eliteCount,
             createGeneration(mutation, mutationRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate);
+        f.getProblem());
   }
 
   /**
@@ -146,9 +144,7 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
             tracker,
             eliteCount,
             createGeneration(mutation, mutationRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate);
+        f.getProblem());
   }
 
   /**
@@ -193,9 +189,7 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
             replacement,
             tracker,
             createGeneration(mutation, mutationRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate);
+        f.getProblem());
   }
 
   /**
@@ -240,9 +234,7 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
             replacement,
             tracker,
             createGeneration(mutation, mutationRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate);
+        f.getProblem());
   }
 
   /**
@@ -530,9 +522,8 @@ public class GenerationalMutationOnlyEvolutionaryAlgorithm<T extends Copyable<T>
   /*
    * Internal helper constructor for Mutation-Only EAs.
    */
-  private GenerationalMutationOnlyEvolutionaryAlgorithm(
-      Population<T> pop, Problem<T> problem, MutationOperator<T> mutation, double mutationRate) {
-    super(pop, problem, createGeneration(mutation, mutationRate));
+  private GenerationalMutationOnlyEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem) {
+    super(pop, problem);
   }
 
   private static <T extends Copyable<T>> Generation<T> createGeneration(

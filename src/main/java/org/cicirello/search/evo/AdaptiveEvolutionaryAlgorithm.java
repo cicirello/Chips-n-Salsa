@@ -119,9 +119,7 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
             eliteCount,
             2,
             new AdaptiveGeneration<T>(mutation, crossover)),
-        f.getProblem(),
-        mutation,
-        crossover);
+        f.getProblem());
   }
 
   /**
@@ -161,9 +159,7 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
             eliteCount,
             2,
             new AdaptiveGeneration<T>(mutation, crossover)),
-        f.getProblem(),
-        mutation,
-        crossover);
+        f.getProblem());
   }
 
   /**
@@ -203,9 +199,7 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
             tracker,
             2,
             new AdaptiveGeneration<T>(mutation, crossover)),
-        f.getProblem(),
-        mutation,
-        crossover);
+        f.getProblem());
   }
 
   /**
@@ -245,9 +239,7 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
             tracker,
             2,
             new AdaptiveGeneration<T>(mutation, crossover)),
-        f.getProblem(),
-        mutation,
-        crossover);
+        f.getProblem());
   }
 
   /**
@@ -467,12 +459,8 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
   /*
    * Internal helper constructor
    */
-  private AdaptiveEvolutionaryAlgorithm(
-      Population<T> pop,
-      Problem<T> problem,
-      MutationOperator<T> mutation,
-      CrossoverOperator<T> crossover) {
-    super(pop, problem, new AdaptiveGeneration<T>(mutation, crossover));
+  private AdaptiveEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem) {
+    super(pop, problem);
   }
 
   /*

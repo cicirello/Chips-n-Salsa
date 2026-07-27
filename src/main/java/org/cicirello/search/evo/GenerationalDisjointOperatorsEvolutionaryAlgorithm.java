@@ -104,11 +104,7 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
             tracker,
             eliteCount,
             new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        f.getProblem());
   }
 
   /**
@@ -161,11 +157,7 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
             tracker,
             eliteCount,
             new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        f.getProblem());
   }
 
   /**
@@ -216,11 +208,7 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
             replacement,
             tracker,
             new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        f.getProblem());
   }
 
   /**
@@ -271,11 +259,7 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
             replacement,
             tracker,
             new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        f.getProblem());
   }
 
   /**
@@ -664,16 +648,8 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
    * Internal helper constructor for standard EAs with full generation (both crossover and mutation).
    */
   private GenerationalDisjointOperatorsEvolutionaryAlgorithm(
-      Population<T> pop,
-      Problem<T> problem,
-      MutationOperator<T> mutation,
-      double mutationRate,
-      CrossoverOperator<T> crossover,
-      double crossoverRate) {
-    super(
-        pop,
-        problem,
-        new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate));
+      Population<T> pop, Problem<T> problem) {
+    super(pop, problem);
   }
 
   /*

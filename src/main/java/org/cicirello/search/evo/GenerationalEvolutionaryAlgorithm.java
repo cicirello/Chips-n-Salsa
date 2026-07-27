@@ -102,11 +102,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>>
             tracker,
             eliteCount,
             createGeneration(mutation, mutationRate, crossover, crossoverRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        f.getProblem());
   }
 
   /**
@@ -155,11 +151,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>>
             tracker,
             eliteCount,
             createGeneration(mutation, mutationRate, crossover, crossoverRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        f.getProblem());
   }
 
   /**
@@ -208,11 +200,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>>
             replacement,
             tracker,
             createGeneration(mutation, mutationRate, crossover, crossoverRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        f.getProblem());
   }
 
   /**
@@ -261,11 +249,7 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>>
             replacement,
             tracker,
             createGeneration(mutation, mutationRate, crossover, crossoverRate)),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        f.getProblem());
   }
 
   /**
@@ -625,14 +609,8 @@ public class GenerationalEvolutionaryAlgorithm<T extends Copyable<T>>
   /*
    * Internal helper constructor for standard EAs with full generation (both crossover and mutation).
    */
-  private GenerationalEvolutionaryAlgorithm(
-      Population<T> pop,
-      Problem<T> problem,
-      MutationOperator<T> mutation,
-      double mutationRate,
-      CrossoverOperator<T> crossover,
-      double crossoverRate) {
-    super(pop, problem, createGeneration(mutation, mutationRate, crossover, crossoverRate));
+  private GenerationalEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem) {
+    super(pop, problem);
   }
 
   private static <T extends Copyable<T>> Generation<T> createGeneration(

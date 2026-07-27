@@ -111,8 +111,7 @@ public final class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<
             eliteCount,
             1,
             new AdaptiveMutationOnlyGeneration<T>(mutation)),
-        f.getProblem(),
-        mutation);
+        f.getProblem());
   }
 
   /**
@@ -150,8 +149,7 @@ public final class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<
             eliteCount,
             1,
             new AdaptiveMutationOnlyGeneration<T>(mutation)),
-        f.getProblem(),
-        mutation);
+        f.getProblem());
   }
 
   /**
@@ -189,8 +187,7 @@ public final class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<
             tracker,
             1,
             new AdaptiveMutationOnlyGeneration<T>(mutation)),
-        f.getProblem(),
-        mutation);
+        f.getProblem());
   }
 
   /**
@@ -228,8 +225,7 @@ public final class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<
             tracker,
             1,
             new AdaptiveMutationOnlyGeneration<T>(mutation)),
-        f.getProblem(),
-        mutation);
+        f.getProblem());
   }
 
   /**
@@ -429,9 +425,8 @@ public final class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<
   /*
    * Internal helper constructor
    */
-  private AdaptiveMutationOnlyEvolutionaryAlgorithm(
-      Population<T> pop, Problem<T> problem, MutationOperator<T> mutation) {
-    super(pop, problem, new AdaptiveMutationOnlyGeneration<T>(mutation));
+  private AdaptiveMutationOnlyEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem) {
+    super(pop, problem);
   }
 
   /*

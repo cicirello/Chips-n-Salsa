@@ -99,7 +99,7 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>> {
    * @param generation the control logic for performing crossover, mutation, etc as needed.
    * @return The total number of fitness evaluations during the generation.
    */
-  int generation(Generation<T> generation);
+  int generation();
 
   /**
    * Determines whether there is any reason the search should stop, such as if the ProgressTracker

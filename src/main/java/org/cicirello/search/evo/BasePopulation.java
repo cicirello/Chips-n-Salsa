@@ -251,7 +251,7 @@ abstract class BasePopulation {
     }
 
     @Override
-    public final int generation(Generation<T> generation) {
+    public final int generation() {
       select();
       int evaluations = generation.apply(this);
       replace();
@@ -549,7 +549,7 @@ abstract class BasePopulation {
     }
 
     @Override
-    public final int generation(Generation<T> generation) {
+    public final int generation() {
       select();
       int evaluations = generation.apply(this);
       replace();

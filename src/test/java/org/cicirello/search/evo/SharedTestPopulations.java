@@ -25,7 +25,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import org.cicirello.search.ProgressTracker;
+import org.cicirello.search.operators.CrossoverOperator;
 import org.cicirello.search.operators.Initializer;
+import org.cicirello.search.operators.MutationOperator;
 import org.cicirello.search.problems.IntegerCostOptimizationProblem;
 import org.cicirello.search.problems.OptimizationProblem;
 import org.cicirello.search.problems.Problem;
@@ -36,14 +38,13 @@ import org.junit.jupiter.api.*;
 public class SharedTestPopulations {
 
   void verifyInteger(
-      BasePopulation.IntegerFitness popVector,
+      BasePopulation.IntegerFitness<TestObject> popVector,
       TestFitnessInteger f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
       ToIntFunction<Population<TestObject>> mostFitFitness,
       int elite) {
-    @SuppressWarnings("unchecked")
-    Population<TestObject> pop = (Population<TestObject>) popVector;
+    BasePopulation.IntegerFitness<TestObject> pop = popVector;
 
     assertTrue(tracker == pop.getProgressTracker());
     tracker = new ProgressTracker<TestObject>();
@@ -124,9 +125,9 @@ public class SharedTestPopulations {
     }
 
     f.changeFitness(12);
-    Population<TestObject> pop2 = pop.split();
+    BasePopulation.IntegerFitness<TestObject> pop2 = pop.split();
     @SuppressWarnings("unchecked")
-    BasePopulation.IntegerFitness popVector2 = (BasePopulation.IntegerFitness) pop2;
+    BasePopulation.IntegerFitness<TestObject> popVector2 = pop2;
 
     if (elite == 0) {
       // orginal should be same
@@ -170,14 +171,13 @@ public class SharedTestPopulations {
   }
 
   void verifyDoubleWithIntCost(
-      BasePopulation.DoubleFitness popVector,
+      BasePopulation.DoubleFitness<TestObject> popVector,
       TestFitnessDoubleIntCost f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
       ToDoubleFunction<Population<TestObject>> mostFitFitness,
       int elite) {
-    @SuppressWarnings("unchecked")
-    Population<TestObject> pop = (Population<TestObject>) popVector;
+    BasePopulation.DoubleFitness<TestObject> pop = popVector;
 
     assertTrue(tracker == pop.getProgressTracker());
     tracker = new ProgressTracker<TestObject>();
@@ -232,9 +232,8 @@ public class SharedTestPopulations {
     assertEquals(98, pop.getMostFit().getCost());
 
     f.changeFitness(12);
-    Population<TestObject> pop2 = pop.split();
-    @SuppressWarnings("unchecked")
-    BasePopulation.DoubleFitness popVector2 = (BasePopulation.DoubleFitness) pop2;
+    BasePopulation.DoubleFitness<TestObject> pop2 = pop.split();
+    BasePopulation.DoubleFitness<TestObject> popVector2 = pop2;
 
     // orginal should be same
     assertEquals(expected[9] + 10.0 + 1, popVector.fitness(0));
@@ -267,14 +266,13 @@ public class SharedTestPopulations {
   }
 
   void verifyDouble(
-      BasePopulation.DoubleFitness popVector,
+      BasePopulation.DoubleFitness<TestObject> popVector,
       TestFitnessDouble f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
       ToDoubleFunction<Population<TestObject>> mostFitFitness,
       int elite) {
-    @SuppressWarnings("unchecked")
-    Population<TestObject> pop = (Population<TestObject>) popVector;
+    BasePopulation.DoubleFitness<TestObject> pop = popVector;
 
     assertTrue(tracker == pop.getProgressTracker());
     tracker = new ProgressTracker<TestObject>();
@@ -355,9 +353,8 @@ public class SharedTestPopulations {
     }
 
     f.changeFitness(12);
-    Population<TestObject> pop2 = pop.split();
-    @SuppressWarnings("unchecked")
-    BasePopulation.DoubleFitness popVector2 = (BasePopulation.DoubleFitness) pop2;
+    BasePopulation.DoubleFitness<TestObject> pop2 = pop.split();
+    BasePopulation.DoubleFitness<TestObject> popVector2 = pop2;
 
     // orginal should be same
     assertEquals(expected[9] + 0.4 + 1 + eliteAdjust, popVector.fitness(eliteAdjust));
@@ -389,7 +386,26 @@ public class SharedTestPopulations {
     assertTrue(pop2.evolutionIsPaused());
   }
 
-  void verifySelectCopies(Population<TestObject> pop) {
+  void verifySelectCopies(BasePopulation.IntegerFitness<TestObject> pop) {
+    pop.init();
+    pop.select();
+    TestObject[] firstSelect = new TestObject[10];
+    for (int i = 0; i < 10; i++) {
+      firstSelect[i] = pop.get(i);
+    }
+    pop.replace();
+    pop.select();
+    TestObject[] secondSelect = new TestObject[10];
+    for (int i = 0; i < 10; i++) {
+      secondSelect[i] = pop.get(i);
+    }
+    for (int i = 0; i < 10; i++) {
+      assertFalse(firstSelect[i] == secondSelect[9 - i]);
+      assertEquals(firstSelect[i], secondSelect[9 - i]);
+    }
+  }
+
+  void verifySelectCopies(BasePopulation.DoubleFitness<TestObject> pop) {
     pop.init();
     pop.select();
     TestObject[] firstSelect = new TestObject[10];
@@ -409,14 +425,13 @@ public class SharedTestPopulations {
   }
 
   void verifyIntegerElite(
-      BasePopulation.IntegerFitness popVector,
+      BasePopulation.IntegerFitness<TestObject> popVector,
       TestFitnessIntegerElitist f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
       ToIntFunction<Population<TestObject>> mostFitFitness,
       int elite) {
-    @SuppressWarnings("unchecked")
-    Population<TestObject> pop = (Population<TestObject>) popVector;
+    BasePopulation.IntegerFitness<TestObject> pop = popVector;
 
     assertTrue(tracker == pop.getProgressTracker());
     tracker = new ProgressTracker<TestObject>();
@@ -533,9 +548,8 @@ public class SharedTestPopulations {
     assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
 
     f.changeFitness(12);
-    Population<TestObject> pop2 = pop.split();
-    @SuppressWarnings("unchecked")
-    BasePopulation.IntegerFitness popVector2 = (BasePopulation.IntegerFitness) pop2;
+    BasePopulation.IntegerFitness<TestObject> pop2 = pop.split();
+    BasePopulation.IntegerFitness<TestObject> popVector2 = pop2;
 
     // orginal should be same
     assertEquals(
@@ -568,14 +582,13 @@ public class SharedTestPopulations {
   }
 
   void verifyDoubleElite(
-      BasePopulation.DoubleFitness popVector,
+      BasePopulation.DoubleFitness<TestObject> popVector,
       TestFitnessDoubleElitist f,
       ProgressTracker<TestObject> tracker,
       TestSelectionOp selection,
       ToDoubleFunction<Population<TestObject>> mostFitFitness,
       int elite) {
-    @SuppressWarnings("unchecked")
-    Population<TestObject> pop = (Population<TestObject>) popVector;
+    BasePopulation.DoubleFitness<TestObject> pop = popVector;
 
     assertTrue(tracker == pop.getProgressTracker());
     tracker = new ProgressTracker<TestObject>();
@@ -694,9 +707,8 @@ public class SharedTestPopulations {
     assertEquals(tracker.getSolution(), pop.getMostFit().getSolution());
 
     f.changeFitness(12);
-    Population<TestObject> pop2 = pop.split();
-    @SuppressWarnings("unchecked")
-    BasePopulation.DoubleFitness popVector2 = (BasePopulation.DoubleFitness) pop2;
+    BasePopulation.DoubleFitness<TestObject> pop2 = pop.split();
+    BasePopulation.DoubleFitness<TestObject> popVector2 = pop2;
 
     // orginal should be same
     assertEquals(
@@ -920,6 +932,32 @@ public class SharedTestPopulations {
     }
 
     public TestInitializer split() {
+      return this;
+    }
+  }
+
+  static class TestMutation implements MutationOperator<TestObject> {
+
+    @Override
+    public void mutate(TestObject p) {
+      // do nothing
+    }
+
+    @Override
+    public TestMutation split() {
+      return this;
+    }
+  }
+
+  static class TestCrossover implements CrossoverOperator<TestObject> {
+
+    @Override
+    public void cross(TestObject p1, TestObject p2) {
+      // do nothing
+    }
+
+    @Override
+    public TestCrossover split() {
       return this;
     }
   }

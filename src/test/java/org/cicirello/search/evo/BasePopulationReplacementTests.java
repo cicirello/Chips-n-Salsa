@@ -28,6 +28,14 @@ import org.junit.jupiter.api.*;
 /** JUnit test cases for BasePopulation with specified ReplacementStrategy. */
 public class BasePopulationReplacementTests extends SharedTestPopulations {
 
+  private SimpleGeneration<TestObject> generation;
+
+  @BeforeEach
+  public void initTest() {
+    generation =
+        new SimpleGeneration<TestObject>(new TestMutation(), 0.1, new TestCrossover(), 0.5);
+  }
+
   @Test
   public void testExceptions() {
     NullPointerException thrown =
@@ -40,7 +48,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
                     new GenerationalReplacement<TestObject>(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -51,7 +60,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     null,
                     new TestSelectionOp(),
                     new GenerationalReplacement<TestObject>(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -62,7 +72,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     null,
                     new GenerationalReplacement<TestObject>(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -73,7 +84,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
                     new GenerationalReplacement<TestObject>(),
-                    null));
+                    null,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -84,7 +96,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
                     null,
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    generation));
 
     thrown =
         assertThrows(
@@ -96,7 +109,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
                     new GenerationalReplacement<TestObject>(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -107,7 +121,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     null,
                     new TestSelectionOp(),
                     new GenerationalReplacement<TestObject>(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -118,7 +133,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     null,
                     new GenerationalReplacement<TestObject>(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -129,7 +145,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
                     new GenerationalReplacement<TestObject>(),
-                    null));
+                    null,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -140,7 +157,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
                     null,
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    generation));
 
     IllegalArgumentException thrown2 =
         assertThrows(
@@ -152,7 +170,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
                     new GenerationalReplacement<TestObject>(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    generation));
     thrown2 =
         assertThrows(
             IllegalArgumentException.class,
@@ -163,7 +182,8 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
                     new GenerationalReplacement<TestObject>(),
-                    new ProgressTracker<TestObject>()));
+                    new ProgressTracker<TestObject>(),
+                    generation));
   }
 
   @Test
@@ -175,7 +195,7 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
     GenerationalReplacement<TestObject> r = new GenerationalReplacement<TestObject>();
     BasePopulation.DoubleFitness<TestObject> pop =
         new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, r, tracker);
+            10, new TestInitializer(), f, selection, r, tracker, generation);
     verifyDouble(
         pop,
         f,
@@ -194,7 +214,7 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
     GenerationalReplacement<TestObject> r = new GenerationalReplacement<TestObject>();
     BasePopulation.DoubleFitness<TestObject> pop =
         new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, r, tracker);
+            10, new TestInitializer(), f, selection, r, tracker, generation);
     verifySelectCopies(pop);
   }
 
@@ -207,7 +227,7 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
     GenerationalReplacement<TestObject> r = new GenerationalReplacement<TestObject>();
     BasePopulation.DoubleFitness<TestObject> pop =
         new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, r, tracker);
+            10, new TestInitializer(), f, selection, r, tracker, generation);
     verifyDoubleWithIntCost(
         pop,
         f,
@@ -226,7 +246,7 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
     GenerationalReplacement<TestObject> r = new GenerationalReplacement<TestObject>();
     BasePopulation.DoubleFitness<TestObject> pop =
         new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, r, tracker);
+            10, new TestInitializer(), f, selection, r, tracker, generation);
     verifySelectCopies(pop);
   }
 
@@ -239,7 +259,7 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
     GenerationalReplacement<TestObject> r = new GenerationalReplacement<TestObject>();
     BasePopulation.IntegerFitness<TestObject> pop =
         new BasePopulation.IntegerFitness<TestObject>(
-            10, new TestInitializer(), f, selection, r, tracker);
+            10, new TestInitializer(), f, selection, r, tracker, generation);
     verifyInteger(
         pop,
         f,
@@ -258,7 +278,7 @@ public class BasePopulationReplacementTests extends SharedTestPopulations {
     GenerationalReplacement<TestObject> r = new GenerationalReplacement<TestObject>();
     BasePopulation.IntegerFitness<TestObject> pop =
         new BasePopulation.IntegerFitness<TestObject>(
-            10, new TestInitializer(), f, selection, r, tracker);
+            10, new TestInitializer(), f, selection, r, tracker, generation);
     verifySelectCopies(pop);
   }
 }

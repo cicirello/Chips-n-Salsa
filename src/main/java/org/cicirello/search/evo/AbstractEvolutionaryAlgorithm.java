@@ -38,17 +38,15 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
 
   private final Population<T> pop;
   private final Problem<T> problem;
-  private final Generation<T> generation;
   private long numFitnessEvals;
 
   /*
    * Internal constructor for use by subclasses in same package.
    * Initializes the base class.
    */
-  AbstractEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem, Generation<T> generation) {
+  AbstractEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem) {
     this.pop = pop;
     this.problem = problem;
-    this.generation = generation;
   }
 
   /*
@@ -58,7 +56,6 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
   AbstractEvolutionaryAlgorithm(AbstractEvolutionaryAlgorithm<T> other) {
     // Must be split
     pop = other.pop.split();
-    generation = other.generation.split();
 
     // Threadsafe so just copy reference or values
     problem = other.problem;
@@ -141,9 +138,7 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
 
   private void internalOptimize(int numGenerations) {
     for (int i = 0; i < numGenerations && !pop.evolutionIsPaused(); i++) {
-      pop.select();
-      numFitnessEvals = numFitnessEvals + generation.apply(pop);
-      pop.replace();
+      numFitnessEvals = numFitnessEvals + pop.generation();
     }
   }
 }

@@ -41,15 +41,17 @@ public class AdaptiveMutationOnlyGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
-            N, init, f, selection, tracker, 0, 1);
-    pop.init();
 
     TestMutation mutation = new TestMutation();
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
+            N, init, f, selection, tracker, 0, 1, ag);
+    pop.init();
+
     pop.select();
     int fitnessEvals = ag.apply(pop);
     pop.replace();
@@ -72,15 +74,17 @@ public class AdaptiveMutationOnlyGenerationTests {
     TestFitnessDouble f = new TestFitnessDouble();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
-        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
-            N, init, f, selection, tracker, 0, 1);
-    pop.init();
 
     TestMutation mutation = new TestMutation();
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+
+    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
+            N, init, f, selection, tracker, 0, 1, ag);
+    pop.init();
+
     pop.select();
     int fitnessEvals = ag.apply(pop);
     pop.replace();
@@ -103,15 +107,17 @@ public class AdaptiveMutationOnlyGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
-            N, init, f, selection, tracker, 0, 1);
-    pop.init();
 
     TestMutation mutation = new TestMutation();
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation).split();
+
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
+            N, init, f, selection, tracker, 0, 1, ag);
+    pop.init();
+
     pop.select();
     int fitnessEvals = ag.apply(pop);
     pop.replace();
@@ -126,15 +132,17 @@ public class AdaptiveMutationOnlyGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
-            N + 1, init, f, selection, tracker, 1, 1);
-    pop.init();
 
     TestMutation mutation = new TestMutation();
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
+            N + 1, init, f, selection, tracker, 1, 1, ag);
+    pop.init();
+
     pop.select();
     int fitnessEvals = ag.apply(pop);
     pop.replace();
@@ -157,15 +165,17 @@ public class AdaptiveMutationOnlyGenerationTests {
     TestFitnessDouble f = new TestFitnessDouble();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
-        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
-            N + 1, init, f, selection, tracker, 1, 1);
-    pop.init();
 
     TestMutation mutation = new TestMutation();
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation);
+
+    EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
+        new EvolvableParametersPopulation.DoubleFitness<TestObject>(
+            N + 1, init, f, selection, tracker, 1, 1, ag);
+    pop.init();
+
     pop.select();
     int fitnessEvals = ag.apply(pop);
     pop.replace();
@@ -188,15 +198,17 @@ public class AdaptiveMutationOnlyGenerationTests {
     TestFitnessInteger f = new TestFitnessInteger();
     TestInitializer init = new TestInitializer();
     final int N = 20;
-    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
-        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
-            N + 1, init, f, selection, tracker, 1, 1);
-    pop.init();
 
     TestMutation mutation = new TestMutation();
 
     AdaptiveMutationOnlyGeneration<TestObject> ag =
         new AdaptiveMutationOnlyGeneration<TestObject>(mutation).split();
+
+    EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
+        new EvolvableParametersPopulation.IntegerFitness<TestObject>(
+            N + 1, init, f, selection, tracker, 1, 1, ag);
+    pop.init();
+
     pop.select();
     int fitnessEvals = ag.apply(pop);
     pop.replace();

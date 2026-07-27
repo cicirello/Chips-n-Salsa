@@ -28,6 +28,13 @@ import org.junit.jupiter.api.*;
 /** JUnit test cases for EvolvableParametersPopulation. */
 public class EvolvableParametersPopulationElitistTests extends SharedTestPopulations {
 
+  private AdaptiveGeneration<TestObject> generation;
+
+  @BeforeEach
+  public void initTest() {
+    generation = new AdaptiveGeneration<TestObject>(new TestMutation(), new TestCrossover());
+  }
+
   @Test
   public void testExceptions() {
     NullPointerException thrown =
@@ -41,7 +48,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
                     1,
-                    2));
+                    2,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -53,7 +61,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
                     1,
-                    2));
+                    2,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -65,7 +74,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     null,
                     new ProgressTracker<TestObject>(),
                     1,
-                    2));
+                    2,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -77,7 +87,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     null,
                     1,
-                    2));
+                    2,
+                    generation));
 
     thrown =
         assertThrows(
@@ -90,7 +101,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
                     1,
-                    2));
+                    2,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -102,7 +114,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
                     1,
-                    2));
+                    2,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -114,7 +127,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     null,
                     new ProgressTracker<TestObject>(),
                     1,
-                    2));
+                    2,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -126,7 +140,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     null,
                     1,
-                    2));
+                    2,
+                    generation));
 
     IllegalArgumentException thrown2 =
         assertThrows(
@@ -139,7 +154,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
                     0,
-                    2));
+                    2,
+                    generation));
     thrown2 =
         assertThrows(
             IllegalArgumentException.class,
@@ -151,7 +167,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
                     0,
-                    2));
+                    2,
+                    generation));
     thrown2 =
         assertThrows(
             IllegalArgumentException.class,
@@ -163,7 +180,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
                     -1,
-                    2));
+                    2,
+                    generation));
     thrown2 =
         assertThrows(
             IllegalArgumentException.class,
@@ -175,7 +193,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
                     -1,
-                    2));
+                    2,
+                    generation));
     thrown2 =
         assertThrows(
             IllegalArgumentException.class,
@@ -187,7 +206,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
                     10,
-                    2));
+                    2,
+                    generation));
     thrown2 =
         assertThrows(
             IllegalArgumentException.class,
@@ -199,7 +219,8 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
                     10,
-                    2));
+                    2,
+                    generation));
   }
 
   @Test
@@ -210,7 +231,7 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
     TestFitnessDoubleElitist f = new TestFitnessDoubleElitist();
     EvolvableParametersPopulation.DoubleFitness<TestObject> pop =
         new EvolvableParametersPopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 3, 2);
+            10, new TestInitializer(), f, selection, tracker, 3, 2, generation);
     verifyDoubleElite(
         pop,
         f,
@@ -232,7 +253,7 @@ public class EvolvableParametersPopulationElitistTests extends SharedTestPopulat
     TestFitnessIntegerElitist f = new TestFitnessIntegerElitist();
     EvolvableParametersPopulation.IntegerFitness<TestObject> pop =
         new EvolvableParametersPopulation.IntegerFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 3, 2);
+            10, new TestInitializer(), f, selection, tracker, 3, 2, generation);
     verifyIntegerElite(
         pop,
         f,

@@ -96,12 +96,15 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, tracker, eliteCount),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        new BasePopulation.DoubleFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
+        f.getProblem());
   }
 
   /**
@@ -146,12 +149,15 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
       int eliteCount,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, tracker, eliteCount),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        new BasePopulation.IntegerFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
+        f.getProblem());
   }
 
   /**
@@ -194,12 +200,15 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
       ReplacementStrategy<T> replacement,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.DoubleFitness<T>(n, initializer, f, selection, replacement, tracker),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        new BasePopulation.DoubleFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
+        f.getProblem());
   }
 
   /**
@@ -242,12 +251,15 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
       ReplacementStrategy<T> replacement,
       ProgressTracker<T> tracker) {
     this(
-        new BasePopulation.IntegerFitness<T>(n, initializer, f, selection, replacement, tracker),
-        f.getProblem(),
-        mutation,
-        mutationRate,
-        crossover,
-        crossoverRate);
+        new BasePopulation.IntegerFitness<T>(
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate)),
+        f.getProblem());
   }
 
   /**
@@ -636,16 +648,8 @@ public final class GenerationalDisjointOperatorsEvolutionaryAlgorithm<T extends 
    * Internal helper constructor for standard EAs with full generation (both crossover and mutation).
    */
   private GenerationalDisjointOperatorsEvolutionaryAlgorithm(
-      Population<T> pop,
-      Problem<T> problem,
-      MutationOperator<T> mutation,
-      double mutationRate,
-      CrossoverOperator<T> crossover,
-      double crossoverRate) {
-    super(
-        pop,
-        problem,
-        new MutuallyExclusiveGeneration<T>(mutation, mutationRate, crossover, crossoverRate));
+      Population<T> pop, Problem<T> problem) {
+    super(pop, problem);
   }
 
   /*

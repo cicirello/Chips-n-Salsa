@@ -111,10 +111,15 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.DoubleFitness<T>(
-            n, initializer, f, selection, tracker, eliteCount, 2),
-        f.getProblem(),
-        mutation,
-        crossover);
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            2,
+            new AdaptiveGeneration<T>(mutation, crossover)),
+        f.getProblem());
   }
 
   /**
@@ -146,10 +151,15 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.IntegerFitness<T>(
-            n, initializer, f, selection, tracker, eliteCount, 2),
-        f.getProblem(),
-        mutation,
-        crossover);
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            2,
+            new AdaptiveGeneration<T>(mutation, crossover)),
+        f.getProblem());
   }
 
   /**
@@ -181,10 +191,15 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.DoubleFitness<T>(
-            n, initializer, f, selection, replacement, tracker, 2),
-        f.getProblem(),
-        mutation,
-        crossover);
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            2,
+            new AdaptiveGeneration<T>(mutation, crossover)),
+        f.getProblem());
   }
 
   /**
@@ -216,10 +231,15 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.IntegerFitness<T>(
-            n, initializer, f, selection, replacement, tracker, 2),
-        f.getProblem(),
-        mutation,
-        crossover);
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            2,
+            new AdaptiveGeneration<T>(mutation, crossover)),
+        f.getProblem());
   }
 
   /**
@@ -439,12 +459,8 @@ public final class AdaptiveEvolutionaryAlgorithm<T extends Copyable<T>>
   /*
    * Internal helper constructor
    */
-  private AdaptiveEvolutionaryAlgorithm(
-      Population<T> pop,
-      Problem<T> problem,
-      MutationOperator<T> mutation,
-      CrossoverOperator<T> crossover) {
-    super(pop, problem, new AdaptiveGeneration<T>(mutation, crossover));
+  private AdaptiveEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem) {
+    super(pop, problem);
   }
 
   /*

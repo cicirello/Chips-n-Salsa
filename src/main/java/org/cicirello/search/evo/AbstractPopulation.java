@@ -63,7 +63,7 @@ abstract class AbstractPopulation<T extends Copyable<T>> implements Population<T
   }
 
   @Override
-  public boolean evolutionIsPaused() {
+  public final boolean evolutionIsPaused() {
     return tracker.didFindBest() || tracker.isStopped();
   }
 

@@ -28,6 +28,14 @@ import org.junit.jupiter.api.*;
 /** JUnit test cases for BasePopulation. */
 public class BasePopulationTests extends SharedTestPopulations {
 
+  private SimpleGeneration<TestObject> generation;
+
+  @BeforeEach
+  public void initTest() {
+    generation =
+        new SimpleGeneration<TestObject>(new TestMutation(), 0.1, new TestCrossover(), 0.5);
+  }
+
   @Test
   public void testExceptions() {
     NullPointerException thrown =
@@ -40,7 +48,8 @@ public class BasePopulationTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
-                    0));
+                    0,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -51,7 +60,8 @@ public class BasePopulationTests extends SharedTestPopulations {
                     null,
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
-                    0));
+                    0,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -62,7 +72,8 @@ public class BasePopulationTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     null,
                     new ProgressTracker<TestObject>(),
-                    0));
+                    0,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -73,7 +84,8 @@ public class BasePopulationTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
                     null,
-                    0));
+                    0,
+                    generation));
 
     thrown =
         assertThrows(
@@ -85,7 +97,8 @@ public class BasePopulationTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
-                    0));
+                    0,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -96,7 +109,8 @@ public class BasePopulationTests extends SharedTestPopulations {
                     null,
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
-                    0));
+                    0,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -107,7 +121,8 @@ public class BasePopulationTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     null,
                     new ProgressTracker<TestObject>(),
-                    0));
+                    0,
+                    generation));
     thrown =
         assertThrows(
             NullPointerException.class,
@@ -118,7 +133,8 @@ public class BasePopulationTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
                     null,
-                    0));
+                    0,
+                    generation));
 
     IllegalArgumentException thrown2 =
         assertThrows(
@@ -130,7 +146,8 @@ public class BasePopulationTests extends SharedTestPopulations {
                     new TestFitnessDouble(),
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
-                    0));
+                    0,
+                    generation));
     thrown2 =
         assertThrows(
             IllegalArgumentException.class,
@@ -141,7 +158,8 @@ public class BasePopulationTests extends SharedTestPopulations {
                     new TestFitnessInteger(),
                     new TestSelectionOp(),
                     new ProgressTracker<TestObject>(),
-                    0));
+                    0,
+                    generation));
   }
 
   @Test
@@ -152,7 +170,7 @@ public class BasePopulationTests extends SharedTestPopulations {
     TestFitnessDouble f = new TestFitnessDouble();
     BasePopulation.DoubleFitness<TestObject> pop =
         new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 0);
+            10, new TestInitializer(), f, selection, tracker, 0, generation);
     verifyDouble(
         pop,
         f,
@@ -170,7 +188,7 @@ public class BasePopulationTests extends SharedTestPopulations {
     TestFitnessDouble f = new TestFitnessDouble();
     BasePopulation.DoubleFitness<TestObject> pop =
         new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 0);
+            10, new TestInitializer(), f, selection, tracker, 0, generation);
     verifySelectCopies(pop);
   }
 
@@ -182,7 +200,7 @@ public class BasePopulationTests extends SharedTestPopulations {
     TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
     BasePopulation.DoubleFitness<TestObject> pop =
         new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 0);
+            10, new TestInitializer(), f, selection, tracker, 0, generation);
     verifyDoubleWithIntCost(
         pop,
         f,
@@ -200,7 +218,7 @@ public class BasePopulationTests extends SharedTestPopulations {
     TestFitnessDoubleIntCost f = new TestFitnessDoubleIntCost();
     BasePopulation.DoubleFitness<TestObject> pop =
         new BasePopulation.DoubleFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 0);
+            10, new TestInitializer(), f, selection, tracker, 0, generation);
     verifySelectCopies(pop);
   }
 
@@ -212,7 +230,7 @@ public class BasePopulationTests extends SharedTestPopulations {
     TestFitnessInteger f = new TestFitnessInteger();
     BasePopulation.IntegerFitness<TestObject> pop =
         new BasePopulation.IntegerFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 0);
+            10, new TestInitializer(), f, selection, tracker, 0, generation);
     verifyInteger(
         pop,
         f,
@@ -230,7 +248,7 @@ public class BasePopulationTests extends SharedTestPopulations {
     TestFitnessInteger f = new TestFitnessInteger();
     BasePopulation.IntegerFitness<TestObject> pop =
         new BasePopulation.IntegerFitness<TestObject>(
-            10, new TestInitializer(), f, selection, tracker, 0);
+            10, new TestInitializer(), f, selection, tracker, 0, generation);
     verifySelectCopies(pop);
   }
 
@@ -251,7 +269,8 @@ public class BasePopulationTests extends SharedTestPopulations {
             (candidate, fitness) ->
                 new PopulationMember.DoubleFitness<TestObject>(candidate, fitness),
             0,
-            replacement);
+            replacement,
+            generation);
     pop.init();
     pop.select(); // 2, 3, 4, 5, 6, 5, 4, 3, 2, 1
     pop.replace();
@@ -289,7 +308,8 @@ public class BasePopulationTests extends SharedTestPopulations {
             (candidate, fitness) ->
                 new PopulationMember.IntegerFitness<TestObject>(candidate, fitness),
             0,
-            replacement);
+            replacement,
+            generation);
     pop.init();
     pop.select(); // 2, 3, 4, 5, 6, 5, 4, 3, 2, 1
     pop.replace();

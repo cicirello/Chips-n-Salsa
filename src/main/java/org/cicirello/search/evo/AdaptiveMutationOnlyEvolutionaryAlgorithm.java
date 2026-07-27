@@ -103,9 +103,15 @@ public final class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.DoubleFitness<T>(
-            n, initializer, f, selection, tracker, eliteCount, 1),
-        f.getProblem(),
-        mutation);
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            1,
+            new AdaptiveMutationOnlyGeneration<T>(mutation)),
+        f.getProblem());
   }
 
   /**
@@ -135,9 +141,15 @@ public final class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.IntegerFitness<T>(
-            n, initializer, f, selection, tracker, eliteCount, 1),
-        f.getProblem(),
-        mutation);
+            n,
+            initializer,
+            f,
+            selection,
+            tracker,
+            eliteCount,
+            1,
+            new AdaptiveMutationOnlyGeneration<T>(mutation)),
+        f.getProblem());
   }
 
   /**
@@ -167,9 +179,15 @@ public final class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.DoubleFitness<T>(
-            n, initializer, f, selection, replacement, tracker, 1),
-        f.getProblem(),
-        mutation);
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            1,
+            new AdaptiveMutationOnlyGeneration<T>(mutation)),
+        f.getProblem());
   }
 
   /**
@@ -199,9 +217,15 @@ public final class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<
       ProgressTracker<T> tracker) {
     this(
         new EvolvableParametersPopulation.IntegerFitness<T>(
-            n, initializer, f, selection, replacement, tracker, 1),
-        f.getProblem(),
-        mutation);
+            n,
+            initializer,
+            f,
+            selection,
+            replacement,
+            tracker,
+            1,
+            new AdaptiveMutationOnlyGeneration<T>(mutation)),
+        f.getProblem());
   }
 
   /**
@@ -401,9 +425,8 @@ public final class AdaptiveMutationOnlyEvolutionaryAlgorithm<T extends Copyable<
   /*
    * Internal helper constructor
    */
-  private AdaptiveMutationOnlyEvolutionaryAlgorithm(
-      Population<T> pop, Problem<T> problem, MutationOperator<T> mutation) {
-    super(pop, problem, new AdaptiveMutationOnlyGeneration<T>(mutation));
+  private AdaptiveMutationOnlyEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem) {
+    super(pop, problem);
   }
 
   /*

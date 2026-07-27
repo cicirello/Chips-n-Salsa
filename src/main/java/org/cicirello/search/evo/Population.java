@@ -101,12 +101,6 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>> {
    */
   int generation(Generation<T> generation);
 
-  /** Performs selection to choose the population members to undergo genetic operators. */
-  void select();
-
-  /** Updates population based on children of genetic operators. */
-  void replace();
-
   /**
    * Determines whether there is any reason the search should stop, such as if the ProgressTracker
    * contains the best, or if another thread has stopped the ProgressTracker.

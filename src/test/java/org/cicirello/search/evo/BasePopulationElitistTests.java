@@ -218,7 +218,28 @@ public class BasePopulationElitistTests extends SharedTestPopulations {
     verifySelectCopies(pop);
   }
 
-  void verifySelectCopies(Population<TestObject> pop) {
+  void verifySelectCopies(BasePopulation.DoubleFitness<TestObject> pop) {
+    pop.init();
+    pop.select();
+    TestObject[] firstSelect = new TestObject[10];
+    for (int i = 0; i < 10; i++) {
+      firstSelect[i] = pop.get(i);
+    }
+    pop.replace();
+    pop.select();
+    TestObject[] secondSelect = new TestObject[10];
+    for (int i = 0; i < 10; i++) {
+      secondSelect[i] = pop.get(i);
+    }
+    for (int i = 0; i < 9; i++) {
+      assertFalse(firstSelect[i] == secondSelect[8 - i]);
+      assertFalse(firstSelect[i] == secondSelect[i]);
+      assertEquals(firstSelect[i], secondSelect[8 - i]);
+      assertEquals(firstSelect[i], secondSelect[i]);
+    }
+  }
+
+  void verifySelectCopies(BasePopulation.IntegerFitness<TestObject> pop) {
     pop.init();
     pop.select();
     TestObject[] firstSelect = new TestObject[10];

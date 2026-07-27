@@ -250,16 +250,14 @@ abstract class BasePopulation {
       return evaluations;
     }
 
-    @Override
-    public final void select() {
+    final void select() {
       selection.select(pop, selected);
       for (int j : selected) {
         nextPop.add(pop.get(j).copy());
       }
     }
 
-    @Override
-    public final void replace() {
+    final void replace() {
       replacement.replace(pop, nextPop, r, MU);
       if (r.includesParents()) {
         ArrayList<PopulationMember.DoubleFitness<T>> keep =
@@ -542,16 +540,14 @@ abstract class BasePopulation {
       return evaluations;
     }
 
-    @Override
-    public final void select() {
+    final void select() {
       selection.select(pop, selected);
       for (int j : selected) {
         nextPop.add(pop.get(j).copy());
       }
     }
 
-    @Override
-    public final void replace() {
+    final void replace() {
       replacement.replace(pop, nextPop, r, MU);
       if (r.includesParents()) {
         ArrayList<PopulationMember.IntegerFitness<T>> keep =

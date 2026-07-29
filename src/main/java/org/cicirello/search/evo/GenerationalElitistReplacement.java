@@ -79,13 +79,12 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
       final int fitness = parentPopulation.fitness(i);
       final T c = parentPopulation.candidate(i);
       if (fitness > pq.peekPriority() && !eliteSet.contains(c)) {
-        eliteSet.remove(parentPopulation.candidate(pq.poll()));
-        pq.offer(i, fitness);
+        eliteSet.remove(parentPopulation.candidate(pq.pollThenOffer(i, fitness)));
         eliteSet.add(c);
       }
     }
-    while (!pq.isEmpty()) {
-      replacements.chooseFromParentPopulation(pq.poll(), 1);
+    for (int parentIndex : pq.toArray()) {
+      replacements.chooseFromParentPopulation(parentIndex, 1);
     }
 
     internalReplace(replacements, targetPopulationSize - eliteSet.size(), childPopulation.size());
@@ -111,13 +110,12 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
       final double fitness = parentPopulation.fitness(i);
       final T c = parentPopulation.candidate(i);
       if (fitness > pq.peekPriority() && !eliteSet.contains(c)) {
-        eliteSet.remove(parentPopulation.candidate(pq.poll()));
-        pq.offer(i, fitness);
+        eliteSet.remove(parentPopulation.candidate(pq.pollThenOffer(i, fitness)));
         eliteSet.add(c);
       }
     }
-    while (!pq.isEmpty()) {
-      replacements.chooseFromParentPopulation(pq.poll(), 1);
+    for (int parentIndex : pq.toArray()) {
+      replacements.chooseFromParentPopulation(parentIndex, 1);
     }
 
     internalReplace(replacements, targetPopulationSize - eliteSet.size(), childPopulation.size());

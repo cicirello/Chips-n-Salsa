@@ -68,13 +68,13 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
 
     if (elite == 1) {
       replacements.chooseFromParentPopulation(findSingleElite(parentPopulation), 1);
-      internalReplace(replacements, targetPopulationSize - 1, childPopulation.size());
+      chooseRemainingFromChildren(replacements, targetPopulationSize - 1, childPopulation.size());
     } else {
       final int[] eliteParents = findElite(parentPopulation, Math.min(elite, targetPopulationSize));
       for (int parentIndex : eliteParents) {
         replacements.chooseFromParentPopulation(parentIndex, 1);
       }
-      internalReplace(
+      chooseRemainingFromChildren(
           replacements, targetPopulationSize - eliteParents.length, childPopulation.size());
     }
   }
@@ -88,13 +88,13 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
 
     if (elite == 1) {
       replacements.chooseFromParentPopulation(findSingleElite(parentPopulation), 1);
-      internalReplace(replacements, targetPopulationSize - 1, childPopulation.size());
+      chooseRemainingFromChildren(replacements, targetPopulationSize - 1, childPopulation.size());
     } else {
       final int[] eliteParents = findElite(parentPopulation, Math.min(elite, targetPopulationSize));
       for (int parentIndex : eliteParents) {
         replacements.chooseFromParentPopulation(parentIndex, 1);
       }
-      internalReplace(
+      chooseRemainingFromChildren(
           replacements, targetPopulationSize - eliteParents.length, childPopulation.size());
     }
   }
@@ -178,7 +178,8 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
     return pq.toArray();
   }
 
-  private void internalReplace(Replacements replacements, final int remaining, final int lambda) {
+  private void chooseRemainingFromChildren(
+      Replacements replacements, final int remaining, final int lambda) {
     final int minCopies = remaining / lambda;
     final int extraCount = remaining % lambda;
     int i = 0;

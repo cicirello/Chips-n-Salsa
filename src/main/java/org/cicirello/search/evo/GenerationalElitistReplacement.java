@@ -65,29 +65,18 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
       PopulationCandidates.IntegerFitness<T> childPopulation,
       Replacements replacements,
       int targetPopulationSize) {
-    final int targetEliteCount = Math.min(elite, targetPopulationSize);
-    HashSet<T> eliteSet = new HashSet<T>(targetEliteCount);
-    final int mu = parentPopulation.size();
-    IntBinaryHeap pq = IntBinaryHeap.createMinHeap(mu);
-    int i = 0;
-    for (; i < mu && eliteSet.size() < targetEliteCount; i++) {
-      if (eliteSet.add(parentPopulation.candidate(i))) {
-        pq.offer(i, parentPopulation.fitness(i));
-      }
-    }
-    for (; i < mu; i++) {
-      final int fitness = parentPopulation.fitness(i);
-      final T c = parentPopulation.candidate(i);
-      if (fitness > pq.peekPriority() && !eliteSet.contains(c)) {
-        eliteSet.remove(parentPopulation.candidate(pq.pollThenOffer(i, fitness)));
-        eliteSet.add(c);
-      }
-    }
-    for (int parentIndex : pq.toArray()) {
-      replacements.chooseFromParentPopulation(parentIndex, 1);
-    }
 
-    internalReplace(replacements, targetPopulationSize - eliteSet.size(), childPopulation.size());
+    if (elite == 1) {
+      replacements.chooseFromParentPopulation(findSingleElite(parentPopulation), 1);
+      internalReplace(replacements, targetPopulationSize - 1, childPopulation.size());
+    } else {
+      final int[] eliteParents = findElite(parentPopulation, Math.min(elite, targetPopulationSize));
+      for (int parentIndex : eliteParents) {
+        replacements.chooseFromParentPopulation(parentIndex, 1);
+      }
+      internalReplace(
+          replacements, targetPopulationSize - eliteParents.length, childPopulation.size());
+    }
   }
 
   @Override
@@ -96,7 +85,51 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
       PopulationCandidates.DoubleFitness<T> childPopulation,
       Replacements replacements,
       int targetPopulationSize) {
-    final int targetEliteCount = Math.min(elite, targetPopulationSize);
+
+    if (elite == 1) {
+      replacements.chooseFromParentPopulation(findSingleElite(parentPopulation), 1);
+      internalReplace(replacements, targetPopulationSize - 1, childPopulation.size());
+    } else {
+      final int[] eliteParents = findElite(parentPopulation, Math.min(elite, targetPopulationSize));
+      for (int parentIndex : eliteParents) {
+        replacements.chooseFromParentPopulation(parentIndex, 1);
+      }
+      internalReplace(
+          replacements, targetPopulationSize - eliteParents.length, childPopulation.size());
+    }
+  }
+
+  @Override
+  public GenerationalElitistReplacement<T> split() {
+    // This operator doesn't maintain any mutable state across calls, so it is safe to
+    // share across threads. Thus, just return this.
+    return this;
+  }
+
+  private int findSingleElite(PopulationCandidates.DoubleFitness<T> parentPopulation) {
+    int mostFitIndex = 0;
+    final int mu = parentPopulation.size();
+    for (int i = 1; i < mu; i++) {
+      if (parentPopulation.fitness(i) > parentPopulation.fitness(mostFitIndex)) {
+        mostFitIndex = i;
+      }
+    }
+    return mostFitIndex;
+  }
+
+  private int findSingleElite(PopulationCandidates.IntegerFitness<T> parentPopulation) {
+    int mostFitIndex = 0;
+    final int mu = parentPopulation.size();
+    for (int i = 1; i < mu; i++) {
+      if (parentPopulation.fitness(i) > parentPopulation.fitness(mostFitIndex)) {
+        mostFitIndex = i;
+      }
+    }
+    return mostFitIndex;
+  }
+
+  private int[] findElite(
+      PopulationCandidates.DoubleFitness<T> parentPopulation, final int targetEliteCount) {
     HashSet<T> eliteSet = new HashSet<T>(targetEliteCount);
     final int mu = parentPopulation.size();
     IntBinaryHeapDouble pq = IntBinaryHeapDouble.createMinHeap(mu);
@@ -114,18 +147,29 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
         eliteSet.add(c);
       }
     }
-    for (int parentIndex : pq.toArray()) {
-      replacements.chooseFromParentPopulation(parentIndex, 1);
-    }
-
-    internalReplace(replacements, targetPopulationSize - eliteSet.size(), childPopulation.size());
+    return pq.toArray();
   }
 
-  @Override
-  public GenerationalElitistReplacement<T> split() {
-    // This operator doesn't maintain any mutable state across calls, so it is safe to
-    // share across threads. Thus, just return this.
-    return this;
+  private int[] findElite(
+      PopulationCandidates.IntegerFitness<T> parentPopulation, final int targetEliteCount) {
+    HashSet<T> eliteSet = new HashSet<T>(targetEliteCount);
+    final int mu = parentPopulation.size();
+    IntBinaryHeap pq = IntBinaryHeap.createMinHeap(mu);
+    int i = 0;
+    for (; i < mu && eliteSet.size() < targetEliteCount; i++) {
+      if (eliteSet.add(parentPopulation.candidate(i))) {
+        pq.offer(i, parentPopulation.fitness(i));
+      }
+    }
+    for (; i < mu; i++) {
+      final int fitness = parentPopulation.fitness(i);
+      final T c = parentPopulation.candidate(i);
+      if (fitness > pq.peekPriority() && !eliteSet.contains(c)) {
+        eliteSet.remove(parentPopulation.candidate(pq.pollThenOffer(i, fitness)));
+        eliteSet.add(c);
+      }
+    }
+    return pq.toArray();
   }
 
   private void internalReplace(Replacements replacements, final int remaining, final int lambda) {

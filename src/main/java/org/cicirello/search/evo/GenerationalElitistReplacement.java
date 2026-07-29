@@ -108,10 +108,13 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
 
   private int findSingleElite(PopulationCandidates.DoubleFitness<T> parentPopulation) {
     int mostFitIndex = 0;
+    double bestFitness = parentPopulation.fitness(0);
     final int mu = parentPopulation.size();
     for (int i = 1; i < mu; i++) {
-      if (parentPopulation.fitness(i) > parentPopulation.fitness(mostFitIndex)) {
+      final double fitness = parentPopulation.fitness(i);
+      if (fitness > bestFitness) {
         mostFitIndex = i;
+        bestFitness = fitness;
       }
     }
     return mostFitIndex;
@@ -119,10 +122,13 @@ public final class GenerationalElitistReplacement<T> implements ReplacementStrat
 
   private int findSingleElite(PopulationCandidates.IntegerFitness<T> parentPopulation) {
     int mostFitIndex = 0;
+    int bestFitness = parentPopulation.fitness(0);
     final int mu = parentPopulation.size();
     for (int i = 1; i < mu; i++) {
-      if (parentPopulation.fitness(i) > parentPopulation.fitness(mostFitIndex)) {
+      final int fitness = parentPopulation.fitness(i);
+      if (fitness > bestFitness) {
         mostFitIndex = i;
+        bestFitness = fitness;
       }
     }
     return mostFitIndex;

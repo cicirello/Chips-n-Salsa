@@ -70,7 +70,7 @@ import java.util.function.BiFunction;
 public final class BNPReplacement<T> implements ReplacementStrategy<T> {
 
   private int currentGeneration;
-  private final int numGenerations;
+  private int numGenerations;
   private double initialDiversity;
   private double initialDiversityFactor = 0.4;
   private final BiFunction<T, T, Double> distanceFunction;
@@ -78,18 +78,10 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
   /**
    * Constructs the replacement strategy.
    *
-   * @param numGenerations It must be the same number of generations to be executed in the
-   *     evolutionary algorithm that is using this replacement strategy.
    * @param distanceFunction Function to measure the distance between two candidate solutions.
-   * @throws IllegalArgumentException if numGenerations is less than or equal to 0.
    */
-  public BNPReplacement(int numGenerations, BiFunction<T, T, Double> distanceFunction) {
-    if (numGenerations <= 0) {
-      throw new IllegalArgumentException("numGenerations must be greater than 0");
-    }
-    this.numGenerations = numGenerations;
+  public BNPReplacement(BiFunction<T, T, Double> distanceFunction) {
     this.distanceFunction = distanceFunction;
-    this.currentGeneration = 1;
   }
 
   /**
@@ -105,7 +97,7 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
       int numGenerations,
       BiFunction<T, T, Double> distanceFunction,
       double initialDiversityFactor) {
-    this(numGenerations, distanceFunction);
+    this(distanceFunction);
     setInitialDiversityFactor(initialDiversityFactor);
   }
 
@@ -286,7 +278,7 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
             Math.min(individual.distance, distanceFunction.apply(individual.solution, survivor));
       }
 
-      // Select next best individual
+      // Select the next best non-penalized individual
       bestIndividualIndex = 0;
       for (int i = 0; i < allIndividuals.size(); i++) {
         var individual = allIndividuals.get(i);
@@ -313,7 +305,7 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
         }
       }
 
-      // Insert best next best individual and remove from all individuals
+      // Insert next best individual and remove from all individuals
       survivor =
           addReplacement(
               parentPopulation,
@@ -356,5 +348,20 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
    */
   public void setInitialDiversityFactor(double initialDiversityFactor) {
     this.initialDiversityFactor = initialDiversityFactor;
+  }
+
+  /**
+   * Initializes the replacement strategy with the specified number of generations.
+   *
+   * @param generations the number of generations to run the algorithm
+   * @throws IllegalArgumentException if generations is less than or equal to 0
+   */
+  @Override
+  public void init(int generations) {
+    if (generations <= 0) {
+      throw new IllegalArgumentException("generations must be greater than 0");
+    }
+    this.numGenerations = generations;
+    this.currentGeneration = 1;
   }
 }

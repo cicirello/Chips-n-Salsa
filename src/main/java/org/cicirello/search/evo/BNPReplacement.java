@@ -87,16 +87,11 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
   /**
    * Constructs the replacement strategy.
    *
-   * @param numGenerations It must be the same number of generations to be executed in the
-   *     evolutionary algorithm that is using this replacement strategy.
    * @param distanceFunction Function to measure the distance between two candidate solutions.
    * @param initialDiversityFactor Factor to modify the initial diversity threshold. The default
    *     value is 0.4.
    */
-  public BNPReplacement(
-      int numGenerations,
-      BiFunction<T, T, Double> distanceFunction,
-      double initialDiversityFactor) {
+  public BNPReplacement(BiFunction<T, T, Double> distanceFunction, double initialDiversityFactor) {
     this(distanceFunction);
     setInitialDiversityFactor(initialDiversityFactor);
   }
@@ -207,8 +202,7 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
 
   @Override
   public ReplacementStrategy<T> split() {
-    return new BNPReplacement<>(
-        this.numGenerations, this.distanceFunction, this.initialDiversityFactor);
+    return new BNPReplacement<>(this.distanceFunction, this.initialDiversityFactor);
   }
 
   /**

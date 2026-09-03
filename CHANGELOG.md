@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+* Fixed AbstractEvolutionaryAlgorithm.reoptimize() in case when called without prior call to optimize()
 
 ### Dependencies
 * Bump org.cicirello:core from 3.0.0 to 3.1.0

@@ -32,7 +32,7 @@ import org.junit.jupiter.api.*;
 
 public class GAWithBNPReplacementTests {
 
-  private static final int NUM_GENERATIONS = 1;
+  private static final int NUM_GENERATIONS = 10;
   private BiFunction<BitVector, BitVector, Double> xorDistanceFunction;
 
   @BeforeEach

@@ -39,6 +39,7 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
   private final Population<T> pop;
   private final Problem<T> problem;
   private long numFitnessEvals;
+  private boolean optimizeCalled;
 
   /*
    * Internal constructor for use by subclasses in same package.
@@ -47,6 +48,7 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
   AbstractEvolutionaryAlgorithm(Population<T> pop, Problem<T> problem) {
     this.pop = pop;
     this.problem = problem;
+    optimizeCalled = false;
   }
 
   /*
@@ -62,6 +64,10 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
 
     // Each instance must maintain its own count of evals.
     numFitnessEvals = 0;
+
+    // a split won't have an initialized population, so set this to false
+    // to ensure reoptimize doesn't fail
+    optimizeCalled = false;
   }
 
   /**
@@ -76,8 +82,11 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
    */
   @Override
   public final SolutionCostPair<T> optimize(int numGenerations) {
-    if (pop.evolutionIsPaused()) return null;
+    if (pop.evolutionIsPaused()) {
+      return null;
+    }
     pop.init();
+    optimizeCalled = true;
     pop.initOperators(numGenerations);
     numFitnessEvals = numFitnessEvals + pop.size();
     internalOptimize(numGenerations);
@@ -97,7 +106,12 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
    */
   @Override
   public final SolutionCostPair<T> reoptimize(int numGenerations) {
-    if (pop.evolutionIsPaused()) return null;
+    if (!optimizeCalled) {
+      return optimize(numGenerations);
+    }
+    if (pop.evolutionIsPaused()) {
+      return null;
+    }
     pop.initOperators(numGenerations);
     internalOptimize(numGenerations);
     return pop.getMostFit();

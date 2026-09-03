@@ -196,7 +196,7 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
         meanDistance += distance;
       }
     }
-    meanDistance /= (population.size() * (population.size() - 1) / 2);
+    meanDistance *= 2.0 / (population.size() * (population.size() - 1));
     this.initialDiversity = meanDistance * this.initialDiversityFactor;
   }
 
@@ -327,10 +327,10 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
    * @throws IllegalArgumentException If the population type is unknown or unsupported.
    */
   private double getFitness(PopulationCandidates<?> population, int index) {
-    if (population instanceof PopulationCandidates.DoubleFitness) {
-      return ((PopulationCandidates.DoubleFitness<T>) population).fitness(index);
-    } else if (population instanceof PopulationCandidates.IntegerFitness) {
-      return ((PopulationCandidates.IntegerFitness<T>) population).fitness(index);
+    if (population instanceof PopulationCandidates.DoubleFitness casted) {
+      return casted.fitness(index);
+    } else if (population instanceof PopulationCandidates.IntegerFitness casted) {
+      return casted.fitness(index);
     }
     throw new IllegalArgumentException("Unknown population type");
   }

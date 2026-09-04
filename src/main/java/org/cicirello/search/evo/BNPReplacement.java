@@ -65,34 +65,33 @@ import java.util.function.BiFunction;
  * Evolutionary Computation, 21(4), 539–553. https://doi.org/10.1109/TEVC.2016.2641477
  *
  * @param <T> the representation of population members
- * @author <a>J. Alejandro Cornejo-Acosta</a>,
+ * @author J. Alejandro Cornejo-Acosta,
  */
 public final class BNPReplacement<T> implements ReplacementStrategy<T> {
 
   private int currentGeneration;
   private int numGenerations;
   private double initialDiversity;
-  private double initialDiversityFactor = 0.4;
+  private double initialDiversityFactor;
   private final BiFunction<T, T, Double> distanceFunction;
 
   /**
-   * Constructs the replacement strategy.
+   * Constructs the replacement strategy, with a default initialDiversityFactor 0.4.
    *
    * @param distanceFunction Function to measure the distance between two candidate solutions.
    */
   public BNPReplacement(BiFunction<T, T, Double> distanceFunction) {
-    this.distanceFunction = distanceFunction;
+    this(distanceFunction, 0.4);
   }
 
   /**
    * Constructs the replacement strategy.
    *
    * @param distanceFunction Function to measure the distance between two candidate solutions.
-   * @param initialDiversityFactor Factor to modify the initial diversity threshold. The default
-   *     value is 0.4.
+   * @param initialDiversityFactor Factor to modify the initial diversity threshold.
    */
   public BNPReplacement(BiFunction<T, T, Double> distanceFunction, double initialDiversityFactor) {
-    this(distanceFunction);
+    this.distanceFunction = distanceFunction;
     setInitialDiversityFactor(initialDiversityFactor);
   }
 
@@ -124,21 +123,7 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
       PopulationCandidates.IntegerFitness<T> childPopulation,
       Replacements replacements,
       int targetPopulationSize) {
-    if (currentGeneration == 1) {
-      // The initial diversity threshold is computed only at the beginning
-      initializeDiversity(parentPopulation);
-    }
-    internalReplace(parentPopulation, childPopulation, replacements, targetPopulationSize);
-    this.currentGeneration++;
-  }
-
-  @Override
-  public void replace(
-      PopulationCandidates.DoubleFitness<T> parentPopulation,
-      PopulationCandidates.DoubleFitness<T> childPopulation,
-      Replacements replacements,
-      int targetPopulationSize) {
-    if (this.currentGeneration > numGenerations) {
+    if (currentGeneration > numGenerations) {
       throw new IllegalArgumentException(
           "The BNP replacement strategy was executed more times than expected.");
     }
@@ -147,7 +132,25 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
       initializeDiversity(parentPopulation);
     }
     internalReplace(parentPopulation, childPopulation, replacements, targetPopulationSize);
-    this.currentGeneration++;
+    currentGeneration++;
+  }
+
+  @Override
+  public void replace(
+      PopulationCandidates.DoubleFitness<T> parentPopulation,
+      PopulationCandidates.DoubleFitness<T> childPopulation,
+      Replacements replacements,
+      int targetPopulationSize) {
+    if (currentGeneration > numGenerations) {
+      throw new IllegalArgumentException(
+          "The BNP replacement strategy was executed more times than expected.");
+    }
+    if (currentGeneration == 1) {
+      // The initial diversity threshold is computed only at the beginning
+      initializeDiversity(parentPopulation);
+    }
+    internalReplace(parentPopulation, childPopulation, replacements, targetPopulationSize);
+    currentGeneration++;
   }
 
   /**
@@ -197,12 +200,12 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
       }
     }
     meanDistance *= 2.0 / (population.size() * (population.size() - 1));
-    this.initialDiversity = meanDistance * this.initialDiversityFactor;
+    initialDiversity = meanDistance * initialDiversityFactor;
   }
 
   @Override
-  public ReplacementStrategy<T> split() {
-    return new BNPReplacement<>(this.distanceFunction, this.initialDiversityFactor);
+  public BNPReplacement<T> split() {
+    return new BNPReplacement<T>(distanceFunction, initialDiversityFactor);
   }
 
   /**
@@ -324,15 +327,17 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
    *     {@code PopulationCandidates.DoubleFitness}, the exact fitness value is returned. If the
    *     population is of type {@code PopulationCandidates.IntegerFitness}, the fitness value is
    *     cast to a double.
-   * @throws IllegalArgumentException If the population type is unknown or unsupported.
    */
   private double getFitness(PopulationCandidates<?> population, int index) {
+    // only two possible cases, so this default value should never be returned
+    double fitness = -1;
     if (population instanceof PopulationCandidates.DoubleFitness casted) {
-      return casted.fitness(index);
-    } else if (population instanceof PopulationCandidates.IntegerFitness casted) {
-      return casted.fitness(index);
+      fitness = casted.fitness(index);
     }
-    throw new IllegalArgumentException("Unknown population type");
+    if (population instanceof PopulationCandidates.IntegerFitness casted) {
+      fitness = casted.fitness(index);
+    }
+    return fitness;
   }
 
   /**
@@ -355,7 +360,7 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
     if (generations <= 0) {
       throw new IllegalArgumentException("generations must be greater than 0");
     }
-    this.numGenerations = generations;
-    this.currentGeneration = 1;
+    numGenerations = generations;
+    currentGeneration = 1;
   }
 }

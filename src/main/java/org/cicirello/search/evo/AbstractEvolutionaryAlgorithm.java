@@ -21,7 +21,6 @@
 package org.cicirello.search.evo;
 
 import org.cicirello.search.ProgressTracker;
-import org.cicirello.search.ReoptimizableMetaheuristic;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.problems.Problem;
 import org.cicirello.util.Copyable;
@@ -34,7 +33,7 @@ import org.cicirello.util.Copyable;
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
 abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
-    implements ReoptimizableMetaheuristic<T> {
+    implements PopulationMetaheuristic<T> {
 
   private final Population<T> pop;
   private final Problem<T> problem;
@@ -89,7 +88,37 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
     optimizeCalled = true;
     pop.initOperators(numGenerations);
     numFitnessEvals = numFitnessEvals + pop.size();
-    internalOptimize(numGenerations);
+    internalOptimize(s -> s.numCompletedGenerations() >= numGenerations, pop.size());
+    return pop.getMostFit();
+  }
+
+  /**
+   * Runs the evolutionary algorithm beginning from a randomly generated population. If this method
+   * is called multiple times, each call begins at a new randomly generated population.
+   *
+   * @param numGenerations The maximum number of generations, which will cause the run to terminate
+   *     even if other criteria specified in the terminator are not currently met. Some selection
+   *     operators and replacement strategies may need to know the maximum number of generations to
+   *     operate properly, which is why this parameter is needed separately from other termination
+   *     criteria.
+   * @param terminator the termination criteria. Your terminator does not need to monitor for
+   *     maximum number of generations. That is done for you.
+   * @return The best solution found during this call to optimize, which may or may not be the same
+   *     as the solution contained in the {@link ProgressTracker}, which contains the best across
+   *     all calls to optimize as well as {@link #reoptimize}. Returns null if the run did not
+   *     execute, such as if the ProgressTracker already contains the theoretical best solution.
+   */
+  @Override
+  public final SolutionCostPair<T> optimize(int numGenerations, TerminationStrategy<T> terminator) {
+    if (pop.evolutionIsPaused()) {
+      return null;
+    }
+    pop.init();
+    optimizeCalled = true;
+    pop.initOperators(numGenerations);
+    numFitnessEvals = numFitnessEvals + pop.size();
+    internalOptimize(
+        s -> s.numCompletedGenerations() >= numGenerations || terminator.terminate(s), pop.size());
     return pop.getMostFit();
   }
 
@@ -113,7 +142,7 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
       return null;
     }
     pop.initOperators(numGenerations);
-    internalOptimize(numGenerations);
+    internalOptimize(s -> s.numCompletedGenerations() >= numGenerations, 0);
     return pop.getMostFit();
   }
 
@@ -150,9 +179,23 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
   @Override
   public abstract AbstractEvolutionaryAlgorithm<T> split();
 
-  private void internalOptimize(int numGenerations) {
-    for (int i = 0; i < numGenerations && !pop.evolutionIsPaused(); i++) {
-      numFitnessEvals = numFitnessEvals + pop.generation();
+  private void internalOptimize(
+      TerminationStrategy<T> terminator, long thisRunsFitnessEvaluations) {
+    for (int i = 0;
+        !terminator.terminate(
+                new TerminationStrategy.ExecutionState<T>(
+                    i,
+                    thisRunsFitnessEvaluations,
+                    pop.getMostFit().getSolution(),
+                    pop.bestFitness(),
+                    pop.currentPopulation()))
+            && !pop.evolutionIsPaused();
+        i++) {
+      int generationsFitnessEvals = pop.generation();
+      // Total fitness evaluations across all runs
+      numFitnessEvals = numFitnessEvals + generationsFitnessEvals;
+      // Total fitness evaluations for this run only.
+      thisRunsFitnessEvaluations = thisRunsFitnessEvaluations + generationsFitnessEvals;
     }
   }
 }

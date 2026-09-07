@@ -77,6 +77,22 @@ interface Population<T extends Copyable<T>> extends Splittable<Population<T>> {
   SolutionCostPair<T> getMostFit();
 
   /**
+   * Gets the fitness of the most fit candidate solution found in any generation as a double value.
+   *
+   * @return the fitness of the most fit solution encountered in any generation (as a value of type
+   *     double)
+   */
+  double bestFitness();
+
+  /**
+   * Gets the current population, enabling access by components that may need to reason about the
+   * underlying population such as termination strategies, replacement strategies, etc.
+   *
+   * @return the current population
+   */
+  PopulationCandidates<T> currentPopulation();
+
+  /**
    * Update the fitness of a candidate solution for the next generation.
    *
    * @param i The population member.

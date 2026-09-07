@@ -21,8 +21,9 @@
 package org.cicirello.search.evo;
 
 /**
- * An interface to the candidates for the next generation's population, consisting of the current
- * population as well as the relevant pool of children.
+ * An interface to candidates for the next generation's population, which can be the current members
+ * of the population or the children derived from it, depending upon the context. This interface is
+ * used as a parameter to the {@link ReplacementStrategy} interface.
  *
  * @param <T> the representation of population members
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
@@ -45,9 +46,9 @@ public interface PopulationCandidates<T> extends PopulationFitnessVector {
   T candidate(int i);
 
   /**
-   * An interface to the candidates for the next generation's population, consisting of the current
-   * population as well as the relevant pool of children. This interface is for the case when
-   * fitness values are ints.
+   * An interface to the candidates for the next generation's population, which can be the current
+   * members of the population or the children derived from it, depending upon the context. This
+   * interface is for the case when fitness values are ints.
    *
    * @param <T> the representation of population members
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
@@ -57,9 +58,9 @@ public interface PopulationCandidates<T> extends PopulationFitnessVector {
       extends PopulationCandidates<T>, PopulationFitnessVector.IntegerFitness {}
 
   /**
-   * An interface to the candidates for the next generation's population, consisting of the current
-   * population as well as the relevant pool of children. This interface is for the case when
-   * fitness values are doubles.
+   * An interface to the candidates for the next generation's population, which can be the current
+   * members of the population or the children derived from it, depending upon the context. This
+   * interface is for the case when fitness values are doubles.
    *
    * @param <T> the representation of population members
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a

@@ -139,8 +139,8 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
    * best solution, and also immediately returns if a prior call found the theoretical best. In such
    * cases, the total run length may be less than the requested run length.
    *
-   * @return The total number of generations completed across all calls to {@link #optimize} and
-   *     {@link #reoptimize}.
+   * @return The total run length in number of fitness evaluations across all calls to {@link
+   *     #optimize} and {@link #reoptimize}.
    */
   @Override
   public long getTotalRunLength() {

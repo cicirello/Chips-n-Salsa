@@ -4,15 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-09-03
+## [Unreleased] - 2026-09-07
 
 ### Added
+* TerminationStrategy interface to enable specifying termination criteria other than maximum number of generations
+* A new optimize(numberOfGenerations, TerminationStrategy) method to all of the evolutionary algorithms that accepts an instance of an implementation of the new TerminationStrategy interface
 * Best-non-penalized (BNP) replacement strategy (@alex-cornejo)
 
 ### Changed (Non-Breaking)
 * Minor code improvements to implementations of equals methods in a few classes
 * Refactored: moved Generation instance from AbstractEvolutionaryAlgorithm class into BasePopulation class
-* Optimized GenerationalElitistReplacement, including handling the case of a single elite separately from general case (e.g., simple linear time iteration for single elite versus binary heap for k elite).
+* Optimized GenerationalElitistReplacement, including handling the case of a single elite separately from general case (e.g., simple linear time iteration for single elite versus binary heap for k elite)
 
 ### Changed (Breaking)
 

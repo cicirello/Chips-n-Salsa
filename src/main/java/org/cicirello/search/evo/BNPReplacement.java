@@ -235,13 +235,13 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
     for (int i = 0; i < parentPopulation.size(); i++) {
       allIndividuals.add(
           new Individual<>(
-              individualId, parentPopulation.candidate(i), getFitness(parentPopulation, i)));
+              individualId, parentPopulation.candidate(i), parentPopulation.fitnessAsDouble(i)));
       individualId++;
     }
     for (int i = 0; i < childPopulation.size(); i++) {
       allIndividuals.add(
           new Individual<>(
-              individualId, childPopulation.candidate(i), getFitness(childPopulation, i)));
+              individualId, childPopulation.candidate(i), childPopulation.fitnessAsDouble(i)));
       individualId++;
     }
 
@@ -313,31 +313,6 @@ public final class BNPReplacement<T> implements ReplacementStrategy<T> {
       allIndividuals.removeLast();
       survivorCount++;
     }
-  }
-
-  /**
-   * Returns the fitness of a candidate solution given its index. The method determines the type of
-   * population (either double or integer fitness) and retrieves the corresponding fitness value.
-   * This is an auxilar method to abstract the internal replace functionality.
-   *
-   * @param population The population of candidate solutions, which can be of type {@code
-   *     PopulationCandidates.DoubleFitness} or {@code PopulationCandidates.IntegerFitness}.
-   * @param index The index of the candidate whose fitness is to be retrieved.
-   * @return The fitness value of the candidate at the specified index. If the population is of type
-   *     {@code PopulationCandidates.DoubleFitness}, the exact fitness value is returned. If the
-   *     population is of type {@code PopulationCandidates.IntegerFitness}, the fitness value is
-   *     cast to a double.
-   */
-  private double getFitness(PopulationCandidates<?> population, int index) {
-    // only two possible cases, so this default value should never be returned
-    double fitness = -1;
-    if (population instanceof PopulationCandidates.DoubleFitness casted) {
-      fitness = casted.fitness(index);
-    }
-    if (population instanceof PopulationCandidates.IntegerFitness casted) {
-      fitness = casted.fitness(index);
-    }
-    return fitness;
   }
 
   /**

@@ -36,6 +36,19 @@ public interface PopulationFitnessVector {
   int size();
 
   /**
+   * The fitness of the a member of the population represented as a double. For implementations of
+   * the {@link DoubleFitness} interface, this is the same as the {@link DoubleFitness#fitness}
+   * method. For implementations of the {@link IntegerFitness} interface, this method simply returns
+   * {@link IntegerFitness#fitness}. This method is provided as a convenience for cases where you
+   * cannot exploit integer-valued fitnesses for code optimization. Thus utilizing the
+   * fitnessAsDouble method may lead to simplified code.
+   *
+   * @param i The index into the population, which must be in the interval [0, size()).
+   * @return the fitness of population member i.
+   */
+  double fitnessAsDouble(int i);
+
+  /**
    * An interface to a vector of fitnesses, each an int, of a population.
    *
    * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
@@ -50,6 +63,11 @@ public interface PopulationFitnessVector {
      * @return the fitness of population member i.
      */
     int fitness(int i);
+
+    @Override
+    default double fitnessAsDouble(int i) {
+      return fitness(i);
+    }
 
     /**
      * Creates a PopulationFitnessVector.IntegerFitness wrapping a primitive int array.
@@ -122,6 +140,11 @@ public interface PopulationFitnessVector {
      * @return the fitness of population member i.
      */
     double fitness(int i);
+
+    @Override
+    default double fitnessAsDouble(int i) {
+      return fitness(i);
+    }
 
     /**
      * Creates a PopulationFitnessVector.DoubleFitness wrapping a primitive double array.

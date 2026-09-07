@@ -241,6 +241,16 @@ abstract class BasePopulation {
     }
 
     @Override
+    public final double bestFitness() {
+      return bestFitness;
+    }
+
+    @Override
+    public final PopulationCandidates<T> currentPopulation() {
+      return pop;
+    }
+
+    @Override
     public final void updateFitness(int i) {
       double fit = f.fitness(nextPop.candidate(i));
       nextPop.get(i).setFitness(fit);
@@ -536,6 +546,16 @@ abstract class BasePopulation {
      */
     public final int getFitnessOfMostFit() {
       return bestFitness;
+    }
+
+    @Override
+    public final double bestFitness() {
+      return bestFitness;
+    }
+
+    @Override
+    public final PopulationCandidates<T> currentPopulation() {
+      return pop;
     }
 
     @Override

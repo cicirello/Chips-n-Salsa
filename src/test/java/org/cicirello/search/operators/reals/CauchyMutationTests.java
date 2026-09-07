@@ -22,6 +22,7 @@ package org.cicirello.search.operators.reals;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.cicirello.search.Configurator;
 import org.cicirello.search.representations.RealValued;
 import org.cicirello.search.representations.RealVector;
 import org.junit.jupiter.api.*;
@@ -34,6 +35,11 @@ public class CauchyMutationTests extends SharedTestRealMutationOps {
 
   // precision used in floating-point comparisons
   private static final double EPSILON = 1e-10;
+
+  @BeforeEach
+  public void seed() {
+    Configurator.configureRandomGenerator(42L);
+  }
 
   @Test
   public void testToArray() {

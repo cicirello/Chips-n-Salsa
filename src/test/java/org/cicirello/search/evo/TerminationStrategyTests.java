@@ -92,7 +92,7 @@ public class TerminationStrategyTests {
   }
 
   @Test
-  public void testAnotherThreadPausedEvolution() {
+  public void testAnotherThreadPausedEvolutionBeforeOptimize() {
     double M = 0.5;
     int n = 10;
     int L = 32;
@@ -111,5 +111,94 @@ public class TerminationStrategyTests {
     tracker.stop();
     SolutionCostPair<BitVector> solution = ga.optimize(5, s -> s.numCompletedGenerations() >= 10);
     assertNull(solution);
+  }
+
+  @Test
+  public void testAnotherThreadPausedEvolutionDuringOptimization() {
+    double M = 0.5;
+    int n = 10;
+    int L = 32;
+    OneMax problem = new OneMax();
+    final ProgressTracker<BitVector> tracker = new ProgressTracker<BitVector>();
+    MutationOnlyGeneticAlgorithm ga =
+        new MutationOnlyGeneticAlgorithm(
+            n,
+            L,
+            new InverseCostFitnessFunction<BitVector>(problem),
+            M,
+            new FitnessProportionalSelection(),
+            tracker);
+    assertTrue(tracker == ga.getProgressTracker());
+    assertTrue(problem == ga.getProblem());
+    SolutionCostPair<BitVector> solution =
+        ga.optimize(
+            5,
+            s -> {
+              if (s.numCompletedGenerations() == 1) {
+                tracker.stop();
+              }
+              return s.numCompletedGenerations() >= 10;
+            });
+    // Make sure correct number of fitness evals
+    assertEquals(n * 2, ga.getTotalRunLength());
+    assertEquals(tracker.getCostDouble(), solution.getCostDouble());
+    BitVector b = solution.getSolution();
+    assertEquals(L, b.length());
+    assertEquals(L, tracker.getSolution().length());
+    assertEquals(b.countZeros(), solution.getCostDouble());
+  }
+
+  @Test
+  public void testGenerationsCauseTerminationIntegerFitness() {
+    double M = 0.5;
+    int n = 10;
+    int L = 32;
+    OneMax problem = new OneMax();
+    ProgressTracker<BitVector> tracker = new ProgressTracker<BitVector>();
+    MutationOnlyGeneticAlgorithm ga =
+        new MutationOnlyGeneticAlgorithm(
+            n,
+            L,
+            new NegativeIntegerCostFitnessFunction<BitVector>(problem),
+            M,
+            new RandomSelection(),
+            tracker);
+    assertTrue(tracker == ga.getProgressTracker());
+    assertTrue(problem == ga.getProblem());
+    SolutionCostPair<BitVector> solution = ga.optimize(5, s -> s.numCompletedGenerations() >= 10);
+    // Make sure correct number of fitness evals
+    assertEquals(n * 6, ga.getTotalRunLength());
+    assertEquals(tracker.getCostDouble(), solution.getCostDouble());
+    BitVector b = solution.getSolution();
+    assertEquals(L, b.length());
+    assertEquals(L, tracker.getSolution().length());
+    assertEquals(b.countZeros(), solution.getCostDouble());
+  }
+
+  @Test
+  public void testTerminationStrategyCausesTerminationIntegerFitness() {
+    double M = 0.5;
+    int n = 10;
+    int L = 32;
+    OneMax problem = new OneMax();
+    ProgressTracker<BitVector> tracker = new ProgressTracker<BitVector>();
+    MutationOnlyGeneticAlgorithm ga =
+        new MutationOnlyGeneticAlgorithm(
+            n,
+            L,
+            new NegativeIntegerCostFitnessFunction<BitVector>(problem),
+            M,
+            new RandomSelection(),
+            tracker);
+    assertTrue(tracker == ga.getProgressTracker());
+    assertTrue(problem == ga.getProblem());
+    SolutionCostPair<BitVector> solution = ga.optimize(10, s -> s.numCompletedGenerations() >= 5);
+    // Make sure correct number of fitness evals
+    assertEquals(n * 6, ga.getTotalRunLength());
+    assertEquals(tracker.getCostDouble(), solution.getCostDouble());
+    BitVector b = solution.getSolution();
+    assertEquals(L, b.length());
+    assertEquals(L, tracker.getSolution().length());
+    assertEquals(b.countZeros(), solution.getCostDouble());
   }
 }

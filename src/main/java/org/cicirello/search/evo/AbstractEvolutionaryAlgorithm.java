@@ -88,7 +88,7 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
     optimizeCalled = true;
     pop.initOperators(numGenerations);
     numFitnessEvals = numFitnessEvals + pop.size();
-    internalOptimize(s -> s.numCompletedGenerations() >= numGenerations, pop.size());
+    internalOptimize(numGenerations);
     return pop.getMostFit();
   }
 
@@ -142,7 +142,7 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
       return null;
     }
     pop.initOperators(numGenerations);
-    internalOptimize(s -> s.numCompletedGenerations() >= numGenerations, 0);
+    internalOptimize(numGenerations);
     return pop.getMostFit();
   }
 
@@ -178,6 +178,13 @@ abstract class AbstractEvolutionaryAlgorithm<T extends Copyable<T>>
 
   @Override
   public abstract AbstractEvolutionaryAlgorithm<T> split();
+
+  private void internalOptimize(int maxGenerations) {
+    for (int i = 0; i < maxGenerations && !pop.evolutionIsPaused(); i++) {
+      // Total fitness evaluations across all runs
+      numFitnessEvals = numFitnessEvals + pop.generation();
+    }
+  }
 
   private void internalOptimize(
       TerminationStrategy<T> terminator, long thisRunsFitnessEvaluations) {

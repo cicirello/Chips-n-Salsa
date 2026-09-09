@@ -35,6 +35,7 @@ package org.cicirello.search.evo;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
+@FunctionalInterface
 public interface TerminationStrategy<T> {
 
   /**

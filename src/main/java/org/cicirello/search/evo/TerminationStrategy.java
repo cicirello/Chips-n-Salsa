@@ -21,7 +21,15 @@
 package org.cicirello.search.evo;
 
 /**
- * This interface is used to define a termination strategy.
+ * This interface is used to define a termination strategy. Note that it is unnecessary to use this
+ * interface to specify termination by maximum number of generations as that is a required parameter
+ * of the {@link org.cicirello.search.evo.PopulationMetaheuristic#optimize(int,TerminationStrategy)}
+ * method, and is always a termination criteria. It is also unnecessary to specify a termination
+ * criteria for the case when a solution matches a lower bound detectable by the definition of the
+ * optimization problem you are solving via the {@link
+ * org.cicirello.search.problems.OptimizationProblem#minCost} or {@link
+ * org.cicirello.search.problems.IntegerCostOptimizationProblem#minCost} methods. The library
+ * automatically terminates any of the evolutionary algorithms or other metaheuristics in this case.
  *
  * @param <T> The type of object under optimization.
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a

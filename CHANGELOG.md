@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * TerminationStrategy interface to enable specifying termination criteria other than maximum number of generations
 * A new optimize(numberOfGenerations, TerminationStrategy) method to all of the evolutionary algorithms that accepts an instance of an implementation of the new TerminationStrategy interface
+* The following implementations of TerminationStrategy:
+  * TargetFitnessTerminator: terminates if solution found whose fitness is at least a specified target
+  * MaximumFitnessEvaluationsTerminator: terminates once a specified number of fitness evaluations is executed
+  * StagnationTerminator: terminates is a specified number of generations elapses without improving the best solution of the run
 * Best-non-penalized (BNP) replacement strategy (@alex-cornejo)
 
 ### Changed (Non-Breaking)

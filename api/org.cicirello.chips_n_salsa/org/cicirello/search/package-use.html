@@ -149,12 +149,18 @@ self-determined, such as hill climbers that terminate upon reaching a local opti
 <div class="block">This interface defines the required methods for implementations of simple metaheuristics whose
 run length is self-determined, such as hill climbers that terminate upon reaching a local optima.</div>
 </div>
-<div class="col-first odd-row-color"><a href="class-use/SolutionCostPair.html#org.cicirello.search">SolutionCostPair</a></div>
+<div class="col-first odd-row-color"><a href="class-use/SingleSolutionMetaheuristic.html#org.cicirello.search">SingleSolutionMetaheuristic</a></div>
 <div class="col-last odd-row-color">
+<div class="block">This interface defines the required methods for implementations of single-solution
+metaheuristics, i.e., metaheuristics such as simulated annealing that operate one a single
+candidate solution (as compared to population-based metaheuristics such as genetic algorithms.</div>
+</div>
+<div class="col-first even-row-color"><a href="class-use/SolutionCostPair.html#org.cicirello.search">SolutionCostPair</a></div>
+<div class="col-last even-row-color">
 <div class="block">An object of this class encapsulates a solution with its corresponding cost value.</div>
 </div>
-<div class="col-first even-row-color"><a href="class-use/TrackableSearch.html#org.cicirello.search">TrackableSearch</a></div>
-<div class="col-last even-row-color">
+<div class="col-first odd-row-color"><a href="class-use/TrackableSearch.html#org.cicirello.search">TrackableSearch</a></div>
+<div class="col-last odd-row-color">
 <div class="block">This interface defines the required functionality of search algorithm implementations that
 support tracking search progress across multiple runs, whether multiple sequential runs, or
 multiple concurrent runs in the case of a parallel metaheuristic.</div>

@@ -95,8 +95,9 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">PopulationCandidates&lt;T&gt;</span><span class="extends-implements">
 extends <a href="PopulationFitnessVector.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector</a></span></div>
-<div class="block">An interface to the candidates for the next generation's population, consisting of the current
-population as well as the relevant pool of children.</div>
+<div class="block">An interface to candidates for the next generation's population, which can be the current members
+of the population or the children derived from it, depending upon the context. This interface is
+used as a parameter to the <a href="ReplacementStrategy.html" title="interface in org.cicirello.search.evo"><code>ReplacementStrategy</code></a> interface.</div>
 </div>
 </section>
 <section class="summary">
@@ -113,14 +114,14 @@ population as well as the relevant pool of children.</div>
 <div class="col-first even-row-color"><code>static interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="PopulationCandidates.DoubleFitness.html" class="type-name-link" title="interface in org.cicirello.search.evo">PopulationCandidates.DoubleFitness</a>&lt;<a href="PopulationCandidates.DoubleFitness.html#type-param-T" title="type parameter in PopulationCandidates.DoubleFitness">T</a>&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">An interface to the candidates for the next generation's population, consisting of the current
-population as well as the relevant pool of children.</div>
+<div class="block">An interface to the candidates for the next generation's population, which can be the current
+members of the population or the children derived from it, depending upon the context.</div>
 </div>
 <div class="col-first odd-row-color"><code>static interface&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="PopulationCandidates.IntegerFitness.html" class="type-name-link" title="interface in org.cicirello.search.evo">PopulationCandidates.IntegerFitness</a>&lt;<a href="PopulationCandidates.IntegerFitness.html#type-param-T" title="type parameter in PopulationCandidates.IntegerFitness">T</a>&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">An interface to the candidates for the next generation's population, consisting of the current
-population as well as the relevant pool of children.</div>
+<div class="block">An interface to the candidates for the next generation's population, which can be the current
+members of the population or the children derived from it, depending upon the context.</div>
 </div>
 </div>
 </section>
@@ -146,7 +147,7 @@ population as well as the relevant pool of children.</div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-org.cicirello.search.evo.PopulationFitnessVector">Methods inherited from interface&nbsp;<a href="PopulationFitnessVector.html#method-summary" title="interface in org.cicirello.search.evo">PopulationFitnessVector</a></h3>
-<code><a href="PopulationFitnessVector.html#size()" title="size()">size</a></code></div>
+<code><a href="PopulationFitnessVector.html#fitnessAsDouble(int)" title="fitnessAsDouble(int)">fitnessAsDouble</a>, <a href="PopulationFitnessVector.html#size()" title="size()">size</a></code></div>
 </section>
 </li>
 </ul>

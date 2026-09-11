@@ -70,6 +70,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
 <ol class="toc-list">
 <li><a href="#fitness(int)" tabindex="0">fitness(int)</a></li>
+<li><a href="#fitnessAsDouble(int)" tabindex="0">fitnessAsDouble(int)</a></li>
 <li><a href="#of(double%5B%5D)" tabindex="0">of(double[])</a></li>
 <li><a href="#toDoubleArray()" tabindex="0">toDoubleArray()</a></li>
 </ol>
@@ -128,14 +129,19 @@ extends <a href="PopulationFitnessVector.html" title="interface in org.cicirello
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Gets the fitness of a population member.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static <a href="PopulationFitnessVector.DoubleFitness.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.DoubleFitness</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#of(double%5B%5D)" class="member-name-link">of</a><wbr>(double[]&nbsp;f)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#fitnessAsDouble(int)" class="member-name-link">fitnessAsDouble</a><wbr>(int&nbsp;i)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">The fitness of the a member of the population represented as a double.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static <a href="PopulationFitnessVector.DoubleFitness.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector.DoubleFitness</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#of(double%5B%5D)" class="member-name-link">of</a><wbr>(double[]&nbsp;f)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
 <div class="block">Creates a PopulationFitnessVector.DoubleFitness wrapping a primitive double array.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default double[]</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#toDoubleArray()" class="member-name-link">toDoubleArray</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default double[]</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#toDoubleArray()" class="member-name-link">toDoubleArray</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block">Creates a new array of doubles containing the fitnesses of this
 PopulationFitnessVector.Double.</div>
 </div>
@@ -163,6 +169,29 @@ PopulationFitnessVector.Double.</div>
 <div class="member-signature"><span class="return-type">double</span>&nbsp;<span class="element-name">fitness</span><wbr><span class="parameters">(int&nbsp;i)</span></div>
 <div class="block">Gets the fitness of a population member.</div>
 <dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>i</code> - The index into the population, which must be in the interval [0, size()).</dd>
+<dt>Returns:</dt>
+<dd>the fitness of population member i.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="fitnessAsDouble(int)">
+<h3>fitnessAsDouble</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">fitnessAsDouble</span><wbr><span class="parameters">(int&nbsp;i)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="PopulationFitnessVector.html#fitnessAsDouble(int)">PopulationFitnessVector</a></code></span></div>
+<div class="block">The fitness of the a member of the population represented as a double. For implementations of
+the <a href="PopulationFitnessVector.DoubleFitness.html" title="interface in org.cicirello.search.evo"><code>PopulationFitnessVector.DoubleFitness</code></a> interface, this is the same as the <a href="#fitness(int)"><code>fitness(int)</code></a>
+method. For implementations of the <a href="PopulationFitnessVector.IntegerFitness.html" title="interface in org.cicirello.search.evo"><code>PopulationFitnessVector.IntegerFitness</code></a> interface, this method simply returns
+<a href="PopulationFitnessVector.IntegerFitness.html#fitness(int)"><code>PopulationFitnessVector.IntegerFitness.fitness(int)</code></a>. This method is provided as a convenience for cases where you
+cannot exploit integer-valued fitnesses for code optimization. Thus utilizing the
+fitnessAsDouble method may lead to simplified code.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PopulationFitnessVector.html#fitnessAsDouble(int)">fitnessAsDouble</a></code>&nbsp;in interface&nbsp;<code><a href="PopulationFitnessVector.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>i</code> - The index into the population, which must be in the interval [0, size()).</dd>
 <dt>Returns:</dt>

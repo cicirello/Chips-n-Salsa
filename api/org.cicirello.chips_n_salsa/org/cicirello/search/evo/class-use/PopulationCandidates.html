@@ -87,14 +87,40 @@ algorithms.</div>
 <div class="col-first even-row-color"><code>static interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="../PopulationCandidates.DoubleFitness.html" class="type-name-link" title="interface in org.cicirello.search.evo">PopulationCandidates.DoubleFitness</a>&lt;T&gt;</code></div>
 <div class="col-last even-row-color">
-<div class="block">An interface to the candidates for the next generation's population, consisting of the current
-population as well as the relevant pool of children.</div>
+<div class="block">An interface to the candidates for the next generation's population, which can be the current
+members of the population or the children derived from it, depending upon the context.</div>
 </div>
 <div class="col-first odd-row-color"><code>static interface&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="../PopulationCandidates.IntegerFitness.html" class="type-name-link" title="interface in org.cicirello.search.evo">PopulationCandidates.IntegerFitness</a>&lt;T&gt;</code></div>
 <div class="col-last odd-row-color">
-<div class="block">An interface to the candidates for the next generation's population, consisting of the current
-population as well as the relevant pool of children.</div>
+<div class="block">An interface to the candidates for the next generation's population, which can be the current
+members of the population or the children derived from it, depending upon the context.</div>
+</div>
+</div>
+<div class="caption"><span>Methods in <a href="../package-summary.html">org.cicirello.search.evo</a> that return <a href="../PopulationCandidates.html" title="interface in org.cicirello.search.evo">PopulationCandidates</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Method</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code><a href="../PopulationCandidates.html" title="interface in org.cicirello.search.evo">PopulationCandidates</a><wbr>&lt;<a href="../TerminationStrategy.ExecutionState.html#type-param-T" title="type parameter in TerminationStrategy.ExecutionState">T</a>&gt;</code></div>
+<div class="col-second even-row-color"><span class="type-name-label">TerminationStrategy.ExecutionState.</span><code><a href="../TerminationStrategy.ExecutionState.html#currentPopulation()" class="member-name-link">currentPopulation</a>()</code></div>
+<div class="col-last even-row-color">
+<div class="block">Returns the value of the <a href="../../../../../../org.cicirello.chips_n_salsa/org/cicirello/search/evo/TerminationStrategy.ExecutionState.html#param-currentPopulation"><code>currentPopulation</code></a> record component.</div>
+</div>
+</div>
+<div class="caption"><span>Constructors in <a href="../package-summary.html">org.cicirello.search.evo</a> with parameters of type <a href="../PopulationCandidates.html" title="interface in org.cicirello.search.evo">PopulationCandidates</a></span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier</div>
+<div class="table-header col-second">Constructor</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="../TerminationStrategy.ExecutionState.html#%3Cinit%3E(int,long,T,double,org.cicirello.search.evo.PopulationCandidates)" class="member-name-link">ExecutionState</a><wbr>(int&nbsp;numCompletedGenerations,
+ long&nbsp;fitnessEvaluations,
+ <a href="../TerminationStrategy.ExecutionState.html#type-param-T" title="type parameter in TerminationStrategy.ExecutionState">T</a>&nbsp;bestSolution,
+ double&nbsp;bestFitness,
+ <a href="../PopulationCandidates.html" title="interface in org.cicirello.search.evo">PopulationCandidates</a>&lt;<a href="../TerminationStrategy.ExecutionState.html#type-param-T" title="type parameter in TerminationStrategy.ExecutionState">T</a>&gt;&nbsp;currentPopulation)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Creates an instance of a <code>ExecutionState</code> record class.</div>
 </div>
 </div>
 </section>

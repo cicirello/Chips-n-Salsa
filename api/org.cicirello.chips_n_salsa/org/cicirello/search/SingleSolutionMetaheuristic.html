@@ -68,6 +68,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
 <ol class="toc-list">
 <li><a href="#optimize(int,T)" tabindex="0">optimize(int, T)</a></li>
+<li><a href="#split()" tabindex="0">split()</a></li>
 </ol>
 </li>
 </ol>
@@ -119,6 +120,12 @@ is also specifically focused on metaheuristics for which the maximum run length 
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Executes a run of the metaheuristic beginning at a specified starting solution.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="SingleSolutionMetaheuristic.html" title="interface in org.cicirello.search">SingleSolutionMetaheuristic</a><wbr>&lt;<a href="#type-param-T" title="type parameter in SingleSolutionMetaheuristic">T</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+implementations of search algorithms.</div>
+</div>
 </div>
 </div>
 </div>
@@ -127,7 +134,7 @@ is also specifically focused on metaheuristics for which the maximum run length 
 <code><a href="Metaheuristic.html#optimize(int)" title="optimize(int)">optimize</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-org.cicirello.search.ReoptimizableMetaheuristic">Methods inherited from interface&nbsp;<a href="ReoptimizableMetaheuristic.html#method-summary" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a></h3>
-<code><a href="ReoptimizableMetaheuristic.html#reoptimize(int)" title="reoptimize(int)">reoptimize</a>, <a href="ReoptimizableMetaheuristic.html#split()" title="split()">split</a></code></div>
+<code><a href="ReoptimizableMetaheuristic.html#reoptimize(int)" title="reoptimize(int)">reoptimize</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-org.cicirello.search.TrackableSearch">Methods inherited from interface&nbsp;<a href="TrackableSearch.html#method-summary" title="interface in org.cicirello.search">TrackableSearch</a></h3>
 <code><a href="TrackableSearch.html#getProblem()" title="getProblem()">getProblem</a>, <a href="TrackableSearch.html#getProgressTracker()" title="getProgressTracker()">getProgressTracker</a>, <a href="TrackableSearch.html#getTotalRunLength()" title="getTotalRunLength()">getTotalRunLength</a>, <a href="TrackableSearch.html#setProgressTracker(org.cicirello.search.ProgressTracker)" title="setProgressTracker(ProgressTracker)">setProgressTracker</a></code></div>
@@ -166,6 +173,38 @@ name within the context of that metaheuristic.</div>
     this metaheuristic's <a href="ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs. Returns
     null if the run did not execute, such as if the ProgressTracker already contains the
     theoretical best solution.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="split()">
+<h3>split</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="return-type"><a href="SingleSolutionMetaheuristic.html" title="interface in org.cicirello.search">SingleSolutionMetaheuristic</a>&lt;<a href="#type-param-T" title="type parameter in SingleSolutionMetaheuristic">T</a>&gt;</span>&nbsp;<span class="element-name">split</span>()</div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="concurrent/Splittable.html#split()">Splittable</a></code></span></div>
+<div class="block">Generates a functionally identical copy of this object, for use in multithreaded
+implementations of search algorithms. The state of the object that is returned may or may not
+be identical to that of the original. Thus, this is a distinct concept from the functionality
+of the <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link"><code>Copyable</code></a> interface. Classes that implement this interface
+must ensure that the object returned performs the same functionality, and that it does not
+share any state data that would be either unsafe or inefficient for concurrent access by
+multiple threads. The split method is allowed to simply return the this reference, provided
+that it is both safe and efficient for multiple threads to share a single copy of the
+Splittable object. The intention is to provide a multithreaded search with the capability to
+provide spawned threads with their own distinct search operators. Such multithreaded algorithms
+can call the split method for each thread it spawns to generate a functionally identical copy
+of the operator, but with independent state.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="Metaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="#type-param-T" title="type parameter in SingleSolutionMetaheuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="#type-param-T" title="type parameter in SingleSolutionMetaheuristic">T</a>&gt;&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="ReoptimizableMetaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="#type-param-T" title="type parameter in SingleSolutionMetaheuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="#type-param-T" title="type parameter in SingleSolutionMetaheuristic">T</a>&gt;&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="#type-param-T" title="type parameter in SingleSolutionMetaheuristic">T</a> extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;<a href="#type-param-T" title="type parameter in SingleSolutionMetaheuristic">T</a>&gt;&gt;</code></dd>
+<dt>Returns:</dt>
+<dd>A functionally identical copy of the object, or a reference to this if it is both safe
+    and efficient for multiple threads to share a single instance of this Splittable object.</dd>
 </dl>
 </div>
 </section>

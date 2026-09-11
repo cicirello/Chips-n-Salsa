@@ -78,6 +78,7 @@ loadScripts(document, 'script');</script>
 <ol class="toc-list">
 <li><a href="#split()" tabindex="0">split()</a></li>
 <li><a href="#optimize(int)" tabindex="0">optimize(int)</a></li>
+<li><a href="#optimize(int,org.cicirello.search.evo.TerminationStrategy)" tabindex="0">optimize(int, TerminationStrategy)</a></li>
 <li><a href="#reoptimize(int)" tabindex="0">reoptimize(int)</a></li>
 <li><a href="#getProgressTracker()" tabindex="0">getProgressTracker()</a></li>
 <li><a href="#setProgressTracker(org.cicirello.search.ProgressTracker)" tabindex="0">setProgressTracker(ProgressTracker)</a></li>
@@ -102,7 +103,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&gt;, <a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;, <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;, <a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
+<dd><code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&gt;, <a href="PopulationMetaheuristic.html" title="interface in org.cicirello.search.evo">PopulationMetaheuristic</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;, <a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;, <a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;, <a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
 </dl>
 <hr>
 <div class="horizontal-scroll">
@@ -204,20 +205,26 @@ parents, using the standard bit flip mutation, single-point crossover (the <a hr
 <div class="block">Runs the evolutionary algorithm beginning from a randomly generated population.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a><wbr>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reoptimize(int)" class="member-name-link">reoptimize</a><wbr>(int&nbsp;numGenerations)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#optimize(int,org.cicirello.search.evo.TerminationStrategy)" class="member-name-link">optimize</a><wbr>(int&nbsp;numGenerations,
+ <a href="TerminationStrategy.html" title="interface in org.cicirello.search.evo">TerminationStrategy</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;terminator)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Runs the evolutionary algorithm beginning from a randomly generated population.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a><wbr>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reoptimize(int)" class="member-name-link">reoptimize</a><wbr>(int&nbsp;numGenerations)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Runs the evolutionary algorithm continuing from the final population from the most recent call
 to either <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> or <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>, or from a random population if this is the
 first call to either method.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setProgressTracker(org.cicirello.search.ProgressTracker)" class="member-name-link">setProgressTracker</a><wbr>(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setProgressTracker(org.cicirello.search.ProgressTracker)" class="member-name-link">setProgressTracker</a><wbr>(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;tracker)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Generates a functionally identical copy of this object, for use in multithreaded
 implementations of search algorithms.</div>
 </div>
@@ -396,6 +403,8 @@ of the operator, but with independent state.</div>
 <dt>Specified by:</dt>
 <dd><code><a href="../Metaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../Metaheuristic.html" title="interface in org.cicirello.search">Metaheuristic</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
 <dt>Specified by:</dt>
+<dd><code><a href="PopulationMetaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="PopulationMetaheuristic.html" title="interface in org.cicirello.search.evo">PopulationMetaheuristic</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
+<dt>Specified by:</dt>
 <dd><code><a href="../ReoptimizableMetaheuristic.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../ReoptimizableMetaheuristic.html" title="interface in org.cicirello.search">ReoptimizableMetaheuristic</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</code></dd>
 <dt>Specified by:</dt>
 <dd><code><a href="../concurrent/Splittable.html#split()">split</a></code>&nbsp;in interface&nbsp;<code><a href="../concurrent/Splittable.html" title="interface in org.cicirello.search.concurrent">Splittable</a>&lt;<a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&gt;</code></dd>
@@ -425,6 +434,34 @@ is called multiple times, each call begins at a new randomly generated populatio
     same as the solution contained in the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best
     across all calls to optimize as well as <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>. Returns null if the run did
     not execute, such as if the ProgressTracker already contains the theoretical best solution.</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="optimize(int,org.cicirello.search.evo.TerminationStrategy)">
+<h3>optimize</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;</span>&nbsp;<span class="element-name">optimize</span><wbr><span class="parameters">(int&nbsp;numGenerations,
+ <a href="TerminationStrategy.html" title="interface in org.cicirello.search.evo">TerminationStrategy</a>&lt;<a href="../representations/BitVector.html" title="class in org.cicirello.search.representations">BitVector</a>&gt;&nbsp;terminator)</span></div>
+<div class="block">Runs the evolutionary algorithm beginning from a randomly generated population. If this method
+is called multiple times, each call begins at a new randomly generated population.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PopulationMetaheuristic.html#optimize(int,org.cicirello.search.evo.TerminationStrategy)">optimize</a></code>&nbsp;in interface&nbsp;<code><a href="PopulationMetaheuristic.html" title="interface in org.cicirello.search.evo">PopulationMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>numGenerations</code> - The maximum number of generations, which will cause the run to terminate
+    even if other criteria specified in the terminator are not currently met. Some selection
+    operators and replacement strategies may need to know the maximum number of generations to
+    operate properly, which is why this parameter is needed separately from other termination
+    criteria.</dd>
+<dd><code>terminator</code> - the termination criteria. Your terminator does not need to monitor for
+    maximum number of generations. That is done for you.</dd>
+<dt>Returns:</dt>
+<dd>The best solution found during this call to optimize, which may or may not be the same
+    as the solution contained in the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best across
+    all calls to optimize as well as <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>. Returns null if the run did not
+    execute, such as if the ProgressTracker already contains the theoretical best solution.</dd>
 </dl>
 </div>
 </section>
@@ -520,8 +557,7 @@ cases, the total run length may be less than the requested run length.</div>
 <dt>Specified by:</dt>
 <dd><code><a href="../TrackableSearch.html#getTotalRunLength()">getTotalRunLength</a></code>&nbsp;in interface&nbsp;<code><a href="../TrackableSearch.html" title="interface in org.cicirello.search">TrackableSearch</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>The total number of generations completed across all calls to <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> and
-    <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>.</dd>
+<dd>The total run length in number of fitness evaluations across all calls to <a href="../Metaheuristic.html#optimize(int)"><code>Metaheuristic.optimize(int)</code></a> and <a href="../ReoptimizableMetaheuristic.html#reoptimize(int)"><code>ReoptimizableMetaheuristic.reoptimize(int)</code></a>.</dd>
 </dl>
 </div>
 </section>

@@ -99,7 +99,7 @@ algorithms in general, rather than specific to a particular metaheuristic.</div>
 </li>
 <li>
 <div id="class-summary">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="class-summary-tab0" role="tab" aria-selected="true" aria-controls="class-summary.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary', 2)" class="active-table-tab">All Classes and Interfaces</button><button id="class-summary-tab1" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab1', 2)" class="table-tab">Interfaces</button><button id="class-summary-tab2" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab2', 2)" class="table-tab">Classes</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="class-summary-tab0" role="tab" aria-selected="true" aria-controls="class-summary.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary', 2)" class="active-table-tab">All Classes and Interfaces</button><button id="class-summary-tab1" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab1', 2)" class="table-tab">Interfaces</button><button id="class-summary-tab2" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab2', 2)" class="table-tab">Classes</button><button id="class-summary-tab4" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab4', 2)" class="table-tab">Record Classes</button></div>
 <div id="class-summary.tabpanel" role="tabpanel" aria-labelledby="class-summary-tab0">
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
@@ -125,97 +125,107 @@ to transform the fitness values.</div>
 Stochastic Universal Sampling (Biased SUS), which integrates the use of a bias function with SUS
 to enable transforming fitness values prior to the stochastic selection decisions.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="BoltzmannSelection.html" title="class in org.cicirello.search.evo">BoltzmannSelection</a></div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="BNPReplacement.html" title="class in org.cicirello.search.evo">BNPReplacement</a>&lt;T&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">The Best-non-penalized (BNP) is a replacement strategy that promotes proper diversity levels
+during the evolutionary process.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="BoltzmannSelection.html" title="class in org.cicirello.search.evo">BoltzmannSelection</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">This class implements Boltzmann selection.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="BoltzmannStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BoltzmannStochasticUniversalSampling</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="BoltzmannStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">BoltzmannStochasticUniversalSampling</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">This class implements Boltzmann selection using Stochastic Universal Sampling (SUS).</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="ExponentialRankSelection.html" title="class in org.cicirello.search.evo">ExponentialRankSelection</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="ExponentialRankSelection.html" title="class in org.cicirello.search.evo">ExponentialRankSelection</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">This class implements exponential rank selection.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="ExponentialRankStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">ExponentialRankStochasticUniversalSampling</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="ExponentialRankStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">ExponentialRankStochasticUniversalSampling</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">This class implements exponential rank selection using Stochastic Universal Sampling (SUS).</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab1"><a href="FitnessBiasFunction.html" title="interface in org.cicirello.search.evo">FitnessBiasFunction</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="FitnessBiasFunction.html" title="interface in org.cicirello.search.evo">FitnessBiasFunction</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab1">
 <div class="block">This functional interface is used to provide a bias function to the <a href="BiasedFitnessProportionalSelection.html" title="class in org.cicirello.search.evo"><code>BiasedFitnessProportionalSelection</code></a> operator as well as the <a href="BiasedStochasticUniversalSampling.html" title="class in org.cicirello.search.evo"><code>BiasedStochasticUniversalSampling</code></a> operator.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="FitnessFunction.html" title="interface in org.cicirello.search.evo">FitnessFunction</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last odd-row-color class-summary class-summary-tab1">
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="FitnessFunction.html" title="interface in org.cicirello.search.evo">FitnessFunction</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
 <div class="block">Fitness function interfaces.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab1"><a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="FitnessFunction.Double.html" title="interface in org.cicirello.search.evo">FitnessFunction.Double</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab1">
 <div class="block">Fitness function interface for double-valued fitnesses.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last odd-row-color class-summary class-summary-tab1">
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="FitnessFunction.Integer.html" title="interface in org.cicirello.search.evo">FitnessFunction.Integer</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
 <div class="block">Fitness function interface for int-valued fitnesses.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="FitnessProportionalSelection.html" title="class in org.cicirello.search.evo">FitnessProportionalSelection</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="FitnessProportionalSelection.html" title="class in org.cicirello.search.evo">FitnessProportionalSelection</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">This class implements fitness proportional selection, sometimes referred to as weighted roulette
 wheel, for evolutionary algorithms.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="FitnessShifter.html" title="class in org.cicirello.search.evo">FitnessShifter</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="FitnessShifter.html" title="class in org.cicirello.search.evo">FitnessShifter</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">FitnessShifter wraps another SelectionOperator, shifting all fitness values by the minimum
 fitness minus one, such that the least fit population member's transformed fitness is equal to 1,
 with the wrapped SelectionOperator than performing selection using the transformed fitnesses.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="GenerationalDisjointOperatorsEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalDisjointOperatorsEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="GenerationalDisjointOperatorsEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalDisjointOperatorsEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">This class implements an evolutionary algorithm (EA) with a generational model, where a
 population of children are formed by applying genetic operators to members of the parent
 population, and where the children replace the parents in the next generation.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="GenerationalElitistReplacement.html" title="class in org.cicirello.search.evo">GenerationalElitistReplacement</a>&lt;T&gt;</div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="GenerationalElitistReplacement.html" title="class in org.cicirello.search.evo">GenerationalElitistReplacement</a>&lt;T&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">GenerationalElitistReplacement keeps the <i>k</i> best-fit distinct members of the current
 population without application of evolutionary operators, and replaces the other <i>(N-k)</i>
 members of the population.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="GenerationalEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">This class implements an evolutionary algorithm with a generational model, such as is commonly
 used in genetic algorithms, where a population of children are formed by applying genetic
 operators to members of the parent population, and where the children replace the parents in the
 next generation.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="GenerationalMutationOnlyEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalMutationOnlyEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="GenerationalMutationOnlyEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">GenerationalMutationOnlyEvolutionaryAlgorithm</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">This class implements an evolutionary algorithm (EA) with a generational model, such as is
 commonly used in genetic algorithms, where a population of children are formed by applying
 mutation to members of the parent population, and where the children replace the parents in the
 next generation.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="GenerationalReplacement.html" title="class in org.cicirello.search.evo">GenerationalReplacement</a>&lt;T&gt;</div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="GenerationalReplacement.html" title="class in org.cicirello.search.evo">GenerationalReplacement</a>&lt;T&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Generational replacement replaces the entire population each generation.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="GeneticAlgorithm.html" title="class in org.cicirello.search.evo">GeneticAlgorithm</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">This class is an implementation of a genetic algorithm (GA) with the common bit vector
 representation of solutions to optimization problems, and the generational model where children
 replace their parents each generation.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="InverseCostFitnessFunction.html" title="class in org.cicirello.search.evo">InverseCostFitnessFunction</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="InverseCostFitnessFunction.html" title="class in org.cicirello.search.evo">InverseCostFitnessFunction</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">This class provides a convenient mechanism for transforming optimization cost values to fitness
 values.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="LinearRankSelection.html" title="class in org.cicirello.search.evo">LinearRankSelection</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="LinearRankSelection.html" title="class in org.cicirello.search.evo">LinearRankSelection</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">This class implements linear rank selection.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="LinearRankStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">LinearRankStochasticUniversalSampling</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="LinearRankStochasticUniversalSampling.html" title="class in org.cicirello.search.evo">LinearRankStochasticUniversalSampling</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">This class implements linear rank selection using Stochastic Universal Sampling (SUS).</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="MaximumFitnessEvaluationsTerminator.html" title="class in org.cicirello.search.evo">MaximumFitnessEvaluationsTerminator</a>&lt;T&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">TerminationStrategy that terminates an evolutionary algorithm once the total number of fitness
+evaluations exceeds a threshold.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="MutationOnlyGeneticAlgorithm.html" title="class in org.cicirello.search.evo">MutationOnlyGeneticAlgorithm</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
@@ -244,18 +254,18 @@ with a vector of bits.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="PopulationCandidates.html" title="interface in org.cicirello.search.evo">PopulationCandidates</a>&lt;T&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab1">
-<div class="block">An interface to the candidates for the next generation's population, consisting of the current
-population as well as the relevant pool of children.</div>
+<div class="block">An interface to candidates for the next generation's population, which can be the current members
+of the population or the children derived from it, depending upon the context.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="PopulationCandidates.DoubleFitness.html" title="interface in org.cicirello.search.evo">PopulationCandidates.DoubleFitness</a>&lt;T&gt;</div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
-<div class="block">An interface to the candidates for the next generation's population, consisting of the current
-population as well as the relevant pool of children.</div>
+<div class="block">An interface to the candidates for the next generation's population, which can be the current
+members of the population or the children derived from it, depending upon the context.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="PopulationCandidates.IntegerFitness.html" title="interface in org.cicirello.search.evo">PopulationCandidates.IntegerFitness</a>&lt;T&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab1">
-<div class="block">An interface to the candidates for the next generation's population, consisting of the current
-population as well as the relevant pool of children.</div>
+<div class="block">An interface to the candidates for the next generation's population, which can be the current
+members of the population or the children derived from it, depending upon the context.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab1"><a href="PopulationFitnessVector.html" title="interface in org.cicirello.search.evo">PopulationFitnessVector</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
@@ -269,40 +279,69 @@ population as well as the relevant pool of children.</div>
 <div class="col-last odd-row-color class-summary class-summary-tab1">
 <div class="block">An interface to a vector of fitnesses, each an int, of a population.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="RandomSelection.html" title="class in org.cicirello.search.evo">RandomSelection</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="PopulationMetaheuristic.html" title="interface in org.cicirello.search.evo">PopulationMetaheuristic</a>&lt;T extends <a href="https://core.cicirello.org/api/org.cicirello.core/org/cicirello/util/Copyable.html" title="class or interface in org.cicirello.util" class="external-link">Copyable</a>&lt;T&gt;&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="block">This interface defines the required methods for implementations of metaheuristics that maintain a
+population of candidate solutions such as evolutionary algorithms.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="RandomSelection.html" title="class in org.cicirello.search.evo">RandomSelection</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">This class implements a simple random selection operator that selects members of the population
 uniformly at random, independent of fitness values.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="ReplacementStrategy.html" title="interface in org.cicirello.search.evo">ReplacementStrategy</a>&lt;T&gt;</div>
-<div class="col-last odd-row-color class-summary class-summary-tab1">
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="ReplacementStrategy.html" title="interface in org.cicirello.search.evo">ReplacementStrategy</a>&lt;T&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
 <div class="block">Implement this interface to provide a replacement strategy for use by genetic algorithms and
 other forms of evolutionary computation.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab1"><a href="ReplacementStrategy.Replacements.html" title="interface in org.cicirello.search.evo">ReplacementStrategy.Replacements</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="ReplacementStrategy.Replacements.html" title="interface in org.cicirello.search.evo">ReplacementStrategy.Replacements</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab1">
 <div class="block">Interface for <a href="ReplacementStrategy.html" title="interface in org.cicirello.search.evo"><code>ReplacementStrategy</code></a> implementations to specify which members of the
 parent and child populations serve as replacements into the next generation.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab1">
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="SelectionOperator.html" title="interface in org.cicirello.search.evo">SelectionOperator</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
 <div class="block">Implement this interface to provide a selection operator for use by genetic algorithms and other
 forms of evolutionary computation.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="SigmaScaling.html" title="class in org.cicirello.search.evo">SigmaScaling</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="SigmaScaling.html" title="class in org.cicirello.search.evo">SigmaScaling</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Implements sigma scaling by wrapping your chosen selection operator.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="SimpleGeneticAlgorithm.html" title="class in org.cicirello.search.evo">SimpleGeneticAlgorithm</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">This class is an implementation of the simple genetic algorithm (Simple GA) with the common bit
 vector representation of solutions to optimization problems, and the generational model where
 children replace their parents each generation.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="StagnationTerminator.html" title="class in org.cicirello.search.evo">StagnationTerminator</a>&lt;T&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="block">TerminationStrategy that terminates an evolutionary algorithm when a specified number of
+generations elapses without further improvement to the fitness of the most-fit solution found.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="StochasticUniversalSampling.html" title="class in org.cicirello.search.evo">StochasticUniversalSampling</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">This class implements Stochastic Universal Sampling (SUS), a selection operator for evolutionary
 algorithms.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="TargetFitnessTerminator.html" title="class in org.cicirello.search.evo">TargetFitnessTerminator</a>&lt;T&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="block">TerminationStrategy that terminates an evolutionary algorithm if a solution with a target fitness
+value (or better) is found.</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="TerminationStrategy.html" title="interface in org.cicirello.search.evo">TerminationStrategy</a>&lt;T&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="block">This interface is used to define a termination strategy.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab4"><a href="TerminationStrategy.ExecutionState.html" title="class in org.cicirello.search.evo">TerminationStrategy.ExecutionState</a>&lt;T&gt;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab4">
+<div class="block">The state of the evolutionary algorithm prior to the start of a generation.</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="TheTerminator.html" title="class in org.cicirello.search.evo">TheTerminator</a>&lt;T&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">TheTerminator enables composition of multiple terminator strategies, terminating an evolutionary
+algorithm if any of the component <a href="TerminationStrategy.html" title="interface in org.cicirello.search.evo"><code>TerminationStrategy</code></a> instance's termination criteria are
+met.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="TournamentSelection.html" title="class in org.cicirello.search.evo">TournamentSelection</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">

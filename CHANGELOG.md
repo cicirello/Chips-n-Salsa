@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2026-09-11
 
 ### Added
+
+### Changed (Non-Breaking)
+
+### Changed (Breaking)
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Dependencies
+
+### CI/CD
+
+### Other
+
+
+## [8.1.0] - 2026-09-11
+
+### Added
 * TerminationStrategy interface to enable specifying termination criteria other than maximum number of generations
 * A new optimize(numberOfGenerations, TerminationStrategy) method to all of the evolutionary algorithms that accepts an instance of an implementation of the new TerminationStrategy interface
 * The following implementations of TerminationStrategy:
@@ -21,21 +42,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored: moved Generation instance from AbstractEvolutionaryAlgorithm class into BasePopulation class
 * Optimized GenerationalElitistReplacement, including handling the case of a single elite separately from general case (e.g., simple linear time iteration for single elite versus binary heap for k elite)
 
-### Changed (Breaking)
-
-### Deprecated
-
-### Removed
-
 ### Fixed
 * Fixed AbstractEvolutionaryAlgorithm.reoptimize() in case when called without prior call to optimize()
 
 ### Dependencies
 * Bump org.cicirello:core from 3.0.0 to 3.1.0
-
-### CI/CD
-
-### Other
 
 
 ## [8.0.0] - 2026-07-25

@@ -22,6 +22,7 @@ package org.cicirello.search.evo;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.function.BiFunction;
+import org.cicirello.search.Configurator;
 import org.cicirello.search.ProgressTracker;
 import org.cicirello.search.SolutionCostPair;
 import org.cicirello.search.operators.Initializer;
@@ -47,6 +48,7 @@ public class GAWithBNPReplacementTests {
           }
           return Double.valueOf(distance);
         };
+    Configurator.configureRandomGenerator(42L);
   }
 
   @Test

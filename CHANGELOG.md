@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-09-09
+## [Unreleased] - 2026-09-11
 
 ### Added
 * TerminationStrategy interface to enable specifying termination criteria other than maximum number of generations
@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * TargetFitnessTerminator: terminates if solution found whose fitness is at least a specified target
   * MaximumFitnessEvaluationsTerminator: terminates once a specified number of fitness evaluations is executed
   * StagnationTerminator: terminates is a specified number of generations elapses without improving the best solution of the run
-* Best-non-penalized (BNP) replacement strategy (@alex-cornejo)
+  * TheTerminator: composition of k TerminationStrategy instances, such that termination occurs when any of the component TerminationStrategy instances signals to terminate
+* Best-non-penalized (BNP) replacement strategy
 
 ### Changed (Non-Breaking)
 * Minor code improvements to implementations of equals methods in a few classes

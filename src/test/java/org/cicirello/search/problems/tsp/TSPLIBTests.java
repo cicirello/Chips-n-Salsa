@@ -192,6 +192,46 @@ public class TSPLIBTests {
     EDGE_WEIGHT_TYPE : EUC_2D
     """;
 
+  private static final String expectedTour =
+      """
+    NAME: fake TSP instance
+    COMMENT: Tour length 26
+    TYPE: TOUR
+    DIMENSION: 6
+    TOUR_SECTION
+    1
+    3
+    5
+    4
+    6
+    2
+    """;
+
+  private static final String expectedTourComment =
+      """
+    NAME: fake TSP instance
+    COMMENT: Tour length 26
+    COMMENT: hello
+    TYPE: TOUR
+    DIMENSION: 6
+    TOUR_SECTION
+    1
+    3
+    5
+    4
+    6
+    2
+    """;
+
+  @Test
+  public void testToString() {
+    StringReader reader = new StringReader(testFileIntCoords);
+    TSPLIB problem = TSPLIB.createMinimalMemory(reader);
+    Permutation p = new Permutation(new int[] {0, 2, 4, 3, 5, 1});
+    assertEquals(expectedTour, problem.toString(p));
+    assertEquals(expectedTourComment, problem.toString(p, "hello"));
+  }
+
   @Test
   public void testWrongFormat() {
     StringReader reader = new StringReader(testFileUnsupportedType);

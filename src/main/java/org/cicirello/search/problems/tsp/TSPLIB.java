@@ -41,10 +41,12 @@ public final class TSPLIB implements IntegerCostOptimizationProblem<Permutation>
 
   private final IntBinaryOperator distance;
   private final String name;
+  private final int n;
 
-  private TSPLIB(IntBinaryOperator distance, String name) {
+  private TSPLIB(IntBinaryOperator distance, String name, int n) {
     this.distance = distance;
     this.name = name;
+    this.n = n;
   }
 
   @Override
@@ -73,6 +75,40 @@ public final class TSPLIB implements IntegerCostOptimizationProblem<Permutation>
    */
   public String instanceName() {
     return name;
+  }
+
+  /**
+   * Generates a String representing a tour for this problem instance in TSPLIB format.
+   *
+   * @param p the tour
+   * @return a String in TSPLIB's file format for a tour
+   */
+  public String toString(Permutation p) {
+    return toString(p, null);
+  }
+
+  /**
+   * Generates a String representing a tour for this problem instance in TSPLIB format.
+   *
+   * @param p the tour
+   * @param comment a comment to add in the header
+   * @return a String in TSPLIB's file format for a tour
+   */
+  public String toString(Permutation p, String comment) {
+    StringBuffer s = new StringBuffer();
+    s.append("NAME: " + name + "\n");
+    s.append("COMMENT: Tour length " + cost(p) + "\n");
+    if (comment != null) {
+      s.append("COMMENT: " + comment + "\n");
+    }
+    s.append("TYPE: TOUR\n");
+    s.append("DIMENSION: " + n + "\n");
+    s.append("TOUR_SECTION\n");
+    for (int i = 0; i < p.length(); i++) {
+      s.append(p.get(i) + 1);
+      s.append("\n");
+    }
+    return s.toString();
   }
 
   /**
@@ -172,7 +208,7 @@ public final class TSPLIB implements IntegerCostOptimizationProblem<Permutation>
 
   private static TSPLIB createIntCoordsTSP(int[][] coords, String edgeWeightType, String name) {
     return switch (edgeWeightType) {
-      case "EUC_2D" -> new TSPLIB(createEuc2D(coords), name);
+      case "EUC_2D" -> new TSPLIB(createEuc2D(coords), name, coords.length);
       default -> null;
         // other edge types not yet supported
     };
@@ -181,7 +217,7 @@ public final class TSPLIB implements IntegerCostOptimizationProblem<Permutation>
   private static TSPLIB createDoubleCoordsTSP(
       double[][] coords, String edgeWeightType, String name) {
     return switch (edgeWeightType) {
-      case "EUC_2D" -> new TSPLIB(createEuc2D(coords), name);
+      case "EUC_2D" -> new TSPLIB(createEuc2D(coords), name, coords.length);
       default -> null;
         // other edge types not yet supported
     };
@@ -190,7 +226,8 @@ public final class TSPLIB implements IntegerCostOptimizationProblem<Permutation>
   private static TSPLIB createMatrixIntCoordsTSP(
       int[][] coords, String edgeWeightType, String name) {
     return switch (edgeWeightType) {
-      case "EUC_2D" -> new TSPLIB(createFullMatrix(createEuc2D(coords), coords.length), name);
+      case "EUC_2D" ->
+          new TSPLIB(createFullMatrix(createEuc2D(coords), coords.length), name, coords.length);
       default -> null;
         // other edge types not yet supported
     };
@@ -199,7 +236,8 @@ public final class TSPLIB implements IntegerCostOptimizationProblem<Permutation>
   private static TSPLIB createMatrixDoubleCoordsTSP(
       double[][] coords, String edgeWeightType, String name) {
     return switch (edgeWeightType) {
-      case "EUC_2D" -> new TSPLIB(createFullMatrix(createEuc2D(coords), coords.length), name);
+      case "EUC_2D" ->
+          new TSPLIB(createFullMatrix(createEuc2D(coords), coords.length), name, coords.length);
       default -> null;
         // other edge types not yet supported
     };
@@ -208,7 +246,8 @@ public final class TSPLIB implements IntegerCostOptimizationProblem<Permutation>
   private static TSPLIB createTriangleMatrixIntCoordsTSP(
       int[][] coords, String edgeWeightType, String name) {
     return switch (edgeWeightType) {
-      case "EUC_2D" -> new TSPLIB(createTriangleMatrix(createEuc2D(coords), coords.length), name);
+      case "EUC_2D" ->
+          new TSPLIB(createTriangleMatrix(createEuc2D(coords), coords.length), name, coords.length);
       default -> null;
         // other edge types not yet supported
     };
@@ -217,7 +256,8 @@ public final class TSPLIB implements IntegerCostOptimizationProblem<Permutation>
   private static TSPLIB createTriangleMatrixDoubleCoordsTSP(
       double[][] coords, String edgeWeightType, String name) {
     return switch (edgeWeightType) {
-      case "EUC_2D" -> new TSPLIB(createTriangleMatrix(createEuc2D(coords), coords.length), name);
+      case "EUC_2D" ->
+          new TSPLIB(createTriangleMatrix(createEuc2D(coords), coords.length), name, coords.length);
       default -> null;
         // other edge types not yet supported
     };

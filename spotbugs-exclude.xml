@@ -4,4 +4,13 @@
     <Bug code="SECPTI,SECPTO" />
 	<Package name="org.cicirello.search.problems.scheduling" />
   </Match>
+  <!-- Latest version of SpotBugs apparently doesn't understand do-while loops. -->
+  <Match>
+    <Or>
+      <Class name="org.cicirello.search.sa.ParameterFreeLinearCooling" />
+      <Class name="org.cicirello.search.sa.ParameterFreeExponentialCooling" />
+    </Or>
+    <Method name="estimationStep" />
+    <Bug pattern="IL_INFINITE_LOOP" />
+  </Match>
 </FindBugsFilter>

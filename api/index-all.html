@@ -38,6 +38,7 @@ loadScripts(document, 'script');</script>
 <ul id="navbar-top-firstrow" class="nav-list" title="Navigation">
 <li><a href="org.cicirello.chips_n_salsa/module-summary.html">Module</a></li>
 <li><a href="overview-tree.html">Tree</a></li>
+<li><a href="deprecated-list.html">Deprecated</a></li>
 <li class="nav-bar-cell1-rev">Index</li>
 <li><a href="search.html">Search</a></li>
 <li><a href="help-doc.html#index">Help</a></li>
@@ -86,6 +87,10 @@ cost, both passed as parameters.</div>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/SelfTuningLam.html#accept(double,double)" class="member-name-link">accept(double, double)</a> - Method in class org.cicirello.search.sa.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/SelfTuningLam.html" title="class in org.cicirello.search.sa">SelfTuningLam</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/IntervalConsumer.html#accept(int,org.cicirello.search.SolutionCostPair)" class="member-name-link">accept(int, SolutionCostPair)</a> - Method in interface org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/IntervalConsumer.html" title="interface in org.cicirello.search.concurrent">IntervalConsumer</a></dt>
+<dd>
+<div class="block">Fired at each time interval during a parallel search.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/AcceptanceBandSampling.html" class="type-name-link" title="class in org.cicirello.search.ss">AcceptanceBandSampling&lt;T&gt;</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/package-summary.html">org.cicirello.search.ss</a></dt>
 <dd>
 <div class="block">The AcceptanceBandSampling class implements a form of stochastic sampling search that uses a
@@ -846,6 +851,8 @@ cost for the problem instance.</div>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.IntegerMatrix.html#cost(org.cicirello.permutations.Permutation)" class="member-name-link">cost(Permutation)</a> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.IntegerMatrix.html" title="class in org.cicirello.search.problems.tsp">TSP.IntegerMatrix</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html#cost(org.cicirello.permutations.Permutation)" class="member-name-link">cost(Permutation)</a> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html" title="class in org.cicirello.search.problems.tsp">TSPLIB</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/HollandRoyalRoad.html#cost(org.cicirello.search.representations.BitVector)" class="member-name-link">cost(BitVector)</a> - Method in class org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/HollandRoyalRoad.html" title="class in org.cicirello.search.problems">HollandRoyalRoad</a></dt>
 <dd>
 <div class="block">Computes the cost of a candidate solution to the problem instance.</div>
@@ -1002,6 +1009,10 @@ method constrains each mutated real value to lie in the interval [lowerBound, up
 <dd>
 <div class="block">Creates an exponential bias function of the form: exp(scale * value).</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html#createFullMatrix(java.lang.Readable)" class="member-name-link">createFullMatrix(Readable)</a> - Static method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html" title="class in org.cicirello.search.problems.tsp">TSPLIB</a></dt>
+<dd>
+<div class="block">Parses a TSPLIB formatted file, creating the corresponding problem instance.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/reals/GaussianMutation.html#createGaussianMutation()" class="member-name-link">createGaussianMutation()</a> - Static method in class org.cicirello.search.operators.reals.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/reals/GaussianMutation.html" title="class in org.cicirello.search.operators.reals">GaussianMutation</a></dt>
 <dd>
 <div class="block">Creates a Gaussian mutation operator with standard deviation equal to 1.</div>
@@ -1122,6 +1133,10 @@ Graphs</a>.</div>
 <div class="block">Creates an instance of the Largest Common Subgraph problem for a pair of isomorphic <a href=https://en.wikipedia.org/wiki/Generalized_Petersen_graph target=_top>Generalized Petersen
 Graphs</a>.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html#createMinimalMemory(java.lang.Readable)" class="member-name-link">createMinimalMemory(Readable)</a> - Static method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html" title="class in org.cicirello.search.problems.tsp">TSPLIB</a></dt>
+<dd>
+<div class="block">Parses a TSPLIB formatted file, creating the corresponding problem instance.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/ApparentTardinessCost.html#createPartial(int)" class="member-name-link">createPartial(int)</a> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/ApparentTardinessCost.html" title="class in org.cicirello.search.problems.scheduling">ApparentTardinessCost</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/ApparentTardinessCostSetupAdjusted.html#createPartial(int)" class="member-name-link">createPartial(int)</a> - Method in class org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/ApparentTardinessCostSetupAdjusted.html" title="class in org.cicirello.search.problems.scheduling">ApparentTardinessCostSetupAdjusted</a></dt>
@@ -1221,6 +1236,10 @@ schedule).</div>
 <dd>
 <div class="block">This is a convenience method for use in generating several identical VAL annealing schedules,
 such as if needed for a parallel search.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html#createTriangleMatrix(java.lang.Readable)" class="member-name-link">createTriangleMatrix(Readable)</a> - Static method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html" title="class in org.cicirello.search.problems.tsp">TSPLIB</a></dt>
+<dd>
+<div class="block">Parses a TSPLIB formatted file, creating the corresponding problem instance.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/UndoableUniformMutation.html#createUniformMutation()" class="member-name-link">createUniformMutation()</a> - Static method in class org.cicirello.search.operators.integers.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/integers/UndoableUniformMutation.html" title="class in org.cicirello.search.operators.integers">UndoableUniformMutation</a></dt>
 <dd>
@@ -2544,9 +2563,7 @@ process the job.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html#getSearchHistory()" class="member-name-link">getSearchHistory()</a> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
 <dd>
-<div class="block">Gets a list of the best solution stored in this search's <a href="org.cicirello.chips_n_salsa/org/cicirello/search/ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> at each time
-interval of the most recent call to the <a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html#optimize(int)"><code>TimedParallelMultistarter.optimize(int)</code></a> method, or null if <a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html#optimize(int)"><code>TimedParallelMultistarter.optimize(int)</code></a>
-has not been called.</div>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html#getSetupTime(int)" class="member-name-link">getSetupTime(int)</a> - Method in interface org.cicirello.search.problems.scheduling.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/scheduling/SingleMachineSchedulingProblemData.html" title="interface in org.cicirello.search.problems.scheduling">SingleMachineSchedulingProblemData</a></dt>
 <dd>
@@ -3053,6 +3070,10 @@ removing a randomly chosen element and reinserting it at a different randomly ch
 <dd>
 <div class="block">Constructs an InsertionMutation mutation operator.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html#instanceName()" class="member-name-link">instanceName()</a> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html" title="class in org.cicirello.search.problems.tsp">TSPLIB</a></dt>
+<dd>
+<div class="block">Gets the name of the instance.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Integer.html#%3Cinit%3E(double%5B%5D,double%5B%5D)" class="member-name-link">Integer(double[], double[])</a> - Constructor for class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Integer.html" title="class in org.cicirello.search.problems.tsp">TSP.Integer</a></dt>
 <dd>
 <div class="block">Constructs a TSP instance with city locations specified by arrays of x and y coordinates.</div>
@@ -3208,6 +3229,10 @@ all n variables are chosen uniformly in the interval [a, b).</div>
 <dd>
 <div class="block">Construct a IntegerVectorInitializer that generates random solutions such that the values of
 all n variables are chosen uniformly in the interval [a, b), subject to bounds [min, max].</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/IntervalConsumer.html" class="type-name-link" title="interface in org.cicirello.search.concurrent">IntervalConsumer&lt;T&gt;</a> - Interface in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/package-summary.html">org.cicirello.search.concurrent</a></dt>
+<dd>
+<div class="block">A callback interface enabling logging, tracking, etc the progress of a timed parallel search.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/InverseCostFitnessFunction.html" class="type-name-link" title="class in org.cicirello.search.evo">InverseCostFitnessFunction&lt;T&gt;</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
 <dd>
@@ -3845,6 +3870,8 @@ instance, where lower cost implies better solution.</div>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.IntegerMatrix.html#minCost()" class="member-name-link">minCost()</a> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.IntegerMatrix.html" title="class in org.cicirello.search.problems.tsp">TSP.IntegerMatrix</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html#minCost()" class="member-name-link">minCost()</a> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html" title="class in org.cicirello.search.problems.tsp">TSPLIB</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/TwoMax.html#minCost()" class="member-name-link">minCost()</a> - Method in class org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/TwoMax.html" title="class in org.cicirello.search.problems">TwoMax</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/TwoMaxEqualPeaks.html#minCost()" class="member-name-link">minCost()</a> - Method in class org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/TwoMaxEqualPeaks.html" title="class in org.cicirello.search.problems">TwoMaxEqualPeaks</a></dt>
@@ -4446,6 +4473,10 @@ times, keeping track of the best solution across the multiple runs of the search
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ValueBiasedStochasticSampling.html#optimize(int)" class="member-name-link">optimize(int)</a> - Method in class org.cicirello.search.ss.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/ss/ValueBiasedStochasticSampling.html" title="class in org.cicirello.search.ss">ValueBiasedStochasticSampling</a></dt>
 <dd>
 <div class="block">Generates multiple stochastic heuristic samples.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html#optimize(int,org.cicirello.search.concurrent.IntervalConsumer)" class="member-name-link">optimize(int, IntervalConsumer)</a> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></dt>
+<dd>
+<div class="block">Executes a parallel multistart search.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/AdaptiveEvolutionaryAlgorithm.html#optimize(int,org.cicirello.search.evo.TerminationStrategy)" class="member-name-link">optimize(int, TerminationStrategy)</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/AdaptiveEvolutionaryAlgorithm.html" title="class in org.cicirello.search.evo">AdaptiveEvolutionaryAlgorithm</a></dt>
 <dd>
@@ -5161,6 +5192,10 @@ times, keeping track of the best solution across the multiple runs of the search
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/SimulatedAnnealing.html#reoptimize(int)" class="member-name-link">reoptimize(int)</a> - Method in class org.cicirello.search.sa.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/sa/SimulatedAnnealing.html" title="class in org.cicirello.search.sa">SimulatedAnnealing</a></dt>
 <dd>
 <div class="block">Reaneals starting from the previous best found solution contained in the tracker object.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html#reoptimize(int,org.cicirello.search.concurrent.IntervalConsumer)" class="member-name-link">reoptimize(int, IntervalConsumer)</a> - Method in class org.cicirello.search.concurrent.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/concurrent/TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a></dt>
+<dd>
+<div class="block">Executes a parallel multistart search.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BNPReplacement.html#replace(org.cicirello.search.evo.PopulationCandidates.DoubleFitness,org.cicirello.search.evo.PopulationCandidates.DoubleFitness,org.cicirello.search.evo.ReplacementStrategy.Replacements,int)" class="member-name-link">replace(PopulationCandidates.DoubleFitness, PopulationCandidates.DoubleFitness, ReplacementStrategy.Replacements, int)</a> - Method in class org.cicirello.search.evo.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/BNPReplacement.html" title="class in org.cicirello.search.evo">BNPReplacement</a></dt>
 <dd>&nbsp;</dd>
@@ -6476,6 +6511,14 @@ PopulationFitnessVector.Integer.</div>
 <dd>
 <div class="block">Returns a String representation of the BitVector.</div>
 </dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html#toString(org.cicirello.permutations.Permutation)" class="member-name-link">toString(Permutation)</a> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html" title="class in org.cicirello.search.problems.tsp">TSPLIB</a></dt>
+<dd>
+<div class="block">Generates a String representing a tour for this problem instance in TSPLIB format.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html#toString(org.cicirello.permutations.Permutation,java.lang.String)" class="member-name-link">toString(Permutation, String)</a> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html" title="class in org.cicirello.search.problems.tsp">TSPLIB</a></dt>
+<dd>
+<div class="block">Generates a String representing a tour for this problem instance in TSPLIB format.</div>
+</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/TournamentSelection.html" class="type-name-link" title="class in org.cicirello.search.evo">TournamentSelection</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/evo/package-summary.html">org.cicirello.search.evo</a></dt>
 <dd>
 <div class="block">This class implements tournament selection for evolutionary algorithms.</div>
@@ -6549,6 +6592,10 @@ and where all edge costs between pairs of cities are precomputed.</div>
 <dd>
 <div class="block">A functional interface for specifying a distance function between a pair of cities in a TSP
 instance.</div>
+</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html" class="type-name-link" title="class in org.cicirello.search.problems.tsp">TSPLIB</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html">org.cicirello.search.problems.tsp</a></dt>
+<dd>
+<div class="block">Parser for TSPLIB problem instances.</div>
 </dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/TwoChangeMutation.html" class="type-name-link" title="class in org.cicirello.search.operators.permutations">TwoChangeMutation</a> - Class in <a href="org.cicirello.chips_n_salsa/org/cicirello/search/operators/permutations/package-summary.html">org.cicirello.search.operators.permutations</a></dt>
 <dd>
@@ -6892,6 +6939,8 @@ randomizing the order of a non-contiguous subset of the permutation elements.</d
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Integer.html#value(org.cicirello.permutations.Permutation)" class="member-name-link">value(Permutation)</a> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.Integer.html" title="class in org.cicirello.search.problems.tsp">TSP.Integer</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.IntegerMatrix.html#value(org.cicirello.permutations.Permutation)" class="member-name-link">value(Permutation)</a> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSP.IntegerMatrix.html" title="class in org.cicirello.search.problems.tsp">TSP.IntegerMatrix</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html#value(org.cicirello.permutations.Permutation)" class="member-name-link">value(Permutation)</a> - Method in class org.cicirello.search.problems.tsp.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html" title="class in org.cicirello.search.problems.tsp">TSPLIB</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/HollandRoyalRoad.html#value(org.cicirello.search.representations.BitVector)" class="member-name-link">value(BitVector)</a> - Method in class org.cicirello.search.problems.<a href="org.cicirello.chips_n_salsa/org/cicirello/search/problems/HollandRoyalRoad.html" title="class in org.cicirello.search.problems">HollandRoyalRoad</a></dt>
 <dd>

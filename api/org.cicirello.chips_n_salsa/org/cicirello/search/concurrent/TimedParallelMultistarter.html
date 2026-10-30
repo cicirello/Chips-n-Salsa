@@ -40,6 +40,7 @@ loadScripts(document, 'script');</script>
 <li class="nav-bar-cell1-rev">Class</li>
 <li><a href="class-use/TimedParallelMultistarter.html">Use</a></li>
 <li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
 <li><a href="../../../../../index-all.html">Index</a></li>
 <li><a href="../../../../../search.html">Search</a></li>
 <li><a href="../../../../../help-doc.html#class">Help</a></li>
@@ -89,6 +90,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#getTimeUnit()" tabindex="0">getTimeUnit()</a></li>
 <li><a href="#getSearchHistory()" tabindex="0">getSearchHistory()</a></li>
 <li><a href="#optimize(int)" tabindex="0">optimize(int)</a></li>
+<li><a href="#optimize(int,org.cicirello.search.concurrent.IntervalConsumer)" tabindex="0">optimize(int, IntervalConsumer)</a></li>
 <li><a href="#close()" tabindex="0">close()</a></li>
 <li><a href="#isClosed()" tabindex="0">isClosed()</a></li>
 <li><a href="#split()" tabindex="0">split()</a></li>
@@ -232,7 +234,7 @@ metaheuristic in parallel across multiple threads.</div>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button><button id="method-summary-table-tab6" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab6', 3)" class="table-tab">Deprecated Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
@@ -253,12 +255,10 @@ metaheuristic in parallel across multiple threads.</div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a><wbr>&lt;<a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSearchHistory()" class="member-name-link">getSearchHistory</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets a list of the best solution stored in this search's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> at each time
-interval of the most recent call to the <a href="#optimize(int)"><code>optimize(int)</code></a> method, or null if <a href="#optimize(int)"><code>optimize(int)</code></a>
-has not been called.</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4 method-summary-table-tab6"><code>final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a><wbr>&lt;<a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4 method-summary-table-tab6"><code><a href="#getSearchHistory()" class="member-name-link">getSearchHistory</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4 method-summary-table-tab6">
+<div class="block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTimeUnit()" class="member-name-link">getTimeUnit</a>()</code></div>
@@ -281,19 +281,25 @@ metaheuristics combined.</div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Executes a parallel multistart search.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setProgressTracker(org.cicirello.search.ProgressTracker)" class="member-name-link">setProgressTracker</a><wbr>(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;&nbsp;tracker)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a><wbr>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#optimize(int,org.cicirello.search.concurrent.IntervalConsumer)" class="member-name-link">optimize</a><wbr>(int&nbsp;time,
+ <a href="IntervalConsumer.html" title="interface in org.cicirello.search.concurrent">IntervalConsumer</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;&nbsp;consumer)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress.</div>
+<div class="block">Executes a parallel multistart search.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTimeUnit(int)" class="member-name-link">setTimeUnit</a><wbr>(int&nbsp;timeUnit)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setProgressTracker(org.cicirello.search.ProgressTracker)" class="member-name-link">setProgressTracker</a><wbr>(<a href="../ProgressTracker.html" title="class in org.cicirello.search">ProgressTracker</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;&nbsp;tracker)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> object that is in use for tracking search progress.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTimeUnit(int)" class="member-name-link">setTimeUnit</a><wbr>(int&nbsp;timeUnit)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Changes the unit of time used by the <a href="#optimize(int)"><code>optimize(int)</code></a> method.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a><wbr>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="TimedParallelMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a><wbr>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Generates a functionally identical copy of this object, for use in multithreaded
 implementations of search algorithms.</div>
 </div>
@@ -558,7 +564,10 @@ passed to the constructor.</div>
 <section class="detail" id="getSearchHistory()">
 <h3>getSearchHistory</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;&gt;</span>&nbsp;<span class="element-name">getSearchHistory</span>()</div>
+<div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html" title="class or interface in java.lang" class="external-link">@Deprecated</a>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html#since()" title="class or interface in java.lang" class="external-link">since</a>="8.2.0",
+            <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html#forRemoval()" title="class or interface in java.lang" class="external-link">forRemoval</a>=true)
+</span><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;&gt;</span>&nbsp;<span class="element-name">getSearchHistory</span>()</div>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated, for removal: This API element is subject to removal in a future version.</span></div>
 <div class="block">Gets a list of the best solution stored in this search's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a> at each time
 interval of the most recent call to the <a href="#optimize(int)"><code>optimize(int)</code></a> method, or null if <a href="#optimize(int)"><code>optimize(int)</code></a>
 has not been called. Note that the ProgressTracker stores the best solution found across all
@@ -600,6 +609,49 @@ continue where the schedules left off.</div>
     the constant <a href="#TIME_UNIT_MS"><code>TIME_UNIT_MS</code></a> unless changed by a call to the <a href="#setTimeUnit(int)"><code>setTimeUnit(int)</code></a>
     method. For example, assuming <a href="#setTimeUnit(int)"><code>setTimeUnit(int)</code></a> has not been called, then the search
     will run for approximately: time * <a href="#TIME_UNIT_MS"><code>TIME_UNIT_MS</code></a> milliseconds.</dd>
+<dt>Returns:</dt>
+<dd>The best end of run solution (and its cost) of this set of parallel runs, which may or
+    may not be the same as the solution contained in this metaheuristic's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs. Returns null if the run did not
+    execute, such as if the ProgressTracker already contains the theoretical best solution.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if the <a href="#close()"><code>close()</code></a> method was previously called.</dd>
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="#setTimeUnit(int)"><code>setTimeUnit(int)</code></a></li>
+<li><a href="#getTimeUnit()"><code>getTimeUnit()</code></a></li>
+</ul>
+</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="optimize(int,org.cicirello.search.concurrent.IntervalConsumer)">
+<h3>optimize</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;</span>&nbsp;<span class="element-name">optimize</span><wbr><span class="parameters">(int&nbsp;time,
+ <a href="IntervalConsumer.html" title="interface in org.cicirello.search.concurrent">IntervalConsumer</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelMultistarter">T</a>&gt;&nbsp;consumer)</span></div>
+<div class="block">Executes a parallel multistart search. The number of threads, the specific metaheuristic
+executed by each thread, the restart schedules, etc are determined by how the
+TimedParallelMultistarter was configured at the time of construction. All parallel instances of
+the search are executed for approximately the length of time indicated by the time parameter,
+restarting as many times as time allows, keeping track of the best solution across the multiple
+parallel runs of the search. It may terminate earlier if one of the parallel searches indicates
+the best possible solution was found. Each restart of each parallel search begins at a new
+randomly generate initial state.
+
+<p>If this method is called multiple times, the restart schedules of the parallel
+metaheuristics are not reinitialized, and the run lengths for the additional restarts will
+continue where the schedules left off.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>time</code> - The approximate length of time for the search. The unit of time is as indicated by
+    the constant <a href="#TIME_UNIT_MS"><code>TIME_UNIT_MS</code></a> unless changed by a call to the <a href="#setTimeUnit(int)"><code>setTimeUnit(int)</code></a>
+    method. For example, assuming <a href="#setTimeUnit(int)"><code>setTimeUnit(int)</code></a> has not been called, then the search
+    will run for approximately: time * <a href="#TIME_UNIT_MS"><code>TIME_UNIT_MS</code></a> milliseconds.</dd>
+<dd><code>consumer</code> - The consumer's accept method fires on each time interval during a parallel
+    search, providing a hook to capture search progress during the search's execution.</dd>
 <dt>Returns:</dt>
 <dd>The best end of run solution (and its cost) of this set of parallel runs, which may or
     may not be the same as the solution contained in this metaheuristic's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs. Returns null if the run did not

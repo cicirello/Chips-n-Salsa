@@ -40,6 +40,7 @@ loadScripts(document, 'script');</script>
 <li class="nav-bar-cell1-rev">Class</li>
 <li><a href="class-use/TimedParallelReoptimizableMultistarter.html">Use</a></li>
 <li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
 <li><a href="../../../../../index-all.html">Index</a></li>
 <li><a href="../../../../../search.html">Search</a></li>
 <li><a href="../../../../../help-doc.html#class">Help</a></li>
@@ -81,6 +82,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
 <ol class="toc-list">
 <li><a href="#reoptimize(int)" tabindex="0">reoptimize(int)</a></li>
+<li><a href="#reoptimize(int,org.cicirello.search.concurrent.IntervalConsumer)" tabindex="0">reoptimize(int, IntervalConsumer)</a></li>
 <li><a href="#split()" tabindex="0">split()</a></li>
 </ol>
 </li>
@@ -220,9 +222,15 @@ metaheuristic in parallel across multiple threads.</div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Executes a parallel multistart search.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a><wbr>&lt;<a href="#type-param-T" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a><wbr>&lt;<a href="#type-param-T" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reoptimize(int,org.cicirello.search.concurrent.IntervalConsumer)" class="member-name-link">reoptimize</a><wbr>(int&nbsp;time,
+ <a href="IntervalConsumer.html" title="interface in org.cicirello.search.concurrent">IntervalConsumer</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;&nbsp;consumer)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Executes a parallel multistart search.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="TimedParallelReoptimizableMultistarter.html" title="class in org.cicirello.search.concurrent">TimedParallelReoptimizableMultistarter</a><wbr>&lt;<a href="#type-param-T" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Generates a functionally identical copy of this object, for use in multithreaded
 implementations of search algorithms.</div>
 </div>
@@ -231,7 +239,7 @@ implementations of search algorithms.</div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-org.cicirello.search.concurrent.TimedParallelMultistarter">Methods inherited from class&nbsp;<a href="TimedParallelMultistarter.html#method-summary" title="class in org.cicirello.search.concurrent">TimedParallelMultistarter</a></h3>
-<code><a href="TimedParallelMultistarter.html#close()" title="close()">close</a>, <a href="TimedParallelMultistarter.html#getProblem()" title="getProblem()">getProblem</a>, <a href="TimedParallelMultistarter.html#getProgressTracker()" title="getProgressTracker()">getProgressTracker</a>, <a href="TimedParallelMultistarter.html#getSearchHistory()" title="getSearchHistory()">getSearchHistory</a>, <a href="TimedParallelMultistarter.html#getTimeUnit()" title="getTimeUnit()">getTimeUnit</a>, <a href="TimedParallelMultistarter.html#getTotalRunLength()" title="getTotalRunLength()">getTotalRunLength</a>, <a href="TimedParallelMultistarter.html#isClosed()" title="isClosed()">isClosed</a>, <a href="TimedParallelMultistarter.html#optimize(int)" title="optimize(int)">optimize</a>, <a href="TimedParallelMultistarter.html#setProgressTracker(org.cicirello.search.ProgressTracker)" title="setProgressTracker(ProgressTracker)">setProgressTracker</a>, <a href="TimedParallelMultistarter.html#setTimeUnit(int)" title="setTimeUnit(int)">setTimeUnit</a></code></div>
+<code><a href="TimedParallelMultistarter.html#close()" title="close()">close</a>, <a href="TimedParallelMultistarter.html#getProblem()" title="getProblem()">getProblem</a>, <a href="TimedParallelMultistarter.html#getProgressTracker()" title="getProgressTracker()">getProgressTracker</a>, <a href="TimedParallelMultistarter.html#getSearchHistory()" title="getSearchHistory()">getSearchHistory</a>, <a href="TimedParallelMultistarter.html#getTimeUnit()" title="getTimeUnit()">getTimeUnit</a>, <a href="TimedParallelMultistarter.html#getTotalRunLength()" title="getTotalRunLength()">getTotalRunLength</a>, <a href="TimedParallelMultistarter.html#isClosed()" title="isClosed()">isClosed</a>, <a href="TimedParallelMultistarter.html#optimize(int)" title="optimize(int)">optimize</a>, <a href="TimedParallelMultistarter.html#optimize(int,org.cicirello.search.concurrent.IntervalConsumer)" title="optimize(int, IntervalConsumer)">optimize</a>, <a href="TimedParallelMultistarter.html#setProgressTracker(org.cicirello.search.ProgressTracker)" title="setProgressTracker(ProgressTracker)">setProgressTracker</a>, <a href="TimedParallelMultistarter.html#setTimeUnit(int)" title="setTimeUnit(int)">setTimeUnit</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#method-summary" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -445,6 +453,50 @@ continue where the schedules left off.</div>
     the constant <a href="TimedParallelMultistarter.html#TIME_UNIT_MS"><code>TimedParallelMultistarter.TIME_UNIT_MS</code></a> unless changed by a call to the
     <a href="TimedParallelMultistarter.html#setTimeUnit(int)"><code>TimedParallelMultistarter.setTimeUnit(int)</code></a> method. For example, assuming <a href="TimedParallelMultistarter.html#setTimeUnit(int)"><code>TimedParallelMultistarter.setTimeUnit(int)</code></a> has not been called, then the search will run for
     approximately: time * <a href="TimedParallelMultistarter.html#TIME_UNIT_MS"><code>TimedParallelMultistarter.TIME_UNIT_MS</code></a> milliseconds.</dd>
+<dt>Returns:</dt>
+<dd>The best end of run solution (and its cost) of this set of parallel runs, which may or
+    may not be the same as the solution contained in this metaheuristic's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs. Returns null if the run did not
+    execute, such as if the ProgressTracker already contains the theoretical best solution.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if the <a href="TimedParallelMultistarter.html#close()"><code>TimedParallelMultistarter.close()</code></a> method was
+    previously called.</dd>
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list-long">
+<li><a href="TimedParallelMultistarter.html#setTimeUnit(int)"><code>TimedParallelMultistarter.setTimeUnit(int)</code></a></li>
+<li><a href="TimedParallelMultistarter.html#getTimeUnit()"><code>TimedParallelMultistarter.getTimeUnit()</code></a></li>
+</ul>
+</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="reoptimize(int,org.cicirello.search.concurrent.IntervalConsumer)">
+<h3>reoptimize</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../SolutionCostPair.html" title="class in org.cicirello.search">SolutionCostPair</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;</span>&nbsp;<span class="element-name">reoptimize</span><wbr><span class="parameters">(int&nbsp;time,
+ <a href="IntervalConsumer.html" title="interface in org.cicirello.search.concurrent">IntervalConsumer</a>&lt;<a href="#type-param-T" title="type parameter in TimedParallelReoptimizableMultistarter">T</a>&gt;&nbsp;consumer)</span></div>
+<div class="block">Executes a parallel multistart search. The number of threads, the specific metaheuristic
+executed by each thread, the restart schedules, etc are determined by how the
+TimedParallelMultistarter was configured at the time of construction. All parallel instances of
+the search are executed for approximately the length of time indicated by the time parameter,
+restarting as many times as time allows, keeping track of the best solution across the multiple
+parallel runs of the search. It may terminate earlier if one of the parallel searches indicates
+the best possible solution was found. Each restart of each parallel search begins at the best
+solution found so far, but reinitializes any search control parameters.
+
+<p>If this method is called multiple times, the restart schedules of the parallel
+metaheuristics are not reinitialized, and the run lengths for the additional restarts will
+continue where the schedules left off.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>time</code> - The approximate length of time for the search. The unit of time is as indicated by
+    the constant <a href="TimedParallelMultistarter.html#TIME_UNIT_MS"><code>TimedParallelMultistarter.TIME_UNIT_MS</code></a> unless changed by a call to the
+    <a href="TimedParallelMultistarter.html#setTimeUnit(int)"><code>TimedParallelMultistarter.setTimeUnit(int)</code></a> method. For example, assuming <a href="TimedParallelMultistarter.html#setTimeUnit(int)"><code>TimedParallelMultistarter.setTimeUnit(int)</code></a> has not been called, then the search will run for
+    approximately: time * <a href="TimedParallelMultistarter.html#TIME_UNIT_MS"><code>TimedParallelMultistarter.TIME_UNIT_MS</code></a> milliseconds.</dd>
+<dd><code>consumer</code> - The consumer's accept method fires on each time interval during a parallel
+    search, providing a hook to capture search progress during the search's execution.</dd>
 <dt>Returns:</dt>
 <dd>The best end of run solution (and its cost) of this set of parallel runs, which may or
     may not be the same as the solution contained in this metaheuristic's <a href="../ProgressTracker.html" title="class in org.cicirello.search"><code>ProgressTracker</code></a>, which contains the best of all runs. Returns null if the run did not

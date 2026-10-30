@@ -231,8 +231,47 @@ public final class TimedParallelReoptimizableMultistarter<T extends Copyable<T>>
    *     previously called.
    */
   @Override
+  @SuppressWarnings({"deprecation", "removal"})
   public SolutionCostPair<T> reoptimize(int time) {
-    return threadedOptimize(time, new CallableReoptimizerFactory<T>(Integer.MAX_VALUE));
+    // FUTURE REMOVAL NOTE:
+    // When getSearchHistory() is removed, remove the field history and the following
+    // statement. Also simply pass null for the consumer parameter in the call to optimize.
+    initSearchHistory(time);
+    return reoptimize(time, (interval, solution) -> getSearchHistory().add(solution));
+  }
+
+  /**
+   * Executes a parallel multistart search. The number of threads, the specific metaheuristic
+   * executed by each thread, the restart schedules, etc are determined by how the
+   * TimedParallelMultistarter was configured at the time of construction. All parallel instances of
+   * the search are executed for approximately the length of time indicated by the time parameter,
+   * restarting as many times as time allows, keeping track of the best solution across the multiple
+   * parallel runs of the search. It may terminate earlier if one of the parallel searches indicates
+   * the best possible solution was found. Each restart of each parallel search begins at the best
+   * solution found so far, but reinitializes any search control parameters.
+   *
+   * <p>If this method is called multiple times, the restart schedules of the parallel
+   * metaheuristics are not reinitialized, and the run lengths for the additional restarts will
+   * continue where the schedules left off.
+   *
+   * @param time The approximate length of time for the search. The unit of time is as indicated by
+   *     the constant {@link TimedParallelMultistarter#TIME_UNIT_MS} unless changed by a call to the
+   *     {@link TimedParallelMultistarter#setTimeUnit} method. For example, assuming {@link
+   *     TimedParallelMultistarter#setTimeUnit} has not been called, then the search will run for
+   *     approximately: time * {@link TimedParallelMultistarter#TIME_UNIT_MS} milliseconds.
+   * @param consumer The consumer's accept method fires on each time interval during a parallel
+   *     search, providing a hook to capture search progress during the search's execution.
+   * @return The best end of run solution (and its cost) of this set of parallel runs, which may or
+   *     may not be the same as the solution contained in this metaheuristic's {@link
+   *     ProgressTracker}, which contains the best of all runs. Returns null if the run did not
+   *     execute, such as if the ProgressTracker already contains the theoretical best solution.
+   * @see TimedParallelMultistarter#setTimeUnit
+   * @see TimedParallelMultistarter#getTimeUnit
+   * @throws IllegalStateException if the {@link TimedParallelMultistarter#close} method was
+   *     previously called.
+   */
+  public SolutionCostPair<T> reoptimize(int time, IntervalConsumer<T> consumer) {
+    return threadedOptimize(time, new CallableReoptimizerFactory<T>(Integer.MAX_VALUE), consumer);
   }
 
   @Override

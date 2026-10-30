@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -28,6 +28,7 @@ import org.cicirello.search.SolutionCostPair;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for the TimedParallelReoptimizableMultistarter optimize method. */
+@SuppressWarnings({"deprecation", "removal"})
 public class TimedParallelReoptimizableMultistarterOptimizeTests
     extends TimedParallelMultistarterValidator {
 

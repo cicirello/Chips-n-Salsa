@@ -1,6 +1,6 @@
 /*
  * Chips-n-Salsa: A library of parallel self-adaptive local search algorithms.
- * Copyright (C) 2002-2023 Vincent A. Cicirello
+ * Copyright (C) 2002-2026 Vincent A. Cicirello
  *
  * This file is part of Chips-n-Salsa (https://chips-n-salsa.cicirello.org/).
  *
@@ -32,6 +32,7 @@ import org.cicirello.search.restarts.ParallelVariableAnnealingLength;
 import org.junit.jupiter.api.*;
 
 /** JUnit tests for TimedParallelMultistarter. */
+@SuppressWarnings({"deprecation", "removal"})
 public class TimedParallelMultistarterTests extends TimedParallelMultistarterValidator {
 
   @Test
@@ -95,6 +96,44 @@ public class TimedParallelMultistarterTests extends TimedParallelMultistarterVal
         new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
     restarter.setTimeUnit(50);
     assertNotNull(restarter.optimize(1));
+    restarter.close();
+  }
+
+  @Test
+  public void testParallelOptimizeIntervalConsumerNull() {
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestProblem problem = new TestProblem();
+
+    ArrayList<TestImprovementMade> metaheuristics = new ArrayList<TestImprovementMade>();
+    metaheuristics.add(new TestImprovementMade(1000, problem, tracker));
+    metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
+    metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
+    TimedParallelMultistarter<TestObject> restarter =
+        new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
+    restarter.setTimeUnit(50);
+    assertNotNull(restarter.optimize(1, null));
+    restarter.close();
+  }
+
+  @Test
+  public void testParallelOptimizeIntervalConsumer() {
+    ProgressTracker<TestObject> tracker = new ProgressTracker<TestObject>();
+    TestProblem problem = new TestProblem();
+
+    ArrayList<TestImprovementMade> metaheuristics = new ArrayList<TestImprovementMade>();
+    metaheuristics.add(new TestImprovementMade(1000, problem, tracker));
+    metaheuristics.add(new TestImprovementMade(1001, problem, tracker));
+    metaheuristics.add(new TestImprovementMade(1002, problem, tracker));
+    TimedParallelMultistarter<TestObject> restarter =
+        new TimedParallelMultistarter<TestObject>(metaheuristics, 1);
+    restarter.setTimeUnit(50);
+    assertNotNull(
+        restarter.optimize(
+            1,
+            (interval, bestAtInterval) -> {
+              assertEquals(0, interval);
+              assertNotNull(bestAtInterval);
+            }));
     restarter.close();
   }
 

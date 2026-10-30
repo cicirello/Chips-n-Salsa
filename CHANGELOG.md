@@ -8,12 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * TSPLIB class: Parser for TSP instances in TSPLIB file format.
+* Custom progress tracking for TimedParallelMultistarter and TimedParallelReoptimizableMultistarter
+  * IntervalConsumer interface with an accept method called at each time interval with current best of run solution
+  * TimedParallelMultistarter.optimize(int time, IntervalConsumer consumer)
+  * TimedParallelReoptimizableMultistarter.reoptimize(int time, IntervalConsumer consumer)
 
 ### Changed (Non-Breaking)
 
 ### Changed (Breaking)
 
 ### Deprecated
+* TimedParallelMultistarter.getSearchHistory()
+  * This is scheduled for removal in 9.0.0
+  * Use the new IntervalConsumer interface via TimedParallelMultistarter.optimize(int time, IntervalConsumer consumer) instead.
 
 ### Removed
 

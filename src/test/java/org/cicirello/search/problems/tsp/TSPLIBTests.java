@@ -224,6 +224,180 @@ public class TSPLIBTests {
     """;
 
   @Test
+  public void testEdgeCostsInt() {
+    StringReader reader = new StringReader(testFileIntCoords);
+    TSPLIB problem = TSPLIB.createMinimalMemory(reader);
+    assertEquals(3, problem.edgeCostForHeuristics(0, 1));
+    assertEquals(3, problem.edgeCostForHeuristics(2, 5));
+    assertEquals(3, problem.edgeCostForHeuristics(3, 4));
+    assertEquals(4, problem.edgeCostForHeuristics(0, 5));
+    assertEquals(4, problem.edgeCostForHeuristics(1, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(4, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(0, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(1, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(3, 5));
+
+    assertEquals(3, problem.edgeCostForHeuristics(1, 0));
+    assertEquals(3, problem.edgeCostForHeuristics(5, 2));
+    assertEquals(3, problem.edgeCostForHeuristics(4, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 0));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 1));
+    assertEquals(4, problem.edgeCostForHeuristics(3, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 0));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 1));
+    assertEquals(5, problem.edgeCostForHeuristics(4, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 3));
+  }
+
+  @Test
+  public void testEdgeCostsDouble() {
+    StringReader reader = new StringReader(testFileDoubleCoords);
+    TSPLIB problem = TSPLIB.createMinimalMemory(reader);
+    assertEquals(3, problem.edgeCostForHeuristics(0, 1));
+    assertEquals(3, problem.edgeCostForHeuristics(2, 5));
+    assertEquals(3, problem.edgeCostForHeuristics(3, 4));
+    assertEquals(4, problem.edgeCostForHeuristics(0, 5));
+    assertEquals(4, problem.edgeCostForHeuristics(1, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(4, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(0, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(1, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(3, 5));
+
+    assertEquals(3, problem.edgeCostForHeuristics(1, 0));
+    assertEquals(3, problem.edgeCostForHeuristics(5, 2));
+    assertEquals(3, problem.edgeCostForHeuristics(4, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 0));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 1));
+    assertEquals(4, problem.edgeCostForHeuristics(3, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 0));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 1));
+    assertEquals(5, problem.edgeCostForHeuristics(4, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 3));
+  }
+
+  @Test
+  public void testEdgeCostsIntFullMatrix() {
+    StringReader reader = new StringReader(testFileIntCoords);
+    TSPLIB problem = TSPLIB.createFullMatrix(reader);
+    assertEquals(3, problem.edgeCostForHeuristics(0, 1));
+    assertEquals(3, problem.edgeCostForHeuristics(2, 5));
+    assertEquals(3, problem.edgeCostForHeuristics(3, 4));
+    assertEquals(4, problem.edgeCostForHeuristics(0, 5));
+    assertEquals(4, problem.edgeCostForHeuristics(1, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(4, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(0, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(1, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(3, 5));
+
+    assertEquals(3, problem.edgeCostForHeuristics(1, 0));
+    assertEquals(3, problem.edgeCostForHeuristics(5, 2));
+    assertEquals(3, problem.edgeCostForHeuristics(4, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 0));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 1));
+    assertEquals(4, problem.edgeCostForHeuristics(3, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 0));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 1));
+    assertEquals(5, problem.edgeCostForHeuristics(4, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 3));
+  }
+
+  @Test
+  public void testEdgeCostsDoubleFullMatrix() {
+    StringReader reader = new StringReader(testFileDoubleCoords);
+    TSPLIB problem = TSPLIB.createFullMatrix(reader);
+    assertEquals(3, problem.edgeCostForHeuristics(0, 1));
+    assertEquals(3, problem.edgeCostForHeuristics(2, 5));
+    assertEquals(3, problem.edgeCostForHeuristics(3, 4));
+    assertEquals(4, problem.edgeCostForHeuristics(0, 5));
+    assertEquals(4, problem.edgeCostForHeuristics(1, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(4, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(0, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(1, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(3, 5));
+
+    assertEquals(3, problem.edgeCostForHeuristics(1, 0));
+    assertEquals(3, problem.edgeCostForHeuristics(5, 2));
+    assertEquals(3, problem.edgeCostForHeuristics(4, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 0));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 1));
+    assertEquals(4, problem.edgeCostForHeuristics(3, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 0));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 1));
+    assertEquals(5, problem.edgeCostForHeuristics(4, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 3));
+  }
+
+  @Test
+  public void testEdgeCostsIntTriangleMatrix() {
+    StringReader reader = new StringReader(testFileIntCoords);
+    TSPLIB problem = TSPLIB.createTriangleMatrix(reader);
+    assertEquals(3, problem.edgeCostForHeuristics(0, 1));
+    assertEquals(3, problem.edgeCostForHeuristics(2, 5));
+    assertEquals(3, problem.edgeCostForHeuristics(3, 4));
+    assertEquals(4, problem.edgeCostForHeuristics(0, 5));
+    assertEquals(4, problem.edgeCostForHeuristics(1, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(4, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(0, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(1, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(3, 5));
+
+    assertEquals(3, problem.edgeCostForHeuristics(1, 0));
+    assertEquals(3, problem.edgeCostForHeuristics(5, 2));
+    assertEquals(3, problem.edgeCostForHeuristics(4, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 0));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 1));
+    assertEquals(4, problem.edgeCostForHeuristics(3, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 0));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 1));
+    assertEquals(5, problem.edgeCostForHeuristics(4, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 3));
+  }
+
+  @Test
+  public void testEdgeCostsDoubleTriangleMatrix() {
+    StringReader reader = new StringReader(testFileDoubleCoords);
+    TSPLIB problem = TSPLIB.createTriangleMatrix(reader);
+    assertEquals(3, problem.edgeCostForHeuristics(0, 1));
+    assertEquals(3, problem.edgeCostForHeuristics(2, 5));
+    assertEquals(3, problem.edgeCostForHeuristics(3, 4));
+    assertEquals(4, problem.edgeCostForHeuristics(0, 5));
+    assertEquals(4, problem.edgeCostForHeuristics(1, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(4, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(0, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(1, 5));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(3, 5));
+
+    assertEquals(3, problem.edgeCostForHeuristics(1, 0));
+    assertEquals(3, problem.edgeCostForHeuristics(5, 2));
+    assertEquals(3, problem.edgeCostForHeuristics(4, 3));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 0));
+    assertEquals(4, problem.edgeCostForHeuristics(2, 1));
+    assertEquals(4, problem.edgeCostForHeuristics(3, 2));
+    assertEquals(4, problem.edgeCostForHeuristics(5, 4));
+    assertEquals(5, problem.edgeCostForHeuristics(2, 0));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 1));
+    assertEquals(5, problem.edgeCostForHeuristics(4, 2));
+    assertEquals(5, problem.edgeCostForHeuristics(5, 3));
+  }
+
+  @Test
   public void testToString() {
     StringReader reader = new StringReader(testFileIntCoords);
     TSPLIB problem = TSPLIB.createMinimalMemory(reader);
@@ -293,6 +467,7 @@ public class TSPLIBTests {
   public void testIntCoords() {
     StringReader reader = new StringReader(testFileIntCoords);
     TSPLIB problem = TSPLIB.createMinimalMemory(reader);
+    assertEquals(6, problem.length());
     Permutation p1 = new Permutation(new int[] {0, 1, 2, 3, 4, 5});
     Permutation p2 = new Permutation(new int[] {0, 1, 5, 4, 3, 2});
     Permutation p3 = new Permutation(new int[] {0, 2, 4, 3, 5, 1});
@@ -313,6 +488,7 @@ public class TSPLIBTests {
 
     reader = new StringReader(testFileIntCoords2);
     problem = TSPLIB.createMinimalMemory(reader);
+    assertEquals(6, problem.length());
     assertEquals(0, problem.minCost());
     assertEquals("fake TSP instance", problem.instanceName());
     for (int i = 0; i < 5; i++) {
@@ -333,6 +509,7 @@ public class TSPLIBTests {
   public void testDoubleCoords() {
     StringReader reader = new StringReader(testFileDoubleCoords);
     TSPLIB problem = TSPLIB.createMinimalMemory(reader);
+    assertEquals(6, problem.length());
     Permutation p1 = new Permutation(new int[] {0, 1, 2, 3, 4, 5});
     Permutation p2 = new Permutation(new int[] {0, 1, 5, 4, 3, 2});
     Permutation p3 = new Permutation(new int[] {0, 2, 4, 3, 5, 1});
@@ -353,6 +530,7 @@ public class TSPLIBTests {
 
     reader = new StringReader(testFileDoubleCoords2);
     problem = TSPLIB.createMinimalMemory(reader);
+    assertEquals(6, problem.length());
     assertEquals(0, problem.minCost());
     assertEquals("fake TSP instance", problem.instanceName());
     for (int i = 0; i < 5; i++) {
@@ -370,6 +548,7 @@ public class TSPLIBTests {
 
     reader = new StringReader(testFileDoubleCoords3);
     problem = TSPLIB.createMinimalMemory(reader);
+    assertEquals(6, problem.length());
     assertEquals(0, problem.minCost());
     assertEquals("fake TSP instance", problem.instanceName());
     for (int i = 0; i < 5; i++) {
@@ -390,6 +569,7 @@ public class TSPLIBTests {
   public void testMatrixIntCoords() {
     StringReader reader = new StringReader(testFileIntCoords);
     TSPLIB problem = TSPLIB.createFullMatrix(reader);
+    assertEquals(6, problem.length());
     Permutation p1 = new Permutation(new int[] {0, 1, 2, 3, 4, 5});
     Permutation p2 = new Permutation(new int[] {0, 1, 5, 4, 3, 2});
     Permutation p3 = new Permutation(new int[] {0, 2, 4, 3, 5, 1});
@@ -410,6 +590,7 @@ public class TSPLIBTests {
 
     reader = new StringReader(testFileIntCoords2);
     problem = TSPLIB.createFullMatrix(reader);
+    assertEquals(6, problem.length());
     assertEquals(0, problem.minCost());
     assertEquals("fake TSP instance", problem.instanceName());
     for (int i = 0; i < 5; i++) {
@@ -430,6 +611,7 @@ public class TSPLIBTests {
   public void testMatrixDoubleCoords() {
     StringReader reader = new StringReader(testFileDoubleCoords);
     TSPLIB problem = TSPLIB.createFullMatrix(reader);
+    assertEquals(6, problem.length());
     Permutation p1 = new Permutation(new int[] {0, 1, 2, 3, 4, 5});
     Permutation p2 = new Permutation(new int[] {0, 1, 5, 4, 3, 2});
     Permutation p3 = new Permutation(new int[] {0, 2, 4, 3, 5, 1});
@@ -450,6 +632,7 @@ public class TSPLIBTests {
 
     reader = new StringReader(testFileDoubleCoords2);
     problem = TSPLIB.createFullMatrix(reader);
+    assertEquals(6, problem.length());
     assertEquals(0, problem.minCost());
     assertEquals("fake TSP instance", problem.instanceName());
     for (int i = 0; i < 5; i++) {
@@ -467,6 +650,7 @@ public class TSPLIBTests {
 
     reader = new StringReader(testFileDoubleCoords3);
     problem = TSPLIB.createFullMatrix(reader);
+    assertEquals(6, problem.length());
     assertEquals(0, problem.minCost());
     assertEquals("fake TSP instance", problem.instanceName());
     for (int i = 0; i < 5; i++) {
@@ -487,6 +671,7 @@ public class TSPLIBTests {
   public void testTriangleIntCoords() {
     StringReader reader = new StringReader(testFileIntCoords);
     TSPLIB problem = TSPLIB.createTriangleMatrix(reader);
+    assertEquals(6, problem.length());
     Permutation p1 = new Permutation(new int[] {0, 1, 2, 3, 4, 5});
     Permutation p2 = new Permutation(new int[] {0, 1, 5, 4, 3, 2});
     Permutation p3 = new Permutation(new int[] {0, 2, 4, 3, 5, 1});
@@ -507,6 +692,7 @@ public class TSPLIBTests {
 
     reader = new StringReader(testFileIntCoords2);
     problem = TSPLIB.createTriangleMatrix(reader);
+    assertEquals(6, problem.length());
     assertEquals(0, problem.minCost());
     assertEquals("fake TSP instance", problem.instanceName());
     for (int i = 0; i < 5; i++) {
@@ -527,6 +713,7 @@ public class TSPLIBTests {
   public void testTriangleDoubleCoords() {
     StringReader reader = new StringReader(testFileDoubleCoords);
     TSPLIB problem = TSPLIB.createTriangleMatrix(reader);
+    assertEquals(6, problem.length());
     Permutation p1 = new Permutation(new int[] {0, 1, 2, 3, 4, 5});
     Permutation p2 = new Permutation(new int[] {0, 1, 5, 4, 3, 2});
     Permutation p3 = new Permutation(new int[] {0, 2, 4, 3, 5, 1});
@@ -547,6 +734,7 @@ public class TSPLIBTests {
 
     reader = new StringReader(testFileDoubleCoords2);
     problem = TSPLIB.createTriangleMatrix(reader);
+    assertEquals(6, problem.length());
     assertEquals(0, problem.minCost());
     assertEquals("fake TSP instance", problem.instanceName());
     for (int i = 0; i < 5; i++) {
@@ -564,6 +752,7 @@ public class TSPLIBTests {
 
     reader = new StringReader(testFileDoubleCoords3);
     problem = TSPLIB.createTriangleMatrix(reader);
+    assertEquals(6, problem.length());
     assertEquals(0, problem.minCost());
     assertEquals("fake TSP instance", problem.instanceName());
     for (int i = 0; i < 5; i++) {

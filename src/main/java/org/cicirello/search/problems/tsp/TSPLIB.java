@@ -37,7 +37,7 @@ import org.cicirello.search.problems.IntegerCostOptimizationProblem;
  * @author <a href=https://www.cicirello.org/ target=_top>Vincent A. Cicirello</a>, <a
  *     href=https://www.cicirello.org/ target=_top>https://www.cicirello.org/</a>
  */
-public final class TSPLIB implements IntegerCostOptimizationProblem<Permutation> {
+public final class TSPLIB extends BaseTSP implements IntegerCostOptimizationProblem<Permutation> {
 
   private final IntBinaryOperator distance;
   private final String name;
@@ -75,6 +75,16 @@ public final class TSPLIB implements IntegerCostOptimizationProblem<Permutation>
    */
   public String instanceName() {
     return name;
+  }
+
+  @Override
+  public int length() {
+    return n;
+  }
+
+  @Override
+  double edgeCostForHeuristics(int i, int j) {
+    return distance.applyAsInt(i, j);
   }
 
   /**

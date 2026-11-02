@@ -72,6 +72,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#value(org.cicirello.permutations.Permutation)" tabindex="0">value(Permutation)</a></li>
 <li><a href="#minCost()" tabindex="0">minCost()</a></li>
 <li><a href="#instanceName()" tabindex="0">instanceName()</a></li>
+<li><a href="#length()" tabindex="0">length()</a></li>
 <li><a href="#toString(org.cicirello.permutations.Permutation)" tabindex="0">toString(Permutation)</a></li>
 <li><a href="#toString(org.cicirello.permutations.Permutation,java.lang.String)" tabindex="0">toString(Permutation, String)</a></li>
 <li><a href="#createMinimalMemory(java.lang.Readable)" tabindex="0">createMinimalMemory(Readable)</a></li>
@@ -87,7 +88,9 @@ loadScripts(document, 'script');</script>
 <h1 title="Class TSPLIB" class="title">Class TSPLIB</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
+<div class="inheritance"><a href="BaseTSP.html" title="class in org.cicirello.search.problems.tsp">org.cicirello.search.problems.tsp.BaseTSP</a>
 <div class="inheritance">org.cicirello.search.problems.tsp.TSPLIB</div>
+</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
@@ -97,7 +100,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">TSPLIB</span>
-<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
+<span class="extends-implements">extends <a href="BaseTSP.html" title="class in org.cicirello.search.problems.tsp">BaseTSP</a>
 implements <a href="../IntegerCostOptimizationProblem.html" title="interface in org.cicirello.search.problems">IntegerCostOptimizationProblem</a>&lt;<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&gt;</span></div>
 <div class="block">Parser for TSPLIB problem instances. Initially, it supports TSPLIB problem instances that are
 instances of the symmetric traveling salesperson problem. Support for the other problem types
@@ -146,25 +149,30 @@ specification</a></div>
 <div class="block">Gets the name of the instance.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#length()" class="member-name-link">length</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the number of cities in this instance of the TSP.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minCost()" class="member-name-link">minCost</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">A lower bound on the minimum theoretical cost across all possible solutions to the problem
 instance, where lower cost implies better solution.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString(org.cicirello.permutations.Permutation)" class="member-name-link">toString</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a String representing a tour for this problem instance in TSPLIB format.</div>
-</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString(org.cicirello.permutations.Permutation,java.lang.String)" class="member-name-link">toString</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;p,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;comment)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString(org.cicirello.permutations.Permutation)" class="member-name-link">toString</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;p)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Generates a String representing a tour for this problem instance in TSPLIB format.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.permutations.Permutation)" class="member-name-link">value</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString(org.cicirello.permutations.Permutation,java.lang.String)" class="member-name-link">toString</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;p,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;comment)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Generates a String representing a tour for this problem instance in TSPLIB format.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value(org.cicirello.permutations.Permutation)" class="member-name-link">value</a><wbr>(<a href="https://jpt.cicirello.org/api/org.cicirello.jpt/org/cicirello/permutations/Permutation.html" title="class or interface in org.cicirello.permutations" class="external-link">Permutation</a>&nbsp;candidate)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Computes the value of the candidate solution within the usual constraints and interpretation of
 the problem.</div>
 </div>
@@ -253,6 +261,22 @@ Integer.MIN_VALUE.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the instance name</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="length()">
+<h3>length</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">length</span>()</div>
+<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="BaseTSP.html#length()">BaseTSP</a></code></span></div>
+<div class="block">Gets the number of cities in this instance of the TSP.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="BaseTSP.html#length()">length</a></code>&nbsp;in class&nbsp;<code><a href="BaseTSP.html" title="class in org.cicirello.search.problems.tsp">BaseTSP</a></code></dd>
+<dt>Returns:</dt>
+<dd>the number of cities in the problem.</dd>
 </dl>
 </div>
 </section>

@@ -26,11 +26,11 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/index-all.html</loc>
-<lastmod>2026-10-30T19:42:29Z</lastmod>
+<lastmod>2026-11-02T00:33:42Z</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/overview-tree.html</loc>
-<lastmod>2026-10-30T19:42:29Z</lastmod>
+<lastmod>2026-11-02T00:33:42Z</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/search.html</loc>
@@ -1710,7 +1710,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/BaseTSP.html</loc>
-<lastmod>2026-10-30T19:42:29Z</lastmod>
+<lastmod>2026-11-02T00:33:42Z</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/EuclideanDistance.html</loc>
@@ -1762,7 +1762,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/TSPLIB.html</loc>
-<lastmod>2026-10-30T19:42:29Z</lastmod>
+<lastmod>2026-11-02T00:33:42Z</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-summary.html</loc>
@@ -1770,7 +1770,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-tree.html</loc>
-<lastmod>2026-10-30T19:42:29Z</lastmod>
+<lastmod>2026-11-02T00:33:42Z</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/package-use.html</loc>
@@ -2382,7 +2382,7 @@
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/class-use/BaseTSP.html</loc>
-<lastmod>2026-10-30T19:42:29Z</lastmod>
+<lastmod>2026-11-02T00:33:42Z</lastmod>
 </url>
 <url>
 <loc>https://chips-n-salsa.cicirello.org/api/org.cicirello.chips_n_salsa/org/cicirello/search/problems/tsp/class-use/EuclideanDistance.html</loc>
